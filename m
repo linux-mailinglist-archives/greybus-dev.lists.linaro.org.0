@@ -2,51 +2,71 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (ec2-54-158-76-221.compute-1.amazonaws.com [54.158.76.221])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3546110276
-	for <lists+greybus-dev@lfdr.de>; Wed,  1 May 2019 00:36:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 635E3FC9E
+	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2019 17:19:49 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 500A460F31
-	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2019 22:36:55 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 614CD608AF
+	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2019 15:19:48 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 4340B61724; Tue, 30 Apr 2019 22:36:55 +0000 (UTC)
+	id 527C1608CE; Tue, 30 Apr 2019 15:19:48 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
 	ip-10-150-125-211.ec2.internal
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI
-	autolearn=disabled version=3.4.2
+X-Spam-Status: No, score=-3.6 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_LOW,SPF_HELO_PASS autolearn=disabled version=3.4.2
 Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 50604615C0;
-	Tue, 30 Apr 2019 22:36:44 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 32ABB60EF5;
+	Tue, 30 Apr 2019 15:19:37 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id F0F7960EF5
- for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2019 13:00:03 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 7E71A608AF
+ for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2019 15:19:34 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id DD9FA615C0; Tue, 30 Apr 2019 13:00:03 +0000 (UTC)
-Received: from mail.osadl.at (178.115.242.59.static.drei.at [178.115.242.59])
- by lists.linaro.org (Postfix) with ESMTP id B5C5960EF5
- for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2019 13:00:01 +0000 (UTC)
-Received: by mail.osadl.at (Postfix, from userid 1001)
- id D097A5C1015; Tue, 30 Apr 2019 14:59:09 +0200 (CEST)
-Date: Tue, 30 Apr 2019 14:59:09 +0200
-From: Nicholas Mc Guire <der.herr@hofr.at>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Message-ID: <20190430125909.GC26274@osadl.at>
-References: <1556335645-7583-1-git-send-email-hofrat@osadl.org>
- <20190430095821.GD2269@kadam>
+ id 6F8C360832; Tue, 30 Apr 2019 15:19:34 +0000 (UTC)
+Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
+ [66.111.4.221])
+ by lists.linaro.org (Postfix) with ESMTPS id 6587560832
+ for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2019 15:19:33 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 95B2013CFD;
+ Tue, 30 Apr 2019 11:19:32 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Tue, 30 Apr 2019 11:19:32 -0400
+X-ME-Sender: <xms:gmfIXNIp3cgHm5z8P87KAp4zfzY5ZS_E_R4aKo-nfR_eV_Zx6humzQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrieehgddvkecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujghofgesthdtredttdervdenucfhrhhomhepofgrrhhk
+ ucfirhgvvghruceomhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhmqeenucfkph
+ epieekrddvrdekjedrleehnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmghhrvggvrhes
+ rghnihhmrghltghrvggvkhdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:gmfIXAMRsaPLqfhQUsdfwSRIsOaWifswxzpnBY04sYzPHfRHrKLaUQ>
+ <xmx:gmfIXNYROxrkfHO9y3_UupmN1f78ui2nxLhrcW1JjYak2qzBoYvOWA>
+ <xmx:gmfIXEyQgwzU5MKiqAZNI3cZSNthcGfmFgflccqtzXSqTEtRkpX6yA>
+ <xmx:hGfIXOtcc0O3WEiGO4HvZqWv4cKhud4QyMiawWAcTNunwmyh_u1ZBQ>
+Received: from blue.animalcreek.com (ip68-2-87-95.ph.ph.cox.net [68.2.87.95])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 84A6B103CC;
+ Tue, 30 Apr 2019 11:19:30 -0400 (EDT)
+Received: by blue.animalcreek.com (Postfix, from userid 1000)
+ id DEAC8A21364; Tue, 30 Apr 2019 08:19:28 -0700 (MST)
+Date: Tue, 30 Apr 2019 08:19:28 -0700
+From: Mark Greer <mgreer@animalcreek.com>
+To: Vaibhav Agarwal <vaibhav.sr@gmail.com>
+Message-ID: <20190430151928.GA1854@animalcreek.com>
+References: <20190314064525.15756-1-kjlu@umn.edu>
+ <CAAs364_6MpywkbsFdZrT5TEdrD8+u1eTmg-8_KY0dypy_PgMxQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190430095821.GD2269@kadam>
-User-Agent: Mutt/1.5.23 (2014-03-12)
+In-Reply-To: <CAAs364_6MpywkbsFdZrT5TEdrD8+u1eTmg-8_KY0dypy_PgMxQ@mail.gmail.com>
+Organization: Animal Creek Technologies, Inc.
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Virus-Scanned: ClamAV using ClamSMTP
-X-Mailman-Approved-At: Tue, 30 Apr 2019 22:36:43 +0000
 Cc: devel@driverdev.osuosl.org, Alex Elder <elder@kernel.org>,
- Johan Hovold <johan@kernel.org>, David Lin <dtwlin@gmail.com>,
- greybus-dev@lists.linaro.org, Nicholas Mc Guire <hofrat@osadl.org>,
- linux-kernel@vger.kernel.org
-Subject: Re: [greybus-dev] [PATCH] staging: greybus: use proper return type
- for wait_for_completion_timeout
+ Kangjie Lu <kjlu@umn.edu>, Johan Hovold <johan@kernel.org>,
+ greybus-dev@lists.linaro.org, pakki001@umn.edu, linux-kernel@vger.kernel.org
+Subject: Re: [greybus-dev] [PATCH] greybus: audio_manager: fix a missing
+ check of ida_simple_get
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
 Precedence: list
@@ -64,26 +84,30 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gVHVlLCBBcHIgMzAsIDIwMTkgYXQgMTI6NTg6MjFQTSArMDMwMCwgRGFuIENhcnBlbnRlciB3
-cm90ZToKPiBPbiBTYXQsIEFwciAyNywgMjAxOSBhdCAwNToyNzoyNUFNICswMjAwLCBOaWNob2xh
-cyBNYyBHdWlyZSB3cm90ZToKPiA+IHdhaXRfZm9yX2NvbXBsZXRpb25fdGltZW91dCgpIHJldHVy
-bnMgdW5zaWduZWQgbG9uZyAoMCBvbiB0aW1lb3V0IG9yCj4gPiByZW1haW5pbmcgamlmZmllcykg
-bm90IGludC4gCj4gPiAKPiAKPiBZZWFoLCBidXQgaXQncyBmaW5lIHRob3VnaCBiZWNhdXNlIDEw
-MDAwIC8gMjU2IGZpdHMgaW50byBpbnQgd2l0aG91dCBhCj4gcHJvYmxlbS4KPiAKPiBJJ20gbm90
-IHN1cmUgdGhpcyBzb3J0IG9mIHBhdGNoIGlzIHdvcnRoIGl0IHdoZW4gaXQncyBqdXN0IGEgc3R5
-bGUKPiBkZWJhdGUgaW5zdGVhZCBvZiBhIGJ1Z2ZpeC4gIEknbSBhIGxpdHRsZSBiaXQgdG9ybiBh
-Ym91dCB0aGlzLiAgSW4KPiBTbWF0Y2gsIEkgcnVuIGludG8gdGhpcyBpc3N1ZSBvbmUgaW4gYSB3
-aGlsZSB3aGVyZSBTbWF0Y2ggZG9lc24ndCBrbm93Cj4gaWYgdGhlIHRpbWVvdXQgaXMgbGVzcyB0
-aGFuIGludC4gIFJpZ2h0IG5vdyBJIGhhY2tlZCB0aGUgREIgdG8gc2F5IHRoYXQKPiB0aGVzZSBm
-dW5jdGlvbnMgYWx3YXlzIHJldHVybiA8IElOVF9NQVguCj4gCj4gQW55d2F5LCBmb3Igc3VyZSB0
-aGUgY29tbWl0IG1lc3NhZ2Ugc2hvdWxkIHNheSB0aGF0IGl0J3MganVzdCBhIGNsZWFudXAKPiBh
-bmQgbm90IGEgYnVnZml4Lgo+Ckkga25vdyBpdHMgbm90IGEgZnVuY3Rpb25hbCBidWcgaXRzICJv
-bmx5IiBhbiBBUEkgdmlvbGF0aW9uIC0gdGhlIHByb2JsZW0KaXMgbW9yZSB0aGF0IGNvZGUgaXMg
-b2Z0ZW4gY3V0JnBhc3QgYW5kIGF0IHNvbWUgcG9pbnQgaXQgbWF5IGJlIGEgCnByb2JsZW0gb3Ig
-c29tZW9lIGV4cGVjdHMgYSBuZWdhdGl2ZSByZXR1cm4gdmFsdWUgd2l0aG91dCB0aGF0IHRoaXMg
-ZXZlZgpjYW4gb2NjdXJlLgoKQnV0IHllcyAtIHRoZSBjb21taXQgbWVzc2FnZSBzaG91bGQgaGF2
-ZSBzdGF0ZWQgdGhhdCB0aGlzIG5vbi1jb25mb3JtYW5jZQppbiB0aGlzIGNhc2UgaGFzIG5vIGVm
-ZmVjdCAtIHdpbGwgcmVzZW5kLgoKdGh4IQpob2ZyYXQKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1kZXYgbWFpbGluZyBsaXN0CmdyZXlidXMt
-ZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0cy5saW5hcm8ub3JnL21haWxtYW4vbGlz
-dGluZm8vZ3JleWJ1cy1kZXYK
+T24gRnJpLCBNYXIgMTUsIDIwMTkgYXQgMTA6NDk6NDZBTSArMDUzMCwgVmFpYmhhdiBBZ2Fyd2Fs
+IHdyb3RlOgo+IE9uIFRodSwgTWFyIDE0LCAyMDE5IGF0IDEyOjE1IFBNIEthbmdqaWUgTHUgPGtq
+bHVAdW1uLmVkdT4gd3JvdGU6Cj4gPgo+ID4gaWRhX3NpbXBsZV9nZXQgY291bGQgZmFpbC4gVGhl
+IGZpeCBpbnNlcnRzIGEgY2hlY2sgZm9yIGl0cwo+ID4gcmV0dXJuIHZhbHVlLgo+ID4KPiA+IFNp
+Z25lZC1vZmYtYnk6IEthbmdqaWUgTHUgPGtqbHVAdW1uLmVkdT4KPiA+IC0tLQo+ID4gIGRyaXZl
+cnMvc3RhZ2luZy9ncmV5YnVzL2F1ZGlvX21hbmFnZXIuYyB8IDMgKysrCj4gPiAgMSBmaWxlIGNo
+YW5nZWQsIDMgaW5zZXJ0aW9ucygrKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3N0YWdp
+bmcvZ3JleWJ1cy9hdWRpb19tYW5hZ2VyLmMgYi9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9hdWRp
+b19tYW5hZ2VyLmMKPiA+IGluZGV4IGQ0NGIwNzBkODg2Mi4uYzJhNGFmNGMxZDA2IDEwMDY0NAo+
+ID4gLS0tIGEvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvYXVkaW9fbWFuYWdlci5jCj4gPiArKysg
+Yi9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9hdWRpb19tYW5hZ2VyLmMKPiA+IEBAIC00NSw2ICs0
+NSw5IEBAIGludCBnYl9hdWRpb19tYW5hZ2VyX2FkZChzdHJ1Y3QgZ2JfYXVkaW9fbWFuYWdlcl9t
+b2R1bGVfZGVzY3JpcHRvciAqZGVzYykKPiA+ICAgICAgICAgaW50IGVycjsKPiA+Cj4gPiAgICAg
+ICAgIGlkID0gaWRhX3NpbXBsZV9nZXQoJm1vZHVsZV9pZCwgMCwgMCwgR0ZQX0tFUk5FTCk7Cj4g
+PiArICAgICAgIGlmIChpZCA8IDApCj4gPiArICAgICAgICAgICAgICAgcmV0dXJuIGlkOwo+ID4g
+Kwo+ID4gICAgICAgICBlcnIgPSBnYl9hdWRpb19tYW5hZ2VyX21vZHVsZV9jcmVhdGUoJm1vZHVs
+ZSwgbWFuYWdlcl9rc2V0LAo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgaWQsIGRlc2MpOwo+ID4gICAgICAgICBpZiAoZXJyKSB7Cj4gCj4gUmV2aWV3ZWQt
+Ynk6IFZhaWJoYXYgQWdhcndhbCA8dmFpYmhhdi5zckBnbWFpbC5jb20+CgpJIGFtIHNvcnJ5IGZv
+ciBub3QgcmVzcG9uZGluZyB1bnRpbCBub3cuICBGb3Igc29tZSBzdHJhbmdlIHJlYXNvbiwgZW1h
+aWwKZnJvbSB0aGlzIGxpc3QgYXJlIGJlaW5nIGRlbGF5ZWQuICBJIGp1c3QgZ290IHRoaXMgdG9k
+YXkgKEFwcmlsIDMwKS4KClRoYW5rcyBmb3IgdGhlIHBhdGNoLCBLYW5namllLCBhbmQgdGhhbmtz
+IGZvciB0aGUgcmV2aWV3LCBWYWliaGF2LgoKQW5kIEZXSVcsCgpSZXZpZXdlZC1ieTogTWFyayBH
+cmVlciA8bWdyZWVyQGFuaW1hbGNyZWVrLmNvbT4KCk1hcmsKLS0KX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1kZXYgbWFpbGluZyBsaXN0Cmdy
+ZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0cy5saW5hcm8ub3JnL21haWxt
+YW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
