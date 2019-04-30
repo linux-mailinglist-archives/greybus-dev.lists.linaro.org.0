@@ -2,67 +2,67 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (ec2-54-158-76-221.compute-1.amazonaws.com [54.158.76.221])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8A37FD2F
-	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2019 17:50:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37F7EFDAA
+	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2019 18:19:57 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id C035A615C0
-	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2019 15:50:06 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 295C960746
+	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2019 16:19:56 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id ADACA6089D; Tue, 30 Apr 2019 15:50:06 +0000 (UTC)
+	id 17CFC61725; Tue, 30 Apr 2019 16:19:56 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
 	ip-10-150-125-211.ec2.internal
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2 autolearn=disabled version=3.4.2
+X-Spam-Status: No, score=-3.6 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_LOW,SPF_HELO_PASS autolearn=disabled version=3.4.2
 Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 37DAF60EF5;
-	Tue, 30 Apr 2019 15:49:57 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 71AD1615C0;
+	Tue, 30 Apr 2019 16:19:45 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 697A46089D
- for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2019 15:49:55 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id C3B1560746
+ for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2019 16:19:43 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 5C2CE608CE; Tue, 30 Apr 2019 15:49:55 +0000 (UTC)
-Received: from mail-it1-f177.google.com (mail-it1-f177.google.com
- [209.85.166.177])
- by lists.linaro.org (Postfix) with ESMTPS id 5EDB76089D
- for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2019 15:49:54 +0000 (UTC)
-Received: by mail-it1-f177.google.com with SMTP id w130so5420940itc.5
- for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2019 08:49:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=G8X1W25a+Ob7ITfaeBgXcA5uPmkhmb/pB/7mFrl5ICU=;
- b=gPqFX2pro9XWfPHu/ZTN0JNeK9pbHa2KQFQqHkeGOwz6JVejlluxw7ZDYLNNyQnMC0
- 6oMe03Sxmxe9ySr9l/H69XwydHPE7njBY+W/kvUFrbXkKQ2BE0bVi/Jz9HmPyoaRYDGV
- scAKqTsqDtf3349BtXa9WIzQDn2Gl8wRfNcRQ1Emk+BWTRTFd4HjRLy13Y/85yhJ2Xhr
- SxqQqMMVbobjxOr6ohZACrKN1YRg2VLKpDHBIOBxEsDeHK0LPJfNEg7hJFBXPwTU7El3
- 2jHj/cTbV5cv4AUTc5WMU26FmoZdGUDXd6APe9iahanCqJXk/tJxvDiGISgWl5u+qAnS
- XUlA==
-X-Gm-Message-State: APjAAAWe+ITs9LiPswVU9BMm3nTxesrL4HFv2jBGKPtb+gqj3yWzK6U3
- z1PK76pRFPqwozjTOtXosrEeKB3qMg/4GQ==
-X-Google-Smtp-Source: APXvYqw3OCijYeNMQ5mkfMd78CEnG71lQ8HzzbDq4Fce4F0cSySkZq4KWjxi2EIKHsjQAniJ4rLCxQ==
-X-Received: by 2002:a24:6416:: with SMTP id t22mr4163467itc.176.1556639393242; 
- Tue, 30 Apr 2019 08:49:53 -0700 (PDT)
-Received: from [172.22.22.26] (c-71-195-29-92.hsd1.mn.comcast.net.
- [71.195.29.92])
- by smtp.googlemail.com with ESMTPSA id m142sm1581900itb.31.2019.04.30.08.49.52
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 30 Apr 2019 08:49:52 -0700 (PDT)
-To: Mark Greer <mgreer@animalcreek.com>, greybus-dev@lists.linaro.org
+ id A9AF260F31; Tue, 30 Apr 2019 16:19:43 +0000 (UTC)
+Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
+ [66.111.4.221])
+ by lists.linaro.org (Postfix) with ESMTPS id 8EDAA60746
+ for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2019 16:19:42 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 36F4915984;
+ Tue, 30 Apr 2019 12:19:42 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Tue, 30 Apr 2019 12:19:42 -0400
+X-ME-Sender: <xms:nXXIXFprjjjuh_Rd_P6tANfqsaJezOEB8idFM9d3WD8tStZDeOlR2w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrieehgdegtdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujghofgesthdtredttdervdenucfhrhhomhepofgrrhhk
+ ucfirhgvvghruceomhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhmqeenucfkph
+ epieekrddvrdekjedrleehnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmghhrvggvrhes
+ rghnihhmrghltghrvggvkhdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:nXXIXFVKeodp4kxyAgHNUVIcr4VRsLUYaaljItW_jziUS13tKZUHoQ>
+ <xmx:nXXIXMqakYotppLOV8X_54g2t-FGjB4ebAgl2-SGv2w6jb-pnmRWqw>
+ <xmx:nXXIXJGFErkcuisIqxJ6wqKEn1AgoT0NryZ3WR8_Rm64EkmMIg29Yg>
+ <xmx:nnXIXDuZ0tqSjCc_H7hAPEYwbypo3rycWVNeRWOfjEOORW2r9LV38A>
+Received: from blue.animalcreek.com (ip68-2-87-95.ph.ph.cox.net [68.2.87.95])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 31AB8103CB;
+ Tue, 30 Apr 2019 12:19:41 -0400 (EDT)
+Received: by blue.animalcreek.com (Postfix, from userid 1000)
+ id 7A6AAA21364; Tue, 30 Apr 2019 09:19:40 -0700 (MST)
+Date: Tue, 30 Apr 2019 09:19:40 -0700
+From: Mark Greer <mgreer@animalcreek.com>
+To: Alex Elder <elder@linaro.org>
+Message-ID: <20190430161940.GA3422@animalcreek.com>
 References: <20190430152148.GB1854@animalcreek.com>
-From: Alex Elder <elder@linaro.org>
-Message-ID: <791e334e-9e70-bd54-dbb2-57e03f120d4c@linaro.org>
-Date: Tue, 30 Apr 2019 10:49:51 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ <791e334e-9e70-bd54-dbb2-57e03f120d4c@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20190430152148.GB1854@animalcreek.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <791e334e-9e70-bd54-dbb2-57e03f120d4c@linaro.org>
+Organization: Animal Creek Technologies, Inc.
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: greybus-dev@lists.linaro.org
 Subject: Re: [greybus-dev] Anyone else having delays with this list?
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
@@ -81,19 +81,26 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gNC8zMC8xOSAxMDoyMSBBTSwgTWFyayBHcmVlciB3cm90ZToKPiBIaSBldmVyeW9uZS4KPiAK
-PiBJcyBhbnlvbmUgZWxzZSBleHBlcmllbmNpbmcgZGVsYXlzIHJlY2VpdmluZyBlbWFpbCBmcm9t
-IHRoaXMgbGlzdD8KPiAKPiBJIGp1c3QgcmVjZWl2ZWQgYSBidW5jaCB0b2RheSAoQXByaWwgMzAp
-IHdpdGggc29tZSBlbWFpbHMgZGF0aW5nIGJhY2sgYXMKPiBmYXIgYXMgSmFuIDE1LgoKSSBoYXZl
-bid0IG5vdGljZWQsIGJ1dCB0aGUgdHJhZmZpYyBpcyBsaWdodCBhbmQgaW50ZXJtaXR0ZW50LiAg
-TmV3CnBvc3RlcnMgYXJlbid0IGFsbG93ZWQgdG8gc2VuZCB0byB0aGUgbGlzdCB3aXRob3V0IHBl
-cm1pc3Npb24sIGFuZAp3ZSBsaXN0IGFkbWluaXN0cmF0b3JzIChJIHRoaW5rIGp1c3QgR2xlbiBh
-bmQgSSkgbWF5IG5vdCBiZSBhcwp0aW1lbHkgYXMgd2Ugc2hvdWxkIGJlIGFib3V0IHJldmlld2lu
-ZyB0aGVzZSB0aGluZ3MuCgpJIGhvcGUgYWxsIGlzIHdlbGwgd2l0aCB5b3UgTWFyaywgbmljZSB0
-byBoZWFyIGZyb20geW91IQoKCQkJCQktQWxleAoKPiBUaGFua3MsCj4gCj4gTWFyawo+IC0tCj4g
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBncmV5YnVz
-LWRldiBtYWlsaW5nIGxpc3QKPiBncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCj4gaHR0cHM6
-Ly9saXN0cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYKPiAKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1h
-aWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBzOi8vbGlzdHMubGlu
-YXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
+T24gVHVlLCBBcHIgMzAsIDIwMTkgYXQgMTA6NDk6NTFBTSAtMDUwMCwgQWxleCBFbGRlciB3cm90
+ZToKPiBPbiA0LzMwLzE5IDEwOjIxIEFNLCBNYXJrIEdyZWVyIHdyb3RlOgo+ID4gSGkgZXZlcnlv
+bmUuCj4gPiAKPiA+IElzIGFueW9uZSBlbHNlIGV4cGVyaWVuY2luZyBkZWxheXMgcmVjZWl2aW5n
+IGVtYWlsIGZyb20gdGhpcyBsaXN0Pwo+ID4gCj4gPiBJIGp1c3QgcmVjZWl2ZWQgYSBidW5jaCB0
+b2RheSAoQXByaWwgMzApIHdpdGggc29tZSBlbWFpbHMgZGF0aW5nIGJhY2sgYXMKPiA+IGZhciBh
+cyBKYW4gMTUuCj4gCj4gSSBoYXZlbid0IG5vdGljZWQsIGJ1dCB0aGUgdHJhZmZpYyBpcyBsaWdo
+dCBhbmQgaW50ZXJtaXR0ZW50LiAgTmV3Cj4gcG9zdGVycyBhcmVuJ3QgYWxsb3dlZCB0byBzZW5k
+IHRvIHRoZSBsaXN0IHdpdGhvdXQgcGVybWlzc2lvbiwgYW5kCj4gd2UgbGlzdCBhZG1pbmlzdHJh
+dG9ycyAoSSB0aGluayBqdXN0IEdsZW4gYW5kIEkpIG1heSBub3QgYmUgYXMKPiB0aW1lbHkgYXMg
+d2Ugc2hvdWxkIGJlIGFib3V0IHJldmlld2luZyB0aGVzZSB0aGluZ3MuCj4gCj4gSSBob3BlIGFs
+bCBpcyB3ZWxsIHdpdGggeW91IE1hcmssIG5pY2UgdG8gaGVhciBmcm9tIHlvdSEKPiAKPiAJCQkJ
+CS1BbGV4CgpIaSBBbGV4LgoKVGhhbmtzIGZvciByZXNwb25kaW5nIGFuZCBmb3IgdGhlIHdlbGwt
+d2lzaGVzLgoKSXQgc2VlbXMgdG8gYmUganVzdCBtZSBhcyBJIHNlZSByZXNwb25zZXMgZnJvbSBv
+dGhlciBwZW9wbGUgZHVyaW5nIG15CiJibGFja291dCIgcGVyaW9kIHNvIEkga25vdyB0aGV5IHdl
+cmUgZ2V0dGluZyBlbWFpbHMuICBJIGFtIGF0IGEgbG9zcwpidXQgaWYgeW91IHNlZSBhbnkgZW1h
+aWxzIHRoYXQgeW91IHRoaW5rIEkgc2hvdWxkIGJlIHJlc3BvbmRpbmcgdG8gYnV0CkknbSBub3Qs
+IHBsZWFzZSBwb2tlIG1lIGRpcmVjdGx5ICh0aGF0IGdvZXMgZm9yIGFueW9uZSwgbm90IGp1c3Qg
+QWxleCkuCgpJdCBpcyBuaWNlIHRvIGhlYXIgZnJvbSB5b3UgdG9vLiAgSSBob3BlIHlvdSBhcmUg
+ZG9pbmcgd2VsbCBhbmQgbGlmZSBpcwpnb29kLiAgQXMgZm9yIG1lLCBJJ20gZG9pbmcgd2VsbC4g
+IEknbSBrZWVwaW5nIGJ1c3kgYW5kIGhhdmluZyBmdW4gb24gdGhlCm9kZCBvY2Nhc2lvbi4gIDsp
+CgpNYXJrCi0tCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0
+dHBzOi8vbGlzdHMubGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
