@@ -2,66 +2,69 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id C21C35699E
-	for <lists+greybus-dev@lfdr.de>; Wed, 26 Jun 2019 14:45:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43C72565A2
+	for <lists+greybus-dev@lfdr.de>; Wed, 26 Jun 2019 11:25:48 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id F1AA160F5B
-	for <lists+greybus-dev@lfdr.de>; Wed, 26 Jun 2019 12:45:21 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 0A0A861758
+	for <lists+greybus-dev@lfdr.de>; Wed, 26 Jun 2019 09:25:47 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id E0562615AF; Wed, 26 Jun 2019 12:45:21 +0000 (UTC)
+	id EF411617C3; Wed, 26 Jun 2019 09:25:46 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
 	ip-10-150-125-211.ec2.internal
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FROM,MAILING_LIST_MULTI,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL autolearn=disabled version=3.4.2
+X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_NONE autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 108DC60EFE;
-	Wed, 26 Jun 2019 12:45:13 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 24EAB6176E;
+	Wed, 26 Jun 2019 09:25:30 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 2B23F60F52
- for <greybus-dev@lists.linaro.org>; Wed, 26 Jun 2019 06:45:04 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id E98C960E09
+ for <greybus-dev@lists.linaro.org>; Wed, 26 Jun 2019 09:25:26 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 1431261513; Wed, 26 Jun 2019 06:45:04 +0000 (UTC)
-Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
- [209.85.214.194])
- by lists.linaro.org (Postfix) with ESMTPS id 2364460F52
- for <greybus-dev@lists.linaro.org>; Wed, 26 Jun 2019 06:45:03 +0000 (UTC)
-Received: by mail-pl1-f194.google.com with SMTP id bi6so850716plb.12
- for <greybus-dev@lists.linaro.org>; Tue, 25 Jun 2019 23:45:03 -0700 (PDT)
+ id DDEE861758; Wed, 26 Jun 2019 09:25:26 +0000 (UTC)
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
+ [209.85.221.65])
+ by lists.linaro.org (Postfix) with ESMTPS id 5008960E09
+ for <greybus-dev@lists.linaro.org>; Wed, 26 Jun 2019 09:25:25 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id n4so1813380wrw.13
+ for <greybus-dev@lists.linaro.org>; Wed, 26 Jun 2019 02:25:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=ZaPptmReQuzo4siTdAbVNE+klhm52Cm2tM2YAZ7O52s=;
- b=bUt6q2oZmMDLgF7ezyVf4QyJ6C6P/JkFdngvQFsCpAcWht3gPKoGEizmzUGYXoSK7P
- WzPixjhrdGeUInwx9JJPHp/dUtj1p+c2o90IxSpwL3s66luuZ8yIGzon+jrAm6KgplAz
- B/6BN6susX+fk8K6k5wWdR/XXLYjXN/Y3xJc+bPitekUQeiqwYDEe3qsfprTUtxMV8eo
- YVL36+ktivrkxGNdjV+djX0Izn7KTDB9my1a66U67C+edLpmEjjvWpE6CrQElQ6BmXSG
- XfZ/cDMt4rCu3ZC8Y60LDvAKy0R641HtgXeUENIGRUAtEEHxcG2JRCzou178UJ0Jl0BG
- xqmA==
-X-Gm-Message-State: APjAAAXAqkqnHjJ2UKDw/9s3c3KIILqRCQpyedEY/IrcYyG3MTc4IYxy
- N74dfjId0VHv3hUoeTxXx14=
-X-Google-Smtp-Source: APXvYqwiIk+6bkJjgOnNTjcJ7DXQLqws0hwPhj1sYHi8ZlHcXWKX0YSttzea+pxUDC/xPYl1JZfcbw==
-X-Received: by 2002:a17:902:24c:: with SMTP id 70mr3526708plc.2.1561531502380; 
- Tue, 25 Jun 2019 23:45:02 -0700 (PDT)
-Received: from localhost.localdomain ([110.227.94.173])
- by smtp.gmail.com with ESMTPSA id m6sm2378063pjl.18.2019.06.25.23.44.59
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Tue, 25 Jun 2019 23:45:01 -0700 (PDT)
-From: Nishka Dasgupta <nishkadg.linux@gmail.com>
-To: johan@kernel.org, elder@kernel.org, gregkh@linuxfoundation.org,
- greybus-dev@lists.linaro.org, devel@driverdev.osuosl.org
-Date: Wed, 26 Jun 2019 12:14:50 +0530
-Message-Id: <20190626064450.3062-1-nishkadg.linux@gmail.com>
-X-Mailer: git-send-email 2.19.1
+ bh=1lUn5ft83BAiAxv4CryexhWiQO7AlexlX23v5PRXdY4=;
+ b=rt9zCPGZQPiUOxRNA6xBlugFBms/t638PVO6EFuelPCDmTvWuMacxxcfy8zffdRytq
+ KzYjU/jJ/NW7nLqnMogqtAoSd5XqS/C9rL3pp1qVKz72v8QcoV0kEav1RW1AobTNW5k9
+ pMATrA0QyVUZwTVZPiaKVenrmg0puNNITvP7PEuaRPA5crxCy4uq1XHU+/Bcx8BlaTpe
+ lkGk/H5c5xT4amrlMbZI5StMwM4V7fHpyQDswX4OJpIYA0doPFoAqixOmjU6pj+m7y85
+ +cAKt7MywjyGotb/EgojJXsRDE8HiHjrVOlJPG+kRkiAD/SeyqIn6wKI3OgPGrtgI4Cd
+ K9qg==
+X-Gm-Message-State: APjAAAWfX0CUej8bEYh65yqQ2nY77tx5ZHYUIByeiHtaFEwgoSM0lP+O
+ 5sv2IoqNApsiJF+F0WnQwta+wg==
+X-Google-Smtp-Source: APXvYqytFI9o3PcU6pLD019cLftlgKkP5Q8TtppfwaUu8FnevX/7lYIm9kSyU449s6bZhJPHwzpplw==
+X-Received: by 2002:adf:9d4c:: with SMTP id o12mr2831579wre.340.1561541124486; 
+ Wed, 26 Jun 2019 02:25:24 -0700 (PDT)
+Received: from [172.27.250.178] ([212.187.182.164])
+ by smtp.gmail.com with ESMTPSA id x20sm28658674wrg.52.2019.06.26.02.25.22
+ (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+ Wed, 26 Jun 2019 02:25:23 -0700 (PDT)
+To: Nishka Dasgupta <nishkadg.linux@gmail.com>, johan@kernel.org,
+ elder@kernel.org, gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org,
+ devel@driverdev.osuosl.org
+References: <20190626064450.3062-1-nishkadg.linux@gmail.com>
+From: Bryan O'Donoghue <pure.logic@nexus-software.ie>
+Message-ID: <b9de5aca-6c5f-fbd2-bd64-f4b2fff1f047@nexus-software.ie>
+Date: Wed, 26 Jun 2019 10:25:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
+In-Reply-To: <20190626064450.3062-1-nishkadg.linux@gmail.com>
+Content-Language: en-US-large
 X-Virus-Scanned: ClamAV using ClamSMTP
-X-Mailman-Approved-At: Wed, 26 Jun 2019 12:45:11 +0000
-Cc: Nishka Dasgupta <nishkadg.linux@gmail.com>
-Subject: [greybus-dev] [PATCH] staging: greybus: tools: Remove function
+Subject: Re: [greybus-dev] [PATCH] staging: greybus: tools: Remove function
 	log_csv_error()
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
@@ -74,26 +77,29 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-UmVtb3ZlIHVudXNlZCBmdW5jdGlvbiBsb2dfY3N2X2Vycm9yLgpJc3N1ZSBmb3VuZCB3aXRoIENv
-Y2NpbmVsbGUuCgpTaWduZWQtb2ZmLWJ5OiBOaXNoa2EgRGFzZ3VwdGEgPG5pc2hrYWRnLmxpbnV4
-QGdtYWlsLmNvbT4KLS0tCiBkcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy90b29scy9sb29wYmFja190
-ZXN0LmMgfCA2IC0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDYgZGVsZXRpb25zKC0pCgpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvdG9vbHMvbG9vcGJhY2tfdGVzdC5jIGIvZHJp
-dmVycy9zdGFnaW5nL2dyZXlidXMvdG9vbHMvbG9vcGJhY2tfdGVzdC5jCmluZGV4IDJmYTg4MDky
-NTE0ZC4uY2ViYzFkOTBhMTgwIDEwMDY0NAotLS0gYS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy90
-b29scy9sb29wYmFja190ZXN0LmMKKysrIGIvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvdG9vbHMv
-bG9vcGJhY2tfdGVzdC5jCkBAIC00MTQsMTIgKzQxNCw2IEBAIHN0YXRpYyBpbnQgZ2V0X3Jlc3Vs
-dHMoc3RydWN0IGxvb3BiYWNrX3Rlc3QgKnQpCiAJcmV0dXJuIDA7CiB9CiAKLXZvaWQgbG9nX2Nz
-dl9lcnJvcihpbnQgbGVuLCBpbnQgZXJyKQotewotCWZwcmludGYoc3RkZXJyLCAidW5hYmxlIHRv
-IHdyaXRlICVkIGJ5dGVzIHRvIGNzdiAlc1xuIiwgbGVuLAotCQlzdHJlcnJvcihlcnIpKTsKLX0K
-LQogaW50IGZvcm1hdF9vdXRwdXQoc3RydWN0IGxvb3BiYWNrX3Rlc3QgKnQsCiAJCSAgc3RydWN0
-IGxvb3BiYWNrX3Jlc3VsdHMgKnIsCiAJCSAgY29uc3QgY2hhciAqZGV2X25hbWUsCi0tIAoyLjE5
-LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXli
-dXMtZGV2IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBzOi8v
-bGlzdHMubGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
+T24gMjYvMDYvMjAxOSAwNzo0NCwgTmlzaGthIERhc2d1cHRhIHdyb3RlOgo+IFJlbW92ZSB1bnVz
+ZWQgZnVuY3Rpb24gbG9nX2Nzdl9lcnJvci4KPiBJc3N1ZSBmb3VuZCB3aXRoIENvY2NpbmVsbGUu
+Cj4gCj4gU2lnbmVkLW9mZi1ieTogTmlzaGthIERhc2d1cHRhIDxuaXNoa2FkZy5saW51eEBnbWFp
+bC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy90b29scy9sb29wYmFja190
+ZXN0LmMgfCA2IC0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDYgZGVsZXRpb25zKC0pCj4gCj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3Rvb2xzL2xvb3BiYWNrX3Rlc3Qu
+YyBiL2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3Rvb2xzL2xvb3BiYWNrX3Rlc3QuYwo+IGluZGV4
+IDJmYTg4MDkyNTE0ZC4uY2ViYzFkOTBhMTgwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvc3RhZ2lu
+Zy9ncmV5YnVzL3Rvb2xzL2xvb3BiYWNrX3Rlc3QuYwo+ICsrKyBiL2RyaXZlcnMvc3RhZ2luZy9n
+cmV5YnVzL3Rvb2xzL2xvb3BiYWNrX3Rlc3QuYwo+IEBAIC00MTQsMTIgKzQxNCw2IEBAIHN0YXRp
+YyBpbnQgZ2V0X3Jlc3VsdHMoc3RydWN0IGxvb3BiYWNrX3Rlc3QgKnQpCj4gICAJcmV0dXJuIDA7
+Cj4gICB9Cj4gICAKPiAtdm9pZCBsb2dfY3N2X2Vycm9yKGludCBsZW4sIGludCBlcnIpCj4gLXsK
+PiAtCWZwcmludGYoc3RkZXJyLCAidW5hYmxlIHRvIHdyaXRlICVkIGJ5dGVzIHRvIGNzdiAlc1xu
+IiwgbGVuLAo+IC0JCXN0cmVycm9yKGVycikpOwo+IC19Cj4gLQo+ICAgaW50IGZvcm1hdF9vdXRw
+dXQoc3RydWN0IGxvb3BiYWNrX3Rlc3QgKnQsCj4gICAJCSAgc3RydWN0IGxvb3BiYWNrX3Jlc3Vs
+dHMgKnIsCj4gICAJCSAgY29uc3QgY2hhciAqZGV2X25hbWUsCj4gCgpSZXZpZXdlZC1ieTogQnJ5
+YW4gTydEb25vZ2h1ZSA8cHVyZS5sb2dpY0BuZXh1cy1zb2Z0d2FyZS5pZT4KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1kZXYgbWFpbGluZyBs
+aXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0cy5saW5hcm8ub3Jn
+L21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
