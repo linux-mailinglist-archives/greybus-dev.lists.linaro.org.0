@@ -2,66 +2,73 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4805C65029
-	for <lists+greybus-dev@lfdr.de>; Thu, 11 Jul 2019 04:30:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80E5F6502A
+	for <lists+greybus-dev@lfdr.de>; Thu, 11 Jul 2019 04:30:42 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 5CDB3616F0
-	for <lists+greybus-dev@lfdr.de>; Thu, 11 Jul 2019 02:30:32 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id A906B61797
+	for <lists+greybus-dev@lfdr.de>; Thu, 11 Jul 2019 02:30:41 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 5210361781; Thu, 11 Jul 2019 02:30:32 +0000 (UTC)
+	id 9D87C617A2; Thu, 11 Jul 2019 02:30:41 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
 	ip-10-150-125-211.ec2.internal
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.3 required=5.0 tests=BAYES_00,DATE_IN_PAST_03_06,
-	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FROM,HTML_MESSAGE,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2 autolearn=disabled version=3.4.2
+	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FROM,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_NONE autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8F966617B3;
-	Thu, 11 Jul 2019 02:30:08 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 11223617FA;
+	Thu, 11 Jul 2019 02:30:09 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id B24CC61591
- for <greybus-dev@lists.linaro.org>; Wed, 10 Jul 2019 17:24:25 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 3001F6177D
+ for <greybus-dev@lists.linaro.org>; Wed, 10 Jul 2019 18:24:06 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id A144661778; Wed, 10 Jul 2019 17:24:25 +0000 (UTC)
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
- [209.85.222.196])
- by lists.linaro.org (Postfix) with ESMTPS id AB71C61591
- for <greybus-dev@lists.linaro.org>; Wed, 10 Jul 2019 17:24:24 +0000 (UTC)
-Received: by mail-qk1-f196.google.com with SMTP id a27so2527941qkk.5
- for <greybus-dev@lists.linaro.org>; Wed, 10 Jul 2019 10:24:24 -0700 (PDT)
+ id 2491561789; Wed, 10 Jul 2019 18:24:06 +0000 (UTC)
+Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com
+ [209.85.160.195])
+ by lists.linaro.org (Postfix) with ESMTPS id 42F806177D
+ for <greybus-dev@lists.linaro.org>; Wed, 10 Jul 2019 18:24:05 +0000 (UTC)
+Received: by mail-qt1-f195.google.com with SMTP id h18so3480168qtm.9
+ for <greybus-dev@lists.linaro.org>; Wed, 10 Jul 2019 11:24:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kAkVcfzCu105X+rCeudPOX8QY0Ki9acMjFF88hKu5KE=;
- b=EKmveeGS6+FR4N7UfGge/jCXAZM79EOhCCMZ392+igQ3828BzloPmrtoViPJbYuvVZ
- qI7VyestSUpBnFC8RIcfERzmJdr6wV9bhlsrlk6qeBZfwb2SKu5rO0nBz0W6hMcbwGf1
- uD71C9FHfENB6N6siYSBBgt6XcpGMdYR0/L3pW//9Tw5+TO8cKoIGv8vQP9E/Xw3o4y/
- mKC/j4tpGRfFeZ71dOE9FcYIBRQFSbS7jZAwPbk8yyld+vuEh9tirufe4miBAmRQLZLR
- A8sCV329zxVD4nsUBqgLlMiE0nEkbNYRzZyFO0IudPpvpRrBdfsWUCAFllm6KjZ2Ltvv
- yRnQ==
-X-Gm-Message-State: APjAAAVflk5846pIunxF/amDlNAEWY/Niv05A/RsZos9zKP0e70fSEN9
- X9UdjvJx2Q5MznYEpS/+RCoDfflluhsGqXGvtw==
-X-Google-Smtp-Source: APXvYqxRMVfHAGhUhJxKEuxHcWEypQSPSIfRy6EHETsgGSjA5PN4MCksd6ynojHcEmKksUuQb5QPx9wELjM/JEsQA3s=
-X-Received: by 2002:a37:6508:: with SMTP id z8mr23709035qkb.492.1562779464305; 
- Wed, 10 Jul 2019 10:24:24 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=zAcgUolazA7luBwp8paMkjhRVKLXRJL6TdvFMDHQKzA=;
+ b=bJntSgTqDDNgNgwTVj1kUGT5OnA+bKKNLvjMnXAX9WxjfPs9jyi7CafYGqV04hOQC6
+ vhizTd22m7ldyyJbDNNQsZWbWi4C7wb8ryN8WZUWjR8H5MLcmOzaU+juwgnGrnmeIwid
+ v9W+oXjxuFXQOtrJbn33W8U6BHgDBr3kLMmhmGHKeve5rYwTyA/jhQgkjW1GBBXMgjBf
+ m+JKA117L/+joCzNqs33r0NCTZBXjPapbNnWnTjNsavpTl1UCcvmS0wCa1RIayW9kaZR
+ w0husHPg+6G6nd5FnEyjWRAJvJvn1IDDySZUIC+5CkvR3D4yH7t9I0deh57Nbn//OVlz
+ vWkQ==
+X-Gm-Message-State: APjAAAVrQ66bMv0qMdIGtETnYyiwaThAGhxr2vBbnpfpQZt7D1Q7a49/
+ hX2lBCWfjDyZkQy+WDbJnQ==
+X-Google-Smtp-Source: APXvYqx9x9Hv8Yb01z7kNT2uDT6YWO3K7fCYZ/dkH2TwctUQ9egiiR8ut6bSAfySZQU4uXvTVDUyAw==
+X-Received: by 2002:ac8:374b:: with SMTP id p11mr24711189qtb.316.1562783044890; 
+ Wed, 10 Jul 2019 11:24:04 -0700 (PDT)
+Received: from keyur-pc (modemcable148.230-83-70.mc.videotron.ca.
+ [70.83.230.148])
+ by smtp.gmail.com with ESMTPSA id f25sm1608616qta.81.2019.07.10.11.24.03
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Wed, 10 Jul 2019 11:24:03 -0700 (PDT)
+Date: Wed, 10 Jul 2019 10:24:06 -0400
+From: Keyur Patel <iamkeyur96@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <20190710142406.GA6669@keyur-pc>
 References: <20190710122018.2250-1-iamkeyur96@gmail.com>
  <20190710163538.GA30902@kroah.com>
+MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <20190710163538.GA30902@kroah.com>
-From: Keyur Patel <iamkeyur96@gmail.com>
-Date: Wed, 10 Jul 2019 09:24:17 -0400
-Message-ID: <CAAEMwn2ijpMczu=bVnnWKmdRfLXgeo0ir2-Z5s0r5OAxB_615A@mail.gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+User-Agent: Mutt/1.12.1 (2019-06-15)
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Thu, 11 Jul 2019 02:30:06 +0000
 Cc: devel@driverdev.osuosl.org, Alex Elder <elder@kernel.org>,
  Johan Hovold <johan@kernel.org>, linux-kernel@vger.kernel.org,
  greybus-dev@lists.linaro.org, David Lin <dtwlin@gmail.com>
 Subject: Re: [greybus-dev] [PATCH] staging: greybus: add logging statement
-	when kfifo_alloc fails
+ when kfifo_alloc fails
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
 Precedence: list
@@ -73,135 +80,39 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0387982414244874942=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
---===============0387982414244874942==
-Content-Type: multipart/alternative; boundary="000000000000d5122b058d56f20a"
-
---000000000000d5122b058d56f20a
-Content-Type: text/plain; charset="UTF-8"
-
-Didn't notice that. I agree that this will result only into redundancy.
-Quick look over files reveal that there are multiple places
-where people are using print statements after memory allocation fails.
-Should I go ahead and send patches to remove those
-redundant print statements.
-
-On Wed, 10 Jul 2019 at 12:35, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-wrote:
-
-> On Wed, Jul 10, 2019 at 08:20:17AM -0400, Keyur Patel wrote:
-> > Added missing logging statement when kfifo_alloc fails, to improve
-> > debugging.
-> >
-> > Signed-off-by: Keyur Patel <iamkeyur96@gmail.com>
-> > ---
-> >  drivers/staging/greybus/uart.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/staging/greybus/uart.c
-> b/drivers/staging/greybus/uart.c
-> > index b3bffe91ae99..86a395ae177d 100644
-> > --- a/drivers/staging/greybus/uart.c
-> > +++ b/drivers/staging/greybus/uart.c
-> > @@ -856,8 +856,10 @@ static int gb_uart_probe(struct gbphy_device
-> *gbphy_dev,
-> >
-> >       retval = kfifo_alloc(&gb_tty->write_fifo, GB_UART_WRITE_FIFO_SIZE,
-> >                            GFP_KERNEL);
-> > -     if (retval)
-> > +     if (retval) {
-> > +             pr_err("kfifo_alloc failed\n");
-> >               goto exit_buf_free;
-> > +     }
->
-> You should have already gotten an error message from the log if this
-> fails, from the kmalloc_array() call failing, right?
->
-> So why is this needed?  We have been trying to remove these types of
-> messages and keep them in the "root" place where the failure happens.
->
-> thanks,
->
-> greg k-h
->
-
-
--- 
-Regards
-Keyur Patel
-
---000000000000d5122b058d56f20a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Didn&#39;t notice that. I agree that this will result=
- only into redundancy. Quick look over files reveal that there are multiple=
- places</div><div>where people are using print statements after memory allo=
-cation fails. Should I go ahead and send patches to remove those</div><div>=
-redundant print statements.<br></div><br><div class=3D"gmail_quote"><div di=
-r=3D"ltr" class=3D"gmail_attr">On Wed, 10 Jul 2019 at 12:35, Greg Kroah-Har=
-tman &lt;<a href=3D"mailto:gregkh@linuxfoundation.org">gregkh@linuxfoundati=
-on.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
-:1ex">On Wed, Jul 10, 2019 at 08:20:17AM -0400, Keyur Patel wrote:<br>
-&gt; Added missing logging statement when kfifo_alloc fails, to improve<br>
-&gt; debugging.<br>
-&gt; <br>
-&gt; Signed-off-by: Keyur Patel &lt;<a href=3D"mailto:iamkeyur96@gmail.com"=
- target=3D"_blank">iamkeyur96@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/staging/greybus/uart.c | 4 +++-<br>
-&gt;=C2=A0 1 file changed, 3 insertions(+), 1 deletion(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/=
-uart.c<br>
-&gt; index b3bffe91ae99..86a395ae177d 100644<br>
-&gt; --- a/drivers/staging/greybus/uart.c<br>
-&gt; +++ b/drivers/staging/greybus/uart.c<br>
-&gt; @@ -856,8 +856,10 @@ static int gb_uart_probe(struct gbphy_device *gbp=
-hy_dev,<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0retval =3D kfifo_alloc(&amp;gb_tty-&gt;write=
-_fifo, GB_UART_WRITE_FIFO_SIZE,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 GFP_KERNEL);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (retval)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (retval) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;kfifo_al=
-loc failed\n&quot;);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto exit_buf_fr=
-ee;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-<br>
-You should have already gotten an error message from the log if this<br>
-fails, from the kmalloc_array() call failing, right?<br>
-<br>
-So why is this needed?=C2=A0 We have been trying to remove these types of<b=
-r>
-messages and keep them in the &quot;root&quot; place where the failure happ=
-ens.<br>
-<br>
-thanks,<br>
-<br>
-greg k-h<br>
-</blockquote></div><br clear=3D"all"><br>-- <br><div dir=3D"ltr" class=3D"g=
-mail_signature"><div dir=3D"ltr"><div>Regards<br></div>Keyur Patel<br></div=
-></div></div>
-
---000000000000d5122b058d56f20a--
-
---===============0387982414244874942==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1k
-ZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0
-cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
-
---===============0387982414244874942==--
+T24gV2VkLCBKdWwgMTAsIDIwMTkgYXQgMDY6MzU6MzhQTSArMDIwMCwgR3JlZyBLcm9haC1IYXJ0
+bWFuIHdyb3RlOgo+IE9uIFdlZCwgSnVsIDEwLCAyMDE5IGF0IDA4OjIwOjE3QU0gLTA0MDAsIEtl
+eXVyIFBhdGVsIHdyb3RlOgo+ID4gQWRkZWQgbWlzc2luZyBsb2dnaW5nIHN0YXRlbWVudCB3aGVu
+IGtmaWZvX2FsbG9jIGZhaWxzLCB0byBpbXByb3ZlCj4gPiBkZWJ1Z2dpbmcuCj4gPiAKPiA+IFNp
+Z25lZC1vZmYtYnk6IEtleXVyIFBhdGVsIDxpYW1rZXl1cjk2QGdtYWlsLmNvbT4KPiA+IC0tLQo+
+ID4gIGRyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3VhcnQuYyB8IDQgKysrLQo+ID4gIDEgZmlsZSBj
+aGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPiA+IAo+ID4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3VhcnQuYyBiL2RyaXZlcnMvc3RhZ2luZy9ncmV5
+YnVzL3VhcnQuYwo+ID4gaW5kZXggYjNiZmZlOTFhZTk5Li44NmEzOTVhZTE3N2QgMTAwNjQ0Cj4g
+PiAtLS0gYS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy91YXJ0LmMKPiA+ICsrKyBiL2RyaXZlcnMv
+c3RhZ2luZy9ncmV5YnVzL3VhcnQuYwo+ID4gQEAgLTg1Niw4ICs4NTYsMTAgQEAgc3RhdGljIGlu
+dCBnYl91YXJ0X3Byb2JlKHN0cnVjdCBnYnBoeV9kZXZpY2UgKmdicGh5X2RldiwKPiA+ICAKPiA+
+ICAJcmV0dmFsID0ga2ZpZm9fYWxsb2MoJmdiX3R0eS0+d3JpdGVfZmlmbywgR0JfVUFSVF9XUklU
+RV9GSUZPX1NJWkUsCj4gPiAgCQkJICAgICBHRlBfS0VSTkVMKTsKPiA+IC0JaWYgKHJldHZhbCkK
+PiA+ICsJaWYgKHJldHZhbCkgewo+ID4gKwkJcHJfZXJyKCJrZmlmb19hbGxvYyBmYWlsZWRcbiIp
+Owo+ID4gIAkJZ290byBleGl0X2J1Zl9mcmVlOwo+ID4gKwl9Cj4gCj4gWW91IHNob3VsZCBoYXZl
+IGFscmVhZHkgZ290dGVuIGFuIGVycm9yIG1lc3NhZ2UgZnJvbSB0aGUgbG9nIGlmIHRoaXMKPiBm
+YWlscywgZnJvbSB0aGUga21hbGxvY19hcnJheSgpIGNhbGwgZmFpbGluZywgcmlnaHQ/Cj4gCj4g
+U28gd2h5IGlzIHRoaXMgbmVlZGVkPyAgV2UgaGF2ZSBiZWVuIHRyeWluZyB0byByZW1vdmUgdGhl
+c2UgdHlwZXMgb2YKPiBtZXNzYWdlcyBhbmQga2VlcCB0aGVtIGluIHRoZSAicm9vdCIgcGxhY2Ug
+d2hlcmUgdGhlIGZhaWx1cmUgaGFwcGVucy4KPiAKPiB0aGFua3MsCj4gCj4gZ3JlZyBrLWgKCkRp
+ZG4ndCBub3RpY2UgdGhhdC4gSSBhZ3JlZSB0aGF0IHRoaXMgd2lsbCByZXN1bHQgb25seSBpbnRv
+IHJlZHVuZGFuY3kuIApRdWljayBsb29rIG92ZXIgZmlsZXMgcmV2ZWFsIHRoYXQgdGhlcmUgYXJl
+IG11bHRpcGxlIHBsYWNlcwp3aGVyZSBwZW9wbGUgYXJlIHVzaW5nIHByaW50IHN0YXRlbWVudHMg
+YWZ0ZXIgbWVtb3J5IGFsbG9jYXRpb24gZmFpbHMuIApTaG91bGQgSSBnbyBhaGVhZCBhbmQgc2Vu
+ZCBwYXRjaGVzIHRvIHJlbW92ZSB0aG9zZQpyZWR1bmRhbnQgcHJpbnQgc3RhdGVtZW50cz8KClNv
+cnJ5LCBpZiB5b3UncmUgcmVjZWl2aW5nIHRoaXMgbWVzc2FnZSBhZ2Fpbi4KClRobmFrcy4KS2V5
+dXIgUGF0ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+Z3JleWJ1cy1kZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0
+cHM6Ly9saXN0cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
