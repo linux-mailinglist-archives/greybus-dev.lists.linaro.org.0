@@ -2,51 +2,51 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6A9D8A3C3
-	for <lists+greybus-dev@lfdr.de>; Mon, 12 Aug 2019 18:50:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 910488A553
+	for <lists+greybus-dev@lfdr.de>; Mon, 12 Aug 2019 20:06:25 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id EC3FE61833
-	for <lists+greybus-dev@lfdr.de>; Mon, 12 Aug 2019 16:50:26 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id C2A3161833
+	for <lists+greybus-dev@lfdr.de>; Mon, 12 Aug 2019 18:06:24 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id DDDF961837; Mon, 12 Aug 2019 16:50:26 +0000 (UTC)
+	id A3EDD6183E; Mon, 12 Aug 2019 18:06:24 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
 	ip-10-150-125-211.ec2.internal
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FROM,MAILING_LIST_MULTI,RCVD_IN_DNSWL_NONE autolearn=disabled
-	version=3.4.2
+X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2
+	autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id ECBE161836;
-	Mon, 12 Aug 2019 16:50:14 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id D48AF61836;
+	Mon, 12 Aug 2019 18:06:11 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id DC4D961726
- for <greybus-dev@lists.linaro.org>; Mon, 12 Aug 2019 16:50:11 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 5E71161831
+ for <greybus-dev@lists.linaro.org>; Mon, 12 Aug 2019 18:06:09 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id CB08861834; Mon, 12 Aug 2019 16:50:11 +0000 (UTC)
-Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
- [209.85.210.65])
- by lists.linaro.org (Postfix) with ESMTPS id C61D161726
- for <greybus-dev@lists.linaro.org>; Mon, 12 Aug 2019 16:50:10 +0000 (UTC)
-Received: by mail-ot1-f65.google.com with SMTP id r21so155394307otq.6
- for <greybus-dev@lists.linaro.org>; Mon, 12 Aug 2019 09:50:10 -0700 (PDT)
+ id 4003661834; Mon, 12 Aug 2019 18:06:09 +0000 (UTC)
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+ [209.85.128.67])
+ by lists.linaro.org (Postfix) with ESMTPS id ED10B61831
+ for <greybus-dev@lists.linaro.org>; Mon, 12 Aug 2019 18:06:07 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id 10so394450wmp.3
+ for <greybus-dev@lists.linaro.org>; Mon, 12 Aug 2019 11:06:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=i7JBtZhV98AqxZgYbHMVPBUaFEZRdtTot8p1Rs7dsDc=;
- b=hR5RowUP2pmw4zuvpivsGQEl/kz9/Ms6eyx6NEuhZIAbeMZEVremJAjKKiBMtNO+y6
- L5A/yjiv4BInpJFV8Bv4uthRz3L/qdbhql2+eRFoNalsdPDbliZ3awsMxjb7dtJD3L0l
- 6xyURZG1BpfRD0RSVTl1lsqOgX2V4w3DSeUX07fdY/pAEq2hWOAcCEPOngssh34Ujkqm
- UPwEUifGCGdNqbF/8Lbp6RvhU2WdtqoRNfz+gkow6+B6GgvdCmzgs+eE197F9r0KMmBM
- m+diJ9GC/hnw9sn+pvKfPwudv8YdWL0w72Qx4hnljwnuC7cnQiIYOfWHSrAeik/nLq7P
- CRxA==
-X-Gm-Message-State: APjAAAVG0fqNU9Dw8P+iiP76YiXA5Z3iddQ1n7WZP0VZg0r0KhEBFSNk
- kQ5hnoh3cxXFlKYw1MFz1+KaTUUqx4M2E/j7Tho=
-X-Google-Smtp-Source: APXvYqyb6JT0HW4seG2FC5R0D7akb1kGGhcA4W7wUDj9IjMtlqF0CgUD+kG0Ta8jDX5Sp0m/uYOjd9SbWB8z8xXVfnE=
-X-Received: by 2002:a6b:621a:: with SMTP id f26mr754088iog.127.1565628610212; 
- Mon, 12 Aug 2019 09:50:10 -0700 (PDT)
+ bh=oeb1zT8ILyeXCenKRurnZV7JJxYp9MA6jTgGlQaf/ew=;
+ b=ADS/oeHffyOrDHYUl7Utqskm8zpyTqctdFvMx2H22F4SnpFxCcnW2LVo31zUeVYnKk
+ mFFiLqwM+szafeAe+/ds4kgYpuJHi16deFP5sZLa3gcn1MTOfhdA/AnVosHKJ0wtS2U4
+ xU6FVhVfmKGwI/DpmwVCM/LSRi2q+seaMmA+8bb/Ehste0jymp1XxUROq6FiuFOnmMWc
+ icUOsbUKCi2FkZ3X2NOZnCppuq0mv+QcN0TXhy4dDFzQkJIHesM+j5oMS1cRsj31Z0sg
+ ZKGQD7OEuWtcYLMDlUN5CSiXOz6bZTOl5R84J3btqiY7oaUznO7arLkITjDLsfFmkSmT
+ Dt4Q==
+X-Gm-Message-State: APjAAAWddFu7dioebBle5ZxYlMeaFdCNuv46lX6u8llDvROR311y6U+O
+ e6nRL30BKaWrwlTPBVEo9dbpKRfEfcbY0nP97Zo=
+X-Google-Smtp-Source: APXvYqwn8D/2eCzSRfkjbOZYZfZfc3K/lNG/rMKNE2yWPK6p3mmPLOLJsnD+JVrryvF6LGeh+V9ZxdmYVTetMSK3BfM=
+X-Received: by 2002:a7b:cb89:: with SMTP id m9mr617575wmi.50.1565633166887;
+ Mon, 12 Aug 2019 11:06:06 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAFPGqosrnQmroLFRmTRNCYyqdQXnhBhJuCLo=WMphs60KvhKZQ@mail.gmail.com>
  <20190706085603.GE9955@kroah.com>
@@ -58,11 +58,12 @@ References: <CAFPGqosrnQmroLFRmTRNCYyqdQXnhBhJuCLo=WMphs60KvhKZQ@mail.gmail.com>
  <CA+T6QPm5+f2mLqbv3o9yd2S9BvvVD-U9GA-yisXuowhuB6Qijg@mail.gmail.com>
  <CA+T6QPkSZr9ignCZGhaifpOWE6517fELRDjJp6f3bAWDOft0JQ@mail.gmail.com>
  <CAF4BF-TE2OyH9z16NWisy856qULa6F1+ao4BDgQukSDqi6vmEw@mail.gmail.com>
-In-Reply-To: <CAF4BF-TE2OyH9z16NWisy856qULa6F1+ao4BDgQukSDqi6vmEw@mail.gmail.com>
-From: Christopher Friedt <chrisfriedt@gmail.com>
-Date: Mon, 12 Aug 2019 12:49:59 -0400
-Message-ID: <CAF4BF-Qmem3xQGKCfREi5__N0QhAJkP6K1LZX5q6bSkKxzmwHA@mail.gmail.com>
-To: Jason Kridner <jkridner@beagleboard.org>
+ <CAF4BF-Qmem3xQGKCfREi5__N0QhAJkP6K1LZX5q6bSkKxzmwHA@mail.gmail.com>
+In-Reply-To: <CAF4BF-Qmem3xQGKCfREi5__N0QhAJkP6K1LZX5q6bSkKxzmwHA@mail.gmail.com>
+From: Jason Kridner <jkridner@beagleboard.org>
+Date: Mon, 12 Aug 2019 14:05:55 -0400
+Message-ID: <CA+T6QPnkrA10_ZOvQS4W=1m0q3xpUqKUzwfhMeoNZXkNpp1RUw@mail.gmail.com>
+To: Christopher Friedt <chrisfriedt@gmail.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: Christopher Friedt <chris@friedt.co>, Vaishnav MA <mavaishnav007@gmail.com>,
  greybus-dev@lists.linaro.org
@@ -79,58 +80,85 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============6936866220054018294=="
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gTW9uLCBBdWcgMTIsIDIwMTkgYXQgMTI6NDcgUE0gQ2hyaXN0b3BoZXIgRnJpZWR0CjxjaHJp
-c2ZyaWVkdEBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gT24gTW9uLCBBdWcgMTIsIDIwMTkgYXQgMTE6
-MjMgQU0gSmFzb24gS3JpZG5lciA8amtyaWRuZXJAYmVhZ2xlYm9hcmQub3JnPiB3cm90ZToKPiA+
-Cj4gPiBPbiBNb24sIEp1bCAyMiwgMjAxOSBhdCAxMjo0MyBQTSBKYXNvbiBLcmlkbmVyIDxqa3Jp
-ZG5lckBiZWFnbGVib2FyZC5vcmc+IHdyb3RlOgo+ID4gPiBPbiBXZWQsIEp1bCAxNywgMjAxOSBh
-dCAxMToyOCBBTSBKYXNvbiBLcmlkbmVyIDxqa3JpZG5lckBiZWFnbGVib2FyZC5vcmc+IHdyb3Rl
-Ogo+ID4gPiA+IE9uIFR1ZSwgSnVsIDE2LCAyMDE5IGF0IDM6MjUgUE0gR3JlZyBLSCA8Z3JlZ2to
-QGxpbnV4Zm91bmRhdGlvbi5vcmc+IHdyb3RlOgo+ID4gPiA+ID4gT24gU3VuLCBKdWwgMTQsIDIw
-MTkgYXQgMDE6MTM6MzdBTSArMDUzMCwgVmFpc2huYXYgTUEgd3JvdGU6Cj4gPiA+ID4gPiA+ID4g
-T24gU2F0LCBKdWwgMTMsIDIwMTkgYXQgMDY6MDM6MDJQTSArMDUzMCwgVmFpc2huYXYgTUEgd3Jv
-dGU6Cj4gPiA+ID4KPiA+ID4gPiBJIGJlbGlldmUgdGhlcmUgYXJlIHR3byBwcm9ibGVtcyBoZXJl
-IHRvIHNvbHZlOgo+ID4KPiA+IExldCdzIGp1c3QgZm9jdXMgb24gIzEuCj4gPgo+ID4gPiA+Cj4g
-PiA+ID4gMS4gSG93IGRvIHdlIHNwZWNpZnkgdGhlIGV4dHJhIGRhdGE/Cj4gPgo+ID4gVGhlICpl
-eHRyYSogZGF0YSBoZXJlIGlzIHdoYXRldmVyIGVsc2UgYSBkcml2ZXIgbmVlZHMgdG8gbG9hZC4g
-TWFuaWZlc3RzIGhhdmUgdGhlIGJ1c2VzIG5lZWRlZCBhbmQgbmFtZSB0byBmaW5kIHRoZSBkcml2
-ZXIsIGJ1dCBhcmUgbWlzc2luZyBhbnkgYXNzb2NpYXRpb24gYmV0d2VlbiBleHRyYSBzaWduYWxz
-LCBsaWtlIElSUSBvciBvdGhlciBuYW1lZCBHUElPcy4gV2UnZCBsaWtlIGEgY29tbW9uIHdheSB0
-byBzcGVjaWZ5IHRob3NlLgo+ID4KPiA+IENocmlzIGhhcyBzdWdnZXN0ZWQgYWRkaW5nIHNvbWUg
-YWRkaXRpb25hbCBkYXRhIHRvIHRoZSBtYW5pZmVzdHMsIGxpa2UKPiA+Cj4gPiBbc3RyaW5nLWRl
-c2NyaXB0b3IgMl1zdHJpbmcgPSBkcml2ZXItc3BlY2lmaWMtZ3Bpby1uYW1lPW1hbmlmZXN0LXNw
-ZWNpZmljLWdwaW8tbmFtZQo+Cj4gSGkgLSBJJ2xsIGNoaW1lIGluIGhlcmUgYmVjYXVzZSBJUkMg
-ZGlkIG5vdCByZWFsbHkgcHJlc2VydmUKPiBmb3JtYXR0aW5nLiBNYXliZSBncmV5YnVzIGtlcm5l
-bCBjb2RlIC8gbWFuaWZlc3RvIGFscmVhZHkgaW1wbGVtZW50cwo+IHNvbWV0aGluZyBsaWtlIHRo
-aXMsIGJ1dCBJIGp1c3QgaGF2ZW4ndCBzZWVuIGl0Lgo+Cj4gTXkgdGhvdWdodHMgd2VyZSB0aGF0
-IG1hbmlmZXN0cyBjb3VsZCBiZSBhIHNvdXJjZSBvZiBwbGF0Zm9ybV9kYXRhIGluCj4gdGhlIGtl
-cm5lbCBqdXN0IGxpa2UgZGV2aWNldHJlZSBvciBhY3BpLCBhY2Nlc3NlZCB0aHJvdWdoIHRoZQo+
-IGxpbnV4L29mLmggaW50ZXJmYWNlIGluIGRyaXZlciBjb2RlLgo+Cj4gRm9yIGEgY29udHJpdmVk
-IGV4YW1wbGUsIGltYWdpbmUgYW4gc2Vuc29yICJmb28iLCB0aGF0IGludGVycnVwdHMgdGhlCj4g
-aG9zdCB3aGVuIHRlbXBlcmF0dXJlIGdldHMgcmVhbGx5IGhvdCwgdGhlIGRyaXZlciBkZXBlbmRz
-IG9uIERUIG9yCj4gc29tZXRoaW5nIHRvIHF1ZXJ5IHRoZSB2YWx1ZSBhc3NvY2lhdGVkIHdpdGgg
-dGhlCj4gImZvbyxpbnRlcnJ1cHQtc291cmNlIiBrZXkuIFRoZSBkcml2ZXIgd291bGQgdGhlbiBt
-YWtlIGEKPgo+IG9mX3Byb3BlcnR5X3JlYWRfc3RyaW5nKG5vZGUsICJmb28saW50ZXJydXB0LXNv
-dXJjZSIpID0+Cj4gIm15bW9kdWxlLGZvby1pbnRlcnJ1cHQtZ3BpbyIKPiAuLi4KPiBncGlvX2Zp
-bmRfZGV2aWNlKCAibXltb2R1bGUsZm9vLWludGVycnVwdC1ncGlvIiApCj4KPiBJbiBhbnkgY2Fz
-ZSwgbXkgc3VnZ2VzdGlvbiBpcyB0byBkbyBzb21ldGhpbmcgbGlrZSB0aGUgZm9sbG93aW5nCj4g
-aW5zaWRlIHRoZSBtYW5pZmVzdDoKPgo+IFtwcm9wZXJ0eSAxXQo+IHR5cGUgPSBzdHJpbmcKPiB2
-YWx1ZSA9IG15bW9kdWxlLGZvby1pbnRlcnJ1cHQtZ3Bpbwo+Cj4gW3Byb3BlcnR5IDJdCj4gdHlw
-ZSA9IHU4Cj4gdmFsdWUgPSAxMQo+Cj4gOyBTZW5zb3IgcHJvdG9jb2wgb24gQ1BvcnQgMQo+IFtj
-cG9ydC1kZXNjcmlwdG9yIDFdCj4gYnVuZGxlID0gMQo+IHByb3RvY29sID0gMHgwZQo+IHByb3Bl
-cnR5ID0gZm9vLGludGVycnVwdC1zb3VyY2UsIDEKPgo+IDsgR1BJTyBwcm90b2NvbCBvbiBDUG9y
-dCAyCj4gW2Nwb3J0LWRlc2NyaXB0b3IgMl0KPiBidW5kbGUgPSAyCj4gcHJvdG9jb2wgPSAweDAy
-Cj4gcHJvcGVydHkgPSBteW1vZHVsZSxmb28taW50ZXJydXB0LWdwaW8sIDIKPgo+IENhcmUgd291
-bGQgbmVlZCB0byBiZSB0YWtlbiB0aGF0IGFsbCBvZiB0aGUgcHJvcGVydHkgdHlwZXMgZGVmaW5l
-ZCBpbgo+IGxpbnV4L29mLmggd2VyZSBhY2NvdW50ZWQgZm9yLgoKVGhpcyB3b3VsZCByZXF1aXJl
-IGEgcmV2IHRvIHRoZSBtYW5pZmVzdCBzcGVjaWZpY2F0aW9uLCBhbmQgYWxzbyBzb21lCnBsdW1i
-aW5nIGluIHRoZSBrZXJuZWwuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5h
-cm8ub3JnCmh0dHBzOi8vbGlzdHMubGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMt
-ZGV2Cg==
+--===============6936866220054018294==
+Content-Type: multipart/alternative; boundary="000000000000c2d09f058fef602f"
+
+--000000000000c2d09f058fef602f
+Content-Type: text/plain; charset="UTF-8"
+
+On Mon, Aug 12, 2019 at 12:49 PM Christopher Friedt <chrisfriedt@gmail.com>
+wrote:
+>
+> On Mon, Aug 12, 2019 at 12:47 PM Christopher Friedt
+> <chrisfriedt@gmail.com> wrote:
+[snip]
+
+> >
+> > My thoughts were that manifests could be a source of platform_data in
+> > the kernel just like devicetree or acpi, accessed through the
+> > linux/of.h interface in driver code.
+> >
+[snip]
+
+> >
+> > Care would need to be taken that all of the property types defined in
+> > linux/of.h were accounted for.
+>
+> This would require a rev to the manifest specification, and also some
+> plumbing in the kernel.
+
+Assuming we take on this task and our proposed modifications are accepted,
+would it be sufficient to be able to describe the body of 600
+mikroBus-compatible Click boards for which at likely hundreds already have
+drivers in some same shape without needing to touch all the drivers? I
+mean, my goal here is to produce a pattern that enables getting such boards
+supported in the kernel tremendously quicker and easier than touching the
+existing body of microcontroller firmware.
+
+--
+https://beagleboard.org/about - a 501c3 non-profit educating around open
+hardware computing
+
+--000000000000c2d09f058fef602f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">On Mon, Aug 12, 2019 at 12:49 PM Christopher Friedt &lt;<a=
+ href=3D"mailto:chrisfriedt@gmail.com">chrisfriedt@gmail.com</a>&gt; wrote:=
+<br>&gt;<br>&gt; On Mon, Aug 12, 2019 at 12:47 PM Christopher Friedt<br>&gt=
+; &lt;<a href=3D"mailto:chrisfriedt@gmail.com">chrisfriedt@gmail.com</a>&gt=
+; wrote:<br><div>[snip]</div><div><br></div><div>&gt; &gt;<br>&gt; &gt; My =
+thoughts were that manifests could be a source of platform_data in<br>&gt; =
+&gt; the kernel just like devicetree or acpi, accessed through the<br>&gt; =
+&gt; linux/of.h interface in driver code.<br>&gt; &gt;<br>[snip]<br><br>&gt=
+; &gt;<br>&gt; &gt; Care would need to be taken that all of the property ty=
+pes defined in<br>&gt; &gt; linux/of.h were accounted for.<br>&gt;<br>&gt; =
+This would require a rev to the manifest specification, and also some<br>&g=
+t; plumbing in the kernel.<br><br>Assuming we take on this task and our pro=
+posed modifications are accepted, would it be sufficient to be able to desc=
+ribe the body of 600 mikroBus-compatible Click boards for which at likely h=
+undreds already have drivers in some same shape without needing to touch al=
+l the drivers? I mean, my goal here is to produce a pattern that enables ge=
+tting such boards supported in the kernel tremendously quicker and easier t=
+han touching the existing body of microcontroller firmware.<br><br>--<br><a=
+ href=3D"https://beagleboard.org/about">https://beagleboard.org/about</a> -=
+ a 501c3 non-profit educating around open hardware computing</div></div>
+
+--000000000000c2d09f058fef602f--
+
+--===============6936866220054018294==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1k
+ZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0
+cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
+
+--===============6936866220054018294==--
