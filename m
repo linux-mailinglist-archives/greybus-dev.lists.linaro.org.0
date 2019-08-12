@@ -2,50 +2,51 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A006705A2
-	for <lists+greybus-dev@lfdr.de>; Mon, 22 Jul 2019 18:44:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A05C58A22E
+	for <lists+greybus-dev@lfdr.de>; Mon, 12 Aug 2019 17:23:16 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 0FB2960C0E
-	for <lists+greybus-dev@lfdr.de>; Mon, 22 Jul 2019 16:44:28 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 60DC561836
+	for <lists+greybus-dev@lfdr.de>; Mon, 12 Aug 2019 15:23:15 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id E0EE360C13; Mon, 22 Jul 2019 16:44:27 +0000 (UTC)
+	id 547B261834; Mon, 12 Aug 2019 15:23:15 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
 	ip-10-150-125-211.ec2.internal
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,RCVD_IN_DNSWL_NONE autolearn=disabled version=3.4.2
+	MAILING_LIST_MULTI,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2
+	autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3F4FC60BFC;
-	Mon, 22 Jul 2019 16:44:12 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 5970461837;
+	Mon, 12 Aug 2019 15:22:57 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 4B5D960BD9
- for <greybus-dev@lists.linaro.org>; Mon, 22 Jul 2019 16:44:10 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id DB61B61833
+ for <greybus-dev@lists.linaro.org>; Mon, 12 Aug 2019 15:22:54 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 3FA3360BD7; Mon, 22 Jul 2019 16:44:10 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
- by lists.linaro.org (Postfix) with ESMTPS id CBB7D60BD7
- for <greybus-dev@lists.linaro.org>; Mon, 22 Jul 2019 16:44:08 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id c2so36934732wrm.8
- for <greybus-dev@lists.linaro.org>; Mon, 22 Jul 2019 09:44:08 -0700 (PDT)
+ id BA59A61836; Mon, 12 Aug 2019 15:22:54 +0000 (UTC)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
+ by lists.linaro.org (Postfix) with ESMTPS id 44CBD61833
+ for <greybus-dev@lists.linaro.org>; Mon, 12 Aug 2019 15:22:53 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id 31so104956558wrm.1
+ for <greybus-dev@lists.linaro.org>; Mon, 12 Aug 2019 08:22:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=6ab9JaOWAjHYAlEazcAjkHsRsvQbIuM7aFdjQpyqMR8=;
- b=L43FpFHkznFCBUFnNU6/3jjuj1KabFZvBpCPiptd3gvZ9ji/7joEkX69x1euVe5za/
- SSRHe/nfGMQtdoXB+tYWsGCX1s+gBDJPoW2V7/Z/n5b3BzdCVM4h4mpm7DScsxFciDPR
- 4RVfgtyvz4/MqKOlXtHdVn1YsQDGWBJeHCkMukX3rlqSeMeIS5Bh/9FY1DQIKZrIb9tD
- mGDMrYr64xXOoHwr7uSwFe7VUVFBx0+D1Lxvw+EO4ZeDUxEmlziw3ebilEVwGSPv1KwK
- SGdlLkFjbN2QGY5iV7fDWJH9Dabeb1oCHyjt2NGTzwtjGbDl/3rAopTbDV2A9sgJwWiO
- mpSQ==
-X-Gm-Message-State: APjAAAXeUDlm4UAzDF5ebZdEluYHIJPUJS6MDdbpTxT3XCJaI3+SGXgi
- 1DcBGopPNCCAY8KH3zDpkR2xRZNLngaWh0+MkPQ=
-X-Google-Smtp-Source: APXvYqzLGnG3hZJiXBwWmJ4DKmtTAnSA1AxN91AK8WV6hMz7WoRtxhBgGyZwNsdC3fVPIilehfUTLC2C673Hdkyk1aU=
-X-Received: by 2002:adf:f84f:: with SMTP id d15mr74842767wrq.53.1563813847755; 
- Mon, 22 Jul 2019 09:44:07 -0700 (PDT)
+ bh=K4gecuTWogV/HTAQa5PQyUiVIeVlZXPJx9pmHhc+97g=;
+ b=aghMrUUr0J6xUiWZOwe26So5RkEYt7D2ygjhZ0NpwsfvUwUnXxHJ/69cUUllzlXuUG
+ 8dz3C/Ks2J2+RfAXtRdqEfvK7Sn1xZdP7OrAovMwEbg9dkOVCYXMwZhXmEMQyjgNKP3W
+ 0t+Nar/ZYLKuJcjFgBiskOo2X1zHd2Sng4uLipmCvvd6W93+1mPzHJY4oBzUgGVB83js
+ 4EJ9jKXqiGzKiRFFzF8BM2vhkQ5yXpEflxjDlCB2PiFmoWkRY8fC09ifLZmhixbLnn8s
+ ER2Qw9x2pdnfOZm4WRzILJZb81MQVOX8t23MNz7CblbT6bqUZ45NXUNdOOR2MuWnEhlp
+ 8/9g==
+X-Gm-Message-State: APjAAAU7LWEJjPnb3nIhlTCAiciCmSxK6VXqoxIdWFmx/HnoohVl+dzY
+ FIZ9wCPLgDF1ISMVlNG2Zv/06COF16yW503xqpU=
+X-Google-Smtp-Source: APXvYqwz5kXfBRFY0CqtHV6mnTHLzM6X0yUkDph5/QGt849zY7D39WcSlf21liKniwxBPMfjKH9jF3WbQZDdITxPJ2Y=
+X-Received: by 2002:adf:f28d:: with SMTP id k13mr23139403wro.19.1565623372224; 
+ Mon, 12 Aug 2019 08:22:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAFPGqosrnQmroLFRmTRNCYyqdQXnhBhJuCLo=WMphs60KvhKZQ@mail.gmail.com>
  <20190706085603.GE9955@kroah.com>
@@ -54,11 +55,12 @@ References: <CAFPGqosrnQmroLFRmTRNCYyqdQXnhBhJuCLo=WMphs60KvhKZQ@mail.gmail.com>
  <CAFPGqov1AbeA16sJLJCWKod6QMqkCigt57sC1n-+FH9-Wxgpvw@mail.gmail.com>
  <20190716192544.GA27918@kroah.com>
  <CA+T6QPnSqhi4Xr+0ooh+Thkd8oQFfH=djZ=NgoWFWE4D=Mz0Jw@mail.gmail.com>
-In-Reply-To: <CA+T6QPnSqhi4Xr+0ooh+Thkd8oQFfH=djZ=NgoWFWE4D=Mz0Jw@mail.gmail.com>
+ <CA+T6QPm5+f2mLqbv3o9yd2S9BvvVD-U9GA-yisXuowhuB6Qijg@mail.gmail.com>
+In-Reply-To: <CA+T6QPm5+f2mLqbv3o9yd2S9BvvVD-U9GA-yisXuowhuB6Qijg@mail.gmail.com>
 From: Jason Kridner <jkridner@beagleboard.org>
-Date: Mon, 22 Jul 2019 11:43:54 -0500
-Message-ID: <CA+T6QPm5+f2mLqbv3o9yd2S9BvvVD-U9GA-yisXuowhuB6Qijg@mail.gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
+Date: Mon, 12 Aug 2019 11:22:41 -0400
+Message-ID: <CA+T6QPkSZr9ignCZGhaifpOWE6517fELRDjJp6f3bAWDOft0JQ@mail.gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>, Christopher Friedt <chris@friedt.co>
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: greybus-dev@lists.linaro.org, Vaishnav MA <mavaishnav007@gmail.com>
 Subject: Re: [greybus-dev] Greybus For IoT : Click Board Support on
@@ -74,133 +76,113 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0178109027445243928=="
+Content-Type: multipart/mixed; boundary="===============6506359367170576498=="
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
---===============0178109027445243928==
-Content-Type: multipart/alternative; boundary="000000000000e3f13d058e47c8a8"
+--===============6506359367170576498==
+Content-Type: multipart/alternative; boundary="000000000000f42052058fed18d7"
 
---000000000000e3f13d058e47c8a8
+--000000000000f42052058fed18d7
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Jul 17, 2019 at 11:28 AM Jason Kridner <jkridner@beagleboard.org>
+On Mon, Jul 22, 2019 at 12:43 PM Jason Kridner <jkridner@beagleboard.org>
 wrote:
-> On Tue, Jul 16, 2019 at 3:25 PM Greg KH <gregkh@linuxfoundation.org>
+> On Wed, Jul 17, 2019 at 11:28 AM Jason Kridner <jkridner@beagleboard.org>
 wrote:
-> > On Sun, Jul 14, 2019 at 01:13:37AM +0530, Vaishnav MA wrote:
-> > > > On Sat, Jul 13, 2019 at 06:03:02PM +0530, Vaishnav MA wrote:
->
-> I believe there are two problems here to solve:
->
-> 1. How do we specify the extra data?
+> > On Tue, Jul 16, 2019 at 3:25 PM Greg KH <gregkh@linuxfoundation.org>
+wrote:
+> > > On Sun, Jul 14, 2019 at 01:13:37AM +0530, Vaishnav MA wrote:
+> > > > > On Sat, Jul 13, 2019 at 06:03:02PM +0530, Vaishnav MA wrote:
+> >
+> > I believe there are two problems here to solve:
 
-I get that greybus itself shouldn't embed platform data for all the
-devices, but I think it only encapsulates the bus transports. Is there a
-generic place for the IRQ/RESET/etc. interfaces most all sensors need?
+Let's just focus on #1.
 
-Let's take a random SPI-based IIO sensor as an example, bmg160[1].
+> >
+> > 1. How do we specify the extra data?
 
-I think an approach could be to come up with a generic IIO protocol class
-for greybus, rather than an actual protocol class for each sensor we'd
-like to use. In this generic IIO protocol class implementation, the extra
-platform data could be included using commonly named greybus gpio resources.
+The *extra* data here is whatever else a driver needs to load. Manifests
+have the buses needed and name to find the driver, but are missing any
+association between extra signals, like IRQ or other named GPIOs. We'd like
+a common way to specify those.
 
-Alternatively, a generic mikroBus protocol class for greybus could be
-created, assuming all the resources that bus assumes
-(GPIO/PWM/SPI/I2C/etc.). Not sure if this is better.
+Chris has suggested adding some additional data to the manifests, like
 
-Since Click boards will use a common GPIO for IRQ and the SPI device
-structure includes the irq entry[2], it would seem this could be done in at
-least a Click-generic way if not an IIO-generic way over greybus.
+[string-descriptor 2]string =
+driver-specific-gpio-name=manifest-specific-gpio-name
 
-Of course, drivers that aren't direct usage of SPI (or other provided
-buses) interfaces like fbtft_device[3] would still require an additional
-driver to provide their platform data, so we'd either need to figure out
-how to bury that under a display class or create another driver to provide
-platform data for that group of drivers.
+I've proposed trying to define mikroBus as an extra bundle type and add
+another driver to try to plug in any missing platform data.
 
-Would that be the right track?
+Vaishnav has suggested to me this:
 
->
-> 2. For a gbsim implementation, how do we add the translation layer and
-build the platform data needed by the drivers?
->
+> consider an example for an mpu9dof click , this click requires a greybus
+i2c bus and a greybus gpio interrupt ,
+> so the manifest will have a i2c protocol on cport1 and gpio protocol on
+cport2 , loading the manifest will set up
+> the corresponding peripherals (greybus gpio, greybus i2c bus) , also the
+manifest will have the click name and
+> port , which will be passed to the Mikrobus driver for device
+instantiation
 
-If there's no preference here, would defining a JSON format and dataset to
-provide the information to either the gbsim or microcontroller
-implementations be something acceptable? YAML? other?
+So, again, putting a bit of extra metadata into the manifest, but here,
+specifically at the bundle level, but, I feel he's saying something very
+similar to me regarding having a mikroBus driver pull that data out and
+call the appropriate driver registration.
 
-Regards,
-Jason
-
-[1]
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/iio/gyro/bmg160_core.c
-[2[
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/spi/spi.h#n169
-[3]
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/staging/fbtft/flexfb.c#n792
+Is there something just off in our terminology or understanding of the
+architecture that is preventing us from finding the obvious answer?
 
 --
 https://beagleboard.org/about - a 501c3 non-profit educating around open
 hardware computing
 
---000000000000e3f13d058e47c8a8
+--000000000000f42052058fed18d7
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><br><br>On Wed, Jul 17, 2019 at 11:28 AM Jason Kridner &lt=
-;<a href=3D"mailto:jkridner@beagleboard.org">jkridner@beagleboard.org</a>&g=
-t; wrote:<br>&gt; On Tue, Jul 16, 2019 at 3:25 PM Greg KH &lt;<a href=3D"ma=
-ilto:gregkh@linuxfoundation.org">gregkh@linuxfoundation.org</a>&gt; wrote:<=
-br>&gt; &gt; On Sun, Jul 14, 2019 at 01:13:37AM +0530, Vaishnav MA wrote:<b=
-r>&gt; &gt; &gt; &gt; On Sat, Jul 13, 2019 at 06:03:02PM +0530, Vaishnav MA=
- wrote:<div>&gt;<br>&gt; I believe there are two problems here to solve:<br=
->&gt;<br>&gt; 1. How do we specify the extra data?</div><div><br></div><div=
->I get that greybus itself shouldn&#39;t embed platform data for all the de=
-vices, but I think it only encapsulates the bus transports. Is there a gene=
-ric place for the IRQ/RESET/etc. interfaces most all sensors need?</div><di=
-v><br></div><div>Let&#39;s take a random SPI-based IIO sensor as an example=
-, bmg160[1].</div><div><br></div><div>I think an approach could be to come =
-up with a generic IIO protocol class for greybus, rather than an actual pro=
-tocol class for each sensor we&#39;d like=C2=A0to use. In this generic IIO =
-protocol class implementation, the extra platform data could be included us=
-ing commonly named greybus gpio resources.</div><div><br></div><div>Alterna=
-tively, a generic mikroBus protocol class for greybus could be created, ass=
-uming all the resources that bus assumes (GPIO/PWM/SPI/I2C/etc.). Not sure =
-if this is better.</div><div><br></div>Since Click boards will use a common=
- GPIO for IRQ and the SPI device structure includes the irq entry[2], it wo=
-uld seem this could be done in at least a Click-generic way if not an IIO-g=
-eneric way over greybus.<div><br></div><div>Of course, drivers that aren&#3=
-9;t direct usage of SPI (or other provided buses) interfaces like fbtft_dev=
-ice[3] would still require an additional driver to provide their platform d=
-ata, so we&#39;d either need to figure out how to bury that under a display=
- class or create another driver to provide platform data for that group of =
-drivers.</div><div><br></div><div>Would that be the right track?<br><br>&gt=
-;<div>&gt; 2. For a gbsim implementation, how do we add the translation lay=
-er and build the platform data needed by the drivers?<br>&gt;</div><div><br=
-></div><div>If there&#39;s no preference here, would defining a JSON format=
- and dataset to provide the information to either the gbsim or microcontrol=
-ler implementations be something acceptable? YAML? other?<br><div><br></div=
-><div>Regards,</div><div>Jason</div><div><br></div><div>[1]=C2=A0<a href=3D=
-"https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/dr=
-ivers/iio/gyro/bmg160_core.c">https://git.kernel.org/pub/scm/linux/kernel/g=
-it/torvalds/linux.git/tree/drivers/iio/gyro/bmg160_core.c</a></div><div>[2[=
-=C2=A0<a href=3D"https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/l=
-inux.git/tree/include/linux/spi/spi.h#n169">https://git.kernel.org/pub/scm/=
-linux/kernel/git/torvalds/linux.git/tree/include/linux/spi/spi.h#n169</a></=
-div><div>[3]=C2=A0<a href=3D"https://git.kernel.org/pub/scm/linux/kernel/gi=
-t/torvalds/linux.git/tree/drivers/staging/fbtft/flexfb.c#n792">https://git.=
-kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/staging=
-/fbtft/flexfb.c#n792</a></div><br class=3D"gmail-Apple-interchange-newline"=
->--<br><a href=3D"https://beagleboard.org/about">https://beagleboard.org/ab=
-out</a> - a 501c3 non-profit educating around open hardware computing</div>=
-</div></div>
+<div dir=3D"ltr">On Mon, Jul 22, 2019 at 12:43 PM Jason Kridner &lt;<a href=
+=3D"mailto:jkridner@beagleboard.org">jkridner@beagleboard.org</a>&gt; wrote=
+:<br>&gt; On Wed, Jul 17, 2019 at 11:28 AM Jason Kridner &lt;<a href=3D"mai=
+lto:jkridner@beagleboard.org">jkridner@beagleboard.org</a>&gt; wrote:<br>&g=
+t; &gt; On Tue, Jul 16, 2019 at 3:25 PM Greg KH &lt;<a href=3D"mailto:gregk=
+h@linuxfoundation.org">gregkh@linuxfoundation.org</a>&gt; wrote:<br>&gt; &g=
+t; &gt; On Sun, Jul 14, 2019 at 01:13:37AM +0530, Vaishnav MA wrote:<br>&gt=
+; &gt; &gt; &gt; &gt; On Sat, Jul 13, 2019 at 06:03:02PM +0530, Vaishnav MA=
+ wrote:<br>&gt; &gt;<br>&gt; &gt; I believe there are two problems here to =
+solve:<div><br></div><div>Let&#39;s just focus on #1.</div><div><br>&gt; &g=
+t;<br>&gt; &gt; 1. How do we specify the extra data?<br><br>The *extra* dat=
+a here is whatever else a driver needs to load. Manifests have the buses ne=
+eded and name to find the driver, but are missing any association between e=
+xtra signals, like IRQ or other named GPIOs. We&#39;d like a common way to =
+specify those.</div><div><br></div><div>Chris has suggested adding some add=
+itional data to the manifests, like</div><div><br></div><div>[string-descri=
+ptor 2]string =3D driver-specific-gpio-name=3Dmanifest-specific-gpio-name</=
+div><div><br></div><div>I&#39;ve proposed trying to define mikroBus as an e=
+xtra bundle type and add another driver to try to plug in any missing platf=
+orm data.</div><div><br></div><div>Vaishnav has suggested to me this:</div>=
+<div><br></div><div>&gt; consider an example for an mpu9dof click , this cl=
+ick requires a greybus i2c bus and a greybus gpio interrupt ,=C2=A0</div><d=
+iv>&gt; so the manifest will have a i2c protocol on cport1 and gpio protoco=
+l on cport2 , loading the manifest will set up=C2=A0</div><div>&gt; the cor=
+responding peripherals (greybus gpio, greybus i2c bus) , also the manifest =
+will have the click name and=C2=A0</div><div>&gt; port , which will be pass=
+ed to the Mikrobus driver for device instantiation</div><div><br></div><div=
+>So, again, putting a bit of extra metadata into the manifest, but here, sp=
+ecifically at the bundle level, but, I feel he&#39;s saying something very =
+similar to me regarding having a mikroBus driver pull that data out and cal=
+l the appropriate driver registration.</div><div><br></div><div>Is there so=
+mething just off in our terminology or understanding of the architecture th=
+at is preventing us from finding the obvious answer?<br><br>--<br><a href=
+=3D"https://beagleboard.org/about">https://beagleboard.org/about</a> - a 50=
+1c3 non-profit educating around open hardware computing<div><br></div></div=
+></div>
 
---000000000000e3f13d058e47c8a8--
+--000000000000f42052058fed18d7--
 
---===============0178109027445243928==
+--===============6506359367170576498==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -210,4 +192,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1k
 ZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0
 cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
 
---===============0178109027445243928==--
+--===============6506359367170576498==--
