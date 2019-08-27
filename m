@@ -2,72 +2,55 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E9789EF1E
-	for <lists+greybus-dev@lfdr.de>; Tue, 27 Aug 2019 17:38:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD77F9EF37
+	for <lists+greybus-dev@lfdr.de>; Tue, 27 Aug 2019 17:43:24 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 939C960749
-	for <lists+greybus-dev@lfdr.de>; Tue, 27 Aug 2019 15:38:42 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id C94AC61805
+	for <lists+greybus-dev@lfdr.de>; Tue, 27 Aug 2019 15:43:23 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 81B0D607DB; Tue, 27 Aug 2019 15:38:42 +0000 (UTC)
+	id BCA6A6182E; Tue, 27 Aug 2019 15:43:23 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
 	ip-10-150-125-211.ec2.internal
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_LOW,SPF_HELO_PASS autolearn=disabled version=3.4.2
+X-Spam-Status: No, score=-7.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id E5937616FC;
-	Tue, 27 Aug 2019 15:38:32 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id A41E361731;
+	Tue, 27 Aug 2019 15:43:14 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 203A4607DB
- for <greybus-dev@lists.linaro.org>; Tue, 27 Aug 2019 15:38:31 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 92AAE607DB
+ for <greybus-dev@lists.linaro.org>; Tue, 27 Aug 2019 15:43:12 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 12F3260749; Tue, 27 Aug 2019 15:38:31 +0000 (UTC)
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- by lists.linaro.org (Postfix) with ESMTPS id E45D260749
- for <greybus-dev@lists.linaro.org>; Tue, 27 Aug 2019 15:38:29 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id BA06436D8;
- Tue, 27 Aug 2019 11:38:29 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Tue, 27 Aug 2019 11:38:29 -0400
-X-ME-Sender: <xms:dE5lXfh57OFmcA4zx2vnYh_HkDFbKhGEEthCk3OLmPtpSUpyIjezZw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudehkedggedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjohgfsehttdertddtredvnecuhfhrohhmpeforghr
- khcuifhrvggvrhcuoehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomheqnecukf
- hppeeikedrvddrkedvrddujedunecurfgrrhgrmhepmhgrihhlfhhrohhmpehmghhrvggv
- rhesrghnihhmrghltghrvggvkhdrtghomhenucevlhhushhtvghrufhiiigvpedu
-X-ME-Proxy: <xmx:dE5lXXKvy54PRi81-ArXBqtrvBUVoKsk7aeOPqLOF6_30XnplahO6Q>
- <xmx:dE5lXZZP5gxalHX7Af02wPR2C5yEeF07eEZgKejF4PErgPqHx4aE3Q>
- <xmx:dE5lXY2eoXobTPyPO4KtvOl9L2IemykqDm2QCNafB9kpTYNXXJ2z7A>
- <xmx:dU5lXW_gmmLl6kqyQ660BbIKeeITqOvJf10hJPpCGYtdMhZF9c5SSBf6Sz0>
-Received: from blue.animalcreek.com (ip68-2-82-171.ph.ph.cox.net [68.2.82.171])
- by mail.messagingengine.com (Postfix) with ESMTPA id 47DD980060;
- Tue, 27 Aug 2019 11:38:28 -0400 (EDT)
-Received: by blue.animalcreek.com (Postfix, from userid 1000)
- id B2E0CA21E58; Tue, 27 Aug 2019 08:38:27 -0700 (MST)
-Date: Tue, 27 Aug 2019 08:38:27 -0700
-From: Mark Greer <mgreer@animalcreek.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <20190827153827.GB26138@animalcreek.com>
+ id 7661F616FC; Tue, 27 Aug 2019 15:43:12 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by lists.linaro.org (Postfix) with ESMTPS id 82174607DB
+ for <greybus-dev@lists.linaro.org>; Tue, 27 Aug 2019 15:43:11 +0000 (UTC)
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 28DE220578;
+ Tue, 27 Aug 2019 15:43:09 +0000 (UTC)
+Date: Tue, 27 Aug 2019 17:43:08 +0200
+From: Greg KH <greg@kroah.com>
+To: Rui Miguel Silva <rmfrfs@gmail.com>
+Message-ID: <20190827154308.GD534@kroah.com>
 References: <20190825055429.18547-1-gregkh@linuxfoundation.org>
- <20190825055429.18547-8-gregkh@linuxfoundation.org>
+ <20190827133611.GE23584@kadam> <20190827134557.GA25038@kroah.com>
+ <m3d0gqisua.fsf@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190825055429.18547-8-gregkh@linuxfoundation.org>
-Organization: Animal Creek Technologies, Inc.
-User-Agent: Mutt/1.5.24 (2015-08-30)
+In-Reply-To: <m3d0gqisua.fsf@gmail.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: devel@driverdev.osuosl.org, elder@kernel.org,
- Viresh Kumar <vireshk@kernel.org>, Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
- johan@kernel.org, linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org,
- David Lin <dtwlin@gmail.com>
-Subject: Re: [greybus-dev] [PATCH 7/9] staging: greybus: move core include
- files to include/linux/greybus/
+ driverdev-devel@linuxdriverproject.org, johan@kernel.org,
+ linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [greybus-dev] [PATCH 0/9] staging: move greybus core out of
+	staging
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
 Precedence: list
@@ -85,20 +68,17 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gU3VuLCBBdWcgMjUsIDIwMTkgYXQgMDc6NTQ6MjdBTSArMDIwMCwgR3JlZyBLcm9haC1IYXJ0
-bWFuIHdyb3RlOgo+IFdpdGggdGhlIGdvYWwgb2YgbW92aW5nIHRoZSBjb3JlIG9mIHRoZSBncmV5
-YnVzIGNvZGUgb3V0IG9mIHN0YWdpbmcsIHRoZQo+IGluY2x1ZGUgZmlsZXMgbmVlZCB0byBiZSBt
-b3ZlZCB0byBpbmNsdWRlL2xpbnV4L2dyZXlidXMuaCBhbmQKPiBpbmNsdWRlL2xpbnV4L2dyZXli
-dXMvCj4gCj4gQ2M6IFZhaWJoYXYgSGlyZW1hdGggPGh2YWliaGF2LmxpbnV4QGdtYWlsLmNvbT4K
-PiBDYzogSm9oYW4gSG92b2xkIDxqb2hhbkBrZXJuZWwub3JnPgo+IENjOiBBbGV4IEVsZGVyIDxl
-bGRlckBrZXJuZWwub3JnPgo+IENjOiBWYWliaGF2IEFnYXJ3YWwgPHZhaWJoYXYuc3JAZ21haWwu
-Y29tPgo+IENjOiBNYXJrIEdyZWVyIDxtZ3JlZXJAYW5pbWFsY3JlZWsuY29tPgo+IENjOiBWaXJl
-c2ggS3VtYXIgPHZpcmVzaGtAa2VybmVsLm9yZz4KPiBDYzogUnVpIE1pZ3VlbCBTaWx2YSA8cm1m
-cmZzQGdtYWlsLmNvbT4KPiBDYzogRGF2aWQgTGluIDxkdHdsaW5AZ21haWwuY29tPgo+IENjOiAi
-QnJ5YW4gTydEb25vZ2h1ZSIgPHB1cmUubG9naWNAbmV4dXMtc29mdHdhcmUuaWU+Cj4gQ2M6IGdy
-ZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKPiBDYzogZGV2ZWxAZHJpdmVyZGV2Lm9zdW9zbC5v
-cmcKPiBTaWduZWQtb2ZmLWJ5OiBHcmVnIEtyb2FoLUhhcnRtYW4gPGdyZWdraEBsaW51eGZvdW5k
-YXRpb24ub3JnPgo+IC0tLQoKQWNrZWQtYnk6IE1hcmsgR3JlZXIgPG1ncmVlckBhbmltYWxjcmVl
-ay5jb20+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdy
+T24gVHVlLCBBdWcgMjcsIDIwMTkgYXQgMDM6MzA6MjFQTSArMDEwMCwgUnVpIE1pZ3VlbCBTaWx2
+YSB3cm90ZToKPiBIaSwKPiBPbiBUdWUgMjcgQXVnIDIwMTkgYXQgMTQ6NDUsIEdyZWcgS3JvYWgt
+SGFydG1hbiB3cm90ZToKPiA+IE9uIFR1ZSwgQXVnIDI3LCAyMDE5IGF0IDA0OjM2OjExUE0gKzAz
+MDAsIERhbiBDYXJwZW50ZXIgd3JvdGU6Cj4gPj4gSSBjYW4ndCBjb21waWxlIGdyZXlidXMgc28g
+aXQncyBoYXJkIHRvIHJ1biBTbWF0Y2ggb24gaXQuLi4gIEkgaGF2ZSBhCj4gPj4gU21hdGNoIHRo
+aW5nIHdoaWNoIGlnbm9yZXMgbWlzc2luZyBpbmNsdWRlcyBhbmQganVzdCB0cmllcyBpdHMgYmVz
+dC4KPiA+PiBJdCBtb3N0bHkgZ2VuZXJhdGVzIGdhcmJhZ2Ugb3V0cHV0IGJ1dCBhIGNvdXBsZSBv
+ZiB0aGVzZSBsb29rIGxpa2UKPiA+PiBwb3RlbnRpYWwgaXNzdWVzOgo+ID4KPiA+IFdoeSBjYW4n
+dCB5b3UgY29tcGlsZSB0aGUgY29kZT8KPiA+Cj4gCj4gSSB0aGluayB3ZSBhcmUgbWlzc2luZyBp
+bmNsdWRlcyBpbiBzb21lIG9mIHRoZQo+IGdyZXlidXMgaGVhZGVyIGZpbGVzLgoKUmVhbGx5PyAg
+V2hlcmU/ICBCdWlsZHMgZmluZSBoZXJlIGFuZCBwYXNzZXMgMC1kYXkgOikKCnRoYW5rcywKCmdy
+ZWcgay1oCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdy
 ZXlidXMtZGV2IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBz
 Oi8vbGlzdHMubGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
