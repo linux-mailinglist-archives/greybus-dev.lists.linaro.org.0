@@ -2,66 +2,70 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC483CE51B
-	for <lists+greybus-dev@lfdr.de>; Mon,  7 Oct 2019 16:21:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2774211F7EC
+	for <lists+greybus-dev@lfdr.de>; Sun, 15 Dec 2019 14:13:31 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 73F606179D
-	for <lists+greybus-dev@lfdr.de>; Mon,  7 Oct 2019 14:21:17 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id CE6E960836
+	for <lists+greybus-dev@lfdr.de>; Sun, 15 Dec 2019 13:13:29 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 5C8B4618C2; Mon,  7 Oct 2019 14:21:17 +0000 (UTC)
+	id C2A156087F; Sun, 15 Dec 2019 13:13:29 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FROM,MAILING_LIST_MULTI,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
-	SPF_HELO_NONE,SPOOFED_FREEMAIL autolearn=disabled version=3.4.2
+X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled
+	version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3B9286184D;
-	Mon,  7 Oct 2019 14:21:08 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id C562D60991;
+	Sun, 15 Dec 2019 13:13:18 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 6EA3360804
- for <greybus-dev@lists.linaro.org>; Sat,  5 Oct 2019 21:00:55 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id BE8BF60836
+ for <greybus-dev@lists.linaro.org>; Sun, 15 Dec 2019 13:13:16 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 519E261789; Sat,  5 Oct 2019 21:00:55 +0000 (UTC)
-Received: from mail-qk1-f195.google.com (mail-qk1-f195.google.com
- [209.85.222.195])
- by lists.linaro.org (Postfix) with ESMTPS id 3262660804
- for <greybus-dev@lists.linaro.org>; Sat,  5 Oct 2019 21:00:52 +0000 (UTC)
-Received: by mail-qk1-f195.google.com with SMTP id y189so9162143qkc.3
- for <greybus-dev@lists.linaro.org>; Sat, 05 Oct 2019 14:00:52 -0700 (PDT)
+ id AC96E608CC; Sun, 15 Dec 2019 13:13:16 +0000 (UTC)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by lists.linaro.org (Postfix) with ESMTPS id B137D60836
+ for <greybus-dev@lists.linaro.org>; Sun, 15 Dec 2019 13:13:15 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id z17so3722922ljk.13
+ for <greybus-dev@lists.linaro.org>; Sun, 15 Dec 2019 05:13:15 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=D6Ua1I+2M2qoT07tdXa/jnXqB1E3SjZfA0FzE39UU4k=;
- b=SqcON4yr0LdyZEUZ+1wFQMOtFIqcLyljzvwa0o/974H1A5HHyzjX43AuXlSNPLFfRg
- hkzlUFXYDtcF44p6aUmc21Ukr5QLWxNys3dJemysNJoH3vsXOtpCy6mD800lZFxoPX4o
- XplhomPeewqGaN1egccrWTlXR8bKBJxiMWh39Mh1rPppOzMinUrUB7xMPc6A8nOfkqv1
- b8i7iPEFTKQVHTJWcsCYsqjCEME/kowNDN4x4rXp9eseUSBL33ByNxzCmlwqQhK/WnI/
- hzoNtfuJM6gdavSWWLPwkiOlG16CBxIPH7UQZi8gV30UlLsPmmk16t/tEpgXAwsel54a
- 4LWQ==
-X-Gm-Message-State: APjAAAWJ3GNFB0VX9rHH3kLt1QY6TXTGnD/TTz28mInxiO4wHw6oNPgR
- NhvikIApmhioe0NAZL58AZM=
-X-Google-Smtp-Source: APXvYqxJun7iRszFAI9NdRXgTWDsFzTwVD6yJc1NlRlXkMp9xw5DzxO2sm5bQgmXLg5mHif4LC/uTg==
-X-Received: by 2002:a37:9e57:: with SMTP id h84mr16952030qke.226.1570309251624; 
- Sat, 05 Oct 2019 14:00:51 -0700 (PDT)
-Received: from GBdebian.terracota.local ([177.103.155.130])
- by smtp.gmail.com with ESMTPSA id l23sm9285014qta.53.2019.10.05.14.00.49
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=YA+v63rNr4UkEaTv/uf0qeJ3VuXojXXGA4Hp4rZe/9A=;
+ b=Nh3H8YadIoaJwx3WRs2RHHy5Dc6RdJCnPpSEW9A5SrJ2Xoyt5FN0aUtaKLwUCWwIT7
+ UqZSs34YrHBb179v5tXXMFZYyo7E1xh58k7wu41YvbB4NsCdXnA6dKZ/boWKdLcbb6f7
+ iGPy/J6CnK7ieOfeSJ33XhZNk4aSnPJ3+EKq3p0Fhl3bm13p8jHfElNul9a+C3hPnSH3
+ 0S0OO8PIvci6UnuSJihHviocmfJR4+Ow4AS0BjDclJu24ZdUY8FypNYgESZoNLT9BeIY
+ S1GoGRFhYfHDh8zbr8m9fe1EHV2UottvVhDvGs0XVqLiQs++lwIjsiEbZna8B8VeW9b+
+ GvDA==
+X-Gm-Message-State: APjAAAWsQTs3pCBwCRrg3YMyxVFvYjdu20pAyBPzQ9fNrqx6bCXHcQMC
+ vf0buBcVxjwAxTDitMzCsMg=
+X-Google-Smtp-Source: APXvYqyUA3VB4AikGiDvERGbmcpyNPGFTp3CDf7esgUHHCqDgfFJWKQoR5pt7bNHadzW826mkJWHyw==
+X-Received: by 2002:a2e:b5ac:: with SMTP id f12mr16804800ljn.0.1576415594157; 
+ Sun, 15 Dec 2019 05:13:14 -0800 (PST)
+Received: from xi.terra (c-14b8e655.07-184-6d6c6d4.bbcust.telenor.se.
+ [85.230.184.20])
+ by smtp.gmail.com with ESMTPSA id w71sm8283224lff.0.2019.12.15.05.13.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Oct 2019 14:00:51 -0700 (PDT)
-From: Gabriela Bittencourt <gabrielabittencourt00@gmail.com>
-To: outreachy-kernel@googlegroups.com, johan@kernel.org, elder@kernel.org,
- gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org,
- devel@driverdev.osuosl.org, linux-kernel@vger.kernel.org
-Date: Sat,  5 Oct 2019 18:00:46 -0300
-Message-Id: <20191005210046.27224-1-gabrielabittencourt00@gmail.com>
-X-Mailer: git-send-email 2.20.1
+ Sun, 15 Dec 2019 05:13:13 -0800 (PST)
+Received: from johan by xi.terra with local (Exim 4.92.3)
+ (envelope-from <johan@kernel.org>)
+ id 1igThu-0001yG-R4; Sun, 15 Dec 2019 14:13:10 +0100
+Date: Sun, 15 Dec 2019 14:13:10 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Navid Emamdoost <navid.emamdoost@gmail.com>
+Message-ID: <20191215131310.GA10631@localhost>
+References: <CAEkB2ES3baAR-E9rqkkO+cEPCjvTnS1miKD_h8V7MSJz5a5eBw@mail.gmail.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAEkB2ES3baAR-E9rqkkO+cEPCjvTnS1miKD_h8V7MSJz5a5eBw@mail.gmail.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-X-Mailman-Approved-At: Mon, 07 Oct 2019 14:21:06 +0000
-Subject: [greybus-dev] [PATCH] staging: greybus: add blank line after
-	declarations
+Cc: greybus-dev@lists.linaro.org, Alex Elder <elder@kernel.org>,
+ Johan Hovold <johan@kernel.org>
+Subject: Re: [greybus-dev] Potential memory leak in greybus/svc.c
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
 Precedence: list
@@ -79,17 +83,16 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-Rml4IENIRUNLOiBhZGQgYmxhbmsgbGluZSBhZnRlciBkZWNsYXJhdGlvbnMKClNpZ25lZC1vZmYt
-Ynk6IEdhYnJpZWxhIEJpdHRlbmNvdXJ0IDxnYWJyaWVsYWJpdHRlbmNvdXJ0MDBAZ21haWwuY29t
-PgotLS0KIGRyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL2NvbnRyb2wuaCB8IDEgKwogMSBmaWxlIGNo
-YW5nZWQsIDEgaW5zZXJ0aW9uKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9zdGFnaW5nL2dyZXli
-dXMvY29udHJvbC5oIGIvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvY29udHJvbC5oCmluZGV4IDNh
-MjllYzA1ZjYzMS4uNWE0NWQ1NTM0OWExIDEwMDY0NAotLS0gYS9kcml2ZXJzL3N0YWdpbmcvZ3Jl
-eWJ1cy9jb250cm9sLmgKKysrIGIvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvY29udHJvbC5oCkBA
-IC0yNCw2ICsyNCw3IEBAIHN0cnVjdCBnYl9jb250cm9sIHsKIAljaGFyICp2ZW5kb3Jfc3RyaW5n
-OwogCWNoYXIgKnByb2R1Y3Rfc3RyaW5nOwogfTsKKwogI2RlZmluZSB0b19nYl9jb250cm9sKGQp
-IGNvbnRhaW5lcl9vZihkLCBzdHJ1Y3QgZ2JfY29udHJvbCwgZGV2KQogCiBzdHJ1Y3QgZ2JfY29u
-dHJvbCAqZ2JfY29udHJvbF9jcmVhdGUoc3RydWN0IGdiX2ludGVyZmFjZSAqaW50Zik7Ci0tIAoy
-LjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdy
-ZXlidXMtZGV2IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBz
-Oi8vbGlzdHMubGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
+T24gU2F0LCBEZWMgMTQsIDIwMTkgYXQgMDU6NDQ6MDVQTSAtMDYwMCwgTmF2aWQgRW1hbWRvb3N0
+IHdyb3RlOgo+IEhlbGxvLAo+IAo+IEl0IHNlZW1zIHRvIG1lIHRoZXJlIGlzIGEgbWVtb3J5IGxl
+YWsgaW4gdGhlIGltcGxlbWVudGF0aW9uIG9mIGdiX3N2Y19jcmVhdGUoKS4KPiBJbiB0aGUgZXJy
+b3IgaGFuZGxpbmcgcGF0aCAobGFiZWxlZCBhcyBlcnJfcHV0X2RldmljZSkgdGhlIGNvZGUKPiBj
+b3JyZWN0bHkgcHV0cyBzdmMtPmRldiwgYnV0IEkgYW0gc3VzcGljaW91cyB0aGF0IHN2Yy0+d3Eg
+aXMgbGVha2luZy4KPiBUaGUgYWxsb2NhdGVkIHN2Yy0+d3EgbmVlZHMgYSByZWxlYXNlIHZpYSBk
+ZXN0cm95X3dvcmtxdWV1ZSgpIGluIHRoZQo+IGVycm9yIGhhbmRsaW5nIHBhdGguIEFtIEkgbWlz
+c2luZyBzb21ldGhpbmc/CgpZb3UgYXJlLiBKdXN0IGdyZXAgZm9yIGRlc3Ryb3lfd29ya3F1ZXVl
+KCkgaW4gdGhhdCBmaWxlIHRvIHNlZSB3aGVyZQpzdmMtPndjIGlzIGZyZWVkIChhbmQgdGhhdCBm
+dW5jdGlvbiBpcyBjYWxsZWQgb24gZmluYWwgcHV0X2RldmljZSgpKS4KCkpvaGFuCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxp
+bmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBzOi8vbGlzdHMubGluYXJv
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
