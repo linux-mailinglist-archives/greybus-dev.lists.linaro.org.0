@@ -2,78 +2,71 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BDE51833C2
-	for <lists+greybus-dev@lfdr.de>; Thu, 12 Mar 2020 15:51:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BD8C1833E9
+	for <lists+greybus-dev@lfdr.de>; Thu, 12 Mar 2020 15:58:21 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id BB8E4617EF
-	for <lists+greybus-dev@lfdr.de>; Thu, 12 Mar 2020 14:51:41 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 9295E616FC
+	for <lists+greybus-dev@lfdr.de>; Thu, 12 Mar 2020 14:58:20 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id AE91C61791; Thu, 12 Mar 2020 14:51:41 +0000 (UTC)
+	id 8429A617EF; Thu, 12 Mar 2020 14:58:20 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_MED,SPF_HELO_PASS,UNPARSEABLE_RELAY autolearn=disabled
+X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled
 	version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4367561791;
-	Thu, 12 Mar 2020 14:51:29 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 84D2B61791;
+	Thu, 12 Mar 2020 14:58:09 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id F0BE960E9E
- for <greybus-dev@lists.linaro.org>; Thu, 12 Mar 2020 14:51:26 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 8D6A160E9E
+ for <greybus-dev@lists.linaro.org>; Thu, 12 Mar 2020 14:58:07 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id E3DAD616FC; Thu, 12 Mar 2020 14:51:26 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- by lists.linaro.org (Postfix) with ESMTPS id E3A1760E9E
- for <greybus-dev@lists.linaro.org>; Thu, 12 Mar 2020 14:51:25 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02CEiioj166488;
- Thu, 12 Mar 2020 14:51:18 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2120.oracle.com with ESMTP id 2yp9v6d4x9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 12 Mar 2020 14:51:18 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02CEoN7L195490;
- Thu, 12 Mar 2020 14:51:18 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3030.oracle.com with ESMTP id 2yqkvmta4v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 12 Mar 2020 14:51:18 +0000
-Received: from abhmp0012.oracle.com (abhmp0012.oracle.com [141.146.116.18])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 02CEpHi4020205;
- Thu, 12 Mar 2020 14:51:17 GMT
-Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 12 Mar 2020 07:51:16 -0700
-Date: Thu, 12 Mar 2020 17:51:11 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Johan Hovold <johan@kernel.org>
-Message-ID: <20200312145111.GO11561@kadam>
+ id 72C79616FC; Thu, 12 Mar 2020 14:58:07 +0000 (UTC)
+Received: from mail-lf1-f68.google.com (mail-lf1-f68.google.com
+ [209.85.167.68])
+ by lists.linaro.org (Postfix) with ESMTPS id 6A92960E9E
+ for <greybus-dev@lists.linaro.org>; Thu, 12 Mar 2020 14:58:06 +0000 (UTC)
+Received: by mail-lf1-f68.google.com with SMTP id c20so5126704lfb.0
+ for <greybus-dev@lists.linaro.org>; Thu, 12 Mar 2020 07:58:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=MdykorgHJ2m1Uy++8it61ejlAV2pQD4rRbpkRh1crhg=;
+ b=IJ/+LQCK0FA07GyHVV5VdDIgmnK9bUCuDej5qMoWxOF+4BLkS29+BAAPRO00gcR8Yb
+ vkFYutXTp+B5VXiz4U70NNP/aYe7S38kbxTGtH1LplW0DKhCuiQerygLh/F1058Jdef+
+ VE19uTpJeB3DNTlcr56Bg+EDusDXZgSyZbF7VhdJHytwsHIm9X6LKUlv831P9QdJmHbp
+ tal0VsVITTFO6271h/qp0IvMGvWLAQS6xJVjNLOj6dI8BSZIM6kmQEdcBMs3CFhM19H/
+ yvGQ33RL07zabHsFfQ2DZ56bq46xlIl4oAEO5MTt4NV5eilYm9iB1yIk4dbiRt1TaBOf
+ Am0g==
+X-Gm-Message-State: ANhLgQ1f0bDA9na9joJ5s2jwBN2qtQGlDhrbFWHDU89m/9Bwg04nxcTB
+ +o+L2NlgBTZseGfib9tM22o=
+X-Google-Smtp-Source: ADFU+vv44HF48yUbUtrQ6zG8TaNfTSOFBGd0BXJrP42WUadY2hV8NAqUZ171tik/AK9rVOjZWZ3Atg==
+X-Received: by 2002:a19:4354:: with SMTP id m20mr1522861lfj.166.1584025085350; 
+ Thu, 12 Mar 2020 07:58:05 -0700 (PDT)
+Received: from xi.terra (c-12aae455.07-184-6d6c6d4.bbcust.telenor.se.
+ [85.228.170.18])
+ by smtp.gmail.com with ESMTPSA id j82sm15371068lfj.14.2020.03.12.07.58.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Mar 2020 07:58:04 -0700 (PDT)
+Received: from johan by xi.terra with local (Exim 4.92.3)
+ (envelope-from <johan@kernel.org>)
+ id 1jCPHV-00027Q-N7; Thu, 12 Mar 2020 15:57:53 +0100
+Date: Thu, 12 Mar 2020 15:57:53 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Message-ID: <20200312145753.GS14211@localhost>
 References: <20200311091906.22980-1-tiwai@suse.de>
- <20200311095814.GI14211@localhost>
+ <20200311095814.GI14211@localhost> <20200312145111.GO11561@kadam>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200311095814.GI14211@localhost>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9557
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- suspectscore=0
- mlxlogscore=999 malwarescore=0 adultscore=0 bulkscore=0 mlxscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2001150001 definitions=main-2003120080
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9557
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- spamscore=0 mlxscore=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 mlxlogscore=999
- phishscore=0 adultscore=0 clxscore=1011 impostorscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
- definitions=main-2003120080
+In-Reply-To: <20200312145111.GO11561@kadam>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: Takashi Iwai <tiwai@suse.de>, devel@driverdev.osuosl.org,
- greybus-dev@lists.linaro.org, Alex Elder <elder@kernel.org>
+Cc: devel@driverdev.osuosl.org, Alex Elder <elder@kernel.org>,
+ Takashi Iwai <tiwai@suse.de>, Johan Hovold <johan@kernel.org>,
+ greybus-dev@lists.linaro.org
 Subject: Re: [greybus-dev] [PATCH] staging: greybus: Use scnprintf() for
  avoiding potential buffer overflow
 X-BeenThere: greybus-dev@lists.linaro.org
@@ -93,19 +86,21 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gV2VkLCBNYXIgMTEsIDIwMjAgYXQgMTA6NTg6MTRBTSArMDEwMCwgSm9oYW4gSG92b2xkIHdy
-b3RlOgo+IE9uIFdlZCwgTWFyIDExLCAyMDIwIGF0IDEwOjE5OjA2QU0gKzAxMDAsIFRha2FzaGkg
-SXdhaSB3cm90ZToKPiA+IFNpbmNlIHNucHJpbnRmKCkgcmV0dXJucyB0aGUgd291bGQtYmUtb3V0
-cHV0IHNpemUgaW5zdGVhZCBvZiB0aGUKPiA+IGFjdHVhbCBvdXRwdXQgc2l6ZSwgdGhlIHN1Y2Nl
-ZWRpbmcgY2FsbHMgbWF5IGdvIGJleW9uZCB0aGUgZ2l2ZW4KPiA+IGJ1ZmZlciBsaW1pdC4gIEZp
-eCBpdCBieSByZXBsYWNpbmcgd2l0aCBzY25wcmludGYoKS4KPiA+IAo+ID4gU2lnbmVkLW9mZi1i
-eTogVGFrYXNoaSBJd2FpIDx0aXdhaUBzdXNlLmRlPgo+ID4gLS0tCj4gPiAgZHJpdmVycy9zdGFn
-aW5nL2dyZXlidXMvdG9vbHMvbG9vcGJhY2tfdGVzdC5jIHwgMjQgKysrKysrKysrKysrLS0tLS0t
-LS0tLS0tCj4gCj4gVGhhbmtzIGZvciB0aGUgZml4Lgo+IAo+IFdvdWxkIHlvdSBtaW5kIHJlc2Vu
-ZGluZyB3aXRoIGEgInN0YWdpbmc6IGdyZXlidXM6IGxvb3BiYWNrX3Rlc3Q6Igo+IHByZWZpeCBz
-aW5jZSB0aGlzIGlzIG5vdCBhIHN1YnN5c3RlbSB3aWRlIGlzc3VlLCBidXIgcmF0aGVyIGEgYnVn
-IGluIGEKPiBzcGVjaWZpYyB1c2VyLXNwYWNlIHRvb2w/CgpJJ20gc3VycHJpc2VkIHRoYXQgdXNl
-ci1zcGFjZSBldmVuIGhhcyBzY25wcmludGYoKS4KCnJlZ2FyZHMsCmRhbiBjYXJwZW50ZXIKCl9f
+T24gVGh1LCBNYXIgMTIsIDIwMjAgYXQgMDU6NTE6MTFQTSArMDMwMCwgRGFuIENhcnBlbnRlciB3
+cm90ZToKPiBPbiBXZWQsIE1hciAxMSwgMjAyMCBhdCAxMDo1ODoxNEFNICswMTAwLCBKb2hhbiBI
+b3ZvbGQgd3JvdGU6Cj4gPiBPbiBXZWQsIE1hciAxMSwgMjAyMCBhdCAxMDoxOTowNkFNICswMTAw
+LCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4gPiA+IFNpbmNlIHNucHJpbnRmKCkgcmV0dXJucyB0aGUg
+d291bGQtYmUtb3V0cHV0IHNpemUgaW5zdGVhZCBvZiB0aGUKPiA+ID4gYWN0dWFsIG91dHB1dCBz
+aXplLCB0aGUgc3VjY2VlZGluZyBjYWxscyBtYXkgZ28gYmV5b25kIHRoZSBnaXZlbgo+ID4gPiBi
+dWZmZXIgbGltaXQuICBGaXggaXQgYnkgcmVwbGFjaW5nIHdpdGggc2NucHJpbnRmKCkuCj4gPiA+
+IAo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBUYWthc2hpIEl3YWkgPHRpd2FpQHN1c2UuZGU+Cj4gPiA+
+IC0tLQo+ID4gPiAgZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvdG9vbHMvbG9vcGJhY2tfdGVzdC5j
+IHwgMjQgKysrKysrKysrKysrLS0tLS0tLS0tLS0tCj4gPiAKPiA+IFRoYW5rcyBmb3IgdGhlIGZp
+eC4KPiA+IAo+ID4gV291bGQgeW91IG1pbmQgcmVzZW5kaW5nIHdpdGggYSAic3RhZ2luZzogZ3Jl
+eWJ1czogbG9vcGJhY2tfdGVzdDoiCj4gPiBwcmVmaXggc2luY2UgdGhpcyBpcyBub3QgYSBzdWJz
+eXN0ZW0gd2lkZSBpc3N1ZSwgYnVyIHJhdGhlciBhIGJ1ZyBpbiBhCj4gPiBzcGVjaWZpYyB1c2Vy
+LXNwYWNlIHRvb2w/Cj4gCj4gSSdtIHN1cnByaXNlZCB0aGF0IHVzZXItc3BhY2UgZXZlbiBoYXMg
+c2NucHJpbnRmKCkuCgpZZWFoLCBzZWUgdGhlIHJlc3Qgb2YgdGhlIHRocmVhZC4KCkpvaGFuCl9f
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2
 IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBzOi8vbGlzdHMu
 bGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
