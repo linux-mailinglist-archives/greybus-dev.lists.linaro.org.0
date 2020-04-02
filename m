@@ -2,66 +2,77 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DB0419D92D
-	for <lists+greybus-dev@lfdr.de>; Fri,  3 Apr 2020 16:33:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C04D19DA3E
+	for <lists+greybus-dev@lfdr.de>; Fri,  3 Apr 2020 17:33:57 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id BD5A060E02
-	for <lists+greybus-dev@lfdr.de>; Fri,  3 Apr 2020 14:33:17 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 6775561667
+	for <lists+greybus-dev@lfdr.de>; Fri,  3 Apr 2020 15:33:56 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id B221560EE1; Fri,  3 Apr 2020 14:33:17 +0000 (UTC)
+	id 5C69161655; Fri,  3 Apr 2020 15:33:56 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FROM,HK_RANDOM_FROM,MAILING_LIST_MULTI,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled version=3.4.2
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SUBJ_OBFU_PUNCT_FEW,
+	SUBJ_OBFU_PUNCT_MANY,UNPARSEABLE_RELAY autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 15B2660F21;
-	Fri,  3 Apr 2020 14:33:12 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id E617161697;
+	Fri,  3 Apr 2020 15:33:50 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id E3A5960831
- for <greybus-dev@lists.linaro.org>; Wed,  1 Apr 2020 10:16:27 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 54D466088B
+ for <greybus-dev@lists.linaro.org>; Thu,  2 Apr 2020 12:23:11 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id CE86260E45; Wed,  1 Apr 2020 10:16:27 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
- by lists.linaro.org (Postfix) with ESMTPS id B2A5A60831
- for <greybus-dev@lists.linaro.org>; Wed,  1 Apr 2020 10:16:26 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id z7so3267019wmk.1
- for <greybus-dev@lists.linaro.org>; Wed, 01 Apr 2020 03:16:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=b9ohpIeggQmJPpjoz9Sh0/yq4Y/ugE9//x5YLp0N6aY=;
- b=EG1CnmlJakHEX0r7f/jt00LCTERAjJcEu6dq5JEMWgDPdt51RAhNAPiFuvhcZrjFpM
- rD+FJoD39BzGSqTeVc31sNybUjX3MqAXXhW65o13m742dLuvGb4oPy5Kty692RhE2EWe
- GeOwXJgRWhCmuXyljAsWeA5+T5mKOZxQYmjQO/JHPR+AXmR4eTW2HkHAuQawQUxP0m0T
- xKkk0kSyGXlvcrby5ucpvO2fnK5XFG/EKuGo1bHRXQklbNG/KorGnTooO+kcbXNIEnz3
- Fkd0xO33zrn8NZDy969Ax4zmn00gRMTlQkwfXUIf0NXy8+p7ZtBJ8jHEtK79Koa3PLUG
- gdAg==
-X-Gm-Message-State: AGi0PuY7XG2cHORQYZleAZug442dsQSTWvQZfQiwg08gHCOBAU7fnCd5
- ZemZc0cY4ByIn4GKIG9RcNM=
-X-Google-Smtp-Source: APiQypLqvtaoPl6tWHtIyOhb76eFNQRYHnS71OLLlpIsY4OF8fxN7Ii+oG7jvnwZVuFM6QInSpsKpA==
-X-Received: by 2002:a7b:c002:: with SMTP id c2mr3490813wmb.123.1585736185732; 
- Wed, 01 Apr 2020 03:16:25 -0700 (PDT)
-Received: from arch-thunder.localdomain (a109-49-46-234.cpe.netcabo.pt.
- [109.49.46.234])
- by smtp.gmail.com with ESMTPSA id h2sm2004921wmb.16.2020.04.01.03.16.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2020 03:16:25 -0700 (PDT)
-Date: Wed, 1 Apr 2020 11:16:22 +0100
-From: Rui Miguel Silva <rmfrfs@gmail.com>
+ id 38DAD60F1F; Thu,  2 Apr 2020 12:23:11 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by lists.linaro.org (Postfix) with ESMTPS id 1EDD66088B
+ for <greybus-dev@lists.linaro.org>; Thu,  2 Apr 2020 12:23:10 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 032CMh9N054207;
+ Thu, 2 Apr 2020 12:22:43 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by userp2120.oracle.com with ESMTP id 303aqhug3v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 02 Apr 2020 12:22:43 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 032CM8r1135759;
+ Thu, 2 Apr 2020 12:22:42 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3020.oracle.com with ESMTP id 302ga2b2tp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 02 Apr 2020 12:22:42 +0000
+Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 032CMeXK029118;
+ Thu, 2 Apr 2020 12:22:40 GMT
+Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 02 Apr 2020 05:22:39 -0700
+Date: Thu, 2 Apr 2020 15:22:28 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
 To: Chen Zhou <chenzhou10@huawei.com>
-Message-ID: <20200401101622.tj2bhnacetwt5rce@arch-thunder.localdomain>
+Message-ID: <20200402122228.GP2001@kadam>
 References: <20200401030017.100274-1-chenzhou10@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20200401030017.100274-1-chenzhou10@huawei.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9578
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ mlxlogscore=999 bulkscore=0 mlxscore=0 spamscore=0 adultscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2003020000 definitions=main-2004020113
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9578
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ phishscore=0 clxscore=1011
+ malwarescore=0 impostorscore=0 mlxlogscore=999 spamscore=0 mlxscore=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2004020113
 X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: devel@driverdev.osuosl.org, elder@kernel.org, johan@kernel.org,
- linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org
+Cc: devel@driverdev.osuosl.org, elder@kernel.org, greybus-dev@lists.linaro.org,
+ johan@kernel.org, linux-kernel@vger.kernel.org
 Subject: Re: [greybus-dev] [PATCH -next] staging: greybus: fix a
  missing-check bug in gb_lights_light_config()
 X-BeenThere: greybus-dev@lists.linaro.org
@@ -81,24 +92,24 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-SGkgQ2hlbiBaaG91LApUaGFua3MgZm9yIHRoZSBwYXRjaC4KCk9uIFdlZCwgQXByIDAxLCAyMDIw
-IGF0IDExOjAwOjE3QU0gKzA4MDAsIENoZW4gWmhvdSB3cm90ZToKPiBJbiBnYl9saWdodHNfbGln
-aHRfY29uZmlnKCksICdsaWdodC0+bmFtZScgaXMgYWxsb2NhdGVkIGJ5IGtzdHJuZHVwKCkuCj4g
-SXQgcmV0dXJucyBOVUxMIHdoZW4gZmFpbHMsIGFkZCBjaGVjayBmb3IgaXQuCj4gCj4gU2lnbmVk
-LW9mZi1ieTogQ2hlbiBaaG91IDxjaGVuemhvdTEwQGh1YXdlaS5jb20+CgpBY2tlZC1ieTogUnVp
-IE1pZ3VlbCBTaWx2YSA8cm1mcmZzQGdtYWlsLmNvbT4KCi0tLS0tLQpDaGVlcnMsCiAgICAgUnVp
-Cgo+IC0tLQo+ICBkcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9saWdodC5jIHwgMyArKy0KPiAgMSBm
-aWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9saWdodC5jIGIvZHJpdmVycy9zdGFnaW5nL2dy
-ZXlidXMvbGlnaHQuYwo+IGluZGV4IGQ2YmEyNWYuLmQyNjcyYjYgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9zdGFnaW5nL2dyZXlidXMvbGlnaHQuYwo+ICsrKyBiL2RyaXZlcnMvc3RhZ2luZy9ncmV5
-YnVzL2xpZ2h0LmMKPiBAQCAtMTAyNiw3ICsxMDI2LDggQEAgc3RhdGljIGludCBnYl9saWdodHNf
-bGlnaHRfY29uZmlnKHN0cnVjdCBnYl9saWdodHMgKmdsaWdodHMsIHU4IGlkKQo+ICAKPiAgCWxp
-Z2h0LT5jaGFubmVsc19jb3VudCA9IGNvbmYuY2hhbm5lbF9jb3VudDsKPiAgCWxpZ2h0LT5uYW1l
-ID0ga3N0cm5kdXAoY29uZi5uYW1lLCBOQU1FU19NQVgsIEdGUF9LRVJORUwpOwo+IC0KPiArCWlm
-ICghbGlnaHQtPm5hbWUpCj4gKwkJcmV0dXJuIC1FTk9NRU07Cj4gIAlsaWdodC0+Y2hhbm5lbHMg
-PSBrY2FsbG9jKGxpZ2h0LT5jaGFubmVsc19jb3VudCwKPiAgCQkJCSAgc2l6ZW9mKHN0cnVjdCBn
-Yl9jaGFubmVsKSwgR0ZQX0tFUk5FTCk7Cj4gIAlpZiAoIWxpZ2h0LT5jaGFubmVscykKPiAtLSAK
-PiAyLjcuNAo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpncmV5YnVzLWRldiBtYWlsaW5nIGxpc3QKZ3JleWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpo
-dHRwczovL2xpc3RzLmxpbmFyby5vcmcvbWFpbG1hbi9saXN0aW5mby9ncmV5YnVzLWRldgo=
+T24gV2VkLCBBcHIgMDEsIDIwMjAgYXQgMTE6MDA6MTdBTSArMDgwMCwgQ2hlbiBaaG91IHdyb3Rl
+Ogo+IEluIGdiX2xpZ2h0c19saWdodF9jb25maWcoKSwgJ2xpZ2h0LT5uYW1lJyBpcyBhbGxvY2F0
+ZWQgYnkga3N0cm5kdXAoKS4KPiBJdCByZXR1cm5zIE5VTEwgd2hlbiBmYWlscywgYWRkIGNoZWNr
+IGZvciBpdC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaGVuIFpob3UgPGNoZW56aG91MTBAaHVhd2Vp
+LmNvbT4KPiAtLS0KPiAgZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvbGlnaHQuYyB8IDMgKystCj4g
+IDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPiAKPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvbGlnaHQuYyBiL2RyaXZlcnMvc3RhZ2lu
+Zy9ncmV5YnVzL2xpZ2h0LmMKPiBpbmRleCBkNmJhMjVmLi5kMjY3MmI2IDEwMDY0NAo+IC0tLSBh
+L2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL2xpZ2h0LmMKPiArKysgYi9kcml2ZXJzL3N0YWdpbmcv
+Z3JleWJ1cy9saWdodC5jCj4gQEAgLTEwMjYsNyArMTAyNiw4IEBAIHN0YXRpYyBpbnQgZ2JfbGln
+aHRzX2xpZ2h0X2NvbmZpZyhzdHJ1Y3QgZ2JfbGlnaHRzICpnbGlnaHRzLCB1OCBpZCkKPiAgCj4g
+IAlsaWdodC0+Y2hhbm5lbHNfY291bnQgPSBjb25mLmNoYW5uZWxfY291bnQ7Cj4gIAlsaWdodC0+
+bmFtZSA9IGtzdHJuZHVwKGNvbmYubmFtZSwgTkFNRVNfTUFYLCBHRlBfS0VSTkVMKTsKPiAtCj4g
+KwlpZiAoIWxpZ2h0LT5uYW1lKQo+ICsJCXJldHVybiAtRU5PTUVNOwo+ICAJbGlnaHQtPmNoYW5u
+ZWxzID0ga2NhbGxvYyhsaWdodC0+Y2hhbm5lbHNfY291bnQsCj4gIAkJCQkgIHNpemVvZihzdHJ1
+Y3QgZ2JfY2hhbm5lbCksIEdGUF9LRVJORUwpOwo+ICAJaWYgKCFsaWdodC0+Y2hhbm5lbHMpCgpU
+aGUgY2xlYW4gdXAgaW4gdGhpcyBmdW5jdGlvbiBpcyBub24tZXhpc3RhbnQuICA6KAoKcmVnYXJk
+cywKZGFuIGNhcnBlbnRlcgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KZ3JleWJ1cy1kZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFy
+by5vcmcKaHR0cHM6Ly9saXN0cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1k
+ZXYK
