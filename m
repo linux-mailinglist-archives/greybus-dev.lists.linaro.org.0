@@ -2,46 +2,79 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00FB91A2EAE
-	for <lists+greybus-dev@lfdr.de>; Thu,  9 Apr 2020 07:05:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FBB61AD55A
+	for <lists+greybus-dev@lfdr.de>; Fri, 17 Apr 2020 06:38:47 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 7BEB066460
-	for <lists+greybus-dev@lfdr.de>; Thu,  9 Apr 2020 05:05:11 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 3B055610D2
+	for <lists+greybus-dev@lfdr.de>; Fri, 17 Apr 2020 04:38:46 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 6D3C06661F; Thu,  9 Apr 2020 05:05:11 +0000 (UTC)
+	id 2D11E65FC6; Fri, 17 Apr 2020 04:38:46 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS autolearn=disabled
+X-Spam-Status: No, score=-7.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled
 	version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 7897F66626;
-	Thu,  9 Apr 2020 05:04:54 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 9389266049;
+	Fri, 17 Apr 2020 04:38:31 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 8304166576
- for <greybus-dev@lists.linaro.org>; Wed,  8 Apr 2020 08:55:24 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 947AB6088B
+ for <greybus-dev@lists.linaro.org>; Tue, 14 Apr 2020 16:14:58 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 77CFE6657F; Wed,  8 Apr 2020 08:55:24 +0000 (UTC)
-Received: from w1.tutanota.de (w1.tutanota.de [81.3.6.162])
- by lists.linaro.org (Postfix) with ESMTPS id E0EC266576
- for <greybus-dev@lists.linaro.org>; Wed,  8 Apr 2020 08:55:22 +0000 (UTC)
-Received: from w3.tutanota.de (unknown [192.168.1.164])
- by w1.tutanota.de (Postfix) with ESMTP id 1078EFA030D;
- Wed,  8 Apr 2020 08:55:22 +0000 (UTC)
-Date: Wed, 8 Apr 2020 10:55:22 +0200 (CEST)
-From: zenyu@tuta.io
-To: Johan <johan@kernel.org>, Elder <elder@kernel.org>,
- Gregkh <gregkh@linuxfoundation.org>
-Message-ID: <M4O-2uM----2@tuta.io>
+ id 8680261877; Tue, 14 Apr 2020 16:14:58 +0000 (UTC)
+Received: from mail-lf1-f68.google.com (mail-lf1-f68.google.com
+ [209.85.167.68])
+ by lists.linaro.org (Postfix) with ESMTPS id 1F28061873
+ for <greybus-dev@lists.linaro.org>; Tue, 14 Apr 2020 16:14:52 +0000 (UTC)
+Received: by mail-lf1-f68.google.com with SMTP id 198so192403lfo.7
+ for <greybus-dev@lists.linaro.org>; Tue, 14 Apr 2020 09:14:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Bpyge4k8Iz/MW6vpPqOyXsMz3UoNxf4ygGN/PrDN23s=;
+ b=ovGDVb3jz3kSXbnPLAX3hS0d67aVeLD2OPMWsKxiJg19KWO4MBUeJcbY3ceJi3HkSq
+ dEgtAMGucxM4iA+OG+Y1XqDkyrm7reBWpPW/8rhnvnRpX/bWoXf4u7akCGQa/exAjjaD
+ v5hoJl5XWj1x1ANN1hP9SLl/isTTjWIvKgn7AxMi9RVdeGHrTBrvxK85sSPmzPRmrXAf
+ IfkJ38iiG4Kf5AadErXI9lAa+AeAUPMZUkQkDp3X2R0kigQmEmv43lCw5xMJBAA4qBN9
+ BjVaNPe6LRlcXNztlEthwOeM3Ii9Vn5PNvZ4MjfyEdDY3hYdyHvcEnODqs3vhu4OtnjN
+ yj9w==
+X-Gm-Message-State: AGi0PuZ8Md6PQ5DNVOXSAvTlF8Qq6DyUHJsbgIIjA8q3deJaapdPjrF2
+ 9GNxd/oOnucg+BxcwMbKyxcjPDTL
+X-Google-Smtp-Source: APiQypKs1XralZ2xpuJEJsfyXQSt7ex/4mhrOaimKzrhLIPk2A27zZq8+qJo3Rovpcol1PZ3P4LfzQ==
+X-Received: by 2002:ac2:550e:: with SMTP id j14mr349553lfk.188.1586880890888; 
+ Tue, 14 Apr 2020 09:14:50 -0700 (PDT)
+Received: from localhost.localdomain (h-98-128-181-131.NA.cust.bahnhof.se.
+ [98.128.181.131])
+ by smtp.gmail.com with ESMTPSA id a26sm9330669ljn.22.2020.04.14.09.14.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Apr 2020 09:14:50 -0700 (PDT)
+From: Ulf Hansson <ulf.hansson@linaro.org>
+To: linux-mmc@vger.kernel.org,
+	Ulf Hansson <ulf.hansson@linaro.org>
+Date: Tue, 14 Apr 2020 18:14:13 +0200
+Message-Id: <20200414161413.3036-20-ulf.hansson@linaro.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200414161413.3036-1-ulf.hansson@linaro.org>
+References: <20200414161413.3036-1-ulf.hansson@linaro.org>
 MIME-Version: 1.0
 X-Virus-Scanned: ClamAV using ClamSMTP
-X-Mailman-Approved-At: Thu, 09 Apr 2020 05:04:53 +0000
-Cc: Greybus Dev <greybus-dev@lists.linaro.org>,
- Linux Kernel <linux-kernel@vger.kernel.org>
-Subject: [greybus-dev] [PATCH] greybus: fix typos in GREYBUS/GREYBUS_ES2
-	help text
+X-Mailman-Approved-At: Fri, 17 Apr 2020 04:38:30 +0000
+Cc: mirq-linux@rere.qmqm.pl, Jesper Nilsson <jesper.nilsson@axis.com>,
+ Alex Elder <elder@kernel.org>, Alex Dubov <oakad@yahoo.com>,
+ greybus-dev@lists.linaro.org, Linus Walleij <linus.walleij@linaro.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Johan Hovold <johan@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Sascha Sommer <saschasommer@freenet.de>, Lars Persson <lars.persson@axis.com>,
+ =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Bruce Chang <brucechang@via.com.tw>, Harald Welte <HaraldWelte@viatech.com>
+Subject: [greybus-dev] [PATCH 19/19] staging: greybus: sdio: Respect the
+	cmd->busy_timeout from the mmc core
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
 Precedence: list
@@ -53,121 +86,46 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5791757959350524861=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
---===============5791757959350524861==
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_301065_91680293.1586336122052"
-
-------=_Part_301065_91680293.1586336122052
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-From: Zenyu Sy <zenyu@tuta.io>
-
-Fix typos ("an" -> "a", "chose" -> "choose") in Kconfig
-
-Signed-off-by: Zenyu Sy <zenyu@tuta.io>
----
-base-commit: f5e94d10e4c468357019e5c28d48499f677b284f
-Sorry, I just submitted a wrong patch several minutes ago,
-so please ignore that one.
-drivers/greybus/Kconfig | 6 +++---
-1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/greybus/Kconfig b/drivers/greybus/Kconfig
-index b84fcaf8b..aeea082f1 100644
---- a/drivers/greybus/Kconfig
-+++ b/drivers/greybus/Kconfig
-@@ -3,7 +3,7 @@ menuconfig GREYBUS
-tristate "Greybus support"
-depends on SYSFS
----help---
--=09=C2=A0 This option enables the Greybus driver core.=C2=A0 Greybus is an
-+=09=C2=A0 This option enables the Greybus driver core.=C2=A0 Greybus is a
-=C2=A0 hardware protocol that was designed to provide Unipro with a
-=C2=A0 sane application layer.=C2=A0 It was originally designed for the
-=C2=A0 ARA project, a module phone system, but has shown up in other
-@@ -12,7 +12,7 @@ menuconfig GREYBUS
-
-=C2=A0 Say Y here to enable support for these types of drivers.
-
--=09=C2=A0 To compile this code as a module, chose M here: the module
-+=09=C2=A0 To compile this code as a module, choose M here: the module
-=C2=A0 will be called greybus.ko
-
-if GREYBUS
-@@ -25,7 +25,7 @@ config GREYBUS_ES2
-=C2=A0 acts as a Greybus "host controller".=C2=A0 This device is a bridge
-=C2=A0 from a USB device to a Unipro network.
-
--=09=C2=A0 To compile this code as a module, chose M here: the module
-+=09=C2=A0 To compile this code as a module, choose M here: the module
-=C2=A0 will be called gb-es2.ko
-
-endif=09# GREYBUS
---
-2.26.0
-
-
-
-------=_Part_301065_91680293.1586336122052
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-  <head>
-    <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF-8=
-">
-  </head>
-  <body>
-<div>From: Zenyu Sy &lt;<a href=3D"mailto:zenyu@tuta.io">zenyu@tuta.io</a>&=
-gt;<br></div><div><br></div><div>Fix typos ("an" -&gt; "a", "chose" -&gt; "=
-choose") in Kconfig<br></div><div><br></div><div>Signed-off-by: Zenyu Sy &l=
-t;<a href=3D"mailto:zenyu@tuta.io">zenyu@tuta.io</a>&gt;<br></div><div>---<=
-br></div><div>base-commit: f5e94d10e4c468357019e5c28d48499f677b284f<br></di=
-v><div>Sorry, I just submitted a wrong patch several minutes ago,<br></div>=
-<div>so please ignore that one.<br></div><div>drivers/greybus/Kconfig | 6 +=
-++---<br></div><div>1 file changed, 3 insertions(+), 3 deletions(-)<br></di=
-v><div><br></div><div>diff --git a/drivers/greybus/Kconfig b/drivers/greybu=
-s/Kconfig<br></div><div>index b84fcaf8b..aeea082f1 100644<br></div><div>---=
- a/drivers/greybus/Kconfig<br></div><div>+++ b/drivers/greybus/Kconfig<br><=
-/div><div>@@ -3,7 +3,7 @@ menuconfig GREYBUS<br></div><div>tristate "Greybu=
-s support"<br></div><div>depends on SYSFS<br></div><div>---help---<br></div=
-><div>-=09&nbsp; This option enables the Greybus driver core.&nbsp; Greybus=
- is an<br></div><div>+=09&nbsp; This option enables the Greybus driver core=
-.&nbsp; Greybus is a<br></div><div>&nbsp; hardware protocol that was design=
-ed to provide Unipro with a<br></div><div>&nbsp; sane application layer.&nb=
-sp; It was originally designed for the<br></div><div>&nbsp; ARA project, a =
-module phone system, but has shown up in other<br></div><div>@@ -12,7 +12,7=
- @@ menuconfig GREYBUS<br></div><div><br></div><div>&nbsp; Say Y here to en=
-able support for these types of drivers.<br></div><div><br></div><div>-=09&=
-nbsp; To compile this code as a module, chose M here: the module<br></div><=
-div>+=09&nbsp; To compile this code as a module, choose M here: the module<=
-br></div><div>&nbsp; will be called greybus.ko<br></div><div><br></div><div=
->if GREYBUS<br></div><div>@@ -25,7 +25,7 @@ config GREYBUS_ES2<br></div><di=
-v>&nbsp; acts as a Greybus "host controller".&nbsp; This device is a bridge=
-<br></div><div>&nbsp; from a USB device to a Unipro network.<br></div><div>=
-<br></div><div>-=09&nbsp; To compile this code as a module, chose M here: t=
-he module<br></div><div>+=09&nbsp; To compile this code as a module, choose=
- M here: the module<br></div><div>&nbsp; will be called gb-es2.ko<br></div>=
-<div><br></div><div>endif=09# GREYBUS<br></div><div>--<br></div><div>2.26.0=
-<br></div><div><br></div><div><br></div>  </body>
-</html>
-
-------=_Part_301065_91680293.1586336122052--
-
---===============5791757959350524861==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1k
-ZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0
-cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
-
---===============5791757959350524861==--
+VXNpbmcgYSBmaXhlZCAxcyB0aW1lb3V0IGZvciBhbGwgY29tbWFuZHMgaXMgYSBiaXQgcHJvYmxl
+bWF0aWMuCgpGb3Igc29tZSBjb21tYW5kcyBpdCBtZWFucyB3YWl0aW5nIGxvbmdlciB0aGFuIG5l
+ZWRlZCBmb3IgdGhlIHRpbWVvdXQgdG8KZXhwaXJlLCB3aGljaCBtYXkgbm90IGEgYmlnIGlzc3Vl
+LCBidXQgc3RpbGwuIEZvciBvdGhlciBjb21tYW5kcywgbGlrZSBmb3IKYW4gZXJhc2UgKENNRDM4
+KSB0aGF0IHVzZXMgYSBSMUIgcmVzcG9uc2UsIG1heSByZXF1aXJlIGxvbmdlciB0aW1lb3V0cyB0
+aGFuCjFzLiBJbiB0aGVzZSBjYXNlcywgd2UgbWF5IGVuZCB1cCB0cmVhdGluZyB0aGUgY29tbWFu
+ZCBhcyBpdCBmYWlsZWQsIHdoaWxlCml0IGp1c3QgbmVlZGVkIHNvbWUgbW9yZSB0aW1lIHRvIGNv
+bXBsZXRlIHN1Y2Nlc3NmdWxseS4KCkZpeCB0aGUgcHJvYmxlbSBieSByZXNwZWN0aW5nIHRoZSBj
+bWQtPmJ1c3lfdGltZW91dCwgd2hpY2ggaXMgcHJvdmlkZWQgYnkKdGhlIG1tYyBjb3JlLgoKQ2M6
+IFJ1aSBNaWd1ZWwgU2lsdmEgPHJtZnJmc0BnbWFpbC5jb20+CkNjOiBKb2hhbiBIb3ZvbGQgPGpv
+aGFuQGtlcm5lbC5vcmc+CkNjOiBBbGV4IEVsZGVyIDxlbGRlckBrZXJuZWwub3JnPgpDYzogR3Jl
+ZyBLcm9haC1IYXJ0bWFuIDxncmVna2hAbGludXhmb3VuZGF0aW9uLm9yZz4KQ2M6IGdyZXlidXMt
+ZGV2QGxpc3RzLmxpbmFyby5vcmcKU2lnbmVkLW9mZi1ieTogVWxmIEhhbnNzb24gPHVsZi5oYW5z
+c29uQGxpbmFyby5vcmc+Ci0tLQogZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvc2Rpby5jIHwgMTAg
+KysrKysrKy0tLQogMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9zZGlvLmMgYi9kcml2ZXJz
+L3N0YWdpbmcvZ3JleWJ1cy9zZGlvLmMKaW5kZXggNjhjNTcxOGJlODI3Li5jNGIxNmJiNWMxYTQg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3NkaW8uYworKysgYi9kcml2ZXJz
+L3N0YWdpbmcvZ3JleWJ1cy9zZGlvLmMKQEAgLTQxMSw2ICs0MTEsNyBAQCBzdGF0aWMgaW50IGdi
+X3NkaW9fY29tbWFuZChzdHJ1Y3QgZ2Jfc2Rpb19ob3N0ICpob3N0LCBzdHJ1Y3QgbW1jX2NvbW1h
+bmQgKmNtZCkKIAlzdHJ1Y3QgZ2Jfc2Rpb19jb21tYW5kX3JlcXVlc3QgcmVxdWVzdCA9IHswfTsK
+IAlzdHJ1Y3QgZ2Jfc2Rpb19jb21tYW5kX3Jlc3BvbnNlIHJlc3BvbnNlOwogCXN0cnVjdCBtbWNf
+ZGF0YSAqZGF0YSA9IGhvc3QtPm1ycS0+ZGF0YTsKKwl1bnNpZ25lZCBpbnQgdGltZW91dF9tczsK
+IAl1OCBjbWRfZmxhZ3M7CiAJdTggY21kX3R5cGU7CiAJaW50IGk7CkBAIC00NjksOSArNDcwLDEy
+IEBAIHN0YXRpYyBpbnQgZ2Jfc2Rpb19jb21tYW5kKHN0cnVjdCBnYl9zZGlvX2hvc3QgKmhvc3Qs
+IHN0cnVjdCBtbWNfY29tbWFuZCAqY21kKQogCQlyZXF1ZXN0LmRhdGFfYmxrc3ogPSBjcHVfdG9f
+bGUxNihkYXRhLT5ibGtzeik7CiAJfQogCi0JcmV0ID0gZ2Jfb3BlcmF0aW9uX3N5bmMoaG9zdC0+
+Y29ubmVjdGlvbiwgR0JfU0RJT19UWVBFX0NPTU1BTkQsCi0JCQkJJnJlcXVlc3QsIHNpemVvZihy
+ZXF1ZXN0KSwgJnJlc3BvbnNlLAotCQkJCXNpemVvZihyZXNwb25zZSkpOworCXRpbWVvdXRfbXMg
+PSBjbWQtPmJ1c3lfdGltZW91dCA/IGNtZC0+YnVzeV90aW1lb3V0IDoKKwkJR0JfT1BFUkFUSU9O
+X1RJTUVPVVRfREVGQVVMVDsKKworCXJldCA9IGdiX29wZXJhdGlvbl9zeW5jX3RpbWVvdXQoaG9z
+dC0+Y29ubmVjdGlvbiwgR0JfU0RJT19UWVBFX0NPTU1BTkQsCisJCQkJCSZyZXF1ZXN0LCBzaXpl
+b2YocmVxdWVzdCksICZyZXNwb25zZSwKKwkJCQkJc2l6ZW9mKHJlc3BvbnNlKSwgdGltZW91dF9t
+cyk7CiAJaWYgKHJldCA8IDApCiAJCWdvdG8gb3V0OwogCi0tIAoyLjIwLjEKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcg
+bGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBzOi8vbGlzdHMubGluYXJvLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
