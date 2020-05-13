@@ -2,52 +2,71 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F5B11D1A9D
-	for <lists+greybus-dev@lfdr.de>; Wed, 13 May 2020 18:08:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AF051D1C86
+	for <lists+greybus-dev@lfdr.de>; Wed, 13 May 2020 19:45:52 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9F4C765F88
-	for <lists+greybus-dev@lfdr.de>; Wed, 13 May 2020 16:08:15 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 5CE9565F8A
+	for <lists+greybus-dev@lfdr.de>; Wed, 13 May 2020 17:45:51 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 9249365F8D; Wed, 13 May 2020 16:08:15 +0000 (UTC)
+	id 4FEA165F8C; Wed, 13 May 2020 17:45:51 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE autolearn=disabled version=3.4.2
+X-Spam-Status: No, score=-3.6 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS
+	autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 98BF565F8B;
-	Wed, 13 May 2020 16:07:59 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 5EB8165F8B;
+	Wed, 13 May 2020 17:45:37 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id F287065F87
- for <greybus-dev@lists.linaro.org>; Wed, 13 May 2020 16:07:55 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 1D79165F87
+ for <greybus-dev@lists.linaro.org>; Wed, 13 May 2020 17:45:35 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id E06EB65F89; Wed, 13 May 2020 16:07:55 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by lists.linaro.org (Postfix) with ESMTPS id 98A8D65F87
- for <greybus-dev@lists.linaro.org>; Wed, 13 May 2020 16:07:53 +0000 (UTC)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A815B204EC;
- Wed, 13 May 2020 16:07:52 +0000 (UTC)
-Date: Wed, 13 May 2020 18:07:50 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Johan Hovold <johan@kernel.org>
-Message-ID: <20200513160750.GA1362525@kroah.com>
-References: <20200507185318.GA14393@embeddedor>
- <20200513150343.GZ25962@localhost>
- <20200513153918.GA1360420@kroah.com>
- <20200513154807.GA25962@localhost>
+ id 12D0465F8A; Wed, 13 May 2020 17:45:35 +0000 (UTC)
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+ by lists.linaro.org (Postfix) with ESMTPS id E6BBC65F87
+ for <greybus-dev@lists.linaro.org>; Wed, 13 May 2020 17:45:33 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id 7A5187C6;
+ Wed, 13 May 2020 13:45:32 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Wed, 13 May 2020 13:45:33 -0400
+X-ME-Sender: <xms:OzK8Xkvuw1T4NPdrAYzmREF7yFM_9jlkRJPPcAYK7_l0gmDNjoCLxA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrleeggdduudehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjohgfsehttdertddtredvnecuhfhrohhmpeforghr
+ khcuifhrvggvrhcuoehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomheqnecugg
+ ftrfgrthhtvghrnhepfeekfeejkeegleduvdduveetteeuueeiveeujeeijeelvdeiveek
+ ieevkedvtdegnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphepieekrddvrd
+ ekvddrudejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+ ohhmpehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomh
+X-ME-Proxy: <xmx:OzK8Xhf0nR65uNaULO6efOwquN3A1Ah6ClhHaMT2kBvayvb2xtTMGA>
+ <xmx:OzK8XvzvIeHSOlNITgSzP9NqG6m132Oqi5UikfgD1l-Q-7dKcAhtIg>
+ <xmx:OzK8XnMCQ2LZQ4Wy61LleqOUCdxBmTJE_IpRiGk1Nn1GRoCnCElTlw>
+ <xmx:PDK8XjlZkOstIWKTU1jRhu8y5LthaEmy9bsNpq_iELVujSWfjyGgNg>
+Received: from blue.animalcreek.com (ip68-2-82-171.ph.ph.cox.net [68.2.82.171])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0F179328005A;
+ Wed, 13 May 2020 13:45:31 -0400 (EDT)
+Received: by blue.animalcreek.com (Postfix, from userid 1000)
+ id 23EC5A21E97; Wed, 13 May 2020 10:45:30 -0700 (MST)
+Date: Wed, 13 May 2020 10:45:30 -0700
+From: Mark Greer <mgreer@animalcreek.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Message-ID: <20200513174530.GA32096@animalcreek.com>
+References: <20200507212912.599433-1-alexandre.belloni@bootlin.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200513154807.GA25962@localhost>
+In-Reply-To: <20200507212912.599433-1-alexandre.belloni@bootlin.com>
+Organization: Animal Creek Technologies, Inc.
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: greybus-dev@lists.linaro.org, Alex Elder <elder@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [greybus-dev] [PATCH] staging: greybus: Replace zero-length
- array with flexible-array
+Cc: devel@driverdev.osuosl.org, Alex Elder <elder@kernel.org>,
+ Johan Hovold <johan@kernel.org>, greybus-dev@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [greybus-dev] [PATCH] greybus: audio: remove unused code
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
 Precedence: list
@@ -65,34 +84,23 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gV2VkLCBNYXkgMTMsIDIwMjAgYXQgMDU6NDg6MDdQTSArMDIwMCwgSm9oYW4gSG92b2xkIHdy
-b3RlOgo+IE9uIFdlZCwgTWF5IDEzLCAyMDIwIGF0IDA1OjM5OjE4UE0gKzAyMDAsIEdyZWcgS3Jv
-YWgtSGFydG1hbiB3cm90ZToKPiA+IE9uIFdlZCwgTWF5IDEzLCAyMDIwIGF0IDA1OjAzOjQzUE0g
-KzAyMDAsIEpvaGFuIEhvdm9sZCB3cm90ZToKPiA+ID4gT24gVGh1LCBNYXkgMDcsIDIwMjAgYXQg
-MDE6NTM6MThQTSAtMDUwMCwgR3VzdGF2byBBLiBSLiBTaWx2YSB3cm90ZToKPiA+ID4gPiBUaGUg
-Y3VycmVudCBjb2RlYmFzZSBtYWtlcyB1c2Ugb2YgdGhlIHplcm8tbGVuZ3RoIGFycmF5IGxhbmd1
-YWdlCj4gPiA+ID4gZXh0ZW5zaW9uIHRvIHRoZSBDOTAgc3RhbmRhcmQsIGJ1dCB0aGUgcHJlZmVy
-cmVkIG1lY2hhbmlzbSB0byBkZWNsYXJlCj4gPiA+ID4gdmFyaWFibGUtbGVuZ3RoIHR5cGVzIHN1
-Y2ggYXMgdGhlc2Ugb25lcyBpcyBhIGZsZXhpYmxlIGFycmF5IG1lbWJlclsxXVsyXSwKPiA+ID4g
-PiBpbnRyb2R1Y2VkIGluIEM5OToKPiA+ID4gPiAKPiA+ID4gPiBzdHJ1Y3QgZm9vIHsKPiA+ID4g
-PiAgICAgICAgIGludCBzdHVmZjsKPiA+ID4gPiAgICAgICAgIHN0cnVjdCBib28gYXJyYXlbXTsK
-PiA+ID4gPiB9Owo+IAo+ID4gPiA+ICBkcml2ZXJzL2dyZXlidXMvYXJwYy5oICAgICAgICAgICAg
-ICAgICAgICB8ICAgIDIgLQo+ID4gPiA+ICBpbmNsdWRlL2xpbnV4L2dyZXlidXMvZ3JleWJ1c19w
-cm90b2NvbHMuaCB8ICAgNDQgKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tCj4gPiA+IAo+
-ID4gPiBJIG5vdGljZWQgR3JlZyBqdXN0IGFwcGxpZWQgdGhpcyBvbmUgdG8gaGlzIC10ZXN0aW5n
-IGJyYW5jaCwgYnV0IGRvIHdlCj4gPiA+IHJlYWxseSB3YW50IHRoaXMgaW4gZ3JleWJ1c19wcm90
-b2NvbHMuaCwgd2hpY2ggaXMgbWVhbnQgdG8gYmUgc2hhcmVkCj4gPiA+IHdpdGggdGhlIGZpcm13
-YXJlIHNpZGU/IFBlcmhhcHMgbm90IGFuIGlzc3VlLCBqdXN0IGZpZ3VyZWQgSSdkIHBvaW50Cj4g
-PiA+IHRoaXMgb3V0Lgo+ID4gCj4gPiBXaHkgbm90LCBpdCBzaG91bGQgYmUgdGhlIHNhbWUgdGhp
-bmcsIHJpZ2h0PyAgTm8gbG9naWMgaGFzIGNoYW5nZWQgdGhhdAo+ID4gSSBzZWUuCj4gCj4gWWVz
-LCB0aGUgc3RydWN0dXJlJ3MgdGhlIHNhbWUsIGJ1dCB0aGUgZmlybXdhcmUgdG9vbGNoYWluIG1h
-eSBub3QKPiBleHBlY3QgZmxleGlibGUgYXJyYXlzLiBJIGJlbGlldmUgd2UncmUgaG9sZGluZyBi
-YWNrIG9uIHRoZXNlIGNoYW5nZXMKPiBmb3IgdWFwaSBoZWFkZXJzIGFzIHdlbGwgZm9yIHRoYXQg
-cmVhc29uPwo+IAo+IEFnYWluLCBwZXJoYXBzIG5vdCBhbiBpc3N1ZS4gV2UgY2FuIGp1c3QgbWFu
-ZGF0ZSBmdyB0b29sY2hhaW5zIHRoYXQKPiBzdXBwb3J0IEM5OSBpZiB5b3Ugd2FudCB0byB1c2Ug
-YW4gdW5tb2RpZmllZCBoZWFkZXIsIEkgZ3Vlc3MuCgpJIHRoaW5rIHdlIGNhbiBtYW5kYXRlIHRo
-YXQgZm9yIG5vdywgbGV0J3Mgc2VlIGlmIGFueW9uZSBhY3R1YWxseSBidWlsZHMKZmlybXdhcmUg
-YWdhaW5zdCB0aGlzIGhlYWRlciBmaWxlIGFueW1vcmUgOikKCmdyZWcgay1oCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcg
-bGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBzOi8vbGlzdHMubGluYXJvLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
+T24gVGh1LCBNYXkgMDcsIDIwMjAgYXQgMTE6Mjk6MTFQTSArMDIwMCwgQWxleGFuZHJlIEJlbGxv
+bmkgd3JvdGU6Cj4gR1JFWUJVU19BVURJT19NU004OTk0IGlzIG5vdCBhbiBleGlzdGluZyBjb25m
+aWd1cmF0aW9uIG9wdGlvbiBhbmQgYXMKPiByZXBvcnRlZCBpbiBTZXB0ZW1iZXIgMjAxNiwgaXQg
+ZGVwZW5kcyBvbiBhbiAib3V0LW9mLXRyZWUgcXVhbGNvbW0gYXVkaW8KPiBkcml2ZXIiLiBUaGlz
+IGRyaXZlciBuZXZlciBtYWRlIGl0IHVwc3RyZWFtLgo+IAo+IGh0dHBzOi8vbG9yZS5rZXJuZWwu
+b3JnL2xrbWwvMjAxNjA5MjEwNzM5MDUuR0EzMTI2M0Brcm9haC5jb20vCj4gCj4gTW9yZW92ZXIs
+IHRoZXJlIGRvZXNuJ3Qgc2VlbSB0byBiZSBhbnkgaW50ZXJlc3QgaW4gYWN0dWFsbHkgZml4aW5n
+IHRoZQo+IGRyaXZlciBhcyBpdCB1c2VzIEFTb0MgQVBJcyB0aGF0IGhhdmUgYmVlbiByZW1vdmVk
+IGZyb20gdGhlIGtlcm5lbCBpbiAyMDE4Cj4gYXMgc2hvd24gYnkgaXRzIHVzZSBvZiBzbmRfc29j
+X3JlZ2lzdGVyX2NvZGVjIGFuZAo+IHNuZF9zb2NfY29kZWNfZ2V0X2RydmRhdGEsIHJlbW92ZWQg
+aW4gY29tbWl0IDk5OWY3ZjVhZjhlYiAoIkFTb0M6IHJlbW92ZQo+IENvZGVjIHJlbGF0ZWQgY29k
+ZSIpLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEFsZXhhbmRyZSBCZWxsb25pIDxhbGV4YW5kcmUuYmVs
+bG9uaUBib290bGluLmNvbT4KPiAtLS0KCkV2ZXJ5dGhpbmcgeW91IHNheSBpcyB0cnVlIGJ1dCBp
+dCBpcyBzdGlsbCBraW5kYSBzYWQgdG8gc2VlIHRoaXMgZ28uCkJ1dCB0aGF0IGlzIGxpZmUuLi4g
+IElmIGFuZCB3aGVuIHNvbWVvbmUgaGFzIHRoZSBtb3RpdmF0aW9uIHRvIGdldCB0aGlzCndvcmtp
+bmcgYWdhaW4gdGhleSBjYW4gdGFrZSBhIGxvb2sgYXQgdGhlIGdpdCBoaXN0b3J5LgoKVGhhbmtz
+IGZvciB0aGlzLCBBbGV4YW5kcmUuCgpBY2tlZC1ieTogTWFyayBHcmVlciA8bWdyZWVyQGFuaW1h
+bGNyZWVrLmNvbT4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KZ3JleWJ1cy1kZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcK
+aHR0cHM6Ly9saXN0cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
