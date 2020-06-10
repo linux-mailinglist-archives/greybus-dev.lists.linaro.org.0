@@ -2,81 +2,51 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 420A01F5ACA
-	for <lists+greybus-dev@lfdr.de>; Wed, 10 Jun 2020 19:54:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAADC1F5AEC
+	for <lists+greybus-dev@lfdr.de>; Wed, 10 Jun 2020 20:01:36 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 5CE7A6192B
-	for <lists+greybus-dev@lfdr.de>; Wed, 10 Jun 2020 17:54:16 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id EA86261963
+	for <lists+greybus-dev@lfdr.de>; Wed, 10 Jun 2020 18:01:35 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 4EF3A6198E; Wed, 10 Jun 2020 17:54:16 +0000 (UTC)
+	id DCC406197A; Wed, 10 Jun 2020 18:01:35 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,UNPARSEABLE_RELAY
-	autolearn=disabled version=3.4.2
+X-Spam-Status: No, score=-7.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id C5A1E6197A;
-	Wed, 10 Jun 2020 17:54:06 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id C07626198E;
+	Wed, 10 Jun 2020 18:01:25 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 7395E618C4
- for <greybus-dev@lists.linaro.org>; Wed, 10 Jun 2020 17:54:04 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 5DF48618C4
+ for <greybus-dev@lists.linaro.org>; Wed, 10 Jun 2020 18:01:23 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 6475961963; Wed, 10 Jun 2020 17:54:04 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- by lists.linaro.org (Postfix) with ESMTPS id 6AC8C618C4
- for <greybus-dev@lists.linaro.org>; Wed, 10 Jun 2020 17:54:03 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 05AHqoDh137235;
- Wed, 10 Jun 2020 17:53:48 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 31jepnwnma-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 10 Jun 2020 17:53:48 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 05AHmSqs118340;
- Wed, 10 Jun 2020 17:51:47 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by userp3020.oracle.com with ESMTP id 31gmwtmbru-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 10 Jun 2020 17:51:47 +0000
-Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 05AHpjJY016633;
- Wed, 10 Jun 2020 17:51:45 GMT
-Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 10 Jun 2020 10:51:45 -0700
-Date: Wed, 10 Jun 2020 20:51:35 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Vaibhav Agarwal <vaibhav.sr@gmail.com>
-Message-ID: <20200610175135.GC4151@kadam>
+ id 2B87A61963; Wed, 10 Jun 2020 18:01:23 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+ by lists.linaro.org (Postfix) with ESMTPS id AA9A9618C4
+ for <greybus-dev@lists.linaro.org>; Wed, 10 Jun 2020 18:01:21 +0000 (UTC)
+X-Originating-IP: 86.202.110.81
+Received: from localhost (lfbn-lyo-1-15-81.w86-202.abo.wanadoo.fr
+ [86.202.110.81])
+ (Authenticated sender: alexandre.belloni@bootlin.com)
+ by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id 07B8EC0005;
+ Wed, 10 Jun 2020 18:01:18 +0000 (UTC)
+Date: Wed, 10 Jun 2020 20:01:18 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20200610180118.GZ3720@piout.net>
 References: <cover.1591802243.git.vaibhav.sr@gmail.com>
+ <20200610173711.GK5005@sirena.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cover.1591802243.git.vaibhav.sr@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9648
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- spamscore=0 adultscore=0
- mlxscore=0 mlxlogscore=999 bulkscore=0 malwarescore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
- definitions=main-2006100137
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9648
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 suspectscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 impostorscore=0
- malwarescore=0 mlxscore=0 cotscore=-2147483648 adultscore=0 spamscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2004280000 definitions=main-2006100137
+In-Reply-To: <20200610173711.GK5005@sirena.org.uk>
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: devel@driverdev.osuosl.org, alsa-devel@alsa-project.org,
- Alex Elder <elder@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>, greybus-dev@lists.linaro.org,
- Mark Brown <broonie@kernel.org>, Johan Hovold <johan@kernel.org>,
+ Alex Elder <elder@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ greybus-dev@lists.linaro.org, Johan Hovold <johan@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
  linux-kernel@vger.kernel.org
 Subject: Re: [greybus-dev] [PATCH v2 0/6] Enable Greybus Audio codec driver
 X-BeenThere: greybus-dev@lists.linaro.org
@@ -96,8 +66,24 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-SSBsb3ZlIHRoaXMgcGF0Y2hzZXQgc28gbXVjaCBtb3JlLi4uICBUaGFua3MhCgpSZXZpZXdlZC1i
-eTogRGFuIENhcnBlbnRlciA8ZGFuLmNhcnBlbnRlckBvcmFjbGUuY29tPgoKcmVnYXJkcywKZGFu
-IGNhcnBlbnRlcgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KZ3JleWJ1cy1kZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcK
-aHR0cHM6Ly9saXN0cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
+T24gMTAvMDYvMjAyMCAxODozNzoxMSswMTAwLCBNYXJrIEJyb3duIHdyb3RlOgo+IE9uIFdlZCwg
+SnVuIDEwLCAyMDIwIGF0IDEwOjU4OjI0UE0gKzA1MzAsIFZhaWJoYXYgQWdhcndhbCB3cm90ZToK
+PiA+IFRoZSBleGlzdGluZyBHQiBBdWRpbyBjb2RlYyBkcml2ZXIgaXMgZGVwZW5kZW50IG9uIE1T
+TTg5OTQgQXVkaW8gZHJpdmVyLgo+ID4gRHVyaW5nIHRoZSBkZXZlbG9wbWVudCBzdGFnZSwgdGhp
+cyBkZXBlbmRlbmN5IHdhcyBjb25maWd1cmVkIGR1ZSB0bwo+ID4gdmFyaW91cyBjaGFuZ2VzIGlu
+dm9sdmVkIGluIE1TTSBBdWRpbyBkcml2ZXIgdG8gZW5hYmxlIGFkZHRpb25hbCBjb2RlYwo+ID4g
+Y2FyZCBhbmQgc29tZSBvZiB0aGUgY2hhbmdlcyBwcm9wb3NlZCBpbiBtYWlubGluZSBBU29DIGZy
+YW1ld29yay4KPiAKPiBJJ20gbm90IHN1cmUgd2h5IHlvdSdyZSBjb3B5aW5nIG1lIG9uIGEgc3Rh
+Z2luZyBkcml2ZXI/ICBJIGRvbid0IHJlY2FsbAo+IHRoZSBiYXNlIGRyaXZlciBoYXZpbmcgYmVl
+biBzdWJtaXR0ZWQgcHJvcGVybHkgeWV0LgoKVGhhdCB3YXMgbXkgc3VnZ2VzdGlvbiwgdGhlIHdo
+b2xlIGhpc3RvcnkgaXMgdGhhdCBJIHN1Ym1pdHRlZCBhIHBhdGNoCnJlbW92aW5nIHRoaXMgZHJp
+dmVyIGFzIGl0IHdhcyBub3QgZ2V0dGluZyBjb21waWxlZCBhbmQgc28gZGlkbid0IGdvCnRocm91
+Z2ggdGhlIGNvbXBvbmVudGl6YXRpb24uIFNlZQpodHRwczovL2xvcmUua2VybmVsLm9yZy9sa21s
+LzIwMjAwNTA3MjEyOTEyLjU5OTQzMy0xLWFsZXhhbmRyZS5iZWxsb25pQGJvb3RsaW4uY29tLwoK
+TXkgcG9pbnQgd2FzIHRoYXQgaWYgd2Ugd2VyZSB0byBrZWVwIHRoYXQgZHJpdmVyLCB0aGUgZ29h
+bCB3b3VsZCBiZSB0bwpoYXZlIGl0IG91dCBvZiBzdGFnaW5nIGluc3RlYWQgb2Ygc2ltcGx5IG1h
+a2luZyBpdCBjb21waWxlLgoKLS0gCkFsZXhhbmRyZSBCZWxsb25pLCBCb290bGluCkVtYmVkZGVk
+IExpbnV4IGFuZCBLZXJuZWwgZW5naW5lZXJpbmcKaHR0cHM6Ly9ib290bGluLmNvbQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpncmV5YnVzLWRldiBtYWls
+aW5nIGxpc3QKZ3JleWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpodHRwczovL2xpc3RzLmxpbmFy
+by5vcmcvbWFpbG1hbi9saXN0aW5mby9ncmV5YnVzLWRldgo=
