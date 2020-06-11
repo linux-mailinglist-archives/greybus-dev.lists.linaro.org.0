@@ -2,54 +2,53 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90DB81F63F1
-	for <lists+greybus-dev@lfdr.de>; Thu, 11 Jun 2020 10:47:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F7C11F63F2
+	for <lists+greybus-dev@lfdr.de>; Thu, 11 Jun 2020 10:47:37 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id B2D4365F72
-	for <lists+greybus-dev@lfdr.de>; Thu, 11 Jun 2020 08:47:25 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 684A165F72
+	for <lists+greybus-dev@lfdr.de>; Thu, 11 Jun 2020 08:47:36 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 9D7DC6650F; Thu, 11 Jun 2020 08:47:25 +0000 (UTC)
+	id 5AA9B664F0; Thu, 11 Jun 2020 08:47:36 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 7B1A0664F9;
+	by lists.linaro.org (Postfix) with ESMTP id 9BCD16650A;
 	Thu, 11 Jun 2020 08:47:04 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id A7288617EB
- for <greybus-dev@lists.linaro.org>; Thu, 11 Jun 2020 08:26:20 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id CB48061808
+ for <greybus-dev@lists.linaro.org>; Thu, 11 Jun 2020 08:41:39 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 9BE6B61963; Thu, 11 Jun 2020 08:26:20 +0000 (UTC)
+ id BCDD961963; Thu, 11 Jun 2020 08:41:39 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by lists.linaro.org (Postfix) with ESMTPS id BBE5D617EB
- for <greybus-dev@lists.linaro.org>; Thu, 11 Jun 2020 08:26:19 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTPS id 0AE6861808
+ for <greybus-dev@lists.linaro.org>; Thu, 11 Jun 2020 08:41:39 +0000 (UTC)
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 67677207C3;
- Thu, 11 Jun 2020 08:26:18 +0000 (UTC)
-Date: Thu, 11 Jun 2020 09:26:16 +0100
+ by mail.kernel.org (Postfix) with ESMTPSA id C1BA8207C3;
+ Thu, 11 Jun 2020 08:41:37 +0000 (UTC)
+Date: Thu, 11 Jun 2020 09:41:36 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Vaibhav Agarwal <vaibhav.sr@gmail.com>
-Message-ID: <20200611082616.GA4671@sirena.org.uk>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Message-ID: <20200611084135.GB4671@sirena.org.uk>
 References: <cover.1591802243.git.vaibhav.sr@gmail.com>
  <20200610173711.GK5005@sirena.org.uk>
- <20200610182322.GC21465@gmail.com>
+ <20200610180118.GZ3720@piout.net>
 MIME-Version: 1.0
-In-Reply-To: <20200610182322.GC21465@gmail.com>
+In-Reply-To: <20200610180118.GZ3720@piout.net>
 X-Cookie: I like your SNOOPY POSTER!!
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Thu, 11 Jun 2020 08:47:02 +0000
 Cc: devel@driverdev.osuosl.org, alsa-devel@alsa-project.org,
- Alex Elder <elder@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>, greybus-dev@lists.linaro.org,
- Johan Hovold <johan@kernel.org>, linux-kernel@vger.kernel.org
+ Alex Elder <elder@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ greybus-dev@lists.linaro.org, Johan Hovold <johan@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org
 Subject: Re: [greybus-dev] [PATCH v2 0/6] Enable Greybus Audio codec driver
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
@@ -62,65 +61,47 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8614263681282971371=="
+Content-Type: multipart/mixed; boundary="===============3628073706847365993=="
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
 
---===============8614263681282971371==
+--===============3628073706847365993==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Dxnq1zWXvFF0Q93v"
+	protocol="application/pgp-signature"; boundary="Yylu36WmvOXNoKYn"
 Content-Disposition: inline
 
 
---Dxnq1zWXvFF0Q93v
+--Yylu36WmvOXNoKYn
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 10, 2020 at 11:53:24PM +0530, Vaibhav Agarwal wrote:
+On Wed, Jun 10, 2020 at 08:01:18PM +0200, Alexandre Belloni wrote:
 
-> With patch#6 in this series, I'm proposing some of the (dummy) helper=20
-> APIs required to link DAPM DAI widgets for the GB Audio modules=20
-> added/removed dynamically.
+> My point was that if we were to keep that driver, the goal would be to
+> have it out of staging instead of simply making it compile.
 
-> Eventually, I would like to propose relevant changes in snd-soc APIs to=
-=20
-> enable dynamic linking of DAI widgets for the modules added and=20
-> remove/free component controls for the module removed.
+Yes, definitely - that should be the goal for anything in staging.
 
-> I'm seeking your opinion on the proposed changes. And as per the=20
-> recommendation I'm sharing the changes with ASoC mailing list as well.
-
-These are proposed incremental changes to an out of tree driver that has
-never been submitted.  I don't know what the current code looks like,
-what it's supposed to be doing or anything like that so I've no idea
-what's going on or why.
-
-> Kindly suggest me the preferred way to follow on this thread.=20
-
-This is effectively out of tree code, until someone submits it properly
-I'm not sure it's useful to submit incremental patches upstream.
-
---Dxnq1zWXvFF0Q93v
+--Yylu36WmvOXNoKYn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7h6qcACgkQJNaLcl1U
-h9ClMQf5AfzPskdM7GJn5Lf8DIJciRGrA08Te9rvY3eabhXU4aiMCp9lBF1prenp
-QGLxYB+mW1bdfMOqVwzmQlVKZ6OtZ9IinlKhqWn6cea9eWK3aGo8uaGjp3H8tJp1
-HYpMyoBfCedLFxL/YGlhxn2yj5k++pPtDS+6NwEYuec1FV3k46hzKfmzr5BJzgcp
-LYLZT8n/3S+AJoCb7NRY07Ptz1+Qev16y+Ta45oolFnFceewDJ+jxt4w7+BLVwJt
-rAchPXSGY0SgPhSDu/hPcKODETZ7O2UloPGht/R5SG8Fzabg6ngJqujyawqzDddL
-TYo4fg6SQ2NWig21RJ9+2byMqNbgPg==
-=yLco
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7h7j8ACgkQJNaLcl1U
+h9B1NQf/eAOKPLkgcd+pMevL+wJlH7JsRYzk65f9i97F+wSsVXn1QDXkKiiOR1bD
+rkFO3C0++31H/brsYSkLpsxhMtika0T1WqwxskXs5xER584Xt9SEfONh6yX7Uzyq
+Recbx5h8Hwq16z0jC2SAemnXl2pbz5LMQYGIPP9jj6gRY4KImCCSqPbl763oYHKE
+jvUH4vyHODWSzAmSYqGv3lIkRE/oZbcNKatDxgPzFrcXFilmuZt/hRt+PPQ5vtiK
+r/9vWSGxW/UO6K39svmHjEMOQXtGC8S70/GT1ODLxesgEqRX3NCHZAuWR3TOFfM4
+nHoamPxEb2LydXYOKZmETMIlngmTcw==
+=nIE1
 -----END PGP SIGNATURE-----
 
---Dxnq1zWXvFF0Q93v--
+--Yylu36WmvOXNoKYn--
 
---===============8614263681282971371==
+--===============3628073706847365993==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -130,4 +111,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1k
 ZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0
 cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
 
---===============8614263681282971371==--
+--===============3628073706847365993==--
