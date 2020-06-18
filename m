@@ -2,51 +2,51 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0FDE1FDB4A
-	for <lists+greybus-dev@lfdr.de>; Thu, 18 Jun 2020 03:11:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7992E1FDC79
+	for <lists+greybus-dev@lfdr.de>; Thu, 18 Jun 2020 03:19:50 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 7A47766506
-	for <lists+greybus-dev@lfdr.de>; Thu, 18 Jun 2020 01:11:26 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 9DC76664FE
+	for <lists+greybus-dev@lfdr.de>; Thu, 18 Jun 2020 01:19:49 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 6CFC966519; Thu, 18 Jun 2020 01:11:26 +0000 (UTC)
+	id 83B6266502; Thu, 18 Jun 2020 01:19:49 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9A5F86650A;
-	Thu, 18 Jun 2020 01:11:02 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 976DD6650A;
+	Thu, 18 Jun 2020 01:19:23 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 0703B664E3
- for <greybus-dev@lists.linaro.org>; Thu, 18 Jun 2020 01:10:44 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 473C5664F5
+ for <greybus-dev@lists.linaro.org>; Thu, 18 Jun 2020 01:18:30 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id E750566502; Thu, 18 Jun 2020 01:10:43 +0000 (UTC)
+ id 3B887664E3; Thu, 18 Jun 2020 01:18:30 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by lists.linaro.org (Postfix) with ESMTPS id 434C4664E3
- for <greybus-dev@lists.linaro.org>; Thu, 18 Jun 2020 01:10:42 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTPS id 7E7E8664E3
+ for <greybus-dev@lists.linaro.org>; Thu, 18 Jun 2020 01:18:28 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9105F214DB;
- Thu, 18 Jun 2020 01:10:40 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DC2E8221F1;
+ Thu, 18 Jun 2020 01:18:26 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 17 Jun 2020 21:03:33 -0400
-Message-Id: <20200618010805.600873-116-sashal@kernel.org>
+Date: Wed, 17 Jun 2020 21:13:30 -0400
+Message-Id: <20200618011631.604574-85-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200618010805.600873-1-sashal@kernel.org>
-References: <20200618010805.600873-1-sashal@kernel.org>
+In-Reply-To: <20200618011631.604574-1-sashal@kernel.org>
+References: <20200618011631.604574-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: devel@driverdev.osuosl.org, Sasha Levin <sashal@kernel.org>,
  greybus-dev@lists.linaro.org, Chen Zhou <chenzhou10@huawei.com>
-Subject: [greybus-dev] [PATCH AUTOSEL 5.7 116/388] staging: greybus: fix a
+Subject: [greybus-dev] [PATCH AUTOSEL 5.4 085/266] staging: greybus: fix a
 	missing-check bug in gb_lights_light_config()
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
