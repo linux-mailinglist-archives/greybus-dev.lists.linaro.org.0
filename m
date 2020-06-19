@@ -2,50 +2,50 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED23F200F42
-	for <lists+greybus-dev@lfdr.de>; Fri, 19 Jun 2020 17:17:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA61D200DDA
+	for <lists+greybus-dev@lfdr.de>; Fri, 19 Jun 2020 17:04:50 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 234B5665BF
-	for <lists+greybus-dev@lfdr.de>; Fri, 19 Jun 2020 15:17:43 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 0DDF1665D5
+	for <lists+greybus-dev@lfdr.de>; Fri, 19 Jun 2020 15:04:50 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 183B4665CF; Fri, 19 Jun 2020 15:17:43 +0000 (UTC)
+	id F3384665D6; Fri, 19 Jun 2020 15:04:49 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 62BB2665C5;
-	Fri, 19 Jun 2020 15:17:12 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B8497665BF;
+	Fri, 19 Jun 2020 15:04:23 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 0E84C60428
- for <greybus-dev@lists.linaro.org>; Fri, 19 Jun 2020 15:10:57 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id BF9E560428
+ for <greybus-dev@lists.linaro.org>; Fri, 19 Jun 2020 15:00:47 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id F3874665B6; Fri, 19 Jun 2020 15:10:56 +0000 (UTC)
+ id B25A2665BE; Fri, 19 Jun 2020 15:00:47 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by lists.linaro.org (Postfix) with ESMTPS id 6459660428
- for <greybus-dev@lists.linaro.org>; Fri, 19 Jun 2020 15:10:55 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTPS id 468F160428
+ for <greybus-dev@lists.linaro.org>; Fri, 19 Jun 2020 15:00:46 +0000 (UTC)
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 17208206FA;
- Fri, 19 Jun 2020 15:10:53 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 01B082186A;
+ Fri, 19 Jun 2020 15:00:44 +0000 (UTC)
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Date: Fri, 19 Jun 2020 16:32:32 +0200
-Message-Id: <20200619141656.623784714@linuxfoundation.org>
+Date: Fri, 19 Jun 2020 16:32:43 +0200
+Message-Id: <20200619141657.320999023@linuxfoundation.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200619141649.878808811@linuxfoundation.org>
-References: <20200619141649.878808811@linuxfoundation.org>
+In-Reply-To: <20200619141648.840376470@linuxfoundation.org>
+References: <20200619141648.840376470@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: Sasha Levin <sashal@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
  Alex Elder <elder@kernel.org>, Johan Hovold <johan@kernel.org>,
  stable@vger.kernel.org, greybus-dev@lists.linaro.org
-Subject: [greybus-dev] [PATCH 5.4 141/261] staging: greybus: sdio: Respect
+Subject: [greybus-dev] [PATCH 4.19 178/267] staging: greybus: sdio: Respect
 	the cmd->busy_timeout from the mmc core
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
@@ -87,7 +87,7 @@ bkBsaW5hcm8ub3JnPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5v
 cmc+Ci0tLQogZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvc2Rpby5jIHwgMTAgKysrKysrKy0tLQog
 MSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
 aXQgYS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9zZGlvLmMgYi9kcml2ZXJzL3N0YWdpbmcvZ3Jl
-eWJ1cy9zZGlvLmMKaW5kZXggNjhjNTcxOGJlODI3Li5jNGIxNmJiNWMxYTQgMTAwNjQ0Ci0tLSBh
+eWJ1cy9zZGlvLmMKaW5kZXggMzhlODUwMzNmYzRiLi5hZmIyZTVlNTExMWEgMTAwNjQ0Ci0tLSBh
 L2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3NkaW8uYworKysgYi9kcml2ZXJzL3N0YWdpbmcvZ3Jl
 eWJ1cy9zZGlvLmMKQEAgLTQxMSw2ICs0MTEsNyBAQCBzdGF0aWMgaW50IGdiX3NkaW9fY29tbWFu
 ZChzdHJ1Y3QgZ2Jfc2Rpb19ob3N0ICpob3N0LCBzdHJ1Y3QgbW1jX2NvbW1hbmQgKmNtZCkKIAlz
