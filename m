@@ -2,57 +2,57 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id EADC922E2C1
-	for <lists+greybus-dev@lfdr.de>; Sun, 26 Jul 2020 23:36:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1506F22E2C5
+	for <lists+greybus-dev@lfdr.de>; Sun, 26 Jul 2020 23:38:30 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D024266628
-	for <lists+greybus-dev@lfdr.de>; Sun, 26 Jul 2020 21:36:08 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7A2AB665C5
+	for <lists+greybus-dev@lfdr.de>; Sun, 26 Jul 2020 21:38:28 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id BA7D166631; Sun, 26 Jul 2020 21:36:08 +0000 (UTC)
+	id 6B0C36661F; Sun, 26 Jul 2020 21:38:28 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,HTML_MESSAGE,
 	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,RCVD_IN_DNSWL_NONE,
 	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4832B66597;
+	by lists.linaro.org (Postfix) with ESMTP id B2B07665E9;
 	Sun, 26 Jul 2020 21:33:24 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 717AF617F1
- for <greybus-dev@lists.linaro.org>; Sun, 26 Jul 2020 17:23:55 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 8F65E60AAB
+ for <greybus-dev@lists.linaro.org>; Sun, 26 Jul 2020 17:37:38 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 5731966539; Sun, 26 Jul 2020 17:23:55 +0000 (UTC)
-Received: from mail-vs1-f65.google.com (mail-vs1-f65.google.com
- [209.85.217.65])
- by lists.linaro.org (Postfix) with ESMTPS id 6CBFD617F1
- for <greybus-dev@lists.linaro.org>; Sun, 26 Jul 2020 17:23:45 +0000 (UTC)
-Received: by mail-vs1-f65.google.com with SMTP id p25so7142186vsg.4
- for <greybus-dev@lists.linaro.org>; Sun, 26 Jul 2020 10:23:45 -0700 (PDT)
+ id 7117966539; Sun, 26 Jul 2020 17:37:38 +0000 (UTC)
+Received: from mail-ua1-f68.google.com (mail-ua1-f68.google.com
+ [209.85.222.68])
+ by lists.linaro.org (Postfix) with ESMTPS id EDF7360AAB
+ for <greybus-dev@lists.linaro.org>; Sun, 26 Jul 2020 17:37:31 +0000 (UTC)
+Received: by mail-ua1-f68.google.com with SMTP id q15so4719170uap.4
+ for <greybus-dev@lists.linaro.org>; Sun, 26 Jul 2020 10:37:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=rS3DqzczCFBi90tXw7IlwyCi+Qh97WH5VflrN4GjEDE=;
- b=lkMj6UiV3JKQZKQn/4BWEvGbJkmP5agGC/SJR+vwR3xvHnNnI3Jl/yNxCCA0AQo8YC
- um19jCbWQXnTGSTZixSbak1aMKvaBM8tkI6POsmr9QkODty9apSxh9gZ2+P+lqNDsZSL
- Nj843owD8y+ATVN5APIMfrMJjDtKzFgBzOZSiKywbjKC/TUhuSmkDW6DnXaKUexUELfK
- BTNWqRdEgVTl/68NEO4QlmfAXojLIeRomFwHuJLByKXrGPJ/lcOny9iXWOyUaCTyb1eM
- bAe/ZVYEdWGyU67WjwwCGpWc5Kmol5baobBzwg8+RsJMqC1jXb9NZbBm+F6AEt87L0dF
- LQog==
-X-Gm-Message-State: AOAM530T1gwJE4NwE4InHbd7tJLGXumo8ibnZvwSwHLVjDghctW6f9wl
- d70v2TFFgAvf7L5ZpmeVQvAcIAmwdoMM3RqSEOg=
-X-Google-Smtp-Source: ABdhPJyt2gVx0oTcnO9ivXdmcNa9TtILR7L9wfFx4d3NJxHNz3LhBsOwi/Nq5DnYsWJwpD6BHvR5WMKbRIBYuCdKQp8=
-X-Received: by 2002:a67:8a4a:: with SMTP id m71mr14562933vsd.59.1595784224433; 
- Sun, 26 Jul 2020 10:23:44 -0700 (PDT)
+ bh=nDeLnVg28osR+PHIvDDiJKMIt5U0oidmoPj/FKeUvBk=;
+ b=fUqKaOa5bLraMjKFlX2I6oUjLWzGeiPP6xMpjXby5q0WrrxrzjGR7ueIkVN+KDZay5
+ 7LawOOLFzptc2a40fCkdCooTv3Q5NAtfnRPbv4xFWX8bIi0+ymnpHF9iXZQPnpBbdgMt
+ JUWNsO44TjBUYDC8pxwFsfxic85gcd6LG8IjlailK0iwJhElMM6nM7AIuZDkcJmrHbuh
+ 02hW4Ws1XytwSJmCZmLg0g8HV4LrYuUb39l25u/VAKxrFqy74aSZjDP4MO2GbUsXpSG1
+ v3GuDCSaoI/HiW3wqQHoltiWTYi8e0VVX4neG1mM40XO4jwHp+vvyoBsiYjU/9Kf2672
+ npZg==
+X-Gm-Message-State: AOAM533TlhAPBnlIl5OQbPGcZQ1WXhRNx60qimWFuGM9HDM4w/w89xjy
+ D2oF/9RocWZ3+eJ55GoGzpaMz+4/2Iv/pi3+V6k=
+X-Google-Smtp-Source: ABdhPJzcqf9hF5rUzqkVe9+wKgLWn9RxcpmVxFOJYYXKZvCKPnNmjhEZtEXAE+XeT+iijdLSZlIol6E1IIdrXiDtbZk=
+X-Received: by 2002:ab0:284d:: with SMTP id c13mr13997109uaq.42.1595785051230; 
+ Sun, 26 Jul 2020 10:37:31 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200724120637.GA427284@vaishnav-VirtualBox>
- <b8887d88-8c3b-ef54-f24d-190b00697e97@linaro.org>
-In-Reply-To: <b8887d88-8c3b-ef54-f24d-190b00697e97@linaro.org>
+ <15cab987-6eaa-9137-0f70-4735b3fea87f@linaro.org>
+In-Reply-To: <15cab987-6eaa-9137-0f70-4735b3fea87f@linaro.org>
 From: Jason Kridner <jkridner@beagleboard.org>
-Date: Sun, 26 Jul 2020 13:23:33 -0400
-Message-ID: <CA+T6QPnYrDfFzHr+kCHZW2VhU1BDYdD+3x5SUUqP5wUZ1Gdakg@mail.gmail.com>
+Date: Sun, 26 Jul 2020 13:37:20 -0400
+Message-ID: <CA+T6QPmJW6dVbcD07oj6YcxC_LRgLzCsdOLy03AG1bti68DkLw@mail.gmail.com>
 To: Alex Elder <elder@linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Sun, 26 Jul 2020 21:33:22 +0000
@@ -73,19 +73,19 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6656361849329247820=="
+Content-Type: multipart/mixed; boundary="===============6861481175408736008=="
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
---===============6656361849329247820==
-Content-Type: multipart/alternative; boundary="000000000000d5ec1605ab5b77cc"
+--===============6861481175408736008==
+Content-Type: multipart/alternative; boundary="0000000000001dd7d705ab5ba997"
 
---000000000000d5ec1605ab5b77cc
+--0000000000001dd7d705ab5ba997
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jul 26, 2020 at 8:48 AM Alex Elder <elder@linaro.org> wrote:
+On Sun, Jul 26, 2020 at 11:04 AM Alex Elder <elder@linaro.org> wrote:
 
 > On 7/24/20 7:06 AM, Vaishnav M A wrote:
 > > Attached is a patch for the mikroBUS driver which helps to
@@ -97,86 +97,17 @@ On Sun, Jul 26, 2020 at 8:48 AM Alex Elder <elder@linaro.org> wrote:
 > > the status of the driver can be found here in this eLinux wiki:
 > > https://elinux.org/Mikrobus
 >
-> Vaishnav, I am finally looking at this a little more closely
-> today.  More than anything I want to compliment you on all
-> this work.  I think it looks like a great use of Greybus for
-> essentially its intended purpose, and I would love to see
-> it extended as needed to support what you're doing here.
+> I had some other things I would comment on in this code review,
+> but there are a lot of somewhat superficial things you should
+> fix.  I looked at much--but not all--of this, and I'll want to
+> review this again after you've fixed the simple things.  I also
+> can provide more substantive feedback after I've had more time
+> to digest the bigger picture of microBUS.
 >
-> At first glance your patch looks good, but I want to take the
-> time to give it a thorough review.  Unfortunately I did not
-> follow your progress on the GSoC project (which you posted
-> about last year here), and have not followed any discussion
-> since then, so it's taking me a little time to come up to speed
-> on it.  I'm hoping you might help me (and others) do this more
-> quickly.
+> You should assume it will take a few iterations to get to the
+> point where things are shaping up for acceptance.
 >
-> I am scanning through some of the materials online and I find
-> there is quite a lot.  That includes information about both
-> your project and about mikroBUS.  Zeroing in on things that
-> fairly concisely describe the way things really work would be
-> very valuable.  Can you point me directly at something that
-> gives an overview of both the hardware and software
-> architecture (specifically as it's used with Greybus)?  If
-> not, I'm open to finding other ways to get in synch.  I'll
-> expand on this a little more below.
-
-
-The exact implementation isn=E2=80=99t so critical, but understanding that =
-using
-Greybus to talk to devices implementing the mikroBUS standard is. One
-instance of the project is visible on my personal github account, but some
-documentation updates and additional roadmap/branding items would be
-helpful. I don=E2=80=99t want it to show up on widely distributed blogs yet=
-, so
-I=E2=80=99ll send anyone that contacts me directly the publicly visible URL=
-. Please
-don=E2=80=99t make me take it private again by getting it on a popular blog=
- before
-we can refine our message.
-
-
->
-> This isn't strictly necessary, but if I wanted to reproduce the
-> hardware setup you use to validate this code, what hardware
-> is required?  For example, is it possible to use a BeagleBone Black
-> with a MikroBus Cape for testing, or must a PocktBeagle be used?
-> Is there one or several MikroBus clickboards that would be the
-> best for basic testing?
-
-
-Just about any Linux board with a mikroBUS socket can be used to reproduce
-the function, though a PocketBeagle plus TechLab cape is the primary
-development vehicle. Initial Greybus transport integration will be done
-with a limited bandwidth 2.4GHz 802.15.4 transport using gb-netlink and
-gbridge. Hardware is an ATUSB and CC1352R Launchpad with Click 2
-Boosterpack.
-
-
->
-> Can you provide a short summary of why the Greybus manifest
-> format needed to be extended?  Can you summarize how a mikroBUS
-> add-on board differs from an Ara module?  And what they have in
-> common?
->
-> This patch is an RFC, and you say that v3 of the mikroBUS spec
-> is being developed.  Is your plan to have the "real" code (when
-> you submit it) adhere to the newer version of the spec?  Are
-> there specific things that you expect will be included in v3
-> that will how the driver works (compared to this RFC)?
->
-> Please realize I'm asking these questions so I can be more
-> effective in evaluating what you're doing here.  I'd like to
-> provide feedback not just on the code, but on the design that
-> underlies it, and for that I need to get better informed.  My
-> hope is that you can help me find or gather that information
-> as quickly as possible.
->
-> And now I'll go give a quick initial review of the code...
->
-> Thanks.
->
->                                         -Alex
+> All that said, your basic foundation looks good.
 >
 > > In the current state of the driver, more than 80 different
 > > add-on boards have been tested on the BeagleBoard.org
@@ -223,7 +154,12 @@ US
 > > The driver also has a few debug SysFS interfaces for testing on add-on
 > > boards without an EEPROM, these can be used in the following manner:
 > > (example for mikroBUS port 1 on BeagleBoard.org PocketBeagle):
-> >
+>
+> You should probably use debugfs, since this is a temporary thing.
+> But I guess if it's not actually upstream (and it sounds like you
+> might be avoiding the need for this with EEPROM anyway) maybe
+> that doesn't matter much.
+>
 > > printf "%b" '\x01\x00\x00\x59\x32\x17' > /sys/bus/mikrobus/add_port
 > >
 > > The bytes in the byte array sequence are (in order):
@@ -348,8 +284,36 @@ o
 > > +       data fetched from an EEPROM on the device, more details on
 > > +       the mikroBUS driver support and discussion can be found in
 > > +       this eLinux wiki : elinux.org/Mikrobus
-> > +
-> > +
+>
+> This text could be cleaned up a bit.  For example:
+>         The mikroBUS driver instantiates devices on a mikroBUS port
+>         described by identifying data present in device-resident EEPROM.
+>
+> Using well-defined terms can help a lot.  Is a physical thing that
+> plugs into a microbus port called a "board"?
+
+
+I agree language is important and should be consistent. There are mikroBUS
+sockets and =E2=80=9Cadd-on boards=E2=80=9D.  The Mikroelektronika guys mig=
+ht be able to be
+more precise, but this ia my understanding.
+
+Can a "board" present
+> more than one device to the system?
+
+
+It isn=E2=80=99t common with existing add-on boards, but should be allowed.
+
+Is the EEPROM associated with
+> the board, or a device?
+
+
+Board.
+
+  My point isn't that those answers belong
+> here, but that having meaningful terms can help you describe things
+> concisely.
+>
 > > +       Say Y here to enable support for this driver.
 > > +
 > > +       To compile this code as a module, chose M here: the module
@@ -411,7 +375,10 @@ o
 > > +#include "mikrobus_manifest.h"
 > > +
 > > +#define ATMEL_24C32_I2C_ADDR 0x57
-> > +
+>
+> I'm just getting started looking through this, so maybe I'll find
+> out soon. But why is this ATMEL I2C address needed in the core code?
+>
 > > +static DEFINE_IDR(mikrobus_port_idr);
 > > +static struct class_compat *mikrobus_port_compat_class;
 > > +static bool is_registered;
@@ -422,11 +389,31 @@ o
 > > +     struct mikrobus_port_config *cfg;
 > > +
 > > +     if (count < sizeof(*cfg)) {
+>
+> Perhaps this should be:
+>         if (count !=3D sizeof(*cfg)) {
+>
 > > +             pr_err("add_port: incorrect config data received: %s\n",
 > buf);
+>
+> I don't think you need to include "add_port: ".
+>
+> This is binary data you are writing to this sysfs file, correct?
+> Don't try to interpret it as a string.  You could avoid the problem
+> with something more like:
+>     pr_err("bad port config size (%zu, should be %zu)", count,
+> sizeof(*cfg));
+>
 > > +             return -EINVAL;
 > > +     }
 > > +     mikrobus_register_port_config((void *)buf);
+>
+> mikrobus_register_port_config() returns an error value, and
+> that should be returned from this function if it's non-zero.
+>
+> Don't cast the buffer to a void pointer; cast it to the actual
+> type represents (struct mikrobus_port_config *).
+>
 > > +     return count;
 > > +}
 > > +BUS_ATTR_WO(add_port);
@@ -439,13 +426,32 @@ o
 > > +     int res;
 > > +
 > > +     res =3D sscanf(buf, "%d%c", &id, &end);
+>
+> The id value you pass to idr_find() is an unsigned long.
+> You might as well define "id" with that type and scan that
+> type here.  Make sure it's in the valid range for your
+> identifier as a separate step.  (There might be a good
+> reason you use a signed int as an identifier, but I would
+> recommend unsigned, with a well-defined number of bits,
+> such as u32).
+>
+> Is "end" intended to just consume an optional trailing newline?
+>
 > > +     if (res < 1) {
 > > +             pr_err("delete_port: cannot parse mikrobus port ID\n");
+>
+> I don't think "delete_port: " here is necessary.  (Take this
+> comment to apply in all similar cases; I won't mention it
+> again.)
+>
 > > +             return -EINVAL;
 > > +     }
 > > +     if (!idr_find(&mikrobus_port_idr, id)) {
 > > +             pr_err("attempting to delete unregistered port [%d]\n",
 > id);
+>
+> Maybe just "mikrobus port %lu not registered".
+>
 > > +             return -EINVAL;
 > > +     }
 > > +     mikrobus_del_port(idr_find(&mikrobus_port_idr, id));
@@ -466,7 +472,8 @@ o
 > > +};
 > > +EXPORT_SYMBOL_GPL(mikrobus_bus_type);
 > > +
-> > +static int mikrobus_port_scan_eeprom(struct mikrobus_port *port)
+> > +static int mikrobus_manifest_header_validate(struct mikrobus_port *por=
+t)
 > > +{
 > > +     char header[12];
 > > +     struct addon_board_info *board;
@@ -475,31 +482,87 @@ o
 > > +     char *buf;
 > > +
 > > +     nvmem_device_read(port->eeprom, 0, 12, header);
+>
+> This function returns a value, and if it's less than zero you
+> should return it as the result of mikrobus_manifest_header_validate()
+> (possibly after reporting an error).
+>
 > > +     manifest_size =3D mikrobus_manifest_header_validate(header, 12);
 > > +     if (manifest_size > 0) {
 > > +             buf =3D kzalloc(manifest_size, GFP_KERNEL);
+>
+> Check whether kzalloc() returns NULL, and if so, return -ENOMEM.
+>
 > > +             nvmem_device_read(port->eeprom, 0, manifest_size, buf);
+>
+> Check the return value here, and if negative, free your buffer
+> and return the error.  (I won't make this comment any more if
+> I see other instances of ignoring the nvmem_device_read()
+> return value.)
+>
 > > +             board =3D kzalloc(sizeof(*board), GFP_KERNEL);
 > > +             if (!board)
 > > +                     return -ENOMEM;
+>
+> You need to free the buffer you allocated before you return here.
+> It is helpful to use the "goto <error path>" pattern.  I.e.:
+>
+>         if (!board) {
+>                 retval =3D -ENOMEM;
+>                 goto err_free_buf;
+>         }
+> ...
+>
+> err_free_buf:
+>         kfree(buf);
+>
+>         return retval;
+> }
+>
 > > +             INIT_LIST_HEAD(&board->manifest_descs);
 > > +             INIT_LIST_HEAD(&board->devices);
 > > +             retval =3D mikrobus_manifest_parse(board, (void *)buf,
 > manifest_size);
+>
+> No need to cast buf to (void *).
+>
+> I have more comments on mikrobus_manifest_parse() below.  But it
+> might be useful to have it return an integer (0 or error code)
+> rather than Boolean.  Assuming you did that...
+>
 > > +             if (!retval) {
 > > +                     pr_err("failed to parse manifest, size: %d",
 > manifest_size);
+>
+>         if (retval)
+>                 goto err_free_board;
+> ...
+>
+> err_free_board:
+>         free_board(board);
+> err_free_buf:
+>         free_buf(buf);
+>
+>         return retval;
+> }
+>
 > > +                     return -EINVAL;
 > > +             }
 > > +             retval =3D mikrobus_register_board(port, board);
 > > +             if (retval) {
 > > +                     pr_err("failed to register board: %s",
 > board->name);
+>
+>         goto err_free_board;
+>
 > > +                     return -EINVAL;
 > > +             }
 > > +             kfree(buf);
 > > +     } else {
 > > +             pr_err("inavlide manifest port %d", port->id);
+>
+> s/inavlide/invalid/
+>
 > > +             return -EINVAL;
 > > +     }
 > > +     return 0;
@@ -522,6 +585,23 @@ o
 > > +     int retval;
 > > +
 > > +     if (port->board =3D=3D NULL) {
+>
+> This is just a style suggestion, but I would prefer this, because it
+> reduces the indentation of the normal path:
+>
+>         if (port->board) {
+>                 pr_err("mikrobus port %d already has a board registered\n=
+",
+>                         port->id);
+>                 return -EBUSY;
+>         }
+>
+>         port->board =3D kzalloc(...);
+>         if (!port->board)
+>                 return -ENOMEM;
+>
+> Also note the return values I suggest here.
+>
 > > +             board =3D kzalloc(sizeof(*board), GFP_KERNEL);
 > > +             if (!board)
 > > +                     return -EINVAL;
@@ -592,6 +672,11 @@ e
 > > +             return -EINVAL;
 > > +     }
 > > +     if (port->board =3D=3D NULL) {
+>
+> Normally in kernel code this form is used:
+>
+>         if (!port->board) {
+>
 > > +             pr_err("delete_board: port does not have any boards
 > registered\n");
 > > +             return -EINVAL;
@@ -630,6 +715,10 @@ e
 > > +     case MIKROBUS_GPIO_INT:
 > > +     irq =3D gpiod_to_irq(port->int_gpio);
 > > +     break;
+>
+> Please fix your indentation here.  (And everywhere; I give
+> an example of the proper way to do it below.)
+>
 > > +     case MIKROBUS_GPIO_RST:
 > > +     irq =3D gpiod_to_irq(port->rst_gpio);
 > > +     break;
@@ -644,6 +733,10 @@ e
 > > +             return -EINVAL;
 > > +     }
 > > +     irq_set_irq_type(irq, irq_type);
+>
+> It shouldn't return an error, but please check the
+> return value here.
+>
 > > +     return irq;
 > > +}
 > > +
@@ -695,6 +788,11 @@ e
 > > +     case MIKROBUS_GPIO_INT:
 > > +     gpiochip =3D gpiod_to_chip(port->int_gpio);
 > > +     name =3D kmemdup(gpiochip->label, 40, GFP_KERNEL);
+>
+> Why 40?  Please use a symbolic constant so you can
+> change it easily, and to give you a place to explain
+> why 40 is the limit used.
+>
 > > +     break;
 > > +     case MIKROBUS_GPIO_RST:
 > > +     gpiochip =3D gpiod_to_chip(port->rst_gpio);
@@ -732,493 +830,38 @@ o)
 > > +}
 > > +
 > > +static void release_mikrobus_device(struct board_device_info *dev)
+>
+> We tend to follow a convention throughout the Greybus code
+> that has the object name as the prefix for things you do
+> to the object.  I don't know how consistent that is, but
+> my suggestion would be that these functions would be named
+> something more like:
+>     mikrobus_gpio_chip_name_get()
+>     mikrobus_gpio_hwnum_get()
+>     mikrobus_board_release_device_all()
+>     mikrobus_device_register()
+>     mikrobus_device_unregister()
+>     mikrobus_board_register()
+>     mikrobus_board_unregister()
+> and so on.
+>
 > > +{
 > > +     list_del(&dev->links);
 > > +     kfree(dev);
 > > +}
 > > +
-> > +static void release_board_devices(struct addon_board_info *info)
-> > +{
-> > +     struct board_device_info *dev;
-> > +     struct board_device_info *next;
-> > +
-> > +     list_for_each_entry_safe(dev, next, &info->devices, links)
-> > +             release_mikrobus_device(dev);
-> > +}
-> > +
-> > +static int mikrobus_register_device(struct mikrobus_port *port,
-> > +                                     struct board_device_info *dev,
-> char *board_name)
-> > +{
-> > +     struct i2c_board_info *i2c;
-> > +     struct spi_board_info *spi;
-> > +     struct gpiod_lookup_table *lookup;
-> > +     char devname[40];
-> > +     int i;
-> > +
-> > +     pr_info(" registering device : %s\n", dev->drv_name);
-> > +
-> > +     if (dev->gpio_lookup !=3D NULL) {
-> > +             lookup =3D dev->gpio_lookup;
-> > +             if (dev->protocol =3D=3D MIKROBUS_PROTOCOL_SPI) {
-> > +                     snprintf(devname, sizeof(devname), "%s.%u",
-> > +                             dev_name(&port->spi_mstr->dev), dev->reg)=
-;
-> > +                     lookup->dev_id =3D kmemdup(devname, 40, GFP_KERNE=
-L);
-> > +             } else if (dev->protocol =3D=3D MIKROBUS_PROTOCOL_I2C)
-> > +                     lookup->dev_id =3D dev->drv_name;
-> > +             pr_info(" adding lookup table : %s\n", lookup->dev_id);
-> > +             for (i =3D 0; i < dev->num_gpio_resources; i++) {
-> > +                     lookup->table[i].key =3D
-> > +                     mikrobus_get_gpio_chip_name(port,
-> lookup->table[i].chip_hwnum);
-> > +                     lookup->table[i].chip_hwnum =3D
-> > +                     mikrobus_get_gpio_hwnum(port,
-> lookup->table[i].chip_hwnum);
-> > +                     lookup->table[i].flags =3D GPIO_ACTIVE_HIGH;
-> > +             }
-> > +             gpiod_add_lookup_table(lookup);
-> > +     }
-> > +     switch (dev->protocol) {
-> > +     case MIKROBUS_PROTOCOL_SPI:
-> > +     spi =3D kzalloc(sizeof(*spi), GFP_KERNEL);
-> > +     if (!spi)
-> > +             return -ENOMEM;
-> > +     strncpy(spi->modalias, dev->drv_name, sizeof(spi->modalias) - 1);
-> > +     if (dev->irq)
-> > +             spi->irq =3D mikrobus_get_irq(port, dev->irq, dev->irq_ty=
-pe);
-> > +     if (dev->properties)
-> > +             spi->properties =3D dev->properties;
-> > +     spi->chip_select =3D dev->reg;
-> > +     spi->max_speed_hz =3D dev->max_speed_hz;
-> > +     spi->mode =3D dev->mode;
-> > +     mikrobus_spi_device_delete(port->spi_mstr, dev->reg);
-> > +     dev->dev_client =3D (void *)spi_new_device(port->spi_mstr, spi);
-> > +     break;
-> > +     case MIKROBUS_PROTOCOL_I2C:
-> > +     i2c =3D kzalloc(sizeof(*i2c), GFP_KERNEL);
-> > +     if (!i2c)
-> > +             return -ENOMEM;
-> > +     strncpy(i2c->type, dev->drv_name, sizeof(i2c->type) - 1);
-> > +     if (dev->irq)
-> > +             i2c->irq =3D mikrobus_get_irq(port, dev->irq, dev->irq_ty=
-pe);
-> > +     if (dev->properties)
-> > +             i2c->properties =3D dev->properties;
-> > +     i2c->addr =3D dev->reg;
-> > +     dev->dev_client =3D (void *)i2c_new_client_device(port->i2c_adap,
-> i2c);
-> > +     break;
-> > +     case MIKROBUS_PROTOCOL_UART:
-> > +     pr_info("SERDEV devices support not yet added");
-> > +     break;
-> > +     default:
-> > +     return -EINVAL;
-> > +     }
-> > +     return 0;
-> > +}
-> > +
-> > +static void mikrobus_unregister_device(struct mikrobus_port *port,
-> struct board_device_info *dev,
-> > +
->      char *board_name)
-> > +{
-> > +     pr_info(" removing device : %s\n", dev->drv_name);
-> > +     if (dev->gpio_lookup !=3D NULL) {
-> > +             gpiod_remove_lookup_table(dev->gpio_lookup);
-> > +             kfree(dev->gpio_lookup);
-> > +     }
-> > +     if (dev->properties !=3D NULL)
-> > +             kfree(dev->properties);
-> > +     switch (dev->protocol) {
-> > +     case MIKROBUS_PROTOCOL_SPI:
-> > +     spi_unregister_device((struct spi_device *)dev->dev_client);
-> > +     break;
-> > +     case MIKROBUS_PROTOCOL_I2C:
-> > +     i2c_unregister_device((struct i2c_client *)dev->dev_client);
-> > +     break;
-> > +     case MIKROBUS_PROTOCOL_UART:
-> > +     pr_err("SERDEV devices support not yet added");
-> > +     break;
-> > +     }
-> > +}
-> > +
-> > +int mikrobus_register_board(struct mikrobus_port *port,      struct
-> addon_board_info *board)
-> > +{
-> > +     struct board_device_info *devinfo;
-> > +     struct board_device_info *next;
-> > +     int retval;
-> > +
-> > +     if (WARN_ON(list_empty(&board->devices)))
-> > +             return false;
-> > +
-> > +     retval =3D mikrobus_setup_gpio(port->pwm_gpio,
-> board->pwm_gpio_state);
-> > +     if (retval) {
-> > +             pr_err("mikrobus_setup_gpio : can't setup pwm gpio state:
-> (%d)\n", retval);
-> > +             return retval;
-> > +     }
-> > +     retval =3D mikrobus_setup_gpio(port->int_gpio,
-> board->int_gpio_state);
-> > +     if (retval) {
-> > +             pr_err("mikrobus_setup_gpio : can't setup int gpio state:
-> (%d)\n", retval);
-> > +             return retval;
-> > +     }
-> > +     retval =3D mikrobus_setup_gpio(port->rst_gpio,
-> board->rst_gpio_state);
-> > +     if (retval) {
-> > +             pr_err("mikrobus_setup_gpio : can't setup rst gpio state:
-> (%d)\n", retval);
-> > +             return retval;
-> > +     }
-> > +     list_for_each_entry_safe(devinfo, next, &board->devices, links)
-> > +             mikrobus_register_device(port, devinfo, board->name);
-> > +     port->board =3D board;
-> > +     return 0;
-> > +}
-> > +EXPORT_SYMBOL_GPL(mikrobus_register_board);
-> > +
-> > +void mikrobus_unregister_board(struct mikrobus_port *port, struct
-> addon_board_info *board)
-> > +{
-> > +     struct board_device_info *devinfo;
-> > +     struct board_device_info *next;
-> > +
-> > +     if (WARN_ON(list_empty(&board->devices)))
-> > +             return;
-> > +     port->board =3D NULL;
-> > +     list_for_each_entry_safe(devinfo, next, &board->devices, links)
-> > +             mikrobus_unregister_device(port, devinfo, board->name);
-> > +     release_board_devices(board);
-> > +     kfree(board);
-> > +     port->board =3D NULL;
-> > +}
-> > +EXPORT_SYMBOL_GPL(mikrobus_unregister_board);
-> > +
-> > +int mikrobus_register_port_config(struct mikrobus_port_config *cfg)
-> > +{
-> > +     struct mikrobus_port *port;
-> > +     int retval;
-> > +
-> > +     if (WARN_ON(!is_registered))
-> > +             return -EAGAIN;
-> > +     port =3D kzalloc(sizeof(*port), GFP_KERNEL);
-> > +     if (!port)
-> > +             return -ENOMEM;
-> > +     port->pwm_gpio =3D gpio_to_desc(cfg->pwm_gpio_nr);
-> > +     port->int_gpio =3D gpio_to_desc(cfg->int_gpio_nr);
-> > +     port->rst_gpio =3D gpio_to_desc(cfg->rst_gpio_nr);
-> > +     port->spi_mstr =3D spi_busnum_to_master(cfg->spi_master_nr);
-> > +     port->i2c_adap =3D i2c_get_adapter(cfg->i2c_adap_nr);
-> > +     retval =3D mikrobus_register_port(port);
-> > +     if (retval) {
-> > +             pr_err("port : can't register port from config (%d)\n",
-> retval);
-> > +             return retval;
-> > +     }
-> > +     return retval;
-> > +}
-> > +EXPORT_SYMBOL_GPL(mikrobus_register_port_config);
-> > +
-> > +static struct i2c_board_info mikrobus_eeprom_info =3D {
-> > +     I2C_BOARD_INFO("24c32", ATMEL_24C32_I2C_ADDR),
-> > +};
-> > +
-> > +static int mikrobus_port_probe_eeprom(struct mikrobus_port *port)
-> > +{
-> > +     struct i2c_client *eeprom_client;
-> > +     struct nvmem_device *eeprom;
-> > +     char dev_name[40];
-> > +
-> > +     eeprom_client =3D i2c_new_client_device(port->i2c_adap,
-> &mikrobus_eeprom_info);
-> > +     if (!IS_ERR(eeprom_client)) {
-> > +             pr_info(" mikrobus port %d default eeprom is probed at
-> %02x\n", port->id,
-> > +
->  eeprom_client->addr);
-> > +             snprintf(dev_name, sizeof(dev_name), "%d-%04x0",
-> port->i2c_adap->nr,
-> > +                              eeprom_client->addr);
-> > +             eeprom =3D nvmem_device_get(&eeprom_client->dev, dev_name=
-);
-> > +             if (IS_ERR(eeprom)) {
-> > +                     pr_err(" mikrobus port %d eeprom nvmem device
-> probe failed\n", port->id);
-> > +                     i2c_unregister_device(eeprom_client);
-> > +                     port->eeprom =3D NULL;
-> > +                     return 0;
-> > +             }
-> > +     } else {
-> > +             pr_info(" mikrobus port %d default eeprom probe failed\n"=
-,
-> port->id);
-> > +             return 0;
-> > +     }
-> > +     port->eeprom =3D eeprom;
-> > +     port->eeprom_client =3D eeprom_client;
-> > +     return 0;
-> > +}
-> > +
-> > +int mikrobus_register_port(struct mikrobus_port *port)
-> > +{
-> > +     int retval;
-> > +     int id;
-> > +
-> > +     if (WARN_ON(!is_registered))
-> > +             return -EAGAIN;
-> > +     id =3D idr_alloc(&mikrobus_port_idr, port, 0, 0, GFP_KERNEL);
-> > +     if (id < 0)
-> > +             return id;
-> > +     port->id =3D id;
-> > +     port->dev.bus =3D &mikrobus_bus_type;
-> > +     port->dev.type =3D &mikrobus_port_type;
-> > +     strncpy(port->name, "mikrobus-port", sizeof(port->name) - 1);
-> > +     dev_set_name(&port->dev, "mikrobus-%d", port->id);
-> > +     pr_info("registering port mikrobus-%d\n ", port->id);
-> > +     retval =3D device_register(&port->dev);
-> > +     if (retval) {
-> > +             pr_err("port '%d': can't register device (%d)\n",
-> port->id, retval);
-> > +             put_device(&port->dev);
-> > +             return retval;
-> > +     }
-> > +     retval =3D class_compat_create_link(mikrobus_port_compat_class,
-> &port->dev,
-> > +
->  port->dev.parent);
-> > +     if (retval)
-> > +             dev_warn(&port->dev, "failed to create compatibility clas=
-s
-> link\n");
-> > +     if (!port->eeprom) {
-> > +             pr_info("mikrobus port %d eeprom empty probing default
-> eeprom\n", port->id);
-> > +             retval =3D mikrobus_port_probe_eeprom(port);
-> > +     }
-> > +     if (port->eeprom) {
-> > +             retval =3D mikrobus_port_scan_eeprom(port);
-> > +             if (retval)
-> > +                     dev_warn(&port->dev, "failed to register board
-> from manifest\n");
-> > +     }
-> > +     return retval;
-> > +}
-> > +EXPORT_SYMBOL_GPL(mikrobus_register_port);
-> > +
-> > +void mikrobus_del_port(struct mikrobus_port *port)
-> > +{
-> > +     struct mikrobus_port *found;
-> > +
-> > +     found =3D idr_find(&mikrobus_port_idr, port->id);
-> > +     if (found !=3D port) {
-> > +             pr_err("attempting to delete unregistered port [%s]\n",
-> port->name);
-> > +             return;
-> > +     }
-> > +     if (port->board !=3D NULL) {
-> > +             pr_err("attempting to delete port with registered boards,
-> port [%s]\n",
-> > +
->  port->name);
-> > +             return;
-> > +     }
-> > +
-> > +     if (port->eeprom) {
-> > +             nvmem_device_put(port->eeprom);
-> > +             i2c_unregister_device(port->eeprom_client);
-> > +     }
-> > +
-> > +     class_compat_remove_link(mikrobus_port_compat_class, &port->dev,
-> > +                                                     port->dev.parent)=
-;
-> > +     device_unregister(&port->dev);
-> > +     idr_remove(&mikrobus_port_idr, port->id);
-> > +     memset(&port->dev, 0, sizeof(port->dev));
-> > +}
-> > +EXPORT_SYMBOL_GPL(mikrobus_del_port);
-> > +
-> > +static int __init mikrobus_init(void)
-> > +{
-> > +     int retval;
-> > +
-> > +     retval =3D bus_register(&mikrobus_bus_type);
-> > +     if (retval) {
-> > +             pr_err("bus_register failed (%d)\n", retval);
-> > +             return retval;
-> > +     }
-> > +     mikrobus_port_compat_class =3D
-> class_compat_register("mikrobus-port");
-> > +     if (!mikrobus_port_compat_class) {
-> > +             pr_err("class_compat register failed (%d)\n", retval);
-> > +             retval =3D -ENOMEM;
-> > +             goto class_err;
-> > +     }
-> > +     is_registered =3D true;
-> > +     return 0;
-> > +class_err:
-> > +     bus_unregister(&mikrobus_bus_type);
-> > +     idr_destroy(&mikrobus_port_idr);
-> > +     is_registered =3D false;
-> > +     return retval;
-> > +}
-> > +subsys_initcall(mikrobus_init);
-> > +
-> > +static void __exit mikrobus_exit(void)
-> > +{
-> > +     bus_unregister(&mikrobus_bus_type);
-> > +     class_compat_unregister(mikrobus_port_compat_class);
-> > +     idr_destroy(&mikrobus_port_idr);
-> > +}
-> > +module_exit(mikrobus_exit);
-> > +
-> > +MODULE_AUTHOR("Vaishnav M A <vaishnav@beagleboard.org>");
-> > +MODULE_DESCRIPTION("mikroBUS main module");
-> > +MODULE_LICENSE("GPL v2");
+>
+> (I skipped reviewing a lot here...)
+> . . .
+>
 > > diff --git a/drivers/misc/mikrobus/mikrobus_core.h
 > b/drivers/misc/mikrobus/mikrobus_core.h
 > > new file mode 100644
 > > index 000000000000..9684d315f564
 > > --- /dev/null
-> > +++ b/drivers/misc/mikrobus/mikrobus_core.h
-> > @@ -0,0 +1,130 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +/*
-> > + * mikroBUS Driver for instantiating add-on
-> > + * board devices with an identifier EEPROM
-> > + *
-> > + * Copyright 2020 Vaishnav M A, BeagleBoard.org Foundation.
-> > + */
-> > +
-> > +#ifndef __MIKROBUS_H
-> > +#define __MIKROBUS_H
-> > +
-> > +#include <linux/err.h>
-> > +#include <linux/errno.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/gpio.h>
-> > +#include <linux/gpio/consumer.h>
-> > +#include <linux/gpio/machine.h>
-> > +#include <linux/spi/spi.h>
-> > +#include <linux/idr.h>
-> > +#include <linux/init.h>
-> > +#include <linux/jump_label.h>
-> > +#include <linux/kernel.h>
-> > +#include <linux/module.h>
-> > +#include <linux/mutex.h>
-> > +#include <linux/device.h>
-> > +#include <linux/of_device.h>
-> > +#include <linux/serdev.h>
-> > +#include <linux/of.h>
-> > +#include <linux/property.h>
-> > +#include <linux/slab.h>
-> > +
-> > +#define MIKROBUS_VERSION_MAJOR 0x00
-> > +#define MIKROBUS_VERSION_MINOR 0x02
-> > +
-> > +extern struct bus_type mikrobus_bus_type;
-> > +extern struct device_type mikrobus_port_type;
-> > +
-> > +enum mikrobus_property_type {
-> > +     MIKROBUS_PROPERTY_TYPE_LINK =3D 0x00,
-> > +     MIKROBUS_PROPERTY_TYPE_GPIO =3D 0x01,
-> > +     MIKROBUS_PROPERTY_TYPE_U8 =3D 0x02,
-> > +     MIKROBUS_PROPERTY_TYPE_U16 =3D 0x03,
-> > +     MIKROBUS_PROPERTY_TYPE_U32 =3D 0x04,
-> > +     MIKROBUS_PROPERTY_TYPE_U64 =3D 0x05,
-> > +};
-> > +
-> > +enum mikrobus_gpio_pin {
-> > +     MIKROBUS_GPIO_INVALID =3D 0x00,
-> > +     MIKROBUS_GPIO_INT =3D 0x01,
-> > +     MIKROBUS_GPIO_RST =3D 0x02,
-> > +     MIKROBUS_GPIO_PWM =3D 0x03,
-> > +};
-> > +
-> > +enum mikrobus_protocol {
-> > +     MIKROBUS_PROTOCOL_SPI =3D 0x01,
-> > +     MIKROBUS_PROTOCOL_I2C =3D 0x02,
-> > +     MIKROBUS_PROTOCOL_UART =3D 0x03,
-> > +     MIKROBUS_PROTOCOL_SPI_GPIOCS =3D 0x04,
-> > +     MIKROBUS_PROTOCOL_I2C_MUX =3D 0x05
-> > +};
-> > +
-> > +enum mikrobus_gpio_state {
-> > +     MIKROBUS_GPIO_UNUSED =3D 0x00,
-> > +     MIKROBUS_GPIO_INPUT =3D 0x01,
-> > +     MIKROBUS_GPIO_OUTPUT_HIGH =3D 0x02,
-> > +     MIKROBUS_GPIO_OUTPUT_LOW =3D 0x03,
-> > +};
-> > +
-> > +struct mikrobus_port_config {
-> > +     __u8 i2c_adap_nr;
-> > +     __u8 spi_master_nr;
-> > +     __u8 serdev_ctlr_nr;
-> > +     __u8 rst_gpio_nr;
-> > +     __u8 pwm_gpio_nr;
-> > +     __u8 int_gpio_nr;
-> > +} __packed;
-> > +
-> > +struct board_device_info {
-> > +     struct list_head links;
-> > +     int id;
-> > +     char *drv_name;
-> > +     unsigned short protocol;
-> > +     unsigned short reg;
-> > +     u32 max_speed_hz;
-> > +     unsigned int mode;
-> > +     int irq;
-> > +     int irq_type;
-> > +     int cs_gpio;
-> > +     unsigned short num_gpio_resources;
-> > +     unsigned short num_properties;
-> > +     struct property_entry *properties;
-> > +     struct gpiod_lookup_table *gpio_lookup;
-> > +     void *dev_client;
-> > +};
-> > +
-> > +struct addon_board_info {
-> > +     char *name;
-> > +     unsigned short num_devices;
-> > +     unsigned short rst_gpio_state;
-> > +     unsigned short pwm_gpio_state;
-> > +     unsigned short int_gpio_state;
-> > +     struct list_head manifest_descs;
-> > +     struct list_head devices;
-> > +};
-> > +
-> > +struct mikrobus_port {
-> > +     char name[48];
-> > +     struct module *owner;
-> > +     struct device dev;
-> > +     int id;
-> > +     struct gpio_desc *pwm_gpio;
-> > +     struct gpio_desc *int_gpio;
-> > +     struct gpio_desc *rst_gpio;
-> > +     struct spi_master *spi_mstr;
-> > +     struct i2c_adapter *i2c_adap;
-> > +     struct addon_board_info *board;
-> > +     struct i2c_client *eeprom_client;
-> > +     struct nvmem_device *eeprom;
-> > +};
-> > +#define to_mikrobus_port(d) container_of(d, struct mikrobus_port, dev)
-> > +
-> > +int mikrobus_register_board(struct mikrobus_port *port,
-> > +                                                     struct
-> addon_board_info *board);
-> > +void mikrobus_unregister_board(struct mikrobus_port *port,
-> > +                                                        struct
-> addon_board_info *board);
-> > +int mikrobus_register_port_config(struct mikrobus_port_config *cfg);
-> > +int mikrobus_register_port(struct mikrobus_port *port);
-> > +void mikrobus_del_port(struct mikrobus_port *port);
-> > +
-> > +#endif /* __MIKROBUS_H */
+> > +++ b/drivers/misc/mikrobus/mikrobus_core
+> . . .
+>
 > > diff --git a/drivers/misc/mikrobus/mikrobus_manifest.c
 > b/drivers/misc/mikrobus/mikrobus_manifest.c
 > > new file mode 100644
@@ -1275,6 +918,10 @@ s
 > > +
 >       size_t size)
 > > +{
+>
+> I know it's technically acceptable now, but please limit your lines to
+> 80 characters in the Greybus code if possible.
+>
 > > +     struct greybus_descriptor_header *desc_header =3D &desc->header;
 > > +     struct manifest_desc *descriptor;
 > > +     size_t desc_size;
@@ -1285,6 +932,9 @@ s
 > > +     desc_size =3D le16_to_cpu(desc_header->size);
 > > +     if (desc_size > size)
 > > +             return -EINVAL;
+>
+> Probably check if (desc_size !=3D size) here.
+>
 > > +     expected_size =3D sizeof(*desc_header);
 > > +     switch (desc_header->type) {
 > > +     case GREYBUS_TYPE_STRING:
@@ -1292,6 +942,17 @@ s
 > > +     expected_size +=3D desc->string.length;
 > > +     expected_size =3D ALIGN(expected_size, 4);
 > > +     break;
+>
+> Your indentation is wrong here.  Please use:
+>
+>         switch (desc_header->type) {
+>         case GREYBUS_TYPE_STRING:
+>                 expected_size +=3D ...;
+>                 ...
+>                 break;
+>         case GREYBUS_TYPE_PROPERTY:
+>                 ...
+>
 > > +     case GREYBUS_TYPE_PROPERTY:
 > > +     expected_size +=3D sizeof(struct greybus_descriptor_property);
 > > +     expected_size +=3D desc->property.length;
@@ -1326,203 +987,21 @@ s
 > > +     list_add_tail(&descriptor->links, &info->manifest_descs);
 > > +     return desc_size;
 > > +}
-> > +
-> > +static char *mikrobus_string_get(struct addon_board_info *info, u8
-> string_id)
-> > +{
-> > +     struct greybus_descriptor_string *desc_string;
-> > +     struct manifest_desc *descriptor;
-> > +     bool found =3D false;
-> > +     char *string;
-> > +
-> > +     if (!string_id)
-> > +             return NULL;
-> > +
-> > +     list_for_each_entry(descriptor, &info->manifest_descs, links) {
-> > +             if (descriptor->type !=3D GREYBUS_TYPE_STRING)
-> > +                     continue;
-> > +             desc_string =3D descriptor->data;
-> > +             if (desc_string->id =3D=3D string_id) {
-> > +                     found =3D true;
-> > +                     break;
-> > +             }
-> > +     }
-> > +     if (!found)
-> > +             return ERR_PTR(-ENOENT);
-> > +     string =3D kmemdup(&desc_string->string, desc_string->length + 1,
-> GFP_KERNEL);
-> > +     if (!string)
-> > +             return ERR_PTR(-ENOMEM);
-> > +     string[desc_string->length] =3D '\0';
-> > +     return string;
-> > +}
-> > +
-> > +static void mikrobus_state_get(struct addon_board_info *info)
-> > +{
-> > +     struct greybus_descriptor_mikrobus *mikrobus;
-> > +     struct greybus_descriptor_interface *interface;
-> > +     struct manifest_desc *descriptor;
-> > +     bool found =3D false;
-> > +
-> > +     list_for_each_entry(descriptor, &info->manifest_descs, links) {
-> > +             if (descriptor->type =3D=3D GREYBUS_TYPE_MIKROBUS) {
-> > +                     mikrobus =3D descriptor->data;
-> > +                     found =3D true;
-> > +                     break;
-> > +             }
-> > +     }
-> > +
-> > +     if (found) {
-> > +             info->num_devices =3D mikrobus->num_devices;
-> > +             info->rst_gpio_state =3D mikrobus->rst_gpio_state;
-> > +             info->pwm_gpio_state =3D mikrobus->pwm_gpio_state;
-> > +             info->int_gpio_state =3D mikrobus->int_gpio_state;
-> > +     } else {
-> > +             info->num_devices =3D 1;
-> > +             info->rst_gpio_state =3D MIKROBUS_GPIO_UNUSED;
-> > +             info->pwm_gpio_state =3D MIKROBUS_GPIO_UNUSED;
-> > +             info->int_gpio_state =3D MIKROBUS_GPIO_UNUSED;
-> > +     }
-> > +
-> > +     list_for_each_entry(descriptor, &info->manifest_descs, links) {
-> > +             if (descriptor->type =3D=3D GREYBUS_TYPE_INTERFACE) {
-> > +                     interface =3D descriptor->data;
-> > +                     break;
-> > +             }
-> > +     }
-> > +     info->name =3D mikrobus_string_get(info,
-> interface->product_stringid);
-> > +}
-> > +
-> > +static struct property_entry *
-> > +mikrobus_property_entry_get(struct addon_board_info *info, u8
-> *prop_link,
-> > +                                                     int num_propertie=
-s)
-> > +{
-> > +     struct greybus_descriptor_property *desc_property;
-> > +     struct manifest_desc *descriptor;
-> > +     struct property_entry *properties;
-> > +     int i;
-> > +     char *prop_name;
-> > +     bool found =3D false;
-> > +     u8 *val_u8;
-> > +     u16 *val_u16;
-> > +     u32 *val_u32;
-> > +     u64 *val_u64;
-> > +
-> > +     properties =3D kcalloc(num_properties, sizeof(*properties),
-> GFP_KERNEL);
-> > +     if (!properties)
-> > +             return ERR_PTR(-ENOMEM);
-> > +     for (i =3D 0; i < num_properties; i++) {
-> > +             list_for_each_entry(descriptor, &info->manifest_descs,
-> links) {
-> > +                     if (descriptor->type !=3D GREYBUS_TYPE_PROPERTY)
-> > +                             continue;
-> > +                     desc_property =3D descriptor->data;
-> > +                     if (desc_property->id =3D=3D prop_link[i]) {
-> > +                             found =3D true;
-> > +                             break;
-> > +                     }
-> > +             }
-> > +             if (!found)
-> > +                     return ERR_PTR(-ENOENT);
-> > +             prop_name =3D mikrobus_string_get(info,
-> desc_property->propname_stringid);
-> > +             switch (desc_property->type) {
-> > +             case MIKROBUS_PROPERTY_TYPE_U8:
-> > +             val_u8 =3D kmemdup(&desc_property->value,
-> > +                             (desc_property->length) * sizeof(u8),
-> GFP_KERNEL);
-> > +             if (desc_property->length =3D=3D 1)
-> > +                     properties[i] =3D PROPERTY_ENTRY_U8(prop_name,
-> *val_u8);
-> > +             else
-> > +                     properties[i] =3D PROPERTY_ENTRY_U8_ARRAY_LEN(
-> > +                             prop_name, (void *)desc_property->value,
-> desc_property->length);
-> > +             break;
-> > +             case MIKROBUS_PROPERTY_TYPE_U16:
-> > +             val_u16 =3D kmemdup(&desc_property->value,
-> > +                                     (desc_property->length) *
-> sizeof(u16), GFP_KERNEL);
-> > +             if (desc_property->length =3D=3D 1)
-> > +                     properties[i] =3D PROPERTY_ENTRY_U16(prop_name,
-> *val_u16);
-> > +             else
-> > +                     properties[i] =3D PROPERTY_ENTRY_U16_ARRAY_LEN(
-> > +                             prop_name, (void *)desc_property->value,
-> desc_property->length);
-> > +             break;
-> > +             case MIKROBUS_PROPERTY_TYPE_U32:
-> > +             val_u32 =3D kmemdup(&desc_property->value,
-> > +                                     (desc_property->length) *
-> sizeof(u32), GFP_KERNEL);
-> > +             if (desc_property->length =3D=3D 1)
-> > +                     properties[i] =3D PROPERTY_ENTRY_U32(prop_name,
-> *val_u32);
-> > +             else
-> > +                     properties[i] =3D PROPERTY_ENTRY_U32_ARRAY_LEN(
-> > +                     prop_name, (void *)desc_property->value,
-> desc_property->length);
-> > +             break;
-> > +             case MIKROBUS_PROPERTY_TYPE_U64:
-> > +             val_u64 =3D kmemdup(&desc_property->value,
-> > +                                             (desc_property->length) *
-> sizeof(u64), GFP_KERNEL);
-> > +             if (desc_property->length =3D=3D 1)
-> > +                     properties[i] =3D PROPERTY_ENTRY_U64(prop_name,
-> *val_u64);
-> > +             else
-> > +                     properties[i] =3D PROPERTY_ENTRY_U64_ARRAY_LEN(
-> > +                             prop_name, (void *)desc_property->value,
-> desc_property->length);
-> > +             break;
-> > +             default:
-> > +             return ERR_PTR(-EINVAL);
-> > +             }
-> > +     }
-> > +     return properties;
-> > +}
-> > +
-> > +static u8 *mikrobus_property_link_get(struct addon_board_info *info, u=
-8
-> prop_id,
-> > +
->  u8 prop_type)
-> > +{
-> > +     struct greybus_descriptor_property *desc_property;
-> > +     struct manifest_desc *descriptor;
-> > +     bool found =3D false;
-> > +     u8 *val_u8;
-> > +
-> > +     if (!prop_id)
-> > +             return NULL;
-> > +     list_for_each_entry(descriptor, &info->manifest_descs, links) {
-> > +             if (descriptor->type !=3D GREYBUS_TYPE_PROPERTY)
-> > +                     continue;
-> > +             desc_property =3D descriptor->data;
-> > +             if (desc_property->id =3D=3D prop_id && desc_property->ty=
-pe =3D=3D
-> prop_type) {
-> > +                     found =3D true;
-> > +                     break;
-> > +             }
-> > +     }
-> > +     if (!found)
-> > +             return ERR_PTR(-ENOENT);
-> > +     val_u8 =3D kmemdup(&desc_property->value, desc_property->length,
-> GFP_KERNEL);
-> > +     return val_u8;
-> > +}
-> > +
+>
+> . . .
+>
 > > +static int mikrobus_manifest_attach_device(struct addon_board_info
 > *info,
 > > +                                             struct
 > greybus_descriptor_device *dev_desc)
 > > +{
 > > +     struct board_device_info *dev;
+>
+> I would suggest something other than "dev" as the name of
+> a board_device.  The use of "dev" for (struct device *)
+> is pretty prevalent in the kernel, and so using it here
+> can be more confusing than it has to be.
+>
 > > +     struct gpiod_lookup_table *lookup;
 > > +     struct greybus_descriptor_property *desc_property;
 > > +     struct manifest_desc *descriptor;
@@ -1536,6 +1015,10 @@ pe =3D=3D
 > > +     dev->id =3D dev_desc->id;
 > > +     dev->drv_name =3D mikrobus_string_get(info,
 > dev_desc->driver_stringid);
+>
+> This can return NULL.  You need to check for that, and free
+> the board device you have already allocated.
+>
 > > +     dev->protocol =3D dev_desc->protocol;
 > > +     dev->reg =3D dev_desc->reg;
 > > +     dev->irq =3D dev_desc->irq;
@@ -1562,6 +1045,9 @@ pe =3D=3D
 > > +                                     GFP_KERNEL);
 > > +     if (!lookup)
 > > +             return -ENOMEM;
+>
+> You can't return without freeing your previously-allocated resources.
+>
 > > +     gpio_desc_link =3D mikrobus_property_link_get(info,
 > dev_desc->gpio_link,
 > > +
@@ -1597,6 +1083,11 @@ pe =3D=3D
 > > +
 > > +     if (WARN_ON(!list_empty(&info->devices)))
 > > +             return false;
+>
+> The manifest comes from outside the kernel  I might be misunderstanding
+> something, but you should not be using WARN_ON() if its content doesn't
+> match what you expect.
+>
 > > +     list_for_each_entry_safe(desc, next, &info->manifest_descs, links=
 )
 > {
@@ -1604,6 +1095,9 @@ pe =3D=3D
 > > +                     continue;
 > > +             desc_device =3D desc->data;
 > > +             mikrobus_manifest_attach_device(info, desc_device);
+>
+> You are ignoring the return value of mikrobus_manifest_attach_device().
+>
 > > +             devcount++;
 > > +     }
 > > +     return devcount;
@@ -1612,6 +1106,12 @@ pe =3D=3D
 > > +bool mikrobus_manifest_parse(struct addon_board_info *info, void *data=
 ,
 > > +                                                      size_t size)
+>
+> You use "board" as the name of a "board_info" variable elsewhere.
+> That is much more helpful than "info".  Please use a consistent
+> naming convention for your variables of given types if possible.
+> It makes it easier to follow the code.
+>
 > > +{
 > > +     struct greybus_manifest *manifest;
 > > +     struct greybus_manifest_header *header;
@@ -1620,6 +1120,9 @@ pe =3D=3D
 > > +     int dev_count;
 > > +     int desc_size;
 > > +
+>
+> Check the size before you bother checking anything else.
+>
 > > +     if (WARN_ON(!list_empty(&info->manifest_descs)))
 > > +             return false;
 > > +     if (size < sizeof(*header))
@@ -1629,18 +1132,45 @@ pe =3D=3D
 > > +     manifest_size =3D le16_to_cpu(header->size);
 > > +     if (manifest_size !=3D size)
 > > +             return false;
+>
+> It would be helpful to report what the problem with the
+> manifest is (here and in all cases).  Otherwise it's a
+> little mysterious why adding a board fails.
+>
 > > +     if (header->version_major > MIKROBUS_VERSION_MAJOR)
 > > +             return false;
+>
+> Version checks!!!  This is good!  But the topic is of great
+> interest to Greybus people!  Not sure we ever completely
+> resolved that.  That's my only comment on this for now.
+>
 > > +     desc =3D manifest->descriptors;
 > > +     size -=3D sizeof(*header);
+>
+> Why aren't you using mikrobus_manifest_header_validate() here?
+>
 > > +     while (size) {
 > > +             desc_size =3D identify_descriptor(info, desc, size);
+>
+> What you're really doing with identify_descriptor() is adding
+> a valid descriptor to a board's list of descriptors.  I think
+> the name of that function shoudl reflect that.  If it isn't
+> identified, that's an error--but that's not the purpose of
+> that function.  So maybe:
+>         desc_ =3D board_descriptor_add(board, desc, size);
+>
 > > +             if (desc_size < 0) {
 > > +                     pr_err("invalid manifest descriptor");
 > > +             return -EINVAL;
+> Your indentation of the return statement here is wrong.
+>
 > > +             }
 > > +             desc =3D (struct greybus_descriptor *)((char *)desc +
 > desc_size);
+>
+> I don't know if this is better, but this could be:
+>                 desc =3D (void *)desc + desc_size;
+>
 > > +             size -=3D desc_size;
 > > +     }
 > > +     mikrobus_state_get(info);
@@ -1706,6 +1236,9 @@ pe =3D=3D
 > > +     GREYBUS_TYPE_MIKROBUS   =3D 0x05,
 > > +     GREYBUS_TYPE_PROPERTY   =3D 0x06,
 > > +     GREYBUS_TYPE_DEVICE     =3D 0x07,
+>
+> Please align your new values with the rest, for consistency.
+>
 > >  };
 > >
 > >  enum greybus_protocol {
@@ -1770,6 +1303,13 @@ pe =3D=3D
 > > +             struct greybus_descriptor_mikrobus      mikrobus;
 > > +             struct greybus_descriptor_property      property;
 > > +             struct greybus_descriptor_device        device;
+>
+> We're going to need to talk about these things...  But I can't
+> comment much more without learning more about the broader
+> architecture.
+>
+>                                         -Alex
+>
 > >       };
 > >  } __packed;
 > >
@@ -1784,16 +1324,16 @@ pe =3D=3D
 https://beagleboard.org/about/jkridner - a 501c3 non-profit educating
 around open hardware computing
 
---000000000000d5ec1605ab5b77cc
+--0000000000001dd7d705ab5ba997
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Sun, Jul 26, 2020 at 8:48 AM Alex Elder &lt;<a href=3D"m=
-ailto:elder@linaro.org">elder@linaro.org</a>&gt; wrote:<br></div><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width=
-:1px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(204,204=
-,204)">On 7/24/20 7:06 AM, Vaishnav M A wrote:<br>
+=3D"gmail_attr">On Sun, Jul 26, 2020 at 11:04 AM Alex Elder &lt;<a href=3D"=
+mailto:elder@linaro.org">elder@linaro.org</a>&gt; wrote:<br></div><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-widt=
+h:1px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(204,20=
+4,204)">On 7/24/20 7:06 AM, Vaishnav M A wrote:<br>
 &gt; Attached is a patch for the mikroBUS driver which helps to<br>
 &gt; instantiate an add-on board device on a mikrobus port by fetching<br>
 &gt; the device identifier manifest binary from an EEPROM on-board<br>
@@ -1804,84 +1344,18 @@ e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width=
 &gt; <a href=3D"https://elinux.org/Mikrobus" rel=3D"noreferrer" target=3D"_=
 blank">https://elinux.org/Mikrobus</a><br>
 <br>
-Vaishnav, I am finally looking at this a little more closely<br>
-today.=C2=A0 More than anything I want to compliment you on all<br>
-this work.=C2=A0 I think it looks like a great use of Greybus for<br>
-essentially its intended purpose, and I would love to see<br>
-it extended as needed to support what you&#39;re doing here.<br>
-<br>
-At first glance your patch looks good, but I want to take the<br>
-time to give it a thorough review.=C2=A0 Unfortunately I did not<br>
-follow your progress on the GSoC project (which you posted<br>
-about last year here), and have not followed any discussion<br>
-since then, so it&#39;s taking me a little time to come up to speed<br>
-on it.=C2=A0 I&#39;m hoping you might help me (and others) do this more<br>
-quickly.<br>
-<br>
-I am scanning through some of the materials online and I find<br>
-there is quite a lot.=C2=A0 That includes information about both<br>
-your project and about mikroBUS.=C2=A0 Zeroing in on things that<br>
-fairly concisely describe the way things really work would be<br>
-very valuable.=C2=A0 Can you point me directly at something that<br>
-gives an overview of both the hardware and software<br>
-architecture (specifically as it&#39;s used with Greybus)?=C2=A0 If<br>
-not, I&#39;m open to finding other ways to get in synch.=C2=A0 I&#39;ll<br>
-expand on this a little more below.</blockquote><div dir=3D"auto"><br></div=
-><div dir=3D"auto">The exact implementation isn=E2=80=99t so critical, but =
-understanding that using Greybus to talk to devices implementing the mikroB=
-US standard is. One instance of the project is visible on my personal githu=
-b account, but some documentation updates and additional roadmap/branding i=
-tems would be helpful. I don=E2=80=99t want it to show up on widely distrib=
-uted blogs yet, so I=E2=80=99ll send anyone that contacts me directly the p=
-ublicly visible URL. Please don=E2=80=99t make me take it private again by =
-getting it on a popular blog before we can refine our message.=C2=A0</div><=
-div dir=3D"auto"><br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;padding-l=
-eft:1ex;border-left-color:rgb(204,204,204)"><br>
-<br>
-This isn&#39;t strictly necessary, but if I wanted to reproduce the<br>
-hardware setup you use to validate this code, what hardware<br>
-is required?=C2=A0 For example, is it possible to use a BeagleBone Black<br=
+I had some other things I would comment on in this code review,<br>
+but there are a lot of somewhat superficial things you should<br>
+fix.=C2=A0 I looked at much--but not all--of this, and I&#39;ll want to<br>
+review this again after you&#39;ve fixed the simple things.=C2=A0 I also<br=
 >
-with a MikroBus Cape for testing, or must a PocktBeagle be used?<br>
-Is there one or several MikroBus clickboards that would be the<br>
-best for basic testing?</blockquote><div dir=3D"auto"><br></div><div dir=3D=
-"auto">Just about any Linux board with a mikroBUS socket can be used to rep=
-roduce the function, though a PocketBeagle plus TechLab cape is the primary=
- development vehicle. Initial Greybus transport integration will be done wi=
-th a limited bandwidth 2.4GHz 802.15.4 transport using gb-netlink and gbrid=
-ge. Hardware is an ATUSB and CC1352R Launchpad with Click 2 Boosterpack.=C2=
-=A0</div><div dir=3D"auto"><br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid=
-;padding-left:1ex;border-left-color:rgb(204,204,204)"><br>
+can provide more substantive feedback after I&#39;ve had more time<br>
+to digest the bigger picture of microBUS.<br>
 <br>
-Can you provide a short summary of why the Greybus manifest<br>
-format needed to be extended?=C2=A0 Can you summarize how a mikroBUS<br>
-add-on board differs from an Ara module?=C2=A0 And what they have in<br>
-common?<br>
+You should assume it will take a few iterations to get to the<br>
+point where things are shaping up for acceptance.<br>
 <br>
-This patch is an RFC, and you say that v3 of the mikroBUS spec<br>
-is being developed.=C2=A0 Is your plan to have the &quot;real&quot; code (w=
-hen<br>
-you submit it) adhere to the newer version of the spec?=C2=A0 Are<br>
-there specific things that you expect will be included in v3<br>
-that will how the driver works (compared to this RFC)?<br>
-<br>
-Please realize I&#39;m asking these questions so I can be more<br>
-effective in evaluating what you&#39;re doing here.=C2=A0 I&#39;d like to<b=
-r>
-provide feedback not just on the code, but on the design that<br>
-underlies it, and for that I need to get better informed.=C2=A0 My<br>
-hope is that you can help me find or gather that information<br>
-as quickly as possible.<br>
-<br>
-And now I&#39;ll go give a quick initial review of the code...<br>
-<br>
-Thanks.<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 -Alex<br=
->
+All that said, your basic foundation looks good.<br>
 <br>
 &gt; In the current state of the driver, more than 80 different<br>
 &gt; add-on boards have been tested on the BeagleBoard.org<br>
@@ -1938,7 +1412,12 @@ dard<br>
 &gt; boards without an EEPROM, these can be used in the following manner:<b=
 r>
 &gt; (example for mikroBUS port 1 on BeagleBoard.org PocketBeagle):<br>
-&gt; <br>
+<br>
+You should probably use debugfs, since this is a temporary thing.<br>
+But I guess if it&#39;s not actually upstream (and it sounds like you<br>
+might be avoiding the need for this with EEPROM anyway) maybe<br>
+that doesn&#39;t matter much.<br>
+<br>
 &gt; printf &quot;%b&quot; &#39;\x01\x00\x00\x59\x32\x17&#39; &gt; /sys/bus=
 /mikrobus/add_port<br>
 &gt; <br>
@@ -2099,8 +1578,36 @@ driver helps in<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0this eLinux wiki : <a href=3D"http://elinu=
 x.org/Mikrobus" rel=3D"noreferrer" target=3D"_blank">elinux.org/Mikrobus</a=
 ><br>
-&gt; +<br>
-&gt; +<br>
+<br>
+This text could be cleaned up a bit.=C2=A0 For example:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 The mikroBUS driver instantiates devices on a m=
+ikroBUS port<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 described by identifying data present in device=
+-resident EEPROM.<br>
+<br>
+Using well-defined terms can help a lot.=C2=A0 Is a physical thing that<br>
+plugs into a microbus port called a &quot;board&quot;?=C2=A0</blockquote><d=
+iv dir=3D"auto"><br></div><div dir=3D"auto">I agree language is important a=
+nd should be consistent. There are mikroBUS sockets and =E2=80=9Cadd-on boa=
+rds=E2=80=9D.=C2=A0 The Mikroelektronika guys might be able to be more prec=
+ise, but this ia my understanding.=C2=A0</div><div dir=3D"auto"><br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft-width:1px;border-left-style:solid;padding-left:1ex;border-left-color:rg=
+b(204,204,204)"> Can a &quot;board&quot; present<br>
+more than one device to the system?=C2=A0 </blockquote><div dir=3D"auto"><b=
+r></div><div dir=3D"auto">It isn=E2=80=99t common with existing add-on boar=
+ds, but should be allowed.=C2=A0</div><div dir=3D"auto"><br></div><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-widt=
+h:1px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(204,20=
+4,204)">Is the EEPROM associated with<br>
+the board, or a device?</blockquote><div dir=3D"auto"><br></div><div dir=3D=
+"auto">Board.=C2=A0</div><div dir=3D"auto"><br></div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-=
+left-style:solid;padding-left:1ex;border-left-color:rgb(204,204,204)">=C2=
+=A0 My point isn&#39;t that those answers belong<br>
+here, but that having meaningful terms can help you describe things<br>
+concisely.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0Say Y here to enable support for this driv=
 er.<br>
 &gt; +<br>
@@ -2165,7 +1672,11 @@ obus/mikrobus_core.c<br>
 &gt; +#include &quot;mikrobus_manifest.h&quot;<br>
 &gt; +<br>
 &gt; +#define ATMEL_24C32_I2C_ADDR 0x57<br>
-&gt; +<br>
+<br>
+I&#39;m just getting started looking through this, so maybe I&#39;ll find<b=
+r>
+out soon. But why is this ATMEL I2C address needed in the core code?<br>
+<br>
 &gt; +static DEFINE_IDR(mikrobus_port_idr);<br>
 &gt; +static struct class_compat *mikrobus_port_compat_class;<br>
 &gt; +static bool is_registered;<br>
@@ -2178,11 +1689,32 @@ r>
 &gt; +=C2=A0 =C2=A0 =C2=A0struct mikrobus_port_config *cfg;<br>
 &gt; +<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (count &lt; sizeof(*cfg)) {<br>
+<br>
+Perhaps this should be:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (count !=3D sizeof(*cfg)) {<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;add_port=
 : incorrect config data received: %s\n&quot;, buf);<br>
+<br>
+I don&#39;t think you need to include &quot;add_port: &quot;.<br>
+<br>
+This is binary data you are writing to this sysfs file, correct?<br>
+Don&#39;t try to interpret it as a string.=C2=A0 You could avoid the proble=
+m<br>
+with something more like:<br>
+=C2=A0 =C2=A0 pr_err(&quot;bad port config size (%zu, should be %zu)&quot;,=
+ count, sizeof(*cfg));<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0mikrobus_register_port_config((void *)buf);<br>
+<br>
+mikrobus_register_port_config() returns an error value, and<br>
+that should be returned from this function if it&#39;s non-zero.<br>
+<br>
+Don&#39;t cast the buffer to a void pointer; cast it to the actual<br>
+type represents (struct mikrobus_port_config *).<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0return count;<br>
 &gt; +}<br>
 &gt; +BUS_ATTR_WO(add_port);<br>
@@ -2199,14 +1731,35 @@ r>
 &gt; +<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0res =3D sscanf(buf, &quot;%d%c&quot;, &amp;id, &a=
 mp;end);<br>
+<br>
+The id value you pass to idr_find() is an unsigned long.<br>
+You might as well define &quot;id&quot; with that type and scan that<br>
+type here.=C2=A0 Make sure it&#39;s in the valid range for your<br>
+identifier as a separate step.=C2=A0 (There might be a good<br>
+reason you use a signed int as an identifier, but I would<br>
+recommend unsigned, with a well-defined number of bits,<br>
+such as u32).<br>
+<br>
+Is &quot;end&quot; intended to just consume an optional trailing newline?<b=
+r>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (res &lt; 1) {<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;delete_p=
 ort: cannot parse mikrobus port ID\n&quot;);<br>
+<br>
+I don&#39;t think &quot;delete_port: &quot; here is necessary.=C2=A0 (Take =
+this<br>
+comment to apply in all similar cases; I won&#39;t mention it<br>
+again.)<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (!idr_find(&amp;mikrobus_port_idr, id)) {<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;attempti=
 ng to delete unregistered port [%d]\n&quot;, id);<br>
+<br>
+Maybe just &quot;mikrobus port %lu not registered&quot;.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0mikrobus_del_port(idr_find(&amp;mikrobus_port_idr=
@@ -2228,7 +1781,8 @@ ng to delete unregistered port [%d]\n&quot;, id);<br>
 &gt; +};<br>
 &gt; +EXPORT_SYMBOL_GPL(mikrobus_bus_type);<br>
 &gt; +<br>
-&gt; +static int mikrobus_port_scan_eeprom(struct mikrobus_port *port)<br>
+&gt; +static int mikrobus_manifest_header_validate(struct mikrobus_port *po=
+rt)<br>
 &gt; +{<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0char header[12];<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0struct addon_board_info *board;<br>
@@ -2238,28 +1792,82 @@ ng to delete unregistered port [%d]\n&quot;, id);<br>
 &gt; +<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0nvmem_device_read(port-&gt;eeprom, 0, 12, header)=
 ;<br>
+<br>
+This function returns a value, and if it&#39;s less than zero you<br>
+should return it as the result of mikrobus_manifest_header_validate()<br>
+(possibly after reporting an error).<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0manifest_size =3D mikrobus_manifest_header_valida=
 te(header, 12);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (manifest_size &gt; 0) {<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0buf =3D kzalloc(manif=
 est_size, GFP_KERNEL);<br>
+<br>
+Check whether kzalloc() returns NULL, and if so, return -ENOMEM.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0nvmem_device_read(por=
 t-&gt;eeprom, 0, manifest_size, buf);<br>
+<br>
+Check the return value here, and if negative, free your buffer<br>
+and return the error.=C2=A0 (I won&#39;t make this comment any more if<br>
+I see other instances of ignoring the nvmem_device_read()<br>
+return value.)<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0board =3D kzalloc(siz=
 eof(*board), GFP_KERNEL);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!board)<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
  =C2=A0return -ENOMEM;<br>
+<br>
+You need to free the buffer you allocated before you return here.<br>
+It is helpful to use the &quot;goto &lt;error path&gt;&quot; pattern.=C2=A0=
+ I.e.:<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!board) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 retval =3D -ENOMEM;=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto err_free_buf;<=
+br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+...<br>
+<br>
+err_free_buf:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 kfree(buf);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return retval;<br>
+}<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0INIT_LIST_HEAD(&amp;b=
 oard-&gt;manifest_descs);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0INIT_LIST_HEAD(&amp;b=
 oard-&gt;devices);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0retval =3D mikrobus_m=
 anifest_parse(board, (void *)buf, manifest_size);<br>
+<br>
+No need to cast buf to (void *).<br>
+<br>
+I have more comments on mikrobus_manifest_parse() below.=C2=A0 But it<br>
+might be useful to have it return an integer (0 or error code)<br>
+rather than Boolean.=C2=A0 Assuming you did that...<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!retval) {<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
  =C2=A0pr_err(&quot;failed to parse manifest, size: %d&quot;, manifest_size=
 );<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (retval)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto err_free_board=
+;<br>
+...<br>
+<br>
+err_free_board:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 free_board(board);<br>
+err_free_buf:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 free_buf(buf);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return retval;<br>
+}<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
  =C2=A0return -EINVAL;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
@@ -2269,6 +1877,9 @@ egister_board(port, board);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
  =C2=A0pr_err(&quot;failed to register board: %s&quot;, board-&gt;name);<br=
 >
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto err_free_board;<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
  =C2=A0return -EINVAL;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
@@ -2276,6 +1887,9 @@ egister_board(port, board);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0} else {<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;inavlide=
  manifest port %d&quot;, port-&gt;id);<br>
+<br>
+s/inavlide/invalid/<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
@@ -2304,6 +1918,24 @@ ev);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0int retval;<br>
 &gt; +<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (port-&gt;board =3D=3D NULL) {<br>
+<br>
+This is just a style suggestion, but I would prefer this, because it<br>
+reduces the indentation of the normal path:<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (port-&gt;board) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pr_err(&quot;mikrob=
+us port %d already has a board registered\n&quot;,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 port-&gt;id);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EBUSY;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 port-&gt;board =3D kzalloc(...);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!port-&gt;board)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -ENOMEM;<br>
+<br>
+Also note the return values I suggest here.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0board =3D kzalloc(siz=
 eof(*board), GFP_KERNEL);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!board)<br>
@@ -2393,6 +2025,11 @@ oard: Can&#39;t parse board ID\n&quot;);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (port-&gt;board =3D=3D NULL) {<br>
+<br>
+Normally in kernel code this form is used:<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!port-&gt;board) {<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;delete_b=
 oard: port does not have any boards registered\n&quot;);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
@@ -2439,6 +2076,10 @@ br>
 &gt; +=C2=A0 =C2=A0 =C2=A0case MIKROBUS_GPIO_INT:<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0irq =3D gpiod_to_irq(port-&gt;int_gpio);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0break;<br>
+<br>
+Please fix your indentation here.=C2=A0 (And everywhere; I give<br>
+an example of the proper way to do it below.)<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0case MIKROBUS_GPIO_RST:<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0irq =3D gpiod_to_irq(port-&gt;rst_gpio);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0break;<br>
@@ -2454,6 +2095,10 @@ t get irq for irq type: %d&quot;, irqno);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0irq_set_irq_type(irq, irq_type);<br>
+<br>
+It shouldn&#39;t return an error, but please check the<br>
+return value here.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0return irq;<br>
 &gt; +}<br>
 &gt; +<br>
@@ -2511,6 +2156,11 @@ int gpio)<br>
 >
 &gt; +=C2=A0 =C2=A0 =C2=A0name =3D kmemdup(gpiochip-&gt;label, 40, GFP_KERN=
 EL);<br>
+<br>
+Why 40?=C2=A0 Please use a symbolic constant so you can<br>
+change it easily, and to give you a place to explain<br>
+why 40 is the limit used.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0break;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0case MIKROBUS_GPIO_RST:<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0gpiochip =3D gpiod_to_chip(port-&gt;rst_gpio);<br=
@@ -2559,581 +2209,38 @@ hip-&gt;base;<br>
 &gt; +<br>
 &gt; +static void release_mikrobus_device(struct board_device_info *dev)<br=
 >
+<br>
+We tend to follow a convention throughout the Greybus code<br>
+that has the object name as the prefix for things you do<br>
+to the object.=C2=A0 I don&#39;t know how consistent that is, but<br>
+my suggestion would be that these functions would be named<br>
+something more like:<br>
+=C2=A0 =C2=A0 mikrobus_gpio_chip_name_get()<br>
+=C2=A0 =C2=A0 mikrobus_gpio_hwnum_get()<br>
+=C2=A0 =C2=A0 mikrobus_board_release_device_all()<br>
+=C2=A0 =C2=A0 mikrobus_device_register()<br>
+=C2=A0 =C2=A0 mikrobus_device_unregister()<br>
+=C2=A0 =C2=A0 mikrobus_board_register()<br>
+=C2=A0 =C2=A0 mikrobus_board_unregister()<br>
+and so on.<br>
+<br>
 &gt; +{<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0list_del(&amp;dev-&gt;links);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0kfree(dev);<br>
 &gt; +}<br>
 &gt; +<br>
-&gt; +static void release_board_devices(struct addon_board_info *info)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct board_device_info *dev;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct board_device_info *next;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0list_for_each_entry_safe(dev, next, &amp;info-&gt=
-;devices, links)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0release_mikrobus_devi=
-ce(dev);<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +static int mikrobus_register_device(struct mikrobus_port *port,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct board=
-_device_info *dev, char *board_name)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct i2c_board_info *i2c;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct spi_board_info *spi;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct gpiod_lookup_table *lookup;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0char devname[40];<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int i;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0pr_info(&quot; registering device : %s\n&quot;, d=
-ev-&gt;drv_name);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (dev-&gt;gpio_lookup !=3D NULL) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0lookup =3D dev-&gt;gp=
-io_lookup;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (dev-&gt;protocol =
-=3D=3D MIKROBUS_PROTOCOL_SPI) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0snprintf(devname, sizeof(devname), &quot;%s.%u&quot;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_name(&amp;port-&gt;spi_mstr-&gt;dev)=
-, dev-&gt;reg);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0lookup-&gt;dev_id =3D kmemdup(devname, 40, GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else if (dev-&gt;pr=
-otocol =3D=3D MIKROBUS_PROTOCOL_I2C)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0lookup-&gt;dev_id =3D dev-&gt;drv_name;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_info(&quot; adding=
- lookup table : %s\n&quot;, lookup-&gt;dev_id);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; =
-dev-&gt;num_gpio_resources; i++) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0lookup-&gt;table[i].key =3D<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0mikrobus_get_gpio_chip_name(port, lookup-&gt;table[i].chip_hwnum);<b=
-r>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0lookup-&gt;table[i].chip_hwnum =3D<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0mikrobus_get_gpio_hwnum(port, lookup-&gt;table[i].chip_hwnum);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0lookup-&gt;table[i].flags =3D GPIO_ACTIVE_HIGH;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gpiod_add_lookup_tabl=
-e(lookup);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0switch (dev-&gt;protocol) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0case MIKROBUS_PROTOCOL_SPI:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0spi =3D kzalloc(sizeof(*spi), GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!spi)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0strncpy(spi-&gt;modalias, dev-&gt;drv_name, sizeo=
-f(spi-&gt;modalias) - 1);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (dev-&gt;irq)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0spi-&gt;irq =3D mikro=
-bus_get_irq(port, dev-&gt;irq, dev-&gt;irq_type);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (dev-&gt;properties)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0spi-&gt;properties =
-=3D dev-&gt;properties;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0spi-&gt;chip_select =3D dev-&gt;reg;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0spi-&gt;max_speed_hz =3D dev-&gt;max_speed_hz;<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0spi-&gt;mode =3D dev-&gt;mode;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0mikrobus_spi_device_delete(port-&gt;spi_mstr, dev=
--&gt;reg);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dev-&gt;dev_client =3D (void *)spi_new_device(por=
-t-&gt;spi_mstr, spi);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0case MIKROBUS_PROTOCOL_I2C:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0i2c =3D kzalloc(sizeof(*i2c), GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!i2c)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0strncpy(i2c-&gt;type, dev-&gt;drv_name, sizeof(i2=
-c-&gt;type) - 1);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (dev-&gt;irq)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i2c-&gt;irq =3D mikro=
-bus_get_irq(port, dev-&gt;irq, dev-&gt;irq_type);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (dev-&gt;properties)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i2c-&gt;properties =
-=3D dev-&gt;properties;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0i2c-&gt;addr =3D dev-&gt;reg;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dev-&gt;dev_client =3D (void *)i2c_new_client_dev=
-ice(port-&gt;i2c_adap, i2c);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0case MIKROBUS_PROTOCOL_UART:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0pr_info(&quot;SERDEV devices support not yet adde=
-d&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0default:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +static void mikrobus_unregister_device(struct mikrobus_port *port, st=
-ruct board_device_info *dev,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0char *board_name)<br=
->
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0pr_info(&quot; removing device : %s\n&quot;, dev-=
-&gt;drv_name);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (dev-&gt;gpio_lookup !=3D NULL) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gpiod_remove_lookup_t=
-able(dev-&gt;gpio_lookup);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(dev-&gt;gpio_lo=
-okup);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (dev-&gt;properties !=3D NULL)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(dev-&gt;propert=
-ies);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0switch (dev-&gt;protocol) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0case MIKROBUS_PROTOCOL_SPI:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0spi_unregister_device((struct spi_device *)dev-&g=
-t;dev_client);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0case MIKROBUS_PROTOCOL_I2C:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0i2c_unregister_device((struct i2c_client *)dev-&g=
-t;dev_client);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0case MIKROBUS_PROTOCOL_UART:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0pr_err(&quot;SERDEV devices support not yet added=
-&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +int mikrobus_register_board(struct mikrobus_port *port,=C2=A0 =C2=A0 =
-=C2=A0 struct addon_board_info *board)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct board_device_info *devinfo;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct board_device_info *next;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int retval;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (WARN_ON(list_empty(&amp;board-&gt;devices)))<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0retval =3D mikrobus_setup_gpio(port-&gt;pwm_gpio,=
- board-&gt;pwm_gpio_state);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (retval) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;mikrobus=
-_setup_gpio : can&#39;t setup pwm gpio state: (%d)\n&quot;, retval);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return retval;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0retval =3D mikrobus_setup_gpio(port-&gt;int_gpio,=
- board-&gt;int_gpio_state);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (retval) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;mikrobus=
-_setup_gpio : can&#39;t setup int gpio state: (%d)\n&quot;, retval);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return retval;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0retval =3D mikrobus_setup_gpio(port-&gt;rst_gpio,=
- board-&gt;rst_gpio_state);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (retval) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;mikrobus=
-_setup_gpio : can&#39;t setup rst gpio state: (%d)\n&quot;, retval);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return retval;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0list_for_each_entry_safe(devinfo, next, &amp;boar=
-d-&gt;devices, links)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mikrobus_register_dev=
-ice(port, devinfo, board-&gt;name);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;board =3D board;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
-&gt; +}<br>
-&gt; +EXPORT_SYMBOL_GPL(mikrobus_register_board);<br>
-&gt; +<br>
-&gt; +void mikrobus_unregister_board(struct mikrobus_port *port, struct add=
-on_board_info *board)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct board_device_info *devinfo;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct board_device_info *next;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (WARN_ON(list_empty(&amp;board-&gt;devices)))<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;board =3D NULL;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0list_for_each_entry_safe(devinfo, next, &amp;boar=
-d-&gt;devices, links)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mikrobus_unregister_d=
-evice(port, devinfo, board-&gt;name);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0release_board_devices(board);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0kfree(board);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;board =3D NULL;<br>
-&gt; +}<br>
-&gt; +EXPORT_SYMBOL_GPL(mikrobus_unregister_board);<br>
-&gt; +<br>
-&gt; +int mikrobus_register_port_config(struct mikrobus_port_config *cfg)<b=
-r>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct mikrobus_port *port;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int retval;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (WARN_ON(!is_registered))<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EAGAIN;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port =3D kzalloc(sizeof(*port), GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!port)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;pwm_gpio =3D gpio_to_desc(cfg-&gt;pwm_gp=
-io_nr);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;int_gpio =3D gpio_to_desc(cfg-&gt;int_gp=
-io_nr);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;rst_gpio =3D gpio_to_desc(cfg-&gt;rst_gp=
-io_nr);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;spi_mstr =3D spi_busnum_to_master(cfg-&g=
-t;spi_master_nr);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;i2c_adap =3D i2c_get_adapter(cfg-&gt;i2c=
-_adap_nr);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0retval =3D mikrobus_register_port(port);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (retval) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;port : c=
-an&#39;t register port from config (%d)\n&quot;, retval);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return retval;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return retval;<br>
-&gt; +}<br>
-&gt; +EXPORT_SYMBOL_GPL(mikrobus_register_port_config);<br>
-&gt; +<br>
-&gt; +static struct i2c_board_info mikrobus_eeprom_info =3D {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0I2C_BOARD_INFO(&quot;24c32&quot;, ATMEL_24C32_I2C=
-_ADDR),<br>
-&gt; +};<br>
-&gt; +<br>
-&gt; +static int mikrobus_port_probe_eeprom(struct mikrobus_port *port)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct i2c_client *eeprom_client;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct nvmem_device *eeprom;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0char dev_name[40];<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0eeprom_client =3D i2c_new_client_device(port-&gt;=
-i2c_adap, &amp;mikrobus_eeprom_info);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!IS_ERR(eeprom_client)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_info(&quot; mikrob=
-us port %d default eeprom is probed at %02x\n&quot;, port-&gt;id,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0eeprom_client-&gt;addr);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0snprintf(dev_name, si=
-zeof(dev_name), &quot;%d-%04x0&quot;, port-&gt;i2c_adap-&gt;nr,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 eeprom_client-&gt;addr);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0eeprom =3D nvmem_devi=
-ce_get(&amp;eeprom_client-&gt;dev, dev_name);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(eeprom)) {=
 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0pr_err(&quot; mikrobus port %d eeprom nvmem device probe failed\n&qu=
-ot;, port-&gt;id);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0i2c_unregister_device(eeprom_client);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0port-&gt;eeprom =3D NULL;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0return 0;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0} else {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_info(&quot; mikrob=
-us port %d default eeprom probe failed\n&quot;, port-&gt;id);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;eeprom =3D eeprom;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;eeprom_client =3D eeprom_client;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +int mikrobus_register_port(struct mikrobus_port *port)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int retval;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int id;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (WARN_ON(!is_registered))<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EAGAIN;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0id =3D idr_alloc(&amp;mikrobus_port_idr, port, 0,=
- 0, GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (id &lt; 0)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return id;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;id =3D id;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;dev.bus =3D &amp;mikrobus_bus_type;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0port-&gt;dev.type =3D &amp;mikrobus_port_type;<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0strncpy(port-&gt;name, &quot;mikrobus-port&quot;,=
- sizeof(port-&gt;name) - 1);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dev_set_name(&amp;port-&gt;dev, &quot;mikrobus-%d=
-&quot;, port-&gt;id);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0pr_info(&quot;registering port mikrobus-%d\n &quo=
-t;, port-&gt;id);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0retval =3D device_register(&amp;port-&gt;dev);<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0if (retval) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;port &#3=
-9;%d&#39;: can&#39;t register device (%d)\n&quot;, port-&gt;id, retval);<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0put_device(&amp;port-=
-&gt;dev);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return retval;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0retval =3D class_compat_create_link(mikrobus_port=
-_compat_class, &amp;port-&gt;dev,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0po=
-rt-&gt;dev.parent);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (retval)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_warn(&amp;port-&g=
-t;dev, &quot;failed to create compatibility class link\n&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!port-&gt;eeprom) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_info(&quot;mikrobu=
-s port %d eeprom empty probing default eeprom\n&quot;, port-&gt;id);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0retval =3D mikrobus_p=
-ort_probe_eeprom(port);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (port-&gt;eeprom) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0retval =3D mikrobus_p=
-ort_scan_eeprom(port);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (retval)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0dev_warn(&amp;port-&gt;dev, &quot;failed to register board from mani=
-fest\n&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return retval;<br>
-&gt; +}<br>
-&gt; +EXPORT_SYMBOL_GPL(mikrobus_register_port);<br>
-&gt; +<br>
-&gt; +void mikrobus_del_port(struct mikrobus_port *port)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct mikrobus_port *found;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0found =3D idr_find(&amp;mikrobus_port_idr, port-&=
-gt;id);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (found !=3D port) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;attempti=
-ng to delete unregistered port [%s]\n&quot;, port-&gt;name);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (port-&gt;board !=3D NULL) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;attempti=
-ng to delete port with registered boards, port [%s]\n&quot;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0port-&gt;name);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (port-&gt;eeprom) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0nvmem_device_put(port=
--&gt;eeprom);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i2c_unregister_device=
-(port-&gt;eeprom_client);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0class_compat_remove_link(mikrobus_port_compat_cla=
-ss, &amp;port-&gt;dev,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0port-&gt;dev.parent);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0device_unregister(&amp;port-&gt;dev);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0idr_remove(&amp;mikrobus_port_idr, port-&gt;id);<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0memset(&amp;port-&gt;dev, 0, sizeof(port-&gt;dev)=
-);<br>
-&gt; +}<br>
-&gt; +EXPORT_SYMBOL_GPL(mikrobus_del_port);<br>
-&gt; +<br>
-&gt; +static int __init mikrobus_init(void)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int retval;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0retval =3D bus_register(&amp;mikrobus_bus_type);<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (retval) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;bus_regi=
-ster failed (%d)\n&quot;, retval);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return retval;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0mikrobus_port_compat_class =3D class_compat_regis=
-ter(&quot;mikrobus-port&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!mikrobus_port_compat_class) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pr_err(&quot;class_co=
-mpat register failed (%d)\n&quot;, retval);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0retval =3D -ENOMEM;<b=
-r>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto class_err;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0is_registered =3D true;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
-&gt; +class_err:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bus_unregister(&amp;mikrobus_bus_type);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0idr_destroy(&amp;mikrobus_port_idr);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0is_registered =3D false;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return retval;<br>
-&gt; +}<br>
-&gt; +subsys_initcall(mikrobus_init);<br>
-&gt; +<br>
-&gt; +static void __exit mikrobus_exit(void)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bus_unregister(&amp;mikrobus_bus_type);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0class_compat_unregister(mikrobus_port_compat_clas=
-s);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0idr_destroy(&amp;mikrobus_port_idr);<br>
-&gt; +}<br>
-&gt; +module_exit(mikrobus_exit);<br>
-&gt; +<br>
-&gt; +MODULE_AUTHOR(&quot;Vaishnav M A &lt;<a href=3D"mailto:vaishnav@beagl=
-eboard.org" target=3D"_blank">vaishnav@beagleboard.org</a>&gt;&quot;);<br>
-&gt; +MODULE_DESCRIPTION(&quot;mikroBUS main module&quot;);<br>
-&gt; +MODULE_LICENSE(&quot;GPL v2&quot;);<br>
+(I skipped reviewing a lot here...)<br>
+. . .<br>
+<br>
 &gt; diff --git a/drivers/misc/mikrobus/mikrobus_core.h b/drivers/misc/mikr=
 obus/mikrobus_core.h<br>
 &gt; new file mode 100644<br>
 &gt; index 000000000000..9684d315f564<br>
 &gt; --- /dev/null<br>
-&gt; +++ b/drivers/misc/mikrobus/mikrobus_core.h<br>
-&gt; @@ -0,0 +1,130 @@<br>
-&gt; +/* SPDX-License-Identifier: GPL-2.0 */<br>
-&gt; +/*<br>
-&gt; + * mikroBUS Driver for instantiating add-on<br>
-&gt; + * board devices with an identifier EEPROM<br>
-&gt; + *<br>
-&gt; + * Copyright 2020 Vaishnav M A, BeagleBoard.org Foundation.<br>
-&gt; + */<br>
-&gt; +<br>
-&gt; +#ifndef __MIKROBUS_H<br>
-&gt; +#define __MIKROBUS_H<br>
-&gt; +<br>
-&gt; +#include &lt;linux/err.h&gt;<br>
-&gt; +#include &lt;linux/errno.h&gt;<br>
-&gt; +#include &lt;linux/i2c.h&gt;<br>
-&gt; +#include &lt;linux/gpio.h&gt;<br>
-&gt; +#include &lt;linux/gpio/consumer.h&gt;<br>
-&gt; +#include &lt;linux/gpio/machine.h&gt;<br>
-&gt; +#include &lt;linux/spi/spi.h&gt;<br>
-&gt; +#include &lt;linux/idr.h&gt;<br>
-&gt; +#include &lt;linux/init.h&gt;<br>
-&gt; +#include &lt;linux/jump_label.h&gt;<br>
-&gt; +#include &lt;linux/kernel.h&gt;<br>
-&gt; +#include &lt;linux/module.h&gt;<br>
-&gt; +#include &lt;linux/mutex.h&gt;<br>
-&gt; +#include &lt;linux/device.h&gt;<br>
-&gt; +#include &lt;linux/of_device.h&gt;<br>
-&gt; +#include &lt;linux/serdev.h&gt;<br>
-&gt; +#include &lt;linux/of.h&gt;<br>
-&gt; +#include &lt;linux/property.h&gt;<br>
-&gt; +#include &lt;linux/slab.h&gt;<br>
-&gt; +<br>
-&gt; +#define MIKROBUS_VERSION_MAJOR 0x00<br>
-&gt; +#define MIKROBUS_VERSION_MINOR 0x02<br>
-&gt; +<br>
-&gt; +extern struct bus_type mikrobus_bus_type;<br>
-&gt; +extern struct device_type mikrobus_port_type;<br>
-&gt; +<br>
-&gt; +enum mikrobus_property_type {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROPERTY_TYPE_LINK =3D 0x00,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROPERTY_TYPE_GPIO =3D 0x01,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROPERTY_TYPE_U8 =3D 0x02,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROPERTY_TYPE_U16 =3D 0x03,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROPERTY_TYPE_U32 =3D 0x04,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROPERTY_TYPE_U64 =3D 0x05,<br>
-&gt; +};<br>
-&gt; +<br>
-&gt; +enum mikrobus_gpio_pin {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_GPIO_INVALID =3D 0x00,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_GPIO_INT =3D 0x01,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_GPIO_RST =3D 0x02,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_GPIO_PWM =3D 0x03,<br>
-&gt; +};<br>
-&gt; +<br>
-&gt; +enum mikrobus_protocol {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROTOCOL_SPI =3D 0x01,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROTOCOL_I2C =3D 0x02,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROTOCOL_UART =3D 0x03,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROTOCOL_SPI_GPIOCS =3D 0x04,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_PROTOCOL_I2C_MUX =3D 0x05<br>
-&gt; +};<br>
-&gt; +<br>
-&gt; +enum mikrobus_gpio_state {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_GPIO_UNUSED =3D 0x00,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_GPIO_INPUT =3D 0x01,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_GPIO_OUTPUT_HIGH =3D 0x02,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0MIKROBUS_GPIO_OUTPUT_LOW =3D 0x03,<br>
-&gt; +};<br>
-&gt; +<br>
-&gt; +struct mikrobus_port_config {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0__u8 i2c_adap_nr;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0__u8 spi_master_nr;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0__u8 serdev_ctlr_nr;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0__u8 rst_gpio_nr;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0__u8 pwm_gpio_nr;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0__u8 int_gpio_nr;<br>
-&gt; +} __packed;<br>
-&gt; +<br>
-&gt; +struct board_device_info {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct list_head links;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int id;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0char *drv_name;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short protocol;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short reg;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0u32 max_speed_hz;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned int mode;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int irq;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int irq_type;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int cs_gpio;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short num_gpio_resources;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short num_properties;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct property_entry *properties;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct gpiod_lookup_table *gpio_lookup;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0void *dev_client;<br>
-&gt; +};<br>
-&gt; +<br>
-&gt; +struct addon_board_info {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0char *name;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short num_devices;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short rst_gpio_state;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short pwm_gpio_state;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned short int_gpio_state;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct list_head manifest_descs;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct list_head devices;<br>
-&gt; +};<br>
-&gt; +<br>
-&gt; +struct mikrobus_port {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0char name[48];<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct module *owner;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct device dev;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int id;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct gpio_desc *pwm_gpio;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct gpio_desc *int_gpio;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct gpio_desc *rst_gpio;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct spi_master *spi_mstr;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct i2c_adapter *i2c_adap;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct addon_board_info *board;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct i2c_client *eeprom_client;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct nvmem_device *eeprom;<br>
-&gt; +};<br>
-&gt; +#define to_mikrobus_port(d) container_of(d, struct mikrobus_port, dev=
-)<br>
-&gt; +<br>
-&gt; +int mikrobus_register_board(struct mikrobus_port *port,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct addon_board_info *board=
-);<br>
-&gt; +void mikrobus_unregister_board(struct mikrobus_port *port,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct addon_board_inf=
-o *board);<br>
-&gt; +int mikrobus_register_port_config(struct mikrobus_port_config *cfg);<=
-br>
-&gt; +int mikrobus_register_port(struct mikrobus_port *port);<br>
-&gt; +void mikrobus_del_port(struct mikrobus_port *port);<br>
-&gt; +<br>
-&gt; +#endif /* __MIKROBUS_H */<br>
+&gt; +++ b/drivers/misc/mikrobus/mikrobus_core<br>
+. . .<br>
+<br>
 &gt; diff --git a/drivers/misc/mikrobus/mikrobus_manifest.c b/drivers/misc/=
 mikrobus/mikrobus_manifest.c<br>
 &gt; new file mode 100644<br>
@@ -3193,6 +2300,11 @@ greybus_descriptor *desc,<br>
 =A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 size_t size)<br>
 &gt; +{<br>
+<br>
+I know it&#39;s technically acceptable now, but please limit your lines to<=
+br>
+80 characters in the Greybus code if possible.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0struct greybus_descriptor_header *desc_header =3D=
  &amp;desc-&gt;header;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0struct manifest_desc *descriptor;<br>
@@ -3205,6 +2317,9 @@ greybus_descriptor *desc,<br>
 br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (desc_size &gt; size)<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
+<br>
+Probably check if (desc_size !=3D size) here.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0expected_size =3D sizeof(*desc_header);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0switch (desc_header-&gt;type) {<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0case GREYBUS_TYPE_STRING:<br>
@@ -3213,6 +2328,18 @@ or_string);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0expected_size +=3D desc-&gt;string.length;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0expected_size =3D ALIGN(expected_size, 4);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0break;<br>
+<br>
+Your indentation is wrong here.=C2=A0 Please use:<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 switch (desc_header-&gt;type) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 case GREYBUS_TYPE_STRING:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 expected_size +=3D =
+...;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ...<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 case GREYBUS_TYPE_PROPERTY:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ...<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0case GREYBUS_TYPE_PROPERTY:<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0expected_size +=3D sizeof(struct greybus_descript=
 or_property);<br>
@@ -3256,272 +2383,9 @@ sc_header);<br>
 o-&gt;manifest_descs);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0return desc_size;<br>
 &gt; +}<br>
-&gt; +<br>
-&gt; +static char *mikrobus_string_get(struct addon_board_info *info, u8 st=
-ring_id)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct greybus_descriptor_string *desc_string;<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0struct manifest_desc *descriptor;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bool found =3D false;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0char *string;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!string_id)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return NULL;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0list_for_each_entry(descriptor, &amp;info-&gt;man=
-ifest_descs, links) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (descriptor-&gt;ty=
-pe !=3D GREYBUS_TYPE_STRING)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0continue;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0desc_string =3D descr=
-iptor-&gt;data;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (desc_string-&gt;i=
-d =3D=3D string_id) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0found =3D true;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!found)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ERR_PTR(-ENOEN=
-T);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0string =3D kmemdup(&amp;desc_string-&gt;string, d=
-esc_string-&gt;length + 1, GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!string)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ERR_PTR(-ENOME=
-M);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0string[desc_string-&gt;length] =3D &#39;\0&#39;;<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return string;<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +static void mikrobus_state_get(struct addon_board_info *info)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct greybus_descriptor_mikrobus *mikrobus;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct greybus_descriptor_interface *interface;<b=
-r>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct manifest_desc *descriptor;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bool found =3D false;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0list_for_each_entry(descriptor, &amp;info-&gt;man=
-ifest_descs, links) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (descriptor-&gt;ty=
-pe =3D=3D GREYBUS_TYPE_MIKROBUS) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0mikrobus =3D descriptor-&gt;data;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0found =3D true;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (found) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info-&gt;num_devices =
-=3D mikrobus-&gt;num_devices;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info-&gt;rst_gpio_sta=
-te =3D mikrobus-&gt;rst_gpio_state;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info-&gt;pwm_gpio_sta=
-te =3D mikrobus-&gt;pwm_gpio_state;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info-&gt;int_gpio_sta=
-te =3D mikrobus-&gt;int_gpio_state;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0} else {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info-&gt;num_devices =
-=3D 1;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info-&gt;rst_gpio_sta=
-te =3D MIKROBUS_GPIO_UNUSED;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info-&gt;pwm_gpio_sta=
-te =3D MIKROBUS_GPIO_UNUSED;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info-&gt;int_gpio_sta=
-te =3D MIKROBUS_GPIO_UNUSED;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0list_for_each_entry(descriptor, &amp;info-&gt;man=
-ifest_descs, links) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (descriptor-&gt;ty=
-pe =3D=3D GREYBUS_TYPE_INTERFACE) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0interface =3D descriptor-&gt;data;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0info-&gt;name =3D mikrobus_string_get(info, inter=
-face-&gt;product_stringid);<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +static struct property_entry *<br>
-&gt; +mikrobus_property_entry_get(struct addon_board_info *info, u8 *prop_l=
-ink,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int num_properties)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct greybus_descriptor_property *desc_property=
-;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct manifest_desc *descriptor;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct property_entry *properties;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int i;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0char *prop_name;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bool found =3D false;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0u8 *val_u8;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0u16 *val_u16;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0u32 *val_u32;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0u64 *val_u64;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0properties =3D kcalloc(num_properties, sizeof(*pr=
-operties), GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!properties)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ERR_PTR(-ENOME=
-M);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; num_properties; i++) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0list_for_each_entry(d=
-escriptor, &amp;info-&gt;manifest_descs, links) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (descriptor-&gt;type !=3D GREYBUS_TYPE_PROPERTY)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0continue;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0desc_property =3D descriptor-&gt;data;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (desc_property-&gt;id =3D=3D prop_link[i]) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0found =3D true;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!found)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0return ERR_PTR(-ENOENT);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0prop_name =3D mikrobu=
-s_string_get(info, desc_property-&gt;propname_stringid);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0switch (desc_property=
--&gt;type) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case MIKROBUS_PROPERT=
-Y_TYPE_U8:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0val_u8 =3D kmemdup(&a=
-mp;desc_property-&gt;value,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(desc_property-&gt;length) * sizeof(u8),=
- GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (desc_property-&gt=
-;length =3D=3D 1)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0properties[i] =3D PROPERTY_ENTRY_U8(prop_name, *val_u8);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0properties[i] =3D PROPERTY_ENTRY_U8_ARRAY_LEN(<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0prop_name, (void *)desc_property-&gt;val=
-ue, desc_property-&gt;length);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case MIKROBUS_PROPERT=
-Y_TYPE_U16:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0val_u16 =3D kmemdup(&=
-amp;desc_property-&gt;value,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(desc_proper=
-ty-&gt;length) * sizeof(u16), GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (desc_property-&gt=
-;length =3D=3D 1)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0properties[i] =3D PROPERTY_ENTRY_U16(prop_name, *val_u16);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0properties[i] =3D PROPERTY_ENTRY_U16_ARRAY_LEN(<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0prop_name, (void *)desc_property-&gt;val=
-ue, desc_property-&gt;length);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case MIKROBUS_PROPERT=
-Y_TYPE_U32:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0val_u32 =3D kmemdup(&=
-amp;desc_property-&gt;value,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(desc_proper=
-ty-&gt;length) * sizeof(u32), GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (desc_property-&gt=
-;length =3D=3D 1)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0properties[i] =3D PROPERTY_ENTRY_U32(prop_name, *val_u32);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0properties[i] =3D PROPERTY_ENTRY_U32_ARRAY_LEN(<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0prop_name, (void *)desc_property-&gt;value, desc_property-&gt;length=
-);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case MIKROBUS_PROPERT=
-Y_TYPE_U64:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0val_u64 =3D kmemdup(&=
-amp;desc_property-&gt;value,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0(desc_property-&gt;length) * sizeof(u64), GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (desc_property-&gt=
-;length =3D=3D 1)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0properties[i] =3D PROPERTY_ENTRY_U64(prop_name, *val_u64);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0properties[i] =3D PROPERTY_ENTRY_U64_ARRAY_LEN(<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0prop_name, (void *)desc_property-&gt;val=
-ue, desc_property-&gt;length);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ERR_PTR(-EINVA=
-L);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return properties;<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +static u8 *mikrobus_property_link_get(struct addon_board_info *info, =
-u8 prop_id,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u8 prop_type)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct greybus_descriptor_property *desc_property=
-;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct manifest_desc *descriptor;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bool found =3D false;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0u8 *val_u8;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!prop_id)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return NULL;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0list_for_each_entry(descriptor, &amp;info-&gt;man=
-ifest_descs, links) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (descriptor-&gt;ty=
-pe !=3D GREYBUS_TYPE_PROPERTY)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0continue;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0desc_property =3D des=
-criptor-&gt;data;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (desc_property-&gt=
-;id =3D=3D prop_id &amp;&amp; desc_property-&gt;type =3D=3D prop_type) {<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0found =3D true;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0break;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!found)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ERR_PTR(-ENOEN=
-T);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0val_u8 =3D kmemdup(&amp;desc_property-&gt;value, =
-desc_property-&gt;length, GFP_KERNEL);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return val_u8;<br>
-&gt; +}<br>
-&gt; +<br>
+<br>
+. . .<br>
+<br>
 &gt; +static int mikrobus_manifest_attach_device(struct addon_board_info *i=
 nfo,<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
@@ -3529,6 +2393,12 @@ nfo,<br>
 =A0 =C2=A0 =C2=A0struct greybus_descriptor_device *dev_desc)<br>
 &gt; +{<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0struct board_device_info *dev;<br>
+<br>
+I would suggest something other than &quot;dev&quot; as the name of<br>
+a board_device.=C2=A0 The use of &quot;dev&quot; for (struct device *)<br>
+is pretty prevalent in the kernel, and so using it here<br>
+can be more confusing than it has to be.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0struct gpiod_lookup_table *lookup;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0struct greybus_descriptor_property *desc_property=
 ;<br>
@@ -3543,6 +2413,10 @@ nfo,<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0dev-&gt;id =3D dev_desc-&gt;id;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0dev-&gt;drv_name =3D mikrobus_string_get(info, de=
 v_desc-&gt;driver_stringid);<br>
+<br>
+This can return NULL.=C2=A0 You need to check for that, and free<br>
+the board device you have already allocated.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0dev-&gt;protocol =3D dev_desc-&gt;protocol;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0dev-&gt;reg =3D dev_desc-&gt;reg;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0dev-&gt;irq =3D dev_desc-&gt;irq;<br>
@@ -3578,6 +2452,10 @@ ruct_size(lookup, table, dev-&gt;num_gpio_resources),<br>
 <br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (!lookup)<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
+<br>
+You can&#39;t return without freeing your previously-allocated resources.<b=
+r>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0gpio_desc_link =3D mikrobus_property_link_get(inf=
 o, dev_desc-&gt;gpio_link,<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
@@ -3627,6 +2505,13 @@ nfo)<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (WARN_ON(!list_empty(&amp;info-&gt;devices)))<=
 br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
+<br>
+The manifest comes from outside the kernel=C2=A0 I might be misunderstandin=
+g<br>
+something, but you should not be using WARN_ON() if its content doesn&#39;t=
+<br>
+match what you expect.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0list_for_each_entry_safe(desc, next, &amp;info-&g=
 t;manifest_descs, links) {<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (desc-&gt;type !=
@@ -3637,6 +2522,9 @@ t;manifest_descs, links) {<br>
 &gt;data;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mikrobus_manifest_att=
 ach_device(info, desc_device);<br>
+<br>
+You are ignoring the return value of mikrobus_manifest_attach_device().<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0devcount++;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0return devcount;<br>
@@ -3647,6 +2535,14 @@ a,<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
 =A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 size_t size)<br>
+<br>
+You use &quot;board&quot; as the name of a &quot;board_info&quot; variable =
+elsewhere.<br>
+That is much more helpful than &quot;info&quot;.=C2=A0 Please use a consist=
+ent<br>
+naming convention for your variables of given types if possible.<br>
+It makes it easier to follow the code.<br>
+<br>
 &gt; +{<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0struct greybus_manifest *manifest;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0struct greybus_manifest_header *header;<br>
@@ -3655,6 +2551,9 @@ a,<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0int dev_count;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0int desc_size;<br>
 &gt; +<br>
+<br>
+Check the size before you bother checking anything else.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (WARN_ON(!list_empty(&amp;info-&gt;manifest_de=
 scs)))<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
@@ -3666,22 +2565,51 @@ scs)))<br>
 r>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (manifest_size !=3D size)<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
+<br>
+It would be helpful to report what the problem with the<br>
+manifest is (here and in all cases).=C2=A0 Otherwise it&#39;s a<br>
+little mysterious why adding a board fails.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0if (header-&gt;version_major &gt; MIKROBUS_VERSIO=
 N_MAJOR)<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
+<br>
+Version checks!!!=C2=A0 This is good!=C2=A0 But the topic is of great<br>
+interest to Greybus people!=C2=A0 Not sure we ever completely<br>
+resolved that.=C2=A0 That&#39;s my only comment on this for now.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0desc =3D manifest-&gt;descriptors;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0size -=3D sizeof(*header);<br>
+<br>
+Why aren&#39;t you using mikrobus_manifest_header_validate() here?<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0while (size) {<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0desc_size =3D identif=
 y_descriptor(info, desc, size);<br>
+<br>
+What you&#39;re really doing with identify_descriptor() is adding<br>
+a valid descriptor to a board&#39;s list of descriptors.=C2=A0 I think<br>
+the name of that function shoudl reflect that.=C2=A0 If it isn&#39;t<br>
+identified, that&#39;s an error--but that&#39;s not the purpose of<br>
+that function.=C2=A0 So maybe:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 desc_ =3D board_descriptor_add(board, desc, siz=
+e);<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (desc_size &lt; 0)=
  {<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
  =C2=A0pr_err(&quot;invalid manifest descriptor&quot;);<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
+Your indentation of the return statement here is wrong.<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0desc =3D (struct grey=
 bus_descriptor *)((char *)desc + desc_size);<br>
+<br>
+I don&#39;t know if this is better, but this could be:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 desc =3D (void *)de=
+sc + desc_size;<br>
+<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0size -=3D desc_size;<=
 br>
 &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
@@ -3760,6 +2688,9 @@ greybus/greybus_manifest.h<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0GREYBUS_TYPE_PROPERTY=C2=A0 =C2=A0=3D 0x06,<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0GREYBUS_TYPE_DEVICE=C2=A0 =C2=A0 =C2=A0=3D 0x07,<=
 br>
+<br>
+Please align your new values with the rest, for consistency.<br>
+<br>
 &gt;=C2=A0 };<br>
 &gt;=C2=A0 <br>
 &gt;=C2=A0 enum greybus_protocol {<br>
@@ -3832,6 +2763,16 @@ ptor_mikrobus=C2=A0 =C2=A0 =C2=A0 mikrobus;<br>
 ptor_property=C2=A0 =C2=A0 =C2=A0 property;<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct greybus_descri=
 ptor_device=C2=A0 =C2=A0 =C2=A0 =C2=A0 device;<br>
+<br>
+We&#39;re going to need to talk about these things...=C2=A0 But I can&#39;t=
+<br>
+comment much more without learning more about the broader<br>
+architecture.<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 -Alex<br=
+>
+<br>
 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
 &gt;=C2=A0 } __packed;<br>
 &gt;=C2=A0 <br>
@@ -3850,9 +2791,9 @@ leboard.org/about/jkridner" target=3D"_blank">https://beagleboard.org/about=
 /jkridner</a> - a 501c3 non-profit educating around open hardware computing=
 </div></div>
 
---000000000000d5ec1605ab5b77cc--
+--0000000000001dd7d705ab5ba997--
 
---===============6656361849329247820==
+--===============6861481175408736008==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -3862,4 +2803,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1k
 ZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0
 cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
 
---===============6656361849329247820==--
+--===============6861481175408736008==--
