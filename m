@@ -2,70 +2,56 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD16246420
-	for <lists+greybus-dev@lfdr.de>; Mon, 17 Aug 2020 12:09:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 889D124755B
+	for <lists+greybus-dev@lfdr.de>; Mon, 17 Aug 2020 21:22:40 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 030EF61868
-	for <lists+greybus-dev@lfdr.de>; Mon, 17 Aug 2020 10:09:41 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id BB7506601F
+	for <lists+greybus-dev@lfdr.de>; Mon, 17 Aug 2020 19:22:39 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id EACFC65F75; Mon, 17 Aug 2020 10:09:40 +0000 (UTC)
+	id AE34A65FD7; Mon, 17 Aug 2020 19:22:39 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled
+X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
+	MAILING_LIST_MULTI,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE autolearn=disabled
 	version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D334765F83;
-	Mon, 17 Aug 2020 10:09:22 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 07F726601F;
+	Mon, 17 Aug 2020 19:21:44 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 88E6F6063E
- for <greybus-dev@lists.linaro.org>; Mon, 17 Aug 2020 10:08:33 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id F06DC607DB
+ for <greybus-dev@lists.linaro.org>; Sun, 16 Aug 2020 03:31:56 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 76BAE61868; Mon, 17 Aug 2020 10:08:33 +0000 (UTC)
-Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
- [209.85.208.196])
- by lists.linaro.org (Postfix) with ESMTPS id 639686063E
- for <greybus-dev@lists.linaro.org>; Mon, 17 Aug 2020 10:08:31 +0000 (UTC)
-Received: by mail-lj1-f196.google.com with SMTP id w14so16811513ljj.4
- for <greybus-dev@lists.linaro.org>; Mon, 17 Aug 2020 03:08:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=XhlSNhtZvHLg+bhgqbrpT6hylh072knTGhczA9B2mA4=;
- b=RrRB8ow9qLg6EmNuyxxmceti8VWtX1eY+z1aOwX1sLEn+PNuEpAWZjB7Lny76lDRB8
- K7TbCD1WPyisBviKBCpnYThQviR/awfVoQzicW9MVyBcMXg5mLpCd2I0x886zvwh8mpD
- Dp9M874JeDFhq94B7bwO/yIfPI1GwAsX2GqeQ500/+VED56ojV9SWsiW1bEIlZerMq+g
- kGOldBo+KWHB4yJMg2XocAVOUL49MY7K2cecnqkC8uXhP0Y2PUBO/5IfM/mqbbWxKe93
- AIojiaFYIOJwJqiehnCfrSf//svqeWOcG+9o1JP5TDWEmu1LowP5FPl9lwCyoSP55P+y
- uShQ==
-X-Gm-Message-State: AOAM530wUvOSAz2FeMuWbpFdWzQ5jVXPRajb27+EXyTIuEIaeRRAvFVn
- fnIkUO2AAwy2dYYZPPsq/Ew=
-X-Google-Smtp-Source: ABdhPJyD/+m0rGpxyR4+YdYy2a57ZFOOj41ukpuKcL2yjP3l0AcQIxK7AYwT4qmHAmZq+vtvc9iAbg==
-X-Received: by 2002:a2e:865a:: with SMTP id i26mr6711762ljj.246.1597658910158; 
- Mon, 17 Aug 2020 03:08:30 -0700 (PDT)
-Received: from xi.terra (c-beaee455.07-184-6d6c6d4.bbcust.telenor.se.
- [85.228.174.190])
- by smtp.gmail.com with ESMTPSA id g19sm4926712ljn.91.2020.08.17.03.08.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 03:08:29 -0700 (PDT)
-Received: from johan by xi.terra with local (Exim 4.93.0.4)
- (envelope-from <johan@kernel.org>)
- id 1k7c43-0001DO-Hm; Mon, 17 Aug 2020 12:08:28 +0200
-Date: Mon, 17 Aug 2020 12:08:27 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Wang Qing <wangqing@vivo.com>
-Message-ID: <20200817100827.GB3383@localhost>
-References: <1597289690-22857-1-git-send-email-wangqing@vivo.com>
+ id D72F360785; Sun, 16 Aug 2020 03:31:56 +0000 (UTC)
+Received: from forward101j.mail.yandex.net (forward101j.mail.yandex.net
+ [5.45.198.241])
+ by lists.linaro.org (Postfix) with ESMTPS id BFF0060785
+ for <greybus-dev@lists.linaro.org>; Sun, 16 Aug 2020 03:31:55 +0000 (UTC)
+Received: from mxback6o.mail.yandex.net (mxback6o.mail.yandex.net
+ [IPv6:2a02:6b8:0:1a2d::20])
+ by forward101j.mail.yandex.net (Yandex) with ESMTP id CFE6B1BE003C;
+ Sun, 16 Aug 2020 06:31:53 +0300 (MSK)
+Received: from iva8-6403930b9beb.qloud-c.yandex.net
+ (iva8-6403930b9beb.qloud-c.yandex.net [2a02:6b8:c0c:2c9a:0:640:6403:930b])
+ by mxback6o.mail.yandex.net (mxback/Yandex) with ESMTP id vFTEH2YZPl-VrKScNEq; 
+ Sun, 16 Aug 2020 06:31:53 +0300
+Received: by iva8-6403930b9beb.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
+ id mxU22iVblc-VqlSAlpM; Sun, 16 Aug 2020 06:31:53 +0300
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client certificate not present)
+From: Asif Talybov <talybov.asif@yandex.ru>
+To: gregkh@linuxfoundation.org
+Date: Sun, 16 Aug 2020 10:31:09 +0700
+Message-Id: <20200816033109.3930-1-talybov.asif@yandex.ru>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1597289690-22857-1-git-send-email-wangqing@vivo.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: Alex Elder <elder@kernel.org>, Johan Hovold <johan@kernel.org>,
- linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org
-Subject: Re: [greybus-dev] [PATCH] drivers/greybus: Use kobj_to_dev() instead
+X-Mailman-Approved-At: Mon, 17 Aug 2020 19:19:42 +0000
+Cc: greybus-dev@lists.linaro.org, Asif Talybov <talybov.asif@yandex.ru>,
+ linux-kernel@vger.kernel.org
+Subject: [greybus-dev] [PATCH] staging: greybus: Add identifier name to
+	function definition argument
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
 Precedence: list
@@ -83,11 +69,24 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gVGh1LCBBdWcgMTMsIDIwMjAgYXQgMTE6MzQ6NDhBTSArMDgwMCwgV2FuZyBRaW5nIHdyb3Rl
-Ogo+IFVzZSBrb2JqX3RvX2RldigpIGluc3RlYWQgb2YgY29udGFpbmVyX29mKCkKPiAKPiBTaWdu
-ZWQtb2ZmLWJ5OiBXYW5nIFFpbmcgPHdhbmdxaW5nQHZpdm8uY29tPgoKSSdkIHNob3J0ZW4gdGhl
-IHN1bW1hcnkgc29tZXdoYXQ6CgoJZ3JleWJ1czogdXNlIGtvYmpfdG9fZGV2KCkKCmJ1dCBsb29r
-cyBnb29kIG90aGVyd2lzZS4KCkFja2VkLWJ5OiBKb2hhbiBIb3ZvbGQgPGpvaGFuQGtlcm5lbC5v
-cmc+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXli
-dXMtZGV2IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBzOi8v
-bGlzdHMubGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
+V0FSTklORzogZnVuY3Rpb24gZGVmaW5pdGlvbiBhcmd1bWVudCAnc3RydWN0IGdicGh5X2Rldmlj
+ZSAqJyBzaG91bGQgYWxzbwpoYXZlIGFuIGlkZW50aWZpZXIgbmFtZQorICAgICAgIGludCAoKnBy
+b2JlKShzdHJ1Y3QgZ2JwaHlfZGV2aWNlICosCgpXQVJOSU5HOiBmdW5jdGlvbiBkZWZpbml0aW9u
+IGFyZ3VtZW50ICdzdHJ1Y3QgZ2JwaHlfZGV2aWNlIConIHNob3VsZCBhbHNvCmhhdmUgYW4gaWRl
+bnRpZmllciBuYW1lCisgICAgICAgdm9pZCAoKnJlbW92ZSkoc3RydWN0IGdicGh5X2RldmljZSAq
+KTsKClNpZ25lZC1vZmYtYnk6IEFzaWYgVGFseWJvdiA8dGFseWJvdi5hc2lmQHlhbmRleC5ydT4K
+LS0tCiBkcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9nYnBoeS5oIHwgNCArKy0tCiAxIGZpbGUgY2hh
+bmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvc3RhZ2luZy9ncmV5YnVzL2dicGh5LmggYi9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9nYnBo
+eS5oCmluZGV4IDA4NzkyOGE1ODZmYi4uZDRhMjI1Yjc2MzM4IDEwMDY0NAotLS0gYS9kcml2ZXJz
+L3N0YWdpbmcvZ3JleWJ1cy9nYnBoeS5oCisrKyBiL2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL2di
+cGh5LmgKQEAgLTM2LDkgKzM2LDkgQEAgc3RydWN0IGdicGh5X2RldmljZV9pZCB7CiAKIHN0cnVj
+dCBnYnBoeV9kcml2ZXIgewogCWNvbnN0IGNoYXIgKm5hbWU7Ci0JaW50ICgqcHJvYmUpKHN0cnVj
+dCBnYnBoeV9kZXZpY2UgKiwKKwlpbnQgKCpwcm9iZSkoc3RydWN0IGdicGh5X2RldmljZSAqZGV2
+aWNlLAogCQkgICAgIGNvbnN0IHN0cnVjdCBnYnBoeV9kZXZpY2VfaWQgKmlkKTsKLQl2b2lkICgq
+cmVtb3ZlKShzdHJ1Y3QgZ2JwaHlfZGV2aWNlICopOworCXZvaWQgKCpyZW1vdmUpKHN0cnVjdCBn
+YnBoeV9kZXZpY2UgKmRldmljZSk7CiAJY29uc3Qgc3RydWN0IGdicGh5X2RldmljZV9pZCAqaWRf
+dGFibGU7CiAKIAlzdHJ1Y3QgZGV2aWNlX2RyaXZlciBkcml2ZXI7Ci0tIAoyLjIwLjEKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1h
+aWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBzOi8vbGlzdHMubGlu
+YXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
