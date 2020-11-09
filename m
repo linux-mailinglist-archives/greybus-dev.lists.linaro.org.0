@@ -2,68 +2,50 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E11D2AB12C
-	for <lists+greybus-dev@lfdr.de>; Mon,  9 Nov 2020 07:19:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A5E02AD77D
+	for <lists+greybus-dev@lfdr.de>; Tue, 10 Nov 2020 14:29:24 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 2D0F8607A4
-	for <lists+greybus-dev@lfdr.de>; Mon,  9 Nov 2020 06:19:56 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 52EC46192C
+	for <lists+greybus-dev@lfdr.de>; Tue, 10 Nov 2020 13:29:23 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 2009A60E20; Mon,  9 Nov 2020 06:19:56 +0000 (UTC)
+	id 3F3F966608; Tue, 10 Nov 2020 13:29:23 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled
+X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled
 	version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 2066160F06;
-	Mon,  9 Nov 2020 06:19:44 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id C164361951;
+	Tue, 10 Nov 2020 13:29:11 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id A45B260639
- for <greybus-dev@lists.linaro.org>; Mon,  9 Nov 2020 06:19:41 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 9A16F665A5
+ for <greybus-dev@lists.linaro.org>; Mon,  9 Nov 2020 13:10:07 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 8F09B60E20; Mon,  9 Nov 2020 06:19:41 +0000 (UTC)
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by lists.linaro.org (Postfix) with ESMTPS id 7FB3A60639
- for <greybus-dev@lists.linaro.org>; Mon,  9 Nov 2020 06:19:40 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id i26so6249006pgl.5
- for <greybus-dev@lists.linaro.org>; Sun, 08 Nov 2020 22:19:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=xtK5VVn4ub7lSj4X7kMlV/GiKLS7kb95jYx9NjVBYnc=;
- b=NgMToPbaAZvZyNE6993nM5gQi0CBKc3KdiGWRbJZ1YV+g1FXYYx5IiVpWfvhbBDYYw
- R2luarhgjN5CcDfUdhkVjfv4g+9kNfuuAuFskz3oN9nL6pefETs7UxlKzuO3Gz624YX2
- b3UGRddjqT7bF9UDmLLrLEI8jYs/iqRXW0VmWO7xlU/OI2iC7GQWGiKuNUCwUWdAeH0o
- fNXznDoQRCeUm9rb4fdfw3ajanAMbHUKmaDacBLFVEpye+QLaiaPXXmzOY/w6gdrIy78
- 3r7T3fzB7q6wkMYBQ6lYLtFddxHkoAd96mtZEHsIEx02aNTTWdgd6kHE6H30ZmeRvWdo
- EiAw==
-X-Gm-Message-State: AOAM5328CdO/qbFsgxcrty+9DIzhORxwyPgB5VOa/sLiqxl/jP64tvyk
- t362JhU/E1q/ezQsMofLusLXucOv
-X-Google-Smtp-Source: ABdhPJyhHBpgmLh6l3tZidiIZ7seOKutiPCRa8RQ3jRTP6GCUcgffk/Bgpzc5AGqeqPKycIskjae7Q==
-X-Received: by 2002:a17:90a:4884:: with SMTP id
- b4mr11215147pjh.198.1604902779655; 
- Sun, 08 Nov 2020 22:19:39 -0800 (PST)
-Received: from localhost ([122.172.12.172])
- by smtp.gmail.com with ESMTPSA id c131sm2303288pfc.57.2020.11.08.22.19.38
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 08 Nov 2020 22:19:38 -0800 (PST)
-Date: Mon, 9 Nov 2020 11:49:36 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Alex Elder <elder@linaro.org>
-Message-ID: <20201109061936.u72g6yevb5so4ztv@vireshk-i7>
-References: <CAF4BF-R1gKuRZ3g3DSHROSxbmBT2gFJxSsZkzjNgBcw1mjuv5Q@mail.gmail.com>
- <135673dd-2732-e453-5833-796af3ea867b@linaro.org>
+ id 896C0665E9; Mon,  9 Nov 2020 13:10:07 +0000 (UTC)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by lists.linaro.org (Postfix) with ESMTPS id 3CB03665BF
+ for <greybus-dev@lists.linaro.org>; Mon,  9 Nov 2020 13:10:04 +0000 (UTC)
+Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.60])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4CVBDG75jRzLwY5;
+ Mon,  9 Nov 2020 21:09:50 +0800 (CST)
+Received: from huawei.com (10.175.127.227) by DGGEMS414-HUB.china.huawei.com
+ (10.3.19.214) with Microsoft SMTP Server id 14.3.487.0; Mon, 9 Nov 2020
+ 21:09:58 +0800
+From: Zhang Qilong <zhangqilong3@huawei.com>
+To: <vaibhav.sr@gmail.com>, <mgreer@animalcreek.com>, <johan@kernel.org>,
+ <elder@kernel.org>, <gregkh@linuxfoundation.org>
+Date: Mon, 9 Nov 2020 21:13:45 +0800
+Message-ID: <20201109131347.1725288-1-zhangqilong3@huawei.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <135673dd-2732-e453-5833-796af3ea867b@linaro.org>
-User-Agent: NeoMutt/20180716-391-311a52
+X-Originating-IP: [10.175.127.227]
+X-CFilter-Loop: Reflected
 X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: Greg KH <greg@kroah.com>, johan@kernel.org, greybus-dev@lists.linaro.org
-Subject: Re: [greybus-dev] Authentication and Ecryption
+X-Mailman-Approved-At: Tue, 10 Nov 2020 13:29:10 +0000
+Cc: devel@driverdev.osuosl.org, greybus-dev@lists.linaro.org
+Subject: [greybus-dev] [PATCH 0/2] Fix reference counter leak in error banch
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
 Precedence: list
@@ -81,18 +63,14 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gMDctMTEtMjAsIDExOjMzLCBBbGV4IEVsZGVyIHdyb3RlOgo+IE9uIDkvMTEvMjAgODo1MiBB
-TSwgQ2hyaXN0b3BoZXIgRnJpZWR0IHdyb3RlOgo+ID4gVGhlcmUgaXMgdGhlIENvbXBvbmVudCBB
-dXRoZW50aWNhdGlvbiBQcm90b2NvbCB0aGF0IGV4aXN0cyBhbHJlYWR5LAo+ID4gYnV0IEknbSBu
-b3QgdGVycmlibHkgZmFtaWxpYXIgd2l0aCBpdC4gSXMgYW55b25lIGFibGUgdG8gY2xhcmlmeSBp
-Zgo+ID4gdGhlcmUgaXMgc29tZSBvdmVybGFwIGJldHdlZW4gQ0FQIGFuZCBzb21lIG9mIHRoZSB3
-b3JrIHRoYXQgZm9sbG93cz8KPiA+IElmIGl0J3MgcG9zc2libGUgdG8gcmUtdXNlIHNvbWUgb2Yg
-dGhlIENBUCwgdGhhdCB3b3VsZCBiZSBuaWNlLgoKV2Ugd2VyZSB0cnlpbmcgdG8gaW1wbGVtZW50
-IHNvbWV0aGluZyB3aGljaCBjYW4gYXV0aGVudGljYXRlIGEgbW9kdWxlCmluc2VydGVkIGludG8g
-dGhlIHBob25lIHVzaW5nIHNvbWUga2V5cyBwcmVzZW50IHdpdGggdGhlIG1vZHVsZSwgYnV0Cndl
-IHdlcmVuJ3QgYWJsZSB0byBmaW5pc2ggdGhlIHdvcmsgYmVmb3JlIHRoZSBwcm9qZWN0IGNsb3Nl
-ZC4gU28gaXQKaGFzIHNvbWUgaW5mcmFzdHJ1Y3R1cmUgaW4gcGxhY2UsIGJ1dCBubyByZWFsIHBs
-YW4gb24gaG93IHRvIHVzZSBpdApub3cuCgo+IEkgY2FuJ3QgY29tbWVudCBvbiB0aGlzLgoKLS0g
-CnZpcmVzaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpn
-cmV5YnVzLWRldiBtYWlsaW5nIGxpc3QKZ3JleWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpodHRw
-czovL2xpc3RzLmxpbmFyby5vcmcvbWFpbG1hbi9saXN0aW5mby9ncmV5YnVzLWRldgo=
+VGhlcmUgYXJlIHR3byByZWZlcmVuY2UgY291bnRlciBsZWFrcyBpbiBncmV5YnVzIG1vZHVsZXIg
+cmVmZXIgdG8KZ2JfcG1fcnVudGltZV9nZXRfc3luYywgYW5kIHdlIGZpeGVkIGl0LgoKWmhhbmcg
+UWlsb25nICgyKToKICBzdGFnaW5nOiBncmV5YnVzOiBjb2RlY3M6IEZpeCByZWZlcmVuY2UgY291
+bnRlciBsZWFrIGluIGVycm9yIGhhbmRsaW5nCiAgZ3JleWJ1czogYXVkaW86IGFwYnJpZGdlYTog
+Rml4IHJlZmVyZW5jZSBjb3VudGVyIGxlYWsgaW4gZXJyb3IKICAgIGhhbmRsaW5nCgogZHJpdmVy
+cy9zdGFnaW5nL2dyZXlidXMvYXVkaW9fYXBicmlkZ2VhLmMgfCA2ICsrKysrLQogZHJpdmVycy9z
+dGFnaW5nL2dyZXlidXMvYXVkaW9fY29kZWMuYyAgICAgfCAyICsrCiAyIGZpbGVzIGNoYW5nZWQs
+IDcgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKLS0gCjIuMjUuNAoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1kZXYgbWFpbGluZyBs
+aXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0cy5saW5hcm8ub3Jn
+L21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
