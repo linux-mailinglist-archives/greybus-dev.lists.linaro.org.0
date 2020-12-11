@@ -2,74 +2,54 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACC1B2D2945
-	for <lists+greybus-dev@lfdr.de>; Tue,  8 Dec 2020 11:53:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E36C62D759C
+	for <lists+greybus-dev@lfdr.de>; Fri, 11 Dec 2020 13:29:54 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D317760E91
-	for <lists+greybus-dev@lfdr.de>; Tue,  8 Dec 2020 10:53:44 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B28AA6670B
+	for <lists+greybus-dev@lfdr.de>; Fri, 11 Dec 2020 12:29:53 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id C7C5C60EFE; Tue,  8 Dec 2020 10:53:44 +0000 (UTC)
+	id A4B5B6670F; Fri, 11 Dec 2020 12:29:53 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled
-	version=3.4.2
+X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	MAILING_LIST_MULTI,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H4,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id CF0B36604C;
-	Tue,  8 Dec 2020 10:53:21 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 029216670D;
+	Fri, 11 Dec 2020 12:29:37 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id E3B8160C37
- for <greybus-dev@lists.linaro.org>; Tue,  8 Dec 2020 10:53:17 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id E5AD3607F0
+ for <greybus-dev@lists.linaro.org>; Fri, 11 Dec 2020 12:29:34 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id D672A60E91; Tue,  8 Dec 2020 10:53:17 +0000 (UTC)
-Received: from mail-lf1-f68.google.com (mail-lf1-f68.google.com
- [209.85.167.68])
- by lists.linaro.org (Postfix) with ESMTPS id A5E0E6604C
- for <greybus-dev@lists.linaro.org>; Tue,  8 Dec 2020 10:51:21 +0000 (UTC)
-Received: by mail-lf1-f68.google.com with SMTP id s30so22363580lfc.4
- for <greybus-dev@lists.linaro.org>; Tue, 08 Dec 2020 02:51:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=GJIypj7aFv+EkGs5X79db2AgKKCjUhxQkXJzRHihlW4=;
- b=VXM6Z/UaMtlOHIg65YhDB4IcepdihAmwpQQY7t3G6lWGJowgZ124bNuN90uJXqursQ
- JASncYji4hwwaYXjb127GiH5/S8DMEBDM0V5jDoUcfW7pNBP+iN10JCS7gLuPfrhqtyF
- wJNlLVYWjtZlbJzreKOZf1VQ8p5Yze1KesgZK4h6UtgF6Cc0V94U7n1n4QGap6kLW6Zn
- JU6mFRARRH4aeNCQOqMR5LrdQAJwbQvQ60BNHr9OFO5KTSQ1DAILt6GtBtySS7MSeMy2
- 8cO4MYF4hi4HOqQGx6A8I8bT2r106IqQ8/J9Wp6sD8YL8GFKx8TWjHhv90RGduRT6Wq4
- MmDA==
-X-Gm-Message-State: AOAM532ahKtuu2FMRQBL3aA247mSWV0JjADD4GTmSWnhwHrCGQ/B0Xwk
- SFZsWFthpHJiR6EcdqvqwUI=
-X-Google-Smtp-Source: ABdhPJye8l8gwL4nXPcg3I4TNDJMJmiNV8b8jOOn38pTD8/MkgrkrpCw2W4bZFxmsVA5YkOvDRpVEg==
-X-Received: by 2002:a19:2489:: with SMTP id k131mr3604491lfk.236.1607424680466; 
- Tue, 08 Dec 2020 02:51:20 -0800 (PST)
-Received: from xi.terra (c-beaee455.07-184-6d6c6d4.bbcust.telenor.se.
- [85.228.174.190])
- by smtp.gmail.com with ESMTPSA id n10sm1161481ljg.139.2020.12.08.02.51.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Dec 2020 02:51:19 -0800 (PST)
-Received: from johan by xi.terra with local (Exim 4.93.0.4)
- (envelope-from <johan@kernel.org>)
- id 1kmab6-00038e-VF; Tue, 08 Dec 2020 11:51:57 +0100
-Date: Tue, 8 Dec 2020 11:51:56 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>
-Message-ID: <X89azMazQfKZCKwm@localhost>
-References: <20201208101607.42785-1-uwe@kleine-koenig.org>
+ id CDF986670C; Fri, 11 Dec 2020 12:29:34 +0000 (UTC)
+Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ by lists.linaro.org (Postfix) with ESMTPS id 7F049607F0
+ for <greybus-dev@lists.linaro.org>; Fri, 11 Dec 2020 12:29:32 +0000 (UTC)
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.60])
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4CsqpG5zp9z7CWs;
+ Fri, 11 Dec 2020 20:28:54 +0800 (CST)
+Received: from [10.174.179.81] (10.174.179.81) by
+ DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
+ 14.3.487.0; Fri, 11 Dec 2020 20:29:23 +0800
+To: Johan Hovold <johan@kernel.org>
+References: <20201205103827.31244-1-wanghai38@huawei.com>
+ <X89IxvbYWjuyaQDT@localhost>
+From: "wanghai (M)" <wanghai38@huawei.com>
+Message-ID: <ed57715b-c524-4726-3eaf-434af96d2d92@huawei.com>
+Date: Fri, 11 Dec 2020 20:29:22 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201208101607.42785-1-uwe@kleine-koenig.org>
+In-Reply-To: <X89IxvbYWjuyaQDT@localhost>
+X-Originating-IP: [10.174.179.81]
+X-CFilter-Loop: Reflected
 X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: devel@driverdev.osuosl.org, linux-pwm@vger.kernel.org,
- Alex Elder <elder@kernel.org>, Johan Hovold <johan@kernel.org>,
- greybus-dev@lists.linaro.org, Thierry Reding <thierry.reding@gmail.com>,
- Lee Jones <lee.jones@linaro.org>
-Subject: Re: [greybus-dev] [PATCH v2] staging: greybus: Add TODO item about
- modernizing the pwm code
+Cc: devel@driverdev.osuosl.org, elder@kernel.org, linux-kernel@vger.kernel.org,
+ aibhav.sr@gmail.com, greybus-dev@lists.linaro.org, dan.carpenter@oracle.com
+Subject: Re: [greybus-dev] [PATCH] staging: greybus: audio: Fix possible
+ leak free widgets in gbaudio_dapm_free_controls
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
 Precedence: list
@@ -81,24 +61,144 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============8087640334355598044=="
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gVHVlLCBEZWMgMDgsIDIwMjAgYXQgMTE6MTY6MDdBTSArMDEwMCwgVXdlIEtsZWluZS1Lw7Zu
-aWcgd3JvdGU6Cj4gZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvcHdtLmMgdXNlcyB0aGUgb2xkIHN0
-eWxlIFBXTSBjYWxsYmFja3MsIG5ldyBkcml2ZXJzCj4gc2hvdWxkIHN0aWNrIHRvIHRoZSBhdG9t
-aWMgQVBJIGluc3RlYWQuCj4gCj4gU2lnbmVkLW9mZi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHV3
-ZUBrbGVpbmUta29lbmlnLm9yZz4KPiAtLS0KPiBPbiAxMi84LzIwIDEwOjM5IEFNLCBKb2hhbiBI
-b3ZvbGQgd3JvdGU6Cj4gPiBObyBzaWduIG9mZj8KPiA+IAo+ID4gUGxlYXNlIGFsc28gYWRkIGEg
-c3RhZ2luZyBwcmVmaXggc2luY2UgdGhpcyBwYXJ0IG9mIGdyZXlidXMgc3RpbGwgbGl2ZXMKPiA+
-IHRoZXJlLgo+IAo+IFRoYXQgYWZ0ZXIgYWxsIHRoZXNlIHllYXJzIEkgc3RpbGwgZmFpbCBvY2Nh
-c2lvbmFsbHkgdG8gYWRkIGEgc2lnbi1vZmYKPiAuLi4gL21lIHNoYWtlcyBoaXMgaGVhZCBhYm91
-dCBoaW1zZWxmLgoKKippdCBoYXBwZW5zLiA6KQoKPiBBbnlob3csIGhlcmUgY29tZXMgYSB2Miwg
-YWxzbyB3aXRoIHRoZSByZXF1ZXN0ZWQgcHJlZml4LgoKVGhhbmtzLgoKQWNrZWQtYnk6IEpvaGFu
-IEhvdm9sZCA8am9oYW5Aa2VybmVsLm9yZz4KCkpvaGFuCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdApncmV5YnVz
-LWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBzOi8vbGlzdHMubGluYXJvLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2dyZXlidXMtZGV2Cg==
+--===============8087640334355598044==
+Content-Type: multipart/alternative;
+	boundary="------------6473E56B7E4D1A091CE82F35"
+
+--------------6473E56B7E4D1A091CE82F35
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+在 2020/12/8 17:35, Johan Hovold 写道:
+> On Sat, Dec 05, 2020 at 06:38:27PM +0800, Wang Hai wrote:
+>> In gbaudio_dapm_free_controls(), if one of the widgets is not found, an error
+>> will be returned directly, which will cause the rest to be unable to be freed,
+>> resulting in leak.
+>>
+>> This patch fixes the bug. If if one of them is not found, just skip and free the others.
+> Apart from the typo, please break your lines at 72 columns or so (not
+> needed for the Fixes tag).
+Thanks for review,  Do I need to send a v2 patch to change the commit msg?
+
+>> Fixes: 510e340efe0c ("staging: greybus: audio: Add helper APIs for dynamic audio module")
+>> Reported-by: Hulk Robot <hulkci@huawei.com>
+>> Signed-off-by: Wang Hai <wanghai38@huawei.com>
+>> ---
+>>   drivers/staging/greybus/audio_helper.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/staging/greybus/audio_helper.c b/drivers/staging/greybus/audio_helper.c
+>> index 237531ba60f3..3011b8abce38 100644
+>> --- a/drivers/staging/greybus/audio_helper.c
+>> +++ b/drivers/staging/greybus/audio_helper.c
+>> @@ -135,7 +135,8 @@ int gbaudio_dapm_free_controls(struct snd_soc_dapm_context *dapm,
+>>   		if (!w) {
+>>   			dev_err(dapm->dev, "%s: widget not found\n",
+>>   				widget->name);
+>> -			return -EINVAL;
+>> +			widget++;
+>> +			continue;
+>>   		}
+>>   		widget++;
+>>   #ifdef CONFIG_DEBUG_FS
+> Not sure if we can ever have the widget lookup fail, but at least this
+> looks consistent now.
+>
+> Reviewed-by: Johan Hovold <johan@kernel.org>
+>
+> Johan
+> .
+>
+
+--------------6473E56B7E4D1A091CE82F35
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">在 2020/12/8 17:35, Johan Hovold 写道:<br>
+    </div>
+    <blockquote type="cite" cite="mid:X89IxvbYWjuyaQDT@localhost">
+      <pre class="moz-quote-pre" wrap="">On Sat, Dec 05, 2020 at 06:38:27PM +0800, Wang Hai wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">In gbaudio_dapm_free_controls(), if one of the widgets is not found, an error
+will be returned directly, which will cause the rest to be unable to be freed,
+resulting in leak.
+
+This patch fixes the bug. If if one of them is not found, just skip and free the others.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Apart from the typo, please break your lines at 72 columns or so (not
+needed for the Fixes tag).
+</pre>
+    </blockquote>
+    Thanks for review,  Do I need to send a v2 patch to change the
+    commit msg?<br class="Apple-interchange-newline">
+    <br>
+    <blockquote type="cite" cite="mid:X89IxvbYWjuyaQDT@localhost">
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Fixes: 510e340efe0c ("staging: greybus: audio: Add helper APIs for dynamic audio module")
+Reported-by: Hulk Robot <a class="moz-txt-link-rfc2396E" href="mailto:hulkci@huawei.com">&lt;hulkci@huawei.com&gt;</a>
+Signed-off-by: Wang Hai <a class="moz-txt-link-rfc2396E" href="mailto:wanghai38@huawei.com">&lt;wanghai38@huawei.com&gt;</a>
+---
+ drivers/staging/greybus/audio_helper.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/staging/greybus/audio_helper.c b/drivers/staging/greybus/audio_helper.c
+index 237531ba60f3..3011b8abce38 100644
+--- a/drivers/staging/greybus/audio_helper.c
++++ b/drivers/staging/greybus/audio_helper.c
+@@ -135,7 +135,8 @@ int gbaudio_dapm_free_controls(struct snd_soc_dapm_context *dapm,
+ 		if (!w) {
+ 			dev_err(dapm-&gt;dev, "%s: widget not found\n",
+ 				widget-&gt;name);
+-			return -EINVAL;
++			widget++;
++			continue;
+ 		}
+ 		widget++;
+ #ifdef CONFIG_DEBUG_FS
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Not sure if we can ever have the widget lookup fail, but at least this
+looks consistent now.
+
+Reviewed-by: Johan Hovold <a class="moz-txt-link-rfc2396E" href="mailto:johan@kernel.org">&lt;johan@kernel.org&gt;</a>
+
+Johan
+.
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------6473E56B7E4D1A091CE82F35--
+
+--===============8087640334355598044==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1k
+ZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0
+cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
+
+--===============8087640334355598044==--
