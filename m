@@ -2,52 +2,74 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id E36C62D759C
-	for <lists+greybus-dev@lfdr.de>; Fri, 11 Dec 2020 13:29:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E7672D957A
+	for <lists+greybus-dev@lfdr.de>; Mon, 14 Dec 2020 10:48:52 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id B28AA6670B
-	for <lists+greybus-dev@lfdr.de>; Fri, 11 Dec 2020 12:29:53 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id BC9EA6176E
+	for <lists+greybus-dev@lfdr.de>; Mon, 14 Dec 2020 09:48:50 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id A4B5B6670F; Fri, 11 Dec 2020 12:29:53 +0000 (UTC)
+	id B182F617AB; Mon, 14 Dec 2020 09:48:50 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	MAILING_LIST_MULTI,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H4,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE autolearn=disabled version=3.4.2
+X-Spam-Status: No, score=-7.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled
+	version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 029216670D;
-	Fri, 11 Dec 2020 12:29:37 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 2696161945;
+	Mon, 14 Dec 2020 09:48:38 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id E5AD3607F0
- for <greybus-dev@lists.linaro.org>; Fri, 11 Dec 2020 12:29:34 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id D1DC06176E
+ for <greybus-dev@lists.linaro.org>; Mon, 14 Dec 2020 09:48:35 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id CDF986670C; Fri, 11 Dec 2020 12:29:34 +0000 (UTC)
-Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
- by lists.linaro.org (Postfix) with ESMTPS id 7F049607F0
- for <greybus-dev@lists.linaro.org>; Fri, 11 Dec 2020 12:29:32 +0000 (UTC)
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.60])
- by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4CsqpG5zp9z7CWs;
- Fri, 11 Dec 2020 20:28:54 +0800 (CST)
-Received: from [10.174.179.81] (10.174.179.81) by
- DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
- 14.3.487.0; Fri, 11 Dec 2020 20:29:23 +0800
-To: Johan Hovold <johan@kernel.org>
+ id BA5BB618E0; Mon, 14 Dec 2020 09:48:35 +0000 (UTC)
+Received: from mail-lf1-f66.google.com (mail-lf1-f66.google.com
+ [209.85.167.66])
+ by lists.linaro.org (Postfix) with ESMTPS id BB65A6176E
+ for <greybus-dev@lists.linaro.org>; Mon, 14 Dec 2020 09:48:33 +0000 (UTC)
+Received: by mail-lf1-f66.google.com with SMTP id o17so25627096lfg.4
+ for <greybus-dev@lists.linaro.org>; Mon, 14 Dec 2020 01:48:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=XI8TdlR3KcMv59VM3giX3zxtKyG7BK96h7ee6Dtc+Hc=;
+ b=D9tfUoz/eMROrKhn3ctXlCgcndflfmjBTowJRKnUvcJ7RyNTdbGzD9f1dBJu4KlIbI
+ h3HXNmhqfJZp0uebajnnTpAAjT8Kh+OHb5f/CAfmeyl8PGfZ49Kw8LqA7A41W5kYzG2P
+ GUV6HgLoCphO5tpkefDpvDLRjZbyXjU9L33mD0GnE8+b+5+DGCkXNma9bPyY92fvEb2l
+ 0MvbHryQ/SHbaAYb5ZBJKCLJxvoYCmEJgSqT+j11LBy8Itn7MWZ/smvEsjaetOpSsVTn
+ MML+/W5ezNBQeZQxw0Zegi9pfmlvqScJgiejy9OwKp6zm2s2K+sgshLIr3V/AjtmECNE
+ siTQ==
+X-Gm-Message-State: AOAM5339uOLexYM3PaxJuvUM6a9xuIPwq4D3rnmR4NPpqqhnHZrgTns7
+ CYYJwD2ohIQb7yAAcLKFRiY=
+X-Google-Smtp-Source: ABdhPJzoXnESclP7EEY5c7fTHL1+1OzuylVaGV8TahwEqlVO46WsRCD6UF4zYmlvyqmYFwYCQk0Iqw==
+X-Received: by 2002:a2e:4c11:: with SMTP id z17mr8151164lja.364.1607939312667; 
+ Mon, 14 Dec 2020 01:48:32 -0800 (PST)
+Received: from xi.terra (c-b3cbe455.07-184-6d6c6d4.bbcust.telenor.se.
+ [85.228.203.179])
+ by smtp.gmail.com with ESMTPSA id f19sm1795161ljm.7.2020.12.14.01.48.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Dec 2020 01:48:31 -0800 (PST)
+Received: from johan by xi.terra with local (Exim 4.93.0.4)
+ (envelope-from <johan@kernel.org>)
+ id 1kokSx-0006f4-S3; Mon, 14 Dec 2020 10:48:27 +0100
+Date: Mon, 14 Dec 2020 10:48:27 +0100
+From: Johan Hovold <johan@kernel.org>
+To: "wanghai (M)" <wanghai38@huawei.com>
+Message-ID: <X9c06wvYreO2h8uP@localhost>
 References: <20201205103827.31244-1-wanghai38@huawei.com>
  <X89IxvbYWjuyaQDT@localhost>
-From: "wanghai (M)" <wanghai38@huawei.com>
-Message-ID: <ed57715b-c524-4726-3eaf-434af96d2d92@huawei.com>
-Date: Fri, 11 Dec 2020 20:29:22 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <ed57715b-c524-4726-3eaf-434af96d2d92@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <X89IxvbYWjuyaQDT@localhost>
-X-Originating-IP: [10.174.179.81]
-X-CFilter-Loop: Reflected
+Content-Disposition: inline
+In-Reply-To: <ed57715b-c524-4726-3eaf-434af96d2d92@huawei.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: devel@driverdev.osuosl.org, elder@kernel.org, linux-kernel@vger.kernel.org,
- aibhav.sr@gmail.com, greybus-dev@lists.linaro.org, dan.carpenter@oracle.com
+Cc: devel@driverdev.osuosl.org, elder@kernel.org,
+ Johan Hovold <johan@kernel.org>, aibhav.sr@gmail.com,
+ linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org,
+ dan.carpenter@oracle.com
 Subject: Re: [greybus-dev] [PATCH] staging: greybus: audio: Fix possible
  leak free widgets in gbaudio_dapm_free_controls
 X-BeenThere: greybus-dev@lists.linaro.org
@@ -61,144 +83,29 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8087640334355598044=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
---===============8087640334355598044==
-Content-Type: multipart/alternative;
-	boundary="------------6473E56B7E4D1A091CE82F35"
-
---------------6473E56B7E4D1A091CE82F35
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-在 2020/12/8 17:35, Johan Hovold 写道:
-> On Sat, Dec 05, 2020 at 06:38:27PM +0800, Wang Hai wrote:
->> In gbaudio_dapm_free_controls(), if one of the widgets is not found, an error
->> will be returned directly, which will cause the rest to be unable to be freed,
->> resulting in leak.
->>
->> This patch fixes the bug. If if one of them is not found, just skip and free the others.
-> Apart from the typo, please break your lines at 72 columns or so (not
-> needed for the Fixes tag).
-Thanks for review,  Do I need to send a v2 patch to change the commit msg?
-
->> Fixes: 510e340efe0c ("staging: greybus: audio: Add helper APIs for dynamic audio module")
->> Reported-by: Hulk Robot <hulkci@huawei.com>
->> Signed-off-by: Wang Hai <wanghai38@huawei.com>
->> ---
->>   drivers/staging/greybus/audio_helper.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/staging/greybus/audio_helper.c b/drivers/staging/greybus/audio_helper.c
->> index 237531ba60f3..3011b8abce38 100644
->> --- a/drivers/staging/greybus/audio_helper.c
->> +++ b/drivers/staging/greybus/audio_helper.c
->> @@ -135,7 +135,8 @@ int gbaudio_dapm_free_controls(struct snd_soc_dapm_context *dapm,
->>   		if (!w) {
->>   			dev_err(dapm->dev, "%s: widget not found\n",
->>   				widget->name);
->> -			return -EINVAL;
->> +			widget++;
->> +			continue;
->>   		}
->>   		widget++;
->>   #ifdef CONFIG_DEBUG_FS
-> Not sure if we can ever have the widget lookup fail, but at least this
-> looks consistent now.
->
-> Reviewed-by: Johan Hovold <johan@kernel.org>
->
-> Johan
-> .
->
-
---------------6473E56B7E4D1A091CE82F35
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">在 2020/12/8 17:35, Johan Hovold 写道:<br>
-    </div>
-    <blockquote type="cite" cite="mid:X89IxvbYWjuyaQDT@localhost">
-      <pre class="moz-quote-pre" wrap="">On Sat, Dec 05, 2020 at 06:38:27PM +0800, Wang Hai wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">In gbaudio_dapm_free_controls(), if one of the widgets is not found, an error
-will be returned directly, which will cause the rest to be unable to be freed,
-resulting in leak.
-
-This patch fixes the bug. If if one of them is not found, just skip and free the others.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Apart from the typo, please break your lines at 72 columns or so (not
-needed for the Fixes tag).
-</pre>
-    </blockquote>
-    Thanks for review,  Do I need to send a v2 patch to change the
-    commit msg?<br class="Apple-interchange-newline">
-    <br>
-    <blockquote type="cite" cite="mid:X89IxvbYWjuyaQDT@localhost">
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Fixes: 510e340efe0c ("staging: greybus: audio: Add helper APIs for dynamic audio module")
-Reported-by: Hulk Robot <a class="moz-txt-link-rfc2396E" href="mailto:hulkci@huawei.com">&lt;hulkci@huawei.com&gt;</a>
-Signed-off-by: Wang Hai <a class="moz-txt-link-rfc2396E" href="mailto:wanghai38@huawei.com">&lt;wanghai38@huawei.com&gt;</a>
----
- drivers/staging/greybus/audio_helper.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/staging/greybus/audio_helper.c b/drivers/staging/greybus/audio_helper.c
-index 237531ba60f3..3011b8abce38 100644
---- a/drivers/staging/greybus/audio_helper.c
-+++ b/drivers/staging/greybus/audio_helper.c
-@@ -135,7 +135,8 @@ int gbaudio_dapm_free_controls(struct snd_soc_dapm_context *dapm,
- 		if (!w) {
- 			dev_err(dapm-&gt;dev, "%s: widget not found\n",
- 				widget-&gt;name);
--			return -EINVAL;
-+			widget++;
-+			continue;
- 		}
- 		widget++;
- #ifdef CONFIG_DEBUG_FS
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Not sure if we can ever have the widget lookup fail, but at least this
-looks consistent now.
-
-Reviewed-by: Johan Hovold <a class="moz-txt-link-rfc2396E" href="mailto:johan@kernel.org">&lt;johan@kernel.org&gt;</a>
-
-Johan
-.
-
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------6473E56B7E4D1A091CE82F35--
-
---===============8087640334355598044==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1k
-ZXYgbWFpbGluZyBsaXN0CmdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0
-cy5saW5hcm8ub3JnL21haWxtYW4vbGlzdGluZm8vZ3JleWJ1cy1kZXYK
-
---===============8087640334355598044==--
+T24gRnJpLCBEZWMgMTEsIDIwMjAgYXQgMDg6Mjk6MjJQTSArMDgwMCwgd2FuZ2hhaSAoTSkgd3Jv
+dGU6Cj4gCj4g5ZyoIDIwMjAvMTIvOCAxNzozNSwgSm9oYW4gSG92b2xkIOWGmemBkzoKPiA+IE9u
+IFNhdCwgRGVjIDA1LCAyMDIwIGF0IDA2OjM4OjI3UE0gKzA4MDAsIFdhbmcgSGFpIHdyb3RlOgo+
+ID4+IEluIGdiYXVkaW9fZGFwbV9mcmVlX2NvbnRyb2xzKCksIGlmIG9uZSBvZiB0aGUgd2lkZ2V0
+cyBpcyBub3QgZm91bmQsIGFuIGVycm9yCj4gPj4gd2lsbCBiZSByZXR1cm5lZCBkaXJlY3RseSwg
+d2hpY2ggd2lsbCBjYXVzZSB0aGUgcmVzdCB0byBiZSB1bmFibGUgdG8gYmUgZnJlZWQsCj4gPj4g
+cmVzdWx0aW5nIGluIGxlYWsuCj4gPj4KPiA+PiBUaGlzIHBhdGNoIGZpeGVzIHRoZSBidWcuIElm
+IGlmIG9uZSBvZiB0aGVtIGlzIG5vdCBmb3VuZCwganVzdCBza2lwIGFuZCBmcmVlIHRoZSBvdGhl
+cnMuCj4gPiBBcGFydCBmcm9tIHRoZSB0eXBvLCBwbGVhc2UgYnJlYWsgeW91ciBsaW5lcyBhdCA3
+MiBjb2x1bW5zIG9yIHNvIChub3QKPiA+IG5lZWRlZCBmb3IgdGhlIEZpeGVzIHRhZykuCj4KPiBU
+aGFua3MgZm9yIHJldmlldyzCoCBEbyBJIG5lZWQgdG8gc2VuZCBhIHYyIHBhdGNoIHRvIGNoYW5n
+ZSB0aGUgY29tbWl0IG1zZz8KCkknbSBub3Qgc3VyZSB5b3VyIG1haWwgcmVhY2hlZCB0aGUgbGlz
+dHMgc2luY2UgaXQgY29udGFpbnMgSFRNTCwgYnV0IHRvCmFuc3dlciB5b3VyIHF1ZXN0aW9uOiBQ
+bGVhc2UgZG8gcmVzZW5kLiBJZiB5b3UgY2FuIG1ha2UgdGhlIG1haW50YWluZXJzJwpsaWZlIGFu
+eSBlYXNpZXIgdGhhdCdzIGFsd2F5cyBhIGdvb2QgaWRlYS4KCllvdSBzaG91bGQgaW5jbHVkZSB0
+aGUgUmV2aWV3ZWQtYnkgdGFncyB5b3UndmUgZ290dGVuIHNvIGZhciB3aGVuCnJlc2VuZGluZyBh
+cyBsb25nIGFzIHlvdSBvbmx5IHVwZGF0ZSB0aGUgY29tbWl0IG1lc3NhZ2UuCgpKb2hhbgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpncmV5YnVzLWRldiBt
+YWlsaW5nIGxpc3QKZ3JleWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpodHRwczovL2xpc3RzLmxp
+bmFyby5vcmcvbWFpbG1hbi9saXN0aW5mby9ncmV5YnVzLWRldgo=
