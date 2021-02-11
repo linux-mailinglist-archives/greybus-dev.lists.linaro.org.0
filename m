@@ -2,69 +2,71 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBCC43187A8
-	for <lists+greybus-dev@lfdr.de>; Thu, 11 Feb 2021 11:03:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8976A3187CF
+	for <lists+greybus-dev@lfdr.de>; Thu, 11 Feb 2021 11:10:59 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 144AC60FF9
-	for <lists+greybus-dev@lfdr.de>; Thu, 11 Feb 2021 10:03:48 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id A4D5F66034
+	for <lists+greybus-dev@lfdr.de>; Thu, 11 Feb 2021 10:10:58 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 0902A66034; Thu, 11 Feb 2021 10:03:48 +0000 (UTC)
+	id 97B4666760; Thu, 11 Feb 2021 10:10:58 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FROM,MAILING_LIST_MULTI,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE autolearn=disabled version=3.4.2
+X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE autolearn=disabled
+	version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id BCBD5666DC;
-	Thu, 11 Feb 2021 10:03:34 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 5078C666DC;
+	Thu, 11 Feb 2021 10:10:47 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id BF45566034
- for <greybus-dev@lists.linaro.org>; Thu, 11 Feb 2021 09:54:52 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 8279D60FF9
+ for <greybus-dev@lists.linaro.org>; Thu, 11 Feb 2021 10:10:44 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id A681C666DC; Thu, 11 Feb 2021 09:54:52 +0000 (UTC)
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by lists.linaro.org (Postfix) with ESMTPS id 3629066034
- for <greybus-dev@lists.linaro.org>; Thu, 11 Feb 2021 09:54:51 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id e9so3104258pjj.0
- for <greybus-dev@lists.linaro.org>; Thu, 11 Feb 2021 01:54:51 -0800 (PST)
+ id 6FAB3665EF; Thu, 11 Feb 2021 10:10:44 +0000 (UTC)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by lists.linaro.org (Postfix) with ESMTPS id 5C8F660FF9
+ for <greybus-dev@lists.linaro.org>; Thu, 11 Feb 2021 10:10:43 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id d13so3079263plg.0
+ for <greybus-dev@lists.linaro.org>; Thu, 11 Feb 2021 02:10:43 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=wcz3AQJyepgs6E3Mhy+qpeJeGUBWMUKWfxuRMoRrU+I=;
- b=rOF3NQoi9chbIUFVrcIuB7w0UovEJLYk3MnMTndt+DQ2oAMu9Bsi5Br2VPoX4FVpe1
- WbVEUy83wRiU/eBkUD6qI9GIOWztWfo6nhXSqzzMQ7wQ9V9dv+Lh1d8v4F/HU/NitWW/
- qBvyT9HUWp8GkbhGN/uQezxnEpWKjIuvYKGrZdnSs5SdECPXvs+Gy9QTBj6mKF9t+shi
- IhjO5l9XW0DZ4BYtOAsqDG2eXiD0gBA886jWDS1jQVM1srzxoxuodZXHk92GxzZ0sGlQ
- zTmhXp7URjbeVrNlCvpDie/S90GNi7XIpjawgRQD2TuSJCWdx8xBTUaxjT1sHmCkcEFf
- Q3MA==
-X-Gm-Message-State: AOAM5305tM7K9QsAKZtyBLYH9GfX/vGpASgZeq1lKrp3oiz8JGB/Kexa
- LtoAOl/GTgVLoxMG3ckIe+4=
-X-Google-Smtp-Source: ABdhPJwV1rcv6wGkjVZ8flLv4pmrLtBs1E2FL3ApE5mLK8efWmbyclpYoAXRUjxrJdjzDcqHGzwx8A==
-X-Received: by 2002:a17:902:8c8f:b029:e0:1663:fd34 with SMTP id
- t15-20020a1709028c8fb02900e01663fd34mr6901568plo.84.1613037290390; 
- Thu, 11 Feb 2021 01:54:50 -0800 (PST)
-Received: from localhost.localdomain ([27.5.41.215])
- by smtp.gmail.com with ESMTPSA id y24sm4959382pfr.152.2021.02.11.01.54.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Feb 2021 01:54:50 -0800 (PST)
-From: Hemansh Agnihotri <hemanshagnihotri27@gmail.com>
-To: johan@kernel.org,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org
-Date: Thu, 11 Feb 2021 15:24:44 +0530
-Message-Id: <20210211095444.54447-1-hemanshagnihotri27@gmail.com>
-X-Mailer: git-send-email 2.30.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=0UWUI/kkDinmay7MvgnYpZn7ou/nW9tAWna4jMvJtvY=;
+ b=CF015ek7S/huDI4/ufL5wk6JoGyVo+oXO8QvG5d5fE8cQObGVWI/cgPccm7wG+igNG
+ TZgwFDuZHC4EoEyOV9jdenDy6a4ENKodVpzdX7zpy1P2FvmyninNo7I7ZFu3nbjrh3xu
+ Omrb08UYiXsQ2dKRnuCytBYl4ar5R66D2ibJpgLoP0w2mf7bdTCtBSODjRKmIhHopRaj
+ rn4xfGohNoT8yWsTyEF5FnRTi2XUp5Xd6+AZnblHRZ5bN9E+15WR1VeYzIp/h4wwcdYh
+ 9B8edDXJ7JO2/1aS20VjPGrlJ25laMRb6PRqONWNfHNKP+Jsb0vhPtf5cxYl4+PJmsyO
+ uDkg==
+X-Gm-Message-State: AOAM532YjiYU2cLsoNBCuJkimjGVsvQM9SMgMMgPraSmO6Jyjcm/icbF
+ CWXqLOv2qGPvvituVJCQk9JXSnsA
+X-Google-Smtp-Source: ABdhPJyI4I2N7+f2yBokicCsqPV12GPsfMpH8tS1rxFrBawOPBvQFC5Pa0IK/8oSkGKZYpcmRkkM8w==
+X-Received: by 2002:a17:902:c408:b029:e2:ba09:d442 with SMTP id
+ k8-20020a170902c408b02900e2ba09d442mr6875531plk.83.1613038242539; 
+ Thu, 11 Feb 2021 02:10:42 -0800 (PST)
+Received: from localhost ([122.172.59.240])
+ by smtp.gmail.com with ESMTPSA id mv14sm7847662pjb.0.2021.02.11.02.10.41
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 11 Feb 2021 02:10:41 -0800 (PST)
+Date: Thu, 11 Feb 2021 15:40:39 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Message-ID: <20210211101039.m5q26qgxififotqp@vireshk-i7>
+References: <20210211095444.54447-1-hemanshagnihotri27@gmail.com>
+ <YCUAMgFa6i9vl9An@kroah.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <YCUAMgFa6i9vl9An@kroah.com>
+User-Agent: NeoMutt/20180716-391-311a52
 X-Virus-Scanned: ClamAV using ClamSMTP
-X-Mailman-Approved-At: Thu, 11 Feb 2021 10:03:33 +0000
-Cc: devel@driverdev.osuosl.org, greybus-dev@lists.linaro.org,
- linux-kernel@vger.kernel.org
-Subject: [greybus-dev] [PATCH 1/1] staging: greybus: Added do - while in
-	multi statement macro
+Cc: devel@driverdev.osuosl.org, elder@kernel.org, linux-kernel@vger.kernel.org,
+ johan@kernel.org, greybus-dev@lists.linaro.org,
+ Hemansh Agnihotri <hemanshagnihotri27@gmail.com>
+Subject: Re: [greybus-dev] [PATCH 1/1] staging: greybus: Added do - while in
+ multi statement macro
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.16
 Precedence: list
@@ -82,24 +84,19 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-VGhpcyBwYXRjaCBhZGQgZml4ZXMgYW4gY2hlY2twYXRjaCBlcnJvciBmb3IgIk1hY3JvcyB3aXRo
-IG11bHRpcGxlIHN0YXRlbWVudHMKc2hvdWxkIGJlIGVuY2xvc2VkIGluIGEgZG8gLSB3aGlsZSBs
-b29wIgoKU2lnbmVkLW9mZi1ieTogSGVtYW5zaCBBZ25paG90cmkgPGhlbWFuc2hhZ25paG90cmky
-N0BnbWFpbC5jb20+Ci0tLQogZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvbG9vcGJhY2suYyB8IDUg
-KysrLS0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvbG9vcGJhY2suYyBiL2RyaXZlcnMv
-c3RhZ2luZy9ncmV5YnVzL2xvb3BiYWNrLmMKaW5kZXggMjQ3MTQ0OGJhNDJhLi42ZGQ5NWQ2NDg5
-OTkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL2xvb3BiYWNrLmMKKysrIGIv
-ZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvbG9vcGJhY2suYwpAQCAtMTYyLDEwICsxNjIsMTEgQEAg
-c3RhdGljIHNzaXplX3QgbmFtZSMjX2F2Z19zaG93KHN0cnVjdCBkZXZpY2UgKmRldiwJCVwKIH0J
-CQkJCQkJCQlcCiBzdGF0aWMgREVWSUNFX0FUVFJfUk8obmFtZSMjX2F2ZykKIAotI2RlZmluZSBn
-Yl9sb29wYmFja19zdGF0c19hdHRycyhmaWVsZCkJCQkJXAorI2RlZmluZSBnYl9sb29wYmFja19z
-dGF0c19hdHRycyhmaWVsZCkgZG8geyBcCiAJZ2JfbG9vcGJhY2tfcm9fc3RhdHNfYXR0cihmaWVs
-ZCwgbWluLCB1KTsJCVwKIAlnYl9sb29wYmFja19yb19zdGF0c19hdHRyKGZpZWxkLCBtYXgsIHUp
-OwkJXAotCWdiX2xvb3BiYWNrX3JvX2F2Z19hdHRyKGZpZWxkKQorCWdiX2xvb3BiYWNrX3JvX2F2
-Z19hdHRyKGZpZWxkKTsJCQkJXAorCX0gd2hpbGUgKDApCiAKICNkZWZpbmUgZ2JfbG9vcGJhY2tf
-YXR0cihmaWVsZCwgdHlwZSkJCQkJCVwKIHN0YXRpYyBzc2l6ZV90IGZpZWxkIyNfc2hvdyhzdHJ1
-Y3QgZGV2aWNlICpkZXYsCQkJCVwKLS0gCjIuMzAuMAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1kZXYgbWFpbGluZyBsaXN0CmdyZXlidXMt
-ZGV2QGxpc3RzLmxpbmFyby5vcmcKaHR0cHM6Ly9saXN0cy5saW5hcm8ub3JnL21haWxtYW4vbGlz
-dGluZm8vZ3JleWJ1cy1kZXYK
+T24gMTEtMDItMjEsIDExOjAwLCBHcmVnIEtIIHdyb3RlOgo+IE9uIFRodSwgRmViIDExLCAyMDIx
+IGF0IDAzOjI0OjQ0UE0gKzA1MzAsIEhlbWFuc2ggQWduaWhvdHJpIHdyb3RlOgo+ID4gVGhpcyBw
+YXRjaCBhZGQgZml4ZXMgYW4gY2hlY2twYXRjaCBlcnJvciBmb3IgIk1hY3JvcyB3aXRoIG11bHRp
+cGxlIHN0YXRlbWVudHMKPiA+IHNob3VsZCBiZSBlbmNsb3NlZCBpbiBhIGRvIC0gd2hpbGUgbG9v
+cCIKPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogSGVtYW5zaCBBZ25paG90cmkgPGhlbWFuc2hhZ25p
+aG90cmkyN0BnbWFpbC5jb20+Cj4gCj4gQW55IHJlYXNvbiB5b3UgZGlkbid0IHRlc3QtYnVpbGQg
+eW91ciBwYXRjaCBiZWZvcmUgc2VuZGluZyBpdCBvdXQ/Cj4gCj4gVGhhdCdzIGEgYml0IHJ1ZGUg
+dG8gcmV2aWV3ZXJzIDooCgpJIGFsc28gd29uZGVyIGhvdyB0d28gcGVvcGxlIHN0dW1ibGVkIHVw
+b24gdGhlIGV4YWN0IHNhbWUgdGhpbmcgYXQgdGhlCnNhbWUgdGltZS4gQ29weS9wYXN0ZSA/Cgpo
+dHRwczovL2xvcmUua2VybmVsLm9yZy9sa21sLzIwMjEwMjEwMjIxNDM5LjM0ODktMi15aWxkaXJp
+bS5mYXRpaEBnbWFpbC5jb20vCgpBbmQgb2YgY291cnNlIE5BSyBmb3IgdGhlIHBhdGNoLiBUaGUg
+bWFjcm8gaXMgdXNlZCBvdXRzaWRlIG9mIGFueQpvdGhlciByb3V0aW5lLCBhbmQgaXMgYWN0dWFs
+bHkgdXNlZCB0byBjcmVhdGUgcm91dGluZXMuIE5vIGRvLXdoaWxlCnJlcXVpcmVkIGhlcmUuCgot
+LSAKdmlyZXNoCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0
+dHBzOi8vbGlzdHMubGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
