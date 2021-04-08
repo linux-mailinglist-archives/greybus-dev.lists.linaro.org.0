@@ -2,51 +2,44 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDDC435792D
-	for <lists+greybus-dev@lfdr.de>; Thu,  8 Apr 2021 02:51:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B06AF357C96
+	for <lists+greybus-dev@lfdr.de>; Thu,  8 Apr 2021 08:26:19 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id E1D226656A
-	for <lists+greybus-dev@lfdr.de>; Thu,  8 Apr 2021 00:51:35 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id D7A11666FC
+	for <lists+greybus-dev@lfdr.de>; Thu,  8 Apr 2021 06:26:18 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id D303166706; Thu,  8 Apr 2021 00:51:35 +0000 (UTC)
+	id C7A2B66707; Thu,  8 Apr 2021 06:26:18 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	NICE_REPLY_A,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
-	SPF_HELO_NONE autolearn=disabled version=3.4.2
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE autolearn=disabled version=3.4.2
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 2D3C6666FC;
-	Thu,  8 Apr 2021 00:51:23 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id F0E7B66725;
+	Thu,  8 Apr 2021 06:26:00 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id C17456656A
- for <greybus-dev@lists.linaro.org>; Thu,  8 Apr 2021 00:51:20 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 5DEFF665E9
+ for <greybus-dev@lists.linaro.org>; Thu,  8 Apr 2021 06:25:56 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id A6F99666F6; Thu,  8 Apr 2021 00:51:20 +0000 (UTC)
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by lists.linaro.org (Postfix) with ESMTPS id F23A76656A
- for <greybus-dev@lists.linaro.org>; Thu,  8 Apr 2021 00:51:18 +0000 (UTC)
-Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4FG2hK31xXzwRVC;
- Thu,  8 Apr 2021 08:49:05 +0800 (CST)
-Received: from [127.0.0.1] (10.40.188.144) by DGGEMS403-HUB.china.huawei.com
- (10.3.19.203) with Microsoft SMTP Server id 14.3.498.0; Thu, 8 Apr 2021
- 08:51:09 +0800
-To: Greg KH <gregkh@linuxfoundation.org>
+ id 4737366725; Thu,  8 Apr 2021 06:25:56 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by lists.linaro.org (Postfix) with ESMTPS id 80EC1665E9
+ for <greybus-dev@lists.linaro.org>; Thu,  8 Apr 2021 06:25:17 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 476F56113E;
+ Thu,  8 Apr 2021 06:25:15 +0000 (UTC)
+Date: Thu, 8 Apr 2021 08:25:13 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: "tiantao (H)" <tiantao6@huawei.com>
+Message-ID: <YG6hyc8wWolwVbnQ@kroah.com>
 References: <1617778203-23117-1-git-send-email-tiantao6@hisilicon.com>
  <YG1rwdRzKk83RBmG@kroah.com>
  <5126cb93-4227-8a0f-1421-7685ade4b2e2@huawei.com>
  <YG1wFcQvKmYsziLt@kroah.com>
-From: "tiantao (H)" <tiantao6@huawei.com>
-Message-ID: <ca0261a9-7968-c9c9-b286-a9770a6d5096@huawei.com>
-Date: Thu, 8 Apr 2021 08:51:09 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <ca0261a9-7968-c9c9-b286-a9770a6d5096@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <YG1wFcQvKmYsziLt@kroah.com>
-X-Originating-IP: [10.40.188.144]
-X-CFilter-Loop: Reflected
+Content-Disposition: inline
+In-Reply-To: <ca0261a9-7968-c9c9-b286-a9770a6d5096@huawei.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: elder@kernel.org, linux-staging@lists.linux.dev, hvaibhav.linux@gmail.com,
  johan@kernel.org, greybus-dev@lists.linaro.org,
@@ -64,33 +57,33 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-CuWcqCAyMDIxLzQvNyAxNjo0MCwgR3JlZyBLSCDlhpnpgZM6Cj4gT24gV2VkLCBBcHIgMDcsIDIw
-MjEgYXQgMDQ6Mjk6NTlQTSArMDgwMCwgdGlhbnRhbyAoSCkgd3JvdGU6Cj4+IOWcqCAyMDIxLzQv
-NyAxNjoyMiwgR3JlZyBLSCDlhpnpgZM6Cj4+PiBPbiBXZWQsIEFwciAwNywgMjAyMSBhdCAwMjo1
-MDowM1BNICswODAwLCBUaWFuIFRhbyB3cm90ZToKPj4+PiBkaXNhYmxlX2lycSgpIGFmdGVyIHJl
-cXVlc3RfaXJxKCkgc3RpbGwgaGFzIGEgdGltZSBnYXAgaW4gd2hpY2gKPj4+PiBpbnRlcnJ1cHRz
-IGNhbiBjb21lLiByZXF1ZXN0X2lycSgpIHdpdGggSVJRRl9OT19BVVRPRU4gZmxhZyB3aWxsCj4+
-Pj4gZGlzYWJsZSBJUlEgYXV0by1lbmFibGUgYmVjYXVzZSBvZiByZXF1ZXN0aW5nLgo+Pj4+Cj4+
-Pj4gdGhpcyBwYXRjaCBpcyBtYWRlIGJhc2Ugb24gImFkZCBJUlFGX05PX0FVVE9FTiBmb3IgcmVx
-dWVzdF9pcnEiIHdoaWNoCj4+Pj4gaXMgYmVpbmcgbWVyZ2VkOiBodHRwczovL2xvcmUua2VybmVs
-Lm9yZy9wYXRjaHdvcmsvcGF0Y2gvMTM4ODc2NS8KPj4+IENhbiB5b3Ugd2FpdCB1bnRpbCB0aGF0
-IGlzIG1lcmdlZCBiZWZvcmUgc2VuZGluZyB0aGlzIG91dCB0byB1cyBhcyB3ZQo+Pj4gY2FuJ3Qg
-ZG8gYW55dGhpbmcgdW50aWwgdGhlbi4KPj4gdGhpcyBpcyBhbHJlYWR5IGluIGxpbnV4LW5leHQu
-Z2l0Lgo+Pgo+PiBjYmUxNmYzIGdlbmlycTogQWRkIElSUUZfTk9fQVVUT0VOIGZvciByZXF1ZXN0
-X2lycS9ubWkoKQo+IFRoYXQncyBncmVhdCwgYnV0IG5vdGUgdGhhdCBsaW51eC1uZXh0IGlzIGEg
-Y29tYmluZWQgdHJlZSBvZiBhbGwKPiBzdWJzeXN0ZW0gdHJlZXMuICBJdCdzIGltcG9zc2libGUg
-Zm9yIGEgc3Vic3lzdGVtIHRyZWUgdG8gaW5jbHVkZQo+IGxpbnV4LW5leHQgOikKTWF5YmUgeW91
-IGNhbiByZWZlcmVuY2V0aGlzIHRhZyAKaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xp
-bnV4L2tlcm5lbC9naXQvdGlwL3RpcC5naXQvdGFnLz9oPWlycS1uby1hdXRvZW4tMjAyMS0wMy0y
-NSAKCj4KPiBTbyBob3cgYWJvdXQgd2Ugd2FpdCB1bnRpbCB0aGlzIGdldHMgaW50byBMaW51cydz
-IHRyZWUgc28gdGhhdCB3ZSBkbyBub3QKPiBhbGwgc3VkZGVubHkgZ2V0IHByb2JsZW1zIGluIG91
-ciBpbmRpdmlkdWFsIHN1YnN5c3RlbSB0cmVlcy4KPgo+IHRoYW5rcywKPgo+IGdyZWcgay1oCj4g
-Lgo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpncmV5
-YnVzLWRldiBtYWlsaW5nIGxpc3QKZ3JleWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpodHRwczov
-L2xpc3RzLmxpbmFyby5vcmcvbWFpbG1hbi9saXN0aW5mby9ncmV5YnVzLWRldgo=
+T24gVGh1LCBBcHIgMDgsIDIwMjEgYXQgMDg6NTE6MDlBTSArMDgwMCwgdGlhbnRhbyAoSCkgd3Jv
+dGU6Cj4gCj4g5ZyoIDIwMjEvNC83IDE2OjQwLCBHcmVnIEtIIOWGmemBkzoKPiA+IE9uIFdlZCwg
+QXByIDA3LCAyMDIxIGF0IDA0OjI5OjU5UE0gKzA4MDAsIHRpYW50YW8gKEgpIHdyb3RlOgo+ID4g
+PiDlnKggMjAyMS80LzcgMTY6MjIsIEdyZWcgS0gg5YaZ6YGTOgo+ID4gPiA+IE9uIFdlZCwgQXBy
+IDA3LCAyMDIxIGF0IDAyOjUwOjAzUE0gKzA4MDAsIFRpYW4gVGFvIHdyb3RlOgo+ID4gPiA+ID4g
+ZGlzYWJsZV9pcnEoKSBhZnRlciByZXF1ZXN0X2lycSgpIHN0aWxsIGhhcyBhIHRpbWUgZ2FwIGlu
+IHdoaWNoCj4gPiA+ID4gPiBpbnRlcnJ1cHRzIGNhbiBjb21lLiByZXF1ZXN0X2lycSgpIHdpdGgg
+SVJRRl9OT19BVVRPRU4gZmxhZyB3aWxsCj4gPiA+ID4gPiBkaXNhYmxlIElSUSBhdXRvLWVuYWJs
+ZSBiZWNhdXNlIG9mIHJlcXVlc3RpbmcuCj4gPiA+ID4gPiAKPiA+ID4gPiA+IHRoaXMgcGF0Y2gg
+aXMgbWFkZSBiYXNlIG9uICJhZGQgSVJRRl9OT19BVVRPRU4gZm9yIHJlcXVlc3RfaXJxIiB3aGlj
+aAo+ID4gPiA+ID4gaXMgYmVpbmcgbWVyZ2VkOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9wYXRj
+aHdvcmsvcGF0Y2gvMTM4ODc2NS8KPiA+ID4gPiBDYW4geW91IHdhaXQgdW50aWwgdGhhdCBpcyBt
+ZXJnZWQgYmVmb3JlIHNlbmRpbmcgdGhpcyBvdXQgdG8gdXMgYXMgd2UKPiA+ID4gPiBjYW4ndCBk
+byBhbnl0aGluZyB1bnRpbCB0aGVuLgo+ID4gPiB0aGlzIGlzIGFscmVhZHkgaW4gbGludXgtbmV4
+dC5naXQuCj4gPiA+IAo+ID4gPiBjYmUxNmYzIGdlbmlycTogQWRkIElSUUZfTk9fQVVUT0VOIGZv
+ciByZXF1ZXN0X2lycS9ubWkoKQo+ID4gVGhhdCdzIGdyZWF0LCBidXQgbm90ZSB0aGF0IGxpbnV4
+LW5leHQgaXMgYSBjb21iaW5lZCB0cmVlIG9mIGFsbAo+ID4gc3Vic3lzdGVtIHRyZWVzLiAgSXQn
+cyBpbXBvc3NpYmxlIGZvciBhIHN1YnN5c3RlbSB0cmVlIHRvIGluY2x1ZGUKPiA+IGxpbnV4LW5l
+eHQgOikKPiBNYXliZSB5b3UgY2FuIHJlZmVyZW5jZXRoaXMgdGFnIGh0dHBzOi8vZ2l0Lmtlcm5l
+bC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3RpcC90aXAuZ2l0L3RhZy8/aD1pcnEtbm8t
+YXV0b2VuLTIwMjEtMDMtMjUKCkluIHdoYXQgd2F5PwpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpncmV5YnVzLWRldiBtYWlsaW5nIGxpc3QKZ3JleWJ1cy1k
+ZXZAbGlzdHMubGluYXJvLm9yZwpodHRwczovL2xpc3RzLmxpbmFyby5vcmcvbWFpbG1hbi9saXN0
+aW5mby9ncmV5YnVzLWRldgo=
