@@ -2,53 +2,48 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30AEE366508
-	for <lists+greybus-dev@lfdr.de>; Wed, 21 Apr 2021 07:51:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 155C7370A6C
+	for <lists+greybus-dev@lfdr.de>; Sun,  2 May 2021 08:10:30 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 5629F66857
-	for <lists+greybus-dev@lfdr.de>; Wed, 21 Apr 2021 05:51:22 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 4BD48607F1
+	for <lists+greybus-dev@lfdr.de>; Sun,  2 May 2021 06:10:28 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 49C3C66858; Wed, 21 Apr 2021 05:51:22 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on lists.linaro.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-7.9 required=5.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE autolearn=disabled version=3.4.2
+	id E13EC60707; Sun,  2 May 2021 06:10:27 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id C86116685A;
-	Wed, 21 Apr 2021 05:51:01 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7655B60714;
+	Sun,  2 May 2021 06:10:25 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id AB2B666857
- for <greybus-dev@lists.linaro.org>; Wed, 21 Apr 2021 05:50:58 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id A0210606DA
+ for <greybus-dev@lists.linaro.org>; Sun,  2 May 2021 06:10:23 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 9066766859; Wed, 21 Apr 2021 05:50:58 +0000 (UTC)
+ id 84CB660707; Sun,  2 May 2021 06:10:23 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by lists.linaro.org (Postfix) with ESMTPS id 484B366857
- for <greybus-dev@lists.linaro.org>; Wed, 21 Apr 2021 05:50:57 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7BB2F60FE5;
- Wed, 21 Apr 2021 05:50:55 +0000 (UTC)
-Date: Wed, 21 Apr 2021 07:50:50 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Kyle Harding <kyle@balena.io>
-Message-ID: <YH+9Osf3W+dosnWj@kroah.com>
-References: <CAMgvH3p9L8D6ZeGbzVqMSahUU-mUL7K1-yijgz+D=B6MYHJjSQ@mail.gmail.com>
- <YHmQPbufUqbthg55@kroah.com>
- <CAMgvH3qf84NqzguGHAe4EASoAWyV15NpwsjKNvuTaq_drMXnyw@mail.gmail.com>
- <YHp7dsQsKa4K05d3@kroah.com>
- <CAMgvH3rnDQ2OOwwtnSWiuquV_S5EU9iQ4i2gOoWbOkvigE-MtA@mail.gmail.com>
- <YH0zXh2AMZAJUnAo@kroah.com>
- <CAMgvH3pgBehB3799TLLzAWZWSyeD0qCiJfUqkvzVVr5ZO5JxmQ@mail.gmail.com>
- <YH6H9SR1h0Mg4x2Q@kroah.com>
- <CAMgvH3qZBf6wayv+OoVfZzZQH3Qt8Y9Ar8_KH2xdXiPYX4EJTg@mail.gmail.com>
+ by lists.linaro.org (Postfix) with ESMTPS id 4E1E8606DA
+ for <greybus-dev@lists.linaro.org>; Sun,  2 May 2021 06:10:21 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C1B2A613E1;
+ Sun,  2 May 2021 06:10:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1619935820;
+ bh=BTrWrUBqG+mxHfOsVdFTMvDIXUeDLs1p3+Ufop2ppXY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ezGaOvsGeITq6bba4wJZYV1PcH8Tc94fnHifAm4hKMn6O6CEQoWU81e/GukjxywC7
+ nrA1qUP7FP+ufXIGYfLVM7sNPo4yjjBxEmL+TTzXJl/BnJqcmtVRsN4Jj1+9HJHS0H
+ /qes1O9QuRVFfiisa/5LmmLJEFy8wbH4auFepLr8=
+Date: Sun, 2 May 2021 08:10:18 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Thais Camacho <thaiscamachoo@gmail.com>
+Message-ID: <YI5CSvPnz1mL9+Az@kroah.com>
+References: <20210501193043.12153-1-thaiscamachoo@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAMgvH3qZBf6wayv+OoVfZzZQH3Qt8Y9Ar8_KH2xdXiPYX4EJTg@mail.gmail.com>
+In-Reply-To: <20210501193043.12153-1-thaiscamachoo@gmail.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: greybus-dev@lists.linaro.org
-Subject: Re: [greybus-dev] DMA support via gb-netlink and gbridge
+Subject: Re: [greybus-dev] [PATCH] Staging: greybus: tools: loopback_test:
+ fixed coding style issues
 X-BeenThere: greybus-dev@lists.linaro.org
-X-Mailman-Version: 2.1.16
+X-Mailman-Version: 2.1.29
 Precedence: list
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
 List-Unsubscribe: <https://lists.linaro.org/mailman/options/greybus-dev>,
@@ -58,81 +53,203 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: greybus-dev@lists.linaro.org, Alex Elder <elder@kernel.org>,
+ linux-staging@lists.linux.dev, Johan Hovold <johan@kernel.org>,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gVHVlLCBBcHIgMjAsIDIwMjEgYXQgMDg6MDE6MDZQTSAtMDQwMCwgS3lsZSBIYXJkaW5nIHdy
-b3RlOgo+IE9uIFR1ZSwgQXByIDIwLCAyMDIxIGF0IDM6NTEgQU0gR3JlZyBLSCA8Z3JlZ2toQGxp
-bnV4Zm91bmRhdGlvbi5vcmc+IHdyb3RlOgo+ID4gPiBXZSdkIGxpa2UgdG8gZXNzZW50aWFsbHkg
-cnVuIGEgdmlydHVhbGl6ZWQgdmVuZG9yIGtlcm5lbCB0byBtYW5hZ2UgYQo+ID4gPiBoYXJkd2Fy
-ZSBkZXZpY2Ugc3VjaCBhcyBhbiBTRElPIHdpcmVsZXNzIGNhcmQgcGFzc2VkIHRocm91Z2ggZnJv
-bSB0aGUKPiBob3N0LAo+ID4gPiBydW5uaW5nIGEgbWFpbmxpbmUga2VybmVsLiBOZXR3b3JrIHRy
-YWZmaWMgd291bGQgYmUgcm91dGVkIGZyb20gaG9zdCB0bwo+ID4gPiBndWVzdCBvdmVyIGEgdmly
-dGlvIGludGVyZmFjZS4KPiA+ID4KPiA+ID4gSXMgaXQgcG9zc2libGUgdG8gdXNlIEdyZXlidXMg
-aW4gdGhpcyB3YXksIG9yIGFtIEkgbWlzdW5kZXJzdGFuZGluZyB0aGUKPiB1c2UKPiA+ID4gY2Fz
-ZSBvZiB0aGlzIHN1YnN5c3RlbT8KPiA+Cj4gPiBZb3UgY291bGQgYWJ1c2UgZ3JleWJ1cyB0byBk
-byBzb21ldGhpbmcgbGlrZSB0aGlzLCBidXQgdGhhdCBmZWVscyBsaWtlIGEKPiA+IHRvbiBvZiBl
-eHRyYSB3b3JrIHdoZW4gdGhlcmUgYXJlIGFscmVhZHkgc29sdXRpb25zIGZvciB0aGlzIHR5cGUg
-b2YKPiA+IHRoaW5nIHRvZGF5IGluIExpbnV4LiAgV2h5IG5vdCBqdXN0IHVzZSBzb21lIG9mIHRo
-ZSBleGlzdGluZyBoYXJkd2FyZQo+ID4gcGFzcy10aHJvdWdoIHNvbHV0aW9ucyB0aGF0IGFyZSBv
-dXQgdGhlcmUgdGhhdCBhbGxvdyB2aXJ0dWFsIGtlcm5lbHMgdG8KPiA+IGhhdmUgYWNjZXNzIHRv
-IGhhcmR3YXJlIGRpcmVjdGx5PyAgV2h5IHRyeSB0byBjcmVhdGUgeWV0LWFub3RoZXIgd2F5IHRv
-Cj4gPiBkbyB0aGlzPwo+ID4KPiA+IEJ1dCBoZXksIGlmIHlvdSB3YW50IHRvIHRha2UgdGhlIHRp
-bWUgdG8gd3JpdGUgc3VjaCBrZXJuZWwgY29kZSwgYWxsIHRoZQo+ID4gYmVzdCEgIDopCj4gPgo+
-ID4gZ3JlZyBrLWgKPiAKPiBXZSd2ZSBleHBsb3JlZCBvcHRpb25zIHN1Y2ggYXMgVkZJTyBmb3Ig
-dGhpcyB1c2UgY2FzZS4gQWx0aG91Z2ggVkZJTyB3b3Jrcwo+IGdyZWF0IG9uIFBDcyB3aXRoIGhh
-cmR3YXJlIHBlcmlwaGVyYWxzIG9uIGFuIEkvTyBidXMgc3VjaCBhcyBQQ0kgYmVoaW5kIGFuCj4g
-SU9NTVUsIHdlJ3JlIGxvb2tpbmcgdG8gcGFzc3Rocm91Z2ggYSBwbGF0Zm9ybSBkZXZpY2UgKFNE
-SU8gd2lyZWxlc3MKPiBzcGVjaWZpY2FsbHksIGJ1dCBwb3RlbnRpYWxseSBvdGhlcnMgYXMgd2Vs
-bCkgb24gYW4gZW1iZWRkZWQgc3lzdGVtLCBzdWNoCj4gYXMgYSBSYXNwYmVycnkgUGkgNC4KCklm
-IHlvdSBhcmUgdXNpbmcgaGFyZHdhcmUgYXMgY2hlYXAgYW5kIGJyb2tlbiBhcyBhIHJwaSwgc29y
-cnksIHlvdSBhcmUKb24geW91ciBvd24gaGVyZS4gIFRoZSBwcm9jZXNzb3IgaW4gdGhhdCB0aGlu
-ZyBpcyBub3Qgc2V0IHVwIGZvciBhbnkKdHlwZSBvZiB2aXJ0dWFsaXphdGlvbiwgc28gdG8gdHJ5
-IHRvIG1ha2UgaXQgd29yayB0aGF0IHdheSBpcyBhIGxvdCBvZgp3b3JrIGZvciBubyBnYWluLgoK
-PiBXZSd2ZSBpbnZlc3RpZ2F0ZWQgdmZpby1wbGF0Zm9ybSBpbnRlbmRlZCBmb3IgdGhpcywgYnV0
-IGJhc2VkIG9uIGEgcGFwZXIKPiBbMV0gZGVzY3JpYmluZyB0aGUgYXJjaGl0ZWN0dXJlIGFuZCB1
-c2UgY2FzZXMsIGl0IHNlZW1zIHRvIHJlcXVpcmUgc3BlY2lmaWMKPiBoYXJkd2FyZSB0aGF0IGlt
-cGxlbWVudHMgRE1BIHRyYW5zbGF0aW9uIGZ1bmN0aW9uYWxpdHksIHN1Y2ggYXMgYW4gSU9NTVUg
-b3IKPiBTTU1VLCBhbG9uZyB3aXRoIHRoZSBhcHByb3ByaWF0ZSBkcml2ZXIuIEFzIHdlIHVuZGVy
-c3RhbmQsIGEgbG90IG9mIHRoZQo+IHBsYXRmb3JtcyB3ZSBzdXBwb3J0IGRvbid0IGhhdmUgYW4g
-SU9NTVUuCgpUcnkgaXQgYW5kIHNlZSwgd2hvIGtub3dzPyAgWW91IGtub3cgeW91ciB1c2UgY2Fz
-ZSBiZXR0ZXIgdGhhbiBhbnlvbmUKZWxzZSwgYW5kIG9ubHkgYnkgdHJ5aW5nIHN0dWZmIHdpbGwg
-eW91IGRldGVybWluZSB3aGF0IGFjdHVhbGx5IG5lZWRzIHRvCmJlIGRvbmUuCgo+IFRoZSBrZXJu
-ZWwgZG9jcyBbMl0gZGVzY3JpYmUgdGhlIHByb2dyYW1taW5nIGludGVyZmFjZSBvZiBkZXZpY2Vz
-IGFzCj4gZ2VuZXJhbGx5IGNvbXBvc2VkIG9mIEkvTyBhY2Nlc3MsIGludGVycnVwdHMsIGFuZCBE
-TUEuCj4gCj4gRGV2aWNlcyBhcmUgdGhlIG1haW4gdGFyZ2V0IG9mIGFueSBJL08gZHJpdmVyLiAg
-RGV2aWNlcyB0eXBpY2FsbHkKPiBjcmVhdGUgYSBwcm9ncmFtbWluZyBpbnRlcmZhY2UgbWFkZSB1
-cCBvZiBJL08gYWNjZXNzLCBpbnRlcnJ1cHRzLAo+IGFuZCBETUEuICBXaXRob3V0IGdvaW5nIGlu
-dG8gdGhlIGRldGFpbHMgb2YgZWFjaCBvZiB0aGVzZSwgRE1BIGlzCj4gYnkgZmFyIHRoZSBtb3N0
-IGNyaXRpY2FsIGFzcGVjdCBmb3IgbWFpbnRhaW5pbmcgYSBzZWN1cmUgZW52aXJvbm1lbnQKPiBh
-cyBhbGxvd2luZyBhIGRldmljZSByZWFkLXdyaXRlIGFjY2VzcyB0byBzeXN0ZW0gbWVtb3J5IGlt
-cG9zZXMgdGhlCj4gZ3JlYXRlc3QgcmlzayB0byB0aGUgb3ZlcmFsbCBzeXN0ZW0gaW50ZWdyaXR5
-Lgo+IAo+IFRoaXMgc2VlbXMgdG8gZXhwbGFpbiB0aGUgbmVlZCBmb3IgYW4gSU9NTVUgdG8gcGFz
-c3Rocm91Z2ggYSBkZXZpY2UgdG8gYQo+IHZpcnR1YWxpemVkIGd1ZXN0LCBhcyBhbnkgRE1BIGRv
-bmUgYnkgYSBkZXZpY2Ugd291bGQgbmVlZCBndWVzdAo+IHBoeXNpY2FsLWFkZHJlc3NlcyB0cmFu
-c2xhdGVkIHRvIGhvc3QtcGh5c2ljYWwgYWRkcmVzc2VzLgo+IEhvd2V2ZXIsIHdlIGRvbid0IGtu
-b3cgZm9yIGNlcnRhaW4gaWYgdGhlIGRyaXZlciBmb3Igb3VyIHdpcmVsZXNzIGFkYXB0ZXIKPiAo
-bXdpZmlleCkgdXNlcyBETUEuIEdyZXBwaW5nIHRoZSBzb3VyY2Ugc2hvd3MgcmVmZXJlbmNlcyB0
-byBETUEsIGJ1dCB0aGUKPiBmYWN0IHRoYXQgU0RJTyBkZXZpY2VzIGNhbiBiZSBjb25uZWN0ZWQg
-b3ZlciBhIFVTQiBicmlkZ2Ugc2VlbXMgdG8gaW5kaWNhdGUKPiBpdCBlaXRoZXIgZG9lc24ndCwg
-b3Igd2UncmUgbm90IGNvbXBsZXRlbHkgdW5kZXJzdGFuZGluZy4KCk9kZHMgYXJlIHRoZSBkcml2
-ZXIgaXRzZWxmIGRvZXMgbm90IHJlcXVpcmUgRE1BLCB0aGF0IGNvbWVzIGZyb20gdGhlCmxheWVy
-cyBiZWxvdyB0aGUgZHJpdmVyIHRoYXQgdGFsa3MgdG8gdGhlIHNwZWNpZmljIGhhcmR3YXJlIG9u
-IHRoZQpwbGF0Zm9ybS4KCkFuZCBpZiB5b3VyIGRldmljZSBpcyBjb25uZWN0ZWQgb3ZlciBhIFVT
-QiBicmlkZ2UsIHRoYXQgc2hvd3MgdGhhdCB0aGUKZHJpdmVyIGRvZXNuJ3QgbWF0dGVyIGhlcmUs
-IGl0J3MgdXAgdG8gdGhlIGJ1cyBjb250cm9sbGVyIHRvIGRvIHRoYXQKdHlwZSBvZiB3b3JrIGZv
-ciB5b3UuCgo+IFdlIHJlYWxseSBkb24ndCBrbm93IGhvdyBmZWFzaWJsZSB0aGlzIGlkZWEgaXMg
-Z2l2ZW4gb3VyIGhhcmR3YXJlCj4gY29uc3RyYWludHMuIEdyZXlidXMgbWF5IHZlcnkgbGlrZWx5
-IGJlIHNvbHZpbmcgYW4gZW50aXJlbHkgZGlmZmVyZW50Cj4gaXNzdWUsIGJ1dCBpdCBzZWVtZWQg
-dG8gaGF2ZSBlbm91Z2ggb3ZlcmxhcCB0byBiZSB3b3J0aCBpbnZlc3RpZ2F0aW5nLgo+IFdlJ3Jl
-IGxvb2tpbmcgdG8gdW5kZXJzdGFuZCBpZiB0aGlzIGlzIHBvc3NpYmxlIGdpdmVuIG91ciBoYXJk
-d2FyZQo+IGNvbnN0cmFpbnRzLCBvciBpZiB3ZSdyZSBiYXJraW5nIHVwIHRoZSB3cm9uZyB0cmVl
-LgoKTm8gaWRlYSwgdHJ5IGl0IGFuZCBzZWUsIGdvb2QgbHVjayEgIFlvdSBoYXZlIGEgbG9uZyBy
-b2FkIGFoZWFkIG9mIHlvdSwKSSByZWFsbHkgd291bGQgcmVjb21tZW5kIHVzaW5nIHNhbmUgaGFy
-ZHdhcmUuLi4KCmdyZWcgay1oCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5h
-cm8ub3JnCmh0dHBzOi8vbGlzdHMubGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMt
-ZGV2Cg==
+On Sat, May 01, 2021 at 04:30:42PM -0300, Thais Camacho wrote:
+> Fixed warnings found by checkpatch.pl script
+> 
+> Signed-off-by: Thais Camacho <thaiscamachoo@gmail.com>
+> ---
+>  drivers/staging/greybus/tools/loopback_test.c | 18 +++---------------
+>  1 file changed, 3 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/tools/loopback_test.c b/drivers/staging/greybus/tools/loopback_test.c
+> index 867bf289df2e..553883b2bfa3 100644
+> --- a/drivers/staging/greybus/tools/loopback_test.c
+> +++ b/drivers/staging/greybus/tools/loopback_test.c
+> @@ -239,7 +239,6 @@ static void show_loopback_devices(struct loopback_test *t)
+>  
+>  	for (i = 0; i < t->device_count; i++)
+>  		printf("device[%d] = %s\n", i, t->devices[i].name);
+> -
+>  }
+>  
+>  int open_sysfs(const char *sys_pfx, const char *node, int flags)
+> @@ -274,7 +273,6 @@ float read_sysfs_float_fd(int fd, const char *sys_pfx, const char *node)
+>  	char buf[SYSFS_MAX_INT];
+>  
+>  	if (read(fd, buf, sizeof(buf)) < 0) {
+> -
+>  		fprintf(stderr, "unable to read from %s%s %s\n", sys_pfx, node,
+>  			strerror(errno));
+>  		close(fd);
+> @@ -367,7 +365,6 @@ static int get_results(struct loopback_test *t)
+>  			r->apbridge_unipro_latency_max - r->apbridge_unipro_latency_min;
+>  		r->gbphy_firmware_latency_jitter =
+>  			r->gbphy_firmware_latency_max - r->gbphy_firmware_latency_min;
+> -
+>  	}
+>  
+>  	/*calculate the aggregate results of all enabled devices */
+> @@ -407,7 +404,6 @@ static int get_results(struct loopback_test *t)
+>  			r->apbridge_unipro_latency_max - r->apbridge_unipro_latency_min;
+>  		r->gbphy_firmware_latency_jitter =
+>  			r->gbphy_firmware_latency_max - r->gbphy_firmware_latency_min;
+> -
+>  	}
+>  
+>  	return 0;
+> @@ -536,7 +532,6 @@ static int log_results(struct loopback_test *t)
+>  			fprintf(stderr, "unable to open %s for appendation\n", file_name);
+>  			abort();
+>  		}
+> -
+>  	}
+>  	for (i = 0; i < t->device_count; i++) {
+>  		if (!device_enabled(t, i))
+> @@ -550,10 +545,8 @@ static int log_results(struct loopback_test *t)
+>  			if (ret == -1)
+>  				fprintf(stderr, "unable to write %d bytes to csv.\n", len);
+>  		}
+> -
+>  	}
+>  
+> -
+>  	if (t->aggregate_output) {
+>  		len = format_output(t, &t->aggregate_results, "aggregate",
+>  				    data, sizeof(data), &tm);
+> @@ -675,11 +668,13 @@ static int open_poll_files(struct loopback_test *t)
+>  static int close_poll_files(struct loopback_test *t)
+>  {
+>  	int i;
+> +
+>  	for (i = 0; i < t->poll_count; i++)
+>  		close(t->fds[i].fd);
+>  
+>  	return 0;
+>  }
+> +
+>  static int is_complete(struct loopback_test *t)
+>  {
+>  	int iteration_count;
+> @@ -740,7 +735,6 @@ static int wait_for_complete(struct loopback_test *t)
+>  		ts = &t->poll_timeout;
+>  
+>  	while (1) {
+> -
+>  		ret = ppoll(t->fds, t->poll_count, ts, &mask_old);
+>  		if (ret <= 0) {
+>  			stop_tests(t);
+> @@ -780,7 +774,6 @@ static void prepare_devices(struct loopback_test *t)
+>  		if (t->stop_all || device_enabled(t, i))
+>  			write_sysfs_val(t->devices[i].sysfs_entry, "type", 0);
+>  
+> -
+>  	for (i = 0; i < t->device_count; i++) {
+>  		if (!device_enabled(t, i))
+>  			continue;
+> @@ -823,13 +816,12 @@ static int start(struct loopback_test *t)
+>  	return 0;
+>  }
+>  
+> -
+>  void loopback_run(struct loopback_test *t)
+>  {
+>  	int i;
+>  	int ret;
+>  
+> -	for (i = 0; dict[i].name != NULL; i++) {
+> +	for (i = 0; dict[i].name; i++) {
+>  		if (strstr(dict[i].name, t->test_name))
+>  			t->test_id = dict[i].type;
+>  	}
+> @@ -852,7 +844,6 @@ void loopback_run(struct loopback_test *t)
+>  	if (ret)
+>  		goto err;
+>  
+> -
+>  	get_results(t);
+>  
+>  	log_results(t);
+> @@ -861,7 +852,6 @@ void loopback_run(struct loopback_test *t)
+>  
+>  err:
+>  	printf("Error running test\n");
+> -	return;
+>  }
+>  
+>  static int sanity_check(struct loopback_test *t)
+> @@ -881,10 +871,8 @@ static int sanity_check(struct loopback_test *t)
+>  			fprintf(stderr, "Bad device mask %x\n", (1 << i));
+>  			return -1;
+>  		}
+> -
+>  	}
+>  
+> -
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.20.1
+> 
+> 
+
+Hi,
+
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
+
+You are receiving this message because of the following common error(s)
+as indicated below:
+
+- Your patch does not have a Signed-off-by: line.  Please read the
+  kernel file, Documentation/SubmittingPatches and resend it after
+  adding that line.  Note, the line needs to be in the body of the
+  email, before the patch, not at the bottom of the patch or in the
+  email signature.
+
+- Your patch did many different things all at once, making it difficult
+  to review.  All Linux kernel patches need to only do one thing at a
+  time.  If you need to do multiple things (such as clean up all coding
+  style issues in a file/driver), do it in a sequence of patches, each
+  one doing only one thing.  This will make it easier to review the
+  patches to ensure that they are correct, and to help alleviate any
+  merge issues that larger patches can cause.
+
+- You did not specify a description of why the patch is needed, or
+  possibly, any description at all, in the email body.  Please read the
+  section entitled "The canonical patch format" in the kernel file,
+  Documentation/SubmittingPatches for what is needed in order to
+  properly describe the change.
+
+- You did not write a descriptive Subject: for the patch, allowing Greg,
+  and everyone else, to know what this patch is all about.  Please read
+  the section entitled "The canonical patch format" in the kernel file,
+  Documentation/SubmittingPatches for what a proper Subject: line should
+  look like.
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
+
+thanks,
+
+greg k-h's patch email bot
+_______________________________________________
+greybus-dev mailing list
+greybus-dev@lists.linaro.org
+https://lists.linaro.org/mailman/listinfo/greybus-dev
