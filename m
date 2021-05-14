@@ -2,46 +2,46 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21F5D37F500
-	for <lists+greybus-dev@lfdr.de>; Thu, 13 May 2021 11:46:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 393EB380A71
+	for <lists+greybus-dev@lfdr.de>; Fri, 14 May 2021 15:36:37 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 2CC6461030
-	for <lists+greybus-dev@lfdr.de>; Thu, 13 May 2021 09:46:26 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7386F610C0
+	for <lists+greybus-dev@lfdr.de>; Fri, 14 May 2021 13:36:35 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 7D71B610CB; Thu, 13 May 2021 09:46:25 +0000 (UTC)
+	id B2EF1610BD; Fri, 14 May 2021 13:36:34 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D776E6102C;
-	Thu, 13 May 2021 09:46:22 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B3A2061030;
+	Fri, 14 May 2021 13:36:31 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id EE4FD608C3
- for <greybus-dev@lists.linaro.org>; Thu, 13 May 2021 09:46:21 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 308EB61017
+ for <greybus-dev@lists.linaro.org>; Fri, 14 May 2021 13:36:31 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id ECB3860D48; Thu, 13 May 2021 09:46:21 +0000 (UTC)
+ id 24E9160ECC; Fri, 14 May 2021 13:36:31 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by lists.linaro.org (Postfix) with ESMTPS id CFCF6608C3
- for <greybus-dev@lists.linaro.org>; Thu, 13 May 2021 09:46:19 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6ACFC61439;
- Thu, 13 May 2021 09:46:18 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTPS id 0A7B160ECC
+ for <greybus-dev@lists.linaro.org>; Fri, 14 May 2021 13:36:28 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 833E66144C;
+ Fri, 14 May 2021 13:36:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1620899178;
- bh=2YDPX0ZygP42OUgip4Dx4XOsWdN5W0wiW342gHSvIfQ=;
+ s=korg; t=1620999388;
+ bh=SVrdacbDqwyIT1cfNRvEYHJGC8wvLyRFcGyMUtYAo50=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=0bKc5x8KTUNZj8xk+2qm0hSx4ORSNFaMpnuyS+FE1DScC2cuH5bQjmEfqoJeZ7wOR
- 9O7vaiQ8l1QvMfqzwNlwGEN/mRYlGiKbfLf7m0FgrEdwW8Gbht1AngzYxGMXuNUhnu
- 6U4360c2l8oXK7OFWETybk5pIVIHwUIFNG6mirOE=
-Date: Thu, 13 May 2021 11:46:16 +0200
+ b=vsbOqCM/DMDtOpfQviaa3o8jBt7/qilVgeSYuKUA5NtcmJxLEAWl+U6RRnIrm3wGn
+ YVbB/O9BrL5vIl72TRQZNsCnFncaTDakypdUSd85yljA8EZ6GMWFvZbdmT05XWhy4H
+ ms+5UBEhL5pRIqn8ks3f+DTtXLrOOdH+2GiWrdwI=
+Date: Fri, 14 May 2021 15:36:25 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
-To: Zou Wei <zou_wei@huawei.com>
-Message-ID: <YJz1aFJPaX5lGJsR@kroah.com>
-References: <1620895772-52538-1-git-send-email-zou_wei@huawei.com>
+To: Shreyansh Chouhan <chouhan.shreyansh630@gmail.com>
+Message-ID: <YJ582f3O9K9YD3QA@kroah.com>
+References: <20210514133039.304760-1-chouhan.shreyansh630@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1620895772-52538-1-git-send-email-zou_wei@huawei.com>
+In-Reply-To: <20210514133039.304760-1-chouhan.shreyansh630@gmail.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: Re: [greybus-dev] [PATCH -next] staging: greybus: audio: Add
- missing MODULE_DEVICE_TABLE
+Subject: Re: [greybus-dev] [PATCH] staging: greybus: fix
+ gb_loopback_stats_attrs definition
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,56 +53,54 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Cc: elder@kernel.org, linux-kernel@vger.kernel.org,
- linux-staging@lists.linux.dev, johan@kernel.org, greybus-dev@lists.linaro.org
+Cc: elder@kernel.org, linux-staging@lists.linux.dev, johan@kernel.org,
+ linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Thu, May 13, 2021 at 04:49:32PM +0800, Zou Wei wrote:
-> This patch adds missing MODULE_DEVICE_TABLE definition which generates
-> correct modalias for automatic loading of this driver when it is built
-> as an external module.
+On Fri, May 14, 2021 at 07:00:39PM +0530, Shreyansh Chouhan wrote:
+> The gb_loopback_stats_attrs macro, (defined in loopback.c,) is a
+> multiline macro whose statements were not enclosed in a do while
+> loop.
 > 
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Zou Wei <zou_wei@huawei.com>
+> This patch adds a do while loop around the statements of the said
+> macro.
+> 
+> Signed-off-by: Shreyansh Chouhan <chouhan.shreyansh630@gmail.com>
 > ---
->  drivers/staging/greybus/audio_codec.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/staging/greybus/loopback.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
-> index b589cf6..6fa9781 100644
-> --- a/drivers/staging/greybus/audio_codec.c
-> +++ b/drivers/staging/greybus/audio_codec.c
-> @@ -1086,6 +1086,7 @@ static const struct of_device_id greybus_asoc_machine_of_match[]  = {
->  	{ .compatible = "toshiba,apb-dummy-codec", },
->  	{},
->  };
-> +MODULE_DEVICE_TABLE(of, greybus_asoc_machine_of_match);
+> diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+> index 2471448ba42a..c88ef3e894fa 100644
+> --- a/drivers/staging/greybus/loopback.c
+> +++ b/drivers/staging/greybus/loopback.c
+> @@ -162,10 +162,12 @@ static ssize_t name##_avg_show(struct device *dev,		\
+>  }									\
+>  static DEVICE_ATTR_RO(name##_avg)
 >  
->  static struct platform_driver gbaudio_codec_driver = {
->  	.driver = {
+> -#define gb_loopback_stats_attrs(field)				\
+> -	gb_loopback_ro_stats_attr(field, min, u);		\
+> -	gb_loopback_ro_stats_attr(field, max, u);		\
+> -	gb_loopback_ro_avg_attr(field)
+> +#define gb_loopback_stats_attrs(field)					\
+> +	do {								\
+> +		gb_loopback_ro_stats_attr(field, min, u);		\
+> +		gb_loopback_ro_stats_attr(field, max, u);		\
+> +		gb_loopback_ro_avg_attr(field);				\
+> +	} while (0)
+>  
+>  #define gb_loopback_attr(field, type)					\
+>  static ssize_t field##_show(struct device *dev,				\
 > -- 
-> 2.6.2
+> 2.31.1
 > 
 > 
 
-I think I will just start rejecting all of thes "missing
-MODULE_DEVICE_TABLE()" patches as they make no sense at all.
-
-If the driver authors had wanted these MODULE_DEVICE_TABLES added, they
-would have done so.  That means they were not using dynamically loaded
-modules because usually, the module is built in, OR it doesn't matter.
-
-So please, only add this if you have a system that needs them, do not
-add them just based on a rule you have generated by a tool, as that is
-pointless.
-
-thanks,
-
-greg k-h
+Did you test build this change?
 _______________________________________________
 greybus-dev mailing list
 greybus-dev@lists.linaro.org
