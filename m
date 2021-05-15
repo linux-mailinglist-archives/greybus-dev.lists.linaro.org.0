@@ -2,43 +2,50 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDD7438162B
-	for <lists+greybus-dev@lfdr.de>; Sat, 15 May 2021 07:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B482338166B
+	for <lists+greybus-dev@lfdr.de>; Sat, 15 May 2021 08:55:46 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9612363502
-	for <lists+greybus-dev@lfdr.de>; Sat, 15 May 2021 05:33:13 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 8ADB160AD0
+	for <lists+greybus-dev@lfdr.de>; Sat, 15 May 2021 06:55:45 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 7F614634FD; Sat, 15 May 2021 05:33:13 +0000 (UTC)
+	id 3F44163500; Sat, 15 May 2021 06:55:45 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D18D561A49;
-	Sat, 15 May 2021 05:33:10 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 9CBBA61A46;
+	Sat, 15 May 2021 06:55:42 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id A5B6F61A34
- for <greybus-dev@lists.linaro.org>; Sat, 15 May 2021 05:33:09 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id DAF0D607B2
+ for <greybus-dev@lists.linaro.org>; Sat, 15 May 2021 06:55:41 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id A3AE861A48; Sat, 15 May 2021 05:33:09 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by lists.linaro.org (Postfix) with ESMTPS id 8D48B61A34
- for <greybus-dev@lists.linaro.org>; Sat, 15 May 2021 05:33:07 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D64BB613F6;
- Sat, 15 May 2021 05:33:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1621056786;
- bh=B5DTuF90EF+MWBCeDcVtLq3OnjCaNYSF5lomIO0RGQw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MDgHYSDwbMxRyh7aLi9AleyT/VK1UINA89wMrBcREojdDcuy/nlfkMJGS36CyXrXT
- nUMExzSFgrlrIyv0ZdKoftobPMJ12vQE8uhU4+MBP2VobqXW8W4xBOjuG5wbmGzdlt
- hayrUtHQ16Z5fA/KD/DVflpAIJ61zk7QARtBL56E=
-Date: Sat, 15 May 2021 07:33:03 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Shreyansh Chouhan <chouhan.shreyansh630@gmail.com>
-Message-ID: <YJ9dDwKMKkifeICJ@kroah.com>
+ id D1C6B60AD0; Sat, 15 May 2021 06:55:41 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0175.hostedemail.com
+ [216.40.44.175])
+ by lists.linaro.org (Postfix) with ESMTPS id C4325607B2
+ for <greybus-dev@lists.linaro.org>; Sat, 15 May 2021 06:55:39 +0000 (UTC)
+Received: from omf10.hostedemail.com (clb03-v110.bra.tucows.net [216.40.38.60])
+ by smtprelay04.hostedemail.com (Postfix) with ESMTP id 66D571800AC96;
+ Sat, 15 May 2021 06:55:39 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
+ omf10.hostedemail.com (Postfix) with ESMTPA id 1A7DD2351F4; 
+ Sat, 15 May 2021 06:55:37 +0000 (UTC)
+Message-ID: <4f757b9bab4c9575f0257db6b9ed5a75419a3420.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Greg KH <gregkh@linuxfoundation.org>, Shreyansh Chouhan
+ <chouhan.shreyansh630@gmail.com>
+Date: Fri, 14 May 2021 23:55:36 -0700
+In-Reply-To: <YJ9dDwKMKkifeICJ@kroah.com>
 References: <20210515034116.660895-1-chouhan.shreyansh630@gmail.com>
+ <YJ9dDwKMKkifeICJ@kroah.com>
+User-Agent: Evolution 3.38.1-1 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210515034116.660895-1-chouhan.shreyansh630@gmail.com>
+X-Spam-Status: No, score=-1.40
+X-Stat-Signature: 7auarewnqardbaqc4w55mhyxtzkjhgpj
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 1A7DD2351F4
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1+gFUlaiLQi2Cj5HT380ymyZQO+RTOUjn4=
+X-HE-Tag: 1621061737-853347
 X-Virus-Scanned: ClamAV using ClamSMTP
 Subject: Re: [greybus-dev] [PATCH] staging: greybus: add declare_ to
  declaring macros
@@ -61,15 +68,21 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Sat, May 15, 2021 at 09:11:16AM +0530, Shreyansh Chouhan wrote:
-> Prefixed the names of all the macros that were used for declaring things
-> with 'declare_'. This should help with clarifying about what these
-> macros do.
+On Sat, 2021-05-15 at 07:33 +0200, Greg KH wrote:
+> On Sat, May 15, 2021 at 09:11:16AM +0530, Shreyansh Chouhan wrote:
+> > Prefixed the names of all the macros that were used for declaring things
+> > with 'declare_'. This should help with clarifying about what these
+> > macros do.
+> 
+> Thanks, but I think I will leave the code as-is.  It's a good "test" for
+> people who try to modify the code without actually building it :)
 
-Thanks, but I think I will leave the code as-is.  It's a good "test" for
-people who try to modify the code without actually building it :)
+This improves the code for the human reader.
+I think wherever reasonable, code should be improved.
 
-greg k-h
+In any case, it's a test as checkpatch will emit the same message.
+
+
 _______________________________________________
 greybus-dev mailing list
 greybus-dev@lists.linaro.org
