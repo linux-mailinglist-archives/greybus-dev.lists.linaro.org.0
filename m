@@ -2,65 +2,64 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0B08399A6E
-	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 08:03:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A533399A6D
+	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 08:03:30 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 6C58B6102D
-	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 06:03:28 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 1D7F1611AF
+	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 06:03:27 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id C274661299; Thu,  3 Jun 2021 06:03:20 +0000 (UTC)
+	id 18DB36101C; Thu,  3 Jun 2021 06:03:20 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 03F6760FFB;
-	Thu,  3 Jun 2021 06:03:15 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id C475C609C0;
+	Thu,  3 Jun 2021 06:03:16 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 6816D61101
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 15:12:13 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id CE34861145
+ for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 15:13:18 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 65C4061146; Wed, 19 May 2021 15:12:13 +0000 (UTC)
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by lists.linaro.org (Postfix) with ESMTPS id 6030361101
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 15:12:11 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id g24so7465581pji.4
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 08:12:11 -0700 (PDT)
+ id CC1A761148; Wed, 19 May 2021 15:13:18 +0000 (UTC)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
+ by lists.linaro.org (Postfix) with ESMTPS id C503B61145
+ for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 15:13:16 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id 27so8373759pgy.3
+ for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 08:13:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=itfac-mrt-ac-lk.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id;
  bh=p1U+oAmLN15Il7adctUFj5XirLGOy/razNk7lJyJFbo=;
- b=fDqCDfJ54DtEaGdhd7sYWeGzt4g5NM1DIHv1VGG6R9KY3pCiA1TAMdlKwjMhGrUW2N
- qOPoXyUogAHhL6SxtjlanPeoWbzotuyDUU3DpwdBpor7gvyw8Kj4E6nK2h2nP29tGEua
- vM0ijpVrIhjmzHxQVq6+6a4jxUKihNrLATb/gkTaJubJwhP45QA8jxYHTQfU2lxtVxZ4
- oGp4y/zam6vB7FXyyOyM+ce6FzpeUA7S46S9VDMJpUL4viM/xz58Hk5Ib/hygwTXc1mW
- +oHmWmTbMIC2mHrZIdV4/eWvP+zb4gJi/vvLf84f40r2TOog30aKjvCgNVU54Dr3VYHb
- Xcdg==
+ b=n40THdRfAoBafaZbp00vGauvtDhhN41cyBhmX8LROnMMA2m4ryRmfFtwciXVPn2wEG
+ JZMzcViWQpO/rxkeJqvd/yRjxqy+ERr9O/Rinc84y8DQ4yeX3Mpue3T2IiUJT4nyMEEX
+ x859Z7VW1AeD8g+3niJPNx353nqxBt7Iv6z+dMhi5MxWU/eo3vrCswTLPh4/WqI0ju6F
+ ISRZzhrXQaFwphhLhD0KkRg6gOIC62kqWBCQ+FVHCkYnN4x7vY/JzqNO3dn7sws50CGx
+ wXbhgI/tNTxNoTTev1Eici2LlWqZP+c40KOH248Az9A46p1UmMtRbKdLHkvaU4CTBOcD
+ nZJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
  bh=p1U+oAmLN15Il7adctUFj5XirLGOy/razNk7lJyJFbo=;
- b=A5rTcNohv2KClL4hZLnrRFcsCsHoBlbg+B9k4zyOfYDRqKWALReuw+D2HZIFXZJxlF
- SXW2cI1THEjk+4kSc8+PHSn2ER1lDkmqDYjQOAiFLgk/kH459s63G5gi0Cts9Je3+4n+
- RSUxoeQ0UjGdtq1Ypljy/GmgGHVuahKf6m77y+7EWPlAANO1ga86ER3u4b97ZwtHCUrG
- gnSp4EU+N18jwSx08f6zCO7kHn7wCShUM1Mbx8IrCoP997fsmo9L3AebSTNBxhPaTvE4
- Jn4sxx2sAwHij2zFla0f0hNnR7yzudXoSmmZZhE9K4QD4P7AKVHZPpU/kyN3Zqkihh0D
- +1RQ==
-X-Gm-Message-State: AOAM533iKzED2m16JmeVWsYL08agIWE0meydU30BbyTiSxBUrF6YER8t
- MrS7Pom0LQS+TQzk67Aj3s0z
-X-Google-Smtp-Source: ABdhPJwWWRjTit2FSgkPlyWC4e1fX4x3syhQE7l//ZKhD0H6Ai90FQWeppLVuJOiu5iuWP7Lfp15rQ==
-X-Received: by 2002:a17:90a:d24f:: with SMTP id
- o15mr11834852pjw.83.1621437130579; 
- Wed, 19 May 2021 08:12:10 -0700 (PDT)
+ b=XCVWKcLPNx05DoY9ieqifouWXZdq+rHWQZqU8GjNvtYCXybgzuPrniNMASbknMgXI+
+ zNLi5eAuO85KrX7+MHzQLtNzBFArubeniuxlOuVTb3r8cgUzkc72Zh9TcLphMmIrJ5Cy
+ SAYHe+0ttYN5A0Fsd4Svs122NTvRp3oFJc4BQsR6ES0WbQZ/W6X3ujbGHnnM7urN9SKg
+ xmWhBLE/XK+7rWOfL6+/vpjBmRI3qmIn52viHk6QMwqQTjGZYYh/CiIH6qFsMFHTPK8T
+ vAs6eoZofvOqUErBcMbnrJ4pnf/YesmGXYAvwTbBFtkLeJdegjMrwvCCVeI8bLOBNa/i
+ 5qmA==
+X-Gm-Message-State: AOAM530Yp/KaL4HucV1ik7r9hNF/C4KT8UFFzGsrFOwnd4hdDfTlz7Q4
+ elY531c+St0hH5r8DGQnBtur
+X-Google-Smtp-Source: ABdhPJy/Myxcy7bbgNjO9/KwP0pk3uC5ShQibLxNRwLOs5F4vzS/w4fcBWkjdNPZmN3wbPescTZr+g==
+X-Received: by 2002:a65:6a44:: with SMTP id o4mr11269699pgu.145.1621437196050; 
+ Wed, 19 May 2021 08:13:16 -0700 (PDT)
 Received: from localhost.localdomain
  ([2402:4000:11ca:dcec:9f88:85c9:3532:e27b])
- by smtp.gmail.com with ESMTPSA id c195sm6414618pfb.144.2021.05.19.08.12.07
+ by smtp.gmail.com with ESMTPSA id n23sm2408025pff.93.2021.05.19.08.13.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 May 2021 08:12:10 -0700 (PDT)
+ Wed, 19 May 2021 08:13:15 -0700 (PDT)
 From: "F.A.Sulaiman" <asha.16@itfac.mrt.ac.lk>
-To: ash15.sulaiman@gmil.com, johan@kernel.org, elder@kernel.org,
+To: ash15.sulaiman@gmail.com, johan@kernel.org, elder@kernel.org,
  gregkh@linuxfoundation.org
-Date: Wed, 19 May 2021 20:41:51 +0530
-Message-Id: <20210519151151.25667-1-asha.16@itfac.mrt.ac.lk>
+Date: Wed, 19 May 2021 20:42:58 +0530
+Message-Id: <20210519151258.25845-1-asha.16@itfac.mrt.ac.lk>
 X-Mailer: git-send-email 2.17.1
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Thu, 03 Jun 2021 06:03:09 +0000
