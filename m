@@ -2,70 +2,70 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id BADC3399A6A
-	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 08:03:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0B08399A6E
+	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 08:03:31 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3F819612A6
-	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 06:03:22 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 6C58B6102D
+	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 06:03:28 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 08CB060B0A; Thu,  3 Jun 2021 06:03:16 +0000 (UTC)
+	id C274661299; Thu,  3 Jun 2021 06:03:20 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id CCEF260D42;
-	Thu,  3 Jun 2021 06:03:12 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 03F6760FFB;
+	Thu,  3 Jun 2021 06:03:15 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 77CE461117
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 13:42:51 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 6816D61101
+ for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 15:12:13 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 6C0A261146; Wed, 19 May 2021 13:42:51 +0000 (UTC)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by lists.linaro.org (Postfix) with ESMTPS id 640C561117
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 13:42:49 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id 27so8177550pgy.3
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 06:42:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=yVZkSQGihBwShgl8HOq8FcajrTqG1qrxRHeRqHbeMSU=;
- b=SLKlqLGMLkBhmW5gMF03+rdrAx0M3nrAGIRv/iBBkmdArqbh+McSLRGuGrb5vwrp31
- DWtSZA0zNXOBWHGYNfwQHyB0JEkbngSqKKeYfq3TEDsIFz78qGMuixk+kXt9Ss6AXAkP
- MjNo4Ty1Ki7m2ZoHxqYRPy6KDSKZ7Ro6Lz5ij14jDJGlzYv99zQT0kQdkxHG+cmBh8Xy
- lnx3S1cKHRmRcGojDQNaNUthJfoQEEbltH5Hnv6nBSCfScULeOsgw6yMR5CGjLIl6qPc
- oSGhvgPYUblYr03G+Cj+tBs3lBJtCmFgGdo7Ic6Uu3P8vyo8s8TS+Id7xnhdXknkfmDD
- 5G3A==
+ id 65C4061146; Wed, 19 May 2021 15:12:13 +0000 (UTC)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by lists.linaro.org (Postfix) with ESMTPS id 6030361101
+ for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 15:12:11 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id g24so7465581pji.4
+ for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 08:12:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=itfac-mrt-ac-lk.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id;
+ bh=p1U+oAmLN15Il7adctUFj5XirLGOy/razNk7lJyJFbo=;
+ b=fDqCDfJ54DtEaGdhd7sYWeGzt4g5NM1DIHv1VGG6R9KY3pCiA1TAMdlKwjMhGrUW2N
+ qOPoXyUogAHhL6SxtjlanPeoWbzotuyDUU3DpwdBpor7gvyw8Kj4E6nK2h2nP29tGEua
+ vM0ijpVrIhjmzHxQVq6+6a4jxUKihNrLATb/gkTaJubJwhP45QA8jxYHTQfU2lxtVxZ4
+ oGp4y/zam6vB7FXyyOyM+ce6FzpeUA7S46S9VDMJpUL4viM/xz58Hk5Ib/hygwTXc1mW
+ +oHmWmTbMIC2mHrZIdV4/eWvP+zb4gJi/vvLf84f40r2TOog30aKjvCgNVU54Dr3VYHb
+ Xcdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=yVZkSQGihBwShgl8HOq8FcajrTqG1qrxRHeRqHbeMSU=;
- b=bANw8qQK2Ug22GcnWsAHU0Q2rHcNQUc1vEWkowavL3MYVqDCxLPP9jXRCwiYsJJxA5
- yEUApEo0AqyMKOOJJPkqYZsUYvl4Bz4+vqwxrVQoJOmfQfs3G926qujqC5D41c4efYes
- mClLP6yZzvdpHIACJvoPML8y0SBQYCBjId7TdIcxHhMDQhjW0h7m8PzCYkNjZ+C8n/Wf
- mjdOhhqWOGf2uda+UsHZ0D3HpcmiBDq5w+aFLwe9wUK3DnhYqSFoPLymAs52YEOHAbZ5
- fwgAACrEavCBkqUqeNoP1v3DuBcFQ9vVftRlDILcCHpW11KkFjhfKeygJWuh7Q2kWRCW
- X3bA==
-X-Gm-Message-State: AOAM533taYM0iyH1ZlqMTUxVcdXctzEwPNqzWNmYLVemwokrGfOR7cy5
- 0/71LVYa/KQiXdaBa24l55Y=
-X-Google-Smtp-Source: ABdhPJyyYycNawXUBSpqS2VP+cIaEk/TWkpmsGe8wDcN4X2qrAOe1ATcX3vn37nW8DMtlfhyOJjk0g==
-X-Received: by 2002:a65:640c:: with SMTP id a12mr10973519pgv.229.1621431768522; 
- Wed, 19 May 2021 06:42:48 -0700 (PDT)
-Received: from novachrono.domain.name ([106.214.255.120])
- by smtp.gmail.com with ESMTPSA id q24sm15470387pgk.32.2021.05.19.06.42.44
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=p1U+oAmLN15Il7adctUFj5XirLGOy/razNk7lJyJFbo=;
+ b=A5rTcNohv2KClL4hZLnrRFcsCsHoBlbg+B9k4zyOfYDRqKWALReuw+D2HZIFXZJxlF
+ SXW2cI1THEjk+4kSc8+PHSn2ER1lDkmqDYjQOAiFLgk/kH459s63G5gi0Cts9Je3+4n+
+ RSUxoeQ0UjGdtq1Ypljy/GmgGHVuahKf6m77y+7EWPlAANO1ga86ER3u4b97ZwtHCUrG
+ gnSp4EU+N18jwSx08f6zCO7kHn7wCShUM1Mbx8IrCoP997fsmo9L3AebSTNBxhPaTvE4
+ Jn4sxx2sAwHij2zFla0f0hNnR7yzudXoSmmZZhE9K4QD4P7AKVHZPpU/kyN3Zqkihh0D
+ +1RQ==
+X-Gm-Message-State: AOAM533iKzED2m16JmeVWsYL08agIWE0meydU30BbyTiSxBUrF6YER8t
+ MrS7Pom0LQS+TQzk67Aj3s0z
+X-Google-Smtp-Source: ABdhPJwWWRjTit2FSgkPlyWC4e1fX4x3syhQE7l//ZKhD0H6Ai90FQWeppLVuJOiu5iuWP7Lfp15rQ==
+X-Received: by 2002:a17:90a:d24f:: with SMTP id
+ o15mr11834852pjw.83.1621437130579; 
+ Wed, 19 May 2021 08:12:10 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2402:4000:11ca:dcec:9f88:85c9:3532:e27b])
+ by smtp.gmail.com with ESMTPSA id c195sm6414618pfb.144.2021.05.19.08.12.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 May 2021 06:42:47 -0700 (PDT)
-From: Rajat Asthana <thisisrast7@gmail.com>
-To: dan.carpenter@oracle.com
-Date: Wed, 19 May 2021 19:11:19 +0530
-Message-Id: <20210519134119.848055-1-thisisrast7@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210519102947.GU1955@kadam>
-References: <20210519102947.GU1955@kadam>
-MIME-Version: 1.0
+ Wed, 19 May 2021 08:12:10 -0700 (PDT)
+From: "F.A.Sulaiman" <asha.16@itfac.mrt.ac.lk>
+To: ash15.sulaiman@gmil.com, johan@kernel.org, elder@kernel.org,
+ gregkh@linuxfoundation.org
+Date: Wed, 19 May 2021 20:41:51 +0530
+Message-Id: <20210519151151.25667-1-asha.16@itfac.mrt.ac.lk>
+X-Mailer: git-send-email 2.17.1
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Thu, 03 Jun 2021 06:03:09 +0000
-Subject: [greybus-dev] [PATCH v2] greybus: audio: Fix sparse warning.
+Subject: [greybus-dev] [PATCH] Staging: greybus: fix open parenthesis issue
+ in gbphy.c
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,58 +77,47 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Cc: elder@kernel.org, linux-staging@lists.linux.dev, johan@kernel.org,
- greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
- Rajat Asthana <thisisrast7@gmail.com>
+Cc: greybus-dev@lists.linaro.org, "F.A.Sulaiman" <asha.16@itfac.mrt.ac.lk>,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-Sparse complains that:
-   warning: restricted send_ctl_elem_iface_t degrades to integer.
+This fix "Alignment should match open parenthesis" checkpatch
+ error.
 
-I have looked at this code, and the code is fine as-is. Normally we
-would frown on using the __force directive to silence Sparse warnings
-but in this case it's fine. Case statements can't be made into __bitwise
-types. We also can't change the type of "ctl->iface" either because that
-is part of the user space API.
-
-So just add a (__force int) to make the warning go away.
-
-Signed-off-by: Rajat Asthana <thisisrast7@gmail.com>
+Signed-off-by: "F.A.Sulaiman" <asha.16@itfac.mrt.ac.lk>
 ---
-Changes in v2:
-    - Update the commit message.
-
- drivers/staging/greybus/audio_topology.c | 4 ++--
+ drivers/staging/greybus/gbphy.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/greybus/audio_topology.c b/drivers/staging/greybus/audio_topology.c
-index 1fc7727ab7be..1e613d42d823 100644
---- a/drivers/staging/greybus/audio_topology.c
-+++ b/drivers/staging/greybus/audio_topology.c
-@@ -676,7 +676,7 @@ static int gbaudio_tplg_create_kcontrol(struct gbaudio_module_info *gb,
- 	struct gbaudio_ctl_pvt *ctldata;
+diff --git a/drivers/staging/greybus/gbphy.c b/drivers/staging/greybus/gbphy.c
+index 9fc5c47be9bd..13d319860da5 100644
+--- a/drivers/staging/greybus/gbphy.c
++++ b/drivers/staging/greybus/gbphy.c
+@@ -27,7 +27,7 @@ struct gbphy_host {
+ static DEFINE_IDA(gbphy_id);
  
- 	switch (ctl->iface) {
--	case SNDRV_CTL_ELEM_IFACE_MIXER:
-+	case (__force int)SNDRV_CTL_ELEM_IFACE_MIXER:
- 		switch (ctl->info.type) {
- 		case GB_AUDIO_CTL_ELEM_TYPE_ENUMERATED:
- 			ret = gbaudio_tplg_create_enum_kctl(gb, kctl, ctl);
-@@ -903,7 +903,7 @@ static int gbaudio_tplg_create_wcontrol(struct gbaudio_module_info *gb,
- 	int ret;
+ static ssize_t protocol_id_show(struct device *dev,
+-				 struct device_attribute *attr, char *buf)
++				struct device_attribute *attr, char *buf)
+ {
+ 	struct gbphy_device *gbphy_dev = to_gbphy_dev(dev);
  
- 	switch (ctl->iface) {
--	case SNDRV_CTL_ELEM_IFACE_MIXER:
-+	case (__force int)SNDRV_CTL_ELEM_IFACE_MIXER:
- 		switch (ctl->info.type) {
- 		case GB_AUDIO_CTL_ELEM_TYPE_ENUMERATED:
- 			ret = gbaudio_tplg_create_enum_ctl(gb, kctl, ctl);
+@@ -221,7 +221,7 @@ void gb_gbphy_deregister_driver(struct gbphy_driver *driver)
+ EXPORT_SYMBOL_GPL(gb_gbphy_deregister_driver);
+ 
+ static struct gbphy_device *gb_gbphy_create_dev(struct gb_bundle *bundle,
+-				struct greybus_descriptor_cport *cport_desc)
++						struct greybus_descriptor_cport *cport_desc)
+ {
+ 	struct gbphy_device *gbphy_dev;
+ 	int retval;
 -- 
-2.31.1
+2.17.1
 
 _______________________________________________
 greybus-dev mailing list
