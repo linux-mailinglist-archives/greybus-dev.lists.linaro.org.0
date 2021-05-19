@@ -2,72 +2,70 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C9D3399A6C
-	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 08:03:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55F37399A73
+	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 08:03:36 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id CA17E61016
-	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 06:03:25 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id E267560F4F
+	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 06:03:34 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 6246E610CB; Thu,  3 Jun 2021 06:03:20 +0000 (UTC)
+	id 5283B61006; Thu,  3 Jun 2021 06:03:24 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 22ADD61020;
+	by lists.linaro.org (Postfix) with ESMTP id 6248061179;
 	Thu,  3 Jun 2021 06:03:17 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 2F97C61145
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 15:19:26 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id E64AC6090B
+ for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 18:19:58 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 22C0361148; Wed, 19 May 2021 15:19:26 +0000 (UTC)
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by lists.linaro.org (Postfix) with ESMTPS id 1CB2961145
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 15:19:24 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- lx17-20020a17090b4b11b029015f3b32b8dbso1914373pjb.0
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 08:19:24 -0700 (PDT)
+ id D19AA61146; Wed, 19 May 2021 18:19:58 +0000 (UTC)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ by lists.linaro.org (Postfix) with ESMTPS id CB2146090B
+ for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 18:19:56 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id x188so10473036pfd.7
+ for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 11:19:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=itfac-mrt-ac-lk.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id;
- bh=k8zjSgfqxLxlFthhLmpxkp9fckpuIPaxUqjese+DfO0=;
- b=wxXiEk5cfMSn+oebUrmAqIxaxe3uQoavSW8YeWQIpptNjA8WnDUG7VePoKAlmC0X3O
- ExXkJhERYYfGeg2YXpx0++bbi4QYlSbcGAfqPdxo9ev9zPukWzNm7rGwDT3nj1YTuGO0
- CyqCooNqCKOADjpBaIOmx92dSqsKRRtofCEKtqxEOufeykOaCXulsYTxLQdcCkH8rps3
- BFpJEDMY+8rXMy8gq/yV5F5w3DuA8FIlYu1h6gk+HoD9bgalLiAhkl9MiS4C00OwyGhm
- QmLN1FilocmSUpmomQIomX4Ihb9ZzgL98w9OcjN/zsoNcyBAItwWW0jeyqC+3cXiZzko
- 9jcA==
+ bh=PW4uVNBA3mRHR7tGnDQy6S2ZgHL0fGnS5upoxeLAFS4=;
+ b=LAgQL50DJZ6I9DmMa17MmOp5E9BA+o10kFJrra9ikHEiPJnl7hP3KDysdkzJPCxdO7
+ DNZHH5mef9Uw1FEq/YgnMwDZSXtkBpurEZy40MAUAE7qhAJnlJnsb7eP20CsDOCoFlnp
+ ghGpALsJQ/OuaPCQTkNbDnZfxhiFVZ6pCJbVUb1ZNKi/KgrEPysh+ylJBmltbEFGwF2q
+ K5ru/1URHJN6RxsMaNI+py45qPI0/J/fk7PTJA2ziWIDGsMD/cuuSgd+R7oMoxChfN6i
+ o0ebko7Wmxl1fqf6WZFguy6+GD++rzI0D0k2kMz4GLL40VcRGZE9SAcjuFlgE4XUttmr
+ mjTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=k8zjSgfqxLxlFthhLmpxkp9fckpuIPaxUqjese+DfO0=;
- b=lBCU5o+X4sEtb6JA9YkDNZHa88S0vIaDa3tS8zBY6AKGKif5Thh0RE4wJzAtE+Uc9V
- ACkYhCWE48cFRBEZso+JFODRtt1ofe2e14dteOksKNLQApjkj+y1BNskKwSpXBxzqYDA
- HZxZS8T6uoGSQPSUuj/r3usURQPc8UfO8vY/MRP4edcVO1Hof5fTqbc449OQq0woIZep
- 2/BbbnbKlKiCI3NYqK6Gp3YXJaifJCtWhbNFLHtWpVow6AGTeaSgNQ53GeDvNgSgcerq
- UYbrgp2TcG4CF/3JcHu8xf+kzaX3sbnEkSF3hisGyU5LztsH7TDCuAKKmYa8XgS3VFOc
- epOQ==
-X-Gm-Message-State: AOAM531zyN/cEHuKAzPCxlg/SNmmQbFTIqoEulmLWinA23UqhkvN0UzI
- JAyKtb1H2D3jWXKVsKCzDWBu
-X-Google-Smtp-Source: ABdhPJy2iC8QxPrIsMllescdd+wISCdojKR/IHdc3CqJD/XKucc1n3UJ6p9YkgMXX9Ve2iyS5UhnHg==
-X-Received: by 2002:a17:90a:a78d:: with SMTP id
- f13mr12007709pjq.161.1621437563291; 
- Wed, 19 May 2021 08:19:23 -0700 (PDT)
+ bh=PW4uVNBA3mRHR7tGnDQy6S2ZgHL0fGnS5upoxeLAFS4=;
+ b=mrk6Xzak4adG6RjYZwpA+GHQDXzDXC4tIoRBDmpX9RnOrILUBWGjlMlxNu3b4SEqxp
+ VHKNCkc86EgUpQG5KOf+NUn7cYmOZdGxSsoxayaqYw1C9q8HaOAzAlA+ezsaXnIH32cN
+ d3m464iu2Ersw/lPIr6sDzQTta74JFWsO22FE+T2keT7MHl/7R82DpM6cMKHth1WcZEt
+ eEGNQDsU3HSZXVtMMiEX4Cj3xpw0d6dd205o8q0Az1hEblcA7wC854MyRISLB0skXhn3
+ luD/DQhgXa0X2GqhzzNe7k0cmF38Q+j9MsmNpFF9H1aBueP6pOeWo+g0K7wvZ7dl6wj2
+ T2ug==
+X-Gm-Message-State: AOAM530au1q2N1xdsQNzNNTZXFX6jh3Xm/L2A20ewVrhNb7ckiG+4Zf0
+ 6dR7wMuX9YODE7oZ+5G5665L
+X-Google-Smtp-Source: ABdhPJwXcf9yyVLYIrdBHqNyMJx+0WlY19enz6Kx/vmPzEP/3lG3o6ZWg/PgjWn9idU+8IRKMq/cXg==
+X-Received: by 2002:a63:5218:: with SMTP id g24mr384869pgb.309.1621448395848; 
+ Wed, 19 May 2021 11:19:55 -0700 (PDT)
 Received: from localhost.localdomain
- ([2402:4000:11ca:dcec:9f88:85c9:3532:e27b])
- by smtp.gmail.com with ESMTPSA id k1sm8804547pfa.30.2021.05.19.08.19.20
+ ([2402:4000:11c7:ee12:ddf7:464f:3770:cc69])
+ by smtp.gmail.com with ESMTPSA id 205sm78211pfc.201.2021.05.19.11.19.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 May 2021 08:19:23 -0700 (PDT)
+ Wed, 19 May 2021 11:19:55 -0700 (PDT)
 From: "F.A.Sulaiman" <asha.16@itfac.mrt.ac.lk>
 To: johan@kernel.org,
 	elder@kernel.org,
 	gregkh@linuxfoundation.org
-Date: Wed, 19 May 2021 20:48:51 +0530
-Message-Id: <20210519151851.26006-1-asha.16@itfac.mrt.ac.lk>
+Date: Wed, 19 May 2021 23:49:38 +0530
+Message-Id: <20210519181938.30813-1-asha.16@itfac.mrt.ac.lk>
 X-Mailer: git-send-email 2.17.1
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Thu, 03 Jun 2021 06:03:09 +0000
-Subject: [greybus-dev] [PATCH] Staging: greybus: fix open parenthesis issue
- in gbphy.c
+Subject: [greybus-dev] [PATCH V2] Staging: greybus: fix open parenthesis
+ error in gbphy.c
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,7 +86,7 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-This fix "Alignment should match open parenthesis" checkpatch error.
+This patch fix "Alignment should match open parenthesis" checkpatch error.
 
 Signed-off-by: "F.A.Sulaiman" <asha.16@itfac.mrt.ac.lk>
 ---
