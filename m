@@ -2,62 +2,81 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 892FA39292D
-	for <lists+greybus-dev@lfdr.de>; Thu, 27 May 2021 10:03:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93B87392C80
+	for <lists+greybus-dev@lfdr.de>; Thu, 27 May 2021 13:19:35 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3D2FB60AC6
-	for <lists+greybus-dev@lfdr.de>; Thu, 27 May 2021 08:03:41 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 3D13160B3A
+	for <lists+greybus-dev@lfdr.de>; Thu, 27 May 2021 11:19:34 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id C545960B67; Thu, 27 May 2021 08:03:40 +0000 (UTC)
+	id A8C8560B3B; Thu, 27 May 2021 11:19:33 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D8C0D60ADB;
-	Thu, 27 May 2021 08:03:37 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 3C54C60ADB;
+	Thu, 27 May 2021 11:19:31 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 7471960A85
- for <greybus-dev@lists.linaro.org>; Thu, 27 May 2021 08:03:36 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id DF99160A07
+ for <greybus-dev@lists.linaro.org>; Thu, 27 May 2021 11:19:30 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 709C060AC6; Thu, 27 May 2021 08:03:36 +0000 (UTC)
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
- [209.85.166.182])
- by lists.linaro.org (Postfix) with ESMTPS id 6BB5C60A85
- for <greybus-dev@lists.linaro.org>; Thu, 27 May 2021 08:03:34 +0000 (UTC)
-Received: by mail-il1-f182.google.com with SMTP id z1so3378760ils.0
- for <greybus-dev@lists.linaro.org>; Thu, 27 May 2021 01:03:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=makerville-io.20150623.gappssmtp.com; s=20150623;
- h=mime-version:from:date:message-id:subject:to;
- bh=FIpeq13I4YjP8S7WMcSqp745DghYqYa3A/0TmmliNSw=;
- b=oubRRiG9zh7VcZ3K2MDHXi/07VNok+N8kH7r/Gixxy3nYd5BXlfxBVy3yNLKIR45Ml
- fZkhSizd7fN9kL6pCyiWrWp+iaWkg3fnvrgKrOys+nY4cNYSVYdChQT4nW+hJcH8j+bz
- aPFIC01PHdFvXFsN2v0yA1YXasfImIhMaJnzXQmFm0SM6i3hND0FKQ9ZiAXYtowBHTwd
- DWnpZmNBxQTqXGfpOL0DI3RnrU94HH4UbBnKF4Qyo9fIu9gUBmoQJiM4RlMAkkcfCNou
- GMWBcm7pmHLvR2A0Yi0k8t8xMoC8/flEcovoUzrEMxm2pnGIU+5SqeeUDmA20DBmr5Ss
- mXWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=FIpeq13I4YjP8S7WMcSqp745DghYqYa3A/0TmmliNSw=;
- b=o78l8LVV+woBl4Imon4NaDhwpiMaTbessBXC65oAB9Phci/oYZ+B1Ehs7uvk3NT3t1
- NR8thPVAjNxsUYjE0Ud9iD6gSSH5m2Gpip9mmBgH5Usur38MIEnH8TLS26PTSEVf2WvO
- c+SlHABY8u9jzI8DBi2mK3K5gEAPzcvhOlkEd1yfsj44eLf5Wi9c7Os6cDHVk4LOzgbD
- iryHVHdSPAWraGOefNQwmsyh/lBqVgqtAqb3aes7Z8ZG+rMtm8tgcpApRZXDR2L6L3dF
- doPu33xVhCrGJPVOlGzynY4Gqd3FCpnyAkiSBghXEQYANGmI+T5YoDCkmDYz05RrSCLS
- oB+w==
-X-Gm-Message-State: AOAM532mZKjWP9/bWK+mQl45RD8HsgZ31edZw+0msTLB5piM92H5Za1p
- nirB9/VUeqwbT+eEsIcimgUsCLviDKpgc5qTFLB6Yuu15HahIg==
-X-Google-Smtp-Source: ABdhPJw7aLwFSm5rPZcPmriXg1Eu1F6vEeVlFdfHb5xdohEzpxoG/fvcmYYcKBq5BseDC+3UOeW1z9/KjqplFgeZjy8=
-X-Received: by 2002:a05:6e02:f10:: with SMTP id
- x16mr1928706ilj.65.1622102613621; 
- Thu, 27 May 2021 01:03:33 -0700 (PDT)
+ id DD96F60A9E; Thu, 27 May 2021 11:19:30 +0000 (UTC)
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ by lists.linaro.org (Postfix) with ESMTPS id C7FD160A07
+ for <greybus-dev@lists.linaro.org>; Thu, 27 May 2021 11:19:28 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 9E1E3EA0;
+ Thu, 27 May 2021 07:19:27 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Thu, 27 May 2021 07:19:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=pxbfaKHZCWhDsU417t7PbYheLV0
+ CKla7WFFalm7HeDo=; b=ApMqyhI6EVnRc++Z05YAXBN7FW3NUxuNtbJJ2qyq+2T
+ 4GdhVD4k3p+RHfDiNcuSh/lXOd0MXL1cvqwsWp6HX2/O9aRzuaTPra2/rYut7h/M
+ Z96yTiPn3OtYxA2hlKGD2+tTbhS9EgXhVSuiaokwiyGoBsYvcqepqZqxvGTol8ee
+ hGkjt1o5vkROka8VFCTqRzva+CPDEQBECkUjLPrZj0h5cKG+0we86xYU7GjDf6YP
+ dvwWuM+38KA7Xn7gylupTfN+xNWxWBYKO30VsUj429JDSQrmWUxuzYob2FPsj5jx
+ 1xpzXI6ZRzvgg2OIk8tWlN/naH4pOHXBkXWxUSeXiww==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=pxbfaK
+ HZCWhDsU417t7PbYheLV0CKla7WFFalm7HeDo=; b=NuYhZ584AGa0KqO7IxOaX5
+ MOeadV0ooXqjnkyx+TnWSqE8hc6ChnzJbTq9Ws4cseUHeWpqXi38wv+FLIi24lj4
+ vRitZXrvy8kEkDhmxNZ+mfKIqXITR4S7Mz5swiThHWPZRL2886hvWD17yDHUz5Ps
+ qIAngkwXW7szJmw5dDRVcqyXLCW8mrytUTzpveXEw55LywTuNErGBtwVnGdcXCf+
+ KMK0f2zfFQaaLSssGwO7TDzdoDUhh2WArVBiU0cuGAzBO+O3Tpyw+PFbv6G7VP01
+ VcXGdRvOUkof01wPvB7MXfqFaK5F3LoT8Orwz67jYmOV2t1XRcFBAzSA8ElG69BA
+ ==
+X-ME-Sender: <xms:PoCvYHB7j-syPjgEXUy_7rHrjuyliBvtWTn_pgE-aDASdB7qQK_WZw>
+ <xme:PoCvYNhKNGgf7Df110Tv0n-_fc8xCElHuIf9r7HIv6P9zZpkSBtY2pOvzAylPriD9
+ xdWlQnlWF3N1g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdekhedggedtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgvghcu
+ mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpefgteefff
+ etvdffledtgeduudetffdutdduveefvedtueegueeggfeiteehfeetfeenucffohhmrghi
+ nhepghhithhhuhgsrdgtohhmnecukfhppeekfedrkeeirdejgedrieegnecuvehluhhsth
+ gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghh
+ rdgtohhm
+X-ME-Proxy: <xmx:PoCvYClGAqAGdiL2NTE-R1wrpQkAd41pidgPLu8GQo-dRoHl1AEIHg>
+ <xmx:PoCvYJwhsKyF-03cEFosq_FTCJacZOyqhsjqp62cfY5ewaFo-9y8Og>
+ <xmx:PoCvYMQ7REUh7TAYKwQL3gndCP_pNJcVoe3Nxhgap8OZo4hF5DxL0w>
+ <xmx:P4CvYHJEd4LdFzxUQ7lp0D5-c8OakJSe7w-wMlCNpqTWx_BbQOerGQ>
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ by mail.messagingengine.com (Postfix) with ESMTPA;
+ Thu, 27 May 2021 07:19:26 -0400 (EDT)
+Date: Thu, 27 May 2021 13:19:24 +0200
+From: Greg KH <greg@kroah.com>
+To: Anuj Deshpande <anuj@makerville.io>
+Message-ID: <YK+APDfOunPnL1Cj@kroah.com>
+References: <CA+5xZ=RwozcYBrQaCgkTuah8e=UDnw9cmFMkkEYmCK8jC+QbOA@mail.gmail.com>
 MIME-Version: 1.0
-From: Anuj Deshpande <anuj@makerville.io>
-Date: Thu, 27 May 2021 13:32:57 +0530
-Message-ID: <CA+5xZ=RwozcYBrQaCgkTuah8e=UDnw9cmFMkkEYmCK8jC+QbOA@mail.gmail.com>
-To: greybus-dev@lists.linaro.org
+Content-Disposition: inline
+In-Reply-To: <CA+5xZ=RwozcYBrQaCgkTuah8e=UDnw9cmFMkkEYmCK8jC+QbOA@mail.gmail.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: [greybus-dev] Support for ADC
+Subject: Re: [greybus-dev] Support for ADC
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,67 +88,49 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0145783596966754816=="
+Cc: greybus-dev@lists.linaro.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
---===============0145783596966754816==
-Content-Type: multipart/alternative; boundary="0000000000001313aa05c34b3214"
+On Thu, May 27, 2021 at 01:32:57PM +0530, Anuj Deshpande wrote:
+> Hi
+> 
+> I was looking at the Zephyr for Greybus
+> <https://github.com/cfriedt/greybus-for-zephyr/> work, and realized that
+> the actual spec for greybus doesn't actually have support for ADC. My
+> usecase is to use the ADCs on an attached microcontroller as if they are
+> native ADCs on a Linux machine.
+> 
+> I understand this is more complicated than it looks - because unlike a
+> GPIO, or I2C, there's no such thing as a native ADC for the Linux side of
+> things. Have I understood that correctly?
+> 
+> I stumbled into the IIO subsystem for such requirements where there's some
+> analog sensor that would need to be read - but that would not work through
+> a microcontroller like my use case.
+> 
+> If one were to look at adding such support, what would they need? Is this
+> something that's been discussed before? Would love to understand this a bit
+> more, and potentially contribute.
 
---0000000000001313aa05c34b3214
-Content-Type: text/plain; charset="UTF-8"
+This was talked about unofficially when we were creating the protocol
+and we considered making an IIO driver, or maybe a IIO-HID driver (for
+the types that HID supports), but it never got very far.
 
-Hi
+You could always just use the serial class and talk to the device like a
+"fake serial device" if that works, but then you loose all of the IIO
+user/kernel api functionality.
 
-I was looking at the Zephyr for Greybus
-<https://github.com/cfriedt/greybus-for-zephyr/> work, and realized that
-the actual spec for greybus doesn't actually have support for ADC. My
-usecase is to use the ADCs on an attached microcontroller as if they are
-native ADCs on a Linux machine.
+So, sorry, there isn't a solution for this yet, but if you wanted to
+work on creating such a class device, I know I would not object :)
 
-I understand this is more complicated than it looks - because unlike a
-GPIO, or I2C, there's no such thing as a native ADC for the Linux side of
-things. Have I understood that correctly?
+thanks,
 
-I stumbled into the IIO subsystem for such requirements where there's some
-analog sensor that would need to be read - but that would not work through
-a microcontroller like my use case.
-
-If one were to look at adding such support, what would they need? Is this
-something that's been discussed before? Would love to understand this a bit
-more, and potentially contribute.
-
---0000000000001313aa05c34b3214
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi</div><div><br></div><div></div><div>I was looking =
-at the <a href=3D"https://github.com/cfriedt/greybus-for-zephyr/">Zephyr fo=
-r Greybus</a> work, and realized that the actual spec for greybus doesn&#39=
-;t actually have support for ADC. My usecase is to use the ADCs on an attac=
-hed microcontroller as if they are native ADCs on a Linux machine.</div><di=
-v><br></div><div>I understand this is more complicated than it looks - beca=
-use unlike a GPIO, or I2C, there&#39;s no such thing as a native ADC for th=
-e Linux side of things. Have I understood that correctly?</div><div><br></d=
-iv><div>I stumbled into the IIO subsystem for such requirements where there=
-&#39;s some analog sensor that would need to be read - but that would not w=
-ork through a microcontroller like my use case.<br></div><div><br></div><di=
-v>If one were to look at adding such support, what would they need? Is this=
- something that&#39;s been discussed before? Would love to understand this =
-a bit more, and potentially contribute.<br></div></div>
-
---0000000000001313aa05c34b3214--
-
---===============0145783596966754816==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+greg k-h
 _______________________________________________
 greybus-dev mailing list
 greybus-dev@lists.linaro.org
 https://lists.linaro.org/mailman/listinfo/greybus-dev
-
---===============0145783596966754816==--
