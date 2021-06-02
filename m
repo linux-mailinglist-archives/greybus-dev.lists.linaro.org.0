@@ -2,68 +2,69 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DA01399A72
-	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 08:03:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59DFF399A70
+	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 08:03:32 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 78F646101D
-	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 06:03:30 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 8E35561022
+	for <lists+greybus-dev@lfdr.de>; Thu,  3 Jun 2021 06:03:29 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 7003F60FF8; Thu,  3 Jun 2021 06:03:24 +0000 (UTC)
+	id 57BBC60F4F; Thu,  3 Jun 2021 06:03:25 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9658960FBF;
+	by lists.linaro.org (Postfix) with ESMTP id C3E3B6118D;
 	Thu,  3 Jun 2021 06:03:17 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 528CE60B20
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 19:39:42 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 68C4960713
+ for <greybus-dev@lists.linaro.org>; Wed,  2 Jun 2021 13:37:15 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 3BFC76114C; Wed, 19 May 2021 19:39:42 +0000 (UTC)
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177])
- by lists.linaro.org (Postfix) with ESMTPS id 30EDE60B20
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 19:39:40 +0000 (UTC)
-Received: by mail-qt1-f177.google.com with SMTP id f8so11043647qth.6
- for <greybus-dev@lists.linaro.org>; Wed, 19 May 2021 12:39:40 -0700 (PDT)
+ id 5572F60774; Wed,  2 Jun 2021 13:37:15 +0000 (UTC)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by lists.linaro.org (Postfix) with ESMTPS id 4998E60713
+ for <greybus-dev@lists.linaro.org>; Wed,  2 Jun 2021 13:37:13 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id 27so2270012pgy.3
+ for <greybus-dev@lists.linaro.org>; Wed, 02 Jun 2021 06:37:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
- bh=02LE2Ct4623xELUCtUAbj1uXOX9qcsak7FEg/dNML6A=;
- b=dzfDU5azfxRNJBTqHYG8or7QUfom7Bu1BO+LfG2VWEDP7d5C7BLgyjBJpD0anJp0Ng
- 3RBjBIuVcTRvCP0rq/fJk/A3IBXQQZml5+Slp74VHkrFyk2p4+sIffz0IxFOu7osZ8wn
- WFd8zC7EK0gZ6+7d5sTjs6X/5GnpheehKVNLjV07k8e7vrI9ZSevlrOqD7B7SOlP6cLS
- bSHX/NVngabjLm5e8Tj+Xqvsgi7KGVnN6gpAtkAmaTfM/HwAB6ijZwHdlZLgepKO/KXU
- vLm6Z4ItCEQee67s6+rfvv3dKAG+DSTFfJc0tAw1ozQ8yd8O8yflZSRefiCuGdAkNyAJ
- 8M7w==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Ggtixs2081NFyzFZjKHEZFg0tSmZqU1lORXP6WHti2M=;
+ b=ha4c+/+xV2Tg8r7LY6CYQfILogLoM9qyX2AB2ENNR2Kj4tmR1Nxfwr9QXbdvsl7lBV
+ YgyXtHX+5m8dZz8qw9WvIgH8OkFmaZAo/EXo9KjNSk59rfE710G/8ayFxEg7OAHbAccY
+ /vULJvNphqg35q0iP8wZ/LXRTvhK3fiq+fqtCdYGP4SSk5pBR4Q8egi8U0KOroQwZAO6
+ R9zigCUJy8hwOZWUNJAKfP4EIgVQaXPRrZlxjvD8zLilFXYYqt58eYz8jgfZXbOzfOyw
+ VLYnBKTBzApZAJnBk+nksamtwa/aRXPm5FSbXerumTo4gGpr2eY8WcaluzV5LF/zHdsF
+ o2iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition;
- bh=02LE2Ct4623xELUCtUAbj1uXOX9qcsak7FEg/dNML6A=;
- b=sO6hpkSDkGD7dvVOsLkIr5366PDwQ0TXzH7ysvFM6z6trInGNSfWiEy9XzSJaUbqbq
- n8BU4bQkIK/jTI2agyOgpRiXINxdzEisEfuxMY1O8vxj04ir2Be6yzukoZ59O2rQSl35
- ibkyYK+xp0/eg9wPL51543zQn3lC8LzT8eT1CSD0QnhFHzP23AObetECdoxCmhdaDpQl
- N1wOBa0XfVhDoIyQDiqZGqtvyDXur2ywFXNgyoL0SaxP5nE4L2J4MtSwalreTaDw34JY
- LCjMTg2kwWZinEP5g8BXbmJFSPIyvwbQ1LiDgDPN4Yjg2dpwTINOwEjwhgWoOW9BqeI4
- DZ8w==
-X-Gm-Message-State: AOAM53341Ax30zcQQtpsA1imrV8v7BfOqjeKRYaY3IT+j2GLj2zaW8wh
- c5xZC6IgZ1+Rrjfoh3W0vBM=
-X-Google-Smtp-Source: ABdhPJwN55plgQPAvjtWPUvdAgqqHiW+O3bkKZ8Bz/1z18i4usXndqMUBllGpcoyTFCIeZS9EN18Bw==
-X-Received: by 2002:ac8:5205:: with SMTP id r5mr1241881qtn.305.1621453179751; 
- Wed, 19 May 2021 12:39:39 -0700 (PDT)
-Received: from ubuntu ([191.96.170.47])
- by smtp.gmail.com with ESMTPSA id w14sm279832qts.83.2021.05.19.12.39.38
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Ggtixs2081NFyzFZjKHEZFg0tSmZqU1lORXP6WHti2M=;
+ b=gvgbOZoJ08Djzw8DthpL7KDBTEo1DTFWUIhFEmqovEPKpzi/1RmDz+Vk84MttQ+QLG
+ C0HM1tISlDBfgXqOOK5EohYIfI0WQkIY0iEXUAjyTyp/SSi8kDDIxt7CkIjCrVbOuUti
+ tquqgZ06RDutU0NpJixw7wt63sMhBQSQMZCp1HG/MKfMX0fNESR44ONMC9T57atdU99h
+ fKoD8eLmSpRBg/2uDGGXzN0CEp4bthGsAbWAIHLG5hzyTzCEL75frr2IUi2TakKLElfz
+ VJRtEp0ku7Dc/V2Bb9ZcQSLnQOtK6puuEhXsvXllwZAlDkCMx6X/z7axL4qro92c5t7H
+ nVeA==
+X-Gm-Message-State: AOAM531ApoyDv/yhWQXaiX9XRsGugdu8nfBOU5SQ/F0+9bGexc2CxwqB
+ C2jxDOwic9Jly8IqO0DLZYQ=
+X-Google-Smtp-Source: ABdhPJxSyat2Sj5uimWbBNoh8uTFj0dKrTGy/R2BnSoK93NYDr6PicCHpALC/bNrjzyERuRv41XHpw==
+X-Received: by 2002:a65:60c5:: with SMTP id r5mr14215853pgv.79.1622641032378; 
+ Wed, 02 Jun 2021 06:37:12 -0700 (PDT)
+Received: from localhost.localdomain ([183.82.159.194])
+ by smtp.googlemail.com with ESMTPSA id x6sm907000pfd.173.2021.06.02.06.37.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 May 2021 12:39:39 -0700 (PDT)
-Date: Wed, 19 May 2021 12:39:38 -0700
-From: Philippe Dixon <philippesdixon@gmail.com>
-To: vireshk@kernel.org
-Message-ID: <20210519193938.GA7131@ubuntu>
+ Wed, 02 Jun 2021 06:37:12 -0700 (PDT)
+From: sh4nnu <manikishanghantasala@gmail.com>
+To: 
+Date: Wed,  2 Jun 2021 19:06:58 +0530
+Message-Id: <20210602133659.46158-1-manikishanghantasala@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Thu, 03 Jun 2021 06:03:09 +0000
-Subject: [greybus-dev] [PATCH] staging: greybus: spi: add blank line after
- variable declaration
+Subject: [greybus-dev] [PATCH] staging: greybus: fixed the coding style,
+ labels should not be indented.
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,35 +76,42 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Cc: elder@kernel.org, greybus-dev@lists.linaro.org,
- linux-staging@lists.linux.dev, johan@kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org,
+ linux-staging@lists.linux.dev, manikishanghantasala@gmail.com,
+ Johan Hovold <johan@kernel.org>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-This patch fixes the following checkpatch.pl warning:
+From: Manikishan Ghantasala <manikishanghantasala@gmail.com>
 
-WARNING: Missing a blank line after declarations
+staging: greybus: gpio.c: Clear coding-style problem
+"labels should not be indented" by removing indentation.
 
-Signed-off-by: Philippe Dixon <philippesdixon@gmail.com>
+Signed-off-by: Manikishan Ghantasala <manikishanghantasala@gmail.com>
 ---
- drivers/staging/greybus/spilib.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/staging/greybus/gpio.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/staging/greybus/spilib.c b/drivers/staging/greybus/spilib.c
-index 30655153df6a..ad0700a0bb81 100644
---- a/drivers/staging/greybus/spilib.c
-+++ b/drivers/staging/greybus/spilib.c
-@@ -246,6 +246,7 @@ static struct gb_operation *gb_spi_operation_create(struct gb_spilib *spi,
- 	xfer = spi->first_xfer;
- 	while (msg->state != GB_SPI_STATE_OP_DONE) {
- 		int xfer_delay;
-+
- 		if (xfer == spi->last_xfer)
- 			xfer_len = spi->last_xfer_size;
- 		else
+diff --git a/drivers/staging/greybus/gpio.c b/drivers/staging/greybus/gpio.c
+index 7e6347fe93f9..4661f4a251bd 100644
+--- a/drivers/staging/greybus/gpio.c
++++ b/drivers/staging/greybus/gpio.c
+@@ -20,9 +20,9 @@
+ struct gb_gpio_line {
+ 	/* The following has to be an array of line_max entries */
+ 	/* --> make them just a flags field */
+-	u8			active:    1,
+-				direction: 1,	/* 0 = output, 1 = input */
+-				value:     1;	/* 0 = low, 1 = high */
++	u8			active:1,
++				direction:1,	/* 0 = output, 1 = input */
++				value:1;	/* 0 = low, 1 = high */
+ 	u16			debounce_usec;
+ 
+ 	u8			irq_type;
 -- 
 2.25.1
 
