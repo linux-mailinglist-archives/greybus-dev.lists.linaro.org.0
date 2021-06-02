@@ -2,81 +2,72 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93B87392C80
-	for <lists+greybus-dev@lfdr.de>; Thu, 27 May 2021 13:19:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82875398AEE
+	for <lists+greybus-dev@lfdr.de>; Wed,  2 Jun 2021 15:43:22 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3D13160B3A
-	for <lists+greybus-dev@lfdr.de>; Thu, 27 May 2021 11:19:34 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id D087861012
+	for <lists+greybus-dev@lfdr.de>; Wed,  2 Jun 2021 13:43:20 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id A8C8560B3B; Thu, 27 May 2021 11:19:33 +0000 (UTC)
+	id 429CD60752; Wed,  2 Jun 2021 13:43:20 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3C54C60ADB;
-	Thu, 27 May 2021 11:19:31 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 8FD456079C;
+	Wed,  2 Jun 2021 13:43:17 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id DF99160A07
- for <greybus-dev@lists.linaro.org>; Thu, 27 May 2021 11:19:30 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 8479960713
+ for <greybus-dev@lists.linaro.org>; Wed,  2 Jun 2021 13:43:16 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id DD96F60A9E; Thu, 27 May 2021 11:19:30 +0000 (UTC)
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- by lists.linaro.org (Postfix) with ESMTPS id C7FD160A07
- for <greybus-dev@lists.linaro.org>; Thu, 27 May 2021 11:19:28 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 9E1E3EA0;
- Thu, 27 May 2021 07:19:27 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Thu, 27 May 2021 07:19:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=pxbfaKHZCWhDsU417t7PbYheLV0
- CKla7WFFalm7HeDo=; b=ApMqyhI6EVnRc++Z05YAXBN7FW3NUxuNtbJJ2qyq+2T
- 4GdhVD4k3p+RHfDiNcuSh/lXOd0MXL1cvqwsWp6HX2/O9aRzuaTPra2/rYut7h/M
- Z96yTiPn3OtYxA2hlKGD2+tTbhS9EgXhVSuiaokwiyGoBsYvcqepqZqxvGTol8ee
- hGkjt1o5vkROka8VFCTqRzva+CPDEQBECkUjLPrZj0h5cKG+0we86xYU7GjDf6YP
- dvwWuM+38KA7Xn7gylupTfN+xNWxWBYKO30VsUj429JDSQrmWUxuzYob2FPsj5jx
- 1xpzXI6ZRzvgg2OIk8tWlN/naH4pOHXBkXWxUSeXiww==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=pxbfaK
- HZCWhDsU417t7PbYheLV0CKla7WFFalm7HeDo=; b=NuYhZ584AGa0KqO7IxOaX5
- MOeadV0ooXqjnkyx+TnWSqE8hc6ChnzJbTq9Ws4cseUHeWpqXi38wv+FLIi24lj4
- vRitZXrvy8kEkDhmxNZ+mfKIqXITR4S7Mz5swiThHWPZRL2886hvWD17yDHUz5Ps
- qIAngkwXW7szJmw5dDRVcqyXLCW8mrytUTzpveXEw55LywTuNErGBtwVnGdcXCf+
- KMK0f2zfFQaaLSssGwO7TDzdoDUhh2WArVBiU0cuGAzBO+O3Tpyw+PFbv6G7VP01
- VcXGdRvOUkof01wPvB7MXfqFaK5F3LoT8Orwz67jYmOV2t1XRcFBAzSA8ElG69BA
- ==
-X-ME-Sender: <xms:PoCvYHB7j-syPjgEXUy_7rHrjuyliBvtWTn_pgE-aDASdB7qQK_WZw>
- <xme:PoCvYNhKNGgf7Df110Tv0n-_fc8xCElHuIf9r7HIv6P9zZpkSBtY2pOvzAylPriD9
- xdWlQnlWF3N1g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdekhedggedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgvghcu
- mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpefgteefff
- etvdffledtgeduudetffdutdduveefvedtueegueeggfeiteehfeetfeenucffohhmrghi
- nhepghhithhhuhgsrdgtohhmnecukfhppeekfedrkeeirdejgedrieegnecuvehluhhsth
- gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghh
- rdgtohhm
-X-ME-Proxy: <xmx:PoCvYClGAqAGdiL2NTE-R1wrpQkAd41pidgPLu8GQo-dRoHl1AEIHg>
- <xmx:PoCvYJwhsKyF-03cEFosq_FTCJacZOyqhsjqp62cfY5ewaFo-9y8Og>
- <xmx:PoCvYMQ7REUh7TAYKwQL3gndCP_pNJcVoe3Nxhgap8OZo4hF5DxL0w>
- <xmx:P4CvYHJEd4LdFzxUQ7lp0D5-c8OakJSe7w-wMlCNpqTWx_BbQOerGQ>
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- by mail.messagingengine.com (Postfix) with ESMTPA;
- Thu, 27 May 2021 07:19:26 -0400 (EDT)
-Date: Thu, 27 May 2021 13:19:24 +0200
-From: Greg KH <greg@kroah.com>
-To: Anuj Deshpande <anuj@makerville.io>
-Message-ID: <YK+APDfOunPnL1Cj@kroah.com>
-References: <CA+5xZ=RwozcYBrQaCgkTuah8e=UDnw9cmFMkkEYmCK8jC+QbOA@mail.gmail.com>
+ id 8237B60774; Wed,  2 Jun 2021 13:43:16 +0000 (UTC)
+Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
+ [209.85.166.44])
+ by lists.linaro.org (Postfix) with ESMTPS id 74A8360713
+ for <greybus-dev@lists.linaro.org>; Wed,  2 Jun 2021 13:43:14 +0000 (UTC)
+Received: by mail-io1-f44.google.com with SMTP id r4so2567349iol.6
+ for <greybus-dev@lists.linaro.org>; Wed, 02 Jun 2021 06:43:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ieee.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=bQwWMdNiop3KR5deOzjW/qoaepwqcvp7jJfbHI3zXtY=;
+ b=JPtMWY4kgGga8R41zy7szTr3zo7j99f+OfcMYf3jZwLVSe7eCz6+i5RKPqO9EFb/6f
+ Ett0SsYxZ1oWEBSe4AY+D5FyHsE63ePBYY2wG2/WeUQ0OvKdU54hH9KzaMXgrumXCtrx
+ OvCC+X92lFHRNMwzTd1/AE0BhtspPGgsL+eqE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=bQwWMdNiop3KR5deOzjW/qoaepwqcvp7jJfbHI3zXtY=;
+ b=jlA3BPfZc4Q+OOB0nE8MGppOqfBNONJslXOCQEXg0VXrxxb0aDDexN3p5Qkf3EuFOc
+ gU1a33ssBPLkP7/40KRTRPfzGr2hYLxPHYnN40sn8W/6PkpDT1XAssJ7JT0p8/wblZGP
+ T4CowUFh5L0h9ZmVRGhefevAB0g/xYFvTnjhrlm6JhGUCQ6xOHmyh6eamh4uFilyiJWl
+ RjLEABLt/1P4B87rJ8WO6diLicxDVi66lhxiXrh6JZCjyZNP5eJoVBfq8wQO9y5mZyMN
+ 5Q+goBEqVlbfSDtfCTGrhzLwLj6DJkS2la11M5J0DtA5vnH4yIGyV3s3GGlkIQIzH0/Z
+ 4q1w==
+X-Gm-Message-State: AOAM53252AsXqoSVVmqdgleY+hHmJGOctJ2w/waLVCMxTzvT+88iSMjv
+ 9IutkrTFjUMPTGXhS8yppuebsA==
+X-Google-Smtp-Source: ABdhPJzI132qPNGQXEIRmSa3fSS7UK52IeTZVxH49vKtqdaD+xrMOSB2COZPmz0sKUk9M9cC2VPEtA==
+X-Received: by 2002:a05:6638:343:: with SMTP id
+ x3mr9697267jap.101.1622641393970; 
+ Wed, 02 Jun 2021 06:43:13 -0700 (PDT)
+Received: from [172.22.22.4] (c-73-185-129-58.hsd1.mn.comcast.net.
+ [73.185.129.58])
+ by smtp.googlemail.com with ESMTPSA id i12sm51270ilk.22.2021.06.02.06.43.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Jun 2021 06:43:13 -0700 (PDT)
+To: sh4nnu <manikishanghantasala@gmail.com>
+References: <20210602133659.46158-1-manikishanghantasala@gmail.com>
+From: Alex Elder <elder@ieee.org>
+Message-ID: <9a3878fd-3b59-76f5-ddc7-625c66f9fee8@ieee.org>
+Date: Wed, 2 Jun 2021 08:43:11 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CA+5xZ=RwozcYBrQaCgkTuah8e=UDnw9cmFMkkEYmCK8jC+QbOA@mail.gmail.com>
+In-Reply-To: <20210602133659.46158-1-manikishanghantasala@gmail.com>
+Content-Language: en-US
 X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: Re: [greybus-dev] Support for ADC
+Subject: Re: [greybus-dev] [PATCH] staging: greybus: fixed the coding style,
+ labels should not be indented.
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,48 +79,53 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Cc: greybus-dev@lists.linaro.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org,
+ linux-staging@lists.linux.dev, Johan Hovold <johan@kernel.org>,
+ linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Thu, May 27, 2021 at 01:32:57PM +0530, Anuj Deshpande wrote:
-> Hi
+On 6/2/21 8:36 AM, sh4nnu wrote:
+> From: Manikishan Ghantasala <manikishanghantasala@gmail.com>
 > 
-> I was looking at the Zephyr for Greybus
-> <https://github.com/cfriedt/greybus-for-zephyr/> work, and realized that
-> the actual spec for greybus doesn't actually have support for ADC. My
-> usecase is to use the ADCs on an attached microcontroller as if they are
-> native ADCs on a Linux machine.
+> staging: greybus: gpio.c: Clear coding-style problem
+> "labels should not be indented" by removing indentation.
+
+These are not labels.
+
+I don't really understand what you're doing here.
+
+Can you please explain why you think this needs changing?
+
+					-Alex
+
+> Signed-off-by: Manikishan Ghantasala <manikishanghantasala@gmail.com>
+> ---
+>   drivers/staging/greybus/gpio.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> I understand this is more complicated than it looks - because unlike a
-> GPIO, or I2C, there's no such thing as a native ADC for the Linux side of
-> things. Have I understood that correctly?
+> diff --git a/drivers/staging/greybus/gpio.c b/drivers/staging/greybus/gpio.c
+> index 7e6347fe93f9..4661f4a251bd 100644
+> --- a/drivers/staging/greybus/gpio.c
+> +++ b/drivers/staging/greybus/gpio.c
+> @@ -20,9 +20,9 @@
+>   struct gb_gpio_line {
+>   	/* The following has to be an array of line_max entries */
+>   	/* --> make them just a flags field */
+> -	u8			active:    1,
+> -				direction: 1,	/* 0 = output, 1 = input */
+> -				value:     1;	/* 0 = low, 1 = high */
+> +	u8			active:1,
+> +				direction:1,	/* 0 = output, 1 = input */
+> +				value:1;	/* 0 = low, 1 = high */
+>   	u16			debounce_usec;
+>   
+>   	u8			irq_type;
 > 
-> I stumbled into the IIO subsystem for such requirements where there's some
-> analog sensor that would need to be read - but that would not work through
-> a microcontroller like my use case.
-> 
-> If one were to look at adding such support, what would they need? Is this
-> something that's been discussed before? Would love to understand this a bit
-> more, and potentially contribute.
 
-This was talked about unofficially when we were creating the protocol
-and we considered making an IIO driver, or maybe a IIO-HID driver (for
-the types that HID supports), but it never got very far.
-
-You could always just use the serial class and talk to the device like a
-"fake serial device" if that works, but then you loose all of the IIO
-user/kernel api functionality.
-
-So, sorry, there isn't a solution for this yet, but if you wanted to
-work on creating such a class device, I know I would not object :)
-
-thanks,
-
-greg k-h
 _______________________________________________
 greybus-dev mailing list
 greybus-dev@lists.linaro.org
