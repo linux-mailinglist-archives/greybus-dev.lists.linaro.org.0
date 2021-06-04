@@ -2,45 +2,40 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B71639B4AD
-	for <lists+greybus-dev@lfdr.de>; Fri,  4 Jun 2021 10:14:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 630B839B4D2
+	for <lists+greybus-dev@lfdr.de>; Fri,  4 Jun 2021 10:26:42 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 63B6161019
-	for <lists+greybus-dev@lfdr.de>; Fri,  4 Jun 2021 08:14:07 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 1A7AE60F4F
+	for <lists+greybus-dev@lfdr.de>; Fri,  4 Jun 2021 08:26:40 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id C939460FFA; Fri,  4 Jun 2021 08:14:06 +0000 (UTC)
+	id 8085C60FFF; Fri,  4 Jun 2021 08:26:39 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3E07C60EE1;
-	Fri,  4 Jun 2021 08:14:04 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id EB96860ECC;
+	Fri,  4 Jun 2021 08:26:36 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id E4E3E60509
- for <greybus-dev@lists.linaro.org>; Fri,  4 Jun 2021 08:14:02 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id A4B7B60507
+ for <greybus-dev@lists.linaro.org>; Fri,  4 Jun 2021 08:26:35 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id D413A60E9C; Fri,  4 Jun 2021 08:14:02 +0000 (UTC)
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- by lists.linaro.org (Postfix) with ESMTPS id 8B19660509
- for <greybus-dev@lists.linaro.org>; Fri,  4 Jun 2021 08:14:00 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- uk-mta-226-2sxBWfMpNbqbAlsW2s2RJA-1; Fri, 04 Jun 2021 09:13:57 +0100
-X-MC-Unique: 2sxBWfMpNbqbAlsW2s2RJA-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
- Server (TLS) id 15.0.1497.18; Fri, 4 Jun 2021 09:13:57 +0100
-Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
- AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
- 15.00.1497.018; Fri, 4 Jun 2021 09:13:57 +0100
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Alex Elder' <elder@linaro.org>, 'Manikishan Ghantasala'
- <manikishanghantasala@gmail.com>, Alex Elder <elder@ieee.org>
-Thread-Topic: [greybus-dev] [PATCH] staging: greybus: fixed the coding style, 
- labels should not be indented.
-Thread-Index: AQHXV7uPElUZ9thDckyuMtjnIAGFwKsCzNHA///2ooCAABDyEP//8ZgAgAC7OdA=
-Date: Fri, 4 Jun 2021 08:13:57 +0000
-Message-ID: <c29b5c97f97b48c894917647915bf510@AcuMS.aculab.com>
+ id A283960E9C; Fri,  4 Jun 2021 08:26:35 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0212.hostedemail.com
+ [216.40.44.212])
+ by lists.linaro.org (Postfix) with ESMTPS id 977A560507
+ for <greybus-dev@lists.linaro.org>; Fri,  4 Jun 2021 08:26:33 +0000 (UTC)
+Received: from omf04.hostedemail.com (clb03-v110.bra.tucows.net [216.40.38.60])
+ by smtprelay02.hostedemail.com (Postfix) with ESMTP id 285BFDB5C;
+ Fri,  4 Jun 2021 08:26:33 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
+ omf04.hostedemail.com (Postfix) with ESMTPA id AD175D1516; 
+ Fri,  4 Jun 2021 08:26:31 +0000 (UTC)
+Message-ID: <19651be0dc8706da34658d25195ff122f41ee7c0.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: David Laight <David.Laight@ACULAB.COM>, 'Alex Elder' <elder@linaro.org>,
+ 'Manikishan Ghantasala' <manikishanghantasala@gmail.com>, Alex Elder
+ <elder@ieee.org>
+Date: Fri, 04 Jun 2021 01:26:30 -0700
+In-Reply-To: <c29b5c97f97b48c894917647915bf510@AcuMS.aculab.com>
 References: <20210602133659.46158-1-manikishanghantasala@gmail.com>
  <9a3878fd-3b59-76f5-ddc7-625c66f9fee8@ieee.org>
  <CAKzJ-FNW8EPX2oQd1qr5NagnvjtWwvSeuAh8DNLetj11+BJ6RA@mail.gmail.com>
@@ -48,18 +43,16 @@ References: <20210602133659.46158-1-manikishanghantasala@gmail.com>
  <e1c36fb4-ab72-0cce-f6fe-3f04125dae28@linaro.org>
  <e23879ae78404be2b707b550b3029e43@AcuMS.aculab.com>
  <10ad30e2-c906-b210-bf0e-5e20b6de1993@linaro.org>
-In-Reply-To: <10ad30e2-c906-b210-bf0e-5e20b6de1993@linaro.org>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+ <c29b5c97f97b48c894917647915bf510@AcuMS.aculab.com>
+User-Agent: Evolution 3.38.1-1 
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: AD175D1516
+X-Spam-Status: No, score=-2.77
+X-Stat-Signature: wjdyupwsx14pw579haxy5xkypixm9osy
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX19fS19ixJkOAeDle8y0KO0ufAQmRER3gi0=
+X-HE-Tag: 1622795191-465470
 X-Virus-Scanned: ClamAV using ClamSMTP
 Subject: Re: [greybus-dev] [PATCH] staging: greybus: fixed the coding style,
  labels should not be indented.
@@ -85,40 +78,38 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-From: Alex Elder
-> Sent: 03 June 2021 22:55
-...
-> Not necessarily, sizeof(bool) is implementation defined.
-> And I thought you didn't think the size of the structure
-> was very important...
+On Fri, 2021-06-04 at 08:13 +0000, David Laight wrote:
+> From: Alex Elder
+> > Sent: 03 June 2021 22:55
+> ...
+> > Not necessarily, sizeof(bool) is implementation defined.
+> > And I thought you didn't think the size of the structure
+> > was very important...
+> 
+> It is 'implementation defined' but will be 32 bits on everything
+> except an old 32bit ARM ABI.
 
-It is 'implementation defined' but will be 32 bits on everything
-except an old 32bit ARM ABI.
+Really? (x86-64)
 
-> In any case, I'm open to changing the type of these fields,
-> and my preference would be bool rather than u8, because it
-> is completely clear what it represents.
+$ gcc -x c -
+#include <stdio.h>
+#include <stdlib.h>
 
-Yes, and it isn't at all clear what it actually means.
-If the value of a bool memory location isn't 0 or 1
-what does 'bool_a & bool_b' mean.
-It might be 'undefined behaviour' - but that doesn't actually
-exclude an ICBM hitting the coder's house!
-I've seen very silly code generated (by an old gcc) for
-simple statements like:
-	bool_a |= bool_b;
-Mostly because it didn't trust the values to be 0 or 1
-and wanted to ensure the result was either 0 or 1.
+struct foo {
+	_Bool b;
+};
 
-If I use an integer type (as in traditional C) I know
-what I'm getting and there are no unexpected comparisons
-and conditionals.
+int main(int argc, char **argv)
+{
+	printf("sizeof _Bool: %zu\n", sizeof(_Bool));
+	printf("sizeof struct foo: %zu\n", sizeof(struct foo));
+	return 0;
+}
+$ ./a.out
+sizeof _Bool: 1
+sizeof struct foo: 1
 
-	David
 
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1PT, UK
-Registration No: 1397386 (Wales)
 _______________________________________________
 greybus-dev mailing list
 greybus-dev@lists.linaro.org
