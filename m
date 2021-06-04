@@ -2,46 +2,65 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83F1539B4EE
-	for <lists+greybus-dev@lfdr.de>; Fri,  4 Jun 2021 10:34:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13FB339B917
+	for <lists+greybus-dev@lfdr.de>; Fri,  4 Jun 2021 14:34:17 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A7B5C60FF8
-	for <lists+greybus-dev@lfdr.de>; Fri,  4 Jun 2021 08:34:02 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 643A760F06
+	for <lists+greybus-dev@lfdr.de>; Fri,  4 Jun 2021 12:34:15 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 0E0B561006; Fri,  4 Jun 2021 08:34:01 +0000 (UTC)
+	id 8107F60EFF; Fri,  4 Jun 2021 12:34:14 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3C93A60ECC;
-	Fri,  4 Jun 2021 08:33:59 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B8FB160F06;
+	Fri,  4 Jun 2021 12:34:11 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id BE5C160507
- for <greybus-dev@lists.linaro.org>; Fri,  4 Jun 2021 08:33:57 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id DEA6660EE1
+ for <greybus-dev@lists.linaro.org>; Fri,  4 Jun 2021 12:34:09 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id BBFE860E9C; Fri,  4 Jun 2021 08:33:57 +0000 (UTC)
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- by lists.linaro.org (Postfix) with ESMTPS id 7DDCA60507
- for <greybus-dev@lists.linaro.org>; Fri,  4 Jun 2021 08:33:55 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- uk-mta-60-CDThUlX4PWym1fEgqsJjnA-2; Fri, 04 Jun 2021 09:33:52 +0100
-X-MC-Unique: CDThUlX4PWym1fEgqsJjnA-2
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
- Server (TLS) id 15.0.1497.18; Fri, 4 Jun 2021 09:33:50 +0100
-Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
- AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
- 15.00.1497.018; Fri, 4 Jun 2021 09:33:50 +0100
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Joe Perches' <joe@perches.com>, 'Alex Elder' <elder@linaro.org>,
- 'Manikishan Ghantasala' <manikishanghantasala@gmail.com>, Alex Elder
- <elder@ieee.org>
-Thread-Topic: [greybus-dev] [PATCH] staging: greybus: fixed the coding style, 
- labels should not be indented.
-Thread-Index: AQHXV7uPElUZ9thDckyuMtjnIAGFwKsCzNHA///2ooCAABDyEP//8ZgAgAC7OdD///UyAAACKTmg
-Date: Fri, 4 Jun 2021 08:33:50 +0000
-Message-ID: <a3a2712ee54949db9c22269e07f9f2f5@AcuMS.aculab.com>
+ id D587160EFF; Fri,  4 Jun 2021 12:34:09 +0000 (UTC)
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ by lists.linaro.org (Postfix) with ESMTPS id CDB3560EE1
+ for <greybus-dev@lists.linaro.org>; Fri,  4 Jun 2021 12:34:07 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ 36-20020a9d0ba70000b02902e0a0a8fe36so8907008oth.8
+ for <greybus-dev@lists.linaro.org>; Fri, 04 Jun 2021 05:34:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=tCu/tKeYJwFaB3OgK7bagOEU6jq2x5jscMl3fnvsW4U=;
+ b=qnFJVP/DW5Te8bJnZoC2h1qT0G1R0vO9fkYS5f86+H4eEFZNB4QZQXAvpUr7Pn5Owv
+ SaHLAHFjSrMFdaVxjlgur5uvyZPRHgotUV+2TjuI9BM47xZX+uLq2WuJvmRj/vOom6AV
+ mjPUniSxHJ1Apdu9EamFo9v8LPDBNovSP0C7QlhoXh8ZE+qRNi3ygF0axGGMgwycg4QX
+ dONIz8rOqEGNz1hNS5/uBmWmMgAyD5bGfTbmGL3wUwYhz5/L/46bEu6K/b8hVe4NmHfR
+ 45Cnc3QfFb13qx2VeqkTK/jobUDS32F2IN4mA793UFCxIhQLaLPEKnbCm/OdEJ+C/H58
+ TR1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=tCu/tKeYJwFaB3OgK7bagOEU6jq2x5jscMl3fnvsW4U=;
+ b=HuX2+cRb8PUgu2vnO6aB5fvrSOBOVoQidSFgKTHW6K8i3jLfE8ZY5NgYED7v5iSxGy
+ dGOhnsXo3M8q//eh75VB+lSENIsrbSmt9H+mCS24cUM1lNxKoPaf0+iWQ9UsVtbnHD/b
+ 9LULDF4rxpHtNA7LvG594Vzx8ux6Wmily4BsA86NXdWRPl6R0V2qJOdrfkwfvSGyOnb6
+ y/TrNXdt2RxGvTY4e/VeAu0MyHLRIxP3yKBzgKrzO64ljVWX1AZ/VjCeTf1MTNmfOYq9
+ CU1M1VdMTv8eAJfPXnBh8evipiJ6nXzDkhYv8ntD9vdHQIL4wlsRygGLup4fZOCwRH94
+ pJJw==
+X-Gm-Message-State: AOAM533H+Mbyea3Zsd4n7JDomS7vDD/MOeDiDhWctDXghO/A7CTatqlc
+ wDmQcoDN58oLPuFVC3UpkoEmtlm2
+X-Google-Smtp-Source: ABdhPJx/leSy51Y3cV58L2zpY1aK2i6EasrduwOlR++peaXucg2t2uW8ciCzlwcdAECGF6C5CeU/lA==
+X-Received: by 2002:a9d:29:: with SMTP id 38mr3622473ota.30.1622810047206;
+ Fri, 04 Jun 2021 05:34:07 -0700 (PDT)
+Received: from [172.22.22.26] (c-73-185-129-58.hsd1.mn.comcast.net.
+ [73.185.129.58])
+ by smtp.googlemail.com with ESMTPSA id a7sm403852ooo.9.2021.06.04.05.34.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 04 Jun 2021 05:34:06 -0700 (PDT)
+To: David Laight <David.Laight@ACULAB.COM>,
+ 'Manikishan Ghantasala' <manikishanghantasala@gmail.com>,
+ Alex Elder <elder@ieee.org>
 References: <20210602133659.46158-1-manikishanghantasala@gmail.com>
  <9a3878fd-3b59-76f5-ddc7-625c66f9fee8@ieee.org>
  <CAKzJ-FNW8EPX2oQd1qr5NagnvjtWwvSeuAh8DNLetj11+BJ6RA@mail.gmail.com>
@@ -50,18 +69,13 @@ References: <20210602133659.46158-1-manikishanghantasala@gmail.com>
  <e23879ae78404be2b707b550b3029e43@AcuMS.aculab.com>
  <10ad30e2-c906-b210-bf0e-5e20b6de1993@linaro.org>
  <c29b5c97f97b48c894917647915bf510@AcuMS.aculab.com>
- <19651be0dc8706da34658d25195ff122f41ee7c0.camel@perches.com>
-In-Reply-To: <19651be0dc8706da34658d25195ff122f41ee7c0.camel@perches.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+From: Alex Elder <elder@linaro.org>
+Message-ID: <613239d4-c4a6-8585-5f9e-0241f0caa5ec@linaro.org>
+Date: Fri, 4 Jun 2021 07:34:05 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
+In-Reply-To: <c29b5c97f97b48c894917647915bf510@AcuMS.aculab.com>
 Content-Language: en-US
 X-Virus-Scanned: ClamAV using ClamSMTP
 Subject: Re: [greybus-dev] [PATCH] staging: greybus: fixed the coding style,
@@ -88,37 +102,20 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-From: Joe Perches
-> Sent: 04 June 2021 09:27
-> 
-> On Fri, 2021-06-04 at 08:13 +0000, David Laight wrote:
-> > From: Alex Elder
-> > > Sent: 03 June 2021 22:55
-> > ...
-> > > Not necessarily, sizeof(bool) is implementation defined.
-> > > And I thought you didn't think the size of the structure
-> > > was very important...
-> >
-> > It is 'implementation defined' but will be 32 bits on everything
-> > except an old 32bit ARM ABI.
-> 
-> Really? (x86-64)
-> 
-...
-> sizeof _Bool: 1
-> sizeof struct foo: 1
+On 6/4/21 3:13 AM, David Laight wrote:
+> Yes, and it isn't at all clear what it actually means.
+> If the value of a bool memory location isn't 0 or 1
+> what does 'bool_a & bool_b' mean.
 
-Gah, not enough coffee.
-I said I don't like _Bool :-)
+I think this discussion is done, but I wanted to point out
+that the above expression is incorrect.  It might be valid,
+but it would be bad code.  A Boolean, when properly used,
+should only be compared with true and false (or the result
+of another Boolean expression).  Therefore "&" is not the
+right operator, "&&" is.  The reason is similar to why you
+would never use ~bool_a, you use !bool_a to invert its value.
 
-The old arm32 must have had 32bit bool.
-
-	David
-
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1PT, UK
-Registration No: 1397386 (Wales)
-
+					-Alex
 _______________________________________________
 greybus-dev mailing list
 greybus-dev@lists.linaro.org
