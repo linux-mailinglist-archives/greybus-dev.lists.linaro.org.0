@@ -2,72 +2,65 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id B92CF3BF690
-	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jul 2021 09:57:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1BC3BF68F
+	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jul 2021 09:56:59 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9452266957
-	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jul 2021 07:56:59 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7DFD56697A
+	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jul 2021 07:56:58 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 80AA866950; Thu,  8 Jul 2021 07:56:17 +0000 (UTC)
+	id 437CA66765; Thu,  8 Jul 2021 07:56:18 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8526166977;
-	Thu,  8 Jul 2021 07:56:14 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id E85A366967;
+	Thu,  8 Jul 2021 07:56:15 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id BBE1960BC6
- for <greybus-dev@lists.linaro.org>; Tue,  6 Jul 2021 10:57:01 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id E34DB60BC6
+ for <greybus-dev@lists.linaro.org>; Tue,  6 Jul 2021 10:57:45 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id AEA546328E; Tue,  6 Jul 2021 10:57:01 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by lists.linaro.org (Postfix) with ESMTPS id A675060BC6
- for <greybus-dev@lists.linaro.org>; Tue,  6 Jul 2021 10:56:59 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id i94so25575097wri.4
- for <greybus-dev@lists.linaro.org>; Tue, 06 Jul 2021 03:56:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=l+H215FJz8pJPI4hh9v/iWNuVbn0nifA4Jaafd28qC4=;
- b=UCSZee8bkwQhVbXkWa9n6dda1YB5cGQkIPiVKhb8KKz80S/zIXHEgxifSSr+8L29bp
- bwv7fkXzMNhKGGQN2c3BmsUcjrj/WCoXm6Ben2qP8+Bg0YH95vQBsFhGIbEyGr/lrU1Q
- Ln5txN4w7J+T5EMRaT/NpEGp+Hm9dI3o+V77bGk/sdRf0SYC4Lr7n5Wxc/3RjcZaFj49
- pMNis8YQVecjuUzjIFQPnwBJPdiGSBK5ZHDxUgMGNPSzs1az976bZyXyvd6ztydUQ9Xm
- nwGGg1WV1KPpW+turyU66Gq6SgHBmHxg/+HCmUj/1/PNr7tZsqoiZrxGaduOWyUClunz
- BuDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=l+H215FJz8pJPI4hh9v/iWNuVbn0nifA4Jaafd28qC4=;
- b=YGJgmSCy00SvCaoF/rL0xS6nubkbatCnLoRhzjNOam/PmzEW/1ctal0qZYxLzhcgnS
- UgpV0bQ1RA1m+ZrARYnNjVRC0y4LmraXK9DKw+S3grN5UiyNEDxXvXLtZbkdT+rtOTPm
- CDzfw/H5fmFwkc6LPoHfvVFoLin55TbLm+iTA0aiDuRgd04CSGRsVJ30M4Gs25iL/Voj
- XDMHDe1qq282GXdhaISfPPhPjxtDeXP2xvvPQ2Q+k94COR8olN2P8evOHPjKDhWw8Sd4
- aeWwNFYIr9CYVaPd2JUArv1NEz7jOJSD14vM5ykg5IqB6hgf6vGFqWxYcv7J5BgP3144
- xKbA==
-X-Gm-Message-State: AOAM532EwcjCOSJddHojkeQD4XmYNse9fBfkVPJL4mrv1J+OTfqkEXJe
- CrPULrqeqsJnpV1wgNKUUbkZKyzp
-X-Google-Smtp-Source: ABdhPJwMhrNwpvhovE9XwK0jC9OIuq8TBsnt9DrnKno6fhX9rnIZO8Cd1er4LBIyS1GM0G/5i1HmFw==
-X-Received: by 2002:a5d:4711:: with SMTP id y17mr21172584wrq.355.1625569018612; 
- Tue, 06 Jul 2021 03:56:58 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id o3sm16468134wrw.56.2021.07.06.03.56.55
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 06 Jul 2021 03:56:57 -0700 (PDT)
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20210706095037.1425211-1-u.kleine-koenig@pengutronix.de>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <bd408732-a23d-d3e6-3786-ea9fbf114d50@linaro.org>
-Date: Tue, 6 Jul 2021 11:56:54 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
+ id DB9C86328E; Tue,  6 Jul 2021 10:57:45 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by lists.linaro.org (Postfix) with ESMTPS id CD3F660BC6
+ for <greybus-dev@lists.linaro.org>; Tue,  6 Jul 2021 10:57:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1625569063;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QUyu+xoe1E6BsQbSDzUeyLIXRBJKwC/I/FCZr8qcsPA=;
+ b=Tpitbp8kRSV2Hc2y6VIhqDekGY7ZfeSw1kRC+BpUzdAdWDjVolk9floMPAIccWCKebta0U
+ 41FDt47yB0fzRf/2Kg6HJo1mf3TAQLqXEk9QilWjSmo7/7k26EWUm7t8rCvaA0yK9jrXp0
+ lpxxx/yL6IbqFrmFw/bhdsMwYLpf2fo=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-263-5mCOs4Y3P-6VHTb8_rh9-g-1; Tue, 06 Jul 2021 06:57:41 -0400
+X-MC-Unique: 5mCOs4Y3P-6VHTb8_rh9-g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 481AE100B3AC;
+ Tue,  6 Jul 2021 10:57:36 +0000 (UTC)
+Received: from localhost (ovpn-113-13.ams2.redhat.com [10.36.113.13])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 95A0A60CC6;
+ Tue,  6 Jul 2021 10:57:19 +0000 (UTC)
+From: Cornelia Huck <cohuck@redhat.com>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>
 In-Reply-To: <20210706095037.1425211-1-u.kleine-koenig@pengutronix.de>
-Content-Language: en-US
+Organization: Red Hat GmbH
+References: <20210706095037.1425211-1-u.kleine-koenig@pengutronix.de>
+User-Agent: Notmuch/0.32.1 (https://notmuchmail.org)
+Date: Tue, 06 Jul 2021 12:57:17 +0200
+Message-ID: <87pmvvhfqq.fsf@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cohuck@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Thu, 08 Jul 2021 07:55:56 +0000
 Subject: Re: [greybus-dev] [PATCH] bus: Make remove callback return void
@@ -82,80 +75,129 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Cc: =?UTF-8?Q?Krzysztof_Wilczy=c5=84ski?= <kw@linux.com>,
- Alison Schofield <alison.schofield@intel.com>, linux-staging@lists.linux.dev,
- target-devel@vger.kernel.org, kvm@vger.kernel.org,
- Mark Gross <mgross@linux.intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+Cc: nvdimm@lists.linux.dev, Alexey Kardashevskiy <aik@ozlabs.ru>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
  Samuel Iglesias Gonsalvez <siglesias@igalia.com>,
- Matt Porter <mporter@kernel.crashing.org>,
  Jens Taprogge <jens.taprogge@taprogge.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Jaroslav Kysela <perex@perex.cz>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Paul Mackerras <paulus@samba.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, "K. Y.
+ Srinivasan" <kys@microsoft.com>, Mike Christie <michael.christie@oracle.com>,
+ Wei Liu <wei.liu@kernel.org>, Maxim Levitsky <maximlevitsky@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Michael Ellerman <mpe@ellerman.id.au>,
+ linux-acpi@vger.kernel.org, linux-pci@vger.kernel.org,
+ xen-devel@lists.xenproject.org, Tomas Winkler <tomas.winkler@intel.com>,
+ Julien Grall <jgrall@amazon.com>, Ohad Ben-Cohen <ohad@wizery.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Alex Elder <elder@kernel.org>,
+ linux-parisc@vger.kernel.org, Geoff Levand <geoff@infradead.org>,
+ linux-fpga@vger.kernel.org, linux-usb@vger.kernel.org, "Rafael J.
+ Wysocki" <rjw@rjwysocki.net>, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Thorsten Scherer <t.scherer@eckelmann.de>,
+ kernel@pengutronix.de, Jon Mason <jdmason@kudzu.us>,
+ linux-ntb@googlegroups.com, Wu Hao <hao.wu@intel.com>,
+ David Woodhouse <dwmw@amazon.co.uk>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84sk?= =?utf-8?Q?i?= <kw@linux.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Manohar Vanga <manohar.vanga@gmail.com>, linux-wireless@vger.kernel.org,
  Dominik Brodowski <linux@dominikbrodowski.net>,
  virtualization@lists.linux-foundation.org,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Paul Mackerras <paulus@samba.org>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, Ira Weiny <ira.weiny@intel.com>,
- linux-usb@vger.kernel.org, Wei Liu <wei.liu@kernel.org>,
+ target-devel@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ linux-i2c@vger.kernel.org, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Ira Weiny <ira.weiny@intel.com>,
+ Helge Deller <deller@gmx.de>,
+ =?utf-8?Q?Rafa=C5=82_Mi=C5=82eck?= =?utf-8?Q?i?= <zajec5@gmail.com>,
+ industrypack-devel@lists.sourceforge.net, linux-mips@vger.kernel.org,
+ Len Brown <lenb@kernel.org>, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Johan Hovold <johan@kernel.org>,
+ greybus-dev@lists.linaro.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, Johannes Thumshirn <morbidrsa@gmail.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Wolfram Sang <wsa@kernel.org>, Joey Pabalan <jpabalanb@gmail.com>,
+ Yehezkel Bernat <YehezkelShB@gmail.com>,
+ Pali =?utf-8?Q?Roh=C3=A1r?= <pali@kernel.org>,
+ Bodo Stroesser <bostroesser@gmail.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Tyrel Datwyler <tyreld@linux.ibm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Tom Rix <trix@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ SeongJae Park <sjpark@amazon.de>, linux-hyperv@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, Frank Li <lznuaa@gmail.com>,
+ netdev@vger.kernel.org, Qinglang Miao <miaoqinglang@huawei.com>,
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Dave Jiang <dave.jiang@intel.com>, Maxim Levitsky <maximlevitsky@gmail.com>,
- Johannes Thumshirn <morbidrsa@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Helge Deller <deller@gmx.de>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Dexuan Cui <decui@microsoft.com>, Russell King <linux@armlinux.org.uk>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Mark Gross <mgross@linux.intel.com>, linux-staging@lists.linux.dev,
+ Dexuan Cui <decui@microsoft.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Kishon Vijay Abraham I <kishon@ti.com>, Chen-Yu Tsai <wens@csie.org>,
- linux-serial@vger.kernel.org, Tom Rix <trix@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
- Jon Mason <jdmason@kudzu.us>, Len Brown <lenb@kernel.org>,
- Allen Hubbe <allenbh@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Alex Dubov <oakad@yahoo.com>, Lee Jones <lee.jones@linaro.org>,
- linux-arm-msm@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
- Sudeep Holla <sudeep.holla@arm.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Ben Widawsky <ben.widawsky@intel.com>, Moritz Fischer <mdf@kernel.org>,
- xen-devel@lists.xenproject.org, Bjorn Helgaas <bhelgaas@google.com>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- Dan Williams <dan.j.williams@intel.com>,
+ linux-input@vger.kernel.org, Matt Porter <mporter@kernel.crashing.org>,
+ Allen Hubbe <allenbh@gmail.com>, Alex Dubov <oakad@yahoo.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Jiri Kosina <jikos@kernel.org>,
+ Vladimir Zapolskiy <vz@mleia.com>, Ben Widawsky <ben.widawsky@intel.com>,
+ Moritz Fischer <mdf@kernel.org>, linux-cxl@vger.kernel.org,
+ Michael Buesch <m@bues.ch>, Dan Williams <dan.j.williams@intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
- Tomas Winkler <tomas.winkler@intel.com>,
  Cristian Marussi <cristian.marussi@arm.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, greybus-dev@lists.linaro.org,
- Geoff Levand <geoff@infradead.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, Wolfram Sang <wsa@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Stefan Richter <stefanr@s5r6.in-berlin.de>,
- Arnd Bergmann <arnd@arndb.de>, kernel@pengutronix.de,
- Vishal Verma <vishal.l.verma@intel.com>, Wu Hao <hao.wu@intel.com>,
- Maximilian Luz <luzmaximilian@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Martyn Welch <martyn@welchs.me.uk>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, Stefan Richter <stefanr@s5r6.in-berlin.de>,
+ Sudeep Holla <sudeep.holla@arm.com>, "David S.
+ Miller" <davem@davemloft.net>, Sven Van Asbroeck <TheSven73@gmail.com>,
+ kvm@vger.kernel.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ linux-remoteproc@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Kirti Wankhede <kwankhede@nvidia.com>,
+ Andreas Noever <andreas.noever@gmail.com>, linux-i3c@lists.infradead.org,
+ linux1394-devel@lists.sourceforge.net, Lee Jones <lee.jones@linaro.org>,
+ Arnd Bergmann <arnd@arndb.de>, linux-scsi@vger.kernel.org,
+ Vishal Verma <vishal.l.verma@intel.com>, Russell King <linux@armlinux.org.uk>,
+ Andy Gross <agross@kernel.org>, linux-serial@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Michael Jamet <michael.jamet@intel.com>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Hans de Goede <hdegoede@redhat.com>, Hannes Reinecke <hare@suse.de>,
+ Adrian Hunter <adrian.hunter@intel.com>, Juergen Gross <jgross@suse.com>,
+ linuxppc-dev@lists.ozlabs.org, Takashi Iwai <tiwai@suse.com>,
+ Alexandre Bounine <alex.bou9@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ dmaengine@vger.kernel.org, Johannes Berg <johannes@sipsolutions.net>,
+ Maximilian Luz <luzmaximilian@gmail.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-CgpPbiAwNi8wNy8yMDIxIDEwOjUwLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiBUaGUgZHJp
-dmVyIGNvcmUgaWdub3JlcyB0aGUgcmV0dXJuIHZhbHVlIG9mIHRoaXMgY2FsbGJhY2sgYmVjYXVz
-ZSB0aGVyZQo+IGlzIG9ubHkgbGl0dGxlIGl0IGNhbiBkbyB3aGVuIGEgZGV2aWNlIGRpc2FwcGVh
-cnMuCj4gCj4gVGhpcyBpcyB0aGUgZmluYWwgYml0IG9mIGEgbG9uZyBsYXN0aW5nIGNsZWFudXAg
-cXVlc3Qgd2hlcmUgc2V2ZXJhbAo+IGJ1c2VzIHdlcmUgY29udmVydGVkIHRvIGFsc28gcmV0dXJu
-IHZvaWQgZnJvbSB0aGVpciByZW1vdmUgY2FsbGJhY2suCj4gQWRkaXRpb25hbGx5IHNvbWUgcmVz
-b3VyY2UgbGVha3Mgd2VyZSBmaXhlZCB0aGF0IHdlcmUgY2F1c2VkIGJ5IGRyaXZlcnMKPiByZXR1
-cm5pbmcgYW4gZXJyb3IgY29kZSBpbiB0aGUgZXhwZWN0YXRpb24gdGhhdCB0aGUgZHJpdmVyIHdv
-bid0IGdvCj4gYXdheS4KPiAKPiBXaXRoIHN0cnVjdCBidXNfdHlwZTo6cmVtb3ZlIHJldHVybmlu
-ZyB2b2lkIGl0J3MgcHJldmVudGVkIHRoYXQgbmV3bHkKPiBpbXBsZW1lbnRlZCBidXNlcyByZXR1
-cm4gYW4gaWdub3JlZCBlcnJvciBjb2RlIGFuZCBzbyBkb24ndCBhbnRpY2lwYXRlCj4gd3Jvbmcg
-ZXhwZWN0YXRpb25zIGZvciBkcml2ZXIgYXV0aG9ycy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBVd2Ug
-S2xlaW5lLUvDtm5pZzx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+Cj4gLS0tCi4uLgoK
-PiAgIGRyaXZlcnMvc2xpbWJ1cy9jb3JlLmMgICAgICAgICAgICAgICAgICAgIHwgNCArLS0tCgpm
-b3Igc2xpbWJ1cyBjaGFuZ2VzOgoKQWNrZWQtYnk6IFNyaW5pdmFzIEthbmRhZ2F0bGEgPHNyaW5p
-dmFzLmthbmRhZ2F0bGFAbGluYXJvLm9yZz4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBs
-aXN0cy5saW5hcm8ub3JnCmh0dHBzOi8vbGlzdHMubGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2dyZXlidXMtZGV2Cg==
+T24gVHVlLCBKdWwgMDYgMjAyMSwgVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0Bw
+ZW5ndXRyb25peC5kZT4gd3JvdGU6Cgo+IFRoZSBkcml2ZXIgY29yZSBpZ25vcmVzIHRoZSByZXR1
+cm4gdmFsdWUgb2YgdGhpcyBjYWxsYmFjayBiZWNhdXNlIHRoZXJlCj4gaXMgb25seSBsaXR0bGUg
+aXQgY2FuIGRvIHdoZW4gYSBkZXZpY2UgZGlzYXBwZWFycy4KPgo+IFRoaXMgaXMgdGhlIGZpbmFs
+IGJpdCBvZiBhIGxvbmcgbGFzdGluZyBjbGVhbnVwIHF1ZXN0IHdoZXJlIHNldmVyYWwKPiBidXNl
+cyB3ZXJlIGNvbnZlcnRlZCB0byBhbHNvIHJldHVybiB2b2lkIGZyb20gdGhlaXIgcmVtb3ZlIGNh
+bGxiYWNrLgo+IEFkZGl0aW9uYWxseSBzb21lIHJlc291cmNlIGxlYWtzIHdlcmUgZml4ZWQgdGhh
+dCB3ZXJlIGNhdXNlZCBieSBkcml2ZXJzCj4gcmV0dXJuaW5nIGFuIGVycm9yIGNvZGUgaW4gdGhl
+IGV4cGVjdGF0aW9uIHRoYXQgdGhlIGRyaXZlciB3b24ndCBnbwo+IGF3YXkuCj4KPiBXaXRoIHN0
+cnVjdCBidXNfdHlwZTo6cmVtb3ZlIHJldHVybmluZyB2b2lkIGl0J3MgcHJldmVudGVkIHRoYXQg
+bmV3bHkKPiBpbXBsZW1lbnRlZCBidXNlcyByZXR1cm4gYW4gaWdub3JlZCBlcnJvciBjb2RlIGFu
+ZCBzbyBkb24ndCBhbnRpY2lwYXRlCj4gd3JvbmcgZXhwZWN0YXRpb25zIGZvciBkcml2ZXIgYXV0
+aG9ycy4KCllheSEKCj4KPiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVp
+bmUta29lbmlnQHBlbmd1dHJvbml4LmRlPgo+IC0tLQo+IEhlbGxvLAo+Cj4gdGhpcyBwYXRjaCBk
+ZXBlbmRzIG9uICJQQ0k6IGVuZHBvaW50OiBNYWtlIHN0cnVjdCBwY2lfZXBmX2RyaXZlcjo6cmVt
+b3ZlCj4gcmV0dXJuIHZvaWQiIHRoYXQgaXMgbm90IHlldCBhcHBsaWVkLCBzZWUKPiBodHRwczov
+L2xvcmUua2VybmVsLm9yZy9yLzIwMjEwMjIzMDkwNzU3LjU3NjA0LTEtdS5rbGVpbmUta29lbmln
+QHBlbmd1dHJvbml4LmRlLgo+Cj4gSSB0ZXN0ZWQgaXQgdXNpbmcgYWxsbW9kY29uZmlnIG9uIGFt
+ZDY0IGFuZCBhcm0sIGJ1dCBJIHdvdWxkbid0IGJlCj4gc3VycHJpc2VkIGlmIEkgc3RpbGwgbWlz
+c2VkIHRvIGNvbnZlcnQgYSBkcml2ZXIuIFNvIGl0IHdvdWxkIGJlIGdyZWF0IHRvCj4gZ2V0IHRo
+aXMgaW50byBuZXh0IGVhcmx5IGFmdGVyIHRoZSBtZXJnZSB3aW5kb3cgY2xvc2VzLgoKSSdtIGFm
+cmFpZCB5b3UgbWlzc2VkIHRoZSBzMzkwLXNwZWNpZmljIGJ1c3NlcyBpbiBkcml2ZXJzL3MzOTAv
+Y2lvLwooY3NzL2Njdy9jY3dncm91cCkuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpncmV5YnVzLWRldiBtYWlsaW5nIGxpc3QKZ3JleWJ1cy1kZXZAbGlz
+dHMubGluYXJvLm9yZwpodHRwczovL2xpc3RzLmxpbmFyby5vcmcvbWFpbG1hbi9saXN0aW5mby9n
+cmV5YnVzLWRldgo=
