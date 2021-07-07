@@ -2,67 +2,119 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5E593BF69C
-	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jul 2021 09:57:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 383813BF69D
+	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jul 2021 09:57:32 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A9E7266945
-	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jul 2021 07:57:26 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 3FDAD66765
+	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jul 2021 07:57:31 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 9CDB366943; Thu,  8 Jul 2021 07:56:46 +0000 (UTC)
+	id 0113D66760; Thu,  8 Jul 2021 07:56:47 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 915CB66A89;
-	Thu,  8 Jul 2021 07:56:43 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id DFFF867429;
+	Thu,  8 Jul 2021 07:56:44 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 8286560B27
- for <greybus-dev@lists.linaro.org>; Wed,  7 Jul 2021 14:25:30 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id A03F860774
+ for <greybus-dev@lists.linaro.org>; Wed,  7 Jul 2021 21:52:02 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 5500566904; Wed,  7 Jul 2021 14:25:30 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by lists.linaro.org (Postfix) with ESMTPS id 4401660B27
- for <greybus-dev@lists.linaro.org>; Wed,  7 Jul 2021 14:25:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1625667927;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=R1b1MmqRg+JjTb9SqE3N1oUES1jMyS6VpEEII2IWGuk=;
- b=DBpBczUgFB6V/rMm59vP7mT+W/C6Utznlc1KFJfhBuS6L7AHom/UCZbRDyOT2Gd7f6DPZh
- KeMTK0ddheB3UbV2r7Lsg+eh8aju2GKyS8xbH5cSfZQE+YmVaMTnp77fofDiCrhEQT6h6Y
- fqgVQ1j7MlL+tHkNB3V4xf2fNqboCPg=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-144-CRo11BF7MI-sHiDKM9mjGw-1; Wed, 07 Jul 2021 10:25:26 -0400
-X-MC-Unique: CRo11BF7MI-sHiDKM9mjGw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E6AB71926DB0;
- Wed,  7 Jul 2021 14:25:20 +0000 (UTC)
-Received: from [10.36.112.61] (ovpn-112-61.ams2.redhat.com [10.36.112.61])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E4E3919C66;
- Wed,  7 Jul 2021 14:24:39 +0000 (UTC)
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ id 8D78461156; Wed,  7 Jul 2021 21:52:02 +0000 (UTC)
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr30058.outbound.protection.outlook.com [40.107.3.58])
+ by lists.linaro.org (Postfix) with ESMTPS id 5D3F860774
+ for <greybus-dev@lists.linaro.org>; Wed,  7 Jul 2021 21:52:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GUwEoT5zTndHo4m4RzIO1obP0Yv5Yhnpn2cAYH7j/89xbngfwSoCek9ZLL+sQmXDwmfmm0PGyWfQXskNnufNdA4t3A9X/vNrvp9yuZkNg/ltX9pO8lEb9BsZGQfSxJcwU+t8WCI8VeS6Mg5vYFDI/fFXY8zES9fyrObHfOptDOMU+3p43D1NaOaLJeVpbsSeVGQzjrgNpkR6B5YNDnOCrvXGShELKjRxTJvKYW4fNBg6HLCOkymbHrslqm0du7+ICshl8LMsi7AkOs1O2jxhm7Y6MyWChGsK/WJ/NqMY81dHroGFAhsn953oHOdSCUrh6tCFYLQa/6LIhZelmPEbBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VOolQEaSTby6oDIZVj4TP6SpMrwIHasw+s+/A2jOmRg=;
+ b=IHXh+pOZNvA1ee2uwANlBYYPKZGqjyzgF+IVsILprzwzBoTI4ddycC5umFjiNS9WwyInsTMbPjQo9CFE2IDYQAGGG3Ku69lWrPvieUKjFJmazc8YFeuDCzl+h4xNZAxOR0nvGZdwMMWgXopDFRIm1FXnImBwFDoRIUakKICK1NQH2fqXBdM9R0MTP/r5NIXe12XgX30k0oP9smyQqAG0QZalVDIpLgLvpsbqw98NVL+R5QvC2DH+Js+G6LF+NQxxjRc4l1QCNlRyf6fCa9lzo5C1OobM+hUrVr17GGJ1E+BW4ySaMrfDBvFKolWrato8AItBe15PoWn27GfUhWRhTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=eckelmann.de; dmarc=pass action=none header.from=eckelmann.de;
+ dkim=pass header.d=eckelmann.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=eckelmannde.onmicrosoft.com; s=selector1-eckelmannde-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VOolQEaSTby6oDIZVj4TP6SpMrwIHasw+s+/A2jOmRg=;
+ b=wcCnXxQizbMjTUeVYYFA3dmXQ2QVyLfWlRzzvdDUuv+o10+Y9Qxig9KcGHf5q3TOPqtVN9j9I1JxE3mZWy5ndivlzM7VyCYRdkcYcw2ZfFfVibzfEU87dQ3rRBm5/OCXGYelkdJW9pUCBxcJFrFKJAL4m+z3btMeEyqquTdEe3w=
+Authentication-Results: pengutronix.de; dkim=none (message not signed)
+ header.d=none;pengutronix.de; dmarc=none action=none
+ header.from=eckelmann.de;
+Received: from AM9P189MB1700.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:2fc::15)
+ by AM8P189MB1411.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:242::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.21; Wed, 7 Jul
+ 2021 21:51:56 +0000
+Received: from AM9P189MB1700.EURP189.PROD.OUTLOOK.COM
+ ([fe80::cc15:eec3:792a:3310]) by AM9P189MB1700.EURP189.PROD.OUTLOOK.COM
+ ([fe80::cc15:eec3:792a:3310%7]) with mapi id 15.20.4308.022; Wed, 7 Jul 2021
+ 21:51:56 +0000
+Date: Wed, 7 Jul 2021 23:51:54 +0200
+From: Thorsten Scherer <t.scherer@eckelmann.de>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <20210707215108.ervxrkmbitp3l2ej@ws067.eckelmann.group>
 References: <20210706154803.1631813-1-u.kleine-koenig@pengutronix.de>
  <20210706154803.1631813-5-u.kleine-koenig@pengutronix.de>
-From: Benjamin Tissoires <benjamin.tissoires@redhat.com>
-Message-ID: <5d3bf56e-285f-ecc1-ec64-384409645353@redhat.com>
-Date: Wed, 7 Jul 2021 16:24:38 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
-MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <20210706154803.1631813-5-u.kleine-koenig@pengutronix.de>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=benjamin.tissoires@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+X-ClientProxiedBy: PR3P251CA0003.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:102:b5::6) To AM9P189MB1700.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:2fc::15)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost (2a00:1f08:400:4::2) by
+ PR3P251CA0003.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:b5::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4308.20 via Frontend Transport; Wed, 7 Jul 2021 21:51:55 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8987669f-0789-4189-d163-08d94191700f
+X-MS-TrafficTypeDiagnostic: AM8P189MB1411:
+X-Microsoft-Antispam-PRVS: <AM8P189MB14112A254C08C477E55D0F8F9F1A9@AM8P189MB1411.EURP189.PROD.OUTLOOK.COM>
+X-MS-Exchange-Transport-Forked: True
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rC6gE/ftYZK0TyxDn7lTBec3tW9lj/B28w6BbD5ivXWqaHoRP4nXvcNJ8XfeyUoBFfG4MfXl/9S9QY2VySRDBaC39YogHUjFC2fk7jTTBQlZF4aZunxi0f9XCSl06OJOVLk9RxBw4e8dRbD0qKqxMHU9pIlFDnrqKqTcQcbpp1XJCa0lRRbqtV5CGhD2/ELe1n0/NDP2b7muZTkL0wXR4zKFJ5camYnJMv8UZYm9yTC/nD2lvZ0NfGITShY/vvuSrYPxSV2PnE8z7jkB5p+VNg84c/VDq+yIjhbTh0t+WkQJ/pLQZk8heEF0kb+iaF1k5VDfV4m3MjIrSh0r/ktwRgzl7hy1IQB57ETIk9tzFM5iqvA1NbPfIq+IN5kTwJEYETCnuiA41VytPvGHvPLiQPRC63hc3oXC3zwxFPQVFYB/S8sbeEuJ+jJQ9vzuCp6GMyhDe4yESL/RfI8i0KHeTlA6Ac1tANyFyK0pb+CKh6KwpO5pjylFcbjuHO/IxkH9TaGHQFvqVupc7hYen+EmksU1QyO04BUbhtCM4lf5q0dYhjxw+BxJC4WnF7dYuoNjUAeEaWxVMT1CqcpOCDBfm9gvfyrR1ulRTvPtN9CKslQT43mLIFxI0gk7OhiSA/FCOjcYh+mZtvPLcUvt1zmd+Koya4XrOLBoQ953aXQAtwiOkfPdMikOwmGgG+Cs5CjRM4oKf7LQVlmsTPef+6WQbSCwES+ucDpz8Dt2bl4H/awHnfNyacdp9bm5cgds2vLnZGOulr1J/nd7hlOv3kUTMLf/rNZV85/Os5lnUzHctgAKqHOOt87+cRR4JU3+J2Vi
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM9P189MB1700.EURP189.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(39830400003)(366004)(376002)(136003)(4326008)(7336002)(7276002)(7366002)(2906002)(6486002)(7406005)(7416002)(15974865002)(8936002)(8676002)(6862004)(66946007)(478600001)(86362001)(5660300002)(316002)(52116002)(6496006)(1076003)(54906003)(38100700002)(66574015)(66556008)(66476007)(9686003)(186003)(557034005)(18886075002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?+T2aJFPQNKWhb4+Ca2uwObFqiYZV6tm/GhFjUUp6/pv9n3k3VUjdrnX5wk?=
+ =?iso-8859-1?Q?SMeQjUaHfkt0ENh/FcfOh1XbHcJLeqUTO4XnA4hI52/n26pz3kDaFB5tIV?=
+ =?iso-8859-1?Q?Ym7mIlWmy73Qj86dkU3NBS+6FVlm0MlI6kjuwFJvJgRpisuclndcqeotr+?=
+ =?iso-8859-1?Q?1S7hj3RndxYl9ERCmsKIuwlC1dTbWfGNwEnKuw7483o7YG/E6qM/r6Yics?=
+ =?iso-8859-1?Q?MavPrWqrRf+qHxWWP8mqWX+Aprc5KuPDC7oOS1VpjyErJ3Duq1fOU87ROl?=
+ =?iso-8859-1?Q?L3dCvA+d6zivgRe+2rrmJv8icGTzxtFYOZbt0U9ehRWPIvDJ9vGhWOnjBa?=
+ =?iso-8859-1?Q?KtxZqOKwb3EmDSrNnhEqA+I7bW5hbnFWVh2uocdfaS+cnPpfbf1bwHhUqt?=
+ =?iso-8859-1?Q?9TNhVZBSQu3QYYAIxOqCuAEcpMd6ougUYqO4PApAkzMa9ZzoPe0JUhEmLb?=
+ =?iso-8859-1?Q?mCkarPJ32C2EqrY667G9nM+DqKuwErGj1RfAT9W5e15PVva6a+kUlW0XpE?=
+ =?iso-8859-1?Q?eIYmp4oFp6ysVqHy2OzsX29EnIu+KIizpj1SUDhGcssi9Y8msEtKCizWIP?=
+ =?iso-8859-1?Q?pWw84FwhM7bPwyqGgEVOVB0bWxsuHH1WaWYSPh5ExwSikAILxU5oLPchlX?=
+ =?iso-8859-1?Q?FfHQp7QBSIhCujsfk1FTId2RpCCBcW08VYOM6hpwCBSBpXCYKYnH/Vyemo?=
+ =?iso-8859-1?Q?8t+NGalLYABZIpmhvXGQpKLK/G7cucHD029qQgE1w/hNBkseePQk8fzOCH?=
+ =?iso-8859-1?Q?oJ+vl9XWudIM+nR9RVjOVUcEByhVkmp1e0D5MdiZIGgnBpkwHnN/h6b40j?=
+ =?iso-8859-1?Q?s6GeleyzZO7FpL4lZ6MhWoEH6woztWFpXHZfWbO2SMO4YuuTtc0e5WLRE8?=
+ =?iso-8859-1?Q?1CkKzFJU59m5tsI1SJS7pShljGNwVLUt1RiS8e7kGq0X2DezeCEwdg5h/J?=
+ =?iso-8859-1?Q?JqQaXfy/nQDHo7QuqD1vDlsjfjTygy0TLsnktqWFLJX+JgnS9ajqk7VkBx?=
+ =?iso-8859-1?Q?B111v16gUndePUB49HliUkxKYaOjaibHdImRubeSpP0S11lmdZrJZ0KLOC?=
+ =?iso-8859-1?Q?KwwrjzbGu6McBaKbmG7MOULoTMGACRkrEdhk4deFY91cCS4vPhcx8gvOwB?=
+ =?iso-8859-1?Q?wf3toP9xy6dxLB560QqugJyXsK0IZUBaUktCh8oK8uXeI9oJgk8nPXwFO5?=
+ =?iso-8859-1?Q?OYR/zzwqlK1M2Gr2tiuZCwMxkBcng4hN87/XgYWqzcoTf2MXoigVZkKQTO?=
+ =?iso-8859-1?Q?esdap94X0d9UBcINAYH0mQ/TmK8/4bUkyVWcwGz+8EmG36j3Lpr0/O+HcN?=
+ =?iso-8859-1?Q?A0mxv+qRhnsbFLWWtgrUC1IcMvaWqSd1Dq+l4hb3bT4LuFVaHGxaQSagd0?=
+ =?iso-8859-1?Q?QBkf6iJb8pryfj9IhAJlMHsVyP+RF4mw=3D=3D?=
+X-OriginatorOrg: eckelmann.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8987669f-0789-4189-d163-08d94191700f
+X-MS-Exchange-CrossTenant-AuthSource: AM9P189MB1700.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2021 21:51:56.1698 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 62e24f58-823c-4d73-8ff2-db0a5f20156c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ur8XMZiF6bwEyBALI0qg2jMFHKKsDYaGvYi6ddYfgV7bn1VoiuIVhLN4LTrTEmRStKglRvEnKtWfYKCJBBKoYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8P189MB1411
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Thu, 08 Jul 2021 07:55:56 +0000
 Subject: Re: [greybus-dev] [PATCH v2 4/4] bus: Make remove callback return
@@ -83,7 +135,8 @@ Cc: nvdimm@lists.linux.dev, Alexey Kardashevskiy <aik@ozlabs.ru>,
  Samuel Iglesias Gonsalvez <siglesias@igalia.com>,
  Jens Taprogge <jens.taprogge@taprogge.org>,
  Ulf Hansson <ulf.hansson@linaro.org>, Jaroslav Kysela <perex@perex.cz>,
- Thorsten Scherer <t.scherer@eckelmann.de>, Paul Mackerras <paulus@samba.org>,
+ linux-fpga@vger.kernel.org, Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Paul Mackerras <paulus@samba.org>,
  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
  "K. Y. Srinivasan" <kys@microsoft.com>,
  Mike Christie <michael.christie@oracle.com>, Wei Liu <wei.liu@kernel.org>,
@@ -93,13 +146,13 @@ Cc: nvdimm@lists.linux.dev, Alexey Kardashevskiy <aik@ozlabs.ru>,
  Tomas Winkler <tomas.winkler@intel.com>, Julien Grall <jgrall@amazon.com>,
  Ohad Ben-Cohen <ohad@wizery.com>, Alex Williamson <alex.williamson@redhat.com>,
  Alex Elder <elder@kernel.org>, linux-parisc@vger.kernel.org,
- Geoff Levand <geoff@infradead.org>, linux-fpga@vger.kernel.org,
- linux-usb@vger.kernel.org, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Kai-Heng Feng <kai.heng.feng@canonical.com>, kernel@pengutronix.de,
- Jon Mason <jdmason@kudzu.us>, linux-ntb@googlegroups.com,
- Wu Hao <hao.wu@intel.com>, David Woodhouse <dwmw@amazon.co.uk>,
- =?UTF-8?Q?Krzysztof_Wilczy=c5=84ski?= <kw@linux.com>,
+ Geoff Levand <geoff@infradead.org>, linux-usb@vger.kernel.org,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ kernel@pengutronix.de, Jon Mason <jdmason@kudzu.us>,
+ linux-ntb@googlegroups.com, Wu Hao <hao.wu@intel.com>,
+ David Woodhouse <dwmw@amazon.co.uk>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Manohar Vanga <manohar.vanga@gmail.com>, linux-wireless@vger.kernel.org,
  Dominik Brodowski <linux@dominikbrodowski.net>,
@@ -110,7 +163,7 @@ Cc: nvdimm@lists.linux.dev, Alexey Kardashevskiy <aik@ozlabs.ru>,
  linux-i2c@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
  Stephen Hemminger <sthemmin@microsoft.com>, Ira Weiny <ira.weiny@intel.com>,
  Helge Deller <deller@gmx.de>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
  industrypack-devel@lists.sourceforge.net, linux-mips@vger.kernel.org,
  Len Brown <lenb@kernel.org>, alsa-devel@alsa-project.org,
  linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
@@ -123,7 +176,7 @@ Cc: nvdimm@lists.linux.dev, Alexey Kardashevskiy <aik@ozlabs.ru>,
  Mathieu Poirier <mathieu.poirier@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
  Cornelia Huck <cohuck@redhat.com>, Wolfram Sang <wsa@kernel.org>,
  Joey Pabalan <jpabalanb@gmail.com>, Yehezkel Bernat <YehezkelShB@gmail.com>,
- =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
+ Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>,
  Bodo Stroesser <bostroesser@gmail.com>,
  Alison Schofield <alison.schofield@intel.com>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>,
@@ -171,77 +224,50 @@ Cc: nvdimm@lists.linux.dev, Alexey Kardashevskiy <aik@ozlabs.ru>,
  Mark Brown <broonie@kernel.org>, Marc Zyngier <maz@kernel.org>,
  dmaengine@vger.kernel.org, Johannes Berg <johannes@sipsolutions.net>,
  Johannes Thumshirn <jth@kernel.org>, Maximilian Luz <luzmaximilian@gmail.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-T24gNy82LzIxIDU6NDggUE0sIFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3RlOgo+IFRoZSBkcml2ZXIg
-Y29yZSBpZ25vcmVzIHRoZSByZXR1cm4gdmFsdWUgb2YgdGhpcyBjYWxsYmFjayBiZWNhdXNlIHRo
-ZXJlCj4gaXMgb25seSBsaXR0bGUgaXQgY2FuIGRvIHdoZW4gYSBkZXZpY2UgZGlzYXBwZWFycy4K
-PiAKPiBUaGlzIGlzIHRoZSBmaW5hbCBiaXQgb2YgYSBsb25nIGxhc3RpbmcgY2xlYW51cCBxdWVz
-dCB3aGVyZSBzZXZlcmFsCj4gYnVzZXMgd2VyZSBjb252ZXJ0ZWQgdG8gYWxzbyByZXR1cm4gdm9p
-ZCBmcm9tIHRoZWlyIHJlbW92ZSBjYWxsYmFjay4KPiBBZGRpdGlvbmFsbHkgc29tZSByZXNvdXJj
-ZSBsZWFrcyB3ZXJlIGZpeGVkIHRoYXQgd2VyZSBjYXVzZWQgYnkgZHJpdmVycwo+IHJldHVybmlu
-ZyBhbiBlcnJvciBjb2RlIGluIHRoZSBleHBlY3RhdGlvbiB0aGF0IHRoZSBkcml2ZXIgd29uJ3Qg
-Z28KPiBhd2F5Lgo+IAo+IFdpdGggc3RydWN0IGJ1c190eXBlOjpyZW1vdmUgcmV0dXJuaW5nIHZv
-aWQgaXQncyBwcmV2ZW50ZWQgdGhhdCBuZXdseQo+IGltcGxlbWVudGVkIGJ1c2VzIHJldHVybiBh
-biBpZ25vcmVkIGVycm9yIGNvZGUgYW5kIHNvIGRvbid0IGFudGljaXBhdGUKPiB3cm9uZyBleHBl
-Y3RhdGlvbnMgZm9yIGRyaXZlciBhdXRob3JzLgo+IAo+IEFja2VkLWJ5OiBSdXNzZWxsIEtpbmcg
-KE9yYWNsZSkgPHJtaytrZXJuZWxAYXJtbGludXgub3JnLnVrPiAoRm9yIEFSTSwgQW1iYSBhbmQg
-cmVsYXRlZCBwYXJ0cykKPiBBY2tlZC1ieTogTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwub3Jn
-Pgo+IEFja2VkLWJ5OiBDaGVuLVl1IFRzYWkgPHdlbnNAY3NpZS5vcmc+IChmb3IgZHJpdmVycy9i
-dXMvc3VueGktcnNiLmMpCj4gQWNrZWQtYnk6IFBhbGkgUm9ow6FyIDxwYWxpQGtlcm5lbC5vcmc+
-Cj4gQWNrZWQtYnk6IE1hdXJvIENhcnZhbGhvIENoZWhhYiA8bWNoZWhhYkBrZXJuZWwub3JnPiAo
-Zm9yIGRyaXZlcnMvbWVkaWEpCj4gQWNrZWQtYnk6IEhhbnMgZGUgR29lZGUgPGhkZWdvZWRlQHJl
-ZGhhdC5jb20+IChGb3IgZHJpdmVycy9wbGF0Zm9ybSkKPiBBY2tlZC1ieTogQWxleGFuZHJlIEJl
-bGxvbmkgPGFsZXhhbmRyZS5iZWxsb25pQGJvb3RsaW4uY29tPgo+IEFja2VkLUJ5OiBWaW5vZCBL
-b3VsIDx2a291bEBrZXJuZWwub3JnPgo+IEFja2VkLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NA
-c3VzZS5jb20+IChGb3IgWGVuKQo+IEFja2VkLWJ5OiBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
-cm8ub3JnPiAoRm9yIGRyaXZlcnMvbWZkKQo+IEFja2VkLWJ5OiBKb2hhbm5lcyBUaHVtc2hpcm4g
-PGp0aEBrZXJuZWwub3JnPiAoRm9yIGRyaXZlcnMvbWNiKQo+IEFja2VkLWJ5OiBKb2hhbiBIb3Zv
-bGQgPGpvaGFuQGtlcm5lbC5vcmc+Cj4gQWNrZWQtYnk6IFNyaW5pdmFzIEthbmRhZ2F0bGEgPHNy
-aW5pdmFzLmthbmRhZ2F0bGFAbGluYXJvLm9yZz4gKEZvciBkcml2ZXJzL3NsaW1idXMpCj4gQWNr
-ZWQtYnk6IEtpcnRpIFdhbmtoZWRlIDxrd2Fua2hlZGVAbnZpZGlhLmNvbT4gKEZvciBkcml2ZXJz
-L3ZmaW8pCj4gQWNrZWQtYnk6IE1heGltaWxpYW4gTHV6IDxsdXptYXhpbWlsaWFuQGdtYWlsLmNv
-bT4KPiBBY2tlZC1ieTogSGVpa2tpIEtyb2dlcnVzIDxoZWlra2kua3JvZ2VydXNAbGludXguaW50
-ZWwuY29tPiAoRm9yIHVscGkgYW5kIHR5cGVjKQo+IEFja2VkLWJ5OiBTYW11ZWwgSWdsZXNpYXMg
-R29uc8OhbHZleiA8c2lnbGVzaWFzQGlnYWxpYS5jb20+IChGb3IgaXBhY2spCj4gUmV2aWV3ZWQt
-Ynk6IFRvbSBSaXggPHRyaXhAcmVkaGF0LmNvbT4gKEZvciBmcGdhKQo+IEFja2VkLWJ5OiBHZW9m
-ZiBMZXZhbmQgPGdlb2ZmQGluZnJhZGVhZC5vcmc+IChGb3IgcHMzKQo+IFNpZ25lZC1vZmYtYnk6
-IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+Cj4gLS0t
-Cj4gCgpbLi4uXQoKPiAgIGRyaXZlcnMvaGlkL2hpZC1jb3JlLmMgICAgICAgICAgICAgICAgICAg
-IHwgNCArLS0tCj4gICBkcml2ZXJzL2hpZC9pbnRlbC1pc2gtaGlkL2lzaHRwL2J1cy5jICAgICB8
-IDQgKy0tLQoKWy4uLl0KCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaGlkL2hpZC1jb3JlLmMgYi9k
-cml2ZXJzL2hpZC9oaWQtY29yZS5jCj4gaW5kZXggN2RiMzMyMTM5ZjdkLi5kYmVkMjUyNGZkNDcg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9oaWQvaGlkLWNvcmUuYwo+ICsrKyBiL2RyaXZlcnMvaGlk
-L2hpZC1jb3JlLmMKPiBAQCAtMjMwMiw3ICsyMzAyLDcgQEAgc3RhdGljIGludCBoaWRfZGV2aWNl
-X3Byb2JlKHN0cnVjdCBkZXZpY2UgKmRldikKPiAgIAlyZXR1cm4gcmV0Owo+ICAgfQo+ICAgCj4g
-LXN0YXRpYyBpbnQgaGlkX2RldmljZV9yZW1vdmUoc3RydWN0IGRldmljZSAqZGV2KQo+ICtzdGF0
-aWMgdm9pZCBoaWRfZGV2aWNlX3JlbW92ZShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4gICB7Cj4gICAJ
-c3RydWN0IGhpZF9kZXZpY2UgKmhkZXYgPSB0b19oaWRfZGV2aWNlKGRldik7Cj4gICAJc3RydWN0
-IGhpZF9kcml2ZXIgKmhkcnY7Cj4gQEAgLTIzMjIsOCArMjMyMiw2IEBAIHN0YXRpYyBpbnQgaGlk
-X2RldmljZV9yZW1vdmUoc3RydWN0IGRldmljZSAqZGV2KQo+ICAgCj4gICAJaWYgKCFoZGV2LT5p
-b19zdGFydGVkKQo+ICAgCQl1cCgmaGRldi0+ZHJpdmVyX2lucHV0X2xvY2spOwo+IC0KPiAtCXJl
-dHVybiAwOwo+ICAgfQo+ICAgCj4gICBzdGF0aWMgc3NpemVfdCBtb2RhbGlhc19zaG93KHN0cnVj
-dCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmEsCj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvaGlkL2ludGVsLWlzaC1oaWQvaXNodHAvYnVzLmMgYi9kcml2ZXJzL2hpZC9pbnRl
-bC1pc2gtaGlkL2lzaHRwL2J1cy5jCj4gaW5kZXggZjA4MDJiMDQ3ZWQ4Li44YTUxYmQ5Y2QwOTMg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9oaWQvaW50ZWwtaXNoLWhpZC9pc2h0cC9idXMuYwo+ICsr
-KyBiL2RyaXZlcnMvaGlkL2ludGVsLWlzaC1oaWQvaXNodHAvYnVzLmMKPiBAQCAtMjU1LDcgKzI1
-NSw3IEBAIHN0YXRpYyBpbnQgaXNodHBfY2xfYnVzX21hdGNoKHN0cnVjdCBkZXZpY2UgKmRldiwg
-c3RydWN0IGRldmljZV9kcml2ZXIgKmRydikKPiAgICAqCj4gICAgKiBSZXR1cm46IFJldHVybiB2
-YWx1ZSBmcm9tIGRyaXZlciByZW1vdmUoKSBjYWxsLgo+ICAgICovCj4gLXN0YXRpYyBpbnQgaXNo
-dHBfY2xfZGV2aWNlX3JlbW92ZShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4gK3N0YXRpYyB2b2lkIGlz
-aHRwX2NsX2RldmljZV9yZW1vdmUoc3RydWN0IGRldmljZSAqZGV2KQo+ICAgewo+ICAgCXN0cnVj
-dCBpc2h0cF9jbF9kZXZpY2UgKmRldmljZSA9IHRvX2lzaHRwX2NsX2RldmljZShkZXYpOwo+ICAg
-CXN0cnVjdCBpc2h0cF9jbF9kcml2ZXIgKmRyaXZlciA9IHRvX2lzaHRwX2NsX2RyaXZlcihkZXYt
-PmRyaXZlcik7Cj4gQEAgLTI2Nyw4ICsyNjcsNiBAQCBzdGF0aWMgaW50IGlzaHRwX2NsX2Rldmlj
-ZV9yZW1vdmUoc3RydWN0IGRldmljZSAqZGV2KQo+ICAgCj4gICAJaWYgKGRyaXZlci0+cmVtb3Zl
-KQo+ICAgCQlkcml2ZXItPnJlbW92ZShkZXZpY2UpOwo+IC0KPiAtCXJldHVybiAwOwo+ICAgfQo+
-ICAgCj4gICAvKioKCkZvciB0aGUgSElEIHBhcnQ6CgpBY2tlZC1ieTogQmVuamFtaW4gVGlzc29p
-cmVzIDxiZW5qYW1pbi50aXNzb2lyZXNAcmVkaGF0LmNvbT4KCkNoZWVycywKQmVuamFtaW4KCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2
-IG1haWxpbmcgbGlzdApncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnCmh0dHBzOi8vbGlzdHMu
-bGluYXJvLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2dyZXlidXMtZGV2Cg==
+
+On Tue, Jul 06, 2021 at 05:48:03PM +0200, Uwe Kleine-K=F6nig wrote:
+> The driver core ignores the return value of this callback because there
+> is only little it can do when a device disappears.
+>
+> This is the final bit of a long lasting cleanup quest where several
+> buses were converted to also return void from their remove callback.
+> Additionally some resource leaks were fixed that were caused by drivers
+> returning an error code in the expectation that the driver won't go
+> away.
+>
+> With struct bus_type::remove returning void it's prevented that newly
+> implemented buses return an ignored error code and so don't anticipate
+> wrong expectations for driver authors.
+
+[...]
+
+>  drivers/siox/siox-core.c                  | 4 +---
+
+(For drivers/siox)
+
+Acked-by: Thorsten Scherer <t.scherer@eckelmann.de>
+
+Best regards
+Thorsten
+
+--
+Thorsten Scherer | Eckelmann AG | www.eckelmann.de |
+Eckelmann AG
+Vorstand: Dipl.-Ing. Peter Frankenbach (Sprecher) Dipl.-Wi.-Ing. Philipp Ec=
+kelmann
+Dr.-Ing. Marco M=FCnchhof
+Vorsitzender des Aufsichtsrats: Hubertus G. Krossa Stv. Vorsitzender des Au=
+fsichtsrats: Dr.-Ing. Gerd Eckelmann
+Sitz der Gesellschaft: Berliner Str. 161, 65205 Wiesbaden, Amtsgericht Wies=
+baden HRB 12636
+www.eckelmann.de
+_______________________________________________
+greybus-dev mailing list
+greybus-dev@lists.linaro.org
+https://lists.linaro.org/mailman/listinfo/greybus-dev
