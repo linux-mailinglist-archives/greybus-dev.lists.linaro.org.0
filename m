@@ -2,43 +2,44 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2269F3DE594
-	for <lists+greybus-dev@lfdr.de>; Tue,  3 Aug 2021 06:40:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FE553DE58E
+	for <lists+greybus-dev@lfdr.de>; Tue,  3 Aug 2021 06:39:49 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 1FA0E634D8
-	for <lists+greybus-dev@lfdr.de>; Tue,  3 Aug 2021 04:40:00 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 75EB266015
+	for <lists+greybus-dev@lfdr.de>; Tue,  3 Aug 2021 04:39:48 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id EE5E4617CF; Tue,  3 Aug 2021 04:39:42 +0000 (UTC)
+	id 61BF563509; Tue,  3 Aug 2021 04:39:45 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 03CFE666E7;
-	Tue,  3 Aug 2021 04:39:40 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 8605166553;
+	Tue,  3 Aug 2021 04:39:42 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id CE51B60570
- for <greybus-dev@lists.linaro.org>; Wed, 21 Jul 2021 10:09:49 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id B22D86078C
+ for <greybus-dev@lists.linaro.org>; Thu, 22 Jul 2021 08:46:03 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id BC08361951; Wed, 21 Jul 2021 10:09:49 +0000 (UTC)
+ id 9FAE460A94; Thu, 22 Jul 2021 08:46:03 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by lists.linaro.org (Postfix) with ESMTPS id 8A9D760570
- for <greybus-dev@lists.linaro.org>; Wed, 21 Jul 2021 10:09:47 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0BAC960FE7;
- Wed, 21 Jul 2021 10:09:43 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTPS id 74A326078C
+ for <greybus-dev@lists.linaro.org>; Thu, 22 Jul 2021 08:46:01 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A43AE6128C;
+ Thu, 22 Jul 2021 08:45:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1626862185;
- bh=AkCAzoeKK4dm3J0IYr3eqKdLUog3VqnY+aXSEhth1R0=;
+ s=korg; t=1626943559;
+ bh=iHEKpKP05yPtSDo0WVw13tR4OsPIw3x7iurEQu7Pc7Q=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=c1tD+1+8N7ya+U+R4FoCk5r1AY0+njsEQDtKrpnu5fKg2Nsyw8ad0RAbDRa8LMlYN
- kIGK/SB0S4EC/Bt9LoElGD8+QX12QgKfoR1683w3NYrmezl45haNH7nWDa/e7NVumf
- ZIzS+wQ0FwO2WzFS4jJEXOjj+Re557OYzd+zf9Xc=
-Date: Wed, 21 Jul 2021 12:09:41 +0200
+ b=d2l4V14jYNVya/romP2w2ezg4x2LnX47K9dLSJmCxQOKyIqkdonEoIsuSyzycFfD4
+ aHamBXJweC7B8K4Qi3lPBaud6oc7vHctb7fViEzj6oXWZWpeL9VSuOZpThr23TyNei
+ Kh7xAATxCTMeB2NBX21iFqK668swZChaCi9FSwpo=
+Date: Thu, 22 Jul 2021 10:45:55 +0200
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <YPfyZen4Y0uDKqDT@kroah.com>
+Message-ID: <YPkwQwf0dUKnGA7L@kroah.com>
 References: <20210713193522.1770306-1-u.kleine-koenig@pengutronix.de>
+ <YPfyZen4Y0uDKqDT@kroah.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210713193522.1770306-1-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <YPfyZen4Y0uDKqDT@kroah.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Tue, 03 Aug 2021 04:39:24 +0000
 Subject: Re: [greybus-dev] [PATCH v4 0/5] bus: Make remove callback return
@@ -165,52 +166,186 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Tue, Jul 13, 2021 at 09:35:17PM +0200, Uwe Kleine-K=F6nig wrote:
-> Hello,
+On Wed, Jul 21, 2021 at 12:09:41PM +0200, Greg Kroah-Hartman wrote:
+> On Tue, Jul 13, 2021 at 09:35:17PM +0200, Uwe Kleine-K=F6nig wrote:
+> > Hello,
+> > =
+
+> > this is v4 of the final patch set for my effort to make struct
+> > bus_type::remove return void.
+> > =
+
+> > The first four patches contain cleanups that make some of these
+> > callbacks (more obviously) always return 0. They are acked by the
+> > respective maintainers. Bjorn Helgaas explicitly asked to include the
+> > pci patch (#1) into this series, so Greg taking this is fine. I assume
+> > the s390 people are fine with Greg taking patches #2 to #4, too, they
+> > didn't explicitly said so though.
+> > =
+
+> > The last patch actually changes the prototype and so touches quite some
+> > drivers and has the potential to conflict with future developments, so I
+> > consider it beneficial to put these patches into next soon. I expect
+> > that it will be Greg who takes the complete series, he already confirmed
+> > via irc (for v2) to look into this series.
+> > =
+
+> > The only change compared to v3 is in the fourth patch where I modified a
+> > few more drivers to fix build failures. Some of them were found by build
+> > bots (thanks!), some of them I found myself using a regular expression
+> > search. The newly modified files are:
+> > =
+
+> >  arch/sparc/kernel/vio.c
+> >  drivers/nubus/bus.c
+> >  drivers/sh/superhyway/superhyway.c
+> >  drivers/vlynq/vlynq.c
+> >  drivers/zorro/zorro-driver.c
+> >  sound/ac97/bus.c
+> > =
+
+> > Best regards
+> > Uwe
 > =
 
-> this is v4 of the final patch set for my effort to make struct
-> bus_type::remove return void.
-> =
+> Now queued up.  I can go make a git tag that people can pull from after
+> 0-day is finished testing this to verify all is good, if others need it.
 
-> The first four patches contain cleanups that make some of these
-> callbacks (more obviously) always return 0. They are acked by the
-> respective maintainers. Bjorn Helgaas explicitly asked to include the
-> pci patch (#1) into this series, so Greg taking this is fine. I assume
-> the s390 people are fine with Greg taking patches #2 to #4, too, they
-> didn't explicitly said so though.
-> =
-
-> The last patch actually changes the prototype and so touches quite some
-> drivers and has the potential to conflict with future developments, so I
-> consider it beneficial to put these patches into next soon. I expect
-> that it will be Greg who takes the complete series, he already confirmed
-> via irc (for v2) to look into this series.
-> =
-
-> The only change compared to v3 is in the fourth patch where I modified a
-> few more drivers to fix build failures. Some of them were found by build
-> bots (thanks!), some of them I found myself using a regular expression
-> search. The newly modified files are:
-> =
-
->  arch/sparc/kernel/vio.c
->  drivers/nubus/bus.c
->  drivers/sh/superhyway/superhyway.c
->  drivers/vlynq/vlynq.c
->  drivers/zorro/zorro-driver.c
->  sound/ac97/bus.c
-> =
-
-> Best regards
-> Uwe
-
-Now queued up.  I can go make a git tag that people can pull from after
-0-day is finished testing this to verify all is good, if others need it.
+Ok, here's a tag that any other subsystem can pull from if they want
+these changes in their tree before 5.15-rc1 is out.  I might pull it
+into my char-misc-next tree as well just to keep that tree sane as it
+seems to pick up new busses on a regular basis...
 
 thanks,
 
 greg k-h
+
+-----------------------------------
+
+
+The following changes since commit 2734d6c1b1a089fb593ef6a23d4b70903526fe0c:
+
+  Linux 5.14-rc2 (2021-07-18 14:13:49 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core.git tags=
+/bus_remove_return_void-5.15
+
+for you to fetch changes up to fc7a6209d5710618eb4f72a77cd81b8d694ecf89:
+
+  bus: Make remove callback return void (2021-07-21 11:53:42 +0200)
+
+----------------------------------------------------------------
+Bus: Make remove callback return void tag
+
+Tag for other trees/branches to pull from in order to have a stable
+place to build off of if they want to add new busses for 5.15.
+
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+----------------------------------------------------------------
+Uwe Kleine-K=F6nig (5):
+      PCI: endpoint: Make struct pci_epf_driver::remove return void
+      s390/cio: Make struct css_driver::remove return void
+      s390/ccwgroup: Drop if with an always false condition
+      s390/scm: Make struct scm_driver::remove return void
+      bus: Make remove callback return void
+
+ arch/arm/common/locomo.c                  | 3 +--
+ arch/arm/common/sa1111.c                  | 4 +---
+ arch/arm/mach-rpc/ecard.c                 | 4 +---
+ arch/mips/sgi-ip22/ip22-gio.c             | 3 +--
+ arch/parisc/kernel/drivers.c              | 5 ++---
+ arch/powerpc/platforms/ps3/system-bus.c   | 3 +--
+ arch/powerpc/platforms/pseries/ibmebus.c  | 3 +--
+ arch/powerpc/platforms/pseries/vio.c      | 3 +--
+ arch/s390/include/asm/eadm.h              | 2 +-
+ arch/sparc/kernel/vio.c                   | 4 +---
+ drivers/acpi/bus.c                        | 3 +--
+ drivers/amba/bus.c                        | 4 +---
+ drivers/base/auxiliary.c                  | 4 +---
+ drivers/base/isa.c                        | 4 +---
+ drivers/base/platform.c                   | 4 +---
+ drivers/bcma/main.c                       | 6 ++----
+ drivers/bus/sunxi-rsb.c                   | 4 +---
+ drivers/cxl/core.c                        | 3 +--
+ drivers/dax/bus.c                         | 4 +---
+ drivers/dma/idxd/sysfs.c                  | 4 +---
+ drivers/firewire/core-device.c            | 4 +---
+ drivers/firmware/arm_scmi/bus.c           | 4 +---
+ drivers/firmware/google/coreboot_table.c  | 4 +---
+ drivers/fpga/dfl.c                        | 4 +---
+ drivers/hid/hid-core.c                    | 4 +---
+ drivers/hid/intel-ish-hid/ishtp/bus.c     | 4 +---
+ drivers/hv/vmbus_drv.c                    | 5 +----
+ drivers/hwtracing/intel_th/core.c         | 4 +---
+ drivers/i2c/i2c-core-base.c               | 5 +----
+ drivers/i3c/master.c                      | 4 +---
+ drivers/input/gameport/gameport.c         | 3 +--
+ drivers/input/serio/serio.c               | 3 +--
+ drivers/ipack/ipack.c                     | 4 +---
+ drivers/macintosh/macio_asic.c            | 4 +---
+ drivers/mcb/mcb-core.c                    | 4 +---
+ drivers/media/pci/bt8xx/bttv-gpio.c       | 3 +--
+ drivers/memstick/core/memstick.c          | 3 +--
+ drivers/mfd/mcp-core.c                    | 3 +--
+ drivers/misc/mei/bus.c                    | 4 +---
+ drivers/misc/tifm_core.c                  | 3 +--
+ drivers/mmc/core/bus.c                    | 4 +---
+ drivers/mmc/core/sdio_bus.c               | 4 +---
+ drivers/net/netdevsim/bus.c               | 3 +--
+ drivers/ntb/core.c                        | 4 +---
+ drivers/ntb/ntb_transport.c               | 4 +---
+ drivers/nubus/bus.c                       | 6 ++----
+ drivers/nvdimm/bus.c                      | 3 +--
+ drivers/pci/endpoint/pci-epf-core.c       | 7 ++-----
+ drivers/pci/pci-driver.c                  | 3 +--
+ drivers/pcmcia/ds.c                       | 4 +---
+ drivers/platform/surface/aggregator/bus.c | 4 +---
+ drivers/platform/x86/wmi.c                | 4 +---
+ drivers/pnp/driver.c                      | 3 +--
+ drivers/rapidio/rio-driver.c              | 4 +---
+ drivers/rpmsg/rpmsg_core.c                | 7 ++-----
+ drivers/s390/block/scm_drv.c              | 4 +---
+ drivers/s390/cio/ccwgroup.c               | 6 +-----
+ drivers/s390/cio/chsc_sch.c               | 3 +--
+ drivers/s390/cio/css.c                    | 7 +++----
+ drivers/s390/cio/css.h                    | 2 +-
+ drivers/s390/cio/device.c                 | 9 +++------
+ drivers/s390/cio/eadm_sch.c               | 4 +---
+ drivers/s390/cio/scm.c                    | 5 +++--
+ drivers/s390/cio/vfio_ccw_drv.c           | 3 +--
+ drivers/s390/crypto/ap_bus.c              | 4 +---
+ drivers/scsi/scsi_debug.c                 | 3 +--
+ drivers/sh/superhyway/superhyway.c        | 8 ++------
+ drivers/siox/siox-core.c                  | 4 +---
+ drivers/slimbus/core.c                    | 4 +---
+ drivers/soc/qcom/apr.c                    | 4 +---
+ drivers/spi/spi.c                         | 4 +---
+ drivers/spmi/spmi.c                       | 3 +--
+ drivers/ssb/main.c                        | 4 +---
+ drivers/staging/fieldbus/anybuss/host.c   | 4 +---
+ drivers/staging/greybus/gbphy.c           | 4 +---
+ drivers/target/loopback/tcm_loop.c        | 5 ++---
+ drivers/thunderbolt/domain.c              | 4 +---
+ drivers/tty/serdev/core.c                 | 4 +---
+ drivers/usb/common/ulpi.c                 | 4 +---
+ drivers/usb/serial/bus.c                  | 4 +---
+ drivers/usb/typec/bus.c                   | 4 +---
+ drivers/vdpa/vdpa.c                       | 4 +---
+ drivers/vfio/mdev/mdev_driver.c           | 4 +---
+ drivers/virtio/virtio.c                   | 3 +--
+ drivers/vlynq/vlynq.c                     | 4 +---
+ drivers/vme/vme.c                         | 4 +---
+ drivers/xen/xenbus/xenbus.h               | 2 +-
+ drivers/xen/xenbus/xenbus_probe.c         | 4 +---
+ drivers/zorro/zorro-driver.c              | 3 +--
+ include/linux/device/bus.h                | 2 +-
+ include/linux/pci-epf.h                   | 2 +-
+ sound/ac97/bus.c                          | 6 ++----
+ sound/aoa/soundbus/core.c                 | 4 +---
+ 93 files changed, 107 insertions(+), 263 deletions(-)
 _______________________________________________
 greybus-dev mailing list
 greybus-dev@lists.linaro.org
