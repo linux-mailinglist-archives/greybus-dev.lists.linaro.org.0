@@ -2,73 +2,74 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F7593ECDE1
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D17F3ECDE0
 	for <lists+greybus-dev@lfdr.de>; Mon, 16 Aug 2021 07:00:18 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 28030634C9
-	for <lists+greybus-dev@lfdr.de>; Mon, 16 Aug 2021 05:00:16 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id E0B9C634C7
+	for <lists+greybus-dev@lfdr.de>; Mon, 16 Aug 2021 05:00:15 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 4B73362CF8; Mon, 16 Aug 2021 05:00:14 +0000 (UTC)
+	id 1240160AD0; Mon, 16 Aug 2021 05:00:14 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9FC5B60B55;
+	by lists.linaro.org (Postfix) with ESMTP id C228D610C6;
 	Mon, 16 Aug 2021 05:00:11 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 3A2DD60ECA
- for <greybus-dev@lists.linaro.org>; Sat, 14 Aug 2021 17:57:04 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 5BF4360ECA
+ for <greybus-dev@lists.linaro.org>; Sat, 14 Aug 2021 18:11:37 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 2BC17610C6; Sat, 14 Aug 2021 17:57:04 +0000 (UTC)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
- by lists.linaro.org (Postfix) with ESMTPS id 1DE0860ECA
- for <greybus-dev@lists.linaro.org>; Sat, 14 Aug 2021 17:57:02 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id i22so1394911edq.11
- for <greybus-dev@lists.linaro.org>; Sat, 14 Aug 2021 10:57:02 -0700 (PDT)
+ id 4485F610C6; Sat, 14 Aug 2021 18:11:37 +0000 (UTC)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by lists.linaro.org (Postfix) with ESMTPS id 3959860ECA
+ for <greybus-dev@lists.linaro.org>; Sat, 14 Aug 2021 18:11:35 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id b15so24245576ejg.10
+ for <greybus-dev@lists.linaro.org>; Sat, 14 Aug 2021 11:11:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
  bh=HroRd12HmrCYe8trgy762PzKYxaKFWieH1+iL5Ovs98=;
- b=ZSoVeipnm2sVJKSjl9rYDjsSY2G5ddE5AJt2kIszlfN39dX85Z/u5xM83scPUUCECw
- C/t6hJR1aBFCONYVeu3T5/DECj6VaPXbUpT+RcD5VrARCGFFruv17c7tu/ptBpYwt7yr
- ZVJLL1DoEOgU55gTt5nb41njsherhC+cIPbVy7Mq9P87+vU3ulhwdfnUgakdYgPvVeQv
- RdhmA9S5OVPrW9F/FRe+UNec5OG9X6k/zfqWiUM0HmcVXQS7JtDeVVv/GXJzipxs9kmP
- edmkjg2oVVr+md6c/5vGWBe7Rq8LRNfO4hjwt1pxoJihtwPIHCj2bs1Bs5949jPwBS0f
- Z1Bw==
+ b=Qd3IPhzhatP3qAPIfGyD0FPyGBfD3JED6WHZdddh3tMRygq1BjKtDQsPFLof+NGPq9
+ S2/zzTgzqfZ0GqttvfWXMaIQonB3EZQHotdcIY5lbHTvXfP8lEX2DzPSJZEo+T3mVRVk
+ TE/32LC6fvEB4K2w6EjcZZMZlU9PiCDSmB6j1BuRwv3s1YDgRxOAk1HbYUDmFJcoEv4p
+ NY4/DlFR7V5/UB9t393YTtNuehR/JpCtISx+0i2vEJVmYnwejeZiTSKtCktXSNVjvGaM
+ Vk/A4cZ76fVTOc2EBnE7HxgP5H3WaHajbKBdxmlfHw2M3nEpc0NHbm+tqzm71WJl/5PO
+ sbAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
  bh=HroRd12HmrCYe8trgy762PzKYxaKFWieH1+iL5Ovs98=;
- b=jzz36ejJkLIDVrMlm2gSkulAw10CLkDSigeAPH6Zza9coqLBJdFW1I7oEKuLGxgs0q
- vyi4FtHSuIK6nkf59vs3hfQdI0w4DKuW71PLvGodnT+y49COQ4CCbJh9kwhnx3vv43FZ
- 4TFZNai+fJI2J4kSl8G4TG/RNTfftmTSerTYwTyS0SeqhisqGrqwyGMYWKJ0qWe1ztZA
- J8otN7dpWN0ioJACt2skbFEl1KM/9xQdn9iVGICf/PnDXTRva7s3gu8I7acVXB0p9Xjt
- 5KCHZkb8Yln+U/jgtfvmJIVvwV7ouNIphDfqwp/6mFTSdp64jLT1OQaZ8IbwEUoCv+sk
- 79rQ==
-X-Gm-Message-State: AOAM533s9K9fGuesw5GjwUHeH3g4dfTTCPUcVfW5nUnxdlvNmPOYJWPo
- vKUG3EiJL/ZJQuyGGt0aklg=
-X-Google-Smtp-Source: ABdhPJzeqNfKAPjUM6vJITkB5K1o3SD6RGIcWXB1Y3f3ZpilwSnSHd+vP8PWUuoQOxH+Hna1Y2URQA==
-X-Received: by 2002:aa7:cb19:: with SMTP id s25mr10529501edt.194.1628963820861; 
- Sat, 14 Aug 2021 10:57:00 -0700 (PDT)
+ b=BLadx4Ar80aj3js6luORwDUdZqHbUjFbSKzgmN/ud0Ix8W32wOa9/SNlRnOGZ1dz7Q
+ EJqqdpv/FYi6xMhTd99hEkQVJ/Lbh2XbSjNd/sUcQRRXb8p0E6X1bUHP9pehmgv75pgU
+ +Q1OYuKMteKVLVjNsXbGv3Sl2p7M+VcT/Sn7rD2vLKExVbF5WafjQwlX0JtJ9kuSF4JI
+ QXUSpO1SDnF1kQ4i4K7DoNp20vo2Ib79OKDb4vRZ4+eUhV6xR4eXME2bR2KUfHR4yNpG
+ WIJsBDagrMIUnEBdO4Lg3+EaD5Ut/qgp6WewFxxXcYdlX1oUgdFvYjnvG1Wi7RK2IHxz
+ qdzQ==
+X-Gm-Message-State: AOAM532CRSirO5JAcjz4Cl8JHoUVTulgKuQB8DEmhPk9GLYxpuTuk6sl
+ tVhB5jRG6srpTpV6hCrSywo=
+X-Google-Smtp-Source: ABdhPJy+9MC4Tbn8SqweBJ7OV7wehX53FRl+nRPdIw7sUHqhXOCtu9KA96mk6bqKECYnenGrt5a2Ow==
+X-Received: by 2002:a17:906:c013:: with SMTP id
+ e19mr8517616ejz.389.1628964694186; 
+ Sat, 14 Aug 2021 11:11:34 -0700 (PDT)
 Received: from localhost.localdomain
  (host-79-22-109-211.retail.telecomitalia.it. [79.22.109.211])
- by smtp.gmail.com with ESMTPSA id j14sm2526614edk.7.2021.08.14.10.56.59
+ by smtp.gmail.com with ESMTPSA id e22sm2500749eds.45.2021.08.14.11.11.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Aug 2021 10:57:00 -0700 (PDT)
+ Sat, 14 Aug 2021 11:11:33 -0700 (PDT)
 From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
 To: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Date: Sat, 14 Aug 2021 19:56:57 +0200
-Message-Id: <20210814175657.13403-1-fmdefrancesco@gmail.com>
+Date: Sat, 14 Aug 2021 20:11:30 +0200
+Message-Id: <20210814181130.21383-1-fmdefrancesco@gmail.com>
 X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Mon, 16 Aug 2021 05:00:10 +0000
-Subject: [greybus-dev] [PATCH] staging: greybus: Convert uart.c from IDR to
- XArray
+Subject: [greybus-dev] [PATCH v2] staging: greybus: Convert uart.c from IDR
+ to XArray
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,9 +99,9 @@ Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
 ---
 
 v1->v2:
-	Fixed an issue found by the kernel test robot. It was due to
-	passing to xa_*lock() the same old mutex that IDR used with
-	the previous version of the code.
+        Fixed an issue found by the kernel test robot. It was due to
+        passing to xa_*lock() the same old mutex that IDR used with
+        the previous version of the code.
 
  drivers/staging/greybus/uart.c | 29 ++++++++++++++---------------
  1 file changed, 14 insertions(+), 15 deletions(-)
