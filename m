@@ -2,75 +2,77 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC2873F8B5E
-	for <lists+greybus-dev@lfdr.de>; Thu, 26 Aug 2021 17:57:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0908C3FA689
+	for <lists+greybus-dev@lfdr.de>; Sat, 28 Aug 2021 17:44:05 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id DF82162079
-	for <lists+greybus-dev@lfdr.de>; Thu, 26 Aug 2021 15:57:12 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 70B8060FFA
+	for <lists+greybus-dev@lfdr.de>; Sat, 28 Aug 2021 15:43:58 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 54FD961ECD; Thu, 26 Aug 2021 15:57:12 +0000 (UTC)
+	id 3573D622E7; Sat, 28 Aug 2021 15:43:58 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A7C54610D0;
-	Thu, 26 Aug 2021 15:57:09 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B2BE1606D5;
+	Sat, 28 Aug 2021 15:43:55 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id A6212609A7
- for <greybus-dev@lists.linaro.org>; Thu, 26 Aug 2021 15:57:07 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id E7F5960497
+ for <greybus-dev@lists.linaro.org>; Sat, 28 Aug 2021 15:43:53 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 98EBC6102D; Thu, 26 Aug 2021 15:57:07 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by lists.linaro.org (Postfix) with ESMTPS id 8D8D2609A7
- for <greybus-dev@lists.linaro.org>; Thu, 26 Aug 2021 15:57:05 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id q3so5391549edt.5
- for <greybus-dev@lists.linaro.org>; Thu, 26 Aug 2021 08:57:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ZXF/RHrw7uR6voIrN0yU+7iqLQE1G5atkH2gmUQ8pZk=;
- b=RQJ9kvRCGzboqUPP5bbDLYsm7wHK3ezjmAWY1wP8SNnfLIS8HarSFZ7DJKNBFxOZyg
- T922M3YNTNVOXO+PbK4iL9ZJdNtmDV5GCGR3QRem4nQSsD520BwsZuLH410XfjbB7EQv
- fxg0GiydJw7Qzi/ur41bgIiyYrORoc/7NuAxot5EHb3QZUR6ae297ssxWmesAEMciV6y
- LFU5wczmGANMvf63O9yQFiIItalWhpi8XqxwqeTTUfmWXyWsCEGp2YBSQfY5bk7oiELJ
- Io/8CFj6cHPCYYeag+XZexMWmHNIhp29ydwdyuPOWHwfB4Z4TqgYQ9iN/r+93RjvaSHF
- OFBg==
+ id DB78260504; Sat, 28 Aug 2021 15:43:53 +0000 (UTC)
+Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
+ [209.85.166.175])
+ by lists.linaro.org (Postfix) with ESMTPS id D51FD60497
+ for <greybus-dev@lists.linaro.org>; Sat, 28 Aug 2021 15:43:51 +0000 (UTC)
+Received: by mail-il1-f175.google.com with SMTP id u7so10591906ilk.7
+ for <greybus-dev@lists.linaro.org>; Sat, 28 Aug 2021 08:43:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=9eIn9xmZE3lDDxF5D7SNUmbx8I+eA8wKnaNy1sQ/lzw=;
+ b=o75epPEcTLKnpr8vmg72GB4RV/9INyBQjSXUD/UExbzMjRC0K+am+369CyveyW8rjP
+ qe39+wLdWNiJlLNqQWkrt47SCn0nOx5UjQ4heXT5o99FsRqQ68qcC0oGwqxtbPWXbCo1
+ 9F8HqBp8rhxhKMLT/0eBLaCAHWy/CbIgSC3Fel2OpKd7qPTuoff/QERZsIBCvRfUVwEO
+ Ryi5nLUUQDncbMYps/Yaup+Gx3GMOkpwu2tJ8x6bdI0csGsQiJ8Wl3gqj031mlyWfiHD
+ ZvQl9kWepMYRZW9E4T848Om4rml9f/zed+1oiMtpo43Kdn4f4DMHNKzf/5AZFi+XcVes
+ PrUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ZXF/RHrw7uR6voIrN0yU+7iqLQE1G5atkH2gmUQ8pZk=;
- b=i9sFLbTJS4gymLoJ0aR5+HTE6uIyb1hBH95bFkjTXhJVVfPsZskTpmq4zG83VxnDHy
- EMSiwMpeSxGYSg9HC2b1+kCWjff3oXdpJ8i5SXN+KnIKyHo4K6QF1xsYQxqsP7l8O1dk
- W0oq5j3/YWRYWP41ryBElFXOcBU+zFMktu8V2pKDXPn1pWQfL2C5/ZTA5Wtf6awEOkAZ
- QcKNVXkuA0dRi7TS+m395GVAiovT/8s4HHQmpGV+5F2xbbkFWlak7UmSgbFjd4kUMBq7
- M60Ryn47NFwzTmt9CS2HaEkIzvdbQFky6efayCE/TmI2faR3MdP4ERdheHDZRa7HmeHy
- TLuA==
-X-Gm-Message-State: AOAM530uRzl8G99/ie9IIvsPUBJNlnBYyXMM4C4ZCovFMKWRqRxp1+wf
- tNAAkQ/zwjqKF1HGlb15B0A=
-X-Google-Smtp-Source: ABdhPJwTDYtb8XcfblsJ7q7oQNNs+70i6Vv8+cvwvcrMtFQWph5GvGCGlXX7GD4Uq78wknF2uANqUQ==
-X-Received: by 2002:a05:6402:354c:: with SMTP id
- f12mr4872206edd.287.1629993424411; 
- Thu, 26 Aug 2021 08:57:04 -0700 (PDT)
-Received: from localhost.localdomain
- (host-79-22-100-164.retail.telecomitalia.it. [79.22.100.164])
- by smtp.gmail.com with ESMTPSA id q5sm2080803edt.50.2021.08.26.08.57.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Aug 2021 08:57:03 -0700 (PDT)
-From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
-To: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, greybus-dev@lists.linaro.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Elder <elder@ieee.org>, Alex Elder <elder@linaro.org>
-Date: Thu, 26 Aug 2021 17:57:02 +0200
-Message-ID: <8278430.GnBS7eVdlf@localhost.localdomain>
-In-Reply-To: <335f30c7-8ab4-d46a-d415-e994997a3fa5@linaro.org>
-References: <20210814181130.21383-1-fmdefrancesco@gmail.com>
- <1838037.Ul9q4Z07vA@localhost.localdomain>
- <335f30c7-8ab4-d46a-d415-e994997a3fa5@linaro.org>
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=9eIn9xmZE3lDDxF5D7SNUmbx8I+eA8wKnaNy1sQ/lzw=;
+ b=Z0TW4sbWmQTx59MfxptjYfHAVn55tKfDRD0exfTGsgietGPfgJTfgOtGd76es33l6y
+ 4xqi06CY4DpQS2NHeN93JalPk7u8P3TBufYfy9gy/LtnoSgBCmNm0UtYhxiYD4IK7pNg
+ LI3EvlIIYtcYdaNPkRQ3+iQa8tpJ+rn8uZ+T2iyZhgd47gR1ZakY4ORo3EXYJWvAkne7
+ NAOcDnmVJOUdBJ9Xg0pIxqM4CH8q/GGb5CB//h8izQsr6usENuUqRYWi+U813jZq39xs
+ PxaZww913upj7PXaX+B7tnDe64TD6mLIiqAupbX0lVWTJBX1ypgRZUGLdAfUHb5aCLcO
+ S1lg==
+X-Gm-Message-State: AOAM530ySHMQtL2w7nf8Iow0cOo0k22gHihrCqBZ5g4oCsa6aiaGihxu
+ tzpe0nT0ZhUvOJGt2qQbSO35t+ko
+X-Google-Smtp-Source: ABdhPJzQrf6w26UPOoT1HFywMYAXwxcOdbv56BRWEou16crQY/Tq/dqYrZi2jZ1rvCZNniB8vY9VTQ==
+X-Received: by 2002:a92:cb0f:: with SMTP id s15mr10077698ilo.59.1630165431122; 
+ Sat, 28 Aug 2021 08:43:51 -0700 (PDT)
+Received: from [10.10.10.198] (047-035-132-030.res.spectrum.com.
+ [47.35.132.30])
+ by smtp.googlemail.com with ESMTPSA id m26sm5120282ioj.54.2021.08.28.08.43.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 28 Aug 2021 08:43:50 -0700 (PDT)
+To: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>,
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20210816195000.736-1-fmdefrancesco@gmail.com>
+From: Alex Elder <elder@linaro.org>
+Message-ID: <dc2d0dda-0a04-8b45-d83e-f7c54baa357b@linaro.org>
+Date: Sat, 28 Aug 2021 10:43:49 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <20210816195000.736-1-fmdefrancesco@gmail.com>
+Content-Language: en-US
 X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: Re: [greybus-dev] [PATCH v2] staging: greybus: Convert uart.c from
+Subject: Re: [greybus-dev] [PATCH v3] staging: greybus: Convert uart.c from
  IDR to XArray
 X-BeenThere: greybus-dev@lists.linaro.org
 X-Mailman-Version: 2.1.29
@@ -83,69 +85,170 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Wednesday, August 25, 2021 3:45:13 PM CEST Alex Elder wrote:
-> On 8/25/21 12:20 AM, Fabio M. De Francesco wrote:
-> > On Monday, August 16, 2021 4:46:08 PM CEST Alex Elder wrote:
-> >> On 8/14/21 1:11 PM, Fabio M. De Francesco wrote:
-> >>> Convert greybus/uart.c from IDR to XArray. The abstract data type XArray
-> >>> is more memory-efficient, parallelisable, and cache friendly. It takes
-> >>> advantage of RCU to perform lookups without locking. Furthermore, IDR is
-> >>> deprecated because XArray has a better (cleaner and more consistent) API.
-> >>
-> >> I haven't verified the use of the new API (yet) but I have a few
-> >> comments on your patch, below.
-> >>
-> >> 					-Alex
-> > 
-> > Dear Alex,
-> > 
-> > On August 16th I submitted the v3 of my patch ("staging: greybus: Convert uart.c 
-> > from IDR to XArray"), with changes based on the comments you provided.
+On 8/16/21 2:50 PM, Fabio M. De Francesco wrote:
+> Convert greybus/uart.c from IDR to XArray. The abstract data type XArray
+> is more memory-efficient, parallelisable, and cache friendly. It takes
+> advantage of RCU to perform lookups without locking. Furthermore, IDR is
+> deprecated because XArray has a better (cleaner and more consistent) API.
 > 
-> Yes, I intend to review version 3.  I'm sorry I didn't respond to
-> your earlier message; I am on vacation this week.
+> Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+
+I have one more comment, below.  Generally, I don't think it is
+important to make this change, but I think it's fine to switch
+to the newer XArray interface.  The result is a little simpler.
+
+> ---
 > 
-> 					-Alex
-
-Oh, there's no hurry, sorry to bother you while on vacation.
-Even kernel hackers deserve a vacation at least once a year or two... :-)
-
-Thanks,
-
-Fabio
-
-> > 
-> > Could you please take a few minutes to review this too? I would really appreciate it.
-> > 
-> > The v3 patch is at https://lore.kernel.org/lkml/20210816195000.736-1-fmdefrancesco@gmail.com/
-> > 
-> > Thanks,
-> > 
-> > Fabio
-> > 
-> > P.S.: I'd also like to know if you think it's worth converting IDA to XArray in order 
-> > to improve the Greybus driver in staging.
-> > 
-> >   
-> > 
-> > 
-> > _______________________________________________
-> > greybus-dev mailing list
-> > greybus-dev@lists.linaro.org
-> > https://lists.linaro.org/mailman/listinfo/greybus-dev
-> > 
+> v2->v3:
+> 	Fix some issues according to a review by Alex Elder <elder@ieee.org>
 > 
+> v1->v2:
+>         Fix an issue found by the kernel test robot. It is due to
+>         passing to xa_*lock() the same old mutex that IDR used with
+>         the previous version of the code.
 > 
+>  drivers/staging/greybus/uart.c | 34 ++++++++++++++++------------------
+>  1 file changed, 16 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+> index 73f01ed1e5b7..815156c88005 100644
+> --- a/drivers/staging/greybus/uart.c
+> +++ b/drivers/staging/greybus/uart.c
+> @@ -22,7 +22,7 @@
+>  #include <linux/serial.h>
+>  #include <linux/tty_driver.h>
+>  #include <linux/tty_flip.h>
+> -#include <linux/idr.h>
+> +#include <linux/xarray.h>
+>  #include <linux/fs.h>
+>  #include <linux/kdev_t.h>
+>  #include <linux/kfifo.h>
+> @@ -32,8 +32,9 @@
+>  
+>  #include "gbphy.h"
+>  
+> -#define GB_NUM_MINORS	16	/* 16 is more than enough */
+> -#define GB_NAME		"ttyGB"
+> +#define GB_NUM_MINORS		16	/* 16 is more than enough */
+> +#define GB_RANGE_MINORS		XA_LIMIT(0, GB_NUM_MINORS)
+> +#define GB_NAME			"ttyGB"
+>  
+>  #define GB_UART_WRITE_FIFO_SIZE		PAGE_SIZE
+>  #define GB_UART_WRITE_ROOM_MARGIN	1	/* leave some space in fifo */
+> @@ -67,8 +68,7 @@ struct gb_tty {
+>  };
+>  
+>  static struct tty_driver *gb_tty_driver;
+> -static DEFINE_IDR(tty_minors);
+> -static DEFINE_MUTEX(table_lock);
+> +static DEFINE_XARRAY(tty_minors);
+>  
+>  static int gb_uart_receive_data_handler(struct gb_operation *op)
+>  {
+> @@ -341,8 +341,8 @@ static struct gb_tty *get_gb_by_minor(unsigned int minor)
+>  {
+>  	struct gb_tty *gb_tty;
+>  
+> -	mutex_lock(&table_lock);
+> -	gb_tty = idr_find(&tty_minors, minor);
+> +	xa_lock(&tty_minors);
+
+I'm basically new to using the XArray interface, but I
+
+don't think you really need the xa_lock()/xa_unlock()
+
+calls here.  You are not relying on reference counting
+
+to control when the allocated minor device numbers are
+
+freed, so I'm pretty sure you can simply call xa_load()
+
+to look up the gb_tty for the given minor device.
 
 
 
+But please don't only take my word for it; investigate
+
+it for yourself, and if needed ask others about it so
+
+you're confident it's correct.  There is no harm in
+taking the lock, but if it's not needed, it would be
+nice to avoid it.
+
+If you conclude the locks are necessary, just say so,
+and explain why, and I'll probably just accept it.
+Otherwise, please explain why you are sure they are
+not needed when you send version 4.  Thank you.
+
+					-Alex
+
+
+> +	gb_tty = xa_load(&tty_minors, minor);
+>  	if (gb_tty) {
+>  		mutex_lock(&gb_tty->mutex);
+>  		if (gb_tty->disconnected) {
+> @@ -353,19 +353,19 @@ static struct gb_tty *get_gb_by_minor(unsigned int minor)
+>  			mutex_unlock(&gb_tty->mutex);
+>  		}
+>  	}
+> -	mutex_unlock(&table_lock);
+> +	xa_unlock(&tty_minors);
+>  	return gb_tty;
+>  }
+>  
+>  static int alloc_minor(struct gb_tty *gb_tty)
+>  {
+>  	int minor;
+> +	int ret;
+>  
+> -	mutex_lock(&table_lock);
+> -	minor = idr_alloc(&tty_minors, gb_tty, 0, GB_NUM_MINORS, GFP_KERNEL);
+> -	mutex_unlock(&table_lock);
+> -	if (minor >= 0)
+> -		gb_tty->minor = minor;
+> +	ret = xa_alloc(&tty_minors, &minor, gb_tty, GB_RANGE_MINORS, GFP_KERNEL);
+> +	if (ret)
+> +		return ret;
+> +	gb_tty->minor = minor;
+>  	return minor;
+>  }
+>  
+> @@ -374,9 +374,7 @@ static void release_minor(struct gb_tty *gb_tty)
+>  	int minor = gb_tty->minor;
+>  
+>  	gb_tty->minor = 0;	/* Maybe should use an invalid value instead */
+> -	mutex_lock(&table_lock);
+> -	idr_remove(&tty_minors, minor);
+> -	mutex_unlock(&table_lock);
+> +	xa_erase(&tty_minors, minor);
+>  }
+>  
+>  static int gb_tty_install(struct tty_driver *driver, struct tty_struct *tty)
+> @@ -837,7 +835,7 @@ static int gb_uart_probe(struct gbphy_device *gbphy_dev,
+>  
+>  	minor = alloc_minor(gb_tty);
+>  	if (minor < 0) {
+> -		if (minor == -ENOSPC) {
+> +		if (minor == -EBUSY) {
+>  			dev_err(&gbphy_dev->dev,
+>  				"no more free minor numbers\n");
+>  			retval = -ENODEV;
+> @@ -982,7 +980,7 @@ static void gb_tty_exit(void)
+>  {
+>  	tty_unregister_driver(gb_tty_driver);
+>  	put_tty_driver(gb_tty_driver);
+> -	idr_destroy(&tty_minors);
+> +	xa_destroy(&tty_minors);
+>  }
+>  
+>  static const struct gbphy_device_id gb_uart_id_table[] = {
+> 
 
 _______________________________________________
 greybus-dev mailing list
