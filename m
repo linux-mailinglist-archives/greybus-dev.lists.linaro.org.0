@@ -2,76 +2,70 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EB033FD942
-	for <lists+greybus-dev@lfdr.de>; Wed,  1 Sep 2021 14:09:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 548B93FDD87
+	for <lists+greybus-dev@lfdr.de>; Wed,  1 Sep 2021 15:56:32 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id B03126056F
-	for <lists+greybus-dev@lfdr.de>; Wed,  1 Sep 2021 12:09:26 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 1CF57610C3
+	for <lists+greybus-dev@lfdr.de>; Wed,  1 Sep 2021 13:56:31 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id 1A0AD61A44; Wed,  1 Sep 2021 12:09:25 +0000 (UTC)
+	id 10FCC60F1F; Wed,  1 Sep 2021 13:56:30 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id DD63A60FFF;
-	Wed,  1 Sep 2021 12:09:22 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id AAF1D60A92;
+	Wed,  1 Sep 2021 13:56:27 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id E9CEA6056F
- for <greybus-dev@lists.linaro.org>; Wed,  1 Sep 2021 12:09:20 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id 2E69C600B7
+ for <greybus-dev@lists.linaro.org>; Wed,  1 Sep 2021 13:56:26 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id E574260F1F; Wed,  1 Sep 2021 12:09:20 +0000 (UTC)
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
- [209.85.166.182])
- by lists.linaro.org (Postfix) with ESMTPS id DFBE46056F
- for <greybus-dev@lists.linaro.org>; Wed,  1 Sep 2021 12:09:18 +0000 (UTC)
-Received: by mail-il1-f182.google.com with SMTP id b4so3019300ilr.11
- for <greybus-dev@lists.linaro.org>; Wed, 01 Sep 2021 05:09:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=8cZI3JCuLp/VE4CkVId11EMKSems40tyrkIK1Be1ftw=;
- b=BckSNcvNMOcvSd7v/oDs69GDBnbITTcsGLEeGp8WOKnquld8s9ItFWSEGz5vLrfhcg
- yZT1kbJOOWEFIjzCNC9W2lGpzCSJvssMvpUXf8N+Axb0aahsxStSy8NofhulPdABX4F9
- PQEhQGx63KhfCLo0nqeg29DuVeFqdO7s5JEkA07Vd6pEzuXT2moy4Rt3GMOrs6Ngd9/C
- zbzWY+GPjk3eKj2oGR2aoDlVz1Vm2z7uv2FCN/5IlVFvAXkrHQmXAceheN+crJ+7FscF
- ee0K2dpeSoHlQCOFIfd1+wc2lpL7rGJqsH+uSHL4Lru7Ma5brXDQ+lHnloOjiQ7/jaE2
- QY5w==
+ id 221AE60A59; Wed,  1 Sep 2021 13:56:26 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by lists.linaro.org (Postfix) with ESMTPS id 1BFED600B7
+ for <greybus-dev@lists.linaro.org>; Wed,  1 Sep 2021 13:56:24 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id ia27so6794086ejc.10
+ for <greybus-dev@lists.linaro.org>; Wed, 01 Sep 2021 06:56:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=BRrNhgrDIwSehOjM+0QWWad7e+b+lvVLJyyUCl9/Exk=;
+ b=FewNOuSfaXBPf5PjzcdFZgDeR+uXL3OAdSKgY1radiJb0OnEwmABD866so4RSH96Iz
+ PBSqXj/lVJs0NSGYjeucv81XG/L0GBO3ytFxLGqDvL2rm8xczWiyIDoHWQlB2UFWPAD7
+ AfkW3KS1y+E6EvfBl3nVFaOlsKEp+n9NB0/JIE6wRcOgcWZjnKzr1rkS/YDoN5OZHQxZ
+ bv2BkbLlZj+UiN+knYKxTXfOfYDqCyyheI7ka2b9QFQ2if58ZbIFqhPrx+mUSfzmNyFe
+ 9vjOIgFzR+8MOLauC57u82SGh/+nvGje5Voo4X/ryP0p9pJWnWUtqmgSDRCIXMcvyT6a
+ em3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=8cZI3JCuLp/VE4CkVId11EMKSems40tyrkIK1Be1ftw=;
- b=rQJFvXZWBOvv5eTYAHlv1jnRi1ywxFrfyJv32vaxmmwyigeuKUrU4wHbXhVmYBYE+k
- VUxEgTX7rR4daphqrG+cCNL8R9IKvpnNvAvOtisnXJqu2STvqsevQX+rbXrDivPWrm6A
- +XIOwChZE/1PB0+oiOzi1O+w+jGc3mXuGgLWKUxNYPA3712KDD2sZxE8/GDqoYBEHmvV
- 9e/jxlBhjF+8o9vx8KeKZ7rI4j0xk8HhCXn0uAV4JE5fxK1jzSvMQyPGEnlMz0H0nsNp
- y5FCaKDoL72BXP8ONqXfUMDBJoVd3j4cJAbKF/4raAySQ/8hR3qiw27+uXuW3A9SY9y2
- YYtg==
-X-Gm-Message-State: AOAM5302qDS8EGlTFgACcMsOBkHSuW0GQqq2RFcdNPk7ddKl8MM4qCfH
- reBollqB341kTp7Zk57Mr0TrvgchwfgKHOqoJY4=
-X-Google-Smtp-Source: ABdhPJwbWbqjZ2YXu2DKUD2OmK1e0Bsf5zCBQX/yZA3LIScSzqxAeN61s6ns9w3+r13R/STby73GUg==
-X-Received: by 2002:a05:6e02:1d9e:: with SMTP id
- h30mr24434965ila.195.1630498157795; 
- Wed, 01 Sep 2021 05:09:17 -0700 (PDT)
-Received: from [172.22.22.26] (c-73-185-129-58.hsd1.mn.comcast.net.
- [73.185.129.58])
- by smtp.googlemail.com with ESMTPSA id z7sm12046546ilz.25.2021.09.01.05.09.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Sep 2021 05:09:17 -0700 (PDT)
-To: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>,
- Johan Hovold <johan@kernel.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=BRrNhgrDIwSehOjM+0QWWad7e+b+lvVLJyyUCl9/Exk=;
+ b=gTJiTippXcIY5Q/qGJkDskbm+i+bH8/4JGD/pK46x/d9jAXs5c0dkQhCcOWTh0kzM/
+ ZnQVRfKNXgkFVyDa8FwtG8r4aD/4GAlzjUgfy6oPnUzEdofbCvJZVvYBL0qgsTvSPsLI
+ n0njSRW8kA0utjWQc4cXfGyKKnnGxQf+1ADYpKwgjOAQMj4u3HJhdxdx1vDWScU4BZBm
+ /0kvk0fXXT1kuNGPT8lsL2dG0Dz87wIrXsHiQOvoCYtYQK8YQqEIvM1E37cwAdgs1hJr
+ cysL+UAy18eiQkLNgO6Wab1fvZmke1sXCSl1o7nbrJnNcgszdvCYQ2gg00cYRSOQXn2f
+ 3Jwg==
+X-Gm-Message-State: AOAM530Ys5X8OkKRUpniPAO7n6jr1qe4O8FWKcnlPIcBNH1DXNLYuOeK
+ BE/isC679iXWW3NHEknq4Q4=
+X-Google-Smtp-Source: ABdhPJx/c4ausu3jMt9m8i3ag5V/dPMIynN1X73PIVTKfku986poAoon7KEdUGEkoyOhKqDMx2BLKw==
+X-Received: by 2002:a17:906:b14d:: with SMTP id
+ bt13mr37365394ejb.39.1630504582933; 
+ Wed, 01 Sep 2021 06:56:22 -0700 (PDT)
+Received: from localhost.localdomain
+ (host-79-22-100-164.retail.telecomitalia.it. [79.22.100.164])
+ by smtp.gmail.com with ESMTPSA id bt24sm20384ejb.77.2021.09.01.06.56.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Sep 2021 06:56:22 -0700 (PDT)
+From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+To: Johan Hovold <johan@kernel.org>, Alex Elder <elder@linaro.org>
+Date: Wed, 01 Sep 2021 15:56:20 +0200
+Message-ID: <8914101.vIO1HAjRha@localhost.localdomain>
+In-Reply-To: <794b3ff8-0240-ff14-8721-cdf510f52be3@linaro.org>
 References: <20210829092250.25379-1-fmdefrancesco@gmail.com>
- <f7a25eb1-20f4-5031-a156-9e5dc019ad28@linaro.org>
- <YS3jSsGSs0yAw/Ba@hovoldconsulting.com>
  <6155058.TBsaUTXu4T@localhost.localdomain>
-From: Alex Elder <elder@linaro.org>
-Message-ID: <794b3ff8-0240-ff14-8721-cdf510f52be3@linaro.org>
-Date: Wed, 1 Sep 2021 07:09:16 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ <794b3ff8-0240-ff14-8721-cdf510f52be3@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <6155058.TBsaUTXu4T@localhost.localdomain>
-Content-Language: en-US
 X-Virus-Scanned: ClamAV using ClamSMTP
 Subject: Re: [greybus-dev] [PATCH v4] staging: greybus: Convert uart.c from
  IDR to XArray
@@ -95,30 +89,83 @@ Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-On 8/31/21 6:50 AM, Fabio M. De Francesco wrote:
-> I was wrong in assuming that trivial patches to Greybus are welcome as they 
-> are for other drivers.
+On Wednesday, September 1, 2021 2:09:16 PM CEST Alex Elder wrote:
+> On 8/31/21 6:50 AM, Fabio M. De Francesco wrote:
+> > I was wrong in assuming that trivial patches to Greybus are welcome as 
+they 
+> > are for other drivers.
+> 
+> This is not a correct statement.
 
-This is not a correct statement.
+Yes, I agree: it's not a correct statement. Please let me explain what I was 
+trying to convey with that consideration...
 
-But as Johan pointed out, even for a trivial patch if you
-must understand the consequences of what the change does.
-If testing is not possible, you must work extra hard to
-ensure your patch is correct.
+The Mutexes were there around idr_find() and I decided to leave the code as 
+it was. Who am I to say that they are not necessary? I must stay on the safe 
+side. First because I don't know how the drivers work (can that critical 
+section really be entered by different threads that could possibly share the 
+gb_tty that is retrieved by xa_load()? Even if xa_load() always give you back 
+the right gb_tty, how do I know if in the while other threads change its 
+fields or destroy the object? I guess I should stay on the safe side and 
+leave the Mutexes there, exactly were they were.
 
-In the first (or an early) version of your patch I pointed
-out a bug.  Later, I suggested
- the lock might not be necessary
-and asked you to either confirm
- it was or explain why it was
-not, but you didn't do that.
+These are the reason why v1 was indeed a trivial patch. But v2 *was not* 
+because you wrote that you were pretty sure they were unneeded and you asked 
+me to leave them or remove them and in either case I had to provide a reason 
+why. 
+
+I guess that in v1 I should not provide a reason why they are still there, as 
+well as I don't have to provide any reason on why the greybus code (line by 
+line) is as it is: it is out of the scope of my patch. Am I wrong?
+
+Your note about the possibility that the mutexes could be removed pushed me 
+beyond what I need to know to accomplish the intended task. 
+
+Anyway I tried to reason about it. I perfectly know what is required to 
+protect critical sections of code, but I don't know how drivers work; I mean 
+I don't know whether or not different threads that run concurrently could 
+really interfere in that specific section. This is because I simply reason in 
+terms of general rules of protection of critical section but I really don't 
+know how Greybus works or (more in general) how drivers work.
+
+I still think that if I stayed within the bounds of my original purpose I 
+didn't have to reason about this topic and that the v1 patch was trivial.
+v2 was not!
+
+I'm sorry because I'm still not sure if I was able to conveyed what I thought 
+and still think.
+
+> But as Johan pointed out, even for a trivial patch if you
+> must understand the consequences of what the change does.
+> If testing is not possible, you must work extra hard to
+> ensure your patch is correct.
+
+Again, I don't see any possible harm with the mutexes in place :)
+ 
+> In the first (or an early) version of your patch I pointed
+> out a bug.  Later, I suggested
+>  the lock might not be necessary
+> and asked you to either confirm
+>  it was or explain why it was
+> not, but you didn't do that.
+
+This was beyond my knowledge and perhaps unnecessary (sorry if I insist on 
+that :)).
+
+> I agree that the change appeared trivial, and even sensible,
+> but even trivial patches must result in correct code.  And
+> all patches should have good and complete explanations.
+>
+>	- Alex
+
+Is v2 correct with the mutexes restored where they were? I guess it is.
+
+Thanks for you kind review and the time you spent for me. I appreciated it, 
+seriously.
+
+Fabio	
 
 
-I agree that the change appeared trivial, and even sensible,
-but even trivial patches must result in correct code.  And
-all patches should have good and complete explanations.
-
-					-Alex
 _______________________________________________
 greybus-dev mailing list
 greybus-dev@lists.linaro.org
