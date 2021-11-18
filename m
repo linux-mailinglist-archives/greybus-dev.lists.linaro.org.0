@@ -2,65 +2,62 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AB65455371
-	for <lists+greybus-dev@lfdr.de>; Thu, 18 Nov 2021 04:33:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A34A4554F6
+	for <lists+greybus-dev@lfdr.de>; Thu, 18 Nov 2021 07:56:05 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 2839660C14
-	for <lists+greybus-dev@lfdr.de>; Thu, 18 Nov 2021 03:33:24 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id E79B460C15
+	for <lists+greybus-dev@lfdr.de>; Thu, 18 Nov 2021 06:56:03 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id BEB9C60374; Thu, 18 Nov 2021 03:33:23 +0000 (UTC)
+	id 9FF3460C0C; Thu, 18 Nov 2021 06:56:03 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D29B760BCA;
-	Thu, 18 Nov 2021 03:33:20 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7B34860BEC;
+	Thu, 18 Nov 2021 06:56:00 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 209CE602C6
- for <greybus-dev@lists.linaro.org>; Thu, 18 Nov 2021 03:33:20 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id C2A3060851
+ for <greybus-dev@lists.linaro.org>; Thu, 18 Nov 2021 06:55:59 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 147906056F; Thu, 18 Nov 2021 03:33:20 +0000 (UTC)
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com
- [209.85.222.48])
- by lists.linaro.org (Postfix) with ESMTPS id 0A51F602C6
- for <greybus-dev@lists.linaro.org>; Thu, 18 Nov 2021 03:33:17 +0000 (UTC)
-Received: by mail-ua1-f48.google.com with SMTP id n6so10722467uak.1
- for <greybus-dev@lists.linaro.org>; Wed, 17 Nov 2021 19:33:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=A/jn/zgEzxQP9ZQwx0L5iwDA8SV1bEGJAnIDVoaBgXA=;
- b=JaF2etFbSKwaLKzECO7evTgrEGCIalvzi/L4AwWws/5MQ1RFdDBo7lk0Hk8D19TPOS
- 5hBeTx2Go4PHeEnUOL5nZZkv5NQTN0Sk76gafNUap5rlb4d1pksHHXt6KUKliJIrZcZZ
- oaim98jEcrP/7lYYDjSjk5JY5dxuV3WF/novS95lwB+hbkmtKoXILpTiegKv3yF9/I7b
- Wx+WXy+6diat0CHIwnZZWpK4vQ/P9/aQLbldF0v7DLROD7mMsRZU3a6MtAQULarpMuDS
- MCPXPTeM6rIaPmTy0scKj3pSpYJj2K3a8LMzT4aZhBSETsB9B20fauaN16KmpbGG08y2
- 2wPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=A/jn/zgEzxQP9ZQwx0L5iwDA8SV1bEGJAnIDVoaBgXA=;
- b=HkZPPry67Bd0ELduwr/LD3ZD74AdBEEhZgNBKqFGTk+JPQ8e5tBkJcvINQY/h/6jCI
- pOSvO/BYbHiIhrBSGBkm8KbGsirUTZhsiutT4/kC9/nvr+IEDlMMLIO184UyUzai+eCm
- xT2Vvcsk32FnZigBmlYMTTs3VRyhExGG9clRD4aqpn1wa/aXEXMsabS+YUNeUAahzXo7
- SRdzZQzODO3ng28zJ3+uDmov5Ca7nu2d9gIw0okFoNF5ZRVGLFW4c1VM+75ADnvKuEMn
- pdLx/8LekKnZ9CcnbT7MCPqbmRolu5hW933Rsop/Ugg6Ez66aQtpmBpTOC2ChSfvL8JL
- ucgQ==
-X-Gm-Message-State: AOAM5321sVO95F6Q/8Be3trjfCjFQwnLVsbVWLBEfP+Vnvc9SNYGt5s1
- Dwp+PQGgisvkzxuc4LLug3ZBrkaWLbJ7rNp3rzA=
-X-Google-Smtp-Source: ABdhPJx+SwE+lVngvA+ZZMvKi/vw2I5Xo7+pTY18CvYLu3GrjLvmCauC65r8hLMZ/7tTPQUQdMAU6W6EFB0SJ82r3ak=
-X-Received: by 2002:a05:6102:32c9:: with SMTP id
- o9mr76054026vss.46.1637206397469; 
- Wed, 17 Nov 2021 19:33:17 -0800 (PST)
-MIME-Version: 1.0
+ id C071E60BD8; Thu, 18 Nov 2021 06:55:59 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.linaro.org (Postfix) with ESMTPS id A50ED60851
+ for <greybus-dev@lists.linaro.org>; Thu, 18 Nov 2021 06:55:57 +0000 (UTC)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 79C1F1FD35;
+ Thu, 18 Nov 2021 06:55:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1637218556; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ppnCc0JM0M6aGCgbVH0SLi1aFypkBUETP8zEkQ1ZtMs=;
+ b=ccJu5fVN/yOpgLvFJou00wPiHjwzYzWyg3/r16oc1Zxymvsiz19+vI0Idofa7GkrWfrB98
+ iKXww+71jjBnJwj+5Mo8MGiwMnntVjFSjGufjBbkwtPxLTKe+suINWLE/Cuw65M4xBxtuH
+ FU34nWEALVn2x2bh2JK2I1r9H3zuZy8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1637218556;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ppnCc0JM0M6aGCgbVH0SLi1aFypkBUETP8zEkQ1ZtMs=;
+ b=3O9uGyzYQB13jsYcsRXU0rMNWipCmEZLgo79VJkgpF0WfxmHdW1c67nqGEFYNaFkWvio0a
+ BsNSGEQZ3X7TzyAw==
+Received: from alsa1.suse.de (alsa1.suse.de [10.160.4.42])
+ by relay2.suse.de (Postfix) with ESMTP id 6ECE7A3B81;
+ Thu, 18 Nov 2021 06:55:56 +0000 (UTC)
+Date: Thu, 18 Nov 2021 07:55:56 +0100
+Message-ID: <s5hzgq2j6kj.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vaibhav Agarwal <vaibhav.sr@gmail.com>
+In-Reply-To: <CAAs364-thiqACMRwT++JMxkMd7qa_stFApjK-4SmrEJetX6oyw@mail.gmail.com>
 References: <20211116072027.18466-1-tiwai@suse.de>
  <07e228eb-676a-bdb1-c2ec-a96f691f5a18@linaro.org>
  <s5h5ysqlcm8.wl-tiwai@suse.de>
  <b0d2b643-214a-07c5-96b7-4845c54cba72@linaro.org>
-In-Reply-To: <b0d2b643-214a-07c5-96b7-4845c54cba72@linaro.org>
-From: Vaibhav Agarwal <vaibhav.sr@gmail.com>
-Date: Thu, 18 Nov 2021 09:02:40 +0530
-Message-ID: <CAAs364-thiqACMRwT++JMxkMd7qa_stFApjK-4SmrEJetX6oyw@mail.gmail.com>
-To: Alex Elder <elder@linaro.org>
+ <CAAs364-thiqACMRwT++JMxkMd7qa_stFApjK-4SmrEJetX6oyw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 X-Virus-Scanned: ClamAV using ClamSMTP
 Subject: Re: [greybus-dev] [PATCH] staging: greybus: Add missing rwsem
  around snd_ctl_remove() calls
@@ -75,103 +72,63 @@ List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Cc: Takashi Iwai <tiwai@suse.de>,
+Cc: Alex Elder <elder@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ Johan Hovold <johan@kernel.org>, open list <linux-kernel@vger.kernel.org>,
  "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>,
- Alex Elder <elder@kernel.org>, Johan Hovold <johan@kernel.org>,
- open list <linux-kernel@vger.kernel.org>
+ Alex Elder <elder@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Thu, Nov 18, 2021 at 3:25 AM Alex Elder <elder@linaro.org> wrote:
->
-> On 11/17/21 3:02 PM, Takashi Iwai wrote:
-> > On Wed, 17 Nov 2021 20:56:14 +0100,
-> > Alex Elder wrote:
-> >>
-> >> On 11/16/21 1:20 AM, Takashi Iwai wrote:
-> >>> snd_ctl_remove() has to be called with card->controls_rwsem held (when
-> >>> called after the card instantiation).  This patch adds the missing
-> >>> rwsem calls around it.
-> >>
-> >> I see the comment above snd_ctl_remove() that says you must hold
-> >> the write lock.  And given that, this seems correct to me.
-> >>
-> >> I understand why you want to take the lock just once, rather
-> >> than each time snd_ctl_remove() is called.
-> >>
-> >> However I believe the acquisition and release of the lock
-> >> belongs inside gbaudio_remove_controls(), not in its caller.
-> >>
-> >> If you disagree, can you please explain why?
+On Thu, 18 Nov 2021 04:32:40 +0100,
+Vaibhav Agarwal wrote:
+> 
+> On Thu, Nov 18, 2021 at 3:25 AM Alex Elder <elder@linaro.org> wrote:
 > >
-> > In general if the function returns an error and has a loop inside,
-> > taking a lock in the caller side avoids the forgotten unlock.
->
-> But taking the lock in the called function makes the
-> caller not need to take the lock (which would be even
-> more valuable if there were more than one caller).
->
-> I prefer having the lock acquisition in the called
-> function.  Please send version 2, as I suggested.
-
-
-Hi Takashi,
-
-Thanks for sharing this patch. In reference to the suggestion from Alex,
-do you think replacing snd_ctl_find_id(), snd_ctl_remove() with
-snd_ctl_remove_id() inside gbaudio_remove_controls() would be an even
-better choice without worrying about locks?
-
---
-vaibhav
-
- >
->
->                                         -Alex
->
-> > Takashi
+> > On 11/17/21 3:02 PM, Takashi Iwai wrote:
+> > > On Wed, 17 Nov 2021 20:56:14 +0100,
+> > > Alex Elder wrote:
+> > >>
+> > >> On 11/16/21 1:20 AM, Takashi Iwai wrote:
+> > >>> snd_ctl_remove() has to be called with card->controls_rwsem held (when
+> > >>> called after the card instantiation).  This patch adds the missing
+> > >>> rwsem calls around it.
+> > >>
+> > >> I see the comment above snd_ctl_remove() that says you must hold
+> > >> the write lock.  And given that, this seems correct to me.
+> > >>
+> > >> I understand why you want to take the lock just once, rather
+> > >> than each time snd_ctl_remove() is called.
+> > >>
+> > >> However I believe the acquisition and release of the lock
+> > >> belongs inside gbaudio_remove_controls(), not in its caller.
+> > >>
+> > >> If you disagree, can you please explain why?
+> > >
+> > > In general if the function returns an error and has a loop inside,
+> > > taking a lock in the caller side avoids the forgotten unlock.
 > >
+> > But taking the lock in the called function makes the
+> > caller not need to take the lock (which would be even
+> > more valuable if there were more than one caller).
 > >
-> >> Otherwise, will you please submit version two, taking the
-> >> lock inside gbaudio_remove_controls()?
-> >>
-> >> Thanks.
-> >>
-> >>                                      -Alex
-> >>
-> >>> Fixes: 510e340efe0c ("staging: greybus: audio: Add helper APIs for dynamic audio modules")
-> >>> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> >>> ---
-> >>>    drivers/staging/greybus/audio_helper.c | 8 ++++++--
-> >>>    1 file changed, 6 insertions(+), 2 deletions(-)
-> >>>
-> >>> diff --git a/drivers/staging/greybus/audio_helper.c b/drivers/staging/greybus/audio_helper.c
-> >>> index 1ed4772d2771..843760675876 100644
-> >>> --- a/drivers/staging/greybus/audio_helper.c
-> >>> +++ b/drivers/staging/greybus/audio_helper.c
-> >>> @@ -192,7 +192,11 @@ int gbaudio_remove_component_controls(struct snd_soc_component *component,
-> >>>                                   unsigned int num_controls)
-> >>>    {
-> >>>     struct snd_card *card = component->card->snd_card;
-> >>> +   int err;
-> >>>    -        return gbaudio_remove_controls(card, component->dev, controls,
-> >>> -                                  num_controls, component->name_prefix);
-> >>> +   down_write(&card->controls_rwsem);
-> >>> +   err = gbaudio_remove_controls(card, component->dev, controls,
-> >>> +                                 num_controls, component->name_prefix);
-> >>> +   up_write(&card->controls_rwsem);
-> >>> +   return err;
-> >>>    }
-> >>>
-> >>
->
-> _______________________________________________
-> greybus-dev mailing list
-> greybus-dev@lists.linaro.org
-> https://lists.linaro.org/mailman/listinfo/greybus-dev
+> > I prefer having the lock acquisition in the called
+> > function.  Please send version 2, as I suggested.
+> 
+> 
+> Hi Takashi,
+> 
+> Thanks for sharing this patch. In reference to the suggestion from Alex,
+> do you think replacing snd_ctl_find_id(), snd_ctl_remove() with
+> snd_ctl_remove_id() inside gbaudio_remove_controls() would be an even
+> better choice without worrying about locks?
+
+Yeah, that sounds like a better plan, indeed.
+
+
+Takashi
 _______________________________________________
 greybus-dev mailing list
 greybus-dev@lists.linaro.org
