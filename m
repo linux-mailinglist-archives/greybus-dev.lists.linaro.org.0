@@ -2,82 +2,74 @@ Return-Path: <greybus-dev-bounces@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CB7747978E
-	for <lists+greybus-dev@lfdr.de>; Sat, 18 Dec 2021 00:34:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F368A47AE5B
+	for <lists+greybus-dev@lfdr.de>; Mon, 20 Dec 2021 16:01:04 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id F033C62D3C
-	for <lists+greybus-dev@lfdr.de>; Fri, 17 Dec 2021 23:34:17 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 5DBFA61001
+	for <lists+greybus-dev@lfdr.de>; Mon, 20 Dec 2021 15:01:03 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
-	id B675262D42; Fri, 17 Dec 2021 23:34:17 +0000 (UTC)
+	id 47E7A6104A; Mon, 20 Dec 2021 15:01:02 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4AC6A60D3D;
-	Fri, 17 Dec 2021 23:34:15 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 610E961004;
+	Mon, 20 Dec 2021 15:00:59 +0000 (UTC)
 X-Original-To: greybus-dev@lists.linaro.org
 Delivered-To: greybus-dev@lists.linaro.org
 Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 41AB8606EB
- for <greybus-dev@lists.linaro.org>; Fri, 17 Dec 2021 23:34:14 +0000 (UTC)
+ by lists.linaro.org (Postfix) with ESMTP id A497460FB6
+ for <greybus-dev@lists.linaro.org>; Mon, 20 Dec 2021 14:57:17 +0000 (UTC)
 Received: by lists.linaro.org (Postfix, from userid 109)
- id 3F76260AAA; Fri, 17 Dec 2021 23:34:14 +0000 (UTC)
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- by lists.linaro.org (Postfix) with ESMTPS id 26739606EB
- for <greybus-dev@lists.linaro.org>; Fri, 17 Dec 2021 23:34:12 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 48D393200A2A;
- Fri, 17 Dec 2021 18:34:10 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Fri, 17 Dec 2021 18:34:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=VFlN5gwlUl6OdjrrwGITikvRTVw
- gKWO/tVets6VatFs=; b=GSbYpc8/LL6WCh4MtgGXXA5c7FQ0qg03y0ZBP/u0PDc
- mDNexl3frQtjMYlP75c1g543el0Itk5VsZz0o6E8MPa16izsb9m23WQYYcZfBI5g
- /+gBixaP0/bjIAT+tIosPDdg5gA32lWW4sqZVbxGacegcmcBsG32T3tQk132hOcu
- yBZ7QD/bo2f+9xEie0ZNUC7UeHNhj5NeI5RLMTSYrehM2B7bSx+eqcb7aHM2br8T
- nbfsaULItjaPqyzSrbLx0KYZ1vWabNyku1R/aMVgiurEIup4frSoD9/fNrwgtyGB
- Ld7IEC9QNcLt6462vpffqNcwp0WhYda2cxqMuIN792Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=VFlN5g
- wlUl6OdjrrwGITikvRTVwgKWO/tVets6VatFs=; b=jPTONtQCBZWOd+ejl98LKM
- brLXBJ9FUuLSCjOgEze9qN1AXm6X8DKZwyBCtfG65GXRdc3J1BSYebeD6TuZVr+V
- q9pMwnpMgiLqagmaebOrnNrdhp8Hp7ZmqhoD5DK+wk2mVBBpS2yYecPkq5wpAlBQ
- SUbbgl29IYx0lLht9kSVzC2yABzn7cMPRZEUjGowYtjB43x1vBpthFiVPHu1xrig
- MiHwmeSCf5t67CRPev1XCLoXctazqCwvFoGt/0PPdC3BRbRH2Hc0VvLJ6q+lv7ys
- kSVg0jkBNTn7EGgmOO7FsT3vZ2snPpsDXtoCQe1Gpe6yRMGieDCmRUITOKl7uNpQ
- ==
-X-ME-Sender: <xms:cR69YWUyBdswt6VHaxp13EFqRX4L0Ljk_b76SJ44tPlzJGaUcoR2sQ>
- <xme:cR69YSlPjz-7KLO4FTlvIY20n5BmApu9qFPAVLAssnkozmsyXkwKQ5wRYAZbo0GbZ
- 20lSLZ2ulMLNcyAWA>
-X-ME-Received: <xmr:cR69YabiT1AJCunSpr2eQzvZdz4no9c2i0IjIVJfXBNIDmjNaHbUTEGVt_qDYoM8tk1UO4CGvU-0Vly3joE5ovNJ49OSYt5T9TVQyPQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrleejgddthecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjohesthdtre
- dttddtvdenucfhrhhomhepofgrrhhkucfirhgvvghruceomhhgrhgvvghrsegrnhhimhgr
- lhgtrhgvvghkrdgtohhmqeenucggtffrrghtthgvrhhnpeeiuefguddtfeeitddvffetud
- efvdejhefgveevfedugfejffegieetteejudffhfenucevlhhushhtvghrufhiiigvpedt
- necurfgrrhgrmhepmhgrihhlfhhrohhmpehmghhrvggvrhesrghnihhmrghltghrvggvkh
- drtghomh
-X-ME-Proxy: <xmx:cR69YdUQkCERdzKTsuJelFbtbJk33V3skgZwVYKU0-SAhIU0iApTSA>
- <xmx:cR69YQlNFjDbt4N3WU0Y6jXxka1EaVuCuX1qBdKofs1r7N3q_-nTPw>
- <xmx:cR69YSd_59VWLSbwoRx5i1akdq_2K7XLoBfBmlTZIkaAMpx2K2bQlg>
- <xmx:cR69YVyS0ILS0XaFV-yGjOuBoh2ulku2rNo5KcQBkzjdRZ1mSXsmVg>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Dec 2021 18:34:09 -0500 (EST)
-Received: by blue.animalcreek.com (Postfix, from userid 1000)
- id 898EF13600C6; Fri, 17 Dec 2021 16:34:08 -0700 (MST)
-Date: Fri, 17 Dec 2021 16:34:08 -0700
-From: Mark Greer <mgreer@animalcreek.com>
-To: Jorge Eduardo Fermino Oliveia Silva <jorge.ubermensch@gmail.com>
-Message-ID: <20211217233408.GA47062@animalcreek.com>
-References: <Jorgecommit>
- <20211217143408.10313-1-jorgeubermensch@gmail.com>
+ id A0B0260FB8; Mon, 20 Dec 2021 14:57:17 +0000 (UTC)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
+ by lists.linaro.org (Postfix) with ESMTPS id 8E59160FB7
+ for <greybus-dev@lists.linaro.org>; Mon, 20 Dec 2021 14:57:15 +0000 (UTC)
+Received: by mail-io1-f51.google.com with SMTP id b187so13594929iof.11
+ for <greybus-dev@lists.linaro.org>; Mon, 20 Dec 2021 06:57:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=TJdNUjWUdmPE7sfT2RNHjkzrtpwFJc2mp64as/HudCM=;
+ b=jDdz/ozzcBHT16QK0aB+2kOAZgdLHgDzP2EnuoDKYFIsA+s8BQwOde7Q9B9UBWC9wg
+ BYGT/sYwbWltq4FYYQWzmY6Yr1csC2oaElTe3LE//89ujPBqyrakXuX66qMjYDtLIXkD
+ m0kTEI2pUi4G/1BoqqRdkF55zJzwaDMfvNr4gHk3JbGwGD0gjbk4TmGqehTuhp2c3m6O
+ 4bb9kDdIGZmC+PTpZ9XYwot+QCNzL5vv+ecUV3IWrjW9tVHQ2cFmrSYAGHSbfeFqMy9n
+ sZPIwd64ab9/ufVq2//++zfu12+pTDSDziUTqPuuC228CYHrM0zGkiojxH9YWgq4BQwY
+ bt5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=TJdNUjWUdmPE7sfT2RNHjkzrtpwFJc2mp64as/HudCM=;
+ b=cgGGbiRlJdXde6YHwPU3tPDeKcEAs04vyyCb5w1oHcK1qj7320hkpWIHkPrFbQsM5H
+ w5TSXMuzwZNPUxXDS2iHCuYnnstOyveCtvVvHRhxHefhIB/vXG5NN5rOGxIpbaTd8Zam
+ C2qNjPWnOCenGhCgOyRpo+EQdLVUI9qOBHGZU0cYMtFdFLZqKNqIZSswol7dCdfAoaWX
+ sgxP83GgXAvWfVafhGww0a46dLwfhL8ItQZVswwTafpLsUemodH4EbsQOqMjkaWnfpeh
+ /a6nDI+q/Tk7oDYLKx8xZblQ+MUxsLW1qINrKznXTCHcaA1oWi6QlNTLYv4/hrhuKIuz
+ Pacw==
+X-Gm-Message-State: AOAM531mtGvi+KrM25EhF0Sn+KsE3eFAU3Zy4lUZQ+uAZB+UIWHJUycD
+ v4fLcPPNrP4nwW+14UEOJIPRzc4l
+X-Google-Smtp-Source: ABdhPJw8nMQz2mCzXM8QGJ6RmKg0otw0hfGtCPZcgichfprE8dtR7mbV3Fy/Lz5YLSaalLN5CZJL5g==
+X-Received: by 2002:a05:6638:1481:: with SMTP id
+ j1mr9783902jak.59.1640012234690; 
+ Mon, 20 Dec 2021 06:57:14 -0800 (PST)
+Received: from [172.22.22.4] (c-73-185-129-58.hsd1.mn.comcast.net.
+ [73.185.129.58])
+ by smtp.googlemail.com with ESMTPSA id r3sm9174856iob.0.2021.12.20.06.57.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Dec 2021 06:57:13 -0800 (PST)
+Message-ID: <e71e6496-aecf-8dbc-632f-807cc686a567@linaro.org>
+Date: Mon, 20 Dec 2021 08:57:12 -0600
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211217143408.10313-1-jorgeubermensch@gmail.com>
-Organization: Animal Creek Technologies, Inc.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Content-Language: en-US
+To: Mark Greer <mgreer@animalcreek.com>,
+ Jorge Eduardo Fermino Oliveia Silva <jorge.ubermensch@gmail.com>
+References: <Jorgecommit> <20211217143408.10313-1-jorgeubermensch@gmail.com>
+ <20211217233408.GA47062@animalcreek.com>
+From: Alex Elder <elder@linaro.org>
+In-Reply-To: <20211217233408.GA47062@animalcreek.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
 Subject: Re: [greybus-dev] [PATCH] Header line: Coding style fix
 X-BeenThere: greybus-dev@lists.linaro.org
@@ -92,59 +84,124 @@ List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
  <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
 Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: greybus-dev-bounces@lists.linaro.org
 Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Fri, Dec 17, 2021 at 11:34:08AM -0300, Jorge Eduardo Fermino Oliveia Silva wrote:
-
-[Note: I am traveling for the next week so I won't be very responsive.]
-
-Hi Jorge.
-
-Before we get to the platch please remember that you should send all
-Greybus patches to greybus-dev@lists.linaro.org and
-linux-kernel@vger.kernel.org.  I will add them in now and leave all of
-the context so other can see what you sent.
-
-> Solve CHECK: Lines should not end with a '('
+On 12/17/21 5:34 PM, Mark Greer wrote:
+> On Fri, Dec 17, 2021 at 11:34:08AM -0300, Jorge Eduardo Fermino Oliveia Silva wrote:
 > 
-> Reported-by: Jorge Eduardo Fermino Oliveia Silva <jorgeubermensch@gmail.com>
-> Signed-off-by: Jorge Eduardo Fermino Oliveia Silva <jorgeubermensch@gmail.com>
-> ---
->  drivers/staging/greybus/audio_manager_private.h | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+> [Note: I am traveling for the next week so I won't be very responsive.]
 > 
-> diff --git a/drivers/staging/greybus/audio_manager_private.h b/drivers/staging/greybus/audio_manager_private.h
-> index 2b3a766c7de7..a17f09a19014 100644
-> --- a/drivers/staging/greybus/audio_manager_private.h
-> +++ b/drivers/staging/greybus/audio_manager_private.h
-> @@ -12,10 +12,10 @@
->  
->  #include "audio_manager.h"
->  
-> -int gb_audio_manager_module_create(
-> -	struct gb_audio_manager_module **module,
-> -	struct kset *manager_kset,
-> -	int id, struct gb_audio_manager_module_descriptor *desc);
-> +int gb_audio_manager_module_create(struct gb_audio_manager_module **module,
-> +				   struct kset *manager_kset,
-> +				   int id,
-> +			struct gb_audio_manager_module_descriptor *desc);
->  
->  /* module destroyed via kobject_put */
+> Hi Jorge.
+> 
+> Before we get to the platch please remember that you should send all
+> Greybus patches to greybus-dev@lists.linaro.org and
+> linux-kernel@vger.kernel.org.  I will add them in now and leave all of
+> the context so other can see what you sent.
 
-The part you're removing has all of the parameters at the same
-indentation level and what you adding has them at two different
-indentation levels so I'm not sure this is a step forward.  Since the
-kernel coding style doesn't address this specific case, AFAICS, I would
-leave it as is despite the complaint.  If others disagree then go ahead
-as I really don't care much either way.
+Thanks for copying the list, Mark.  I concur with your response.
 
-Mark
---
+Jorge, this patch is not acceptable, but I have some suggestions.
+Your change is very minor (and not technically necessary) but
+if you want to try a version 2, we can reconsider it.
+
+First:  Your subject line is not proper.  Patch subjects should begin
+with keywords that identify what the patch affects.  If you run this
+command:
+   git log --oneline drivers/staging/greybus/audio_manager_private.h
+you will see examples of commits that affect this file.
+
+Based on that, the header for your patch should be something like:
+   staging: greybus: audio: fix a checkpatch complaint
+But I don't actually know why you are suggesting this change, and
+that brings me to the second point.
+
+Your patch description should be more complete.  Your one line
+description says "Solve CHECK: ..." but it doesn't give much
+context about that.  Maybe that shows up in a build?  I don't
+know.  Your description might be more like:
+   When running "checkpatch.pl" we get this warning:
+     Lines should not end with a '('
+   Fix this by re-formatting the line in question.
+
+But again, I don't actually know where you are seeing this message.
+Ideally, your description should be sufficient for someone to be
+able to reproduce the problem you're fixing, and then verify that
+your fix makes the problem go away.
+
+Third, what Mark points out is absolutely correct, which is that
+you are "fixing" one formatting problem but creating a new one.
+There is no great solution here, because some of the symbol/type
+names are very long.  I have two possible suggestions though:
+- Leave it as-is, and accept that the line ends in '('
+- Re-format this way, so the warning goes away, but the result
+   at least has consistent indentation (even if it isn't aligned
+   with the open parenthesis:
+
+int gb_audio_manager_module_create(struct gb_audio_manager_module **module,
+
+         struct kset *manager_kset, int id,
+
+         struct gb_audio_manager_module_descriptor *desc);
+
+
+Finally, if you submit version 2 of a patch, be sure your subject
+line is clear about that, with "[PATCH v2] staging: greybus: ...".
+
+I'll leave it up to you to decide whether to send version 2.  Note
+that someone else might reject your patch (even if you do what I
+suggest above).  Some people dislike patches which make minor and
+unnecessary changes to the code, because of the "churn" effect
+they have.
+
+					-Alex
+
+> 
+>> Solve CHECK: Lines should not end with a '('
+>>
+>> Reported-by: Jorge Eduardo Fermino Oliveia Silva <jorgeubermensch@gmail.com>
+>> Signed-off-by: Jorge Eduardo Fermino Oliveia Silva <jorgeubermensch@gmail.com>
+>> ---
+>>   drivers/staging/greybus/audio_manager_private.h | 8 ++++----
+>>   1 file changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/staging/greybus/audio_manager_private.h b/drivers/staging/greybus/audio_manager_private.h
+>> index 2b3a766c7de7..a17f09a19014 100644
+>> --- a/drivers/staging/greybus/audio_manager_private.h
+>> +++ b/drivers/staging/greybus/audio_manager_private.h
+>> @@ -12,10 +12,10 @@
+>>   
+>>   #include "audio_manager.h"
+>>   
+>> -int gb_audio_manager_module_create(
+>> -	struct gb_audio_manager_module **module,
+>> -	struct kset *manager_kset,
+>> -	int id, struct gb_audio_manager_module_descriptor *desc);
+>> +int gb_audio_manager_module_create(struct gb_audio_manager_module **module,
+>> +				   struct kset *manager_kset,
+>> +				   int id,
+>> +			struct gb_audio_manager_module_descriptor *desc);
+>>   
+>>   /* module destroyed via kobject_put */
+> 
+> The part you're removing has all of the parameters at the same
+> indentation level and what you adding has them at two different
+> indentation levels so I'm not sure this is a step forward.  Since the
+> kernel coding style doesn't address this specific case, AFAICS, I would
+> leave it as is despite the complaint.  If others disagree then go ahead
+> as I really don't care much either way.
+> 
+> Mark
+> --
+> _______________________________________________
+> greybus-dev mailing list
+> greybus-dev@lists.linaro.org
+> https://lists.linaro.org/mailman/listinfo/greybus-dev
+> 
+
 _______________________________________________
 greybus-dev mailing list
 greybus-dev@lists.linaro.org
