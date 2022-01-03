@@ -1,149 +1,205 @@
-Return-Path: <greybus-dev-bounces@lists.linaro.org>
+Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
-Received: from lists.linaro.org (lists.linaro.org [107.22.173.205])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F77480E50
-	for <lists+greybus-dev@lfdr.de>; Wed, 29 Dec 2021 01:48:02 +0100 (CET)
+Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
+	by mail.lfdr.de (Postfix) with ESMTPS id DEED94833F8
+	for <lists+greybus-dev@lfdr.de>; Mon,  3 Jan 2022 16:10:10 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 100A960FB0
-	for <lists+greybus-dev@lfdr.de>; Wed, 29 Dec 2021 00:48:01 +0000 (UTC)
-Received: by lists.linaro.org (Postfix, from userid 109)
-	id 8E55F61234; Wed, 29 Dec 2021 00:48:00 +0000 (UTC)
-Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 2F8E160B55;
-	Wed, 29 Dec 2021 00:47:58 +0000 (UTC)
-X-Original-To: greybus-dev@lists.linaro.org
-Delivered-To: greybus-dev@lists.linaro.org
-Received: from lists.linaro.org (localhost [127.0.0.1])
- by lists.linaro.org (Postfix) with ESMTP id 07A0F606D5
- for <greybus-dev@lists.linaro.org>; Wed, 29 Dec 2021 00:47:57 +0000 (UTC)
-Received: by lists.linaro.org (Postfix, from userid 109)
- id 0518C60B27; Wed, 29 Dec 2021 00:47:57 +0000 (UTC)
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- by lists.linaro.org (Postfix) with ESMTPS id D9F4C606D5
- for <greybus-dev@lists.linaro.org>; Wed, 29 Dec 2021 00:47:54 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 080243200907;
- Tue, 28 Dec 2021 19:47:52 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Tue, 28 Dec 2021 19:47:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=+6s5js/9vHUWIGmQb9F7iYVKz7C
- UXR6BbKv38uwChjQ=; b=mQANk4iTsUNqh7rIDA8pqeT+GqT6wkVlxk2zUt1Brf5
- eDzmeCt3w+y1LAu3MbyObira/hIDI7O6K0qo5PC0ogM7/OC1azKm9pb9j76yvgLy
- IYjfYRAlzCydH3Z9LgefHiqKZwY6+4EbWCICqN+GezYxDGhrSbqfwDdcI+sXGIGW
- LpCPL7wKb6OKSUvdNEjZGqopgj3o3JI5qWDellRMfv+IN/puXeMLC72YryuOcFiN
- PUCS6rqJh99NNWY4iv7DPgE0O4bffl6H+/9BjPYSdelrrY0xCjrePCDH8dqypPzj
- 6ocq8l0lzbUb1QQ8ldBVimN6UzdPgAyzro0NsQsoRJw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=+6s5js
- /9vHUWIGmQb9F7iYVKz7CUXR6BbKv38uwChjQ=; b=LTdd5iuTVhbaqD+jqxoFI8
- dWWB7lRvQL9XMBfsYh00k/VIMYg+X5f/vJjf53XaUsz1867TNvyeY8Qy6vAMc8/0
- n9mP3CR63oNhmFxJ+lclwGo4O8EIQNS2Eh8bI5NHvKEcjd9xdUWsIUf2sVuqwp5J
- dSbh7d4QgWwVZXXT2MB2AldUR6c00dsCeG1wpPboTkMHAJYBDSMfj6jhpx1E53aD
- mqHwFA12NYZ7UgucxE0Be5S+PNHj96ys52CS7VsXWh9nSWwjTzojyxtOJqlUpfYB
- Sn6P6g2aCrvqDEZw/CxwzzOVWi8TSgNHT6R3mMuioqE1KJfoicDnHi20ZVnQovGg
- ==
-X-ME-Sender: <xms:OLDLYeDp4ak1gcMlyvs5XKkATV40R4evztOxy0biMnLpbRVUuMa2Dg>
- <xme:OLDLYYjwxW8aY1dUl-urflj36Md6Rip8O5pl4_fcdbx65QaAruT_yqfnepAaSuYok
- iaQD105FQmqtGz0-Q>
-X-ME-Received: <xmr:OLDLYRnyIRKdNTIoeKPM1tmenFboGlyOpjlZNBnH0JqbfXUjzNUfjlyriNQI1d-Kh6HrGvfNuAw8enD4Et4Ndp8pb0x6LTccc7RO9l4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddruddvtddgvdejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjohesthdtredttddtvdenucfhrhhomhepofgrrhhk
- ucfirhgvvghruceomhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhmqeenucggtf
- frrghtthgvrhhnpeeiuefguddtfeeitddvffetudefvdejhefgveevfedugfejffegieet
- teejudffhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
- hmpehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomh
-X-ME-Proxy: <xmx:OLDLYcz25VlFIBHZe2ne2ac-rNR86OD0wrXny-uVqVim3aTfp2yrnQ>
- <xmx:OLDLYTQh-YozLKu_FEox2ag6KF5jxZyrpcCUt8cOHCePaRrFoMb8cw>
- <xmx:OLDLYXZ3vjQxyZrl0vW0sTGDqbmUjTLQ58Jc56_iLnMLmrNXtE-BRw>
- <xmx:OLDLYSGHHYvt4e7lk_ZDdLNnIwc7XnZM9A3Ko8BhlZfpM6rfh0T2uQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 28 Dec 2021 19:47:52 -0500 (EST)
-Received: by blue.animalcreek.com (Postfix, from userid 1000)
- id 0775A13600AD; Tue, 28 Dec 2021 17:47:51 -0700 (MST)
-Date: Tue, 28 Dec 2021 17:47:50 -0700
-From: Mark Greer <mgreer@animalcreek.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <20211229004750.GA114392@animalcreek.com>
-References: <20211228135541.380275-1-gregkh@linuxfoundation.org>
+	by lists.linaro.org (Postfix) with ESMTP id C87DE3ED73
+	for <lists+greybus-dev@lfdr.de>; Mon,  3 Jan 2022 15:10:09 +0000 (UTC)
+Received: from mail-io1-f43.google.com (mail-io1-f43.google.com [209.85.166.43])
+	by lists.linaro.org (Postfix) with ESMTPS id 28DD83ED24
+	for <greybus-dev@lists.linaro.org>; Mon,  3 Jan 2022 15:10:07 +0000 (UTC)
+Received: by mail-io1-f43.google.com with SMTP id l3so38400476iol.10
+        for <greybus-dev@lists.linaro.org>; Mon, 03 Jan 2022 07:10:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ieee.org; s=google;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=7vX8Xs6yuF4bAbb+cl7aqLiAFhp683mddogy8O4dZf0=;
+        b=LOmdBmoMyP60/34RWbBhPFvj+qfUNtKPaav4Fy0PQOCv71jGZeK9dvo4eNgpyyPGrF
+         JXmSwTrXFhaS8O8YF7rspq3lE5qRdAPAqMfkoQi8Qe940J9X8hfg6ZPSwIabQM2r0t5z
+         wgrkHqE8Du89yofxo7dsElJq8xH+nOvr5ZYdk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=7vX8Xs6yuF4bAbb+cl7aqLiAFhp683mddogy8O4dZf0=;
+        b=QE0u+HhcBg05d4MJbR2LlAGy/3UcMLtYSGMpocA0SiObk+KOe18PZ1kqhWfjVzjTHK
+         5PJCzA91dYsIYhqjeVrIDmME+Rgu6CT/Joa1ZfIXKmkYKcFd/w/cs7c4jxm9c9bAm030
+         pc78x7t8TpOwtVBSNZfEVa/4NyFObKSmMyXJGxZquVbvzcibqq5YZAZf9/yZj8j8io00
+         936yrB59NjaqEosB98e6SGzAzqDcCsLvqTSpHK9ZY/T0bXXCjKHtRvGb/YPHQ3Mj7xhn
+         Ry8+GpmTlBeqZ5+h7lm72QDWsXo6pUTWcAwATqqq7XxxgJwxOWAkXJrRbX891Oq4l97N
+         wNrw==
+X-Gm-Message-State: AOAM533j3NDARiYKQmsIlB3cgKkJRVCNLuLz083kNGXIWxImXr5Z53nt
+	YD8dEyRHW/m1nX1zshzxE//fsg==
+X-Google-Smtp-Source: ABdhPJxiiEagwdO5otYjsdmUXYWUK6kG4VMRdc8pOQTdjrgtTk5MxJALe+qugo3OU+j3SNnmxOFMhQ==
+X-Received: by 2002:a02:c60e:: with SMTP id i14mr15449276jan.207.1641222606591;
+        Mon, 03 Jan 2022 07:10:06 -0800 (PST)
+Received: from [172.22.22.4] (c-73-185-129-58.hsd1.mn.comcast.net. [73.185.129.58])
+        by smtp.googlemail.com with ESMTPSA id u24sm22829037ior.20.2022.01.03.07.10.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 03 Jan 2022 07:10:06 -0800 (PST)
+Message-ID: <c81067a4-e8d7-6514-079d-283f14d6c5ba@ieee.org>
+Date: Mon, 3 Jan 2022 09:10:05 -0600
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211228135541.380275-1-gregkh@linuxfoundation.org>
-Organization: Animal Creek Technologies, Inc.
-X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: Re: [greybus-dev] [PATCH] staging: greybus: auto_manager: use
- default_groups in kobj_type
-X-BeenThere: greybus-dev@lists.linaro.org
-X-Mailman-Version: 2.1.29
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Content-Language: en-US
+To: Jiasheng Jiang <jiasheng@iscas.ac.cn>, vaibhav.sr@gmail.com,
+ mgreer@animalcreek.com, johan@kernel.org, elder@kernel.org,
+ gregkh@linuxfoundation.org
+References: <20211229022850.1682897-1-jiasheng@iscas.ac.cn>
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20211229022850.1682897-1-jiasheng@iscas.ac.cn>
+Message-ID-Hash: QECYG66755XPX2SY227JCOD3KT3VVDON
+X-Message-ID-Hash: QECYG66755XPX2SY227JCOD3KT3VVDON
+X-MailFrom: elder@ieee.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Mailman-Version: 3.3.5
 Precedence: list
+Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: audio: Check null pointer
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-List-Unsubscribe: <https://lists.linaro.org/mailman/options/greybus-dev>,
- <mailto:greybus-dev-request@lists.linaro.org?subject=unsubscribe>
-List-Archive: <http://lists.linaro.org/pipermail/greybus-dev/>
-List-Post: <mailto:greybus-dev@lists.linaro.org>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/QECYG66755XPX2SY227JCOD3KT3VVDON/>
+List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
-List-Subscribe: <https://lists.linaro.org/mailman/listinfo/greybus-dev>,
- <mailto:greybus-dev-request@lists.linaro.org?subject=subscribe>
-Cc: Alex Elder <elder@kernel.org>, linux-kernel@vger.kernel.org,
- linux-staging@lists.linux.dev, Johan Hovold <johan@kernel.org>,
- greybus-dev@lists.linaro.org
-Content-Type: text/plain; charset="us-ascii"
+List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
+List-Post: <mailto:greybus-dev@lists.linaro.org>
+List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
+List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
+Content-Type: text/plain; charset="us-ascii"; format="flowed"
 Content-Transfer-Encoding: 7bit
-Errors-To: greybus-dev-bounces@lists.linaro.org
-Sender: "greybus-dev" <greybus-dev-bounces@lists.linaro.org>
-X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Tue, Dec 28, 2021 at 02:55:41PM +0100, Greg Kroah-Hartman wrote:
-> There are currently 2 ways to create a set of sysfs files for a
-> kobj_type, through the default_attrs field, and the default_groups
-> field.  Move the greybus audio code to use default_groups field which
-> has been the preferred way since aa30f47cf666 ("kobject: Add support for
-> default attribute groups to kobj_type") so that we can soon get rid of
-> the obsolete default_attrs field.
+On 12/28/21 8:28 PM, Jiasheng Jiang wrote:
+> On Tue, Dec 28, 2021 at 10:50:22PM +0800, Alex Elder wrote:
+>> But the two places you're returning are in the middle of a loop (in
+>> gbaudio_tplg_create_widget() and gbaudio_tplg_process_kcontrols()).
+>> Each is building up a sort of hierarchical data structure, and as
+>> you can see, the existing code takes care to de-construct the partially
+>> built structure in the event an error occurs before it completes.
+>>
+>> There is a chance that your simple return would "work", but by
+>> reading the surrounding code you should recognize that the proper
+>> way to handle the error is to jump to the cleanup at the end.
 > 
-> Cc: Vaibhav Agarwal <vaibhav.sr@gmail.com>
-> Cc: Mark Greer <mgreer@animalcreek.com>
-> Cc: Johan Hovold <johan@kernel.org>
-> Cc: Alex Elder <elder@kernel.org>
-> Cc: greybus-dev@lists.linaro.org
-> Cc: linux-staging@lists.linux.dev
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Yes, I agree with your opinion and this time I use "goto error" instead
+> of directly return in the two callers.
+> The new patch is as follow.
+> 
+> As the possible alloc failure of devm_kcalloc(), it could return null
+> pointer.
+> Therefore, 'strings' should be checked and return NULL if alloc fails to
+> prevent the dereference of the NULL pointer.
+> Also, the caller should also deal with the return value of the
+> gb_generate_enum_strings() and return -ENOMEM if returns NULL.
+> Moreover, because the memory allocated with devm_kzalloc() will be
+> freed automatically when the last reference to the device is dropped,
+> the 'gbe' in gbaudio_tplg_create_enum_kctl() and
+> gbaudio_tplg_create_enum_ctl() do not need to free manually.
+> But the 'control' in gbaudio_tplg_create_widget() and
+> gbaudio_tplg_process_kcontrols() has a specially error handle to
+> cleanup.
+> So it should be better to cleanup 'control' when fails.
+
+I haven't really looked at this yet, but in any case I would like
+you to send version 3 of this patch.
+
+The reason is that you should not include the message above in
+the patch itself.
+
+To be clear, I really appreciate your response; please *do* respond
+to review comments.  But do so in e-mail only, and then follow up
+with a new patch, using the same basic subject (with a new version)
+and (roughly) the same description.
+
+So your patch should have a subject line with v3.  It should then
+contain the original description (not indented with ">>" or anything),
+updated or improved if appropriate to reflect the current state of
+the patch.  Then, below the "---" line you should include a patch
+history, with a line or two describing each version.  For example,
+it might look something like:
+
+---
+v3:  Same code as v2, but fixed description as requested.
+v2:  Updated to use common error processing at the end of both
+      gbaudio_tplg_create_widget() and gbaudio_tplg_process_kcontrols().
+
+I will review version 3, and if I don't see anything else wrong with
+it I'll offer a "Signed-off-by" tag.
+
+					-Alex
+
+> Fixes: e65579e335da ("greybus: audio: topology: Enable enumerated control support")
+> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 > ---
->  drivers/staging/greybus/audio_manager_module.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> Changelog:
 > 
-> diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
-> index 525cf8f8394f..0a0f0a394c84 100644
-> --- a/drivers/staging/greybus/audio_manager_module.c
-> +++ b/drivers/staging/greybus/audio_manager_module.c
-> @@ -142,11 +142,12 @@ static struct attribute *gb_audio_module_default_attrs[] = {
->  	&gb_audio_module_op_devices_attribute.attr,
->  	NULL,   /* need to NULL terminate the list of attributes */
->  };
-> +ATTRIBUTE_GROUPS(gb_audio_module_default);
->  
->  static struct kobj_type gb_audio_module_type = {
->  	.sysfs_ops = &gb_audio_module_sysfs_ops,
->  	.release = gb_audio_module_release,
-> -	.default_attrs = gb_audio_module_default_attrs,
-> +	.default_groups = gb_audio_module_default_groups,
->  };
->  
->  static void send_add_uevent(struct gb_audio_manager_module *module)
-> -- 
-> 2.34.1
+> v1 -> v2
+> 
+> *Change 1. Add the cleanup process when alloc fails in two callers and
+> refine the commit message.
+> ---
+>   drivers/staging/greybus/audio_topology.c | 15 +++++++++++++++
+>   1 file changed, 15 insertions(+)
+> 
+> diff --git a/drivers/staging/greybus/audio_topology.c b/drivers/staging/greybus/audio_topology.c
+> index 1fc7727ab7be..6bba735d2e5c 100644
+> --- a/drivers/staging/greybus/audio_topology.c
+> +++ b/drivers/staging/greybus/audio_topology.c
+> @@ -147,6 +147,9 @@ static const char **gb_generate_enum_strings(struct gbaudio_module_info *gb,
+>   
+>   	items = le32_to_cpu(gbenum->items);
+>   	strings = devm_kcalloc(gb->dev, items, sizeof(char *), GFP_KERNEL);
+> +	if (!strings)
+> +		return NULL;
+> +
+>   	data = gbenum->names;
+>   
+>   	for (i = 0; i < items; i++) {
+> @@ -655,6 +658,8 @@ static int gbaudio_tplg_create_enum_kctl(struct gbaudio_module_info *gb,
+>   	/* since count=1, and reg is dummy */
+>   	gbe->items = le32_to_cpu(gb_enum->items);
+>   	gbe->texts = gb_generate_enum_strings(gb, gb_enum);
+> +	if (!gbe->texts)
+> +		return -ENOMEM;
+>   
+>   	/* debug enum info */
+>   	dev_dbg(gb->dev, "Max:%d, name_length:%d\n", gbe->items,
+> @@ -862,6 +867,8 @@ static int gbaudio_tplg_create_enum_ctl(struct gbaudio_module_info *gb,
+>   	/* since count=1, and reg is dummy */
+>   	gbe->items = le32_to_cpu(gb_enum->items);
+>   	gbe->texts = gb_generate_enum_strings(gb, gb_enum);
+> +	if (!gbe->texts)
+> +		return -ENOMEM;
+>   
+>   	/* debug enum info */
+>   	dev_dbg(gb->dev, "Max:%d, name_length:%d\n", gbe->items,
+> @@ -1034,6 +1041,10 @@ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
+>   			csize += le16_to_cpu(gbenum->names_length);
+>   			control->texts = (const char * const *)
+>   				gb_generate_enum_strings(module, gbenum);
+> +			if (!control->texts) {
+> +				ret = -ENOMEM;
+> +				goto error;
+> +			}
+>   			control->items = le32_to_cpu(gbenum->items);
+>   		} else {
+>   			csize = sizeof(struct gb_audio_control);
+> @@ -1183,6 +1194,10 @@ static int gbaudio_tplg_process_kcontrols(struct gbaudio_module_info *module,
+>   			csize += le16_to_cpu(gbenum->names_length);
+>   			control->texts = (const char * const *)
+>   				gb_generate_enum_strings(module, gbenum);
+> +			if (!control->texts) {
+> +				ret = -ENOMEM;
+> +				goto error;
+> +			}
+>   			control->items = le32_to_cpu(gbenum->items);
+>   		} else {
+>   			csize = sizeof(struct gb_audio_control);
+> 
 
-Nice!
-
-Acked-by: Mark Greer <mgreer@animalcreek.com>
 _______________________________________________
-greybus-dev mailing list
-greybus-dev@lists.linaro.org
-https://lists.linaro.org/mailman/listinfo/greybus-dev
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
