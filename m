@@ -2,56 +2,56 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49E2F4CA932
-	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 16:37:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA6954CA934
+	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 16:37:53 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 7A5473EF47
-	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 15:37:51 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	by lists.linaro.org (Postfix) with ESMTPS id CB2063ECEE
-	for <greybus-dev@lists.linaro.org>; Fri, 28 Jan 2022 15:29:00 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id z19so12406645lfq.13
-        for <greybus-dev@lists.linaro.org>; Fri, 28 Jan 2022 07:29:00 -0800 (PST)
+	by lists.linaro.org (Postfix) with ESMTP id 1C8793EF49
+	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 15:37:53 +0000 (UTC)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+	by lists.linaro.org (Postfix) with ESMTPS id 90AAB401E5
+	for <greybus-dev@lists.linaro.org>; Fri, 28 Jan 2022 16:44:40 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id j14so9862824lja.3
+        for <greybus-dev@lists.linaro.org>; Fri, 28 Jan 2022 08:44:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=N4J//Mo9xUttrK0yF032bWbn0KZLi4C3IbfSaVZ898E=;
-        b=nMCCJwPleajqB6C9nJrLYmYyxvYJDjsPBaeAckGvpvNJDlogXVNDX5CMorLz8EkXwK
-         tOGGJLbUBQ5vVXgmuATMWVHVp6zRhthE/Z4c3fXvDzusCCvuSOLi2PeQqPPynXDiEqJa
-         wpkWD/KytYGfhbLSPodHYTZ193CEPYVnW8yYjqop2VUUI19OJJSNODw9+MHhdzD6OI8n
-         reTz6lWlg50Q6pG/G+MdGVZEs7E/JstVtaC73N7E3+wALEq524Y3vPRmf0zJQjvvlg5R
-         cR0EZAoEAIZxSDSUjdrrZQayHItW8C9PmvfUhNyD52CwO42YQFOTC1TF8xhvGNG+gp0E
-         rLPA==
+        bh=lGbJdBWOVm4Va2Wgu00QXQ6qBSeWp/5p1TodM7voG/M=;
+        b=gi8dnSZB6Jf3ARKxPcuzQilOA1X+IiqrSJpDqa0UwPNSbvxlAZhn7o27PEBX6T4Pt0
+         Yy6l0mN+LNiSyQQWHHAmf6parJzpyeXFAkkxL5K7luFmmIlaRL2LfjpG0L/TAIz1bTF9
+         i7uzFMuBqGG3XviwNlXn7b799D8RxFzBpjwSZmu3RWfi8ru7YbpoFcVo5g88KsceELfy
+         lIZuTKJyqdnQ59c2ztH/IFQSmsKWFYSWfk99sySz8rE0ttv6MHCV9Yo++nJdsP6ntQIH
+         zeq+MWJsiwRWavnQIl8R2mLwvpLx0V4yVwg82LUiDJWia8a5F0Ypj1Y64q0qvTav4zhX
+         BOPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=N4J//Mo9xUttrK0yF032bWbn0KZLi4C3IbfSaVZ898E=;
-        b=dAqVMPkBJyI9Ci30VTDrZazqNAb/10M7zOTX5J/x+oZ7Kd/Cg5dg05RFqEGzb4Upmn
-         3eynJ4Vfyhbw+uDygHrDztMKBCcE9bwlI+7tjwrE5vnCEcMKplLvH1crTk365ZBadD6Y
-         SMB0wotceZiLihHH6h7EFrxHBPEwuO76T3yH/kXq6/vIowA9JsywF4DpGMKwxZC/kBkW
-         jEGU3Yy6vyTJ5UdKfeU657eHeAg7hZDrvuiA0S9Q+Ku5ptcuSd3mcP6LGhgaUJaOGDI+
-         nkSBjL4ENLgbkx2HQwd41opgpv76BJEnXIV7Sp5xvGKtys7yA74twnKdfjtnrbYcxpVs
-         80IA==
-X-Gm-Message-State: AOAM5301icmjuTnkc4xJ4WqWvOOdOxHR1ZRTgOywUnwkKJRpsRifGa/t
-	y9eYTxlNnIMvGZm3urdySBk=
-X-Google-Smtp-Source: ABdhPJyQ9v4PdBJzaie5bbiSmHbBxFsVgyJTcSUuDvUITdCGgIiqmLYFQd/isDs0HBzExLgZ/Z5wJg==
-X-Received: by 2002:a05:6512:3a96:: with SMTP id q22mr6579539lfu.521.1643383739523;
-        Fri, 28 Jan 2022 07:28:59 -0800 (PST)
+        bh=lGbJdBWOVm4Va2Wgu00QXQ6qBSeWp/5p1TodM7voG/M=;
+        b=6SK6hn8OSC5KzIzNkkAeFaS9u7HaX5TEpGSw+lfY0ZeHbisUqKZywatdjUYXW0iEr0
+         FiwAC3Xx2OdZDgZwG/MFlfI6/7RgQMubr2H/tMcg/usNtigOFv9j8JSPPgP304R0lhy5
+         ehXZCGNTIJcEAC99khEAfc4KhR+p0jcgIBCfszgehHWbbKSZKOzxt4cp0Y2CFm1MWoIA
+         GSMQFWX1gDMtizOdZ5hTMRxI/i0cLCGta2a7MP7aKPChWrHX7wGBGZvG7PDqFtckqw9y
+         2GB1vpPnkhNlo+TCgAnn7eOt8hZ3VKL2/fuBEsNQAewuP2Uqjpnn6dQ9cKY/ZJgkb84P
+         JefQ==
+X-Gm-Message-State: AOAM532BTRQT3FuBflQ8GolNGRKwJmrKPJEyJGSmo2/VHzU3f58W0e8g
+	uMJGUFqs2HMMiwFqZLDBIGw=
+X-Google-Smtp-Source: ABdhPJyJ6jgjwOjzC8CzJQXbRwBcvXaRgKVo2AAd4HIFZT41VNXT41y1PVAPuiy0ARZx4En3ka4wwQ==
+X-Received: by 2002:a2e:b8d5:: with SMTP id s21mr6499514ljp.196.1643388279294;
+        Fri, 28 Jan 2022 08:44:39 -0800 (PST)
 Received: from [192.168.1.103] ([31.173.86.67])
-        by smtp.gmail.com with ESMTPSA id z11sm2563451lfu.106.2022.01.28.07.28.57
+        by smtp.gmail.com with ESMTPSA id f9sm1988948lfm.166.2022.01.28.08.44.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Jan 2022 07:28:58 -0800 (PST)
+        Fri, 28 Jan 2022 08:44:38 -0800 (PST)
 To: Lee Jones <lee.jones@linaro.org>
 References: <20220127113303.3012207-1-bigeasy@linutronix.de>
  <20220127113303.3012207-5-bigeasy@linutronix.de>
  <44b42c37-67a4-1d20-e2ff-563d4f9bfae2@gmail.com>
  <YfPwqfmrWEPm/9K0@google.com>
 From: Sergei Shtylyov <sergei.shtylyov@gmail.com>
-Message-ID: <0daa924f-790c-cdc7-a1c0-4eb91917e084@gmail.com>
-Date: Fri, 28 Jan 2022 18:28:57 +0300
+Message-ID: <d351e221-ddd4-eb34-5bbe-08314d26a2e0@gmail.com>
+Date: Fri, 28 Jan 2022 19:44:36 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.1
 MIME-Version: 1.0
@@ -60,15 +60,15 @@ Content-Language: en-US
 X-MailFrom: sergei.shtylyov@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 7W4SOWIKSXMO4PCJNGSHPLQ7DZRAE2M7
-X-Message-ID-Hash: 7W4SOWIKSXMO4PCJNGSHPLQ7DZRAE2M7
-X-Mailman-Approved-At: Wed, 02 Mar 2022 15:37:49 +0000
+Message-ID-Hash: ZTIKDD3HWZIYOYUHZPKZL5FRCZOMEWWT
+X-Message-ID-Hash: ZTIKDD3HWZIYOYUHZPKZL5FRCZOMEWWT
+X-Mailman-Approved-At: Wed, 02 Mar 2022 15:37:51 +0000
 CC: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, greybus-dev@lists.linaro.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Hans de Goede <hdegoede@redhat.com>, Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, UNGLinuxDriver@microchip.com, Wolfram Sang <wsa@kernel.org>, Woojung Huh <woojung.huh@microchip.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH 4/7] mfd: hi6421-spmi-pmic: Use generic_handle_irq_safe().
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/7W4SOWIKSXMO4PCJNGSHPLQ7DZRAE2M7/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZTIKDD3HWZIYOYUHZPKZL5FRCZOMEWWT/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -100,8 +100,7 @@ On 1/28/22 4:33 PM, Lee Jones wrote:
 > 
 > What does that mean?
 
-   That means that I think you had a typo in the word "routing".
-The s/// comes from vim, I think --where it means search and replace.
+   Ah, you were asking about MBR! My best regards then. :-)
 
 MBR, Sergey
 _______________________________________________
