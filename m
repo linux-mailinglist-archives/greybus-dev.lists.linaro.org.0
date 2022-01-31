@@ -2,13 +2,13 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47B904A473E
-	for <lists+greybus-dev@lfdr.de>; Mon, 31 Jan 2022 13:34:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 341704A4748
+	for <lists+greybus-dev@lfdr.de>; Mon, 31 Jan 2022 13:34:48 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 7DFF83EE27
-	for <lists+greybus-dev@lfdr.de>; Mon, 31 Jan 2022 12:34:44 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 637963EE30
+	for <lists+greybus-dev@lfdr.de>; Mon, 31 Jan 2022 12:34:47 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	by lists.linaro.org (Postfix) with ESMTPS id 3E7613ED9F
+	by lists.linaro.org (Postfix) with ESMTPS id A2C363EE26
 	for <greybus-dev@lists.linaro.org>; Mon, 31 Jan 2022 12:34:37 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
@@ -17,42 +17,42 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4Cnx2U3ehecH1EXxHKkd2xHBgTX+RcdbAsjgFaXCm/o=;
-	b=fU93pza/ZNETYaCsug8jceTgh74lN4xCg7XEi6i9wyj4TmQkCQnwaKQyFD/Bje8g4LhfYq
-	ivMLGxUfvDv8qwlaLLeLIckp6c2YdKOsfOTCa/Uo7nMnLgt8LcuMwCFIrgizaqdqjokJJC
-	oApPa4uFKZx2ulwkblGpZerv7rOq3RNAe8MHFLT5G4BUIzIyta1SLVEU2mxs3odpF1XUlI
-	HTdK/lXvMXfSjut0vo0beBmZe29Ii4tx4v9HE90JGDtofhLQI9amjERww7YAFUgYPhacrc
-	aMevfhtwGd0ObY29eFr6iVCyeQgJm+imvwLXqNpTq+42ODVzNqbZYSLbqzfdvw==
+	bh=/cEQ+7C4ff0CH04JiPwSBP6tluhPY4Bc2prPBUnnOrc=;
+	b=cpV3waOZkpC/BeIBHIZjp7NWYUbfHtuFlULP2WIZiB4hHZ6aqEcKGZ5GgoagpSJ9aIhCg1
+	mMGoP+MzZ8MJVAVEzqrQ1JfNMFuOrCjbaHBAnZVfY+DsDUZaUb9dwXfvqHg4jwydC+RfCG
+	Xer3/M0OPKNM3sDVymxeHMFJn83zb/JQLnTXvOsCMEMMpDXUZgNCfmiOE3y1uVlIL6r9l/
+	UbVLssQQyZ+ubitz1h15ukhmTCtLm2KmU9fBq1+tjggwraS9dvT8yEgO7DBEzWQhW0L5Xi
+	S9wMESKt/QyEiCTgnVt3jZqQJgnNkCmoRewDZaBDdXaOuMJxpAEdDbVo5LYkDQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1643632476;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4Cnx2U3ehecH1EXxHKkd2xHBgTX+RcdbAsjgFaXCm/o=;
-	b=E3vfHQTM7BzQ+R1R6RodJ9z8eBL9l02WqeF9xkbXHZrnawkMLcEQpWWcGMb3Vxa+JcMgcv
-	2y9smJBQm+7Rq1CA==
+	bh=/cEQ+7C4ff0CH04JiPwSBP6tluhPY4Bc2prPBUnnOrc=;
+	b=ElZnF6uYUf0P1O7Ajng3KcHoOXyiIm1m/k9ByRpFArmJev9h9MWPZbTuM+gXeF8kfVtXaC
+	5GAKDZOoXOrKzKDw==
 To: greybus-dev@lists.linaro.org,
 	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-staging@lists.linux.dev,
 	linux-usb@vger.kernel.org,
 	netdev@vger.kernel.org
-Date: Mon, 31 Jan 2022 13:33:59 +0100
-Message-Id: <20220131123404.175438-3-bigeasy@linutronix.de>
+Date: Mon, 31 Jan 2022 13:34:00 +0100
+Message-Id: <20220131123404.175438-4-bigeasy@linutronix.de>
 In-Reply-To: <20220131123404.175438-1-bigeasy@linutronix.de>
 References: <20220131123404.175438-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
-Message-ID-Hash: FVHQ2IWZKXXBJQES6MTPLJ6LIFWJIZ67
-X-Message-ID-Hash: FVHQ2IWZKXXBJQES6MTPLJ6LIFWJIZ67
+Message-ID-Hash: X2IKDF3FD44UG6GB337DYHRMBUFJPPQ7
+X-Message-ID-Hash: X2IKDF3FD44UG6GB337DYHRMBUFJPPQ7
 X-MailFrom: bigeasy@linutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: "David S. Miller" <davem@davemloft.net>, Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Hans de Goede <hdegoede@redhat.com>, Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Lee Jones <lee.jones@linaro.org>, Thomas Gleixner <tglx@linutronix.de>, UNGLinuxDriver@microchip.com, Wolfram Sang <wsa@kernel.org>, Woojung Huh <woojung.huh@microchip.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Michael Below <below@judiz.de>, Salvatore Bonaccorso <carnil@debian.org>, Oleksandr Natalenko <oleksandr@natalenko.name>
+CC: "David S. Miller" <davem@davemloft.net>, Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Hans de Goede <hdegoede@redhat.com>, Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Lee Jones <lee.jones@linaro.org>, Thomas Gleixner <tglx@linutronix.de>, UNGLinuxDriver@microchip.com, Wolfram Sang <wsa@kernel.org>, Woojung Huh <woojung.huh@microchip.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 2/7] i2c: core: Use generic_handle_irq_safe() in i2c_handle_smbus_host_notify().
+Subject: [greybus-dev] [PATCH v2 3/7] i2c: cht-wc: Use generic_handle_irq_safe().
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FVHQ2IWZKXXBJQES6MTPLJ6LIFWJIZ67/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/X2IKDF3FD44UG6GB337DYHRMBUFJPPQ7/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -62,40 +62,38 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The i2c-i801 driver invokes i2c_handle_smbus_host_notify() from his
-interrupt service routine. On PREEMPT_RT i2c-i801's handler is forced
-threaded with enabled interrupts which leads to a warning by
-handle_irq_event_percpu() assuming that irq_default_primary_handler()
-enabled interrupts.
-
-i2c-i801's interrupt handler can't be made non-threaded because the
-interrupt line is shared with other devices.
-
-Use generic_handle_irq_safe() which can invoked with disabled and enabled
+Instead of manually disabling interrupts before invoking use
+generic_handle_irq_safe() which can be invoked with enabled and disabled
 interrupts.
 
-Reported-by: Michael Below <below@judiz.de>
-Link: https://bugs.debian.org/1002537
-Cc: Salvatore Bonaccorso <carnil@debian.org>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Reviewed-by: Oleksandr Natalenko <oleksandr@natalenko.name>
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
 Acked-by: Wolfram Sang <wsa@kernel.org>
 ---
- drivers/i2c/i2c-core-base.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/i2c/busses/i2c-cht-wc.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 2c59dd748a49f..3f9e5303b6163 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -1424,7 +1424,7 @@ int i2c_handle_smbus_host_notify(struct i2c_adapter *adap, unsigned short addr)
- 	if (irq <= 0)
- 		return -ENXIO;
+diff --git a/drivers/i2c/busses/i2c-cht-wc.c b/drivers/i2c/busses/i2c-cht-wc.c
+index 1cf68f85b2e11..8ccf0c928bb44 100644
+--- a/drivers/i2c/busses/i2c-cht-wc.c
++++ b/drivers/i2c/busses/i2c-cht-wc.c
+@@ -99,15 +99,8 @@ static irqreturn_t cht_wc_i2c_adap_thread_handler(int id, void *data)
+ 	 * interrupt handler as well, so running the client irq handler from
+ 	 * this thread will cause things to lock up.
+ 	 */
+-	if (reg & CHT_WC_EXTCHGRIRQ_CLIENT_IRQ) {
+-		/*
+-		 * generic_handle_irq expects local IRQs to be disabled
+-		 * as normally it is called from interrupt context.
+-		 */
+-		local_irq_disable();
+-		generic_handle_irq(adap->client_irq);
+-		local_irq_enable();
+-	}
++	if (reg & CHT_WC_EXTCHGRIRQ_CLIENT_IRQ)
++		generic_handle_irq_safe(adap->client_irq);
  
--	generic_handle_irq(irq);
-+	generic_handle_irq_safe(irq);
- 
- 	return 0;
+ 	return IRQ_HANDLED;
  }
 -- 
 2.34.1
