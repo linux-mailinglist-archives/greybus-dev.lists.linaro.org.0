@@ -2,57 +2,57 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CDD24A4751
-	for <lists+greybus-dev@lfdr.de>; Mon, 31 Jan 2022 13:34:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DD4E4A4752
+	for <lists+greybus-dev@lfdr.de>; Mon, 31 Jan 2022 13:34:56 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 82ECD3EE30
-	for <lists+greybus-dev@lfdr.de>; Mon, 31 Jan 2022 12:34:52 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B364B3EE2B
+	for <lists+greybus-dev@lfdr.de>; Mon, 31 Jan 2022 12:34:55 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	by lists.linaro.org (Postfix) with ESMTPS id BA6E43EE51
-	for <greybus-dev@lists.linaro.org>; Mon, 31 Jan 2022 12:34:38 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id 366C43EE55
+	for <greybus-dev@lists.linaro.org>; Mon, 31 Jan 2022 12:34:39 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1643632477;
+	s=2020; t=1643632478;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3Rf56x1+Ad9rEt91/emuxS1F2pB4aiqCl6htULN1OW8=;
-	b=NItl7Sm8Sv5ZaZ5pyGetxkOE/XosAyw1Dhafd35BWYF3AZ2wlMF0JlE014D8ZkIWfl13cz
-	rcS815gCwV/KsKUNNBwuB0iGRs2ZpGX0NJyyYTxZLtGSrqQYVOio1CabZXCdYcRkMp3PWo
-	iZFVXBfcJbKCc9drgMh1h8oUD7jS/7Ys12c7yOm0WNjcegWdJtPUy2CklxnxxJgZBnPFgp
-	ZKE6I7MFgk2a8cbEuOHg+JZHgyNMqxfaOkiF0BVcHv9aE8aHwy7H7YCJC0Yq+sViS6aABI
-	9QESDEJ5YTamladmXXncEIluMmNgNr5ZdTyfIOYxSeLV6CR/8K2XLP1WWd4+uQ==
+	bh=An8sejACWdvpFe+0xRHo7AseACg3JQzOaIfRXUshpP4=;
+	b=BhXM3NIKleAXz7EGWrjwvCWxgHP1I7/JRcmil3tRIKBabUstjQSOcdpTUg/m1lF7oIrZ1h
+	GJQLNmXozK1A5vIYoXb9v6UwJ+KBsJYrcfFqHHqs3Jlf4o0dVx3Tlx0AnT0+RwiHef/FLW
+	oMURGOimO/W1lbtVUCoPppCqASjKnZW4wEWGjga/vAVPYkdg3nR3ugHAEHk5RML5kIVyMY
+	Gty+/hsNQDZxptez8/F9kHJ9CIEhSlGtoStcscQndHdMqYawAVkTTVPavXkShJCe60pzjk
+	57Ytrkn7GG824ZYP/vJ05PKC8JowBftEL1ohiaYtp/Yas8PUNYKV2mO/FZPpvg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1643632477;
+	s=2020e; t=1643632478;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3Rf56x1+Ad9rEt91/emuxS1F2pB4aiqCl6htULN1OW8=;
-	b=sM8TDHdyAIVrrUiRyNvRG/FFsmdPiet8KBnHDjkQYPlM/VPUyDAcs0VgIPboQLk4/Zp2ED
-	Sl8ssbU1jFbAFPBw==
+	bh=An8sejACWdvpFe+0xRHo7AseACg3JQzOaIfRXUshpP4=;
+	b=VXjZDiLALUI90SjNiUr6gENIIBLtiru6j97WSlG+HLfibjq+XKc+wXT5Hl2CyD+y6EqoQW
+	lUdbLPTu09+heCCA==
 To: greybus-dev@lists.linaro.org,
 	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-staging@lists.linux.dev,
 	linux-usb@vger.kernel.org,
 	netdev@vger.kernel.org
-Date: Mon, 31 Jan 2022 13:34:02 +0100
-Message-Id: <20220131123404.175438-6-bigeasy@linutronix.de>
+Date: Mon, 31 Jan 2022 13:34:03 +0100
+Message-Id: <20220131123404.175438-7-bigeasy@linutronix.de>
 In-Reply-To: <20220131123404.175438-1-bigeasy@linutronix.de>
 References: <20220131123404.175438-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
-Message-ID-Hash: RVAKQI7JXW7AUSPKFVFHT3LPCJ4JBGQR
-X-Message-ID-Hash: RVAKQI7JXW7AUSPKFVFHT3LPCJ4JBGQR
+Message-ID-Hash: LY5GDXJE55BFEE2CXWK537GYX7Y2PWE4
+X-Message-ID-Hash: LY5GDXJE55BFEE2CXWK537GYX7Y2PWE4
 X-MailFrom: bigeasy@linutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: "David S. Miller" <davem@davemloft.net>, Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Hans de Goede <hdegoede@redhat.com>, Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Lee Jones <lee.jones@linaro.org>, Thomas Gleixner <tglx@linutronix.de>, UNGLinuxDriver@microchip.com, Wolfram Sang <wsa@kernel.org>, Woojung Huh <woojung.huh@microchip.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 5/7] mfd: ezx-pcap: Use generic_handle_irq_safe().
+Subject: [greybus-dev] [PATCH v2 6/7] net: usb: lan78xx: Use generic_handle_irq_safe().
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/RVAKQI7JXW7AUSPKFVFHT3LPCJ4JBGQR/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/LY5GDXJE55BFEE2CXWK537GYX7Y2PWE4/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -68,28 +68,27 @@ interrupts.
 
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/mfd/ezx-pcap.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/net/usb/lan78xx.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/mfd/ezx-pcap.c b/drivers/mfd/ezx-pcap.c
-index 70fa18b04ad2b..b14d3f98e1ebd 100644
---- a/drivers/mfd/ezx-pcap.c
-+++ b/drivers/mfd/ezx-pcap.c
-@@ -193,13 +193,11 @@ static void pcap_isr_work(struct work_struct *work)
- 		ezx_pcap_write(pcap, PCAP_REG_MSR, isr | msr);
- 		ezx_pcap_write(pcap, PCAP_REG_ISR, isr);
+diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+index b8e20a3f2b84e..415f16662f88e 100644
+--- a/drivers/net/usb/lan78xx.c
++++ b/drivers/net/usb/lan78xx.c
+@@ -1537,11 +1537,8 @@ static void lan78xx_status(struct lan78xx_net *dev, struct urb *urb)
+ 		netif_dbg(dev, link, dev->net, "PHY INTR: 0x%08x\n", intdata);
+ 		lan78xx_defer_kevent(dev, EVENT_LINK_RESET);
  
--		local_irq_disable();
- 		service = isr & ~msr;
- 		for (irq = pcap->irq_base; service; service >>= 1, irq++) {
- 			if (service & 1)
--				generic_handle_irq(irq);
-+				generic_handle_irq_safe(irq);
- 		}
--		local_irq_enable();
- 		ezx_pcap_write(pcap, PCAP_REG_MSR, pcap->msr);
- 	} while (gpio_get_value(pdata->gpio));
- }
+-		if (dev->domain_data.phyirq > 0) {
+-			local_irq_disable();
+-			generic_handle_irq(dev->domain_data.phyirq);
+-			local_irq_enable();
+-		}
++		if (dev->domain_data.phyirq > 0)
++			generic_handle_irq_safe(dev->domain_data.phyirq);
+ 	} else {
+ 		netdev_warn(dev->net,
+ 			    "unexpected interrupt: 0x%08x\n", intdata);
 -- 
 2.34.1
 
