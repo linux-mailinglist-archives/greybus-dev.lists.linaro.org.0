@@ -2,157 +2,129 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 163B84A7043
-	for <lists+greybus-dev@lfdr.de>; Wed,  2 Feb 2022 12:48:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAFCA4AB1F3
+	for <lists+greybus-dev@lfdr.de>; Sun,  6 Feb 2022 21:11:18 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 412103EE2D
-	for <lists+greybus-dev@lfdr.de>; Wed,  2 Feb 2022 11:48:41 +0000 (UTC)
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
-	by lists.linaro.org (Postfix) with ESMTPS id 57B303ED1A
-	for <greybus-dev@lists.linaro.org>; Wed,  2 Feb 2022 11:48:37 +0000 (UTC)
-Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 2129iPmX022156;
-	Wed, 2 Feb 2022 11:48:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : content-type : in-reply-to :
- mime-version; s=corp-2021-07-09;
- bh=c2J+KE+Gud11Sy268Hy1tLFs5QF8JG7Ot59aDlmqBlE=;
- b=J45DnGnnfycwBbgbcgf/d2WaXnVcNTEd/EHHnepe/NOSqjFjIyKKx0TC5ZUm6lYRFi8k
- 12YyR2Qoy5GboIUxzHOeS16kxToV0F2pDVCWxr5CC4WAIYx/QDU9fEh2jQLIIfR8wpik
- EFpnZm5sRO6PLfAmqbFqMnOstfBp6DlF5mKZRHa3WxiPpgrKDqUrCxldhLx8F2MIAtqH
- Yh1mBzeJI6G8Y158g21itWLGIVm+MHaAXdjKdgugg+L/ZjsbDSG7TPfXUVUAS2dmnYrc
- itGvLE4l5LH/U4DH4EAo+FD+7PJiu/6BzYF9h47HfwDhdDcmf9vH3LmeRZJoM7hNytUv Tw==
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
-	by mx0b-00069f02.pphosted.com with ESMTP id 3dxnk2n8yp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 02 Feb 2022 11:48:27 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
-	by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 212Bjiw9104648;
-	Wed, 2 Feb 2022 11:48:26 GMT
-Received: from nam02-dm3-obe.outbound.protection.outlook.com (mail-dm3nam07lp2041.outbound.protection.outlook.com [104.47.56.41])
-	by aserp3030.oracle.com with ESMTP id 3dvumh6vp1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 02 Feb 2022 11:48:26 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G7ldIIODz/O/yh0iR3WwJlrwUoW2D33ucuK844HEzWy2vN7LbZrcb94mYnx3ChMkyWjk4C6ATasXsRMWxXb/QFkciE36S/InWi0T9sSFlup8M70kxHirmKbGr7ZW6pcKLTZMuS21wmCfP5//8aZ457ryTIBUho4biVVQhxCaDzoO7F3lYEIgRJJu9c4h68HFXsOs138Za9/o6C0ZiNcP5n3N70OKQBdTWgH121Sf0lOF1H9NnWfygET9XbVpX4hKEh73WlSnW6upEO4z3TopzyeivmL32113/LJNFteJKzW1RHU9b/8bBlvvSyjusKQuuou6NSRd2Xni8yQXFkdtHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c2J+KE+Gud11Sy268Hy1tLFs5QF8JG7Ot59aDlmqBlE=;
- b=Rn/f9H41O+U3I9SIwQmTdKkELapb6TaZINmBdYbZOmQezC8mLwD4fWcoURzQWf7CyQtFhQ6r/KT+1BmZR/RviLTNsOqUzewZbYirphBIDqeXVuDCrVoQoOyAZk3oYi9YJgWqcerv9PRIguxQJU2P90Fjdq1z5pCgsoLo03sUe72OGG4kDoQBKSmNkHFcF+NHrOCMA6FlqH1op8ONpCcrisKygGIp45+/2yA2ROithwZTqIZN57vAyw+/R9lKFDN5blHFJqS+xp1UhEx4CKDOD3otZ+kgRy8yuQ/ciiQ73MwF7a5S0T92p6AQ4ZbIPzPm+LY6lFFxqy5EjuSvKAFCuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c2J+KE+Gud11Sy268Hy1tLFs5QF8JG7Ot59aDlmqBlE=;
- b=oiBfOh5odzVIW4JwwwlQEmOAe0P0fP5YwvO7qVL5GDzMyUwomfe62O2WnaYqp0nU//EGOl0VVkjAlMLgOeKyCknxqpkYgcj8QLPy408XRgwrs9z2rmRSXVBkwHikAgSzZTtFKqdzQsAmZNO1pSDKKTS6Gf+9UqhlBDg1CGUbnWc=
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by BLAPR10MB4881.namprd10.prod.outlook.com
- (2603:10b6:208:327::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Wed, 2 Feb
- 2022 11:48:24 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::e5a5:8f49:7ec4:b7b8]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::e5a5:8f49:7ec4:b7b8%5]) with mapi id 15.20.4930.021; Wed, 2 Feb 2022
- 11:48:24 +0000
-Date: Wed, 2 Feb 2022 14:48:01 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Johan Hovold <johan@kernel.org>
-Message-ID: <20220202114801.GW1978@kadam>
-References: <20220202113347.1288-1-johan@kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20220202113347.1288-1-johan@kernel.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: JNXP275CA0005.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:19::17)
- To MWHPR1001MB2365.namprd10.prod.outlook.com (2603:10b6:301:2d::28)
+	by lists.linaro.org (Postfix) with ESMTP id 5E65F3EEC7
+	for <lists+greybus-dev@lfdr.de>; Sun,  6 Feb 2022 20:11:17 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by lists.linaro.org (Postfix) with ESMTPS id DFA8E3ECF2
+	for <greybus-dev@lists.linaro.org>; Sun,  6 Feb 2022 20:11:14 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id EF281B80DE4;
+	Sun,  6 Feb 2022 20:11:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10199C340E9;
+	Sun,  6 Feb 2022 20:11:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1644178272;
+	bh=jljw/NXDE01h/Pq3byW2tpFU83OPdtk2kq8rd42Jk1c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nhvpRiAHeyPnhoPW5AJYz7sXsz9qtFaixezo/f6lKIoTinmiRK/0KfhqtTjkJMiZA
+	 C1eoikWCvjFFaQoyqdBqnt61Sxj9tcqo0hoj4c33suJ2iCZVvxedjh6hh9d879NQUy
+	 D91VqLaA4kYzRnFvGL+lqISffF5jEMJeJz/KehV/F5DPWnP4iRK5HBxqJZ8N5Qpqov
+	 u/68l4FbFrs1dFjSIxxVA0bjW0xDBeDhMAwDNgmwQeGdSpN03gGah6Mw9+50+gKID4
+	 mgmnJ0HiCVk6qrLd1K0L185npwEZ8epAYyk8NiTmVh/xeQiJvC8hROwGWHFXO+yTZR
+	 g2rbP6e0rw9Lw==
+Date: Sun, 6 Feb 2022 21:11:06 +0100
+From: Wolfram Sang <wsa@kernel.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Message-ID: <YgArWgyvy9xF3V5Q@kunai>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	greybus-dev@lists.linaro.org, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hans de Goede <hdegoede@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Lee Jones <lee.jones@linaro.org>,
+	Rui Miguel Silva <rmfrfs@gmail.com>,
+	Thomas Gleixner <tglx@linutronix.de>, UNGLinuxDriver@microchip.com,
+	Woojung Huh <woojung.huh@microchip.com>,
+	Oleksandr Natalenko <oleksandr@natalenko.name>
+References: <20220131123404.175438-1-bigeasy@linutronix.de>
+ <20220131123404.175438-2-bigeasy@linutronix.de>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1e02e7f7-0521-48b7-e97c-08d9e641eb37
-X-MS-TrafficTypeDiagnostic: BLAPR10MB4881:EE_
-X-Microsoft-Antispam-PRVS: 
-	<BLAPR10MB48815D20515FE39E99A08DDA8E279@BLAPR10MB4881.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	Ym601ri2JOwzM5bi41FBV7BH/8WTOetLUISWbQ4JwY4Jja1SE1jU2XJLGDWOTpyP+hZm/mxIcuwl6UOnb2iBZ6sKapCnETOhoj8noCRee6W5v+a9Mo/I6FMINVAnxXjE0jqg3g0DI64DQ+SI9xiZHwZk1OpC1EcnaeZa7JLvrfwLmlJaQgb1GibG9CNVfC+z5WhwcjFulZlouFG2IkOxnC+IP3fiKK5MWQ7eO/LOXzre2+5Rk/mRb8qj9UBiDba0yp1+zXV0xck9DTI8nmbzOKnd7/D9dJPJrdxTGUovFRINe0873826lIR7uuxmc5qeZYy3nTffejcihOuptyWeCehCdjBP6Vgad6NkJEJEvvGtvUgGTwuAUxnqbU6D2QgKIxpTBXcnarE5kbIlGuCG7e9qcRt1WQ6YZalRywKzg3u4F+M9aok2TTgOAJfOxlOTWtI2yiU6JkfHzxY7b8KSlxzJYbU0r75uhYfSFvDCTHd3dDEP5bsyz4S1v4DWnD61O+oGTpSKYUkfvPtpmeQN6kMBISSxn7p3o2ezv6JaiGGOKfR3DlMgufHyKaH8RPuF3sR8kjgYBbj3SwAcbYMTzzz8CFqNQ5i3Bw74MRRdjpHz1bm/4wdptwhvGN9gQI+7xjlF+TcWj5X1gNTMDobzvyS7zD0qOfwyhNQBdeAQA7irNfbCK0alDwDY31oHpOpZUJewNc5b2raSNmI3Mq3FkQ==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2365.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(366004)(6486002)(33716001)(558084003)(1076003)(186003)(6916009)(26005)(38350700002)(4270600006)(38100700002)(54906003)(19618925003)(316002)(66556008)(5660300002)(44832011)(6506007)(33656002)(52116002)(8936002)(66476007)(66946007)(8676002)(4326008)(2906002)(9686003)(6666004)(508600001)(6512007)(86362001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?5ouz9Elk7yVN9py86i7qGhMkAaVUcT3Z1PnHKEeNzMC79BHm2I/ivNmSZsQ/?=
- =?us-ascii?Q?ZqnCfXJyKVuC2eLxOsZrbhpaUvKfccmo9D7UNtGX01Z9Qp3m4iVFY/frL6Rw?=
- =?us-ascii?Q?plhbjp+j41nzSSee81E0fumyv1lwiX1OyQWlNOCrb6k10uJr50+3Zl1nGDVh?=
- =?us-ascii?Q?ikUNgQ/jzNwY1Vl8Q5wXtHg6/JTBlPI6U0GPRDNELmY8yBRpnNWLGBVwAJdu?=
- =?us-ascii?Q?sjgHeN2jI5LzaMWn4v0kAGIs0MvEFLT+P3ReZP9HArRtveI/iLJ41QBGx0sT?=
- =?us-ascii?Q?IE10c0/e5EJhpANylwSdVpWTTCeLSfU2VsLA4LEz9wmAYakkyNT89/Kc/I19?=
- =?us-ascii?Q?P+1PLUPL0TzKUADYxAcrUG8Jxrx3rxm/d1VxgBxlCOxo9JOv4D28Jue4A4x+?=
- =?us-ascii?Q?//gP2biEP5XVczFXFIrFWAgq+HtKxz/xYTmPb7e0P/aa/0iyePr6tkFquDuC?=
- =?us-ascii?Q?gqaQvfCqgGSSpOyWnT9De0Pbxny/53Dk8G/ffptHXI4SLh+g1ju2E7lQIZbK?=
- =?us-ascii?Q?UuTLPe8uPE83SLracNXhBtU/Ddd7H2l3eOxG9eSBWdsDxDRLJnyebp1JOUPc?=
- =?us-ascii?Q?O44NwnWXq0d3HOfuSGOn0B4ICq1l9GbHET+iAbEp9uDE3cqRgWHiXpy7gR8l?=
- =?us-ascii?Q?1pQn07TQ3DEReA09nNr0RUrmbSdyrGd2ZcjOHkKz4mZdyrog3eMhPrl7tAjU?=
- =?us-ascii?Q?ZzChJj3y5wvZY4D6DRknU4A06SHMax7csn7oU0hO69E9+nTlDsXIPSwHeHDB?=
- =?us-ascii?Q?evJd+wOiK/AucqAasSZOLae3n0JdU/6s+w1KygZ/KPQQM7IUuzrj5NBbnVNn?=
- =?us-ascii?Q?6PwYOxi515qsbB75DWcMoea41bssyFhfp8Bmdat75+dqMecEx4/aOrNkyNy1?=
- =?us-ascii?Q?Qc6HRvFFhNdnc5Ut+6lcV86S1DqMcqmvx0klAQuBMOwlYu1Coj8W0Fdumfkd?=
- =?us-ascii?Q?/3Wn7v9JeHK8TTIf28pW0vwqp4lu1NTdC3QymHTDghFxTVujvSqUkqrz3uQN?=
- =?us-ascii?Q?+Wno6Fi1yiz/4CeC6HakfY86+XXfei+pocmHVnvs9KUN96JeglH92O1Vhm+u?=
- =?us-ascii?Q?L0led9Vd5hrOku3HnTSfXDGJgvbvPADT6vW1RBPV0RxwazyUhIOMDG5Z1Apf?=
- =?us-ascii?Q?GBykhG3zk8yS8o2jxnLVrqjVA7A4p/1knaOK8K20f9/Dhmi3bpxSpdTQO2mS?=
- =?us-ascii?Q?AF6/fJc/VQaPzOUzvNgdDmKcrgLchpo56bjXKf3NMMxtSDABaID7zuSwlazE?=
- =?us-ascii?Q?y//2d5flofLz5wYmO2vtAYMG9yyGe2m+sCHExxR6A3p22h9jFnc9Rlz+MsT7?=
- =?us-ascii?Q?q/834/GbAlXKR+hepxxNiagHH8JKYX5uPC5T+B2Hh96Vcmm4bM23QM2dAdMN?=
- =?us-ascii?Q?2BWho3Opwk0+OskldAT7X660KrMXNoUecqDYJ16Iy4YfBo41IgwUY3sXnmxR?=
- =?us-ascii?Q?NTK1HpsXF2dyBu3HYBZ/Q0+oEZroGjOmT7k7YhPINawB7zKIXtHhPcZUmwKi?=
- =?us-ascii?Q?HSD7ewGcZs1r1DTiWDr+Oh7KLzsXCPJzW2UbY3pFl5N5dBoJg7NO6WrYFNbN?=
- =?us-ascii?Q?c0sonPqZNhCjj2+dIbfMitJgW3CN9A11hQq29EnuT/HFM4FdY4tevrSg+qYd?=
- =?us-ascii?Q?41nLCfWQzWc8Q2h/JrMJacS6LoCgJwEaC62oTmEJ6znValCpSlhgde428qnR?=
- =?us-ascii?Q?oLbyPyOJdDUWcSHZHMjT0IWOSLs=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e02e7f7-0521-48b7-e97c-08d9e641eb37
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2022 11:48:24.4458
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pVEz5TKp54kvwFF9c5NrN8YMVMgU3/iD2e9gBLBVBQgae9H4DAMDp8laxHaFnqlPjLRDwJaYy/NNgzF0hWhEm5gK7F99EPQtdhyJHBgJ5R0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB4881
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10245 signatures=673430
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0 malwarescore=0 phishscore=0
- mlxscore=0 adultscore=0 suspectscore=0 mlxlogscore=825 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
- definitions=main-2202020063
-X-Proofpoint-GUID: i2mivkofwxVc7HMcrFZ0Q9qSZ4l3Bptl
-X-Proofpoint-ORIG-GUID: i2mivkofwxVc7HMcrFZ0Q9qSZ4l3Bptl
-Message-ID-Hash: P7MH42UB5AHLWLJSEZZ3HRP3PJPQX2DC
-X-Message-ID-Hash: P7MH42UB5AHLWLJSEZZ3HRP3PJPQX2DC
-X-MailFrom: dan.carpenter@oracle.com
+In-Reply-To: <20220131123404.175438-2-bigeasy@linutronix.de>
+Message-ID-Hash: J6EGXSDWDM6MBIIMBA4C4MXR23LUKNYJ
+X-Message-ID-Hash: J6EGXSDWDM6MBIIMBA4C4MXR23LUKNYJ
+X-MailFrom: wsa@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org
+CC: greybus-dev@lists.linaro.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Hans de Goede <hdegoede@redhat.com>, Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Lee Jones <lee.jones@linaro.org>, Thomas Gleixner <tglx@linutronix.de>, UNGLinuxDriver@microchip.com, Woojung Huh <woojung.huh@microchip.com>, Oleksandr Natalenko <oleksandr@natalenko.name>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 0/3] greybus: svc: fix hello processing
+Subject: [greybus-dev] Re: [PATCH v2 1/7] genirq: Provide generic_handle_irq_safe().
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/P7MH42UB5AHLWLJSEZZ3HRP3PJPQX2DC/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/J6EGXSDWDM6MBIIMBA4C4MXR23LUKNYJ/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
+Content-Type: multipart/mixed; boundary="===============7549688306354537072=="
+
+
+--===============7549688306354537072==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="agAcRzQ1V4vmM4bn"
+Content-Disposition: inline
+
+
+--agAcRzQ1V4vmM4bn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+
+> + * This function can be called any context (IRQ or process context). It will
+
+"from any context"
+
+> + * report an error if not invoked from IRQ context and the irq has been marked
+> + * to enforce IRQ-contex only.
+
+"IRQ-context"
+
+Other than that, the paragraph is really helpful now IMO. So with the
+above fixed, you may add:
+
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+
+
+--agAcRzQ1V4vmM4bn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmIAK1UACgkQFA3kzBSg
+KbbBQA//be5yTyPptkcw8xl8xEjjuosJmrSOMBREgzarO4DbrPX/pC/W0Nak54bs
+UnjGfnRDFQXa2krCIIbZmmwtCLKftVVbqB5eFFJ/Y6uM/pa2hKgli0sNfHJ2p++i
+jT01vDRqxEjyA795yxeF8nD3/xkmIM49A5hbPq7yW6YTGF8VJ6Qhe+5vWpMoNqFH
+6KoSHGUFpwCgVBEadLhdV8a0OpSrjPTs+MOZhWL+IIpb3Ay+tztQpUL1f2ncnlG/
+Sq5E7KPuKem03swyvKmFcn1fl+R3eLy7ueoHbXeyfKDi8eqLImP1ZYwfq0K+LwKK
+O2LHRkXcrPnHM/lSt9dQDbJNY9J6wzav77BzF9zS8e23KhPlTlidSDHWwgtkq2vj
+yr825hAIMoecoj8t4pgpSDYyyw9rnSeGwmB7AFWZctzLoaLtdGBZrIZKJv4ZM5bH
+p79anJodYwJEVRRvj3t1ZA+vH8n4TThUG6RFWV18a9rLUi1N/YvwsZO7wTf9Msw6
+lnL8iMPAcHpx0byMztoiHybZsmoV4eKGteuu1dwt0CK7Vz1MMKOgQKkLtq1NzWUe
+5DEWew6kXfumd6/yxKJV4i0Zj21mzkjWAtFYk/JXenTGN42RRCErqCFCbZ2qOHq/
+26QRgRBrQ+i9B3h91gLA2r7T7+UTcboUEhA8zhvvf8omx/gYw0M=
+=mPjB
+-----END PGP SIGNATURE-----
+
+--agAcRzQ1V4vmM4bn--
+
+--===============7549688306354537072==
 Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-
-Thanks, Johan!
-
-regards,
-dan carpenter
+Content-Disposition: inline
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+
+--===============7549688306354537072==--
