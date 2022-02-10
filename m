@@ -2,75 +2,66 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7167B4CA935
-	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 16:37:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF7A54CA936
+	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 16:37:57 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A784C3EF4B
-	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 15:37:55 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
-	by lists.linaro.org (Postfix) with ESMTPS id D6197401E5
-	for <greybus-dev@lists.linaro.org>; Fri, 28 Jan 2022 19:37:32 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id t9so10432224lji.12
-        for <greybus-dev@lists.linaro.org>; Fri, 28 Jan 2022 11:37:32 -0800 (PST)
+	by lists.linaro.org (Postfix) with ESMTP id 218AA3EF45
+	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 15:37:57 +0000 (UTC)
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	by lists.linaro.org (Postfix) with ESMTPS id BF0AA3E887
+	for <greybus-dev@lists.linaro.org>; Thu, 10 Feb 2022 06:02:13 +0000 (UTC)
+Received: by mail-qt1-f176.google.com with SMTP id x5so4101037qtw.10
+        for <greybus-dev@lists.linaro.org>; Wed, 09 Feb 2022 22:02:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=aiENhwM8k5s4CI1T29f+7g3ngGtWKHx/bWX81I/XFuo=;
-        b=VsehauSzbNf0n6Z/JkRnEEIXEmu5fPVfxgn01c1ll5kYNgwjlRcLEloqB4fUIcPxJt
-         GdWfe/XgkyzNkttXaf4aRo4s7sUlgvNyt69j5WJbMbArnqwuf1BUpEMr8TlmjgDNGybx
-         GPHmkyvIebgiAMcnbQPPsSM5jTsT7eb7SPBjnj0l58rV9Gv/qWKq+N4WB2sBRVWlnN+e
-         mI/b+m/izcdyzR9uwE/UxKgQIY2cJRrPxoP9E2aglmiokMSP32rwDDmwCMlpniTOG9bO
-         krI+E0b+sC7vs+YUAjpzDr1AQccTFkvb2PGASdFJcSplJN0FxuH5cvMj8AtcuzZQdoyc
-         O6Gw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=XKrz6bApi0/dsmE95e4g0zGa9CuMMOhYtsPE3YuMXWE=;
+        b=hQw2cIl4ZF4Usav+Wpu99AIfOMknmyChe7N4wleG0Aqh84i0EYKXwuPtxfprUWsYro
+         hwrHjwskZM9feaFA9SQatg8ZnR5P28T83p4u9EJ5AjCcAq6GdGsyS5v3J/gazY1Nhr3M
+         4maSe8esqQGnkPir68BRJ0qCNDBKkF1Hu64pyUgT5hjQ07vPp4GNv4kekFM9kiVuUJgm
+         qjbZllq/DvUx79jgGssoHGVzOWKOJDTOgu/So2qLGky7Cir2ogq/3oG98uKEJIQBjm4m
+         BKcIBRmToGjo/HI7f7Uq+VJrjLfXCfspfcDpxCcc1cxKmUj/DcF7VIcqrCJTw+4nu7K0
+         zeDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=aiENhwM8k5s4CI1T29f+7g3ngGtWKHx/bWX81I/XFuo=;
-        b=7OUExh2kigQaLn/hnLeK7fej1bnShxxb2TPs81P1vRp/SHDDXEcnZNAfm8sf9pDbeN
-         XaW1LZVxOm6Gvgv+0qXIGI+o1jF6Uaj0xOYnV6n4YQRQzPyAkC5t9n9xQqlPKva/xf/l
-         xy7O6sYshoe6Dg9hvyIPbHFSinyDjQtVhazjl4X3jZrUeN+GOQJpf0+vORfx229IXtqj
-         0lS3GAyKH2a3XsVb2HlIVKCzGZj3SRay1UtnRchgkjvts56a/VYPLXs1dAJQR3p9Pc38
-         c9cXbpVfgfo0wRd+l7fQmtN/oS4wSIQKnsJVtw8/XEimg0R1NK7Ct9Ud+R5ajoBYx4dr
-         QuUw==
-X-Gm-Message-State: AOAM533kAh/F63NwVHnTbwsnmmqjIBaXhytY+jIZiNffQBOKf5RtXX3i
-	bPydRRTaCtus0O6zgcPOnNg=
-X-Google-Smtp-Source: ABdhPJwrjMI4ZpB5Ov1Fk2wbeI8iclUzrmf1/QctXusS4SbUXC0q/1kcZ3akLOrdfD9K15D7hbd1+A==
-X-Received: by 2002:a2e:a594:: with SMTP id m20mr6552416ljp.491.1643398651584;
-        Fri, 28 Jan 2022 11:37:31 -0800 (PST)
-Received: from [192.168.1.103] ([178.176.74.103])
-        by smtp.gmail.com with ESMTPSA id d15sm359077lft.202.2022.01.28.11.37.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Jan 2022 11:37:30 -0800 (PST)
-To: Lee Jones <lee.jones@linaro.org>
-References: <20220127113303.3012207-1-bigeasy@linutronix.de>
- <20220127113303.3012207-5-bigeasy@linutronix.de>
- <44b42c37-67a4-1d20-e2ff-563d4f9bfae2@gmail.com>
- <YfPwqfmrWEPm/9K0@google.com>
- <d351e221-ddd4-eb34-5bbe-08314d26a2e0@gmail.com>
- <YfQeuWk0S4bxPVCg@google.com>
-From: Sergei Shtylyov <sergei.shtylyov@gmail.com>
-Message-ID: <42d216c4-abf2-7937-1a99-0aecc4ef2222@gmail.com>
-Date: Fri, 28 Jan 2022 22:37:28 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+        bh=XKrz6bApi0/dsmE95e4g0zGa9CuMMOhYtsPE3YuMXWE=;
+        b=7WIxAtf4p0jj5GxTiYGTzMh5TkO9BhutD6NOdvaty3XChiR9skJf9Iv+Ft8/c4P9sC
+         rl9yG22f1dkXQ+8mEbDlpqKe8IKAvezvLSIDIuyS0Ap0MDbwxpaQkyvEolvd30KMcEFj
+         dUi7Jjw8r7qXokGKO/0AptTvbT1wFZVjWRB2qV+o8X9ebiKlMlun4C07K0wjwFneDfNN
+         LUEpEMRTWpca5d0rKf2ACuWPZzhJLgvsZxu6ndGKvXy38BoGIGDZ1FKVc9plUqQdhjrN
+         YCR59eLboeRmfLtCENlJXk8pawohHpotz6JlWaQhOhTwlLML0b+i8MzUHxraBEC2/fcq
+         sJdQ==
+X-Gm-Message-State: AOAM531jY8lWdknnl0lXjxdjN+ZwqZwjBtL9sTxILKi/hDdxtcNcOUao
+	g/mmj1O6MLDlxUrs7RcZgYlvAsdxoz8=
+X-Google-Smtp-Source: ABdhPJwsJcp4q7PEnSA447KhyLtwRARtizksuTwP1Dav6tE4wkPVKCyLIGMnuqsMHDXS0p0l8STZrQ==
+X-Received: by 2002:a05:622a:64e:: with SMTP id a14mr3689197qtb.212.1644472933488;
+        Wed, 09 Feb 2022 22:02:13 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+        by smtp.gmail.com with ESMTPSA id h9sm10009584qkn.121.2022.02.09.22.02.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Feb 2022 22:02:12 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: chi.minghao@zte.com.cn
+To: rmfrfs@gmail.com
+Date: Thu, 10 Feb 2022 06:02:05 +0000
+Message-Id: <20220210060205.1607792-1-chi.minghao@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <YfQeuWk0S4bxPVCg@google.com>
-Content-Language: en-US
-X-MailFrom: sergei.shtylyov@gmail.com
+X-MailFrom: cgel.zte@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: OG5ECFCF3PXFYHQKF2JHDMAVF3YEABS5
-X-Message-ID-Hash: OG5ECFCF3PXFYHQKF2JHDMAVF3YEABS5
-X-Mailman-Approved-At: Wed, 02 Mar 2022 15:37:53 +0000
-CC: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, greybus-dev@lists.linaro.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Hans de Goede <hdegoede@redhat.com>, Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, UNGLinuxDriver@microchip.com, Wolfram Sang <wsa@kernel.org>, Woojung Huh <woojung.huh@microchip.com>
+Message-ID-Hash: YYX73AFENQIB3OYJD2N7RZUGINRXGRA4
+X-Message-ID-Hash: YYX73AFENQIB3OYJD2N7RZUGINRXGRA4
+X-Mailman-Approved-At: Wed, 02 Mar 2022 15:37:54 +0000
+CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Minghao Chi <chi.minghao@zte.com.cn>, Zeal Robot <zealci@zte.com.cn>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 4/7] mfd: hi6421-spmi-pmic: Use generic_handle_irq_safe().
+Subject: [greybus-dev] [PATCH] staging: greybus: Remove redundant 'flush_workqueue()' calls
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OG5ECFCF3PXFYHQKF2JHDMAVF3YEABS5/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YYX73AFENQIB3OYJD2N7RZUGINRXGRA4/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -80,39 +71,34 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 1/28/22 7:50 PM, Lee Jones wrote:
+From: Minghao Chi (CGEL ZTE) <chi.minghao@zte.com.cn>
 
-[...]
->>>>> generic_handle_irq() is invoked from a regular interrupt service
->>>>> routing. This handler will become a forced-threaded handler on
->>>>
->>>>    s/routing/routine/?
->>>>
->>>>> PREEMPT_RT and will be invoked with enabled interrupts. The
->>>>> generic_handle_irq() must be invoked with disabled interrupts in order
->>>>> to avoid deadlocks.
->>>>>
->>>>> Instead of manually disabling interrupts before invoking use
->>>>> generic_handle_irq() which can be invoked with enabled and disabled
->>>>> interrupts.
->>>>>
->>>>> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
->>>> [...]
->>>>
->>>> MBR, Sergey
->>>
->>> What does that mean?
->>
->>    Ah, you were asking about MBR! My best regards then. :-)
-> 
-> Yes this.  It's okay, Dan was kind enough to enlighten me.
-> 
-> Every day is a school day on the list! :)
+'destroy_workqueue()' already drains the queue before destroying it,
+so there is no need to flush it explicitly.
 
-   It's not exactly a well known phrase, I like it mainly because it also stands
-for the Master Boot Record. :-)
+Remove the redundant 'flush_workqueue()' calls.
 
-MBR, Sergey
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Minghao Chi (CGEL ZTE) <chi.minghao@zte.com.cn>
+---
+ drivers/staging/greybus/sdio.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/staging/greybus/sdio.c b/drivers/staging/greybus/sdio.c
+index 37bf04c22dbc..25bee5335c70 100644
+--- a/drivers/staging/greybus/sdio.c
++++ b/drivers/staging/greybus/sdio.c
+@@ -858,7 +858,6 @@ static void gb_sdio_remove(struct gbphy_device *gbphy_dev)
+ 	gb_connection_set_data(connection, NULL);
+ 	mutex_unlock(&host->lock);
+ 
+-	flush_workqueue(host->mrq_workqueue);
+ 	destroy_workqueue(host->mrq_workqueue);
+ 	gb_connection_disable_rx(connection);
+ 	mmc_remove_host(mmc);
+-- 
+2.25.1
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
