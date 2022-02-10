@@ -2,112 +2,158 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63F084AEC84
-	for <lists+greybus-dev@lfdr.de>; Wed,  9 Feb 2022 09:34:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 700CB4B0A37
+	for <lists+greybus-dev@lfdr.de>; Thu, 10 Feb 2022 11:04:02 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8AB1F3EE83
-	for <lists+greybus-dev@lfdr.de>; Wed,  9 Feb 2022 08:34:01 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	by lists.linaro.org (Postfix) with ESMTPS id 644043EE0E
-	for <greybus-dev@lists.linaro.org>; Wed,  9 Feb 2022 08:33:58 +0000 (UTC)
-Date: Wed, 9 Feb 2022 09:33:55 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1644395637;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cEegwyHh3AOCLz3cTCj8v6K1zDxKD4yBWV+8sL6bFrc=;
-	b=u/Mob7w/VimevoQAad7DDk4SKgNX8XCDpPf69TQ2lWT3az8CLyezqtq4ny/TGXZbqanHGI
-	VSEC0Jylcd1DFjKAdrhsAtpxuL73f6zCyMioxlYTkQKCBjfoaHZMZUQ251GatAZcK84MJi
-	gwIsFGHot8iYqtULewHoa3+ljzeaZMp7Ljc5FJTWH26EYcb/b3f0ZJDVTYIKifgw6q8Vfb
-	FQrjdsTmmtHMT3fWNnbuMuWfB4CTh6SB+55DwAaqXDYsPJ7WR6DzozP21kZShNZW2IUkkx
-	XqGXK93zv4S9IZiQ9NvbTRZB7LGTnDGfEUMCEuAptS8ZgXpPYXtY+rExB6RCOQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1644395637;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cEegwyHh3AOCLz3cTCj8v6K1zDxKD4yBWV+8sL6bFrc=;
-	b=Qh++AmLLRNISAd6f1OEam+WBPL+y4VbfbjTC/YRzjJnVL0kOm0B+pA4QgdRkow7WJ+1bMq
-	pOIppG4y96osryDw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Wolfram Sang <wsa@kernel.org>, greybus-dev@lists.linaro.org,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Lee Jones <lee.jones@linaro.org>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
-	Thomas Gleixner <tglx@linutronix.de>, UNGLinuxDriver@microchip.com,
-	Woojung Huh <woojung.huh@microchip.com>,
-	Oleksandr Natalenko <oleksandr@natalenko.name>
-Message-ID: <YgN8cx/t1JvATvxh@linutronix.de>
-References: <20220131123404.175438-1-bigeasy@linutronix.de>
- <20220131123404.175438-2-bigeasy@linutronix.de>
- <YgArWgyvy9xF3V5Q@kunai>
+	by lists.linaro.org (Postfix) with ESMTP id 3DD9E3EE9E
+	for <lists+greybus-dev@lfdr.de>; Thu, 10 Feb 2022 10:04:01 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de [85.220.165.71])
+	by lists.linaro.org (Postfix) with ESMTPS id DC2983EE8A
+	for <greybus-dev@lists.linaro.org>; Thu, 10 Feb 2022 10:03:58 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.ext.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1nI6Im-00011D-CV; Thu, 10 Feb 2022 11:03:48 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1nI6Ii-00FgSL-CN; Thu, 10 Feb 2022 11:03:43 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1nI6Ig-00EMKr-Tm; Thu, 10 Feb 2022 11:03:42 +0100
+Date: Thu, 10 Feb 2022 11:03:42 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Song Chen <chensong_2000@189.cn>
+Message-ID: <20220210100342.q2t4ykgyymjzr3fj@pengutronix.de>
+References: <1644483902-9200-1-git-send-email-chensong_2000@189.cn>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YgArWgyvy9xF3V5Q@kunai>
-Message-ID-Hash: L2L3PQVEXUSV5QP2WCU7H2JOSWRBGNQO
-X-Message-ID-Hash: L2L3PQVEXUSV5QP2WCU7H2JOSWRBGNQO
-X-MailFrom: bigeasy@linutronix.de
+In-Reply-To: <1644483902-9200-1-git-send-email-chensong_2000@189.cn>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
+Message-ID-Hash: 5UUYPZTG2YN4WBXW2HS2TKRVPLNGHTMT
+X-Message-ID-Hash: 5UUYPZTG2YN4WBXW2HS2TKRVPLNGHTMT
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: johan@kernel.org, elder@kernel.org, thierry.reding@gmail.com, lee.jones@linaro.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v3 1/7] genirq: Provide generic_handle_irq_safe().
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: introduce pwm_ops::apply
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/L2L3PQVEXUSV5QP2WCU7H2JOSWRBGNQO/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5UUYPZTG2YN4WBXW2HS2TKRVPLNGHTMT/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0700389518066121721=="
 
-UHJvdmlkZSBnZW5lcmljX2hhbmRsZV9pcnFfc2FmZSgpIHdoaWNoIGNhbiB1c2VkIGZyb20gYW55
-IGNvbnRleHQuDQoNClN1Z2dlc3RlZC1ieTogVGhvbWFzIEdsZWl4bmVyIDx0Z2x4QGxpbnV0cm9u
-aXguZGU+DQpTaWduZWQtb2ZmLWJ5OiBTZWJhc3RpYW4gQW5kcnplaiBTaWV3aW9yIDxiaWdlYXN5
-QGxpbnV0cm9uaXguZGU+DQpSZXZpZXdlZC1ieTogSGFucyBkZSBHb2VkZSA8aGRlZ29lZGVAcmVk
-aGF0LmNvbT4NClJldmlld2VkLWJ5OiBPbGVrc2FuZHIgTmF0YWxlbmtvIDxvbGVrc2FuZHJAbmF0
-YWxlbmtvLm5hbWU+DQpSZXZpZXdlZC1ieTogV29sZnJhbSBTYW5nIDx3c2ErcmVuZXNhc0BzYW5n
-LWVuZ2luZWVyaW5nLmNvbT4NCi0tLQ0KDQp2MuKApnYzOiBDb3JyZWN0IGtlcm5lbCBkb2MgZm9y
-IGdlbmVyaWNfaGFuZGxlX2lycV9zYWZlKCkgYXMgcGVyIFdvbGZyYW0NCiAgICAgICBTYW5nLg0K
-DQogaW5jbHVkZS9saW51eC9pcnFkZXNjLmggfCAgMSArDQoga2VybmVsL2lycS9pcnFkZXNjLmMg
-ICAgfCAyMyArKysrKysrKysrKysrKysrKysrKysrKw0KIDIgZmlsZXMgY2hhbmdlZCwgMjQgaW5z
-ZXJ0aW9ucygrKQ0KDQpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9pcnFkZXNjLmggYi9pbmNs
-dWRlL2xpbnV4L2lycWRlc2MuaA0KaW5kZXggOTNkMjcwY2EwYzU2Ny4uYTc3NTg0NTkzZjdkMSAx
-MDA2NDQNCi0tLSBhL2luY2x1ZGUvbGludXgvaXJxZGVzYy5oDQorKysgYi9pbmNsdWRlL2xpbnV4
-L2lycWRlc2MuaA0KQEAgLTE2MCw2ICsxNjAsNyBAQCBzdGF0aWMgaW5saW5lIHZvaWQgZ2VuZXJp
-Y19oYW5kbGVfaXJxX2Rlc2Moc3RydWN0IGlycV9kZXNjICpkZXNjKQ0KIA0KIGludCBoYW5kbGVf
-aXJxX2Rlc2Moc3RydWN0IGlycV9kZXNjICpkZXNjKTsNCiBpbnQgZ2VuZXJpY19oYW5kbGVfaXJx
-KHVuc2lnbmVkIGludCBpcnEpOw0KK2ludCBnZW5lcmljX2hhbmRsZV9pcnFfc2FmZSh1bnNpZ25l
-ZCBpbnQgaXJxKTsNCiANCiAjaWZkZWYgQ09ORklHX0lSUV9ET01BSU4NCiAvKg0KZGlmZiAtLWdp
-dCBhL2tlcm5lbC9pcnEvaXJxZGVzYy5jIGIva2VybmVsL2lycS9pcnFkZXNjLmMNCmluZGV4IDIy
-NjdlNjUyN2RiM2MuLjM0NmQyODNkMmRhMTQgMTAwNjQ0DQotLS0gYS9rZXJuZWwvaXJxL2lycWRl
-c2MuYw0KKysrIGIva2VybmVsL2lycS9pcnFkZXNjLmMNCkBAIC02NjIsNiArNjYyLDI5IEBAIGlu
-dCBnZW5lcmljX2hhbmRsZV9pcnEodW5zaWduZWQgaW50IGlycSkNCiB9DQogRVhQT1JUX1NZTUJP
-TF9HUEwoZ2VuZXJpY19oYW5kbGVfaXJxKTsNCiANCisvKioNCisgKiBnZW5lcmljX2hhbmRsZV9p
-cnFfc2FmZSAtIEludm9rZSB0aGUgaGFuZGxlciBmb3IgYSBwYXJ0aWN1bGFyIGlycSBmcm9tIGFu
-eQ0KKyAqCQkJICAgICBjb250ZXh0Lg0KKyAqIEBpcnE6CVRoZSBpcnEgbnVtYmVyIHRvIGhhbmRs
-ZQ0KKyAqDQorICogUmV0dXJuczoJMCBvbiBzdWNjZXNzLCBhIG5lZ2F0aXZlIHZhbHVlIG9uIGVy
-cm9yLg0KKyAqDQorICogVGhpcyBmdW5jdGlvbiBjYW4gYmUgY2FsbGVkIGZyb20gYW55IGNvbnRl
-eHQgKElSUSBvciBwcm9jZXNzIGNvbnRleHQpLiBJdA0KKyAqIHdpbGwgcmVwb3J0IGFuIGVycm9y
-IGlmIG5vdCBpbnZva2VkIGZyb20gSVJRIGNvbnRleHQgYW5kIHRoZSBpcnEgaGFzIGJlZW4NCisg
-KiBtYXJrZWQgdG8gZW5mb3JjZSBJUlEtY29udGV4dCBvbmx5Lg0KKyAqLw0KK2ludCBnZW5lcmlj
-X2hhbmRsZV9pcnFfc2FmZSh1bnNpZ25lZCBpbnQgaXJxKQ0KK3sNCisJdW5zaWduZWQgbG9uZyBm
-bGFnczsNCisJaW50IHJldDsNCisNCisJbG9jYWxfaXJxX3NhdmUoZmxhZ3MpOw0KKwlyZXQgPSBo
-YW5kbGVfaXJxX2Rlc2MoaXJxX3RvX2Rlc2MoaXJxKSk7DQorCWxvY2FsX2lycV9yZXN0b3JlKGZs
-YWdzKTsNCisJcmV0dXJuIHJldDsNCit9DQorRVhQT1JUX1NZTUJPTF9HUEwoZ2VuZXJpY19oYW5k
-bGVfaXJxX3NhZmUpOw0KKw0KICNpZmRlZiBDT05GSUdfSVJRX0RPTUFJTg0KIC8qKg0KICAqIGdl
-bmVyaWNfaGFuZGxlX2RvbWFpbl9pcnEgLSBJbnZva2UgdGhlIGhhbmRsZXIgZm9yIGEgSFcgaXJx
-IGJlbG9uZ2luZw0KLS0gDQoyLjM0LjENCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KZ3JleWJ1cy1kZXYgbWFpbGluZyBsaXN0IC0tIGdyZXlidXMtZGV2
-QGxpc3RzLmxpbmFyby5vcmcKVG8gdW5zdWJzY3JpYmUgc2VuZCBhbiBlbWFpbCB0byBncmV5YnVz
-LWRldi1sZWF2ZUBsaXN0cy5saW5hcm8ub3JnCg==
+
+--===============0700389518066121721==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="c2eicqlj24ajfowz"
+Content-Disposition: inline
+
+
+--c2eicqlj24ajfowz
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Feb 10, 2022 at 05:05:02PM +0800, Song Chen wrote:
+> Introduce apply in pwm_ops to replace legacy operations,
+> like enable, disable, config and set_polarity.
+>=20
+> Signed-off-by: Song Chen <chensong_2000@189.cn>
+> ---
+>  drivers/staging/greybus/pwm.c | 46 +++++++++++++++--------------------
+>  1 file changed, 19 insertions(+), 27 deletions(-)
+>=20
+> diff --git a/drivers/staging/greybus/pwm.c b/drivers/staging/greybus/pwm.c
+> index 891a6a672378..e1889cf979b2 100644
+> --- a/drivers/staging/greybus/pwm.c
+> +++ b/drivers/staging/greybus/pwm.c
+> @@ -204,43 +204,35 @@ static void gb_pwm_free(struct pwm_chip *chip, stru=
+ct pwm_device *pwm)
+>  	gb_pwm_deactivate_operation(pwmc, pwm->hwpwm);
+>  }
+> =20
+> -static int gb_pwm_config(struct pwm_chip *chip, struct pwm_device *pwm,
+> -			 int duty_ns, int period_ns)
+> -{
+> -	struct gb_pwm_chip *pwmc =3D pwm_chip_to_gb_pwm_chip(chip);
+> -
+> -	return gb_pwm_config_operation(pwmc, pwm->hwpwm, duty_ns, period_ns);
+> -};
+> -
+> -static int gb_pwm_set_polarity(struct pwm_chip *chip, struct pwm_device =
+*pwm,
+> -			       enum pwm_polarity polarity)
+> +static int gb_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+> +			const struct pwm_state *state)
+>  {
+> +	int ret;
+>  	struct gb_pwm_chip *pwmc =3D pwm_chip_to_gb_pwm_chip(chip);
+> =20
+> -	return gb_pwm_set_polarity_operation(pwmc, pwm->hwpwm, polarity);
+> -};
+> -
+> -static int gb_pwm_enable(struct pwm_chip *chip, struct pwm_device *pwm)
+> -{
+> -	struct gb_pwm_chip *pwmc =3D pwm_chip_to_gb_pwm_chip(chip);
+> +	/* set period and duty cycle*/
+> +	ret =3D gb_pwm_config_operation(pwmc, pwm->hwpwm, state->duty_cycle, st=
+ate->period);
+
+gb_pwm_config_operation's 3rd parameter is an u32, so you're loosing
+bits here as state->duty_cycle is a u64. Ditto for period.
+
+Also it would be nice if you go from
+
+	.duty_cycle =3D A, .period =3D B, .enabled =3D 1
+
+to
+
+	.duty_cycle =3D C, .period =3D D, .enabled =3D 0
+
+that C/D wasn't visible on the output pin. So please disable earlier
+(but keep enable at the end).
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--c2eicqlj24ajfowz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmIE4vsACgkQwfwUeK3K
+7AkEpgf+NdtDJKYavGime3N4rxugOTI4u9kbDL4z7GiAYjXWb3aqvB8ZsjirVc7i
+o5Iyf7fCb0IP/4Vc2N6ndkRlBlr8FGcsgC7MlRq3T89Z5eJvpbAlWzIxFovJclmE
+9TwGI0GHXH8It4I4p2hB0mtSwwyfuwB6vj+v8kEv+13niJA3MuIFaWWW5SayW0Ep
+HF4ovCusOjE7Q3L7r8ebGNUoLz3Ku0u8EPoqc5/gnqUz9lmGrwpPB/rGJerJyLuq
+RCDmQSB2+/ChdzV9Lb8adWrDv81fnxi7Va9wTwqFPXR/cAXkko9gGow/RioUL3g0
+df5QN/eWXnu0TUW5XBEv2l3NvffGAw==
+=MnRK
+-----END PGP SIGNATURE-----
+
+--c2eicqlj24ajfowz--
+
+--===============0700389518066121721==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+
+--===============0700389518066121721==--
