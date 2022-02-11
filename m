@@ -2,13 +2,13 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E7694B2C7B
-	for <lists+greybus-dev@lfdr.de>; Fri, 11 Feb 2022 19:15:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5361D4B2C7C
+	for <lists+greybus-dev@lfdr.de>; Fri, 11 Feb 2022 19:15:26 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4452F3EEB2
-	for <lists+greybus-dev@lfdr.de>; Fri, 11 Feb 2022 18:15:24 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 850CC3EEB6
+	for <lists+greybus-dev@lfdr.de>; Fri, 11 Feb 2022 18:15:25 +0000 (UTC)
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	by lists.linaro.org (Postfix) with ESMTPS id 0BBAA3EEA5
+	by lists.linaro.org (Postfix) with ESMTPS id 808B53EEB2
 	for <greybus-dev@lists.linaro.org>; Fri, 11 Feb 2022 18:15:17 +0000 (UTC)
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
@@ -17,42 +17,42 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xJWvr65dKavzLpT9wk8poZEoprQ5XoEoPP+pD1dTjoU=;
-	b=b8xcZVhynx0YzX1QkTuiSq4wf+LVdbR0mr6P/8fDoBklAuGc1vgwgTN475BwIjVSi5aFfX
-	2dGgw9xqMgsSf3UGlDOYhb/GPbv/CLAJ2Nzd6bGsuVOrS3pAEvKW6yes1GRHpjSFh5w3xG
-	CsYPS031tUpr0sPSDO/wdjHrWFO5M4vk1LXjZ50DxwXDaHjpsG8db94llYIq/fhW3wb9pJ
-	ekVk1lyaZmkvKuwMU2Mpbj6FAcJ0h6BJsXjqI4H1CfD6NOxhSkyW/laQLAmq1sjJxJVm9K
-	/z52zw8xUZkOLEROsRMDnFi1OCje9NQGt2tZcQWzN3Q0U+W2rJn5RuFzSkAA2g==
+	bh=3Rf56x1+Ad9rEt91/emuxS1F2pB4aiqCl6htULN1OW8=;
+	b=LchHan5TX6agjdim4dt+UPKaRjNJpZCZdn17aiPGBGe97pGsT3FtcRNNhlF3GC/cXHKCpw
+	Z9C3ha2WLtqm2BUN5hLJoh1FCyXnvy/pXO0PuHAN47g8EksqwkNJElM2DBNG3Wm1sBuatm
+	GdNGfnaZ8BMNCaCWC659M+ZxWLQfZCxc9CuYx9cGxQGS0VfRaJqBtew87tHT65RXckjiPX
+	BdN7dV4yVaWjwpPkMSkBZ0C2i2pgMRXdifeFbiX4Q6xDs7J1nQfNmrAs8zCFRFUg1Egztu
+	5UHdFHcxuBZN9ngMFATPIZEvkaYT3obAGepyZRT46XRqJfHqFp51vvFuu15qtA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1644603316;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xJWvr65dKavzLpT9wk8poZEoprQ5XoEoPP+pD1dTjoU=;
-	b=Aderu7RgpRVmmkejmzwVyLsyAQo1/uRQHSS7ZjEu0gydYtCa95N+0dClOSogK5drdDOk3S
-	JyLoEGColsi1RRCw==
+	bh=3Rf56x1+Ad9rEt91/emuxS1F2pB4aiqCl6htULN1OW8=;
+	b=3KjVfpW7VDjW0vSYVcWiBhYkT1kUMMT3/hcg6t0USTDFn6O02udQdcj7IiM1Q3ZhUFNgAc
+	4sOF6cXimOuRYZAQ==
 To: greybus-dev@lists.linaro.org,
 	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-staging@lists.linux.dev,
 	linux-usb@vger.kernel.org,
 	netdev@vger.kernel.org
-Date: Fri, 11 Feb 2022 19:14:57 +0100
-Message-Id: <20220211181500.1856198-5-bigeasy@linutronix.de>
+Date: Fri, 11 Feb 2022 19:14:58 +0100
+Message-Id: <20220211181500.1856198-6-bigeasy@linutronix.de>
 In-Reply-To: <20220211181500.1856198-1-bigeasy@linutronix.de>
 References: <20220211181500.1856198-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
-Message-ID-Hash: ALNIVDZVGFUAQU7ENXLRQPQYM4YYIZ6J
-X-Message-ID-Hash: ALNIVDZVGFUAQU7ENXLRQPQYM4YYIZ6J
+Message-ID-Hash: ZKNO7HXYSUOPEZDZGBFIRKRVVAQCUV5K
+X-Message-ID-Hash: ZKNO7HXYSUOPEZDZGBFIRKRVVAQCUV5K
 X-MailFrom: bigeasy@linutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: "David S. Miller" <davem@davemloft.net>, Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Hans de Goede <hdegoede@redhat.com>, Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Lee Jones <lee.jones@linaro.org>, Thomas Gleixner <tglx@linutronix.de>, UNGLinuxDriver@microchip.com, Wolfram Sang <wsa@kernel.org>, Woojung Huh <woojung.huh@microchip.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v4 4/7] misc: hi6421-spmi-pmic: Use generic_handle_irq_safe().
+Subject: [greybus-dev] [PATCH v4 5/7] mfd: ezx-pcap: Use generic_handle_irq_safe().
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ALNIVDZVGFUAQU7ENXLRQPQYM4YYIZ6J/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZKNO7HXYSUOPEZDZGBFIRKRVVAQCUV5K/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -62,45 +62,34 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-generic_handle_irq() is invoked from a regular interrupt service
-routine. This handler will become a forced-threaded handler on
-PREEMPT_RT and will be invoked with enabled interrupts. The
-generic_handle_irq() must be invoked with disabled interrupts in order
-to avoid deadlocks.
-
 Instead of manually disabling interrupts before invoking use
 generic_handle_irq_safe() which can be invoked with enabled and disabled
 interrupts.
 
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/misc/hi6421v600-irq.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/mfd/ezx-pcap.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/misc/hi6421v600-irq.c b/drivers/misc/hi6421v600-irq.c
-index 1c763796cf1fa..caa3de37698b0 100644
---- a/drivers/misc/hi6421v600-irq.c
-+++ b/drivers/misc/hi6421v600-irq.c
-@@ -117,8 +117,8 @@ static irqreturn_t hi6421v600_irq_handler(int irq, void *__priv)
- 			 * If both powerkey down and up IRQs are received,
- 			 * handle them at the right order
- 			 */
--			generic_handle_irq(priv->irqs[POWERKEY_DOWN]);
--			generic_handle_irq(priv->irqs[POWERKEY_UP]);
-+			generic_handle_irq_safe(priv->irqs[POWERKEY_DOWN]);
-+			generic_handle_irq_safe(priv->irqs[POWERKEY_UP]);
- 			pending &= ~HISI_IRQ_POWERKEY_UP_DOWN;
+diff --git a/drivers/mfd/ezx-pcap.c b/drivers/mfd/ezx-pcap.c
+index 70fa18b04ad2b..b14d3f98e1ebd 100644
+--- a/drivers/mfd/ezx-pcap.c
++++ b/drivers/mfd/ezx-pcap.c
+@@ -193,13 +193,11 @@ static void pcap_isr_work(struct work_struct *work)
+ 		ezx_pcap_write(pcap, PCAP_REG_MSR, isr | msr);
+ 		ezx_pcap_write(pcap, PCAP_REG_ISR, isr);
+ 
+-		local_irq_disable();
+ 		service = isr & ~msr;
+ 		for (irq = pcap->irq_base; service; service >>= 1, irq++) {
+ 			if (service & 1)
+-				generic_handle_irq(irq);
++				generic_handle_irq_safe(irq);
  		}
- 
-@@ -126,7 +126,7 @@ static irqreturn_t hi6421v600_irq_handler(int irq, void *__priv)
- 			continue;
- 
- 		for_each_set_bit(offset, &pending, BITS_PER_BYTE) {
--			generic_handle_irq(priv->irqs[offset + i * BITS_PER_BYTE]);
-+			generic_handle_irq_safe(priv->irqs[offset + i * BITS_PER_BYTE]);
- 		}
- 	}
- 
+-		local_irq_enable();
+ 		ezx_pcap_write(pcap, PCAP_REG_MSR, pcap->msr);
+ 	} while (gpio_get_value(pdata->gpio));
+ }
 -- 
 2.34.1
 
