@@ -2,192 +2,105 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3748B4CA93A
-	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 16:38:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5B614CA93B
+	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 16:38:07 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 6727F3EF47
-	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 15:38:05 +0000 (UTC)
-Received: from 189.cn (ptr.189.cn [183.61.185.101])
-	by lists.linaro.org (Postfix) with ESMTP id F41393EDB6
-	for <greybus-dev@lists.linaro.org>; Fri, 11 Feb 2022 11:57:14 +0000 (UTC)
-HMM_SOURCE_IP: 10.64.8.31:58202.55775679
-HMM_ATTACHE_NUM: 0000
-HMM_SOURCE_TYPE: SMTP
-Received: from clientip-123.150.8.43 (unknown [10.64.8.31])
-	by 189.cn (HERMES) with SMTP id A2F6C10013E;
-	Fri, 11 Feb 2022 19:57:10 +0800 (CST)
-Received: from  ([123.150.8.43])
-	by gateway-153622-dep-749df8664c-cv9r2 with ESMTP id 08b197ad565642579980e12aa57bf63f for johan@kernel.org;
-	Fri, 11 Feb 2022 19:57:12 CST
-X-Transaction-ID: 08b197ad565642579980e12aa57bf63f
-X-Real-From: chensong_2000@189.cn
-X-Receive-IP: 123.150.8.43
-X-MEDUSA-Status: 0
-Sender: chensong_2000@189.cn
-From: Song Chen <chensong_2000@189.cn>
-To: johan@kernel.org,
+	by lists.linaro.org (Postfix) with ESMTP id 0230D3EF48
+	for <lists+greybus-dev@lfdr.de>; Wed,  2 Mar 2022 15:38:07 +0000 (UTC)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	by lists.linaro.org (Postfix) with ESMTPS id 8C5273ED58
+	for <greybus-dev@lists.linaro.org>; Thu, 17 Feb 2022 19:08:05 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id m7so6553734pjk.0
+        for <greybus-dev@lists.linaro.org>; Thu, 17 Feb 2022 11:08:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=e/N0Rhhzz5vwAvXJwS8oHDh3H0bU+N1BFIY6++JNrEA=;
+        b=I32ZG9aSf+guazsrpIpkMpf9UReyMsE3bpQQZ6ri67ToYEBZCORnXry2tmSi5TjU8J
+         382+l2UPVDCC6WMcYhrQ4Ql/C8KnmmSsv4eN0pdwoUq1qX97hUA8y+pJAapfOixKQ08J
+         xDyub5BY2k73NG/rjsLLz16hejmske6xZghcN+bObChI4+Pf44Y8Ozd+J561ppOjx8KG
+         Wko6+4R9koNHhmnLe/PcG43TKfJBkI8+Iy3Dgj3fpFfZXe90ToFMip+4QGGO0AfHKjMn
+         ACq4PbZBwJQOQuhsDZwgyrDhYNvCzkNIzJt3dK9rMHZTA5VcVOUWnxWe3DNrfdJbHG4P
+         FQ6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=e/N0Rhhzz5vwAvXJwS8oHDh3H0bU+N1BFIY6++JNrEA=;
+        b=1IWsWURgw7QyEwo0Zj/CwtzTMvL58ypbaYZtGVNiw3zpDhLee60NI2fh87c/ZJh3Zu
+         L/X/mjR/spMmtHtI8SuMHzD15DWkiVBv2YcVPENpvUMHknpGhfMy+3ZN9eNpyDTZkZuW
+         1pW/EhUIGlQX0jG5vF4YhEqO6R2n/Q7gpk3l2asS51xLgUsPvzBONxnzZ8vCw3fSbqDM
+         n1okbQ6LzmWpLlN3E347ttwSr1a08mKPzLd6qsbfc1CI3LChL0WmS4NMnUzDd5RLPVMP
+         WVxbz2mpcoEk8kJjkAC15Tz76gzpRx3IkohR7SSzSb6LbTAxt95fCIdaRWP2z6Izuk/3
+         qA0w==
+X-Gm-Message-State: AOAM533r1GVY76CL4o39b6+m1stxXV3GboRsosnHYiiH5DWlOTuxH+kY
+	fhdyswzEXMmNgKjsEksZoy8=
+X-Google-Smtp-Source: ABdhPJylnRawVBSxsrWOtnvbZ8+881zQg6NSzIk9BizDTRVi2RHzCfV/Mdkmj6BMxBV3JDIVtD7fHw==
+X-Received: by 2002:a17:902:b288:b0:14d:5f1e:4ff3 with SMTP id u8-20020a170902b28800b0014d5f1e4ff3mr4109531plr.24.1645124884621;
+        Thu, 17 Feb 2022 11:08:04 -0800 (PST)
+Received: from localhost.localdomain ([123.231.106.116])
+        by smtp.gmail.com with ESMTPSA id k62sm8707864pga.86.2022.02.17.11.08.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Feb 2022 11:08:04 -0800 (PST)
+From: Husni Faiz <ahamedhusni73@gmail.com>
+To: pure.logic@nexus-software.ie,
 	elder@kernel.org,
-	gregkh@linuxfoundation.org,
-	thierry.reding@gmail.com,
-	u.kleine-koenig@pengutronix.de,
-	lee.jones@linaro.org,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-pwm@vger.kernel.org
-Date: Fri, 11 Feb 2022 20:02:27 +0800
-Message-Id: <1644580947-8529-1-git-send-email-chensong_2000@189.cn>
-X-Mailer: git-send-email 2.7.4
-X-MailFrom: chensong_2000@189.cn
+	gregkh@linuxfoundation.org
+Date: Fri, 18 Feb 2022 00:37:22 +0530
+Message-Id: <20220217190722.44894-1-ahamedhusni73@gmail.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-MailFrom: ahamedhusni73@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: YYNBIBNIMKJLAPHATVWZIBJKYYK44S7Z
-X-Message-ID-Hash: YYNBIBNIMKJLAPHATVWZIBJKYYK44S7Z
-X-Mailman-Approved-At: Wed, 02 Mar 2022 15:38:02 +0000
-CC: Song Chen <chensong_2000@189.cn>
+Message-ID-Hash: GX3ALDS24XQTO5LTYTYYPCQYL6HJXCG7
+X-Message-ID-Hash: GX3ALDS24XQTO5LTYTYYPCQYL6HJXCG7
+X-Mailman-Approved-At: Wed, 02 Mar 2022 15:38:04 +0000
+CC: Husni Faiz <ahamedhusni73@gmail.com>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2] staging: greybus: introduce pwm_ops::apply
+Subject: [greybus-dev] [PATCH] staging: greybus: loopback: Fix Coding Style Error
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YYNBIBNIMKJLAPHATVWZIBJKYYK44S7Z/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GX3ALDS24XQTO5LTYTYYPCQYL6HJXCG7/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Introduce apply in pwm_ops to replace legacy operations,
-like enable, disable, config and set_polarity.
+Macros with multiple statements should be enclosed in a do - while
+block.
 
-Signed-off-by: Song Chen <chensong_2000@189.cn>
-
+Signed-off-by: Husni Faiz <ahamedhusni73@gmail.com>
 ---
-V2:
-1, define duty_cycle and period as u64 in gb_pwm_config_operation.
-2, define duty and period as u64 in gb_pwm_config_request.
-3, disable before configuring duty and period if the eventual goal
-   is a disabled state.
----
- drivers/staging/greybus/pwm.c             | 61 ++++++++++++-----------
- include/linux/greybus/greybus_protocols.h |  4 +-
- 2 files changed, 34 insertions(+), 31 deletions(-)
+ drivers/staging/greybus/loopback.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/staging/greybus/pwm.c b/drivers/staging/greybus/pwm.c
-index 891a6a672378..03c69db5b9be 100644
---- a/drivers/staging/greybus/pwm.c
-+++ b/drivers/staging/greybus/pwm.c
-@@ -89,7 +89,7 @@ static int gb_pwm_deactivate_operation(struct gb_pwm_chip *pwmc,
- }
+diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+index 2471448ba42a..33666a49e0a8 100644
+--- a/drivers/staging/greybus/loopback.c
++++ b/drivers/staging/greybus/loopback.c
+@@ -162,10 +162,12 @@ static ssize_t name##_avg_show(struct device *dev,		\
+ }									\
+ static DEVICE_ATTR_RO(name##_avg)
  
- static int gb_pwm_config_operation(struct gb_pwm_chip *pwmc,
--				   u8 which, u32 duty, u32 period)
-+				   u8 which, u64 duty, u64 period)
- {
- 	struct gb_pwm_config_request request;
- 	struct gbphy_device *gbphy_dev;
-@@ -99,8 +99,8 @@ static int gb_pwm_config_operation(struct gb_pwm_chip *pwmc,
- 		return -EINVAL;
+-#define gb_loopback_stats_attrs(field)				\
+-	gb_loopback_ro_stats_attr(field, min, u);		\
+-	gb_loopback_ro_stats_attr(field, max, u);		\
+-	gb_loopback_ro_avg_attr(field)
++#define gb_loopback_stats_attrs(field)					\
++	do {												\
++		gb_loopback_ro_stats_attr(field, min, u);		\
++		gb_loopback_ro_stats_attr(field, max, u);		\
++		gb_loopback_ro_avg_attr(field)					\
++	} while (0)
  
- 	request.which = which;
--	request.duty = cpu_to_le32(duty);
--	request.period = cpu_to_le32(period);
-+	request.duty = duty;
-+	request.period = period;
- 
- 	gbphy_dev = to_gbphy_dev(pwmc->chip.dev);
- 	ret = gbphy_runtime_get_sync(gbphy_dev);
-@@ -204,43 +204,46 @@ static void gb_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
- 	gb_pwm_deactivate_operation(pwmc, pwm->hwpwm);
- }
- 
--static int gb_pwm_config(struct pwm_chip *chip, struct pwm_device *pwm,
--			 int duty_ns, int period_ns)
-+static int gb_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
-+			const struct pwm_state *state)
- {
-+	int err;
-+	bool enabled = pwm->state.enabled;
- 	struct gb_pwm_chip *pwmc = pwm_chip_to_gb_pwm_chip(chip);
- 
--	return gb_pwm_config_operation(pwmc, pwm->hwpwm, duty_ns, period_ns);
--};
--
--static int gb_pwm_set_polarity(struct pwm_chip *chip, struct pwm_device *pwm,
--			       enum pwm_polarity polarity)
--{
--	struct gb_pwm_chip *pwmc = pwm_chip_to_gb_pwm_chip(chip);
--
--	return gb_pwm_set_polarity_operation(pwmc, pwm->hwpwm, polarity);
--};
-+	/* set polarity */
-+	if (state->polarity != pwm->state.polarity) {
-+		if (enabled) {
-+			gb_pwm_disable_operation(pwmc, pwm->hwpwm);
-+			enabled = false;
-+		}
-+		err = gb_pwm_set_polarity_operation(pwmc, pwm->hwpwm, state->polarity);
-+		if (err)
-+			return err;
-+	}
- 
--static int gb_pwm_enable(struct pwm_chip *chip, struct pwm_device *pwm)
--{
--	struct gb_pwm_chip *pwmc = pwm_chip_to_gb_pwm_chip(chip);
-+	if (!state->enabled) {
-+		if (enabled)
-+			gb_pwm_disable_operation(pwmc, pwm->hwpwm);
-+		return 0;
-+	}
- 
--	return gb_pwm_enable_operation(pwmc, pwm->hwpwm);
--};
-+	/* set period and duty cycle*/
-+	err = gb_pwm_config_operation(pwmc, pwm->hwpwm, state->duty_cycle, state->period);
-+	if (err)
-+		return err;
- 
--static void gb_pwm_disable(struct pwm_chip *chip, struct pwm_device *pwm)
--{
--	struct gb_pwm_chip *pwmc = pwm_chip_to_gb_pwm_chip(chip);
-+	/* enable/disable */
-+	if (!enabled)
-+		return gb_pwm_enable_operation(pwmc, pwm->hwpwm);
- 
--	gb_pwm_disable_operation(pwmc, pwm->hwpwm);
--};
-+	return 0;
-+}
- 
- static const struct pwm_ops gb_pwm_ops = {
- 	.request = gb_pwm_request,
- 	.free = gb_pwm_free,
--	.config = gb_pwm_config,
--	.set_polarity = gb_pwm_set_polarity,
--	.enable = gb_pwm_enable,
--	.disable = gb_pwm_disable,
-+	.apply = gb_pwm_apply,
- 	.owner = THIS_MODULE,
- };
- 
-diff --git a/include/linux/greybus/greybus_protocols.h b/include/linux/greybus/greybus_protocols.h
-index aeb8f9243545..81a6f16de098 100644
---- a/include/linux/greybus/greybus_protocols.h
-+++ b/include/linux/greybus/greybus_protocols.h
-@@ -812,8 +812,8 @@ struct gb_pwm_deactivate_request {
- 
- struct gb_pwm_config_request {
- 	__u8	which;
--	__le32	duty;
--	__le32	period;
-+	__u64	duty;
-+	__u64	period;
- } __packed;
- 
- struct gb_pwm_polarity_request {
+ #define gb_loopback_attr(field, type)					\
+ static ssize_t field##_show(struct device *dev,				\
 -- 
 2.25.1
 
