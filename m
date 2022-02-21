@@ -2,80 +2,100 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB79B4BB2F4
-	for <lists+greybus-dev@lfdr.de>; Fri, 18 Feb 2022 08:10:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5E834BD8C4
+	for <lists+greybus-dev@lfdr.de>; Mon, 21 Feb 2022 10:57:35 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D71253EEBB
-	for <lists+greybus-dev@lfdr.de>; Fri, 18 Feb 2022 07:10:51 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	by lists.linaro.org (Postfix) with ESMTPS id 199723E8F1
-	for <greybus-dev@lists.linaro.org>; Fri, 18 Feb 2022 07:10:50 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id B6D16B820CC;
-	Fri, 18 Feb 2022 07:10:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1C81C340E9;
-	Fri, 18 Feb 2022 07:10:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1645168247;
-	bh=d+hIdbP4FcjzoABr76JeTKbmnhBBCfqZICtBBkTZUKQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=u+JysrmpF0/EDrB5xHfEaEQ6p9cdUqaBWI3XOenDKrL3YPKrprayM0DrAhAMyHm72
-	 xhUPRFlZ0XpJ3ImhtOCNfALdfoGePbAZA7axG/E4Gk6OPilGgS6D60yTbsn++jGpZK
-	 m37+jsURk0HWwEul1S4mfx94va1vtToF+WAZmr9s=
-Date: Fri, 18 Feb 2022 08:10:40 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Ahamed Husni <ahamedhusni73@gmail.com>
-Message-ID: <Yg9GcPtAOeVtmTyg@kroah.com>
-References: <20220217190722.44894-1-ahamedhusni73@gmail.com>
- <Yg6hcX6XK4Eu0KOR@kroah.com>
- <CAFjpAKqy908scQTRJPkMhEz8OyNiR3-N8XD2hiGa+VBLhUf0VA@mail.gmail.com>
+	by lists.linaro.org (Postfix) with ESMTP id 039E43EEE2
+	for <lists+greybus-dev@lfdr.de>; Mon, 21 Feb 2022 09:57:35 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	by lists.linaro.org (Postfix) with ESMTPS id C22513ED74
+	for <greybus-dev@lists.linaro.org>; Mon, 21 Feb 2022 09:57:31 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1645437450;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CbvypUV4PljgvnNET61NtCqtxN9TG2dxR/pcJjN8TKk=;
+	b=Z1PtO3+o0SylAySoCVISwmJoQ/VDToBIk/QWBbSsyPUPxvKz4lEmz/FtewIfJxUP1WFSgX
+	CkPsHINPU/jaMa09H51sIvO35dc7q6pgc+CLG/k14SsmA9PDo0wDmvtM2ejAXjdfL4C/6c
+	Q66kJqhzEMb0cY1wnZPkgBQ7+t4LcIZwAT7aMaSY8qYLeWGYlMrLPufSNep14AgxtCOmiR
+	EIMwZ8zVAFh4lWS0wPv/IT7833I40UFZIJ6KPlh6GpS1sEKf+LGHXVOvkDI7Dww4Vk0tRy
+	6hPW2W5UPBPLteNTnx+gu78G6NU3TiQ7b2fAaD/Bjm1XtACv4i4WSg7JhQaIZg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1645437450;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CbvypUV4PljgvnNET61NtCqtxN9TG2dxR/pcJjN8TKk=;
+	b=y78lXjA5DpGSvbgDzZAMDOKwtFxAoVIuHQELT/smmXEPXBj9QptRh1I2zqMkiPUhfbxDSR
+	ux63licBrEo4dvCQ==
+To: Lee Jones <lee.jones@linaro.org>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>
+In-Reply-To: <YgvJ1fCUYmaV0Mbx@google.com>
+References: <20220211181500.1856198-1-bigeasy@linutronix.de>
+ <Ygu6UewoPbYC9yPa@google.com> <Ygu9xtrMxxq36FRH@linutronix.de>
+ <YgvD1HpN2oyalDmj@google.com> <YgvH4ROUQVgusBdA@linutronix.de>
+ <YgvJ1fCUYmaV0Mbx@google.com>
+Date: Mon, 21 Feb 2022 10:57:29 +0100
+Message-ID: <87a6ekleye.ffs@tglx>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAFjpAKqy908scQTRJPkMhEz8OyNiR3-N8XD2hiGa+VBLhUf0VA@mail.gmail.com>
-Message-ID-Hash: KINY6UT3MXHWILGHAMCIS4XE6RRW7TJT
-X-Message-ID-Hash: KINY6UT3MXHWILGHAMCIS4XE6RRW7TJT
-X-MailFrom: gregkh@linuxfoundation.org
+Message-ID-Hash: ICCFN62XGMFBVK5PTTDHDGJHL2HVJWYA
+X-Message-ID-Hash: ICCFN62XGMFBVK5PTTDHDGJHL2HVJWYA
+X-MailFrom: tglx@linutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+CC: greybus-dev@lists.linaro.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Hans de Goede <hdegoede@redhat.com>, Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, UNGLinuxDriver@microchip.com, Wolfram Sang <wsa@kernel.org>, Woojung Huh <woojung.huh@microchip.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: loopback: Fix Coding Style Error
+Subject: [greybus-dev] Re: [PATCH v4 0/7] Provide and use generic_handle_irq_safe() where appropriate.
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/KINY6UT3MXHWILGHAMCIS4XE6RRW7TJT/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ICCFN62XGMFBVK5PTTDHDGJHL2HVJWYA/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gRnJpLCBGZWIgMTgsIDIwMjIgYXQgMTA6MjI6MjhBTSArMDUzMCwgQWhhbWVkIEh1c25pIHdy
-b3RlOg0KPiBIaSBHcmVnLA0KPiANCj4gT24gRnJpLCBGZWIgMTgsIDIwMjIgYXQgMTI6NTYgQU0g
-R3JlZyBLSCA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+IHdyb3RlOg0KPiA+IERpZCB5b3Ug
-dHJ5IHRvIGJ1aWxkIHRoaXMgY2hhbmdlPw0KPiANCj4gSSBhbSBhIG5ld2JpZSBrZXJuZWwgZGV2
-IGFuZCB0cnlpbmcgdG8gdW5kZXJzdGFuZCBob3cgdGhpbmdzIHdvcmsuDQo+IEkgZGlkIG5vdCBi
-dWlsZCB0aGlzIGNoYW5nZSBieSB0aGUgdGltZSBJIHNlbnQgeW91IHRoaXMsIHRoaW5raW5nIHRo
-aXMNCj4gaXMganVzdCBhIHN0eWxlIGNoYW5nZS4NCj4gSSBzaG91bGQgaGF2ZSB0ZXN0ZWQgdGhl
-IGJ1aWxkLiBJIGFtIHNvcnJ5Lg0KDQpZb3UgYWx3YXlzIGhhdmUgdG8gYnVpbGQtdGVzdCB5b3Vy
-IGNoYW5nZXMsIGFzIHlvdSBoYXZlIGZvdW5kIG91dC4NCg0KPiBOb3cgSSBidWlsdCB0aGUgY2hh
-bmdlcyBieSBzZXR0aW5nIHRoZSBmb2xsb3dpbmcgY29uZmlndXJhdGlvbnMuDQo+IENPTkZJR19H
-UkVZQlVTDQo+IENPTkZJR19TVEFHSU5HDQo+IENPTkZJR19HUkVZQlVTX0xPT1BCQUNLDQo+IA0K
-PiBNeSBjaGFuZ2UgaW50cm9kdWNlcyB0aGUgZm9sbG93aW5nIGVycm9yLg0KPiAnJycnDQo+IGRy
-aXZlcnMvc3RhZ2luZy9ncmV5YnVzL2xvb3BiYWNrLmM6MTY2OjI6IGVycm9yOiBleHBlY3RlZCBp
-ZGVudGlmaWVyDQo+IG9yIOKAmCjigJkgYmVmb3JlIOKAmGRv4oCZDQo+ICAgMTY2IHwgIGRvIHsg
-ICAgICAgICAgICBcDQo+ICAgICAgIHwgIF5+DQo+ICcnJycNCj4gSSBjb3VsZCBub3QgZml4IG9y
-IGZpbmQgdGhlIHJlYXNvbiBmb3IgdGhpcyBlcnJvci4gUGxlYXNlIGd1aWRlIG1lIGluDQo+IHRo
-aXMgcmVnYXJkLg0KDQpUaGVyZSBpcyBub3RoaW5nIHdyb25nIHdpdGggdGhlIG9yaWdpbmFsIGNv
-ZGUgaGVyZS4gIFJlbWVtYmVyIHRoYXQNCmNoZWNrcGF0Y2ggaXMgYSBwZXJsIHNjcmlwdCB0aGF0
-IGdpdmVzIGdvb2QgYWR2aWNlLCBidXQgaXQgaXMgbm90IGFsd2F5cw0KY29ycmVjdC4gIFlvdSBt
-dXN0IGFsd2F5cyBtYW51YWxseSBjaGVjayBpdCBiYXNlZCBvbiB5b3VyIGtub3dsZWRnZSBvZg0K
-dGhlIEMgbGFuZ3VhZ2UuDQoNCkkgcmVjb21tZW5kIGxlYXJuaW5nIGEgYml0IG1vcmUgQyBiZWZv
-cmUgd29ya2luZyBvbiBrZXJuZWwgY29kZS4NCg0KQmVzdCBvZiBsdWNrIQ0KDQpncmVnIGstaA0K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1k
-ZXYgbWFpbGluZyBsaXN0IC0tIGdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKVG8gdW5zdWJz
-Y3JpYmUgc2VuZCBhbiBlbWFpbCB0byBncmV5YnVzLWRldi1sZWF2ZUBsaXN0cy5saW5hcm8ub3Jn
-Cg==
+Lee,
+
+On Tue, Feb 15 2022 at 15:42, Lee Jones wrote:
+> On Tue, 15 Feb 2022, Sebastian Andrzej Siewior wrote:
+>> Either way it remains bisect-able since each driver is changed
+>> individually. There is no need to merge them in one go but since it is
+>> that small it probably makes sense. But I don't do the logistics here.
+>
+> Okay, this is what I was asking.
+>
+> So there aren't any hard dependencies between the driver changes?
+>
+> Only the drivers are dependent on the API.
+
+Correct.
+
+> So, if we choose to do so, we can merge the API and then subsequently
+> add the users one by one into their respective subsystem, in any
+> order.  This would save on creating an immutable topic branch which we
+> all pull from.
+>
+> What is your preference Thomas?
+
+I suggest doing it the following way:
+
+ 1) I apply 1/7 on top of -rc5 and tag it
+
+ 2) Driver maintainers who want to merge via their trees pull that tag
+    apply the relevant driver changes
+
+ 3) I collect the leftovers and merge them via irq/core
+
+Does that make sense?
+
+Thanks,
+
+        tglx
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
