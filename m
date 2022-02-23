@@ -2,160 +2,209 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56F364BF9C7
-	for <lists+greybus-dev@lfdr.de>; Tue, 22 Feb 2022 14:49:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 223A84C0C9B
+	for <lists+greybus-dev@lfdr.de>; Wed, 23 Feb 2022 07:36:30 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 841B83EF00
-	for <lists+greybus-dev@lfdr.de>; Tue, 22 Feb 2022 13:49:15 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id 49F5E3EEF8
-	for <greybus-dev@lists.linaro.org>; Tue, 22 Feb 2022 13:49:13 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id C379D61381;
-	Tue, 22 Feb 2022 13:49:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4B6AC340E8;
-	Tue, 22 Feb 2022 13:49:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1645537752;
-	bh=RY1Pj4yRviD2iNjc7s7MN8RAJDDF8HNww4stT8x6NfQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UDi7oTbsXRuHSeD4Njur0qrttrKG7lo6Xoqug3/he3ylfJTfhSirEYVX8gPiBORd/
-	 uyIG7nY+4p3QPgv9v1R73c90DeAarJaRJdl7wL7VjyaAqKDzOSZXj3Xk5PphHXoMRv
-	 ghKON4ppsGeQjiuPrKId3rAJ/TxWQSrvl9jVOznU=
-Date: Tue, 22 Feb 2022 14:49:09 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
+	by lists.linaro.org (Postfix) with ESMTP id 066053EF09
+	for <lists+greybus-dev@lfdr.de>; Wed, 23 Feb 2022 06:36:29 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de [85.220.165.71])
+	by lists.linaro.org (Postfix) with ESMTPS id 0964B3ECEE
+	for <greybus-dev@lists.linaro.org>; Wed, 23 Feb 2022 06:36:25 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.ext.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1nMlG5-0006rq-22; Wed, 23 Feb 2022 07:36:17 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1nMlG1-000lIt-F4; Wed, 23 Feb 2022 07:36:12 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1nMlFz-004y2z-Mh; Wed, 23 Feb 2022 07:36:11 +0100
+Date: Wed, 23 Feb 2022 07:36:08 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
 To: Song Chen <chensong_2000@189.cn>
-Message-ID: <YhTp1RAXDZrA5QKK@kroah.com>
+Message-ID: <20220223063608.gv2iaoek6rynjnbu@pengutronix.de>
 References: <1644580947-8529-1-git-send-email-chensong_2000@189.cn>
- <YhPGqg2BydlAFiM1@kroah.com>
- <ccbddd00-a2d6-c613-bc7b-e08d7fa2306b@189.cn>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ccbddd00-a2d6-c613-bc7b-e08d7fa2306b@189.cn>
-Message-ID-Hash: QHDV5LEW5DXZJVMDVRAMA7NR4ITZAHV5
-X-Message-ID-Hash: QHDV5LEW5DXZJVMDVRAMA7NR4ITZAHV5
-X-MailFrom: gregkh@linuxfoundation.org
+In-Reply-To: <1644580947-8529-1-git-send-email-chensong_2000@189.cn>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
+Message-ID-Hash: VVCSP2VGQBOVB6CMTQXRQKEQHT4A66H5
+X-Message-ID-Hash: VVCSP2VGQBOVB6CMTQXRQKEQHT4A66H5
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: johan@kernel.org, elder@kernel.org, thierry.reding@gmail.com, u.kleine-koenig@pengutronix.de, lee.jones@linaro.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
+CC: johan@kernel.org, elder@kernel.org, thierry.reding@gmail.com, lee.jones@linaro.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: introduce pwm_ops::apply
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/QHDV5LEW5DXZJVMDVRAMA7NR4ITZAHV5/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/VVCSP2VGQBOVB6CMTQXRQKEQHT4A66H5/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1412497277002701010=="
 
-T24gVHVlLCBGZWIgMjIsIDIwMjIgYXQgMDI6MTk6MTJQTSArMDgwMCwgU29uZyBDaGVuIHdyb3Rl
-Og0KPiBIaSBHcmVnLA0KPiANCj4g5ZyoIDIwMjIvMi8yMiAwMTowNiwgR3JlZyBLSCDlhpnpgZM6
-DQo+ID4gT24gRnJpLCBGZWIgMTEsIDIwMjIgYXQgMDg6MDI6MjdQTSArMDgwMCwgU29uZyBDaGVu
-IHdyb3RlOg0KPiA+ID4gSW50cm9kdWNlIGFwcGx5IGluIHB3bV9vcHMgdG8gcmVwbGFjZSBsZWdh
-Y3kgb3BlcmF0aW9ucywNCj4gPiA+IGxpa2UgZW5hYmxlLCBkaXNhYmxlLCBjb25maWcgYW5kIHNl
-dF9wb2xhcml0eS4NCj4gPiA+IA0KPiA+ID4gU2lnbmVkLW9mZi1ieTogU29uZyBDaGVuIDxjaGVu
-c29uZ18yMDAwQDE4OS5jbj4NCj4gPiA+IA0KPiA+ID4gLS0tDQo+ID4gPiBWMjoNCj4gPiA+IDEs
-IGRlZmluZSBkdXR5X2N5Y2xlIGFuZCBwZXJpb2QgYXMgdTY0IGluIGdiX3B3bV9jb25maWdfb3Bl
-cmF0aW9uLg0KPiA+ID4gMiwgZGVmaW5lIGR1dHkgYW5kIHBlcmlvZCBhcyB1NjQgaW4gZ2JfcHdt
-X2NvbmZpZ19yZXF1ZXN0Lg0KPiA+ID4gMywgZGlzYWJsZSBiZWZvcmUgY29uZmlndXJpbmcgZHV0
-eSBhbmQgcGVyaW9kIGlmIHRoZSBldmVudHVhbCBnb2FsDQo+ID4gPiAgICAgaXMgYSBkaXNhYmxl
-ZCBzdGF0ZS4NCj4gPiA+IC0tLQ0KPiA+ID4gICBkcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9wd20u
-YyAgICAgICAgICAgICB8IDYxICsrKysrKysrKysrKy0tLS0tLS0tLS0tDQo+ID4gPiAgIGluY2x1
-ZGUvbGludXgvZ3JleWJ1cy9ncmV5YnVzX3Byb3RvY29scy5oIHwgIDQgKy0NCj4gPiA+ICAgMiBm
-aWxlcyBjaGFuZ2VkLCAzNCBpbnNlcnRpb25zKCspLCAzMSBkZWxldGlvbnMoLSkNCj4gPiA+IA0K
-PiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3B3bS5jIGIvZHJpdmVy
-cy9zdGFnaW5nL2dyZXlidXMvcHdtLmMNCj4gPiA+IGluZGV4IDg5MWE2YTY3MjM3OC4uMDNjNjlk
-YjViOWJlIDEwMDY0NA0KPiA+ID4gLS0tIGEvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvcHdtLmMN
-Cj4gPiA+ICsrKyBiL2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3B3bS5jDQo+ID4gPiBAQCAtODks
-NyArODksNyBAQCBzdGF0aWMgaW50IGdiX3B3bV9kZWFjdGl2YXRlX29wZXJhdGlvbihzdHJ1Y3Qg
-Z2JfcHdtX2NoaXAgKnB3bWMsDQo+ID4gPiAgIH0NCj4gPiA+ICAgc3RhdGljIGludCBnYl9wd21f
-Y29uZmlnX29wZXJhdGlvbihzdHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3bWMsDQo+ID4gPiAtCQkJCSAg
-IHU4IHdoaWNoLCB1MzIgZHV0eSwgdTMyIHBlcmlvZCkNCj4gPiA+ICsJCQkJICAgdTggd2hpY2gs
-IHU2NCBkdXR5LCB1NjQgcGVyaW9kKQ0KPiA+ID4gICB7DQo+ID4gPiAgIAlzdHJ1Y3QgZ2JfcHdt
-X2NvbmZpZ19yZXF1ZXN0IHJlcXVlc3Q7DQo+ID4gPiAgIAlzdHJ1Y3QgZ2JwaHlfZGV2aWNlICpn
-YnBoeV9kZXY7DQo+ID4gPiBAQCAtOTksOCArOTksOCBAQCBzdGF0aWMgaW50IGdiX3B3bV9jb25m
-aWdfb3BlcmF0aW9uKHN0cnVjdCBnYl9wd21fY2hpcCAqcHdtYywNCj4gPiA+ICAgCQlyZXR1cm4g
-LUVJTlZBTDsNCj4gPiA+ICAgCXJlcXVlc3Qud2hpY2ggPSB3aGljaDsNCj4gPiA+IC0JcmVxdWVz
-dC5kdXR5ID0gY3B1X3RvX2xlMzIoZHV0eSk7DQo+ID4gPiAtCXJlcXVlc3QucGVyaW9kID0gY3B1
-X3RvX2xlMzIocGVyaW9kKTsNCj4gPiA+ICsJcmVxdWVzdC5kdXR5ID0gZHV0eTsNCj4gPiA+ICsJ
-cmVxdWVzdC5wZXJpb2QgPSBwZXJpb2Q7DQo+ID4gPiAgIAlnYnBoeV9kZXYgPSB0b19nYnBoeV9k
-ZXYocHdtYy0+Y2hpcC5kZXYpOw0KPiA+ID4gICAJcmV0ID0gZ2JwaHlfcnVudGltZV9nZXRfc3lu
-YyhnYnBoeV9kZXYpOw0KPiA+ID4gQEAgLTIwNCw0MyArMjA0LDQ2IEBAIHN0YXRpYyB2b2lkIGdi
-X3B3bV9mcmVlKHN0cnVjdCBwd21fY2hpcCAqY2hpcCwgc3RydWN0IHB3bV9kZXZpY2UgKnB3bSkN
-Cj4gPiA+ICAgCWdiX3B3bV9kZWFjdGl2YXRlX29wZXJhdGlvbihwd21jLCBwd20tPmh3cHdtKTsN
-Cj4gPiA+ICAgfQ0KPiA+ID4gLXN0YXRpYyBpbnQgZ2JfcHdtX2NvbmZpZyhzdHJ1Y3QgcHdtX2No
-aXAgKmNoaXAsIHN0cnVjdCBwd21fZGV2aWNlICpwd20sDQo+ID4gPiAtCQkJIGludCBkdXR5X25z
-LCBpbnQgcGVyaW9kX25zKQ0KPiA+ID4gK3N0YXRpYyBpbnQgZ2JfcHdtX2FwcGx5KHN0cnVjdCBw
-d21fY2hpcCAqY2hpcCwgc3RydWN0IHB3bV9kZXZpY2UgKnB3bSwNCj4gPiA+ICsJCQljb25zdCBz
-dHJ1Y3QgcHdtX3N0YXRlICpzdGF0ZSkNCj4gPiA+ICAgew0KPiA+ID4gKwlpbnQgZXJyOw0KPiA+
-ID4gKwlib29sIGVuYWJsZWQgPSBwd20tPnN0YXRlLmVuYWJsZWQ7DQo+ID4gPiAgIAlzdHJ1Y3Qg
-Z2JfcHdtX2NoaXAgKnB3bWMgPSBwd21fY2hpcF90b19nYl9wd21fY2hpcChjaGlwKTsNCj4gPiA+
-IC0JcmV0dXJuIGdiX3B3bV9jb25maWdfb3BlcmF0aW9uKHB3bWMsIHB3bS0+aHdwd20sIGR1dHlf
-bnMsIHBlcmlvZF9ucyk7DQo+ID4gPiAtfTsNCj4gPiA+IC0NCj4gPiA+IC1zdGF0aWMgaW50IGdi
-X3B3bV9zZXRfcG9sYXJpdHkoc3RydWN0IHB3bV9jaGlwICpjaGlwLCBzdHJ1Y3QgcHdtX2Rldmlj
-ZSAqcHdtLA0KPiA+ID4gLQkJCSAgICAgICBlbnVtIHB3bV9wb2xhcml0eSBwb2xhcml0eSkNCj4g
-PiA+IC17DQo+ID4gPiAtCXN0cnVjdCBnYl9wd21fY2hpcCAqcHdtYyA9IHB3bV9jaGlwX3RvX2di
-X3B3bV9jaGlwKGNoaXApOw0KPiA+ID4gLQ0KPiA+ID4gLQlyZXR1cm4gZ2JfcHdtX3NldF9wb2xh
-cml0eV9vcGVyYXRpb24ocHdtYywgcHdtLT5od3B3bSwgcG9sYXJpdHkpOw0KPiA+ID4gLX07DQo+
-ID4gPiArCS8qIHNldCBwb2xhcml0eSAqLw0KPiA+ID4gKwlpZiAoc3RhdGUtPnBvbGFyaXR5ICE9
-IHB3bS0+c3RhdGUucG9sYXJpdHkpIHsNCj4gPiA+ICsJCWlmIChlbmFibGVkKSB7DQo+ID4gPiAr
-CQkJZ2JfcHdtX2Rpc2FibGVfb3BlcmF0aW9uKHB3bWMsIHB3bS0+aHdwd20pOw0KPiA+ID4gKwkJ
-CWVuYWJsZWQgPSBmYWxzZTsNCj4gPiA+ICsJCX0NCj4gPiA+ICsJCWVyciA9IGdiX3B3bV9zZXRf
-cG9sYXJpdHlfb3BlcmF0aW9uKHB3bWMsIHB3bS0+aHdwd20sIHN0YXRlLT5wb2xhcml0eSk7DQo+
-ID4gPiArCQlpZiAoZXJyKQ0KPiA+ID4gKwkJCXJldHVybiBlcnI7DQo+ID4gPiArCX0NCj4gPiA+
-IC1zdGF0aWMgaW50IGdiX3B3bV9lbmFibGUoc3RydWN0IHB3bV9jaGlwICpjaGlwLCBzdHJ1Y3Qg
-cHdtX2RldmljZSAqcHdtKQ0KPiA+ID4gLXsNCj4gPiA+IC0Jc3RydWN0IGdiX3B3bV9jaGlwICpw
-d21jID0gcHdtX2NoaXBfdG9fZ2JfcHdtX2NoaXAoY2hpcCk7DQo+ID4gPiArCWlmICghc3RhdGUt
-PmVuYWJsZWQpIHsNCj4gPiA+ICsJCWlmIChlbmFibGVkKQ0KPiA+ID4gKwkJCWdiX3B3bV9kaXNh
-YmxlX29wZXJhdGlvbihwd21jLCBwd20tPmh3cHdtKTsNCj4gPiA+ICsJCXJldHVybiAwOw0KPiA+
-ID4gKwl9DQo+ID4gPiAtCXJldHVybiBnYl9wd21fZW5hYmxlX29wZXJhdGlvbihwd21jLCBwd20t
-Pmh3cHdtKTsNCj4gPiA+IC19Ow0KPiA+ID4gKwkvKiBzZXQgcGVyaW9kIGFuZCBkdXR5IGN5Y2xl
-Ki8NCj4gPiA+ICsJZXJyID0gZ2JfcHdtX2NvbmZpZ19vcGVyYXRpb24ocHdtYywgcHdtLT5od3B3
-bSwgc3RhdGUtPmR1dHlfY3ljbGUsIHN0YXRlLT5wZXJpb2QpOw0KPiA+ID4gKwlpZiAoZXJyKQ0K
-PiA+ID4gKwkJcmV0dXJuIGVycjsNCj4gPiA+IC1zdGF0aWMgdm9pZCBnYl9wd21fZGlzYWJsZShz
-dHJ1Y3QgcHdtX2NoaXAgKmNoaXAsIHN0cnVjdCBwd21fZGV2aWNlICpwd20pDQo+ID4gPiAtew0K
-PiA+ID4gLQlzdHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3bWMgPSBwd21fY2hpcF90b19nYl9wd21fY2hp
-cChjaGlwKTsNCj4gPiA+ICsJLyogZW5hYmxlL2Rpc2FibGUgKi8NCj4gPiA+ICsJaWYgKCFlbmFi
-bGVkKQ0KPiA+ID4gKwkJcmV0dXJuIGdiX3B3bV9lbmFibGVfb3BlcmF0aW9uKHB3bWMsIHB3bS0+
-aHdwd20pOw0KPiA+ID4gLQlnYl9wd21fZGlzYWJsZV9vcGVyYXRpb24ocHdtYywgcHdtLT5od3B3
-bSk7DQo+ID4gPiAtfTsNCj4gPiA+ICsJcmV0dXJuIDA7DQo+ID4gPiArfQ0KPiA+ID4gICBzdGF0
-aWMgY29uc3Qgc3RydWN0IHB3bV9vcHMgZ2JfcHdtX29wcyA9IHsNCj4gPiA+ICAgCS5yZXF1ZXN0
-ID0gZ2JfcHdtX3JlcXVlc3QsDQo+ID4gPiAgIAkuZnJlZSA9IGdiX3B3bV9mcmVlLA0KPiA+ID4g
-LQkuY29uZmlnID0gZ2JfcHdtX2NvbmZpZywNCj4gPiA+IC0JLnNldF9wb2xhcml0eSA9IGdiX3B3
-bV9zZXRfcG9sYXJpdHksDQo+ID4gPiAtCS5lbmFibGUgPSBnYl9wd21fZW5hYmxlLA0KPiA+ID4g
-LQkuZGlzYWJsZSA9IGdiX3B3bV9kaXNhYmxlLA0KPiA+ID4gKwkuYXBwbHkgPSBnYl9wd21fYXBw
-bHksDQo+ID4gPiAgIAkub3duZXIgPSBUSElTX01PRFVMRSwNCj4gPiA+ICAgfTsNCj4gPiA+IGRp
-ZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2dyZXlidXMvZ3JleWJ1c19wcm90b2NvbHMuaCBiL2lu
-Y2x1ZGUvbGludXgvZ3JleWJ1cy9ncmV5YnVzX3Byb3RvY29scy5oDQo+ID4gPiBpbmRleCBhZWI4
-ZjkyNDM1NDUuLjgxYTZmMTZkZTA5OCAxMDA2NDQNCj4gPiA+IC0tLSBhL2luY2x1ZGUvbGludXgv
-Z3JleWJ1cy9ncmV5YnVzX3Byb3RvY29scy5oDQo+ID4gPiArKysgYi9pbmNsdWRlL2xpbnV4L2dy
-ZXlidXMvZ3JleWJ1c19wcm90b2NvbHMuaA0KPiA+ID4gQEAgLTgxMiw4ICs4MTIsOCBAQCBzdHJ1
-Y3QgZ2JfcHdtX2RlYWN0aXZhdGVfcmVxdWVzdCB7DQo+ID4gPiAgIHN0cnVjdCBnYl9wd21fY29u
-ZmlnX3JlcXVlc3Qgew0KPiA+ID4gICAJX191OAl3aGljaDsNCj4gPiA+IC0JX19sZTMyCWR1dHk7
-DQo+ID4gPiAtCV9fbGUzMglwZXJpb2Q7DQo+ID4gPiArCV9fdTY0CWR1dHk7DQo+ID4gPiArCV9f
-dTY0CXBlcmlvZDsNCj4gPiA+ICAgfSBfX3BhY2tlZDsNCj4gPiANCj4gPiBEaWQgeW91IGp1c3Qg
-Y2hhbmdlIGEgZ3JleWJ1cyBwcm90b2NvbCBtZXNzYWdlIHRoYXQgaXMgc2VudCBvdmVyIHRoZQ0K
-PiA+IHdpcmU/ICBXaHk/ICBBbmQgd2h5IGRyb3AgdGhlIGVuZGlhbiBtYXJraW5nIG9mIGl0Pw0K
-PiANCj4gSSBkaXNjdXNzZWQgd2l0aCBVd2UgYWJvdXQgbG9zaW5nIGJpdCBhbmQgZm91bmQgdGhl
-cmUgaXMgbm8gcGVyZmVjdCB3YXkgdG8NCj4gYXZvaWQsIGV2ZW4gaW4gVXdlJ3MgcGF0Y2hbMV0s
-IGFzIGEgcmVzdWx0LCB3ZSBkZWNpZGVkIHRvIHdpZGVuIGR1dHkgYW5kDQo+IHBlcmlvZCBpbiBn
-Yl9wd21fY29uZmlnX3JlcXVlc3QsIHRoZSBvdGhlciBzaWRlIG9mIHRoZSB3aXJlIGlzIHN1cHBv
-c2VkIHRvDQo+IGNoYW5nZSBhY2NvcmRpbmdseSB0byBzdXBwb3J0IDY0Yml0IGR1dHkgYW5kIHBl
-cmlvZCB0b28odGhpcyB3aWxsIGludHJvZHVjZQ0KPiBjb21wYXRpYmlsaXR5IHByb2JsZW0gYW5k
-IHRoZXJlIGlzIG5vIHZhcmlhYmxlIGxpa2UgdmVyc2lvbiB0byBhZGRyZXNzIGl0KSwNCj4gc2lt
-aWxhciB3aXRoIGt0aW1lX3QgaW4geTIwMzgsIGJlbG93IGlzIHRoZSBkZXRhaWwgWzJdDQoNCldo
-ZXJlIGFyZSB5b3UgY2hhbmdpbmcgdGhlICJvdGhlciBzaWRlIG9mIHRoZSB3aXJlIiBoZXJlPyAg
-VGhhdCB3aXJlIGlzDQppbiBmaXJtd2FyZSwgaG93IGFyZSB5b3UgZ29pbmcgdG8gY29vcmRpbmF0
-ZSB0aGF0IGNoYW5nZT8NCg0KVGhpcyBpcyBhIGhhcmR3YXJlIEFQSSwgeW91IGNhbiBub3QgY2hh
-bmdlIGl0IHdpdGhvdXQgYSBsb3Qgb2YgdmVyeQ0KY2FyZWZ1bCB3b3JrLCBhbmQgSSBzdGlsbCBk
-byBub3QgdW5kZXJzdGFuZCB3aHkgaXQgaXMgbmVlZGVkLiAgV2hhdA0KInByb2JsZW0iIGlzIHRo
-aXMgc29sdmluZyB0aGF0IHJlcXVpcmVzIHRoZSBwcm90b2NvbCB0byBjaGFuZ2U/DQoNCnRoYW5r
-cywNCg0KZ3JlZyBrLWgNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdCAtLSBncmV5YnVzLWRldkBsaXN0cy5saW5h
-cm8ub3JnClRvIHVuc3Vic2NyaWJlIHNlbmQgYW4gZW1haWwgdG8gZ3JleWJ1cy1kZXYtbGVhdmVA
-bGlzdHMubGluYXJvLm9yZwo=
+
+--===============1412497277002701010==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dsrm2xhl5lm6tau4"
+Content-Disposition: inline
+
+
+--dsrm2xhl5lm6tau4
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+orthogonal to the feedback you got for the protocol part, here some
+thoughts to the PWM specific bits;
+
+On Fri, Feb 11, 2022 at 08:02:27PM +0800, Song Chen wrote:
+> Introduce apply in pwm_ops to replace legacy operations,
+> like enable, disable, config and set_polarity.
+>=20
+> Signed-off-by: Song Chen <chensong_2000@189.cn>
+>=20
+> ---
+> V2:
+> 1, define duty_cycle and period as u64 in gb_pwm_config_operation.
+> 2, define duty and period as u64 in gb_pwm_config_request.
+> 3, disable before configuring duty and period if the eventual goal
+>    is a disabled state.
+> ---
+>  drivers/staging/greybus/pwm.c             | 61 ++++++++++++-----------
+>  include/linux/greybus/greybus_protocols.h |  4 +-
+>  2 files changed, 34 insertions(+), 31 deletions(-)
+>=20
+> diff --git a/drivers/staging/greybus/pwm.c b/drivers/staging/greybus/pwm.c
+> index 891a6a672378..03c69db5b9be 100644
+> --- a/drivers/staging/greybus/pwm.c
+> +++ b/drivers/staging/greybus/pwm.c
+> @@ -89,7 +89,7 @@ static int gb_pwm_deactivate_operation(struct gb_pwm_ch=
+ip *pwmc,
+>  }
+> =20
+>  static int gb_pwm_config_operation(struct gb_pwm_chip *pwmc,
+> -				   u8 which, u32 duty, u32 period)
+> +				   u8 which, u64 duty, u64 period)
+>  {
+>  	struct gb_pwm_config_request request;
+>  	struct gbphy_device *gbphy_dev;
+> @@ -99,8 +99,8 @@ static int gb_pwm_config_operation(struct gb_pwm_chip *=
+pwmc,
+>  		return -EINVAL;
+> =20
+>  	request.which =3D which;
+> -	request.duty =3D cpu_to_le32(duty);
+> -	request.period =3D cpu_to_le32(period);
+> +	request.duty =3D duty;
+> +	request.period =3D period;
+
+If you don't change the wire protocol, you want something like:
+
+	if (period > U32_MAX)
+		period =3D U32_MAX;
+
+	if (duty > period)
+		duty =3D period;
+
+To further improve the PWM driver it would be great if you added a
+paragraph about the details of its behaviour; in the format the other
+drivers do that (see e.g. drivers/pwm/pwm-sifive.c). It should describe
+the following properties:
+
+ - Is a period completed when period/duty changes?
+ - Is a period completed when the hardware is disabled?
+ - How does the output behave on disable?
+
+In this specific case I think there is also some rounding behaviour in
+the backend?! If so, describing this would be good, too.
+
+>  	gbphy_dev =3D to_gbphy_dev(pwmc->chip.dev);
+>  	ret =3D gbphy_runtime_get_sync(gbphy_dev);
+> @@ -204,43 +204,46 @@ static void gb_pwm_free(struct pwm_chip *chip, stru=
+ct pwm_device *pwm)
+>  	gb_pwm_deactivate_operation(pwmc, pwm->hwpwm);
+>  }
+> =20
+> -static int gb_pwm_config(struct pwm_chip *chip, struct pwm_device *pwm,
+> -			 int duty_ns, int period_ns)
+> +static int gb_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+> +			const struct pwm_state *state)
+>  {
+> +	int err;
+> +	bool enabled =3D pwm->state.enabled;
+>  	struct gb_pwm_chip *pwmc =3D pwm_chip_to_gb_pwm_chip(chip);
+> =20
+> -	return gb_pwm_config_operation(pwmc, pwm->hwpwm, duty_ns, period_ns);
+> -};
+> -
+> -static int gb_pwm_set_polarity(struct pwm_chip *chip, struct pwm_device =
+*pwm,
+> -			       enum pwm_polarity polarity)
+> -{
+> -	struct gb_pwm_chip *pwmc =3D pwm_chip_to_gb_pwm_chip(chip);
+> -
+> -	return gb_pwm_set_polarity_operation(pwmc, pwm->hwpwm, polarity);
+> -};
+> +	/* set polarity */
+> +	if (state->polarity !=3D pwm->state.polarity) {
+> +		if (enabled) {
+> +			gb_pwm_disable_operation(pwmc, pwm->hwpwm);
+> +			enabled =3D false;
+> +		}
+> +		err =3D gb_pwm_set_polarity_operation(pwmc, pwm->hwpwm, state->polarit=
+y);
+> +		if (err)
+> +			return err;
+> +	}
+
+This is copied from the legacy pwm handling in the pwm core. This is
+good in principle. But if your hardware can change polarity without
+stopping operation, that would be the thing to do. (The pwm core cannot
+assume this, so it doesn't.)
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--dsrm2xhl5lm6tau4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEyBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmIV1dUACgkQwfwUeK3K
+7AmSMgf0CVv4DE5aj42+pZS4w4G05NH6RjZczg1p6ylppMiQE86Jn/0wiksckSU2
+kOqzbT4MxRlWzsqKKX22/1xf3IG6gCVjbvZOSdq7YBn/XtF10jp8xSJlQd7qajsT
+vLybnzV9Ea23rLoTO/KKcQHpR5u02qvlbHz9M6SffUmBWWmgSFjNhRwyfl3XIKoz
+c7Vl8qvoRpSL81H2e+QK32plCIkStyt7gQgk4jluZ3JS6Hu5FIHoP+h/zDaNT0IO
+z9Ufd3lI0OmX11svFiBd3PhYG3PjgZ19UP2cXGqKpGPuJJyst8NHLCCVPqAEl0ew
+TP6kkgDorY46gJfeC80tNzjERoDw
+=dWMw
+-----END PGP SIGNATURE-----
+
+--dsrm2xhl5lm6tau4--
+
+--===============1412497277002701010==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+
+--===============1412497277002701010==--
