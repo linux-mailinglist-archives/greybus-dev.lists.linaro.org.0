@@ -2,57 +2,69 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 642E94C77A1
-	for <lists+greybus-dev@lfdr.de>; Mon, 28 Feb 2022 19:25:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D04C4C781B
+	for <lists+greybus-dev@lfdr.de>; Mon, 28 Feb 2022 19:41:02 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 976503EF14
-	for <lists+greybus-dev@lfdr.de>; Mon, 28 Feb 2022 18:25:17 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id B40083E894
-	for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 18:25:14 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 4888A614FB
-	for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 18:25:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D911C34101
-	for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 18:25:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1646072712;
-	bh=W7p79vSB6J1+jxnozFyNib9GmWcAolUohfmSDG//bFo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=bW1ZFMo50q0kPFmsangI6ntG68WPn+8ztd5psh0iHHbmPXGd2Do9g5exX/orPNmoF
-	 TbileAdECwDuGZ3+humcDGlnOjlNYxeI3qAjbFLAsFhTc2LHic+YIf2ERa75osRNhn
-	 Kqq71bFPRaIovWhnQvFqOiR1ebj4qUhN855gks3wvS+rvdXKdGJUNfOOen3tcmT4S7
-	 zpLTE7SvQlwyFubmoSBvPJGw1f5VxlcwUT5kGQbM5VRWy3yFRzf9kbennsbklNWQnr
-	 VImWf5/+PDhsYj8Ik1QLewhHGzp4RLahjjkzTll08wtY5vt0rMq16dXAFWp3Qw6QCA
-	 7XcyjSwBnCISg==
-Received: by mail-wr1-f45.google.com with SMTP id s1so16801972wrg.10
-        for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 10:25:12 -0800 (PST)
-X-Gm-Message-State: AOAM533Ns8mQAvGk5GS2bQZAmesocWXpWfauwc7NjIfvKv34rwVe+TlY
-	Dznp7xblo31qlpKLEA3yYCmc/Lvf4WBd/KtBWxs=
-X-Google-Smtp-Source: ABdhPJz4fZLcu78yhCIhmUlg8wcyJThC/WAQ6UaeDqjOpOcx7YS8Qt8gbRJs54Y1simdrFMDrQr0lGIp9e5ElXVyTL0=
-X-Received: by 2002:adf:edc3:0:b0:1ec:5f11:5415 with SMTP id
- v3-20020adfedc3000000b001ec5f115415mr14857770wro.317.1646072710661; Mon, 28
- Feb 2022 10:25:10 -0800 (PST)
+	by lists.linaro.org (Postfix) with ESMTP id C5FF43EF15
+	for <lists+greybus-dev@lfdr.de>; Mon, 28 Feb 2022 18:41:01 +0000 (UTC)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	by lists.linaro.org (Postfix) with ESMTPS id C6DC73EBCD
+	for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 18:40:58 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id s25so18687535lji.5
+        for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 10:40:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=B+acwbp8IAqy4EQhdzrRR6UrvnBSYJWdfAOCkLBEf6s=;
+        b=LvJ51tK8OGXmUdrq1FTGfGhAU7kyWg6aDacet+/T6m1xcdm96SFLNin6cqkfGY+rbg
+         A+4gdF9QL3th8X1CIPS6F2KrwGpjUcAkZFh2wMRAAEhyIS9gK5hzhXTjv7RRLGY5VhDN
+         /ORnVKar4p0KNDioI7O/8vsyY3PJ0BwGF0c/w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=B+acwbp8IAqy4EQhdzrRR6UrvnBSYJWdfAOCkLBEf6s=;
+        b=k6GeNppW7tQv9kGLxkv7ZbKFlTaN+CrqrkP+9mihc/nW7b/qstbOKIY0/LLl6kj7Td
+         OkH8RRnTSkeJgA/Sy4ZdixAy03OcVw9B39PoVsEtampWwP9ljEt8I9QBNpFr06DjbA+A
+         9jxx8IUHZUm4Zc5WaD5Dd+t2rO4sxVNStCs00dYIcwuhZ4x68Q0Jwd3rWQtA+5uLsxHY
+         t1YvQOzCizKbB9HMl83uJrY9+aRP12tTQe/cQol38VLAfOCdKIyzf+MwAtcIoYLDDVt7
+         ciIZJ5c32Hoi8hwDWRf0v+lMP/aD6vQVbTvNeqcXgN62XuKoKzO1YPqc0pJ/v3Lgi6eN
+         yIHQ==
+X-Gm-Message-State: AOAM533O7RuK8i6Jq2mrkDJ1+PLK3lC78IgtauIy328pAlOP9zqIftyd
+	4NjNs3AiantkUAy9K2hsUlw1HEs16z1Y6k3WK/Y=
+X-Google-Smtp-Source: ABdhPJw7Vwgh3U2GFJnlZEP0H9OPldPRpM18sB8rme26Ddcx/eZBBR38S3CpCrvrFVnzC/1v5k6oMw==
+X-Received: by 2002:a2e:900a:0:b0:246:17bb:a771 with SMTP id h10-20020a2e900a000000b0024617bba771mr14870952ljg.363.1646073657349;
+        Mon, 28 Feb 2022 10:40:57 -0800 (PST)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com. [209.85.167.43])
+        by smtp.gmail.com with ESMTPSA id a12-20020a2e7f0c000000b00246885c9b88sm765259ljd.87.2022.02.28.10.40.55
+        for <greybus-dev@lists.linaro.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Feb 2022 10:40:55 -0800 (PST)
+Received: by mail-lf1-f43.google.com with SMTP id i11so22970047lfu.3
+        for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 10:40:55 -0800 (PST)
+X-Received: by 2002:ac2:4c8c:0:b0:445:6c26:3cff with SMTP id
+ d12-20020ac24c8c000000b004456c263cffmr13670491lfl.435.1646073655129; Mon, 28
+ Feb 2022 10:40:55 -0800 (PST)
 MIME-Version: 1.0
-References: <20220228103142.3301082-1-arnd@kernel.org> <CAK7LNATVs-yRX4PnURkLv3fz3gAnuzG2GxZ2gdvmJX2g+0P-_w@mail.gmail.com>
-In-Reply-To: <CAK7LNATVs-yRX4PnURkLv3fz3gAnuzG2GxZ2gdvmJX2g+0P-_w@mail.gmail.com>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Mon, 28 Feb 2022 19:24:54 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a2To9St5=v6EHtJ-LBEp4-NOThPmO+qYeAfnxQPm2_Keg@mail.gmail.com>
-Message-ID: <CAK8P3a2To9St5=v6EHtJ-LBEp4-NOThPmO+qYeAfnxQPm2_Keg@mail.gmail.com>
-To: Masahiro Yamada <masahiroy@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID-Hash: ZRSPZI2ZVYKDT2DLVAL2WSBU35DPWSCO
-X-Message-ID-Hash: ZRSPZI2ZVYKDT2DLVAL2WSBU35DPWSCO
-X-MailFrom: arnd@kernel.org
+References: <20220228103142.3301082-1-arnd@kernel.org> <YhyxML05rjJ/57Vk@FVFF77S0Q05N>
+ <CAK8P3a0CTmtUq+Uba2S3D7wjSstew2M+LfzZoOcKdKK9cfXO9A@mail.gmail.com>
+In-Reply-To: <CAK8P3a0CTmtUq+Uba2S3D7wjSstew2M+LfzZoOcKdKK9cfXO9A@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 28 Feb 2022 10:40:38 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjU+DCbFG4nd3Wne-KbQ1n5=BHynv3xEmRYTaayBj-EfQ@mail.gmail.com>
+Message-ID: <CAHk-=wjU+DCbFG4nd3Wne-KbQ1n5=BHynv3xEmRYTaayBj-EfQ@mail.gmail.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Message-ID-Hash: XPRQV4KLQ3MNQ2WELGR6HQ6NH5SIPYL4
+X-Message-ID-Hash: XPRQV4KLQ3MNQ2WELGR6HQ6NH5SIPYL4
+X-MailFrom: torvalds@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Linus Torvalds <torvalds@linux-foundation.org>, llvm@lists.linux.dev, Jonathan Corbet <corbet@lwn.net>, Federico Vaga <federico.vaga@vaga.pv.it>, Alex Shi <alexs@kernel.org>, Hu Haowen <src.res@email.cn>, Michal Marek <michal.lkml@markovi.net>, Nick Desaulniers <ndesaulniers@google.com>, "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc-tw-discuss@lists.sourceforge.net, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-btrfs <linux-btrfs@vger.kernel.org>
+CC: Mark Rutland <mark.rutland@arm.com>, Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Masahiro Yamada <masahiroy@kernel.org>, llvm@lists.linux.dev, Jonathan Corbet <corbet@lwn.net>, Federico Vaga <federico.vaga@vaga.pv.it>, Alex Shi <alexs@kernel.org>, Hu Haowen <src.res@email.cn>, Michal Marek <michal.lkml@markovi.net>, Nick Desaulniers <ndesaulniers@google.com>, "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc-tw-discuss@lists.sourceforge.net, Linux ARM <linux-arm-kernel@lists.infradead.org>, Intel Graphics <intel-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-btrfs <linux-btrfs@vger.kernel.org>, Marco Elver <elver@google.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH] [v2] Kbuild: move to -std=gnu11
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZRSPZI2ZVYKDT2DLVAL2WSBU35DPWSCO/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XPRQV4KLQ3MNQ2WELGR6HQ6NH5SIPYL4/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -62,49 +74,37 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Feb 28, 2022 at 6:02 PM Masahiro Yamada <masahiroy@kernel.org> wrote:
+On Mon, Feb 28, 2022 at 3:37 AM Arnd Bergmann <arnd@kernel.org> wrote:
 >
-> On Mon, Feb 28, 2022 at 7:32 PM Arnd Bergmann <arnd@kernel.org> wrote:
-> >
-> > From: Arnd Bergmann <arnd@arndb.de>
-> >
-> > During a patch discussion, Linus brought up the option of changing
-> > the C standard version from gnu89 to gnu99, which allows using variable
-> > declaration inside of a for() loop. While the C99, C11 and later standards
-> > introduce many other features, most of these are already available in
-> > gnu89 as GNU extensions as well.
-> >
-> > An earlier attempt to do this when gcc-5 started defaulting to
-> > -std=gnu11 failed because at the time that caused warnings about
-> > designated initializers with older compilers. Now that gcc-5.1 is the
-> > minimum compiler version used for building kernels, that is no longer a
-> > concern. Similarly, the behavior of 'inline' functions changes between
-> > gnu89 and gnu11, but this was taken care of by defining 'inline' to
-> > include __attribute__((gnu_inline)) in order to allow building with
-> > clang a while ago.
-> >
-> > One minor issue that remains is an added gcc warning for shifts of
-> > negative integers when building with -Werror, which happens with the
->
-> Is this a typo?
->
->    building with -Werror, ...
-> ->
->    building with -Wextra, ...
->
+> I think the KBUILD_USERCFLAGS portion and the modpost.c fix for it
+> make sense regardless of the -std=gnu11 change
 
-I'm being slow today, Jani actually pointed out the same thing and I
-misunderstood him. Fixed it now, thanks!
+I do think they make sense, but I want to note again that people doing
+cross builds obviously use different tools for user builds than for
+the kernel. In fact, even not cross-building, we've had situations
+where the "kbuild" compiler is different from the host compiler,
+because people have upgraded one but not the other (upgrading the
+kernel build environment is actually much easier than upgrading the
+host build environment, because you don't need all the random
+libraries etc, and you can literally _just_ build your own gcc and
+binutils)
 
-> Acked-by: Masahiro Yamada <masahiroy@kernel.org>
->
->
-> Please let me know if you want me to pick up this.
+And we have *not* necessarily required that the host tools match the
+kernel tools.
 
-Yes, that would be great. I'll send a v3 with the updated changelog,
-but will drop most of the Cc list as there are no functional changes.
+So I could well imagine that there are people who build their kernels,
+but their host build environment might be old enough that -std=gnu11
+is problematic for that part.
 
-        Arnd
+And note how any change to  KBUILD_USERCFLAGS is reflected in KBUILD_HOSTCFLAGS.
+
+So I would suggest that the KBUILD_USERCFLAGS part of the patch (and
+the modpost.c change that goes with it) be done as a separate commit.
+Because we might end up reverting that part.
+
+Hmm?
+
+           Linus
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
