@@ -2,55 +2,57 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05F644C7231
-	for <lists+greybus-dev@lfdr.de>; Mon, 28 Feb 2022 18:08:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 642E94C77A1
+	for <lists+greybus-dev@lfdr.de>; Mon, 28 Feb 2022 19:25:18 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 395473EF15
-	for <lists+greybus-dev@lfdr.de>; Mon, 28 Feb 2022 17:08:03 +0000 (UTC)
-Received: from conssluserg-06.nifty.com (conssluserg-06.nifty.com [210.131.2.91])
-	by lists.linaro.org (Postfix) with ESMTPS id 5DC373EB82
-	for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 17:08:00 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178]) (authenticated)
-	by conssluserg-06.nifty.com with ESMTP id 21SH7qI9002794
-	for <greybus-dev@lists.linaro.org>; Tue, 1 Mar 2022 02:07:52 +0900
-DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-06.nifty.com 21SH7qI9002794
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
-	s=dec2015msa; t=1646068072;
-	bh=98mZh3DSkLLdEUaUpwDchiQq5D3wILeXQhtbg+uZ5C0=;
+	by lists.linaro.org (Postfix) with ESMTP id 976503EF14
+	for <lists+greybus-dev@lfdr.de>; Mon, 28 Feb 2022 18:25:17 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id B40083E894
+	for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 18:25:14 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 4888A614FB
+	for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 18:25:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D911C34101
+	for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 18:25:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1646072712;
+	bh=W7p79vSB6J1+jxnozFyNib9GmWcAolUohfmSDG//bFo=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=D7+3GydIml5G5ULFdTIEOoeqAwyMiUllHF3GnHTuWW10nvZHqUydYyT+Jh/PjJc0C
-	 9dGdscCwyV7M2qIK+TzlPN1lAgIFyW+LG8jTroxw3JcjB6xKD7AirJYq0hUGTm8FH0
-	 G+ADSE21IaerZgVAUzhrazbpc1LG5nCdoDPIyOH+HiPFxvUV/fpB4XJyJl5QpYMKTS
-	 4ZTfUYOn5AT4FiPGSuUklu/G/I3NUW/sdn3Ghx5EQK34yrsnKdstPivvN6BQ2Vg4IY
-	 ckEBCcFgDL3VltZ5/Wnp4REwrg9Mbqj+hvGqQh0dDV6gu6iHvDuGU/mp/Vm9sD7zLJ
-	 M5BfVt3YSVuhQ==
-X-Nifty-SrcIP: [209.85.210.178]
-Received: by mail-pf1-f178.google.com with SMTP id s11so1182841pfu.13
-        for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 09:07:52 -0800 (PST)
-X-Gm-Message-State: AOAM532Uboxfy19e8uEWk1R+mFYwigKu+im2G79BR4TtGJRA83+m7/v8
-	qROAUXd6ex6UkeeiqLvIVo9rF+t6YylfR2XmDwg=
-X-Google-Smtp-Source: ABdhPJyLr4NM5Xb8MWbTJd6oMf6oOtnn2XpS61KrD/xyflT+Su6ouIqvNpJKrYGOOASYu0nk5xFAElbhZTOY0HMSDmM=
-X-Received: by 2002:a63:e758:0:b0:378:8511:cfe7 with SMTP id
- j24-20020a63e758000000b003788511cfe7mr7050358pgk.126.1646068071650; Mon, 28
- Feb 2022 09:07:51 -0800 (PST)
+	b=bW1ZFMo50q0kPFmsangI6ntG68WPn+8ztd5psh0iHHbmPXGd2Do9g5exX/orPNmoF
+	 TbileAdECwDuGZ3+humcDGlnOjlNYxeI3qAjbFLAsFhTc2LHic+YIf2ERa75osRNhn
+	 Kqq71bFPRaIovWhnQvFqOiR1ebj4qUhN855gks3wvS+rvdXKdGJUNfOOen3tcmT4S7
+	 zpLTE7SvQlwyFubmoSBvPJGw1f5VxlcwUT5kGQbM5VRWy3yFRzf9kbennsbklNWQnr
+	 VImWf5/+PDhsYj8Ik1QLewhHGzp4RLahjjkzTll08wtY5vt0rMq16dXAFWp3Qw6QCA
+	 7XcyjSwBnCISg==
+Received: by mail-wr1-f45.google.com with SMTP id s1so16801972wrg.10
+        for <greybus-dev@lists.linaro.org>; Mon, 28 Feb 2022 10:25:12 -0800 (PST)
+X-Gm-Message-State: AOAM533Ns8mQAvGk5GS2bQZAmesocWXpWfauwc7NjIfvKv34rwVe+TlY
+	Dznp7xblo31qlpKLEA3yYCmc/Lvf4WBd/KtBWxs=
+X-Google-Smtp-Source: ABdhPJz4fZLcu78yhCIhmUlg8wcyJThC/WAQ6UaeDqjOpOcx7YS8Qt8gbRJs54Y1simdrFMDrQr0lGIp9e5ElXVyTL0=
+X-Received: by 2002:adf:edc3:0:b0:1ec:5f11:5415 with SMTP id
+ v3-20020adfedc3000000b001ec5f115415mr14857770wro.317.1646072710661; Mon, 28
+ Feb 2022 10:25:10 -0800 (PST)
 MIME-Version: 1.0
-References: <20220228103142.3301082-1-arnd@kernel.org> <YhyxML05rjJ/57Vk@FVFF77S0Q05N>
-In-Reply-To: <YhyxML05rjJ/57Vk@FVFF77S0Q05N>
-From: Masahiro Yamada <masahiroy@kernel.org>
-Date: Tue, 1 Mar 2022 02:07:08 +0900
-X-Gmail-Original-Message-ID: <CAK7LNATbX3TfETQTAr=e5kQLMDSXSn_KetDKTAaeZSq9k_70Uw@mail.gmail.com>
-Message-ID: <CAK7LNATbX3TfETQTAr=e5kQLMDSXSn_KetDKTAaeZSq9k_70Uw@mail.gmail.com>
-To: Mark Rutland <mark.rutland@arm.com>
-Message-ID-Hash: ACN4V7K4F43FOJZPMWZ4VDBHITKUU245
-X-Message-ID-Hash: ACN4V7K4F43FOJZPMWZ4VDBHITKUU245
-X-MailFrom: masahiroy@kernel.org
+References: <20220228103142.3301082-1-arnd@kernel.org> <CAK7LNATVs-yRX4PnURkLv3fz3gAnuzG2GxZ2gdvmJX2g+0P-_w@mail.gmail.com>
+In-Reply-To: <CAK7LNATVs-yRX4PnURkLv3fz3gAnuzG2GxZ2gdvmJX2g+0P-_w@mail.gmail.com>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Mon, 28 Feb 2022 19:24:54 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a2To9St5=v6EHtJ-LBEp4-NOThPmO+qYeAfnxQPm2_Keg@mail.gmail.com>
+Message-ID: <CAK8P3a2To9St5=v6EHtJ-LBEp4-NOThPmO+qYeAfnxQPm2_Keg@mail.gmail.com>
+To: Masahiro Yamada <masahiroy@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID-Hash: ZRSPZI2ZVYKDT2DLVAL2WSBU35DPWSCO
+X-Message-ID-Hash: ZRSPZI2ZVYKDT2DLVAL2WSBU35DPWSCO
+X-MailFrom: arnd@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Arnd Bergmann <arnd@kernel.org>, Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Linus Torvalds <torvalds@linux-foundation.org>, llvm@lists.linux.dev, Jonathan Corbet <corbet@lwn.net>, Federico Vaga <federico.vaga@vaga.pv.it>, Alex Shi <alexs@kernel.org>, Hu Haowen <src.res@email.cn>, Michal Marek <michal.lkml@markovi.net>, Nick Desaulniers <ndesaulniers@google.com>, "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc-tw-discuss@lists.sourceforge.net, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-btrfs@vger.kernel.org, Marco Elver <elver@google.com>
+CC: Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Linus Torvalds <torvalds@linux-foundation.org>, llvm@lists.linux.dev, Jonathan Corbet <corbet@lwn.net>, Federico Vaga <federico.vaga@vaga.pv.it>, Alex Shi <alexs@kernel.org>, Hu Haowen <src.res@email.cn>, Michal Marek <michal.lkml@markovi.net>, Nick Desaulniers <ndesaulniers@google.com>, "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc-tw-discuss@lists.sourceforge.net, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-btrfs <linux-btrfs@vger.kernel.org>
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH] [v2] Kbuild: move to -std=gnu11
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ACN4V7K4F43FOJZPMWZ4VDBHITKUU245/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZRSPZI2ZVYKDT2DLVAL2WSBU35DPWSCO/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -60,13 +62,10 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Feb 28, 2022 at 8:25 PM Mark Rutland <mark.rutland@arm.com> wrote:
+On Mon, Feb 28, 2022 at 6:02 PM Masahiro Yamada <masahiroy@kernel.org> wrote:
 >
-> Hi Arnd,
->
-> This is great!
->
-> On Mon, Feb 28, 2022 at 11:27:43AM +0100, Arnd Bergmann wrote:
+> On Mon, Feb 28, 2022 at 7:32 PM Arnd Bergmann <arnd@kernel.org> wrote:
+> >
 > > From: Arnd Bergmann <arnd@arndb.de>
 > >
 > > During a patch discussion, Linus brought up the option of changing
@@ -86,42 +85,26 @@ On Mon, Feb 28, 2022 at 8:25 PM Mark Rutland <mark.rutland@arm.com> wrote:
 > >
 > > One minor issue that remains is an added gcc warning for shifts of
 > > negative integers when building with -Werror, which happens with the
-> > 'make W=1' option, as well as for three drivers in the kernel that always
-> > enable -Werror, but it was only observed with the i915 driver so far.
-> > To be on the safe side, add -Wno-shift-negative-value to any -Wextra
-> > in a Makefile.
-> >
-> > Nathan Chancellor reported an additional -Wdeclaration-after-statement
-> > warning that appears in a system header on arm, this still needs a
-> > workaround.
 >
-> FWIW, I had a go at moving to c99 a few weeks ago (to be able to use
-> for-loop-declarations in some concurrency primitives), and when I tried, I also
-> saw declaration-after-statement warnings when building modpost.c, which is easy
-> enough to fix:
+> Is this a typo?
 >
->   https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/commit/?h=treewide/gnu99&id=505775bd6fd0bc1883f3271f826963066bbdc194
+>    building with -Werror, ...
+> ->
+>    building with -Wextra, ...
 >
 
+I'm being slow today, Jani actually pointed out the same thing and I
+misunderstood him. Fixed it now, thanks!
 
-I do not understand this statement:
+> Acked-by: Masahiro Yamada <masahiroy@kernel.org>
+>
+>
+> Please let me know if you want me to pick up this.
 
-"Usually such warnings are implciitly enabled as part of `-std=gnu89`,
- and in preparation for changing the standard used, this patch explciitly
-enales the warnings with `-Wdeclaration-after-statement`, which takes
-effect regardless of which version of the C standard is in use."
+Yes, that would be great. I'll send a v3 with the updated changelog,
+but will drop most of the Cc list as there are no functional changes.
 
-
-
-modpost is already built with -std=gnu89.
-
-If  Wdeclaration-after-statement is implied by gnu89,
-why did nobody notice this before?
-
-
--- 
-Best Regards
-Masahiro Yamada
+        Arnd
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
