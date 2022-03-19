@@ -2,152 +2,154 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EFD04E261F
-	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 13:13:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75CE34E2620
+	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 13:13:39 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9F9B93EF90
-	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 12:13:36 +0000 (UTC)
-Received: from 189.cn (ptr.189.cn [183.61.185.101])
-	by lists.linaro.org (Postfix) with ESMTP id 6321E3ECAA
-	for <greybus-dev@lists.linaro.org>; Fri, 18 Mar 2022 12:58:16 +0000 (UTC)
-HMM_SOURCE_IP: 10.64.8.31:34786.918040143
-HMM_ATTACHE_NUM: 0000
-HMM_SOURCE_TYPE: SMTP
-Received: from clientip-117.13.170.79 (unknown [10.64.8.31])
-	by 189.cn (HERMES) with SMTP id E2DA4100132;
-	Fri, 18 Mar 2022 20:58:12 +0800 (CST)
-Received: from  ([117.13.170.79])
-	by gateway-151646-dep-b7fbf7d79-bwdqx with ESMTP id 42c959ff59a34243a620c7ace1295b92 for elder@ieee.org;
-	Fri, 18 Mar 2022 20:58:13 CST
-X-Transaction-ID: 42c959ff59a34243a620c7ace1295b92
-X-Real-From: chensong_2000@189.cn
-X-Receive-IP: 117.13.170.79
-X-MEDUSA-Status: 0
-Sender: chensong_2000@189.cn
-To: Alex Elder <elder@linaro.org>, johan@kernel.org, elder@kernel.org,
- gregkh@linuxfoundation.org, thierry.reding@gmail.com,
- u.kleine-koenig@pengutronix.de, lee.jones@linaro.org,
- greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, elder@ieee.org
-References: <1647597432-27586-1-git-send-email-chensong_2000@189.cn>
- <a4b3ad02-f1c7-c13b-7740-d5b9982bd7c7@linaro.org>
-From: chensong <chensong_2000@189.cn>
-Message-ID: <a8b8def4-dbf0-cfd0-d456-265ab4fc8d7f@189.cn>
-Date: Fri, 18 Mar 2022 20:58:12 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by lists.linaro.org (Postfix) with ESMTP id A67523EF96
+	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 12:13:38 +0000 (UTC)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	by lists.linaro.org (Postfix) with ESMTPS id 38D093ECC0
+	for <greybus-dev@lists.linaro.org>; Sat, 19 Mar 2022 20:21:30 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id o10so4217046ejd.1
+        for <greybus-dev@lists.linaro.org>; Sat, 19 Mar 2022 13:21:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=vHLMgXqZPwAjL27Id0sSqj94GzZmSc3lr7K5901Tgpk=;
+        b=ZNtk/pp6yjLOiEaL/Kugxtk0VwmKSKQnMp/QX0Odlg3DSks4r6MCEHTB2EMZVVWn/v
+         LmxJMZ1Rq6QEspYvEcZte27/pKeHa0zXORDmOttJad8LaM34/xYNQUB/4xPmTAPahkKz
+         Tr6BWdiDNZykYDrMsAmIM/C/3lNOu4YYqZc6aY5xhrUb0aKzOp/M0+wrEnFcV+9qObg5
+         yR/Pk1uYxQdc4ZEQwdgfYLYky5w4VzBG61xmOuAq1TAwHXNuvuLBhN7UrECZdY0zce+2
+         wsVM+mYksjFjU2YnPResFSJ2/n0h3bXnuLxDhOsNabpEjrcDwuG9q5SpLpi/VGfM03pu
+         zMRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=vHLMgXqZPwAjL27Id0sSqj94GzZmSc3lr7K5901Tgpk=;
+        b=26uMY5UAs7IcXjaNhuAau0PqHb3Cb/Em5sXOIF6ToNbsmwkFYW5Rb7fxuZHhi+4GdC
+         4c77XK3tdPJDRbqdytG1f4eK5peaHY6GB7u8dJy7TWm1coken298rJ4vVc6xg/kspfwh
+         lEkb2re0K5B9g/wzexTepROtP8OTMwXDZJp63H/NPIAYugYBQi6FY0R2W6oC0l7cU6Jc
+         EY7wSOm8f0GMrk6AFWMB1qXP5g6LJUEvimf0d43f4a5t0NO86rRC5GifarxqczweMp1I
+         rFSt26ceZz+nz58wsvzY1DH912+4Htyj9AbfmQ9AHRWzAb8ddIbvZE8P3bXEs17rzfxS
+         iRuA==
+X-Gm-Message-State: AOAM530cJksoRLlgVW0JBUrZPdId1brr58ru93uTq8wlt4gnbGCO3tg9
+	sfw0WTQbvloWZIFXTPua/Lo=
+X-Google-Smtp-Source: ABdhPJwBdKbx0Y3W/PyFwMf1nRyC4G9Vb1RxtvkzGcHKA6U+X2LuzPFT6K7ipx0eljDg1AXH3aBvOA==
+X-Received: by 2002:a17:906:7c93:b0:6cd:341a:a1d5 with SMTP id w19-20020a1709067c9300b006cd341aa1d5mr13999454ejo.698.1647721289256;
+        Sat, 19 Mar 2022 13:21:29 -0700 (PDT)
+Received: from localhost.localdomain (i130160.upc-i.chello.nl. [62.195.130.160])
+        by smtp.googlemail.com with ESMTPSA id rv11-20020a17090710cb00b006d5c0cd5e0dsm5103628ejb.82.2022.03.19.13.21.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Mar 2022 13:21:28 -0700 (PDT)
+From: Jakob Koschel <jakobkoschel@gmail.com>
+To: Vaibhav Agarwal <vaibhav.sr@gmail.com>
+Date: Sat, 19 Mar 2022 21:20:58 +0100
+Message-Id: <20220319202058.2518847-1-jakobkoschel@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <a4b3ad02-f1c7-c13b-7740-d5b9982bd7c7@linaro.org>
-Content-Language: en-US
-X-MailFrom: chensong_2000@189.cn
+X-MailFrom: jakobkoschel@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: FGWQ5LF6YAP2EJEQF4FD7R6QFGY3B6JB
-X-Message-ID-Hash: FGWQ5LF6YAP2EJEQF4FD7R6QFGY3B6JB
+Message-ID-Hash: UC2QEE7OGUUEQU5MR3RZLJNJBLX5THXQ
+X-Message-ID-Hash: UC2QEE7OGUUEQU5MR3RZLJNJBLX5THXQ
 X-Mailman-Approved-At: Mon, 21 Mar 2022 12:13:34 +0000
+CC: Jakob Koschel <jakobkoschel@gmail.com>, linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Mike Rapoport <rppt@kernel.org>, Brian Johannesmeyer <bjohannesmeyer@gmail.com>, Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v6] staging: greybus: introduce pwm_ops::apply
+Subject: [greybus-dev] [PATCH] staging: greybus: codecs: fix type confusion with dedicated list iterator variable
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FGWQ5LF6YAP2EJEQF4FD7R6QFGY3B6JB/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/UC2QEE7OGUUEQU5MR3RZLJNJBLX5THXQ/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-aGkgQWxleCwNCg0KT24gMjAyMi8zLzE4IOS4i+WNiDg6MTUsIEFsZXggRWxkZXIgd3JvdGU6DQo+
-IE9uIDMvMTgvMjIgNDo1NyBBTSwgU29uZyBDaGVuIHdyb3RlOg0KPj4gSW50cm9kdWNlIG5ld2Vy
-IC5hcHBseSBmdW5jdGlvbiBpbiBwd21fb3BzIHRvIHJlcGxhY2UgbGVnYWN5IG9wZXJhdGlvbnMN
-Cj4+IGluY2x1ZGluZyBlbmFibGUsIGRpc2FibGUsIGNvbmZpZyBhbmQgc2V0X3BvbGFyaXR5Lg0K
-Pj4NCj4+IFRoaXMgZ3VhcmFudGVlcyBhdG9taWMgY2hhbmdlcyBvZiB0aGUgcHdtIGNvbnRyb2xs
-ZXIgY29uZmlndXJhdGlvbi4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBTb25nIENoZW4gPGNoZW5z
-b25nXzIwMDBAMTg5LmNuPg0KPiANCj4gSSBoYWQgYW5vdGhlciBjb21tZW50IHN1Z2dlc3Rpb24g
-YnV0IHlvdSd2ZSBiZWVuIHRocm91Z2ggZW5vdWdoLg0KPiBUaGFua3MgZm9yIHdvcmtpbmcgdGhp
-cyB0byBjb21wbGV0aW9uLg0KDQpzb3JyeSBhYm91dCB0aGF0LCBpIHByb2JhYmx5IG1pc3NlZCBp
-dCBzb21laG93LiBUaGFua3MgZm9yIHRoZSANCnVuZGVyc3RhbmRpbmcuDQoNClNvbmcNCg0KPiAN
-Cj4gUmV2aWV3ZWQtYnk6IEFsZXggRWxkZXIgPGVsZGVyQGxpbmFyby5vcmc+DQo+IA0KPj4NCj4+
-IC0tLQ0KPj4gdjI6DQo+PiAxLCBkZWZpbmUgZHV0eV9jeWNsZSBhbmQgcGVyaW9kIGFzIHU2NCBp
-biBnYl9wd21fY29uZmlnX29wZXJhdGlvbi4NCj4+IDIsIGRlZmluZSBkdXR5IGFuZCBwZXJpb2Qg
-YXMgdTY0IGluIGdiX3B3bV9jb25maWdfcmVxdWVzdC4NCj4+IDMsIGRpc2FibGUgYmVmb3JlIGNv
-bmZpZ3VyaW5nIGR1dHkgYW5kIHBlcmlvZCBpZiB0aGUgZXZlbnR1YWwgZ29hbA0KPj4gwqDCoMKg
-IGlzIGEgZGlzYWJsZWQgc3RhdGUuDQo+Pg0KPj4gdjM6DQo+PiBSZWdhcmRpbmcgZHV0eV9jeWNs
-ZSBhbmQgcGVyaW9kLCBJIHJlYWQgbW9yZSBkaXNjdXNzaW9uIGluIHRoaXMgdGhyZWFkLA0KPj4g
-bWluLCB3YXJuIG9yIC1FSU5WQUwsIHNlZW1zIG5vIHBlcmZlY3Qgd2F5IGFjY2VwdGFibGUgZm9y
-IGV2ZXJ5b25lLg0KPj4gSG93IGFib3V0IHdlIGxpbWl0IHRoZWlyIHZhbHVlIHRvIElOVF9NQVgg
-YW5kIHRocm93IGEgd2FybmluZyBhdCB0aGUNCj4+IHNhbWUgdGltZSB3aGVuIHRoZXkgYXJlIHdy
-b25nPw0KPj4NCj4+IHY0Og0KPj4gMSwgZXhwbGFpbiB3aHkgbGVnYWN5IG9wZXJhdGlvbnMgYXJl
-IHJlcGxhY2VkLg0KPj4gMiwgY2FwIHRoZSB2YWx1ZSBvZiBwZXJpb2QgYW5kIGR1dHkgdG8gVTMy
-X01BWC4NCj4+DQo+PiB2NToNCj4+IDEsIHJldmlzZSBjb21taXQgbWVzc2FnZS4NCj4+DQo+PiB2
-NjoNCj4+IDEsIHJldmlzZSBjb21taXQgbWVzc2FnZS4NCj4+IDIsIGV4cGxhaW4gd2h5IGNhcHBp
-bmcgdGhlIHZhbHVlIG9mIHBlcmlvZCBhbmQgZHV0eSB0byBVMzJfTUFYIGluDQo+PiDCoMKgwqAg
-Y29tbWVudC4NCj4+IC0tLQ0KPj4gwqAgZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvcHdtLmMgfCA2
-NCArKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLQ0KPj4gwqAgMSBmaWxlIGNoYW5n
-ZWQsIDQwIGluc2VydGlvbnMoKyksIDI0IGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9wd20uYyANCj4+IGIvZHJpdmVycy9zdGFnaW5nL2dy
-ZXlidXMvcHdtLmMNCj4+IGluZGV4IDg5MWE2YTY3MjM3OC4uYWQyMGVjMjQwMzFlIDEwMDY0NA0K
-Pj4gLS0tIGEvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvcHdtLmMNCj4+ICsrKyBiL2RyaXZlcnMv
-c3RhZ2luZy9ncmV5YnVzL3B3bS5jDQo+PiBAQCAtMjA0LDQzICsyMDQsNTkgQEAgc3RhdGljIHZv
-aWQgZ2JfcHdtX2ZyZWUoc3RydWN0IHB3bV9jaGlwICpjaGlwLCANCj4+IHN0cnVjdCBwd21fZGV2
-aWNlICpwd20pDQo+PiDCoMKgwqDCoMKgIGdiX3B3bV9kZWFjdGl2YXRlX29wZXJhdGlvbihwd21j
-LCBwd20tPmh3cHdtKTsNCj4+IMKgIH0NCj4+IC1zdGF0aWMgaW50IGdiX3B3bV9jb25maWcoc3Ry
-dWN0IHB3bV9jaGlwICpjaGlwLCBzdHJ1Y3QgcHdtX2RldmljZSAqcHdtLA0KPj4gLcKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBpbnQgZHV0eV9ucywgaW50IHBlcmlvZF9ucykNCj4+ICtzdGF0aWMg
-aW50IGdiX3B3bV9hcHBseShzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAsIHN0cnVjdCBwd21fZGV2aWNl
-ICpwd20sDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25zdCBzdHJ1Y3QgcHdtX3N0YXRl
-ICpzdGF0ZSkNCj4+IMKgIHsNCj4+ICvCoMKgwqAgaW50IGVycjsNCj4+ICvCoMKgwqAgYm9vbCBl
-bmFibGVkID0gcHdtLT5zdGF0ZS5lbmFibGVkOw0KPj4gK8KgwqDCoCB1NjQgcGVyaW9kID0gc3Rh
-dGUtPnBlcmlvZDsNCj4+ICvCoMKgwqAgdTY0IGR1dHlfY3ljbGUgPSBzdGF0ZS0+ZHV0eV9jeWNs
-ZTsNCj4+IMKgwqDCoMKgwqAgc3RydWN0IGdiX3B3bV9jaGlwICpwd21jID0gcHdtX2NoaXBfdG9f
-Z2JfcHdtX2NoaXAoY2hpcCk7DQo+PiAtwqDCoMKgIHJldHVybiBnYl9wd21fY29uZmlnX29wZXJh
-dGlvbihwd21jLCBwd20tPmh3cHdtLCBkdXR5X25zLCANCj4+IHBlcmlvZF9ucyk7DQo+PiAtfTsN
-Cj4+ICvCoMKgwqAgLyogU2V0IHBvbGFyaXR5ICovDQo+PiArwqDCoMKgIGlmIChzdGF0ZS0+cG9s
-YXJpdHkgIT0gcHdtLT5zdGF0ZS5wb2xhcml0eSkgew0KPj4gK8KgwqDCoMKgwqDCoMKgIGlmIChl
-bmFibGVkKSB7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnYl9wd21fZGlzYWJsZV9vcGVy
-YXRpb24ocHdtYywgcHdtLT5od3B3bSk7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlbmFi
-bGVkID0gZmFsc2U7DQo+PiArwqDCoMKgwqDCoMKgwqAgfQ0KPj4gK8KgwqDCoMKgwqDCoMKgIGVy
-ciA9IGdiX3B3bV9zZXRfcG9sYXJpdHlfb3BlcmF0aW9uKHB3bWMsIHB3bS0+aHdwd20sIA0KPj4g
-c3RhdGUtPnBvbGFyaXR5KTsNCj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoZXJyKQ0KPj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIGVycjsNCj4+ICvCoMKgwqAgfQ0KPj4gLXN0YXRpYyBp
-bnQgZ2JfcHdtX3NldF9wb2xhcml0eShzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAsIHN0cnVjdCANCj4+
-IHB3bV9kZXZpY2UgKnB3bSwNCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgZW51bSBwd21fcG9sYXJpdHkgcG9sYXJpdHkpDQo+PiAtew0KPj4gLcKgwqDCoCBzdHJ1Y3Qg
-Z2JfcHdtX2NoaXAgKnB3bWMgPSBwd21fY2hpcF90b19nYl9wd21fY2hpcChjaGlwKTsNCj4+ICvC
-oMKgwqAgaWYgKCFzdGF0ZS0+ZW5hYmxlZCkgew0KPj4gK8KgwqDCoMKgwqDCoMKgIGlmIChlbmFi
-bGVkKQ0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ2JfcHdtX2Rpc2FibGVfb3BlcmF0aW9u
-KHB3bWMsIHB3bS0+aHdwd20pOw0KPj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiAwOw0KPj4gK8Kg
-wqDCoCB9DQo+PiAtwqDCoMKgIHJldHVybiBnYl9wd21fc2V0X3BvbGFyaXR5X29wZXJhdGlvbihw
-d21jLCBwd20tPmh3cHdtLCBwb2xhcml0eSk7DQo+PiAtfTsNCj4+ICvCoMKgwqAgLyoNCj4+ICvC
-oMKgwqDCoCAqIFNldCBwZXJpb2QgYW5kIGR1dHkgY3ljbGUNCj4+ICvCoMKgwqDCoCAqDQo+PiAr
-wqDCoMKgwqAgKiBQV00gcHJpdm9kZXMgNjQtYml0IHBlcmlvZCBhbmQgZHV0eV9jeWNsZSwgYnV0
-IGdyZXlidXMgb25seSANCj4+IGFjY2VwdHMNCj4+ICvCoMKgwqDCoCAqIDMyLWJpdCwgc28gdGhl
-aXIgdmFsdWVzIGhhdmUgdG8gYmUgbGltaXRlZCB0byBVMzJfTUFYLg0KPj4gK8KgwqDCoMKgICov
-DQo+PiArwqDCoMKgIGlmIChwZXJpb2QgPiBVMzJfTUFYKQ0KPj4gK8KgwqDCoMKgwqDCoMKgIHBl
-cmlvZCA9IFUzMl9NQVg7DQo+PiAtc3RhdGljIGludCBnYl9wd21fZW5hYmxlKHN0cnVjdCBwd21f
-Y2hpcCAqY2hpcCwgc3RydWN0IHB3bV9kZXZpY2UgKnB3bSkNCj4+IC17DQo+PiAtwqDCoMKgIHN0
-cnVjdCBnYl9wd21fY2hpcCAqcHdtYyA9IHB3bV9jaGlwX3RvX2diX3B3bV9jaGlwKGNoaXApOw0K
-Pj4gK8KgwqDCoCBpZiAoZHV0eV9jeWNsZSA+IHBlcmlvZCkNCj4+ICvCoMKgwqDCoMKgwqDCoCBk
-dXR5X2N5Y2xlID0gcGVyaW9kOw0KPj4gLcKgwqDCoCByZXR1cm4gZ2JfcHdtX2VuYWJsZV9vcGVy
-YXRpb24ocHdtYywgcHdtLT5od3B3bSk7DQo+PiAtfTsNCj4+ICvCoMKgwqAgZXJyID0gZ2JfcHdt
-X2NvbmZpZ19vcGVyYXRpb24ocHdtYywgcHdtLT5od3B3bSwgZHV0eV9jeWNsZSwgcGVyaW9kKTsN
-Cj4+ICvCoMKgwqAgaWYgKGVycikNCj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gZXJyOw0KPj4g
-LXN0YXRpYyB2b2lkIGdiX3B3bV9kaXNhYmxlKHN0cnVjdCBwd21fY2hpcCAqY2hpcCwgc3RydWN0
-IHB3bV9kZXZpY2UgDQo+PiAqcHdtKQ0KPj4gLXsNCj4+IC3CoMKgwqAgc3RydWN0IGdiX3B3bV9j
-aGlwICpwd21jID0gcHdtX2NoaXBfdG9fZ2JfcHdtX2NoaXAoY2hpcCk7DQo+PiArwqDCoMKgIC8q
-IGVuYWJsZS9kaXNhYmxlICovDQo+PiArwqDCoMKgIGlmICghZW5hYmxlZCkNCj4+ICvCoMKgwqDC
-oMKgwqDCoCByZXR1cm4gZ2JfcHdtX2VuYWJsZV9vcGVyYXRpb24ocHdtYywgcHdtLT5od3B3bSk7
-DQo+PiAtwqDCoMKgIGdiX3B3bV9kaXNhYmxlX29wZXJhdGlvbihwd21jLCBwd20tPmh3cHdtKTsN
-Cj4+IC19Ow0KPj4gK8KgwqDCoCByZXR1cm4gMDsNCj4+ICt9DQo+PiDCoCBzdGF0aWMgY29uc3Qg
-c3RydWN0IHB3bV9vcHMgZ2JfcHdtX29wcyA9IHsNCj4+IMKgwqDCoMKgwqAgLnJlcXVlc3QgPSBn
-Yl9wd21fcmVxdWVzdCwNCj4+IMKgwqDCoMKgwqAgLmZyZWUgPSBnYl9wd21fZnJlZSwNCj4+IC3C
-oMKgwqAgLmNvbmZpZyA9IGdiX3B3bV9jb25maWcsDQo+PiAtwqDCoMKgIC5zZXRfcG9sYXJpdHkg
-PSBnYl9wd21fc2V0X3BvbGFyaXR5LA0KPj4gLcKgwqDCoCAuZW5hYmxlID0gZ2JfcHdtX2VuYWJs
-ZSwNCj4+IC3CoMKgwqAgLmRpc2FibGUgPSBnYl9wd21fZGlzYWJsZSwNCj4+ICvCoMKgwqAgLmFw
-cGx5ID0gZ2JfcHdtX2FwcGx5LA0KPj4gwqDCoMKgwqDCoCAub3duZXIgPSBUSElTX01PRFVMRSwN
-Cj4+IMKgIH07DQo+IA0KPiANCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdCAtLSBncmV5YnVzLWRldkBsaXN0cy5s
-aW5hcm8ub3JnClRvIHVuc3Vic2NyaWJlIHNlbmQgYW4gZW1haWwgdG8gZ3JleWJ1cy1kZXYtbGVh
-dmVAbGlzdHMubGluYXJvLm9yZwo=
+If the list does not exit early then data == NULL and 'module' does not
+point to a valid list element.
+Using 'module' in such a case is not valid and was therefore removed.
+
+In preparation to limit the scope of the list iterator to the list
+traversal loop, use a dedicated pointer pointing to the found element [1].
+
+Link: https://lore.kernel.org/all/YhdfEIwI4EdtHdym@kroah.com/
+Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
+---
+ drivers/staging/greybus/audio_codec.c | 24 ++++++++++++++----------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
+index b589cf6b1d03..0f50d1e51e2c 100644
+--- a/drivers/staging/greybus/audio_codec.c
++++ b/drivers/staging/greybus/audio_codec.c
+@@ -497,7 +497,7 @@ static int gbcodec_prepare(struct snd_pcm_substream *substream,
+ 			   struct snd_soc_dai *dai)
+ {
+ 	int ret;
+-	struct gbaudio_module_info *module;
++	struct gbaudio_module_info *module = NULL, *iter;
+ 	struct gbaudio_data_connection *data;
+ 	struct gb_bundle *bundle;
+ 	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
+@@ -511,11 +511,13 @@ static int gbcodec_prepare(struct snd_pcm_substream *substream,
+ 		return -ENODEV;
+ 	}
+
+-	list_for_each_entry(module, &codec->module_list, list) {
++	list_for_each_entry(iter, &codec->module_list, list) {
+ 		/* find the dai */
+-		data = find_data(module, dai->id);
+-		if (data)
++		data = find_data(iter, dai->id);
++		if (data) {
++			module = iter;
+ 			break;
++		}
+ 	}
+ 	if (!data) {
+ 		dev_err(dai->dev, "DATA connection missing\n");
+@@ -563,7 +565,7 @@ static int gbcodec_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
+ {
+ 	int ret;
+ 	struct gbaudio_data_connection *data;
+-	struct gbaudio_module_info *module;
++	struct gbaudio_module_info *module = NULL, *iter;
+ 	struct gb_bundle *bundle;
+ 	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
+ 	struct gbaudio_stream_params *params;
+@@ -592,15 +594,17 @@ static int gbcodec_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
+ 		return ret;
+ 	}
+
+-	list_for_each_entry(module, &codec->module_list, list) {
++	list_for_each_entry(iter, &codec->module_list, list) {
+ 		/* find the dai */
+-		data = find_data(module, dai->id);
+-		if (data)
++		data = find_data(iter, dai->id);
++		if (data) {
++			module = iter;
+ 			break;
++		}
+ 	}
+ 	if (!data) {
+-		dev_err(dai->dev, "%s:%s DATA connection missing\n",
+-			dai->name, module->name);
++		dev_err(dai->dev, "%s DATA connection missing\n",
++			dai->name);
+ 		mutex_unlock(&codec->lock);
+ 		return -ENODEV;
+ 	}
+
+base-commit: 34e047aa16c0123bbae8e2f6df33e5ecc1f56601
+--
+2.25.1
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
