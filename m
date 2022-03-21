@@ -2,140 +2,79 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75EC34E26D1
-	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 13:45:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BCFD4E2F73
+	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 18:56:59 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A4DBB3EF8D
-	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 12:45:50 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
-	by lists.linaro.org (Postfix) with ESMTPS id 7E0403EE18
-	for <greybus-dev@lists.linaro.org>; Mon, 21 Mar 2022 12:45:48 +0000 (UTC)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 22L9YbLm012459;
-	Mon, 21 Mar 2022 12:45:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : content-type : in-reply-to :
- mime-version; s=corp-2021-07-09;
- bh=0ZDuWmFqj5jz5ZvCc/4mDW3ncIRIsYBmgHIQXh74u30=;
- b=shJEKXyu7dPZIOQ1/ZhHN20La10uc8EZcoZh0i8m1y2HvmrNtcnbQT6nwEXdr3m1ijBL
- l1srkGf/yFMaC5a1ZIk3luxuBjr+zNGOBBrjvxvP41DUlYBAb2x+qXJNWrLiWhXvafPb
- B8LJl0Tu3ug+eEGn0satCEuJ4MGBSI6+d7FBUy54bojMSMqF8Ezrfj+INXvh4Z/Qi/IJ
- xv5KP0bjbWSepG1WQSb9PYnjFRU66GiTBkRcyw2FH7hBlBDpwnvNx6XbmrKYvFKXc+0m
- mx4T0ijEejLU011vRqoJMouXWSlPh/hs5aoa199FMeRlLOmEIN7hhRfCEIFB2gaYDi2U Yg==
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80] (may be forged))
-	by mx0b-00069f02.pphosted.com with ESMTP id 3ew6ss34at-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Mar 2022 12:45:43 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-	by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 22LCfa5j137586;
-	Mon, 21 Mar 2022 12:45:42 GMT
-Received: from nam11-bn8-obe.outbound.protection.outlook.com (mail-bn8nam11lp2168.outbound.protection.outlook.com [104.47.58.168])
-	by userp3030.oracle.com with ESMTP id 3ew49r3bpt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Mar 2022 12:45:41 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J2ifWA6b5SGI1ucQRS/5hHO2rn33abE2Fc04S4vFvb0f/XEC5aat9X7BbRcTYd8IdoLmcZbkw9qey5dzW0BCcGFMCfJOiUMiwk6x+8iOrMlTYHQ1BLDGfG9JgdSSk0uSYIavSi/enfJRaLRL9G+HMrhZw4yV7nRjBa7aDTPIdlU9peYcUnAyBT5WQehOffPtdRz6EnFZtT3ZH5yvaPA/AZtMqnSAfGCsy45+WnxYQ7kV6HZSPRNzUQkyhlEw309E3bvKQnpHZ0PTkqkaxmR+m4tiomnnIDtFZ1KO8pC2GDfxNIhXT/hk72C+B+Twi1JrY+kWrriETcdjmDKBq0onFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0ZDuWmFqj5jz5ZvCc/4mDW3ncIRIsYBmgHIQXh74u30=;
- b=Wv6ErBmDPlhpud+uIEIA1XbO9+emaWZGviW3T/OFL66Sn2Fu4+/1BoTWqmlMdb75XC7KgK+w/stRbiA4oQgKI+cgesx+kRqdJ9PKIedwCYom52TOmwP9HK05qvoJrNnjBSmkUB0tbeMwoab1vqnkis11tUTnBq2ZJ6w/nqErSzK+KzsPtVANgR/2NL/LOnRcI2Nkw2EbJqHL3sI1lD9QQa/jqomb55w3Wf9Uwo97mQzWaQpxL3Kg9hNUGqEaTviSS2aUO+dImX6hdOw6g+opn+nNfpYDDbdOO6EAbsjDglK8j0zBDyXBLhk0oUUlNEtKp/djWQbi/HJRFbBSmCFZyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0ZDuWmFqj5jz5ZvCc/4mDW3ncIRIsYBmgHIQXh74u30=;
- b=pYNynJIUJKWfIyvP+wvo+sRL2wBcrZjaDERWotbMJUm18QtNDvRjocMg6zMgf1U072cwnd685xSIcyaC+nodwP2DBSyje0UkiLmo529YtoYzJI51r2fbfSf5mR1lvMtfIvtbNliFvPUj7OzdUQmAOGhPWz/dmMYV7wrni3thZxM=
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by MWHPR1001MB2255.namprd10.prod.outlook.com
- (2603:10b6:301:2f::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Mon, 21 Mar
- 2022 12:45:35 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::d4e7:ee60:f060:e20c]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::d4e7:ee60:f060:e20c%7]) with mapi id 15.20.5081.022; Mon, 21 Mar 2022
- 12:45:35 +0000
-Date: Mon, 21 Mar 2022 15:45:11 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
+	by lists.linaro.org (Postfix) with ESMTP id 7F8693EF9A
+	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 17:56:58 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com [66.111.4.25])
+	by lists.linaro.org (Postfix) with ESMTPS id DC9903EE13
+	for <greybus-dev@lists.linaro.org>; Mon, 21 Mar 2022 17:56:55 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+	by mailout.nyi.internal (Postfix) with ESMTP id AA8425C020D;
+	Mon, 21 Mar 2022 13:56:55 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute2.internal (MEProxy); Mon, 21 Mar 2022 13:56:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
+	 h=cc:cc:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:sender
+	:subject:subject:to:to; s=fm2; bh=xR2HymObUcHW2Ru/WNztu5+8qpLOJK
+	0OIKxqaZHFhPE=; b=D/75QaV9d16KtYAFSmM89OelNNcnvivOmvJkcA0LaTGlFO
+	zGPpIfH6qRwdn9+DDsgl6mrBA3wDrXUST68EfcqQOCBCvUWCSQdj9KmH5m+NDIwx
+	OgoKWoGnr1xiLlp4lCtQojdVPcTW/qoy8edYGPnLcu57KQPOIGlSh+UFYXeLsGIp
+	vg8cOVMWfWemxWavDcUf9dN0oRfyQn8BTdvs1k9ATWxf1Obd2rItPcDN5FYRjrbE
+	EJB7BJtDvojhSLALDFhx4P9XK+LXeRqUlko5ARGTlwFirBlastiFVPwddVLs+I2f
+	hLPLiGIJ7/1s2ylnb6ersKSfKgxED037uKDWZadw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=xR2HymObUcHW2Ru/W
+	Nztu5+8qpLOJK0OIKxqaZHFhPE=; b=bB6oMib+z5i4JY5nLvEuQoJILWqyGdON9
+	a2kkKpHrm/KHubawEmUu7Qz7zOtheVGeaNLC+GEP8Jn9x2kxPHMR640sPndtHR1W
+	334h86tHNXDrKMO8P11+iMjm/XPsz7N2DUtZYvzm0fY2VqQupls0giVqOmCik8q8
+	R3B9uKgOKTvf+gwbS+FDbJttH/e3/QSGoVmniYbdzZeF3KD92RaItvvIvRe34xpq
+	b00aF3r3+cx6jOFFYkpQqqgntWlhOPqnY5P19cRFpNF/DjLDI0FIrzHxhhcm10rj
+	TrItycGG6k0CzUGdUYOOauk+e6TGJbeUIsq9gmcoAo1iWVPDdTDuw==
+X-ME-Sender: <xms:Z7w4YkKRMRdJN7Bl_Es1hyZFmR17GDLLpsDEzVh4cJgjpXrvbv1Lvg>
+    <xme:Z7w4YkJBatUBN2ePYgHu5qm8kxo-dv8XHYLiSw-slSwkCp3RRcj4f01Nv_7NkTI8f
+    oQfY1QcQrHbkhoedA>
+X-ME-Received: <xmr:Z7w4YkttF7Hk0ivRieFIXb1uBqtkhu3bDl1cqDfUz0UVlA2MNzRN16nYO3RxBDvGy59bpNT9JWgSNUUEutqA8MMrAb2HOcEUwk_gG2s>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudegfedguddtkecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvuffkfhggtggujghosehttdertddttddvnecuhfhrohhmpeforghr
+    khcuifhrvggvrhcuoehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomheqnecugg
+    ftrfgrthhtvghrnhepieeugfdutdefiedtvdfftedufedvjeehgfevveefudfgjeffgeei
+    teetjedufffhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
+    homhepmhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhm
+X-ME-Proxy: <xmx:Z7w4YhZXMoPjvKN7Q-hPKRi54NBuv_DJh8FhHNC_oSevXzcKeSaGOA>
+    <xmx:Z7w4YracOK-PUOyLON2PgC7TSyu_vFGP-5M6Tphvlpb9nn62fvdFig>
+    <xmx:Z7w4YtDZlERtbfssYwDLI46kgQ7f4qmhTyCYZ9yij7nekP05DvD7Kg>
+    <xmx:Z7w4YpAAVYS7Hv9WS0HfUlpsbbvJQHP0jDCBNMs5polh_w0Ot_rdTg>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 21 Mar 2022 13:56:55 -0400 (EDT)
+Received: by blue.animalcreek.com (Postfix, from userid 1000)
+	id 1F3AF136015B; Mon, 21 Mar 2022 10:56:54 -0700 (MST)
+Date: Mon, 21 Mar 2022 10:56:54 -0700
+From: Mark Greer <mgreer@animalcreek.com>
 To: Jakob Koschel <jakobkoschel@gmail.com>
-Message-ID: <20220321124511.GK3293@kadam>
-References: <20220321123712.3068778-1-jakobkoschel@gmail.com>
-Content-Disposition: inline
-In-Reply-To: <20220321123712.3068778-1-jakobkoschel@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: MR2P264CA0147.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:1::10) To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
+Message-ID: <20220321175654.GA647493@animalcreek.com>
+References: <20220321123626.3068639-1-jakobkoschel@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5aa4e7f6-703c-4b9d-061e-08da0b38b178
-X-MS-TrafficTypeDiagnostic: MWHPR1001MB2255:EE_
-X-Microsoft-Antispam-PRVS: 
-	<MWHPR1001MB2255088E3F54C0CBF60C2ACA8E169@MWHPR1001MB2255.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	SXUYSZduHF3CNMkpr/evBBqJz8wp4j2U0L0Svle6GatSUVCzb2AdsgdkXy2k3EuV3SW9F7kyCNj6onA0RpMdNQsY1HLTK6dvL6JXPQREzvpDNCN643czhP3VZVc8b3e0Ye3gTMXJXNcXAAF3cYSAvcT8cJWjG/C9cb106Fj62X7xsUptT/ClldMG7ivRMo1R6ZhX0arWgXP06wZvxO9KU/MHnqifeBYq842cNrXkkSbbZVEh1byVovUH7ZfxR1qBc+v7Y3AZpx16LJgOlaGpimAep1tvm2GP6Ki8jVMU/StZp6cGxi7lpnaVBIQcBway/nJJW76Et131zI46j0DiE/mKd/1WIpEWh4XyFtL+y6ySlNm4le2xYJsyIPWuZCy6r9U1tJtdpzIyBMLfI3rqLfhWi5NcBujPFxakyc+2MCJ/G18b4nuVAlwdPQYcJHM/JOu8zgP+vhfkpOOxh/H6YIp1Y9DQCAHRso3QPrvVFOU813Hj0dO37a0NfLwjTn2w69H63MubpZ/gHT3g0R28YKe8BbFe6q3Z4WFy98dvTMqgpJxtIQkvOdm9Q3nOs2TQOa4a92j5O6o+LbUnlCnIHCLu7XzxLwAL1lTyQajWVWfQ3icUI/EYphCh80V7Ufa4YuTolk1Q1TeBWqO5euWvYYkHBXOBB+ZfPp5OLgLSeNSXTDEY/PaO+9ViXJukPuO+Zp82Tdn7LaHynBHXq0tkBDriYqu0sXVa67WrXB7KZKP4PKnBEVkVMe6BeqaBrFI0B0/kW6VAVMj9xfvO7IV/tLPiSn22/KAChf5ajTQTqGc=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2365.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(366004)(44832011)(7416002)(33716001)(33656002)(66476007)(2906002)(86362001)(66556008)(6512007)(38100700002)(38350700002)(8936002)(5660300002)(316002)(6916009)(6506007)(6486002)(8676002)(54906003)(6666004)(4326008)(508600001)(26005)(9686003)(83380400001)(1076003)(966005)(4744005)(66946007)(52116002)(186003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?/ysjzvv6bIdUX5GraPVVSIhHHR4meM/k6R5oPdZ81artFEumy2qPlPXjfVHL?=
- =?us-ascii?Q?hNa2MOMFV04pQNhU+WHRN9BRXE6WJpZUphZENF1q7cAMCViwuv4/DCTcu22l?=
- =?us-ascii?Q?PfsFCUyyKhZ4HXuoxHPIr4yFOdi/ctYbPj0bVCUSWxYyZ0/KU4ijYh/MZ4K/?=
- =?us-ascii?Q?KETpmMuWaifVrVfRDHSoD9r1tHaOKYWneKkHgB9X7h/AC4RZCfGXBXoi2Ia/?=
- =?us-ascii?Q?na+e9wR6eNMRlSuqcMSNnpJU2O0+bvpf3p/KPGm5iTDEfVAK/nKF2Z0+mjiq?=
- =?us-ascii?Q?pOy+6TEF93s6+Sunx+UrdKmlIG61f2jMFJwnEN0L2b3st+6Lq8pwp99CXB4n?=
- =?us-ascii?Q?a0KpjsurTzjEeg5BsdXN5dvDJ2SfT9YQ9qU4JxqrGbB/mAzuvPrS32vqsRF/?=
- =?us-ascii?Q?QGdLBwock7WHbEVbSN9xnSyvgLCB3VLgE1Qs9g1fOVHw4/qneAWaooYjrQ+G?=
- =?us-ascii?Q?vt/2+jwGtKLcsCczCTi3uAhwI81mRLFZwpC6pzfhu8y8LxMVW0m8ObCipK7h?=
- =?us-ascii?Q?prewUT2gGiQABksmpSfbmzyneDABwTucjAHvw8SUHamAIM7H8XwFKbYEUJe4?=
- =?us-ascii?Q?Ope3TZ1cZSTNelcvaHwZivl9BOJNukXFS2sq09y/eLWnuMeBogghB5acjRRe?=
- =?us-ascii?Q?8EF9Qfu5xDUi6gE+F7Blm6j88zBoAlvwViRr+Bs88RHLS1uUFAT2BsC43UZS?=
- =?us-ascii?Q?wbQeXFemK4A72VhzNzzthmRTf1lhtOIizr6Z3WTQ6BboYz2ySwDuHs6IVs4F?=
- =?us-ascii?Q?BlCc7Pgi0GRa3cDjvfe/tgtFnGNI6Wok23JHHE3O7gC5M9g8simmMmKa7zlk?=
- =?us-ascii?Q?b3BgVv17DoxtcQDgf08YKySTZ4VXiA+OK5zInDwQwPs2VmiLQaQzxXu09YwC?=
- =?us-ascii?Q?EEPDkABtaVLSo2md+dKRZ49Edaf9apgSVT09bo7m4eKngvU0wQEyHq0l8Eef?=
- =?us-ascii?Q?K5zgcWQEDrlQa+Zy0M/+pSJ1MPkpjWRIPG7MAQTRUN8bN5uRvzL7TOtWDO+V?=
- =?us-ascii?Q?q7glWVaPt5QbxaTo5s+MDWp4gPfitrZ2oK0K6dqFlyXVs0xbNKCIjLKdUTdK?=
- =?us-ascii?Q?65y1m96qgKWSj+fzvQhEoUoROVX3HPEYLnYadpYXOMcSqi8gBa2KimMfv8Q6?=
- =?us-ascii?Q?A1XernzeRGsfiQ0zV4wa+Pw55OuPz13Bxj58eQa1zyZM/3wlqwHMrETqa0OY?=
- =?us-ascii?Q?npVk9m4I5a0X4dO6fBgHpX4C6YyPLKEOpC7KnHSKYB+snP0iYdb7sHHAkTTR?=
- =?us-ascii?Q?FrrhWRdDHxjPfOXTWaWmG2p+dYNpgV10X5E6UqWnJfIrirKWhyd5baJsyUFw?=
- =?us-ascii?Q?oME9Rc5CPIHUXxVDJ8ZkKiixHRIwnzMdrJ+W9+3d6tCc2kbhyzxv8l/peET6?=
- =?us-ascii?Q?QxoRzgZttw5vwzzno36FMwaISt1IdUsgXFIYws3yWVD6Pgb1IO1ewab/Rykc?=
- =?us-ascii?Q?k7MRWIfBGDDjg2An3NAxcq8Ypwd1a/fRSLh14L9l2bhyCXUewV7rUQ=3D=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5aa4e7f6-703c-4b9d-061e-08da0b38b178
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 12:45:35.1259
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2kUI8qX0DwVhC90mXh04Qo40gq6J8atoPP+b26Ji3jPRI6NUoJtAMuA2HsZTaPgh4u4laX8FPHYyLDGBH9Y/fM+JRyzZUcou0hvXQmRZIjg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1001MB2255
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10292 signatures=694221
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 malwarescore=0 mlxscore=0
- bulkscore=0 phishscore=0 spamscore=0 mlxlogscore=999 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
- definitions=main-2203210082
-X-Proofpoint-ORIG-GUID: qkWXHhO2jtpu3kidRNeQrf5XOl2_dBbn
-X-Proofpoint-GUID: qkWXHhO2jtpu3kidRNeQrf5XOl2_dBbn
-Message-ID-Hash: SYPNNTXE5JSPV3GLEYPCFBECXVPA3EPA
-X-Message-ID-Hash: SYPNNTXE5JSPV3GLEYPCFBECXVPA3EPA
-X-MailFrom: dan.carpenter@oracle.com
+Content-Disposition: inline
+In-Reply-To: <20220321123626.3068639-1-jakobkoschel@gmail.com>
+Organization: Animal Creek Technologies, Inc.
+Message-ID-Hash: 5GWN4OOAE3TAXJ5KYRUS52RM3NQYCKUR
+X-Message-ID-Hash: 5GWN4OOAE3TAXJ5KYRUS52RM3NQYCKUR
+X-MailFrom: mgreer@animalcreek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Mike Rapoport <rppt@kernel.org>, Brian Johannesmeyer <bjohannesmeyer@gmail.com>, Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: codecs: use dedicated list iterator variable
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: codecs: fix type confusion of list iterator variable
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/SYPNNTXE5JSPV3GLEYPCFBECXVPA3EPA/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5GWN4OOAE3TAXJ5KYRUS52RM3NQYCKUR/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -145,18 +84,36 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 21, 2022 at 01:37:12PM +0100, Jakob Koschel wrote:
-> In preparation to limit the scope of the list iterator to the list
-> traversal loop, use a dedicated pointer to point to the found element [1].
+On Mon, Mar 21, 2022 at 01:36:26PM +0100, Jakob Koschel wrote:
+> If the list does not exit early then data == NULL and 'module' does not
+> point to a valid list element.
+> Using 'module' in such a case is not valid and was therefore removed.
 > 
-> Link: https://lore.kernel.org/all/YhdfEIwI4EdtHdym@kroah.com/
+> Fixes: 6dd67645f22c ("greybus: audio: Use single codec driver registration")
 > Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
+> ---
+>  drivers/staging/greybus/audio_codec.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
+> index b589cf6b1d03..e19b91e7a72e 100644
+> --- a/drivers/staging/greybus/audio_codec.c
+> +++ b/drivers/staging/greybus/audio_codec.c
+> @@ -599,8 +599,8 @@ static int gbcodec_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
+>  			break;
+>  	}
+>  	if (!data) {
+> -		dev_err(dai->dev, "%s:%s DATA connection missing\n",
+> -			dai->name, module->name);
+> +		dev_err(dai->dev, "%s DATA connection missing\n",
+> +			dai->name);
+>  		mutex_unlock(&codec->lock);
+>  		return -ENODEV;
+>  	}
+> 
+> base-commit: f443e374ae131c168a065ea1748feac6b2e76613
 
-Reviewed-by: Dan Carpenter <dan.carpenter@oracle.com>
-
-regards,
-dan carpenter
-
+Reviewed-by: Mark Greer <mgreer@animalcreek.com>
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
