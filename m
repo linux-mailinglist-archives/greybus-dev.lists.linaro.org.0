@@ -2,149 +2,163 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA85C4E2639
-	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 13:19:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBC844E26CC
+	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 13:44:41 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id E7D913EF89
-	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 12:19:02 +0000 (UTC)
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com [209.85.166.48])
-	by lists.linaro.org (Postfix) with ESMTPS id 907A63EE8D
-	for <greybus-dev@lists.linaro.org>; Mon, 21 Mar 2022 12:19:00 +0000 (UTC)
-Received: by mail-io1-f48.google.com with SMTP id x4so16436636iop.7
-        for <greybus-dev@lists.linaro.org>; Mon, 21 Mar 2022 05:19:00 -0700 (PDT)
+	by lists.linaro.org (Postfix) with ESMTP id 1BE483EF89
+	for <lists+greybus-dev@lfdr.de>; Mon, 21 Mar 2022 12:44:41 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+	by lists.linaro.org (Postfix) with ESMTPS id 64B833EE18
+	for <greybus-dev@lists.linaro.org>; Mon, 21 Mar 2022 12:44:38 +0000 (UTC)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 22LCcBQo027768;
+	Mon, 21 Mar 2022 12:44:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=corp-2021-07-09;
+ bh=ynI4XTAz2hVVQaWyQMK3tAfrHCYFLWc1PiX8KbnXo8s=;
+ b=qtBoma7xQ0YP7Neawiz/FdtVXQp4gm1cjNRG8FspG3ud2AFwA5QOM91C6YZ+NOgxS7qN
+ Fsc8AXNG3bdFkBVe9298fnUA5PLrTJqsz/+hYzWATeMYFV96pXLHeEMLmotx03jN1/+E
+ T0OZanUkBUgtMry15siAwTKPGjDcMXrYxUkQmj4qwryTuFyaDjOfAGleDdrnHt6g9q7W
+ 5IROf2sVcqw+ripxOndQ0fsr430EwBrdt6av+dPFBxz9nrDvFe1X0YVxKtwVkefuee4W
+ TUXoNTFtWz6iA9PDWh6oxkmqG4XUFmHbu1R8UvKNfbuIsGTX+osLCVokAZIwD92jH/57 jw==
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80] (may be forged))
+	by mx0b-00069f02.pphosted.com with ESMTP id 3ew5y1u5pn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 21 Mar 2022 12:44:29 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+	by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 22LCf72q137413;
+	Mon, 21 Mar 2022 12:44:28 GMT
+Received: from nam11-bn8-obe.outbound.protection.outlook.com (mail-bn8nam11lp2175.outbound.protection.outlook.com [104.47.58.175])
+	by userp3030.oracle.com with ESMTP id 3ew49r3bm6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 21 Mar 2022 12:44:28 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nC9iPNX0QNHxPfQF7Lrvzprmp8iO2o5aVEuevXE42Y2UtjXBkFIn+puVBkp36zsFlodssFFtzWsOChQtxwGoXkvqR9KtwKwfSlSdqi7WOyXkh72s/XtUiMaWDAPX9KPPbWED+p57HzaPC1v5d+0jPdsOxQShhgAzlldEebR8eFGK9dEutiVJOyiTFDOvhKMhlTVxHAp91B30KJlSVTWGFIIZrM0i/hhUnEL+sRSy77gwcWhHe/ddzSruXyWD/End0fqTbrUXlj5C7Ca+vcsnb8GVUhH4DGTzYwBG/jUb2i9b2M+fEzLDhDtV26ddevfvgMHqZe84uyFp4+Vv+dPwpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ynI4XTAz2hVVQaWyQMK3tAfrHCYFLWc1PiX8KbnXo8s=;
+ b=AlOWc5PRhJxM0KqiFCXaUWcUoF8KSbNQNeoSkbMSShCLAA8ayGEtyZjvX+XacPnm0va4a48oO/O+G/1hgBxfUk6vHS517jHGBmMaW2ytBCKhJUlxyfXzisKfFZGiUGFmGQVpqeWbwZLtYvIzdbeRCf694vsCXxeTsLSaE4hDbe7k+2fNl1XF5tB73yI7r70LGaIJwUX8mipWlUduyolnJigUTlyADOVeHNsBsjdO3NYoGTBGpEhbtGr87Hb6vTDkpQZkU3CIqmrd/4vxSa5RDZLyrEwJUaZboibLzahO9XZ2G2wRNSOSOLHTBOpknYIPnDy3e3UfIMJjZEe2WwRBZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=gviUCZoqMlwAzPxDTeni3/iP7iEP9Odnzm6mNqYWrWE=;
-        b=sUINLx6thHdc+ZK8Os4juDGY3FX9AeO5hZVu/WjHFREy1p3ODH3sudnKqkHlbnB7l6
-         UO2IiYkkoyKWuTT31JjYaPqvJtA144jGu4cDav2Q+wXfQbPYU5Gx+6uyB6BAR4etAR3Z
-         3zG4DBXNSYV1rQBfDL3UrV+GYPjDf4tMlpGovjwSESOqxy5/CtlgY3GhqUpp/OpaIg5f
-         rv8uY1at77CC7Mag+vZdnHCVQInAkvwytCiv3igX9p4CK2RSSxss1KzYdOS1OnEiRFPR
-         wKqHrqwG9IyZNdLT3X/G0XosymFnKXHWY5p//o+JKPIEGPp8RDmLA4K+fkldDp6S9jpZ
-         RpQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=gviUCZoqMlwAzPxDTeni3/iP7iEP9Odnzm6mNqYWrWE=;
-        b=uOaEuXF/4X3htnLfgv6F3NpDK1Og5pLdpYPKpJw6HRVBLaa1W5vpNUADPXPTbEoUj7
-         NsIpdO/C6hKeHlyUVWJXjZNhYZd43thekjF6lTcQ/iLRH/waqrO2zx4jBxQwoSPI1EVo
-         5EoojUK+OUm4M3f3lOcD79w7PHZez7/w9qTQV36PC6+6EEsQFx3lWIqYYsG41g1OTj9p
-         XJWQpC9VM+jq/6sZHqTp+eWsxSIjlP4/iiiBVwK4JTd/xQqL79sa6ts6HB82D7RbGsWE
-         MZEtDUZcUd/SQzlRy0eeWRpYikuheuP+i3i5aM3fMPwYthLtbOwbiT/kLmQCbOVjmWRO
-         eEEg==
-X-Gm-Message-State: AOAM532hWT/Wh9M+14Zj4FFwKB85uHwvjyF6JXOA8XYC3B7TvbqJ8SgW
-	PbQjPznii5adWFgChRBr1/Qozdwu
-X-Google-Smtp-Source: ABdhPJwnU6BWz11dWizI7zp4dHVLETJ6TbQyIBffJyHl3m3j17tE7tcHexwcX2y3NMCekWPKLLRtlQ==
-X-Received: by 2002:a05:6638:1455:b0:319:e467:656b with SMTP id l21-20020a056638145500b00319e467656bmr10518195jad.111.1647865139942;
-        Mon, 21 Mar 2022 05:18:59 -0700 (PDT)
-Received: from [172.22.22.26] (c-73-185-129-58.hsd1.mn.comcast.net. [73.185.129.58])
-        by smtp.googlemail.com with ESMTPSA id w8-20020a056e0213e800b002c8279fb9dfsm1847793ilj.57.2022.03.21.05.18.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Mar 2022 05:18:59 -0700 (PDT)
-Message-ID: <312061ed-61d6-4e2f-a180-8e8c85573e31@linaro.org>
-Date: Mon, 21 Mar 2022 07:18:57 -0500
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ynI4XTAz2hVVQaWyQMK3tAfrHCYFLWc1PiX8KbnXo8s=;
+ b=L5KZVexh4/Cbb2nyv8kiIbejY+Mfl80Wthadr5En+i7NTSlnquR/5PquRPAWV5JVjeLFb0i69w+sD5dAiTQTFDjBSkCXxxuta3xHk+bkCzc+4UGN8sSqw85ia+hMkEE3o2xjocW4Plp7i6jN1kbzjiq5dJGPNEdc9TRI1HYd7QU=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by MWHPR1001MB2255.namprd10.prod.outlook.com
+ (2603:10b6:301:2f::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Mon, 21 Mar
+ 2022 12:44:26 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::d4e7:ee60:f060:e20c]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::d4e7:ee60:f060:e20c%7]) with mapi id 15.20.5081.022; Mon, 21 Mar 2022
+ 12:44:25 +0000
+Date: Mon, 21 Mar 2022 15:44:12 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Jakob Koschel <jakobkoschel@gmail.com>
+Message-ID: <20220321124412.GJ3293@kadam>
+References: <20220321123626.3068639-1-jakobkoschel@gmail.com>
+Content-Disposition: inline
+In-Reply-To: <20220321123626.3068639-1-jakobkoschel@gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: MR1P264CA0120.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:50::12) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Jakob Koschel <jakobkoschel@gmail.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
-References: <20220319202058.2518847-1-jakobkoschel@gmail.com>
- <20220321084844.GG3293@kadam>
- <23587784-B0EB-4FDD-B5BC-DC1B16404DA7@gmail.com>
- <20220321092132.GI3293@kadam>
- <56102C8D-DBFF-43A5-9641-04577F01AB6D@gmail.com>
-From: Alex Elder <elder@linaro.org>
-In-Reply-To: <56102C8D-DBFF-43A5-9641-04577F01AB6D@gmail.com>
-Message-ID-Hash: AWD2VKJ5TK4WVL2FKWPT5WSM6WCK7XLR
-X-Message-ID-Hash: AWD2VKJ5TK4WVL2FKWPT5WSM6WCK7XLR
-X-MailFrom: elder@linaro.org
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a3f08299-3ecd-4b63-b267-08da0b38881c
+X-MS-TrafficTypeDiagnostic: MWHPR1001MB2255:EE_
+X-Microsoft-Antispam-PRVS: 
+	<MWHPR1001MB2255EE3C14E8A8FD4021A54C8E169@MWHPR1001MB2255.namprd10.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	I+bYFujeRq2PUoUKayvZ0+e4zNv2MePnmgH22pB/bQyk3yqx8d6oWL2ZD9TshQIDNYRFsbVZ+iqUfBmDy6zjhB/WjpSwfiCUzjlKt8pIwwWiWBVF1XbK5mAXKZxogqR/gD3Wk1LUI3uphx+6bBb7Hknk05cBa7kLLTDaADnYOJQB59qjonRRo3lAFFgn5bgDbI+QuP5tNcLYMm7kiCO2e53P2vaVWPjt8OXnkbrimiVTcThH+zvmxD2vOIIDsXAatdLUvgUZCiM/m6UhreLIRHOQEgw4OFXr0oh61vHS4K5wQkk6nvKHx4rVdAxsMK3IjGsfwccAd4LvTtzxDSQxvazN0G0izq7uQYyjaQWQl84U5MiH8w1mYGVJc2qa1TxbKrzrb27j+pF90doagnN1UufLPZF0qxiHboyHD1xixqQ0l70SUZrDkFg2XNNf39PCxsPyyQrAXcS+odvdP71QVb+dnjCNkDdsaRK2bfz8n5raMBecqEH8GZ4O7p94QdiYJnLOFVJ7RnEh9arxcIdFfpH9tlATQ9ficVpSFFSJLvxZwybLECCG6SOG7W03aY/RwuyMtHP6RHH4PnWs0XTx79lIEECkBj+VOcz3SF5j/Ix3aSR4PE+wMfgTNRbfyk0VcMaYyF6LxSiq061fW/hcYMbelJr4v5gKTp+FgPqbk+/n0AfaA+r2/xp2SgoBx5b4yeloEOXSWqNOnKPsknl11g==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2365.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(366004)(44832011)(7416002)(33716001)(33656002)(66476007)(2906002)(86362001)(66556008)(6512007)(38100700002)(38350700002)(8936002)(5660300002)(316002)(6916009)(6506007)(6486002)(8676002)(54906003)(6666004)(4326008)(508600001)(26005)(9686003)(1076003)(4744005)(66946007)(52116002)(186003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?LbMA5YUZXpAfM4qN4QxGHZHVrxuHYQKmx8DtpOTxyjcK+p06kO/L5ZzZWTDU?=
+ =?us-ascii?Q?fcyz2U5guvyqdBpujEGzcpE/TsAAtG/u4qXpcklF1BSvIJKmr743Q4J20HCs?=
+ =?us-ascii?Q?LRyGXCdXpC9f14tGTVfjBT4ERn7/fZl2DuhNuvbBtSzJz8/BHhQVZYbJYn6n?=
+ =?us-ascii?Q?IOoQV25Kk7Nq4Dxa/0VQ99n6wzg/g/tdIHJcVBFprQooQClgSpHk6zaqqMaQ?=
+ =?us-ascii?Q?Va4gAw1nU+r7AvneWFJ5WfPlqD92cBrCzeALaJYe9DvLz1PTx+UYrStyE5oD?=
+ =?us-ascii?Q?9ANJejl1C1zWXtJL4Rp6TqGdvzb1ahyoM/N/1bzplvJPo4/3cD0sR7u6JrfJ?=
+ =?us-ascii?Q?lJZEjR7BJJRcjsk9gZKEZan5y9Yqtq26SP4qyfxOIu9zb7oxHkmEMGB5BNuq?=
+ =?us-ascii?Q?ybZ6TJGFikuT70Gjl2G/XiYPkLFdyx2QV2DMFFIPPJtEDWQHCsZBg9WHKSqB?=
+ =?us-ascii?Q?uALv1EbiPKq4LQju3RgR2aVwh30jlIfceVGhhTG1hE2gy8OHFBYHG1BMX+cP?=
+ =?us-ascii?Q?FI4JTpijBLrlekeNaKaTdbOHb45pC1Dv11ys+V9HN/oHpX48ZPnWgFqoZwn8?=
+ =?us-ascii?Q?+a1yqHfBC4Jx4YdYke6KpbSJs97K7Fzdf9J6piDRXMu4kI4YxrW+Twez4OAw?=
+ =?us-ascii?Q?4lroC+Mioo95qIXjcS4LLdiEAwVroovgz1ZaL0Tv3TvUVYC4LsnbThy8RCBG?=
+ =?us-ascii?Q?so+8QAoFF8kM3CHq24K7PvuFAl/WOmkFQHofjbNobnRe9qQwkc9HGGnpagf4?=
+ =?us-ascii?Q?KWvpu56P4lJ2PhOzcVEKrp9EOk4bZIl9MxvXZZ75dBbPUCbLTuX0tT9zZK4I?=
+ =?us-ascii?Q?/8iTLboaPpX6sl4u4g8NZ/GTBO3xk7GK/mmJbbNxzu+0zgOk2RKOL9Wwqj9B?=
+ =?us-ascii?Q?cIkeGytQ9qz8Cj2RwhQpdi5P2jAvSHPT6bMSKIsJhv17ApbDfrqvCVnH2JCl?=
+ =?us-ascii?Q?4mjc3zNlJLYPXMw4K8+/24jC28NpPmnPbYArjEXDiEfNVEZJ4BRYP8O88Sww?=
+ =?us-ascii?Q?a6D8ac596Yjao8oQ7TU3goFbDBzt2eAPPSA+hIbRgFoURqimDb6e7QMehUMY?=
+ =?us-ascii?Q?iMhrRZehQQPxS+Jxe50iYpSE7H3o7BkkHdBlLz6gIkDAFm3I00fWOOmAdDR/?=
+ =?us-ascii?Q?mYnlqapAwqLOGMA4nGw8DQbVVtyorV61pUbkczJP2pf1AtYa8x0AA1WwNlCw?=
+ =?us-ascii?Q?6jrdTFmRccg8GpaBNarhdQunnAlEfipTGwLPirKqh4jgM2tWloQclrj2uej/?=
+ =?us-ascii?Q?rst+ZmErjlBjiGpxwhScnySJOCA/xNhUzGMy610FHw5eCTtskGedR4ZCFFGI?=
+ =?us-ascii?Q?TLgA5NPaLcNds/jjbf3VmJGn+O1THt7b5u+sn3ExXgWgsb1Q/hkiqktSJaGd?=
+ =?us-ascii?Q?r9ZDbv4m0lKwtMrwNcZiFKyBEfAZS4AN79LiRb9rS1aZ/eEYqT9CmF99y2qw?=
+ =?us-ascii?Q?pZp6w93+O6CzjCCJ3iVOwwXBdFE1QLfTYXr1thDMsVw6vFyP2gv8cA=3D=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3f08299-3ecd-4b63-b267-08da0b38881c
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 12:44:25.9127
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PohefQdOp4mWlbovnyZY5KiSDqmJIG2yTOmZy7H/PV0j/RyXTvoECRcg8P9eMtfagi2xrVQx2g0RNFIoCzK8/V0EICONkBCan6/jdX5KRuE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1001MB2255
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10292 signatures=694221
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 malwarescore=0 mlxscore=0
+ bulkscore=0 phishscore=0 spamscore=0 mlxlogscore=977 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
+ definitions=main-2203210082
+X-Proofpoint-GUID: seb1Pv6W8jlyj5VSrsp8KFE-xg95TXwo
+X-Proofpoint-ORIG-GUID: seb1Pv6W8jlyj5VSrsp8KFE-xg95TXwo
+Message-ID-Hash: 7S5OLYYZCIIRXGMMIAGE5UTEERAL5S33
+X-Message-ID-Hash: 7S5OLYYZCIIRXGMMIAGE5UTEERAL5S33
+X-MailFrom: dan.carpenter@oracle.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Mike Rapport <rppt@kernel.org>, Brian Johannesmeyer <bjohannesmeyer@gmail.com>, Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>
+CC: linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Mike Rapoport <rppt@kernel.org>, Brian Johannesmeyer <bjohannesmeyer@gmail.com>, Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: codecs: fix type confusion with dedicated list iterator variable
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: codecs: fix type confusion of list iterator variable
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/AWD2VKJ5TK4WVL2FKWPT5WSM6WCK7XLR/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/7S5OLYYZCIIRXGMMIAGE5UTEERAL5S33/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"; format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 3/21/22 4:27 AM, Jakob Koschel wrote:
+On Mon, Mar 21, 2022 at 01:36:26PM +0100, Jakob Koschel wrote:
+> If the list does not exit early then data == NULL and 'module' does not
+> point to a valid list element.
+> Using 'module' in such a case is not valid and was therefore removed.
 > 
+> Fixes: 6dd67645f22c ("greybus: audio: Use single codec driver registration")
+> Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
 
-I just released some messages that were marked as spam.  So
-this looks to me like it's already been seen on the list.
-I'm not sure why this happens but if it seems like deja vu,
-you're not imagining things.  Please know that this could
-happen from time to time, but I'll see if I can find out
-how to avoid it.
+Thanks!
 
-					-Alex
+Reviewed-by: Dan Carpenter <dan.carpenter@oracle.com>
 
->> On 21. Mar 2022, at 10:21, Dan Carpenter <dan.carpenter@oracle.com> wrote:
->>
->> On Mon, Mar 21, 2022 at 10:06:13AM +0100, Jakob Koschel wrote:
->>>
->>>> On 21. Mar 2022, at 09:48, Dan Carpenter <dan.carpenter@oracle.com> wrote:
->>>>
->>>> The subject says that it fixes a bug but it does not.
->>>
->>> Thank you for your review!
->>>
->>> I don't agree that this doesn't fix a bug:
->>>
->>>> +		}
->>>> 	}
->>>> 	if (!data) {
->>>> -		dev_err(dai->dev, "%s:%s DATA connection missing\n",
->>>> -			dai->name, module->name);
->>>
->>> Using 'module' when data == NULL is *guaranteed* to be a type confused
->>> bogus pointer. It fundamentally can never be correct.
->>
->> Ah.  I did not read all the way to the end of the patch.
->>
->> The bugfix needs to be sent as it's own patch.  Just the one liner.  It
->> needs a fixes tag as well.
->>
->> [PATCH] staging: greybus: fix Oops in error message
->>
->> The "module" pointer is invalid here.  It's the list iterator and we
->> exited the loop without finding a valid entry.
->>
->> Fixes: 6dd67645f22c ("greybus: audio: Use single codec driver registration")
->> Signed-off-by: You
->>
->> 	if (!data) {
->> -		dev_err(dai->dev, "%s:%s DATA connection missing\n",
->> -			dai->name, module->name);
->> +		dev_err(dai->dev, "%s DATA connection missing\n",
->> +			dai->name);
->> 		mutex_unlock(&codec->lock);
->>
->> We're happy to apply the other stuff as well, but we don't mix cleanups
->> and bug fixes like that.
-> 
-> ok great, I'll separate and resubmit both. Thanks!
-> 
->>
->> regards,
->> dan carpenter
-> 
-> 	Jakob
-> 
-> _______________________________________________
-> greybus-dev mailing list -- greybus-dev@lists.linaro.org
-> To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+regards,
+dan carpenter
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
