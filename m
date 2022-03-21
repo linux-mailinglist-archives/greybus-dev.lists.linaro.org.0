@@ -2,65 +2,65 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id E19374FC29C
-	for <lists+greybus-dev@lfdr.de>; Mon, 11 Apr 2022 18:41:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AD8C4FC29E
+	for <lists+greybus-dev@lfdr.de>; Mon, 11 Apr 2022 18:41:24 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 1D1B4401B1
-	for <lists+greybus-dev@lfdr.de>; Mon, 11 Apr 2022 16:41:15 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	by lists.linaro.org (Postfix) with ESMTPS id AA7DE3ECC6
-	for <greybus-dev@lists.linaro.org>; Mon, 21 Mar 2022 12:37:04 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id pv16so29613837ejb.0
-        for <greybus-dev@lists.linaro.org>; Mon, 21 Mar 2022 05:37:04 -0700 (PDT)
+	by lists.linaro.org (Postfix) with ESMTP id AAF76401B0
+	for <lists+greybus-dev@lfdr.de>; Mon, 11 Apr 2022 16:41:23 +0000 (UTC)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	by lists.linaro.org (Postfix) with ESMTPS id 3B5663ECC6
+	for <greybus-dev@lists.linaro.org>; Mon, 21 Mar 2022 12:37:20 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id z92so16700975ede.13
+        for <greybus-dev@lists.linaro.org>; Mon, 21 Mar 2022 05:37:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=7me8S3DIeK4bexe2TBxZLK2PJKyh4lTG51mZlWXkZww=;
-        b=C19FsPW3byM6bnKzUkgtA47+KFtmLiWrmr4t6hSJGULj2k309rEBEtN2OGQsQRiwuq
-         Tf7pGGbRpBWabv9ws0LjfO1OL+rhABFTf+vjU+HIUUnAQRbmDhdFLmJpMp+yjZ8xSV4B
-         KUfeNsDBZsJHX3FP8Lk7r2hiXgERWOOIBOGZ3FcOfhKTIgdhYHT3bknlW4P2YOYCrDXv
-         5rkAOgvhMbmPGyyfARZBgE1MHiem0Ujlefjvar28MLDqRVXhaMP1F5tXGn792CIrUp8i
-         qMmwJn+4Tj+g36DpgP5vT9kKWi3ykd/ErottJfQwACHtJmP9342GGljWeMeJpbxpoRYQ
-         9WVA==
+        bh=bRjhCmUK3oCUee61cBk8RWBfzYem6vzRvo8MfD2Xsek=;
+        b=TXnBWcEzq++rM6dKuuLB6BLFl6gqNs6THIYwaBvze0VDaT1xhchA/2D4sZuvIkC4A+
+         Na98eVdTzfmRT+t+I3XEOCyQVchH6ujIL7WjDl3me4DULQxxu19jvtZi2Q6a8dieIjwc
+         CpYWth0Ucw5mTFfayzPOTuxgo42NV7t5g8yqnhfxNPpW6ZU9gW68024901NoTsy0WhRk
+         I3xcuC/NPtbSDQHHFRRLSnbe1nszFIcYqVtjCcNoThTcJawdDaiWYritHMJpWrx92OTZ
+         5YXJbV0IbZvCiVH01JgNGqIR6TfJEiLzTm+CM1eEh/dOGrEPwwlNRSAzc3qVhaZarX/d
+         8Lbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=7me8S3DIeK4bexe2TBxZLK2PJKyh4lTG51mZlWXkZww=;
-        b=KbccdgxYS61cdaIGaFRYjD+LHcRD430j1UkaEAR1yri5w7mxgDNvYw0Tf/UbCbJVh8
-         VH3COYEgO+Z3mAGq0xUH4IftK/juw/gJyrfNAV/+s4FzeluEscMxd3vYorRYjEQgVYty
-         L2bXRNIGntNS5VFD2/dDxxVKaq572hzcv7ePjPsY6QKELD1VtAjqRjqK9g09bD3FY+v6
-         73yfJGicYKOkLQWvHdyb/upPqYxiTiUwUZ+rIpu3yXOkYYD1D0A8bqcoVFgYlQyKpPwr
-         rpEtPzMlNmKOQCYvDm5AzFdVmhFBFTH2FP1V6luYWj+dvIBmQMvxfqD+RXN/AQSBJ6gA
-         HOsA==
-X-Gm-Message-State: AOAM5329aXO/cwpMJlXqAqBAuQDmDhKg9Fd2wNcCpgjtBNoUslrWnDQR
-	ncQMuIgm0Er43s2/5zdfJBQ=
-X-Google-Smtp-Source: ABdhPJz//+/NzM8a26O+rIuAgQzPd3NBsmf9i2GYdkXJe3FDISS5jPq35iB6eXU0g5Afq1Abig9xGQ==
-X-Received: by 2002:a17:906:dc90:b0:6df:f5fb:cf91 with SMTP id cs16-20020a170906dc9000b006dff5fbcf91mr7190371ejc.429.1647866223710;
-        Mon, 21 Mar 2022 05:37:03 -0700 (PDT)
+        bh=bRjhCmUK3oCUee61cBk8RWBfzYem6vzRvo8MfD2Xsek=;
+        b=BnqvCa3XZ23LP5Bb6ACW9J5Fz9lXajItovjvpJCBfhylhmMTQwyr2Xq7jtZ0fPvCXz
+         Q6uLbAf9Rlyt6Uh8CmBaSWJLHLtxxKV61K7vUeo155l4IM2mDkItyEdE1Dv/oWF/CDHY
+         tJrS2kFfycZf7Z/S3cxHuoi9YYKVYJ9LNhwaHbksBU0gjSjRUfOnoak7qpkyRBa6UQU3
+         K7Hy0duHVSCfRc+IbcYQmRrmSUBkElltt93GunjFmvRbEN5dSwzZHM48K6EtROU0KfC2
+         avLnNqNutv0N9KGPUujTRU8ZuS5sraRBNVuCfG5EU4WdLsaWPCcONlmeS0Pro5ZnpS8h
+         8h1A==
+X-Gm-Message-State: AOAM533BEwW8Vio4ZKISNZt03kF/Oib/KmBVcXOgdldSwJycMm7IiTsN
+	cw9Ljiw7LpPiGbzScU2ehJir83YSDKSxiQ==
+X-Google-Smtp-Source: ABdhPJxdZNGfZ/MJWrWNAUwKIPsAS8dgeql0tJLH/bNUH2QSyyo1NxAh4EGJxzpnmqzwon6K90lyYg==
+X-Received: by 2002:a05:6402:3488:b0:419:172c:e287 with SMTP id v8-20020a056402348800b00419172ce287mr14182660edc.87.1647866239250;
+        Mon, 21 Mar 2022 05:37:19 -0700 (PDT)
 Received: from localhost.localdomain (i130160.upc-i.chello.nl. [62.195.130.160])
-        by smtp.googlemail.com with ESMTPSA id q16-20020a170906145000b006bdaf981589sm6836241ejc.81.2022.03.21.05.37.02
+        by smtp.googlemail.com with ESMTPSA id g11-20020a170906538b00b006ae38eb0561sm6923828ejo.195.2022.03.21.05.37.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Mar 2022 05:37:03 -0700 (PDT)
+        Mon, 21 Mar 2022 05:37:18 -0700 (PDT)
 From: Jakob Koschel <jakobkoschel@gmail.com>
 To: Vaibhav Agarwal <vaibhav.sr@gmail.com>
-Date: Mon, 21 Mar 2022 13:36:26 +0100
-Message-Id: <20220321123626.3068639-1-jakobkoschel@gmail.com>
+Date: Mon, 21 Mar 2022 13:37:12 +0100
+Message-Id: <20220321123712.3068778-1-jakobkoschel@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-MailFrom: jakobkoschel@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: IU3YFHPJ6QQYEKN56OIGJAUI5SHWWNAQ
-X-Message-ID-Hash: IU3YFHPJ6QQYEKN56OIGJAUI5SHWWNAQ
-X-Mailman-Approved-At: Mon, 11 Apr 2022 16:41:13 +0000
+Message-ID-Hash: LQWRSBXV54IRHC7QG4TUVVEAALN2LAMW
+X-Message-ID-Hash: LQWRSBXV54IRHC7QG4TUVVEAALN2LAMW
+X-Mailman-Approved-At: Mon, 11 Apr 2022 16:41:21 +0000
 CC: Jakob Koschel <jakobkoschel@gmail.com>, linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Mike Rapoport <rppt@kernel.org>, Brian Johannesmeyer <bjohannesmeyer@gmail.com>, Cristiano Giuffrida <c.giuffrida@vu.nl>, "Bos, H.J." <h.j.bos@vu.nl>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: codecs: fix type confusion of list iterator variable
+Subject: [greybus-dev] [PATCH] staging: greybus: codecs: use dedicated list iterator variable
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/IU3YFHPJ6QQYEKN56OIGJAUI5SHWWNAQ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/LQWRSBXV54IRHC7QG4TUVVEAALN2LAMW/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -70,31 +70,71 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-If the list does not exit early then data == NULL and 'module' does not
-point to a valid list element.
-Using 'module' in such a case is not valid and was therefore removed.
+In preparation to limit the scope of the list iterator to the list
+traversal loop, use a dedicated pointer to point to the found element [1].
 
-Fixes: 6dd67645f22c ("greybus: audio: Use single codec driver registration")
+Link: https://lore.kernel.org/all/YhdfEIwI4EdtHdym@kroah.com/
 Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
 ---
- drivers/staging/greybus/audio_codec.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/staging/greybus/audio_codec.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
-index b589cf6b1d03..e19b91e7a72e 100644
+index b589cf6b1d03..a446d6455fbd 100644
 --- a/drivers/staging/greybus/audio_codec.c
 +++ b/drivers/staging/greybus/audio_codec.c
-@@ -599,8 +599,8 @@ static int gbcodec_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
- 			break;
- 	}
- 	if (!data) {
--		dev_err(dai->dev, "%s:%s DATA connection missing\n",
--			dai->name, module->name);
-+		dev_err(dai->dev, "%s DATA connection missing\n",
-+			dai->name);
- 		mutex_unlock(&codec->lock);
+@@ -497,7 +497,7 @@ static int gbcodec_prepare(struct snd_pcm_substream *substream,
+ 			   struct snd_soc_dai *dai)
+ {
+ 	int ret;
+-	struct gbaudio_module_info *module;
++	struct gbaudio_module_info *module = NULL, *iter;
+ 	struct gbaudio_data_connection *data;
+ 	struct gb_bundle *bundle;
+ 	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
+@@ -511,11 +511,13 @@ static int gbcodec_prepare(struct snd_pcm_substream *substream,
  		return -ENODEV;
  	}
+ 
+-	list_for_each_entry(module, &codec->module_list, list) {
++	list_for_each_entry(iter, &codec->module_list, list) {
+ 		/* find the dai */
+-		data = find_data(module, dai->id);
+-		if (data)
++		data = find_data(iter, dai->id);
++		if (data) {
++			module = iter;
+ 			break;
++		}
+ 	}
+ 	if (!data) {
+ 		dev_err(dai->dev, "DATA connection missing\n");
+@@ -563,7 +565,7 @@ static int gbcodec_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
+ {
+ 	int ret;
+ 	struct gbaudio_data_connection *data;
+-	struct gbaudio_module_info *module;
++	struct gbaudio_module_info *module = NULL, *iter;
+ 	struct gb_bundle *bundle;
+ 	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
+ 	struct gbaudio_stream_params *params;
+@@ -592,11 +594,13 @@ static int gbcodec_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
+ 		return ret;
+ 	}
+ 
+-	list_for_each_entry(module, &codec->module_list, list) {
++	list_for_each_entry(iter, &codec->module_list, list) {
+ 		/* find the dai */
+-		data = find_data(module, dai->id);
+-		if (data)
++		data = find_data(iter, dai->id);
++		if (data) {
++			module = iter;
+ 			break;
++		}
+ 	}
+ 	if (!data) {
+ 		dev_err(dai->dev, "%s:%s DATA connection missing\n",
 
 base-commit: f443e374ae131c168a065ea1748feac6b2e76613
 -- 
