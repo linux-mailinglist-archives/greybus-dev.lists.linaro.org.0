@@ -2,61 +2,144 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 363064E8FDB
-	for <lists+greybus-dev@lfdr.de>; Mon, 28 Mar 2022 10:14:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBAF04E993B
+	for <lists+greybus-dev@lfdr.de>; Mon, 28 Mar 2022 16:20:24 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 035993EA5C
-	for <lists+greybus-dev@lfdr.de>; Mon, 28 Mar 2022 08:14:48 +0000 (UTC)
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
-	by lists.linaro.org (Postfix) with ESMTPS id A38A23EA1A
-	for <greybus-dev@lists.linaro.org>; Mon, 28 Mar 2022 08:14:45 +0000 (UTC)
-Received: by mail-vs1-f42.google.com with SMTP id s18so14870526vsr.1
-        for <greybus-dev@lists.linaro.org>; Mon, 28 Mar 2022 01:14:45 -0700 (PDT)
+	by lists.linaro.org (Postfix) with ESMTP id 804633EEBD
+	for <lists+greybus-dev@lfdr.de>; Mon, 28 Mar 2022 14:20:23 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+	by lists.linaro.org (Postfix) with ESMTPS id 295E73EA16
+	for <greybus-dev@lists.linaro.org>; Mon, 28 Mar 2022 14:20:20 +0000 (UTC)
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 22SCtobh023952;
+	Mon, 28 Mar 2022 14:20:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=corp-2021-07-09;
+ bh=A8Nvn0ddLbQOOP4jsW+HlVq3QzerNa+RKyjHHqZI7io=;
+ b=LZRaFEUt9cL8mqWC3ZGAVgIVMj4Mn/8jQQudi8DtIcSHhWniqWy6UjOimtiLrs/PuTyB
+ qI96R3b1ZC+HiElyw//DvgoKIl8p7IDgnqB9FPT9C/wIlzpJqhMMsKK9EdAQkpHChC8u
+ Q/BlxnLp8SVQ7WArD5/ru1SVio8akX7wRDfw1Yzhl/nc02pQjxP946ij5r6eVi6SZfnm
+ DRdZ6zAgEiqN/TYMuvyV08+/q44tddksbRliODIy/BxPe6XRrAVWkJGjmVAXqHI39oRR
+ JdZccK0dPBNU5u71iBAFiw/EfPE1tcEYyRkqhcjsP1jyzqoERyMWKh2dFqpTxxf6XX1W Bw==
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by mx0b-00069f02.pphosted.com with ESMTP id 3f1s8ckn62-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Mar 2022 14:20:11 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 22SEFxvx144355;
+	Mon, 28 Mar 2022 14:20:10 GMT
+Received: from nam10-bn7-obe.outbound.protection.outlook.com (mail-bn7nam10lp2101.outbound.protection.outlook.com [104.47.70.101])
+	by userp3020.oracle.com with ESMTP id 3f1v9fcbnd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 28 Mar 2022 14:20:10 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZdoQoU3g7eJ+1rDDPwsKZMEiZx/0yE51+aFxOL7nq13rKm0FMC47FsIwzjiwyZL7xuh88aekyQ9m7ZEQlvM6sxIb0ubVLc8yLo5Qkn9BA7QWcU3P7rYrYgpJrlsv8c/DD0hqZoppi8TmvwR9trLtWh/L9BAVDL6+DG9vbTniLSN7LbwnJV0Cudv6k0R6LKeeT2Z7zdG0GZHYdmrFmwit2leRIQOuUgYyh3qV0IdpSim99RKg/h/xKhLz3FPb83t3h30ZUx/IA0D3jSvhYyTq8FLHkkefrhQYh5no7YY4bnnVagMG3RmgAjNm48MHoL2IPneRrcS4LLE7XaEr1oujxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A8Nvn0ddLbQOOP4jsW+HlVq3QzerNa+RKyjHHqZI7io=;
+ b=iwrPoFiILm8oZf4BgPP0x03ieF+ckPQRQUQHoNMYbVaz13mURaa6Q/mJkoF2m4+yiWFr3gJksWys3i5F1iAUDCY9awwaMPBIOw1F6A9UYgIUvVcF7tLcTdLJt8lkTqS9hFKt8vpsFoppOF1RCaLwQMQpKgYsidupJU4qGLs5ByxD5XMeLzpK5IE4hJDJWp1wUHJSJwnzb7ygBeSEQxbmMLeBiRf+pyXOmpzybrJcesNdJBXMQoR8kFobVzjZ3Z5AR1IBxGN5/Z1TULjkowDrVPpaCvMDJjsuexjLLnJKgWb2A939jPvqKw2Jt3mBgIHbEBIcjneAngngW6cPnROH7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=ckeifvMgypYIXe2YgiWpWX4ERXd6JiyVbgZjkElUqkw=;
-        b=bb7BiXkUvettQVFG2b2eBr0W/iV4goyxNm4XVLJaGy3HZvPh3RVrvIv2tWXYjmUMlh
-         ZEvrUU9MpAmROK1hzjTHYtCU3uamFwmnMTfBh4Hoc8whz5qulNvW22QiiBV5aEVGE9T0
-         2vQR/l09RmcwQnXTP0ipRtP3ovapuGXq8Nl5vn8KrPGTot22hASsXHcww6FEQeM4jZI8
-         mkO5yAHAjNK0Gr6KNqLH0q6zQcZsnVFDSe3Wsv+CsIR3U6dNHs8yRlK/ZmGz5rwzCjBC
-         UIJeWgmJI3dghIi9npT36UR17kA88DimcfHWkPsHOTF7fnb0qnozz+M+HX3yY30OHukQ
-         OYdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=ckeifvMgypYIXe2YgiWpWX4ERXd6JiyVbgZjkElUqkw=;
-        b=GYiZh7yTP71E2ZFMDGzQ6RduMxo1AyiIkqrgRM9GYkX9yZRh0wcKBjAUhIjsO2XxqZ
-         +jknztp5NSqBdxu12Gh3oA5Cxwb+dgd2XQDdVWc2reoS8yC9OlXXyJlrA1PYoLGbj6Pp
-         KH3V2OIkSM3Z7SqLgmCnsYZiMkc/Lda3uJO8B8pzGoInGNTiox2UEYXQhhXVQEt0sRax
-         t6VCVGV/HP46zVj6pmV7B7j8Pp9rjcSDTmnXKNHxvbILikEC1pLHdfF+53OYwKoSGRxp
-         HAWgr3jP5paNQ9WXnqME/aywHPnbksfH+20BO0x34Pgb95pZEzwdnf5ofaRrcOrLtUs6
-         sl+w==
-X-Gm-Message-State: AOAM532ItdUCW8iEvjUnWtXmjMRZ96KCFx4Zm43a2fJzO3kZtUK1QsnJ
-	yJ1fhR6YGZ1flPgFPS5VsZAMbd1hwwWdNl3REz8=
-X-Google-Smtp-Source: ABdhPJxFQoIeG8FrbG0yH0KD2Y75ZKlCMCBW5Kpuo5y1CF1Sci0KcpcoTnZkk11mu+xEVVK3UFdPxQXu7KlppP2mTmU=
-X-Received: by 2002:a67:fe12:0:b0:31b:9356:40fe with SMTP id
- l18-20020a67fe12000000b0031b935640femr8815628vsr.1.1648455285174; Mon, 28 Mar
- 2022 01:14:45 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220327060120.4316-1-xiam0nd.tong@gmail.com>
-In-Reply-To: <20220327060120.4316-1-xiam0nd.tong@gmail.com>
-From: Vaibhav Agarwal <vaibhav.sr@gmail.com>
-Date: Mon, 28 Mar 2022 13:44:09 +0530
-Message-ID: <CAAs364-MaXu5JevibWzV1GD1VN+XQPGT1uBUke3-9MfUq7iWQQ@mail.gmail.com>
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A8Nvn0ddLbQOOP4jsW+HlVq3QzerNa+RKyjHHqZI7io=;
+ b=F3ijiATifVsWSz0qU1KVj9xmNB9eTPcKBIIkg5wWxWKQuedwpLcyr7dhum52u982pnoWRckEQXX4v6GLKALN3SjuTel7Etd1mrNwUrU7hkrhnpksDPs9ZHP4GTZCP7Z/+WnxXpeqU2uHhzs/OSJfmtZ0AHxGG5xPG/vG07QeOsU=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by DM6PR10MB3356.namprd10.prod.outlook.com
+ (2603:10b6:5:1a9::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.22; Mon, 28 Mar
+ 2022 14:20:07 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::d4e7:ee60:f060:e20c]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::d4e7:ee60:f060:e20c%7]) with mapi id 15.20.5081.025; Mon, 28 Mar 2022
+ 14:20:07 +0000
+Date: Mon, 28 Mar 2022 17:19:45 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
 To: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-Message-ID-Hash: 2WZ4YLOLIG2X6DFKL2T6YEUPK7G4PKBB
-X-Message-ID-Hash: 2WZ4YLOLIG2X6DFKL2T6YEUPK7G4PKBB
-X-MailFrom: vaibhav.sr@gmail.com
+Message-ID: <20220328141944.GT3293@kadam>
+References: <20220327060120.4316-1-xiam0nd.tong@gmail.com>
+Content-Disposition: inline
+In-Reply-To: <20220327060120.4316-1-xiam0nd.tong@gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: JNXP275CA0008.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:19::20)
+ To MWHPR1001MB2365.namprd10.prod.outlook.com (2603:10b6:301:2d::28)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fa59d02b-d04d-4f4d-5848-08da10c60f19
+X-MS-TrafficTypeDiagnostic: DM6PR10MB3356:EE_
+X-Microsoft-Antispam-PRVS: 
+	<DM6PR10MB3356E0094E938BA0CB6386FE8E1D9@DM6PR10MB3356.namprd10.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	QcHaukMkGkuF9M054fIgvZQO01JSgHX7xqTfQa6vYBiRqeeBX2jxpXo+k8Tbtd3secRrwmNl1yX6CD3jdK8G/jdy6jgaCElVgVXRxGnbn5kbu8/U9mxshnWUZ9+CAd/bfPCvKXfH1j2CvP93oIil3qPoATz3T/rVketnrMhU7Hjptviv9XRriEvks5ZncSodH8F+qmm+IS6XyYiIPwR/PA0f/4Ka1HuAJoTtEfom02LeqXKo5E7vFcpFi4wwBb4qsjqBEqy3L6tRh1eD+9G2IvGHknJHdIHhvz/EWnFB3sc25gX9MD7r6+TmcxVtHeEz1/xmTVp/dnhiZ87JzEOz608nSt3vOUZAUqQtkhlf1iZpxa/hGCHhohG4evGJdMe9dHOjHhSoEdeGRSapPqd/RH5mdAB5+JCnhGquCSUVocYYibRoS/Vb8fW791m/wEQ20WkuvIIZPyiH32bsBmx8Wwb1yp+bLc8ywx8dQ32Mpv1Bq/EZjRx678FjCVUOEnefz145CEj5Kb3t30Sj/Rl6vvlW9jMIM8FdSrUj2Kr+10M2HQxbELkuB95Ue+AYIxAkkqT0/11r41rhovccM5253P0qWzeZrXfbemqppWe2Km9CRg5RTmcPcjAcPPcfVGt87+vfoppZomQlQz6tIxW0b+sFPT1L3BDLkPZsGwePkOermz86Ix5glMQ/3zneoi9aq80yhJQuveUZvqySP6fm5w==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2365.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(366004)(6506007)(8676002)(52116002)(508600001)(66946007)(9686003)(33716001)(7416002)(6666004)(2906002)(6486002)(8936002)(86362001)(66556008)(6916009)(316002)(4326008)(6512007)(66476007)(26005)(44832011)(38350700002)(33656002)(5660300002)(83380400001)(1076003)(186003)(38100700002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?o+jL+ATETEmUv+zyjgZmUBzihSetiRQFDWbMhAuGsqr4ovxSkSe6OhvBL4js?=
+ =?us-ascii?Q?dG1vb4VcAE+xfDdtrw/YU1cksJLsMM5ns6Bm5WwTZE0EG/31XC66g+iQsCkb?=
+ =?us-ascii?Q?vYocLlr79n/Xe+UI+hM0Z3veNfY9nXUc+3EzBWEPlZHBE8jkZVZFu/TAAFYy?=
+ =?us-ascii?Q?fQSQqlijPUHacXnm9sVdZKrJjaeifGgnFwpOiksraI83RAJBHs4p1ugZwFfo?=
+ =?us-ascii?Q?Aj1P9b0ISnriILLUn08FbIxlMNOm13IONBZ2t0/89Ie7LjtydPKA62pdPkZ6?=
+ =?us-ascii?Q?3mt4/BIJd84JiDnR8wiVe1NYdbLN/iGxsp+nwgAO5Bvjf+NiJNHRKpAALnNu?=
+ =?us-ascii?Q?5XP4SvsasvhujkBUsOdt1fKkSONG8Nsh6pbcIAmTo00UVMu7sKilnZqTE0E1?=
+ =?us-ascii?Q?QmoddaiXIyhCQRIsF7My2ZEUi016R/m9JWjtOBGbRqDKLG/LIzggbIEqGNKQ?=
+ =?us-ascii?Q?/vO+wHKmiGNkXiIHjWZBSa+c7Ttai0KMKgRXNjsztZ07Rbfhr0BPSI8Dw4B7?=
+ =?us-ascii?Q?+8REme3wuSn+9entbhHmq9o7+h6XhsaYsJUfoyNfLzpX6w3hGnbI7z9VQgFp?=
+ =?us-ascii?Q?29K8OPdak2SanwDDo2900ziJ6A/WESa0O02Sc5oJ9lKp1bIOPoaOVl3WpLL5?=
+ =?us-ascii?Q?CwWZn51Re+E18/++amdKs7QMQCFnyak0FcqZ5Xu/ty97xXnaUf65+kT/sCIq?=
+ =?us-ascii?Q?Xyhv5+3aDODfkboRiph5O6EW2EAAJNEhieUwXCeF2yedGSHCXWPN9gxYfX3w?=
+ =?us-ascii?Q?5NwDw/iYPOn6x4Cb2mFkuQVTT9FykhUf5HUhdgjVr+h8BvdwKkJycDiAscVD?=
+ =?us-ascii?Q?fV4OSM3O8jqxoW/7Gjrj4MhgzKAv6c6za5VM+put7IQzUdw8uUIlncxvyexh?=
+ =?us-ascii?Q?uB90ZWZC4JP/8a+tqYQwY+vWYprxiWbfQ9WhKiE+HU/kKWtI9dEIukSSSVtJ?=
+ =?us-ascii?Q?maYoMTowiMiFRLxYi/00IfK4DU0trPfVZe6XAWn8Ftde9ap6iG4BAq5b4sup?=
+ =?us-ascii?Q?wI7FUN5n54WWGpefH3m4GHemi18gGjPlVcE+tBSj/lCupjDUasLpVYRhxOhj?=
+ =?us-ascii?Q?gfiKCrQx0YmtInKiMIAU4vfCuMRnjZH1nUnngf+5+l8S3NHF6XXMBLHglGA4?=
+ =?us-ascii?Q?7MoYHMZIrBiCSbR4LHaH8VWiEji8BBC/akxbyQOYnizW3nCrXIU8L1fnzOQX?=
+ =?us-ascii?Q?wz5f5GGO++hlIvMGLgUDHav0kg5pvAypD42ckGkUzYRosYgf/4RcUc8Hcfbn?=
+ =?us-ascii?Q?ABkZQCOTWbh2EvpRkoietONdSUTYffs16s8dFVjxE37axwZFMbiieMs6BFBs?=
+ =?us-ascii?Q?XNDbeemLWMLyqISFi/MsKdsEcDrQBqDvMjsjYM4SkFGLpFr2R0EOA/XGLINT?=
+ =?us-ascii?Q?x9ig+4rZhiVtN15oEmpQuIiQZ/IdEyX7BmKDuLWNWXXy+pnnnm13XvDKoo9n?=
+ =?us-ascii?Q?b00saWS7fIZqDPOsSjcKTEla17dbURJcx2vdOu9KCxbn+6MEGouflHKC+wKC?=
+ =?us-ascii?Q?ZjWaxEigwkFs8sj0kD0eoxd/fUzVvmk5LFnv7zN+/tHiI/lR73fjuN1foFTF?=
+ =?us-ascii?Q?roAkgfkHVc7281mIxG/TI8ipL/AW5m8JiCl0Ofx+HrnErOj6+Ao9ySdHm93c?=
+ =?us-ascii?Q?sxeyAw/OwZIAH/ggT90IA4wl/MT+Syxfh6Zn9KpWFcGnloFd7rfKKwtrOpb3?=
+ =?us-ascii?Q?6ViMjyKmt3n0EDq6UAyVamiwJfeOfJgDqJ6uFf/K6XwPKJuWr23uiYPpzEFe?=
+ =?us-ascii?Q?yVQIE//DvX50/GF3AUU+GatN8ZHWm1o=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa59d02b-d04d-4f4d-5848-08da10c60f19
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2022 14:20:07.1578
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fTbhYxOmXEcgcDqg6u/H3L+sbrDCLeAqCeGWHwIwtwJddRG7HDJp/ODupb9vjHvv5Uw+2j0c7MQK6ivbKCdFRp4u0gSDXL/wQ1aGH6DmosA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR10MB3356
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10299 signatures=694973
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 malwarescore=0 spamscore=0
+ adultscore=0 mlxlogscore=825 phishscore=0 suspectscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
+ definitions=main-2203280083
+X-Proofpoint-GUID: Ink2SV03XbyVRUfO8FimkmTytCMQl12A
+X-Proofpoint-ORIG-GUID: Ink2SV03XbyVRUfO8FimkmTytCMQl12A
+Message-ID-Hash: OZW7MVCT757HPLADZX73U3TZDMZGRMVY
+X-Message-ID-Hash: OZW7MVCT757HPLADZX73U3TZDMZGRMVY
+X-MailFrom: dan.carpenter@oracle.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>, linux-staging@lists.linux.dev, open list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH] greybus: audio_codec: fix three missing initializers for data
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/2WZ4YLOLIG2X6DFKL2T6YEUPK7G4PKBB/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OZW7MVCT757HPLADZX73U3TZDMZGRMVY/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -66,62 +149,34 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, Mar 27, 2022 at 11:31 AM Xiaomeng Tong <xiam0nd.tong@gmail.com> wrote:
->
+On Sun, Mar 27, 2022 at 02:01:20PM +0800, Xiaomeng Tong wrote:
 > These three bugs are here:
->         struct gbaudio_data_connection *data;
->
+> 	struct gbaudio_data_connection *data;
+> 
 > If the list '&codec->module_list' is empty then the 'data' will
-> keep unchanged. However, the 'data' is not initialized and filled
-> with trash value. As a result, if the value is not NULL, the check
-> 'if (!data) {' will always be false and never exit expectly.
->
-> To fix these bug, just initialize 'data' with NULL.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 6dd67645f22cf ("greybus: audio: Use single codec driver registration")
-> Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-> ---
->  drivers/staging/greybus/audio_codec.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
-> index b589cf6b1d03..939e05af4dcf 100644
-> --- a/drivers/staging/greybus/audio_codec.c
-> +++ b/drivers/staging/greybus/audio_codec.c
-> @@ -397,7 +397,7 @@ static int gbcodec_hw_params(struct snd_pcm_substream *substream,
->         u8 sig_bits, channels;
->         u32 format, rate;
->         struct gbaudio_module_info *module;
-> -       struct gbaudio_data_connection *data;
-> +       struct gbaudio_data_connection *data = NULL;
->         struct gb_bundle *bundle;
->         struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
->         struct gbaudio_stream_params *params;
-> @@ -498,7 +498,7 @@ static int gbcodec_prepare(struct snd_pcm_substream *substream,
->  {
->         int ret;
->         struct gbaudio_module_info *module;
-> -       struct gbaudio_data_connection *data;
-> +       struct gbaudio_data_connection *data = NULL;
->         struct gb_bundle *bundle;
->         struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
->         struct gbaudio_stream_params *params;
-> @@ -562,7 +562,7 @@ static int gbcodec_prepare(struct snd_pcm_substream *substream,
->  static int gbcodec_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
->  {
->         int ret;
-> -       struct gbaudio_data_connection *data;
-> +       struct gbaudio_data_connection *data = NULL;
->         struct gbaudio_module_info *module;
->         struct gb_bundle *bundle;
->         struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
-> --
-> 2.17.1
->
-Thanks Xiaomeng for sharing the fix.
+> keep unchanged.
 
-Reviewed by: Vaibhav Agarwal <vaibhav.sr@gmail.com>
+All three of these functions check for if the codec->module_list is
+empty at the start of the function so these are not real bugs.
+
+Smatch is supposed to be able to figure this out, but apparently that
+code is broken so Smatch still prints a warning.  :(
+
+Apparently GCC does not print a warning for this.  Even when I delete
+the check for list_empty() then GCC does not print a warning.  GCC often
+assumes that we enter loops one time.  I haven't looked at that, but I
+have noticed it in reviewing Smatch vs GCC warnings.
+
+Generally we do not apply static checker work arounds.
+
+I do not have a problem with this particular work around, but it needs
+an updated commit message which says it is just to silence static
+checker warnings and not to fix bugs.  Remove the Fixes tag.  Don't CC
+stable.
+
+regards,
+dan carpenter
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
