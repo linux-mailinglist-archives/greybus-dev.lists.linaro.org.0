@@ -2,132 +2,77 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 965384EA706
-	for <lists+greybus-dev@lfdr.de>; Tue, 29 Mar 2022 07:17:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C1B34FB600
+	for <lists+greybus-dev@lfdr.de>; Mon, 11 Apr 2022 10:31:42 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 7474F3EE13
-	for <lists+greybus-dev@lfdr.de>; Tue, 29 Mar 2022 05:17:47 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id 577A63EA29
-	for <greybus-dev@lists.linaro.org>; Tue, 29 Mar 2022 05:17:45 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0767561457;
-	Tue, 29 Mar 2022 05:17:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D5CC2BBE4;
-	Tue, 29 Mar 2022 05:17:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1648531064;
-	bh=X8Qn7F6rC63/GnRr6CPPqirj9apFFFA15tfuNaZx/dQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=odRgAPa6JVZhXGW6VKWu6cRxX3IGgrtVRxbl8TfWkRw9Ue1iJvw9N5NIcEZX49De7
-	 f0w+h8UCK2oogrgLKdA+AnrFdsXLcohCoQ5+knCQDU9h8EjMEbCqPBirDs2arYz3vv
-	 9wPB/JJ5Xu2eEIcbfClUWyBfA107yJDfZr1HLkck=
-Date: Tue, 29 Mar 2022 07:17:41 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-Message-ID: <YkKWdcI2AdidmqOv@kroah.com>
-References: <20220329015913.10420-1-xiam0nd.tong@gmail.com>
+	by lists.linaro.org (Postfix) with ESMTP id 5963B402DE
+	for <lists+greybus-dev@lfdr.de>; Mon, 11 Apr 2022 08:31:41 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de [85.220.165.71])
+	by lists.linaro.org (Postfix) with ESMTPS id BF7F03EBBC
+	for <greybus-dev@lists.linaro.org>; Mon, 11 Apr 2022 08:31:39 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.ext.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1ndpSK-000541-9r; Mon, 11 Apr 2022 10:31:28 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1ndpSJ-002LsK-TZ; Mon, 11 Apr 2022 10:31:26 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1ndpSH-002YpK-Pp; Mon, 11 Apr 2022 10:31:25 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Lee Jones <lee.jones@linaro.org>
+Date: Mon, 11 Apr 2022 10:31:18 +0200
+Message-Id: <20220411083118.200663-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220329015913.10420-1-xiam0nd.tong@gmail.com>
-Message-ID-Hash: Q2VKKS4SGB52L62HBI4RJUD7NNLE2L7T
-X-Message-ID-Hash: Q2VKKS4SGB52L62HBI4RJUD7NNLE2L7T
-X-MailFrom: gregkh@linuxfoundation.org
+X-Developer-Signature: v=1; a=openpgp-sha256; l=898; h=from:subject; bh=ER/N+DeBOO1Y9RYHSt+mjXMVVEZi8R68GqVf6f45IVE=; b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBiU+dSHXk+NBtIcvbw/KEdUTwpCfO/NCaMAnvUfQno iCURsYGJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYlPnUgAKCRDB/BR4rcrsCSrnB/ 96fl9Nz18OTqBGzJeS0O5PANuWobux9q5FllMui2XbKDNOpOZBPPFU5Yt5mm26LSXrOEaEp4sL6a5k VYq29MzRnBSs/lZpA9t2R8IlGkhAQVzaxQCpmVq9fugujlO0e4qES5nKDNO05edn9xhKYcLM4aFu/a wpqFI87bLcuu68JNZrHN3ffP3JdiuM2gXkTynocViZ+RMfZgy4p7YiQzLjFXkssiblweqPUT98CfZd /BbfSCdcOoKLCv4r6+l2aCo25CLgP+HBIZ51+SNoKubJnzpi+hHxlf3tq2f3rGp1RjRcVcum1r+ZYp MOvtwf1BT1mWW/IG/pxDqvsNROM+Sf
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
+Message-ID-Hash: LNQUVKCXQA2DNQOHPWFAMSF3V3TR6LU6
+X-Message-ID-Hash: LNQUVKCXQA2DNQOHPWFAMSF3V3TR6LU6
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: dan.carpenter@oracle.com, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-pwm@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] greybus: audio_codec: initialize data to silence static checker warnings
+Subject: [greybus-dev] [PATCH] staging: greybus: Drop assignment to struct pwm_chip::base
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/Q2VKKS4SGB52L62HBI4RJUD7NNLE2L7T/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/LNQUVKCXQA2DNQOHPWFAMSF3V3TR6LU6/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Tue, Mar 29, 2022 at 09:59:13AM +0800, Xiaomeng Tong wrote:
-> These three declares are here:
-> 	struct gbaudio_data_connection *data;
-> 
-> Since all three of these functions check for if the codec->module_list is
-> empty at the start of the function so these are not real bugs to bypass
-> 'if (!data) {'. To avoid static checker warnings like Smatch, initialize
-> the data with NULL.
-> 
-> Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-> ---
->  drivers/staging/greybus/audio_codec.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
-> index b589cf6b1d03..939e05af4dcf 100644
-> --- a/drivers/staging/greybus/audio_codec.c
-> +++ b/drivers/staging/greybus/audio_codec.c
-> @@ -397,7 +397,7 @@ static int gbcodec_hw_params(struct snd_pcm_substream *substream,
->  	u8 sig_bits, channels;
->  	u32 format, rate;
->  	struct gbaudio_module_info *module;
-> -	struct gbaudio_data_connection *data;
-> +	struct gbaudio_data_connection *data = NULL;
->  	struct gb_bundle *bundle;
->  	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
->  	struct gbaudio_stream_params *params;
-> @@ -498,7 +498,7 @@ static int gbcodec_prepare(struct snd_pcm_substream *substream,
->  {
->  	int ret;
->  	struct gbaudio_module_info *module;
-> -	struct gbaudio_data_connection *data;
-> +	struct gbaudio_data_connection *data = NULL;
->  	struct gb_bundle *bundle;
->  	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
->  	struct gbaudio_stream_params *params;
-> @@ -562,7 +562,7 @@ static int gbcodec_prepare(struct snd_pcm_substream *substream,
->  static int gbcodec_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
->  {
->  	int ret;
-> -	struct gbaudio_data_connection *data;
-> +	struct gbaudio_data_connection *data = NULL;
->  	struct gbaudio_module_info *module;
->  	struct gb_bundle *bundle;
->  	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
-> -- 
-> 2.17.1
-> 
-> 
-
-Hi,
-
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- This looks like a new version of a previously submitted patch, but you
-  did not list below the --- line any changes from the previous version.
-  Please read the section entitled "The canonical patch format" in the
-  kernel file, Documentation/SubmittingPatches for what needs to be done
-  here to properly describe this.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
-_______________________________________________
-greybus-dev mailing list -- greybus-dev@lists.linaro.org
-To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+U2luY2UgY29tbWl0IGY5YThlZThjOGJjZCAoInB3bTogQWx3YXlzIGFsbG9jYXRlIFBXTSBjaGlw
+IGJhc2UgSUQNCmR5bmFtaWNhbGx5IikgdGhlIHZhbHVlIGhlbGQgaW4gYmFzZSBpc24ndCB1c2Vk
+IGFueSBtb3JlIGluIHRoZSBQV00NCmZyYW1ld29yay4gQWxsIFBNV3MgZ2V0IGFzc2lnbmVkIGEg
+ZHluYW1pYyBJRCwgc28gdGhlIGFzc2lnbm1lbnQgaXMNCnJlZHVuZGFudCBhbmQgY2FuIGJlIGRy
+b3BwZWQuDQoNClNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2Vu
+aWdAcGVuZ3V0cm9uaXguZGU+DQotLS0NCiBkcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9wd20uYyB8
+IDEgLQ0KIDEgZmlsZSBjaGFuZ2VkLCAxIGRlbGV0aW9uKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL3N0YWdpbmcvZ3JleWJ1cy9wd20uYyBiL2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3B3bS5j
+DQppbmRleCBhZDIwZWMyNDAzMWUuLjNmZGExNzIyMzlkMiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMv
+c3RhZ2luZy9ncmV5YnVzL3B3bS5jDQorKysgYi9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9wd20u
+Yw0KQEAgLTI5Nyw3ICsyOTcsNiBAQCBzdGF0aWMgaW50IGdiX3B3bV9wcm9iZShzdHJ1Y3QgZ2Jw
+aHlfZGV2aWNlICpnYnBoeV9kZXYsDQogDQogCXB3bS0+ZGV2ID0gJmdicGh5X2Rldi0+ZGV2Ow0K
+IAlwd20tPm9wcyA9ICZnYl9wd21fb3BzOw0KLQlwd20tPmJhc2UgPSAtMTsJCQkvKiBBbGxvY2F0
+ZSBiYXNlIGR5bmFtaWNhbGx5ICovDQogCXB3bS0+bnB3bSA9IHB3bWMtPnB3bV9tYXggKyAxOw0K
+IA0KIAlyZXQgPSBwd21jaGlwX2FkZChwd20pOw0KDQpiYXNlLWNvbW1pdDogMzEyMzEwOTI4NDE3
+NmIxNTMyODc0NTkxZjdjODFmMzgzN2JiZGMxNw0KLS0gDQoyLjM1LjENCg0KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1kZXYgbWFpbGluZyBs
+aXN0IC0tIGdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKVG8gdW5zdWJzY3JpYmUgc2VuZCBh
+biBlbWFpbCB0byBncmV5YnVzLWRldi1sZWF2ZUBsaXN0cy5saW5hcm8ub3JnCg==
