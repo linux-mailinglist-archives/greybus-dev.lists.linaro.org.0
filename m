@@ -2,123 +2,150 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39DBF4FF712
-	for <lists+greybus-dev@lfdr.de>; Wed, 13 Apr 2022 14:48:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B936507B75
+	for <lists+greybus-dev@lfdr.de>; Tue, 19 Apr 2022 22:57:29 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 372373EF66
-	for <lists+greybus-dev@lfdr.de>; Wed, 13 Apr 2022 12:48:08 +0000 (UTC)
-Received: from mail-io1-f42.google.com (mail-io1-f42.google.com [209.85.166.42])
-	by lists.linaro.org (Postfix) with ESMTPS id 9AC493EEDE
-	for <greybus-dev@lists.linaro.org>; Wed, 13 Apr 2022 12:48:05 +0000 (UTC)
-Received: by mail-io1-f42.google.com with SMTP id b16so1724551ioz.3
-        for <greybus-dev@lists.linaro.org>; Wed, 13 Apr 2022 05:48:05 -0700 (PDT)
+	by lists.linaro.org (Postfix) with ESMTP id F208F402FC
+	for <lists+greybus-dev@lfdr.de>; Tue, 19 Apr 2022 20:57:27 +0000 (UTC)
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	by lists.linaro.org (Postfix) with ESMTPS id BBC583EC3E
+	for <greybus-dev@lists.linaro.org>; Mon, 11 Apr 2022 21:14:16 +0000 (UTC)
+Received: by mail-qk1-f179.google.com with SMTP id c1so4996309qke.10
+        for <greybus-dev@lists.linaro.org>; Mon, 11 Apr 2022 14:14:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=9jPZG9/+m97btsIbUfBFkqEN0JQ7wZ3+b8nQQ/RX0/U=;
-        b=QBoFY5ec7cTEQSifRW8FUGrkedVgwRZQotcNk3yipnOF3lhr9Pcn4eFZ9Puuwt97s9
-         uXvcFWEzJ2ok1oCj6cpgUqFryCjxuO3hPjWQrNyMdJDmwZw2HOQrGwO1anN03ZPZZR65
-         VSUM5TcLIQTgDrKFO1rlFgqmx4H88Sn4OPrXo=
+        d=gmail.com; s=20210112;
+        h=date:from:to:subject:message-id:mime-version:content-disposition;
+        bh=pkqd/GLpbqG7LAJ4m2LQWbg8yZe6P+EQh4+ijIpHwnY=;
+        b=OO+sNYffcThi1xuROkKjBvJC05pcnrdx9WCnKGlHC58OIFg0RJeLekSfy1X5KM4QNk
+         bjwKEyighYrUdxNUKxrkvNYNYWPxxatIbz2q+L40irGMA0JDZMD/Ixs04jHpp+vhPOKv
+         QI2RRomlpipb3L+lAycz6Op2Ql1UfTXHVjLfzN23LO7fD+CpaHgUb6YBg46eFtTm4MnU
+         MgJn8UytsHLcKOoUK7Ia5lonrpbyMk68bk49IYduea0dMG8D6dQsJvbUOF7q18bVdbMA
+         w4/tjBahZ9KkqYX1lY7BibX+7ZwN1IKzuJc6zfhXrGVMlmCUFNrSfNOePO2382E0ryll
+         FNIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=9jPZG9/+m97btsIbUfBFkqEN0JQ7wZ3+b8nQQ/RX0/U=;
-        b=w4IidZrUNeD/QCUYIy2jm6XoZUQY31vJqQdJGkFMb/Mb9OTnssf7vB1T2WBkoXzxsJ
-         h7DipYxE++iD6h3wJtXuF1NCl6oLceEZYXqA+SxP6T20Mzm3VJ9GTC150T/dU0z3rpQR
-         IfXHhSB9NTFspunhLc2qFB89X29Q9m1U55KUSQaOUMDn7+vKBowYkSQmH33yqIVLqFPR
-         b293kJK2Qrdh2L9TwJsSgekyxApSFJnHprlrYMdmu57JXlJo7zsfqcBLqsPf7pzqbVru
-         cYoQzo5vZB6VgQt6zvDZzrwzlB6FAFVmpdSd3o7LGasSZ+GrmsUEnEQislb2sCUGo4FG
-         JSfg==
-X-Gm-Message-State: AOAM532hkXTp1xM4zli9ut/YYd2KLAyy92dW3XW0+QUOJ6cMYfrVVWSF
-	59PVmInvQv81OowyNRJA1KVzAA==
-X-Google-Smtp-Source: ABdhPJwcDwROpz/UfIELVwrdwOuvg76PG0BW+jpB2S6XlS8+0l+GjJIkxkMWI7DdRYklftWbiiTamQ==
-X-Received: by 2002:a02:271f:0:b0:326:af4:3f0c with SMTP id g31-20020a02271f000000b003260af43f0cmr11290770jaa.300.1649854085065;
-        Wed, 13 Apr 2022 05:48:05 -0700 (PDT)
-Received: from [172.22.22.4] (c-73-185-129-58.hsd1.mn.comcast.net. [73.185.129.58])
-        by smtp.googlemail.com with ESMTPSA id x186-20020a6bc7c3000000b00648deae6630sm24343335iof.54.2022.04.13.05.48.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 13 Apr 2022 05:48:04 -0700 (PDT)
-Message-ID: <a4e5c567-63dd-f7de-114b-a357075444a2@ieee.org>
-Date: Wed, 13 Apr 2022 07:48:03 -0500
+        h=x-gm-message-state:date:from:to:subject:message-id:mime-version
+         :content-disposition;
+        bh=pkqd/GLpbqG7LAJ4m2LQWbg8yZe6P+EQh4+ijIpHwnY=;
+        b=Y4tBJGcU+CKzEJTyq/sEaHl1qzWn75DQi+1trquJA0WDvH/mmiSYc9JOAZf14PGU4J
+         5ubPVpe2eo/yNWDIwSzf9tCuFq0jafJRBMBgZaqtchEScwc/j3I0GvmYM/S5cfREGi5i
+         cfqSBTaG3MN3azcL0sVkgIf/5sTCn5Q0H5qSpdYT5Omk7+GHgazHQTYgdzknd1lVcDn8
+         1W/rLU6b0gNiRVJ61Wk7hNTfLNhjcXvMDgNvQe8O98iXfaVlNY4pTjSJtNN91TFS8CJn
+         wjTTLlNIv4ij93bCKvS8pUbBY4Tu6n4UQRgBE3tHELemTGXumE9vmFnKtwFSyJ5v/sdw
+         ybLA==
+X-Gm-Message-State: AOAM531XM50B82D7vQHW/0tenpKaRM/l6SqKZsLkDsfbiKXk58qe97uN
+	IcEIpKNzrsGpLxHnOnWdKyE=
+X-Google-Smtp-Source: ABdhPJyn7F36KNFwMXSCnqIDUv0dsKQ0NTeXHJoevaRzT0RVRooVRLQYT1yzOqDcZvA56oJwefUpdg==
+X-Received: by 2002:a05:620a:1a99:b0:680:f33c:dbd3 with SMTP id bl25-20020a05620a1a9900b00680f33cdbd3mr970653qkb.17.1649711656365;
+        Mon, 11 Apr 2022 14:14:16 -0700 (PDT)
+Received: from jaehee-ThinkPad-X1-Extreme ([4.34.18.218])
+        by smtp.gmail.com with ESMTPSA id c134-20020ae9ed8c000000b0069bf8f9cfb2sm5123158qkg.118.2022.04.11.14.14.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 Apr 2022 14:14:15 -0700 (PDT)
+Date: Mon, 11 Apr 2022 17:14:11 -0400
+From: Jaehee Park <jhpark1013@gmail.com>
+To: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, outreachy@lists.linux.dev,
+	Jaehee Park <jhpark1013@gmail.com>
+Message-ID: <20220411211411.GA2796005@jaehee-ThinkPad-X1-Extreme>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Jaehee Park <jhpark1013@gmail.com>, johan@kernel.org
-References: <cover.1649824370.git.jhpark1013@gmail.com>
- <12037ae2502ad7d0311bcdf2178c3d2156293236.1649824370.git.jhpark1013@gmail.com>
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <12037ae2502ad7d0311bcdf2178c3d2156293236.1649824370.git.jhpark1013@gmail.com>
-Message-ID-Hash: E5PDBQD4J5APH6SEY6JPIO6GF56DZK33
-X-Message-ID-Hash: E5PDBQD4J5APH6SEY6JPIO6GF56DZK33
-X-MailFrom: elder@ieee.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, outreachy@lists.linux.dev, Dan Carpenter <dan.carpenter@oracle.com>
+Content-Disposition: inline
+X-MailFrom: jhpark1013@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: KKRTRN6SBMQRT54DF2OGC3AX23UH5PYV
+X-Message-ID-Hash: KKRTRN6SBMQRT54DF2OGC3AX23UH5PYV
+X-Mailman-Approved-At: Tue, 19 Apr 2022 20:57:24 +0000
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v3 2/2] staging: greybus: remove empty callback function
+Subject: [greybus-dev] [PATCH] staging: greybus: replace zero-element array with flexible-array
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/E5PDBQD4J5APH6SEY6JPIO6GF56DZK33/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/KKRTRN6SBMQRT54DF2OGC3AX23UH5PYV/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"; format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 4/12/22 11:38 PM, Jaehee Park wrote:
-> Remove the optional remove callback for the soc_codec_dev_gbaudio
-> structure. The only place it is referenced is
-> snd_soc_component_remove() which is only called if the sound_component
-> pointer is non-null. The null function pointers here can be optionally
-> ommitted. When a sound component is registered this way, the remove
-> callback is optional. We can safely remove the whole gbcodec_remove
-> function, which used to be an empty function with a void return type.
+Zero-length and one-element arrays are deprecated. Flexible-array
+members should be used instead. Flexible-array members are
+recommended because this is the way the kernel expects dynamically
+sized trailing elements to be declared.
+Refer to Documentation/process/deprecated.rst.
 
-Now I think your description is a little long...  But that's OK.
+Change the zero-length array, buf, in the struct 
+gb_usb_hub_control_response to a flexible array. And add wLength as a 
+member of the struct so that the struct is not a zero-sized struct.
 
-This looks good to me.  Thank you for responding to all our
-feedback.
+Issue found by flexible_array coccinelle script.
 
-Reviewed-by: Alex Elder <elder@linaro.org>
-> 
-> Suggested-by: Dan Carpenter <dan.carpenter@oracle.com>
-> Signed-off-by: Jaehee Park <jhpark1013@gmail.com>
-> ---
->   drivers/staging/greybus/audio_codec.c | 8 --------
->   1 file changed, 8 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
-> index 0f50d1e51e2c..dc030caa64ba 100644
-> --- a/drivers/staging/greybus/audio_codec.c
-> +++ b/drivers/staging/greybus/audio_codec.c
-> @@ -1029,12 +1029,6 @@ static int gbcodec_probe(struct snd_soc_component *comp)
->   	return 0;
->   }
->   
-> -static void gbcodec_remove(struct snd_soc_component *comp)
-> -{
-> -	/* Empty function for now */
-> -	return;
-> -}
-> -
->   static int gbcodec_write(struct snd_soc_component *comp, unsigned int reg,
->   			 unsigned int value)
->   {
-> @@ -1049,8 +1043,6 @@ static unsigned int gbcodec_read(struct snd_soc_component *comp,
->   
->   static const struct snd_soc_component_driver soc_codec_dev_gbaudio = {
->   	.probe	= gbcodec_probe,
-> -	.remove	= gbcodec_remove,
-> -
->   	.read = gbcodec_read,
->   	.write = gbcodec_write,
->   };
+Signed-off-by: Jaehee Park <jhpark1013@gmail.com>
+---
+
+I have a question for the authors: 
+I saw a fixme comment in the hub_control function in usb.c:
+/ FIXME: handle unspecified lengths /
+
+I was wondering why this comment was left there?
+
+In this patch, I'm using this struct:
+
+struct gb_usb_hub_control_response {
+    __le16 wLength;
+    u8 buf[];
+};
+
+And instead of using response_size, I'm doing this:
+
+struct gb_usb_hub_control_response *response;
+And using sizeof(*response) as the input to gb_operation_create.
+
+Would the flexible array address the handling of unspecified lengths 
+issue (in the fixme comment)?
+
+
+ drivers/staging/greybus/usb.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/staging/greybus/usb.c b/drivers/staging/greybus/usb.c
+index 8e9d9d59a357..d0b2422401df 100644
+--- a/drivers/staging/greybus/usb.c
++++ b/drivers/staging/greybus/usb.c
+@@ -27,7 +27,8 @@ struct gb_usb_hub_control_request {
+ };
+ 
+ struct gb_usb_hub_control_response {
+-	u8 buf[0];
++	__le16 wLength;
++	u8 buf[];
+ };
+ 
+ struct gb_usb_device {
+@@ -102,16 +103,14 @@ static int hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue, u16 wIndex,
+ 	struct gb_operation *operation;
+ 	struct gb_usb_hub_control_request *request;
+ 	struct gb_usb_hub_control_response *response;
+-	size_t response_size;
+ 	int ret;
+ 
+ 	/* FIXME: handle unspecified lengths */
+-	response_size = sizeof(*response) + wLength;
+ 
+ 	operation = gb_operation_create(dev->connection,
+ 					GB_USB_TYPE_HUB_CONTROL,
+ 					sizeof(*request),
+-					response_size,
++					sizeof(*response),
+ 					GFP_KERNEL);
+ 	if (!operation)
+ 		return -ENOMEM;
+-- 
+2.25.1
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
