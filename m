@@ -2,114 +2,108 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FD994FE97C
-	for <lists+greybus-dev@lfdr.de>; Tue, 12 Apr 2022 22:36:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BFB54FE986
+	for <lists+greybus-dev@lfdr.de>; Tue, 12 Apr 2022 22:39:03 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D0E7540169
-	for <lists+greybus-dev@lfdr.de>; Tue, 12 Apr 2022 20:36:03 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	by lists.linaro.org (Postfix) with ESMTPS id 4FDD73ECE6
-	for <greybus-dev@lists.linaro.org>; Tue, 12 Apr 2022 20:36:02 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id ks6so14990072ejb.1
-        for <greybus-dev@lists.linaro.org>; Tue, 12 Apr 2022 13:36:02 -0700 (PDT)
+	by lists.linaro.org (Postfix) with ESMTP id 783AA402C2
+	for <lists+greybus-dev@lfdr.de>; Tue, 12 Apr 2022 20:39:02 +0000 (UTC)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com [209.85.166.53])
+	by lists.linaro.org (Postfix) with ESMTPS id 144213ECE6
+	for <greybus-dev@lists.linaro.org>; Tue, 12 Apr 2022 20:39:00 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id r2so23619569iod.9
+        for <greybus-dev@lists.linaro.org>; Tue, 12 Apr 2022 13:39:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=EkBcRQ3FSxoHr2CTVma7OTMsNkj+chjdnuq3vagcoSg=;
-        b=pAItBEs6qc+VnWOS8cvFja8MzCU+mPUp2b9wDr39p3iDEc+KTKl5xGVfR3H9pg5bNZ
-         +v2pc16/PHlSc8lLe/W8GA1rWIWqd/AqMVO5HSAZpF93YGFPyqBhaVLUnwS/jB413+YL
-         8LKSuXW3X2Ibg1NraGS7CqfKnjkdYj6b+8LGGM3SUbzhYYwPZWprCyIjr0jSjs7XHYT7
-         hayWKuEkvO4jbS8PNSD1suSqFZ3peirX+udmGWIrxEvcUdnRDAhOdsxb6ouNwFNTEsxd
-         Ic7uOOYSe7EVY7gKpAeWEVUdXQNsQavSpHfXfa+0U/oxR+8t2WpJvhclX0TV7Ai8AobW
-         32wA==
+        d=ieee.org; s=google;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=a8eg2yzAecVeUuwX/DvYd1G0G8R3IZjwawoKgnX7++A=;
+        b=RoRUBLBNEdFp6tHUcgRo1ArWP9/7EpvS8lI3VgZN4k528t6NxFPQEZ240Fl3J3qPbA
+         hDk7g5226Whc1WrnoxKw0HGvFkfSx1GZPBsBbOVUI9c0DDlsXd164UJDlaedPbNPktXw
+         NP0r7q73+2fTY9yoBPt5V9WSFQ/+wBCNHlCcI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=EkBcRQ3FSxoHr2CTVma7OTMsNkj+chjdnuq3vagcoSg=;
-        b=xIHbhhP/0eEkLrBwi2f+byexusI0wwV2dr/r5Wbo3wl5OMci7hjWEYlnuZ9o7ELolE
-         3/d5BhSkZxjfQpOVOuq5Fdh17/8h/+HNjLkwCyJReklOIL/U1gL/ikBJrlOMUx3/FvdR
-         tp/1gboHz0Q3W1Plvc90T/57cvte5fvDNX8XT572nJTC8dgrpzj+ilsV+uHtrqBjsnKs
-         kwAW4DCPNgByz+cjgD5QwSwlVJeQrfh0lvCuHafoVEPxcz+2ORLHynGfQRZx4lJpN6ew
-         wS81nnEKadqveglK6zayRm8b58mnkDl6Ta4hCLmCdFm9dnzWN4mf0xVckh1+/7JBTXwT
-         T/fg==
-X-Gm-Message-State: AOAM531VjNITUts3MshlrJDNgoXBwlMKf9vX2j1vMcuBYiHjMyvMRjYa
-	qaK/j0ESO4abAdALidx5o6Q=
-X-Google-Smtp-Source: ABdhPJywyDgdZmOauAKekxXMp8ylMAfdHu/iyTZe6vmSobj3jlxlUAeuk3DQoNJqjXUW37Rr5Oqv6g==
-X-Received: by 2002:a17:907:3d87:b0:6e6:f1f3:ba7c with SMTP id he7-20020a1709073d8700b006e6f1f3ba7cmr36244569ejc.128.1649795761348;
-        Tue, 12 Apr 2022 13:36:01 -0700 (PDT)
-Received: from leap.localnet (host-82-60-208-254.retail.telecomitalia.it. [82.60.208.254])
-        by smtp.gmail.com with ESMTPSA id y13-20020a50eb8d000000b0041f112a63c4sm32207edr.52.2022.04.12.13.35.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 Apr 2022 13:36:00 -0700 (PDT)
-From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
-To: johan@kernel.org, Jaehee Park <jhpark1013@gmail.com>
-Date: Tue, 12 Apr 2022 22:35:58 +0200
-Message-ID: <5792471.alqRGMn8q6@leap>
-In-Reply-To: <d4d01ecdabc492e52a3decebf165d1f584f3b3bf.1649793138.git.jhpark1013@gmail.com>
-References: <cover.1649793138.git.jhpark1013@gmail.com> <d4d01ecdabc492e52a3decebf165d1f584f3b3bf.1649793138.git.jhpark1013@gmail.com>
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=a8eg2yzAecVeUuwX/DvYd1G0G8R3IZjwawoKgnX7++A=;
+        b=5DEZ4s8bNw/9RO73R8sXQ9m4iV9jDdgdPfQrJOk7AoLAK62QMoTyBVNf/eiY35vmF7
+         Xg5V3K7SRiQCBFrxY9RE25QGX12nS//N5V8VI1JgF6YHwu7bIq9f71nurcyaverYxtDg
+         pOH7Hk/S0ZoeUcKlCHZGPFYkH6xKDjlIG69ab0+vDS+XI+Zio+GyfCeJ1O4KSG3bmbt0
+         4CGD5ziyUd5S9vOtJyIbHR4nl5iURIom+nk7uAJRZlBdWdXUPlIO/BitVtiE1ced1NBr
+         ULVXHOmEW/nmdQ1iukgwTCLEUQxctJhKyxDvtQ6+xaIHHwlMpWYLXCdj+8GiDseyyjyA
+         ePMg==
+X-Gm-Message-State: AOAM5325Qn7iQssbaHScxJqCp85r/QYpgCKxboWpDBs/piMT4K+ZzeTC
+	7f61TiMlCHxEiB43AyFCoSJMgw==
+X-Google-Smtp-Source: ABdhPJyZwF3N9eKCE+uoniArzYLmJrGKYpGN52eFh5MJtZwJUiayFr7Ejn+4wk0Cgoeay+Yn7sAs4g==
+X-Received: by 2002:a5e:a717:0:b0:649:6328:792b with SMTP id b23-20020a5ea717000000b006496328792bmr16283519iod.54.1649795939583;
+        Tue, 12 Apr 2022 13:38:59 -0700 (PDT)
+Received: from [172.22.22.4] (c-73-185-129-58.hsd1.mn.comcast.net. [73.185.129.58])
+        by smtp.googlemail.com with ESMTPSA id l14-20020a05660227ce00b00645ebb013c1sm25513647ios.45.2022.04.12.13.38.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 12 Apr 2022 13:38:59 -0700 (PDT)
+Message-ID: <34645b35-d857-cb57-77e2-2b913a2a0f95@ieee.org>
+Date: Tue, 12 Apr 2022 15:38:58 -0500
 MIME-Version: 1.0
-Message-ID-Hash: MPEE4LAVTN4KNOEKXZYI2FAKZVIYYP53
-X-Message-ID-Hash: MPEE4LAVTN4KNOEKXZYI2FAKZVIYYP53
-X-MailFrom: <>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Jaehee Park <jhpark1013@gmail.com>, johan@kernel.org
+References: <cover.1649793138.git.jhpark1013@gmail.com>
+ <811ff26b07cf61efcc2814ed5033e8864ef16d7e.1649793138.git.jhpark1013@gmail.com>
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <811ff26b07cf61efcc2814ed5033e8864ef16d7e.1649793138.git.jhpark1013@gmail.com>
+Message-ID-Hash: 2F65CWYP3LGIXVINTW4KKTSYIUY5EVQX
+X-Message-ID-Hash: 2F65CWYP3LGIXVINTW4KKTSYIUY5EVQX
+X-MailFrom: elder@ieee.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, outreachy@lists.linux.dev, jhpark1013@gmail.com
+CC: elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v2 2/2] staging: greybus: remove unneeded return
+Subject: [greybus-dev] Re: [PATCH v2 1/2] staging: greybus: correct typo in comment
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/MPEE4LAVTN4KNOEKXZYI2FAKZVIYYP53/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/2F65CWYP3LGIXVINTW4KKTSYIUY5EVQX/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"; format="flowed"
+Content-Transfer-Encoding: 7bit
 
-On marted=EC 12 aprile 2022 21:59:15 CEST Jaehee Park wrote:
-> An empty function with void return type does not need an explicit
-> return. Issue found by checkpatch.
->=20
+On 4/12/22 2:59 PM, Jaehee Park wrote:
+> Correct a spelling typo from 'Atleast' to 'At least' in comment.
+> Issue found by checkpatch.
+> 
 > Signed-off-by: Jaehee Park <jhpark1013@gmail.com>
+
+Thanks for updating the subject and description.
+
+Looks good to me.
+
+Reviewed-by: Alex Elder <elder@linaro.org>
+
+(When you send version 3 of these patches, please include the
+above line above your "Signed-off-by" line, to indicate I've
+reviewed it.)
+
 > ---
->  drivers/staging/greybus/audio_codec.c | 1 -
->  1 file changed, 1 deletion(-)
->=20
-> diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/
-greybus/audio_codec.c
-> index 0f50d1e51e2c..3e3a16568def 100644
-> --- a/drivers/staging/greybus/audio_codec.c
-> +++ b/drivers/staging/greybus/audio_codec.c
-> @@ -1032,7 +1032,6 @@ static int gbcodec_probe(struct snd_soc_component=20
-*comp)
->  static void gbcodec_remove(struct snd_soc_component *comp)
->  {
->  	/* Empty function for now */
-> -	return;
->  }
-> =20
->  static int gbcodec_write(struct snd_soc_component *comp, unsigned int=20
-reg,
-> --=20
-> 2.25.1
->=20
-Hi Jaehee,
-
-If I recall it correctly, Dan Carpenter suggested to remove this empty=20
-function.=20
-
-When developers remove lines of code from a function which becomes empty
-after the removals, they also remove the resulting empty function and
-delete all the calls (if there are any left) at the same time.
-
-Thanks,
-
-Fabio M. De Francesco=20
-
-
+>   drivers/staging/greybus/arche-apb-ctrl.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/staging/greybus/arche-apb-ctrl.c b/drivers/staging/greybus/arche-apb-ctrl.c
+> index bbf3ba744fc4..45afa208d004 100644
+> --- a/drivers/staging/greybus/arche-apb-ctrl.c
+> +++ b/drivers/staging/greybus/arche-apb-ctrl.c
+> @@ -445,7 +445,7 @@ static int __maybe_unused arche_apb_ctrl_suspend(struct device *dev)
+>   static int __maybe_unused arche_apb_ctrl_resume(struct device *dev)
+>   {
+>   	/*
+> -	 * Atleast for ES2 we have to meet the delay requirement between
+> +	 * At least for ES2 we have to meet the delay requirement between
+>   	 * unipro switch and AP bridge init, depending on whether bridge is in
+>   	 * OFF state or standby state.
+>   	 *
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
