@@ -2,67 +2,65 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29D25507B7A
-	for <lists+greybus-dev@lfdr.de>; Tue, 19 Apr 2022 22:57:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3398507B7B
+	for <lists+greybus-dev@lfdr.de>; Tue, 19 Apr 2022 22:57:43 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 62A624030D
-	for <lists+greybus-dev@lfdr.de>; Tue, 19 Apr 2022 20:57:41 +0000 (UTC)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	by lists.linaro.org (Postfix) with ESMTPS id CC01C3EC22
-	for <greybus-dev@lists.linaro.org>; Tue, 12 Apr 2022 01:50:35 +0000 (UTC)
-Received: by mail-qt1-f181.google.com with SMTP id j21so18236074qta.0
-        for <greybus-dev@lists.linaro.org>; Mon, 11 Apr 2022 18:50:35 -0700 (PDT)
+	by lists.linaro.org (Postfix) with ESMTP id 01282401C0
+	for <lists+greybus-dev@lfdr.de>; Tue, 19 Apr 2022 20:57:43 +0000 (UTC)
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	by lists.linaro.org (Postfix) with ESMTPS id B7ADA3ECE6
+	for <greybus-dev@lists.linaro.org>; Tue, 12 Apr 2022 19:59:22 +0000 (UTC)
+Received: by mail-qk1-f178.google.com with SMTP id c199so12956842qkg.4
+        for <greybus-dev@lists.linaro.org>; Tue, 12 Apr 2022 12:59:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=0zgX0lRBSeUYGjy4/2KaVjVU1Nii6uaJF61nZ62EHQo=;
-        b=ALgJryFJ8KuYRsLAi1C70WILaGJYBJhDByCkA4L1ffkmDCQ/ZcrlTh7vQsszZdUX9o
-         tpDYK5/Bl7zAg9xOpA/+n1JSC/YhUIL83iiBcKEtVOlvRZZGuNfD0QM3biDB0YQUqt/e
-         q2kTTCfXhdiIagqLBL8nroWc/e7+9wyvqvTqEwVkfKvsPBKFlTI26gP+mFCkuOMwgwb/
-         tsbhTwcL+tE5V4KpcWj7r+B5T7Ocwk2aKDVRlKZfLstP+CkTxl/gO9wxp41K9fPIfd44
-         SHMI5MfC4wFxdQeXE84aVPZLm7YaYklDFHx32VoPtEl06EIkyB/M89AjY30pDhgfkeX1
-         Ytjw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=OSSxqX8tPYg/tg3+HY2atLHtEG2+4vSWaPUPQtk8FFs=;
+        b=ME2rzraFEBzLQVyEICnGlhLGN3TYXUG40fsZvzk0YNOCUqDi+p+05CekzEMeh8zQJn
+         IOe43DpXusxGAK420y04rWTM7YGwlp9Z1NW5W2U5fVSOeG95xLGy0K5CZoXHG2XG5Rrn
+         Ci/TmgBDCP6sRQZtWU24HxbQg8FK8axzA8RvRss8FNfKxVojSWHjxNmIxUMZczaEpGjm
+         IurY4UMmCo5QwbcVGiI6ZWXP3aOlHNYAXBlAcefoDYaeNeptXyn68wV2oqFAjeeZKBnP
+         xpZOAPEeEx5U3NeK0IRuu8hqnfxwXJBRECsvswtiu1V4FZoYbi9y5BTZdgg6OwpKkdsn
+         Ltzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=0zgX0lRBSeUYGjy4/2KaVjVU1Nii6uaJF61nZ62EHQo=;
-        b=j6Xw0AtTBiIopUT8Nf0UlxwhPqs/r1djHT2u2KtOAj6CLuRo3qITDNtR8DqE59bhLO
-         vk5OgYd1d1Jy272UCRvYNch/IkqCgH/7mFkN8D1ezqxdaCXApBAsmsEN+ojEI1u9jCMa
-         FX+4ggWGk+ytVaUc+t88ttWUlSgdbtde/oV/RO0Nwtvmirm6g8v9gQc8WE6HLwnIVGng
-         lmNDWw17NEvEe52H0JTEyDuuaou4dxLYREMM1G61bOHqrN2dTa2/5zxJm7GQzGOs4cD6
-         jtwn4YrhulcKpD9HDN7r2LAbq2o5mwY+Pfk+XEMUSKhUH89ZCag6Tv4NQ6SsLjphcEY5
-         Ixnw==
-X-Gm-Message-State: AOAM5330Y4W3GeYj0ejUJQdqYX6SYBfrKA6fqMZUZsmvBoIFEZP8FDyR
-	GYFaSESmompn14pZKUYwncs=
-X-Google-Smtp-Source: ABdhPJyVeA6zt+aob1XQm4uc32KoNAGhowGFGSAdjfqXLMJZMqwhQg9FsbA9zzbKZLBucKwnc+oolA==
-X-Received: by 2002:ac8:688c:0:b0:2f0:4bcd:1e46 with SMTP id m12-20020ac8688c000000b002f04bcd1e46mr1159320qtq.577.1649728235524;
-        Mon, 11 Apr 2022 18:50:35 -0700 (PDT)
-Received: from jaehee-ThinkPad-X1-Extreme.lan ([2607:fb90:50fb:900e:25ab:983d:ac30:58b5])
-        by smtp.gmail.com with ESMTPSA id s16-20020ac85cd0000000b002e1ed82f1e5sm29556305qta.75.2022.04.11.18.50.34
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=OSSxqX8tPYg/tg3+HY2atLHtEG2+4vSWaPUPQtk8FFs=;
+        b=ZlxaRdDpK/CtaAaQVPjXdfZFSqEIkr+VPuGLlpuLa2Sm0C3QYoq8MMILRDKW8JUOCG
+         vameUbCJ2D3mcPrvHF3YwsruGPc4ixfB03iiiHlXd7UWz3cfiIKFSttZrYPci8n5ak48
+         720y+AsqrweJvj0VgDW+/3W4UmIOasM1a/1LHJVjrZdtFp21N0EvxYEqPHlq5rV6G6hx
+         3r2CN8p5b5rrnrKMhVkxIY874FmY1JfD3wzNc4I7RUJLDGRa57hSkOSxzWo/W+fLcL/l
+         1Y1gInTBoqsYBX+f3ywKePJu37PRfnmuk7cXy+h0rTSjVfTeL2sYlcLS7yI+dk/cmwDF
+         9rLQ==
+X-Gm-Message-State: AOAM533LWiC+1WGRPEcz1CkQvvDJpNpEZb3o5tg+QdxhdOGtJi4v7PBm
+	9ZHkcW+cNLnMFkR92AH9mzo=
+X-Google-Smtp-Source: ABdhPJzPGA2WvKxT8VEv/QVQmi6hhSwsxGpUOGCJCjo4PLAHqRM02+IDxZUA/gXJEnbYAbOmKtXTVQ==
+X-Received: by 2002:a05:620a:4689:b0:67d:4c03:651c with SMTP id bq9-20020a05620a468900b0067d4c03651cmr4343932qkb.475.1649793562350;
+        Tue, 12 Apr 2022 12:59:22 -0700 (PDT)
+Received: from jaehee-ThinkPad-X1-Extreme.wework.com ([4.34.18.218])
+        by smtp.gmail.com with ESMTPSA id t7-20020a05622a01c700b002e1b3555c2fsm27270744qtw.26.2022.04.12.12.59.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 Apr 2022 18:50:35 -0700 (PDT)
+        Tue, 12 Apr 2022 12:59:21 -0700 (PDT)
 From: Jaehee Park <jhpark1013@gmail.com>
 To: johan@kernel.org
-Date: Mon, 11 Apr 2022 21:50:22 -0400
-Message-Id: <eaf51ac31d264179298cb24c91f05a14e3651bda.1649712572.git.jhpark1013@gmail.com>
+Date: Tue, 12 Apr 2022 15:59:13 -0400
+Message-Id: <cover.1649793138.git.jhpark1013@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1649712572.git.jhpark1013@gmail.com>
-References: <cover.1649712572.git.jhpark1013@gmail.com>
 MIME-Version: 1.0
 X-MailFrom: jhpark1013@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: N2TH67FSBQGRF7N3NTQPY2QUTUQYR23A
-X-Message-ID-Hash: N2TH67FSBQGRF7N3NTQPY2QUTUQYR23A
-X-Mailman-Approved-At: Tue, 19 Apr 2022 20:57:37 +0000
+Message-ID-Hash: XJNTCHFW6PH264NPZDWL2E65WAPLXNMH
+X-Message-ID-Hash: XJNTCHFW6PH264NPZDWL2E65WAPLXNMH
+X-Mailman-Approved-At: Tue, 19 Apr 2022 20:57:39 +0000
 CC: elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, outreachy@lists.linux.dev, jhpark1013@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH 2/2] staging: greybus: remove return in an empty void function
+Subject: [greybus-dev] [PATCH v2 0/2] staging: greybus: fix warnings reported by checkpatch
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/N2TH67FSBQGRF7N3NTQPY2QUTUQYR23A/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XJNTCHFW6PH264NPZDWL2E65WAPLXNMH/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -72,26 +70,22 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Issue found by checkpatch:
-WARNING: void function return statements are not generally useful
+The first patch corrects a typo in a comment. The second patch removes
+an unneeded return.
 
-Signed-off-by: Jaehee Park <jhpark1013@gmail.com>
----
- drivers/staging/greybus/audio_codec.c | 1 -
- 1 file changed, 1 deletion(-)
+Changes in version 2:
+- edited the subject to be more concise.
+- edited the log message to be more descriptive.
 
-diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
-index 0f50d1e51e2c..3e3a16568def 100644
---- a/drivers/staging/greybus/audio_codec.c
-+++ b/drivers/staging/greybus/audio_codec.c
-@@ -1032,7 +1032,6 @@ static int gbcodec_probe(struct snd_soc_component *comp)
- static void gbcodec_remove(struct snd_soc_component *comp)
- {
- 	/* Empty function for now */
--	return;
- }
- 
- static int gbcodec_write(struct snd_soc_component *comp, unsigned int reg,
+
+Jaehee Park (2):
+  staging: greybus: correct typo in comment
+  staging: greybus: remove unneeded return
+
+ drivers/staging/greybus/arche-apb-ctrl.c | 2 +-
+ drivers/staging/greybus/audio_codec.c    | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
+
 -- 
 2.25.1
 
