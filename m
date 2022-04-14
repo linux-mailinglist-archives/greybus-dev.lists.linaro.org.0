@@ -2,156 +2,129 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFE50507B85
-	for <lists+greybus-dev@lfdr.de>; Tue, 19 Apr 2022 22:58:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6764A507B86
+	for <lists+greybus-dev@lfdr.de>; Tue, 19 Apr 2022 22:58:10 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 1E8F940435
-	for <lists+greybus-dev@lfdr.de>; Tue, 19 Apr 2022 20:58:08 +0000 (UTC)
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	by lists.linaro.org (Postfix) with ESMTPS id 8753C3ED51
-	for <greybus-dev@lists.linaro.org>; Wed, 13 Apr 2022 04:50:35 +0000 (UTC)
-Received: by mail-qk1-f175.google.com with SMTP id j6so565218qkp.9
-        for <greybus-dev@lists.linaro.org>; Tue, 12 Apr 2022 21:50:35 -0700 (PDT)
+	by lists.linaro.org (Postfix) with ESMTP id 9FF1440307
+	for <lists+greybus-dev@lfdr.de>; Tue, 19 Apr 2022 20:58:09 +0000 (UTC)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	by lists.linaro.org (Postfix) with ESMTPS id 6CF6D3EF67
+	for <greybus-dev@lists.linaro.org>; Thu, 14 Apr 2022 08:42:27 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id s8so4226202pfk.12
+        for <greybus-dev@lists.linaro.org>; Thu, 14 Apr 2022 01:42:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=SNrcfRE6HdOzXoCUILYeyPwHz9qMy++4j1/0BHKP8XY=;
-        b=htaaJoxot6ne7hAx0KnKCHkv0Tt49PTBd51CvrGc25fVyx5e+psJvSzVG5wQqAbor/
-         ozVzCwO0wYk6RXfyoQA/Mt5BFTE3nXmLA5elPH8HZknUI9qImFUSyEbEzV6swo1OZINo
-         USA3K8Cp/U76hy4gG3zPDtKHqLQI9wTznS97kP9NDoaytbAxOg2jCitTSVGk80nVzA4n
-         tik3993mg+mqHes2MLCyPLij0K+TL3XFMcS6o1adn09+HkIuGXeAIaPgwCvQ1UX5PcUo
-         /Pcs9QrDZs+JXYGj/rFMdr95X/nhT+PirYHCajM07guCwC+OE+9oYow8UF7N7f5+6DEh
-         4diQ==
+        h=from:to:cc:subject:date:message-id;
+        bh=eJD0zgkQOtvBhg3kkOLY0JJ5fnzikCWkGfIBVnyjkyw=;
+        b=SCIe2hRXByLjvsqBzSZB8ICjWmUkFlhXp81uju/X73gpEf7+GXrqi7qZaRfAvRbmmv
+         CetmkAcq0whO6+BuZ0hVskN5LnbAgMzQyQ9M5bm43arg9HMj1pRUOk0NcPK23mgMMuVH
+         vVkJL1zM47Uak2yYkRL1YAsfWYJAPWoo4xO5vN1Ni8WKsE5p5lTBYMAM1U2H5zZP0f/i
+         U+PoM13iz1cXb0Uxdo/47d/mdTvPebCo7A5WU5/bwNCIQIA2P5WwPKGHq9cVX5Gg/2np
+         H/PVeT0K1EcLLD9qzwRoXG37EOUCXnqmp1ilsYzR9yrUQSBTGjA5G8twgHwRBlH5ruVV
+         k2RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=SNrcfRE6HdOzXoCUILYeyPwHz9qMy++4j1/0BHKP8XY=;
-        b=Ril+yC/IGvgTcd8Xnt90RsFjCy8eEY1/J4S1Rp2n8CFRI/D3ApF+s6YRmolf/c2gi9
-         b58xuYfp1WpN9GPOBgLLppYXUZwxW4XplQEQpqshSNpfpkk6VtqRWfb5pjD8k6DPHIJV
-         OCaZpgjrkKctaNdACENCZXod+8LEue1Rq4RpSitlEJNGvBMPOR+oXSoG5rVWOIHWx3z1
-         YCs0v4ityITjY4YWML6AhOvY7y5Q8C2EgS20LLbcsCPZS/Q5in/wcRxtLb0uEVrbSh3+
-         Jvw8JHM43zmyUzFnmhPEo6zu9BoT84CtFCSa/YL7p18d1GGhDEEr6YghE0dJBww0QqEz
-         wGDw==
-X-Gm-Message-State: AOAM532UC4QXrqqkUucdHisghq6QxI0PI3TeTn68kDSyfK7Nkq1jxyQb
-	Tk4cIa/YZpC4HKlP9qc3pHE=
-X-Google-Smtp-Source: ABdhPJzyciJssltn87XV2LoiVnxXmK1S0Q5FBlOrU/I3Ug0eVbn1LbT0yp9Ff7ISrLfXctXxBOOfwQ==
-X-Received: by 2002:a37:9243:0:b0:699:9012:df43 with SMTP id u64-20020a379243000000b006999012df43mr5528039qkd.424.1649825435188;
-        Tue, 12 Apr 2022 21:50:35 -0700 (PDT)
-Received: from jaehee-ThinkPad-X1-Extreme ([2607:fb90:50fb:900e:5e57:caff:f44b:33f4])
-        by smtp.gmail.com with ESMTPSA id p16-20020a05622a13d000b002e227782e9asm28287014qtk.14.2022.04.12.21.50.33
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=eJD0zgkQOtvBhg3kkOLY0JJ5fnzikCWkGfIBVnyjkyw=;
+        b=fhtgQ42Tg2tQTO9UqRizMCvwg0/VW0bCLCJitpQ6zjpYu4vvlHipfvu95G3U8mBzrs
+         CraZID7q2+UqZoFQrULEpi3zewHIFtKjcDlurkWxS3+hzZRLkM7VKJBM1haT4WStWJuE
+         Mura+oYPIHl1uz597619sY9rWlsvd2v1UZR3tMDAesXoIxZ8pD7Llh+LfVMHGC6g8LP3
+         bkkTfQjxLg8iHdB69Coo9Q9GzBwwmQlxP3n4SwxQpKPUIYl5TMK1/47wYU+1aYdezSfr
+         0OJPZSlITKK+mYG0MRyRXgiObz1+gSdKbSg2BGyQ3//b5oAfTUyNfG26EYO8L2iCbP84
+         XKCA==
+X-Gm-Message-State: AOAM53350tnu76Ypme4CnU4+TcyrqAYCa1hpwZMq66vfPFe7ruCI0xk3
+	4FvTQXFRQWZRXId8gQxfAQw=
+X-Google-Smtp-Source: ABdhPJzaVPhzdnr/iDGxWIFtI6vG92JfkSadUCnYnYRQ315Q+PYJtunuyJakOXPgkdCr8swJOmxEXw==
+X-Received: by 2002:a63:e051:0:b0:382:6aff:229a with SMTP id n17-20020a63e051000000b003826aff229amr1413694pgj.493.1649925746625;
+        Thu, 14 Apr 2022 01:42:26 -0700 (PDT)
+Received: from localhost.localdomain ([119.3.119.18])
+        by smtp.googlemail.com with ESMTPSA id rm5-20020a17090b3ec500b001c7559762e9sm4977308pjb.20.2022.04.14.01.42.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 Apr 2022 21:50:34 -0700 (PDT)
-Date: Wed, 13 Apr 2022 00:50:31 -0400
-From: Jaehee Park <jhpark1013@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <20220413045031.GC3357359@jaehee-ThinkPad-X1-Extreme>
-References: <20220411211411.GA2796005@jaehee-ThinkPad-X1-Extreme>
- <YlUGbFs8oNikJCcv@kroah.com>
- <YlUGp+/BzMSm3oDC@kroah.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YlUGp+/BzMSm3oDC@kroah.com>
-X-MailFrom: jhpark1013@gmail.com
+        Thu, 14 Apr 2022 01:42:25 -0700 (PDT)
+From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+To: vaibhav.sr@gmail.com,
+	dan.carpenter@oracle.com,
+	mgreer@animalcreek.com,
+	johan@kernel.org,
+	elder@kernel.org,
+	gregkh@linuxfoundation.org
+Date: Thu, 14 Apr 2022 16:42:19 +0800
+Message-Id: <20220414084219.13501-1-xiam0nd.tong@gmail.com>
+X-Mailer: git-send-email 2.17.1
+X-MailFrom: xiam0nd.tong@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 4YBCHZ6KFDSXXJPRU4I5OYYXFAVJP7UZ
-X-Message-ID-Hash: 4YBCHZ6KFDSXXJPRU4I5OYYXFAVJP7UZ
-X-Mailman-Approved-At: Tue, 19 Apr 2022 20:58:04 +0000
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
+Message-ID-Hash: AODDIWEENITWMKLMHHWY5H2SVFXJ4QWE
+X-Message-ID-Hash: AODDIWEENITWMKLMHHWY5H2SVFXJ4QWE
+X-Mailman-Approved-At: Tue, 19 Apr 2022 20:58:07 +0000
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Xiaomeng Tong <xiam0nd.tong@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: replace zero-element array with flexible-array
+Subject: [greybus-dev] [PATCH v2] greybus: audio_codec: initialize data to silence static checker warnings
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/4YBCHZ6KFDSXXJPRU4I5OYYXFAVJP7UZ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/AODDIWEENITWMKLMHHWY5H2SVFXJ4QWE/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Apr 12, 2022 at 06:57:11AM +0200, Greg Kroah-Hartman wrote:
-> On Tue, Apr 12, 2022 at 06:56:12AM +0200, Greg Kroah-Hartman wrote:
-> > On Mon, Apr 11, 2022 at 05:14:11PM -0400, Jaehee Park wrote:
-> > > Zero-length and one-element arrays are deprecated. Flexible-array
-> > > members should be used instead. Flexible-array members are
-> > > recommended because this is the way the kernel expects dynamically
-> > > sized trailing elements to be declared.
-> > > Refer to Documentation/process/deprecated.rst.
-> > > 
-> > > Change the zero-length array, buf, in the struct 
-> > > gb_usb_hub_control_response to a flexible array. And add wLength as a 
-> > > member of the struct so that the struct is not a zero-sized struct.
-> > > 
-> > > Issue found by flexible_array coccinelle script.
-> > > 
-> > > Signed-off-by: Jaehee Park <jhpark1013@gmail.com>
-> > > ---
-> > > 
-> > > I have a question for the authors: 
-> > > I saw a fixme comment in the hub_control function in usb.c:
-> > > / FIXME: handle unspecified lengths /
-> > > 
-> > > I was wondering why this comment was left there?
-> > > 
-> > > In this patch, I'm using this struct:
-> > > 
-> > > struct gb_usb_hub_control_response {
-> > >     __le16 wLength;
-> > >     u8 buf[];
-> > > };
-> > > 
-> > > And instead of using response_size, I'm doing this:
-> > > 
-> > > struct gb_usb_hub_control_response *response;
-> > > And using sizeof(*response) as the input to gb_operation_create.
-> > > 
-> > > Would the flexible array address the handling of unspecified lengths 
-> > > issue (in the fixme comment)?
-> > 
-> > No, you can not change the format of the data on the bus without also
-> > changing the firmware in the device and usually the specification as
-> > well.
-> > 
-> > >  drivers/staging/greybus/usb.c | 7 +++----
-> > >  1 file changed, 3 insertions(+), 4 deletions(-)
-> > > 
-> > > diff --git a/drivers/staging/greybus/usb.c b/drivers/staging/greybus/usb.c
-> > > index 8e9d9d59a357..d0b2422401df 100644
-> > > --- a/drivers/staging/greybus/usb.c
-> > > +++ b/drivers/staging/greybus/usb.c
-> > > @@ -27,7 +27,8 @@ struct gb_usb_hub_control_request {
-> > >  };
-> > >  
-> > >  struct gb_usb_hub_control_response {
-> > > -	u8 buf[0];
-> > > +	__le16 wLength;
-> > > +	u8 buf[];
-> > 
-> > What is wrong with buf[0] here?
-> > 
-> > You can fix this in other ways if you really understand the difference
-> > between [0] and [] in C.  Please look at many of the other conversions
-> > if you wish to do this.
-> 
-> And I would not recommend this as an "outreachy introduction task"
-> unless you understand this.  There are much easier first patch tasks you
-> can accomplish instead.
-> 
+These three declares are here:
+	struct gbaudio_data_connection *data;
 
-Hi Greg, 
-I should've made this into a question for the maintainers instead of a
-patch. Sorry about that. Dan's and your comments are well noted. 
-Thank you,
-Jaehee
+Since all three of these functions check for if the codec->module_list is
+empty at the start of the function so these are not real bugs to bypass
+'if (!data) {'. To avoid static checker warnings like Smatch, initialize
+the data with NULL.
 
-> good luck!
-> 
-> greg k-h
+Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+---
+changes since v1:
+ - not bug, but can avoid warnnings (Dan Carpenter)
+
+v1: https://lore.kernel.org/lkml/20220327060120.4316-1-xiam0nd.tong@gmail.com/
+---
+ drivers/staging/greybus/audio_codec.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
+index b589cf6b1d03..939e05af4dcf 100644
+--- a/drivers/staging/greybus/audio_codec.c
++++ b/drivers/staging/greybus/audio_codec.c
+@@ -397,7 +397,7 @@ static int gbcodec_hw_params(struct snd_pcm_substream *substream,
+ 	u8 sig_bits, channels;
+ 	u32 format, rate;
+ 	struct gbaudio_module_info *module;
+-	struct gbaudio_data_connection *data;
++	struct gbaudio_data_connection *data = NULL;
+ 	struct gb_bundle *bundle;
+ 	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
+ 	struct gbaudio_stream_params *params;
+@@ -498,7 +498,7 @@ static int gbcodec_prepare(struct snd_pcm_substream *substream,
+ {
+ 	int ret;
+ 	struct gbaudio_module_info *module;
+-	struct gbaudio_data_connection *data;
++	struct gbaudio_data_connection *data = NULL;
+ 	struct gb_bundle *bundle;
+ 	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
+ 	struct gbaudio_stream_params *params;
+@@ -562,7 +562,7 @@ static int gbcodec_prepare(struct snd_pcm_substream *substream,
+ static int gbcodec_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
+ {
+ 	int ret;
+-	struct gbaudio_data_connection *data;
++	struct gbaudio_data_connection *data = NULL;
+ 	struct gbaudio_module_info *module;
+ 	struct gb_bundle *bundle;
+ 	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
+-- 
+2.17.1
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
