@@ -2,66 +2,91 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6F1A509229
-	for <lists+greybus-dev@lfdr.de>; Wed, 20 Apr 2022 23:38:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B2CE50922B
+	for <lists+greybus-dev@lfdr.de>; Wed, 20 Apr 2022 23:39:05 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 0F53B40461
-	for <lists+greybus-dev@lfdr.de>; Wed, 20 Apr 2022 21:38:42 +0000 (UTC)
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
-	by lists.linaro.org (Postfix) with ESMTPS id 7185C401E9
-	for <greybus-dev@lists.linaro.org>; Wed, 20 Apr 2022 03:07:05 +0000 (UTC)
-Received: by mail-qk1-f171.google.com with SMTP id j6so355869qkp.9
-        for <greybus-dev@lists.linaro.org>; Tue, 19 Apr 2022 20:07:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=LM+R8F9f5IgEgs7eRlVM40Gk0INro2H615+Nbx4F7ZA=;
-        b=AM0cmwEFMxtoHtYuPdZJHmPizAC3xPDy9MhGdcWzUknn/k1IAH1/CkfCBrwmMqMGU5
-         Op9Zhr4loojsszKqfNWt4bDt3iTTGaKM9D9Cr/7M2u7KnTsX8LzACQsmUl5kwnPAjETn
-         DiqvoCu7uatWoMKscC6RcE/9094nyKbknbu5JyhdzOzDRryDv/kp0+cX7okT0Cp1QG6W
-         FV2ustpw+3X670x2N3ZHxaqNt5t2Go2E/jRIVSRzVzBZGkCfG36EpZSyw01CsvDPpBQA
-         sX/XNqDnoqf+9TtrBud0Z3rClxNnCiFO7Geis+W3mixcT3rprV5sdMYqRjjeaaYuxFvD
-         HJ7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=LM+R8F9f5IgEgs7eRlVM40Gk0INro2H615+Nbx4F7ZA=;
-        b=tZLzH/YUBzUV8lvaUZVGz02Xt1UWXXsjy9TACKx7s/RTMCV+CZFQUlGkV9CNQ8xCDG
-         UOqaIeBHRDiYLEYezZuimYZANtzTDSX88AY4a23uIl8Rxj+bfk49839zLgTCHaTUgEAr
-         hdKtphgeMe7U20358I2nzPN54M0+UFAyJ87D9t7NskRaiXnlHabXZP4sfGWo2EvNgi0s
-         lSfhtXTNrKSWnd/MUBN9aLWg0viMfYGS9huGQZZHPC8e8RPruzELk1Ftzcml/ub8frhl
-         d5bHLelwUIi/bdgCmJP/eqj3+IAI2DwPNORuC2YfObQOuMTL40XqjOz871fv8hs5Ghtl
-         C5zw==
-X-Gm-Message-State: AOAM533eZp8QuLoeZPGEh0iEFA6RD75q+Rkv2qZIrhU8M9e53vjJICS8
-	hCZnLDOM+aq+AUBT1fCcPDY=
-X-Google-Smtp-Source: ABdhPJzjCuHLUi3jZowxZwNoFfPIn/5TAOu8OYoPIQjIC007jckvE0naRuD1/7B5aS0+InQCz5/Q4w==
-X-Received: by 2002:a37:b984:0:b0:67f:64a2:313e with SMTP id j126-20020a37b984000000b0067f64a2313emr11220711qkf.3.1650424025131;
-        Tue, 19 Apr 2022 20:07:05 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
-        by smtp.gmail.com with ESMTPSA id u13-20020a05622a010d00b002f0c6664db1sm1020726qtw.49.2022.04.19.20.07.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 Apr 2022 20:07:04 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: johan@kernel.org
-Date: Wed, 20 Apr 2022 03:06:58 +0000
-Message-Id: <20220420030658.2575942-1-chi.minghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+	by lists.linaro.org (Postfix) with ESMTP id 7CFA6402D4
+	for <lists+greybus-dev@lfdr.de>; Wed, 20 Apr 2022 21:39:04 +0000 (UTC)
+Received: from cyan.elm.relay.mailchannels.net (cyan.elm.relay.mailchannels.net [23.83.212.47])
+	by lists.linaro.org (Postfix) with ESMTPS id 3D3884030D
+	for <greybus-dev@lists.linaro.org>; Wed, 20 Apr 2022 05:38:13 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|ian@linux.cowan.aero
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id E62CB121667;
+	Wed, 20 Apr 2022 05:38:11 +0000 (UTC)
+Received: from pdx1-sub0-mail-a217.dreamhost.com (unknown [127.0.0.6])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 4BCF9120CEA;
+	Wed, 20 Apr 2022 05:38:11 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1650433091; a=rsa-sha256;
+	cv=none;
+	b=85AuY+1LQjpGEIlT7C1k3SZb4WNxwePOppjOIqb9zwlL5E+R2Sti/uKZauIYTfmSREv0Hy
+	9OFgOLP411uhYvrw5VV66P2t21DrSgP88sEJV2/Y2nqATNpxx7pswWm4ujgOa+/t9ZhKlL
+	+kD+pNifYeQfYp4XZOE+hRMyfWCZ6XbfElsVGYP6wz+LpG2j3z7B+PG68AzJglg4mP3L/o
+	Tfa5cg42ZbLxDaUdS7RgyWF3/AVFeBx5kqw3ogsGj8YgMv8O4iSKKvbOkKQ90vQRNFb/aZ
+	GZLiTSKK5yInb1/eA+Hj8SxfS2b3H4XqdBsw+t2nd7cQWXIHgUM0uhYzfNl+bw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1650433091;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:dkim-signature;
+	bh=4j5q/8s6WD3XxXc1DfuT+A3MrhJqDvKeJCUERHUYZ9A=;
+	b=Jzn1ex0xxRwsStoOzxkEUzJq3tgpi2uTaY+ofL7JSYLBJK5lvuTW6V/oDWPnUax1HBpkR6
+	lW6SzK/tyi9grrh2MtV5abEu8ZMDNuenXISlyZ+lTHCH5Fk9m5s59anQbh/JvvKKKAWE2g
+	KvxMwOAa5+zCQcoSEgTzhmuiSFBM+hw5uY7N/JSFiaQbtoAAu465GEWvRuI4z+qR4/wE5K
+	kiG8Stf9GzRSwPElI0PC0NgLjll21OR4RRRPRIsPNRUonFPmN6rmN1TjqPWi3LEuiZ1hpn
+	flcVgEYvgyEaN9XZs371+kNp+tWNcVpeT5knqlXDmmv5DFXRmRb/t5NdL2jQmw==
+ARC-Authentication-Results: i=1;
+	rspamd-5fd5798557-p2kts;
+	auth=pass smtp.auth=dreamhost smtp.mailfrom=ian@linux.cowan.aero
+X-Sender-Id: dreamhost|x-authsender|ian@linux.cowan.aero
+Received: from pdx1-sub0-mail-a217.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.120.38.131 (trex/6.7.1);
+	Wed, 20 Apr 2022 05:38:11 +0000
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|ian@linux.cowan.aero
+X-MailChannels-Auth-Id: dreamhost
+X-Desert-Wipe: 3817108b53f6f177_1650433091709_3846001985
+X-MC-Loop-Signature: 1650433091709:2060611678
+X-MC-Ingress-Time: 1650433091709
+Received: from localhost.localdomain (unknown [69.12.38.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: ian@linux.cowan.aero)
+	by pdx1-sub0-mail-a217.dreamhost.com (Postfix) with ESMTPSA id 4KjqFt2CKMz3H;
+	Tue, 19 Apr 2022 22:38:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.cowan.aero;
+	s=dreamhost; t=1650433091;
+	bh=4j5q/8s6WD3XxXc1DfuT+A3MrhJqDvKeJCUERHUYZ9A=;
+	h=From:To:Cc:Subject:Date:Content-Transfer-Encoding;
+	b=Az8I7ralvEJTMLNiawVZqp+XwwEoNoa5F/4PPuHpLoh8HTQIyv3xrbPD2BrhNaFOh
+	 Nvy0B7NmVj2+7i2IUxMfBTG3o6oYxbfmM8rRWLj4tmyQRITgfmsABdmzYmd6arm5pb
+	 k7w07kOKxyraycHHmLTllIyTlmUh71sveYiiMfJI3wJYh3U2WyutQ0MX6NeS2w8gZP
+	 SrkuMfwAvOsYZGbug25mGWSdI3qr8kTpOgVopG4mMzcbo544EN5SCxXyBeXjohH7Bt
+	 t9mRGjuSsqFCfcd5AvC4+9BzoROkFnWF4x5k+01T6wVU5k3mz6cf4ekEiBbgD+NCS3
+	 ao7sNDmEHjpIQ==
+From: Ian Cowan <ian@linux.cowan.aero>
+To: vaibhav.sr@gmail.com
+Date: Wed, 20 Apr 2022 01:37:55 -0400
+Message-Id: <20220420053755.48934-1-ian@linux.cowan.aero>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-X-MailFrom: cgel.zte@gmail.com
+X-MailFrom: ian@linux.cowan.aero
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 6RTYPUZH73UABI6E5MEMHBA3WPDQPB5S
-X-Message-ID-Hash: 6RTYPUZH73UABI6E5MEMHBA3WPDQPB5S
-X-Mailman-Approved-At: Wed, 20 Apr 2022 21:38:39 +0000
-CC: elder@kernel.org, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, Minghao Chi <chi.minghao@zte.com.cn>, Zeal Robot <zealci@zte.com.cn>
+Message-ID-Hash: OT2UV77GQMSDMC4A3GQ4R23SFNIMC7X5
+X-Message-ID-Hash: OT2UV77GQMSDMC4A3GQ4R23SFNIMC7X5
+X-Mailman-Approved-At: Wed, 20 Apr 2022 21:39:02 +0000
+CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, ian@linux.cowan.aero
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] greybus: using pm_runtime_resume_and_get to simplify the code
+Subject: [greybus-dev] [PATCH] Staging: greybus: audio manager module: make char array const
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/6RTYPUZH73UABI6E5MEMHBA3WPDQPB5S/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OT2UV77GQMSDMC4A3GQ4R23SFNIMC7X5/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -71,39 +96,34 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Minghao Chi <chi.minghao@zte.com.cn>
+Make the envp char array a const in the send_add_uevent function since
+the value will never change. It will remain an array of the pointers to
+the various char arrays.
 
-Using pm_runtime_resume_and_get() to replace pm_runtime_get_sync and
-pm_runtime_put_noidle. This change is just to simplify the code, no
-actual functional changes.
+There does exist a warning when running the checkpatch script to
+make this a static variable, but there does not appear to be any advantage
+to make this change.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Minghao Chi <chi.minghao@zte.com.cn>
+Signed-off-by: Ian Cowan <ian@linux.cowan.aero>
 ---
- drivers/greybus/core.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/staging/greybus/audio_manager_module.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/greybus/core.c b/drivers/greybus/core.c
-index e546c6431877..434aa5d9dd47 100644
---- a/drivers/greybus/core.c
-+++ b/drivers/greybus/core.c
-@@ -174,11 +174,9 @@ static int greybus_probe(struct device *dev)
- 	if (!id)
- 		return -ENODEV;
+diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
+index 0a0f0a394c84..c9d223b0e541 100644
+--- a/drivers/staging/greybus/audio_manager_module.c
++++ b/drivers/staging/greybus/audio_manager_module.c
+@@ -159,7 +159,7 @@ static void send_add_uevent(struct gb_audio_manager_module *module)
+ 	char ip_devices_string[64];
+ 	char op_devices_string[64];
  
--	retval = pm_runtime_get_sync(&bundle->intf->dev);
--	if (retval < 0) {
--		pm_runtime_put_noidle(&bundle->intf->dev);
-+	retval = pm_runtime_resume_and_get(&bundle->intf->dev);
-+	if (retval < 0)
- 		return retval;
--	}
- 
- 	retval = gb_control_bundle_activate(bundle->intf->control, bundle->id);
- 	if (retval) {
+-	char *envp[] = {
++	const char *envp[] = {
+ 		name_string,
+ 		vid_string,
+ 		pid_string,
 -- 
-2.25.1
-
+2.32.0
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
