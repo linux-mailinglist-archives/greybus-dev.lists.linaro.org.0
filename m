@@ -2,52 +2,75 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D07250E1C7
-	for <lists+greybus-dev@lfdr.de>; Mon, 25 Apr 2022 15:31:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B52F51AE14
+	for <lists+greybus-dev@lfdr.de>; Wed,  4 May 2022 21:39:52 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3E5CD48000
-	for <lists+greybus-dev@lfdr.de>; Mon, 25 Apr 2022 13:31:21 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by lists.linaro.org (Postfix) with ESMTPS id 37E813EA3F
-	for <greybus-dev@lists.linaro.org>; Mon, 25 Apr 2022 13:31:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1650893477;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=vRkFZZ+bpHCqYl5M+UHtMrybHZdURp3ea7MDvTxPK6I=;
-	b=CVD5AsLpMo1ttd04hLfMwed7dYn4v+x/AUD7KD0MBgF5p5h2ygtFiv708MGDZm5sfYLV39
-	Gcy90ayg4mlHvPYM2DaznExji0K3mAEUWM+sGYl3f1ZKIDJ8AjY1JeFWvpXqBKcec8UHfa
-	Ucbrzm7+aiYd/YSOS4Y/iHSwQR8DcW0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-624-6m0Yp1bkP2SlnB40Z61Srw-1; Mon, 25 Apr 2022 09:31:14 -0400
-X-MC-Unique: 6m0Yp1bkP2SlnB40Z61Srw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 47F7C380050C;
-	Mon, 25 Apr 2022 13:31:13 +0000 (UTC)
-Received: from localhost (unknown [10.76.0.40])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BB71F404E4A6;
-	Mon, 25 Apr 2022 13:31:12 +0000 (UTC)
-From: Vaibhav Nagare <vnagare@redhat.com>
-To: linux-kernel@vger.kernel.org
-Date: Mon, 25 Apr 2022 19:01:11 +0530
-Message-Id: <20220425133111.118257-1-vnagare@redhat.com>
+	by lists.linaro.org (Postfix) with ESMTP id 51D7548079
+	for <lists+greybus-dev@lfdr.de>; Wed,  4 May 2022 19:39:51 +0000 (UTC)
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com [64.147.123.21])
+	by lists.linaro.org (Postfix) with ESMTPS id 47FB03ED62
+	for <greybus-dev@lists.linaro.org>; Sat, 30 Apr 2022 23:01:43 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+	by mailout.west.internal (Postfix) with ESMTP id 65C2A32000CC;
+	Sat, 30 Apr 2022 19:01:41 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute2.internal (MEProxy); Sat, 30 Apr 2022 19:01:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cason.dev; h=cc
+	:cc:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1651359700; x=1651446100; bh=N/xeKdPiEGiMGCUIqrcz5n0qw0xVZiMTqUU
+	GOCEZfzc=; b=H8UoztDdES/iObmUIaqWkf6EgKg+N0hBgJJpKyFPMRqrKIWOHcw
+	cRVnyX3zUCg/DKY5UiuxcGR6/PxkiLgN1t+fRuF+GDAxix+Ojz/833acfYUZWqdT
+	rGrcry1ab80iRUUBonSe9/nvUnOe61MjfMR1NyKUi1EfVDOS8OJ2hAxeC1gQucMo
+	ngWk7dNP0qqeEr0mbIO+8+1wMzJ3gAycnA3NJkcuSvZqF6FDHOl7nVw7c+pTZnqq
+	rwue4igYcNsIu+Gsql5974uwKaDyERg6BPtYuCl3wLl9wpPHZRPXwoe3M8FiUGXd
+	KTo4C7z3jMhtg2Sd2Qu1FJQOEMVPJDO5fbg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1651359700; x=1651446100; bh=N/xeKdPiEGiMG
+	CUIqrcz5n0qw0xVZiMTqUUGOCEZfzc=; b=O/ofyBUmAYq6TOE8LOhlp2WFjqVBU
+	93nfmZ0C9UKu0h9TdPUEW81BdvQRWagFl19aEQcUfxCo7zleVxP/SZ4JWT4UcUWY
+	6niaGQznhT5WBqnF+UumoL6MB8QPl8pSd4sUDDxK7pBqzs2jnADjpEOu+o4CE7GP
+	m3zNqKcsh/rceIGHKP9nhzswOuGVFKsh0bj79Prr3dsUFQsQ0yFpsykTX0rh9Maa
+	ynoJz0KSRfDqmJXlJzV/IUpNC64GtOTzvdTE6IAJ7XxYw2QUNKDH8vEqBcSHS4qv
+	o29TdBZfMoL8IlLz2ukTwCMhU2pqd8Q2slnmx9Y7GvYt4bZTPlEDN4vOw==
+X-ME-Sender: <xms:1L9tYrwcDEHNDa-HeNZyHWN3ulf2lsx3YdOjE6TdnmTEWl5KYu6hwQ>
+    <xme:1L9tYjRAP2Ep-EXbdUBVVHMRRHoMDtziYQnZOBtJRhthRwJzluXdaZRudKJIfVevI
+    3_Rl0hs6qJ-ZQe9Mng>
+X-ME-Received: <xmr:1L9tYlVm7XoZofLypOihyXh2-av7C4cRMi9cGrXJJwN-76-Vf1c-zBv8KXx2>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvddvgdduhecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvfevuffkgggtugesthdtredttd
+    dtvdenucfhrhhomheppfhitghkrghlrghsucevrghsohhnuceonhhitghkrghlrghssegt
+    rghsohhnrdguvghvqeenucggtffrrghtthgvrhhnpedtudeihfdtffdutdejleelvdefhf
+    ekuedtledvjedukeffueetheetfeejjeevleenucevlhhushhtvghrufhiiigvpedtnecu
+    rfgrrhgrmhepmhgrihhlfhhrohhmpehnihgtkhgrlhgrshestggrshhonhdruggvvh
+X-ME-Proxy: <xmx:1L9tYlhcRPJa4uTFqj86awSizIit4aHgIQeMrZ0nG0tAlpPoSh_M5g>
+    <xmx:1L9tYtAldj83_iaosVXKpt3qCplAXmyphINP6YAQ_I48IrR2x5wk2A>
+    <xmx:1L9tYuKV7ecOzhbo7vNWWSfPewLqZtmSRTl2EDbVQWL2LE9beAZtmA>
+    <xmx:1L9tYg6e9FaxS6kH8NHq0BKru4Dz-ilBRsNtfOC8WQtaoBcajQyo-A>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 30 Apr 2022 19:01:40 -0400 (EDT)
+Date: Sat, 30 Apr 2022 19:01:39 -0400
+From: Nickalas Cason <nickalas@cason.dev>
+To: gregkh@linuxfoundation.org
+Message-ID: <20220430230139.7i772mvejlhevamn@desktop>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Message-ID-Hash: TV3TJRJU44DK4IT743LA2K5O3AEZ3U42
-X-Message-ID-Hash: TV3TJRJU44DK4IT743LA2K5O3AEZ3U42
-X-MailFrom: vnagare@redhat.com
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-staging@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, vnagare@redhat.com
+Content-Disposition: inline
+X-MailFrom: nickalas@cason.dev
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: KOLLMELK3F7AE7NAL5VWOYFCEWUFKOAL
+X-Message-ID-Hash: KOLLMELK3F7AE7NAL5VWOYFCEWUFKOAL
+X-Mailman-Approved-At: Wed, 04 May 2022 19:39:48 +0000
+CC: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, hvaibhav.linux@gmail.com, johan@kernel.org, elder@kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: tools: fix spelling
+Subject: [greybus-dev] [PATCH] staging: greybus: correct typo in comment
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TV3TJRJU44DK4IT743LA2K5O3AEZ3U42/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/KOLLMELK3F7AE7NAL5VWOYFCEWUFKOAL/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -57,28 +80,28 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Fixed the spelling mistake of appendation to appending.
+Correct misspelling in comment. Issue found with checkpatch.
 
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+Signed-off-by: Nickalas Cason <nickalas@cason.dev>
 ---
- drivers/staging/greybus/tools/loopback_test.c | 2 +-
+ drivers/staging/greybus/arche-platform.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/greybus/tools/loopback_test.c b/drivers/staging/greybus/tools/loopback_test.c
-index 867bf289df2e..4c42e393cd3d 100644
---- a/drivers/staging/greybus/tools/loopback_test.c
-+++ b/drivers/staging/greybus/tools/loopback_test.c
-@@ -533,7 +533,7 @@ static int log_results(struct loopback_test *t)
- 
- 		fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
- 		if (fd < 0) {
--			fprintf(stderr, "unable to open %s for appendation\n", file_name);
-+			fprintf(stderr, "unable to open %s for appending\n", file_name);
- 			abort();
- 		}
- 
+diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
+index e374dfc0c92f..fcbd5f71eff2 100644
+--- a/drivers/staging/greybus/arche-platform.c
++++ b/drivers/staging/greybus/arche-platform.c
+@@ -591,7 +591,7 @@ static __maybe_unused int arche_platform_suspend(struct device *dev)
+ static __maybe_unused int arche_platform_resume(struct device *dev)
+ {
+ 	/*
+-	 * Atleast for ES2 we have to meet the delay requirement between
++	 * At least for ES2 we have to meet the delay requirement between
+ 	 * unipro switch and AP bridge init, depending on whether bridge is in
+ 	 * OFF state or standby state.
+ 	 *
 -- 
-2.27.0
+2.35.1
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
