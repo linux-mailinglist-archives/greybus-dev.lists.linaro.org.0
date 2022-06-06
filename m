@@ -2,65 +2,109 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 103D1545783
-	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jun 2022 00:41:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F08A545785
+	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jun 2022 00:41:16 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 17E7A3F4C6
-	for <lists+greybus-dev@lfdr.de>; Thu,  9 Jun 2022 22:41:09 +0000 (UTC)
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	by lists.linaro.org (Postfix) with ESMTPS id 4326F3EF44
-	for <greybus-dev@lists.linaro.org>; Sun,  5 Jun 2022 23:18:40 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id gd1so11469014pjb.2
-        for <greybus-dev@lists.linaro.org>; Sun, 05 Jun 2022 16:18:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=g3BmJglTAjdnPLCGYhrHUrRvgHR+8N25cKSWQP4OWdo=;
-        b=ZAA3tFmKdv+hsGYm0P0OrG8/DX9rjJq2pyOvCXV69jvY+yDW/qejLqet7DFf4kJGkW
-         a166XTuZRJPK82neRxN6fzYaAF+pqPSOVt+HnFAALjE9v3PGWFsfhpKRDS8NbFKrXQ4Z
-         PvDD4J3CIthf1j8sOj8qIUfa94RLiByPZ2cMjVOMwbTmxudUsltxSC3Jq5jWReWbl7bd
-         NeBTg1T93iIDg0dgzHUh8zwtZqJCOSNGKTgIuq4PlFgA5JvlpqTGd0RJ6onZtFgHs4o2
-         HbKPNQnB4K/+EnfQqfxgyGkqjjbKbdi4Gdauzrj8sKFO8vGupI8A9zux47P51yWf1/M0
-         9AOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=g3BmJglTAjdnPLCGYhrHUrRvgHR+8N25cKSWQP4OWdo=;
-        b=D1xc6MlTIkVSscQLlYb5Voeyy5i+AwrvqclwFtM3NGG+YLb4S/P997eWMu/5ggx/Gf
-         L7rZy5nffPYdiu4dCZKF6bKvRogojDd3doofozC+WinADQdKSZVuZ8wTfTOPEQkevqlU
-         jo8hUfD2I/3gFEOEJTC/k8XkGOJOyDBqrJSrL0RWB8AoSMeNgoCwtYrgQWTD4GjZyIfH
-         k6ZxmHs1wv9dHvn+G50M4gI804QXmYEC9b4AhuognhSfFyET+rm4Ecu/NZI261VKy+Ag
-         5AE1mIjR4XaKETcJXPy25XZQZDf9R2WmvL8rHDqXW4q9f1TTdBXG0gRjvUw9y08GQaob
-         vzVA==
-X-Gm-Message-State: AOAM532CKCDljK2UJxVyCbAhqFC+5XRkvSqzbHIsvq+wbLLaKiypqkKo
-	mM0ML37/OgHO9rz7q7TwE/g=
-X-Google-Smtp-Source: ABdhPJziDtmWG7/wz+O6OHwkY+cBzggnGgVgcvrHu3ixyvAj7J0WuFlqaijreDNHDRPBf4RSn78ITQ==
-X-Received: by 2002:a17:902:d48e:b0:167:5752:3b43 with SMTP id c14-20020a170902d48e00b0016757523b43mr11355808plg.52.1654471119415;
-        Sun, 05 Jun 2022 16:18:39 -0700 (PDT)
-Received: from fedora.hsd1.wa.comcast.net ([2601:1c1:4202:28a0::ec2b])
-        by smtp.gmail.com with ESMTPSA id f21-20020a170902f39500b0015e8d4eb1d7sm9051948ple.33.2022.06.05.16.18.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Jun 2022 16:18:39 -0700 (PDT)
-From: Jared Kangas <kangas.jd@gmail.com>
-To: vaibhav.sr@gmail.com
-Date: Sun,  5 Jun 2022 16:18:06 -0700
-Message-Id: <20220605231806.720085-1-kangas.jd@gmail.com>
-X-Mailer: git-send-email 2.34.3
+	by lists.linaro.org (Postfix) with ESMTP id 72C503EBF1
+	for <lists+greybus-dev@lfdr.de>; Thu,  9 Jun 2022 22:41:15 +0000 (UTC)
+Received: from AUS01-SY4-obe.outbound.protection.outlook.com (mail-sy4aus01olkn2142.outbound.protection.outlook.com [40.92.62.142])
+	by lists.linaro.org (Postfix) with ESMTPS id B8C323E8F3
+	for <greybus-dev@lists.linaro.org>; Mon,  6 Jun 2022 09:58:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iUQtgGccuvwtbAe9Cs+uXD3VWp+80upfkYCG9zX9yb3gRbqNv/FWJwsw8XAn26+xWKHqP1N/OQR5FER0Gj7xtLptqy1kYjHsjtzdkMRX2PdhAbwu+mgs7RNNa5FJuUiuIl9ozrWPXCpFOOFIZhntn8s3N4EqHCDk/QAxI0gPpHuOGpL5FFa7Hr9L+K00WgdIpRZozTGHfWC0CSMjKnbIB5lRaxvjX7dHCNk/UTtVradZxwiJFqKY8yUF7LPMFiN9IFRg60bB0/Fk25tilWxhy1CzIUt5ba5+RT6P2+/E0eW6r5CrzBmWZKQ07W+GtcQq+RJ5zOx6j95dbGkBLnDUFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pswtmc59qrQSCydRNRa7Q/5GhmN5mEFEKVAE95htj3M=;
+ b=ms2ugAPo+tlHUBMqJtWVN/7v2u34uLOtZvWrFyVOqsmrTHjVkodGebta/hnzIVWMyLq2uIfc1zshFXzjclsQx23JxcUQwYPemlQJ5GxKiIydGamhKStRBlTBcRAhjVYkT5VsyUEmr2tPmAT9jT3AoR76CZ2TP++zN+jiDbqs/zlSfSUnrG4+kfoZ7odXiJLNfPynfnvHF/0v4zJ4VyS2xabxMGUf6lRfUlaMq4E4LCgctPviX9BGKltV2Ef1GES8rT8VXFUMkVfjxpKR9J/MiWezqYakQubP3gy6xFAAL1w5w89PT8QnshtfupQsXALFIVe+Fwt0hkW0UqlMvf3/4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pswtmc59qrQSCydRNRa7Q/5GhmN5mEFEKVAE95htj3M=;
+ b=PuFU9PpgUhSGF+3BC3pl8ifsSNJleCatwD/Rf1tN7IIidgascZkLcQsowHYM2IbH8Fo0jPR1s92tNGfIjf6SsohIfhHk86pvh+VKM1GfJ3vbzxjqSptvBMmKDpVqoyrLzzOH3/wYumQRX1693uzxNz5EkzyDEerqyY70Di7YKwzHYf1nk3bEWjFEFCA2O7SCMq85jiLIvoSLJRtP64smNIDVjHSNJzFYnwGWpWVhaewDTFZlVh+0Kf3JryRIJUB5BNUPjJC5xdoqIpWdrqe0fEokvk70iMtDsV0N97GUIdEem2USINIHojDPFewl0C/N/jHfsfOoYslVYp+TN47GwQ==
+Received: from SYBP282MB3478.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:1b1::5) by
+ SYCP282MB0400.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:81::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5314.13; Mon, 6 Jun 2022 09:58:35 +0000
+Received: from SYBP282MB3478.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::f832:43e3:9778:bebc]) by SYBP282MB3478.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::f832:43e3:9778:bebc%5]) with mapi id 15.20.5314.019; Mon, 6 Jun 2022
+ 09:58:35 +0000
+From: Steve Lemuel <wlemuel@hotmail.com>
+To: "Bryan O'Donoghue" <pure.logic@nexus-software.ie>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Mon,  6 Jun 2022 17:57:45 +0800
+Message-ID: 
+ <SYBP282MB347864E247D2EC70BF46F9A3A0A29@SYBP282MB3478.AUSP282.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.36.1
+X-TMN: [mXxHHddzlHKRUz4JNTMj8n45tXdInbuF]
+X-ClientProxiedBy: SG2PR04CA0183.apcprd04.prod.outlook.com
+ (2603:1096:4:14::21) To SYBP282MB3478.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:1b1::5)
+X-Microsoft-Original-Message-ID: 
+ <20220606095745.1815144-1-wlemuel@hotmail.com>
 MIME-Version: 1.0
-X-MailFrom: kangas.jd@gmail.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0b1423ce-9d5c-438e-56ed-08da47a31f17
+X-MS-TrafficTypeDiagnostic: SYCP282MB0400:EE_
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	6tex61Ao7KvzgrjZ12miTMOyMmMxvI1PBj7KQDIU04iC0jh6CXEuNEYVXrGGj4V4PKaBAcBvQKqT19aAYA8RYyQZEGCeMFma7dEPbDFZwDn4DLiDOYgtzidnyFn3t+80mWDmdwWLkRab7FTp6Q5wraZp1T+touUckrrIXuyBRzSOnn5LE8pPw594tG/mmiYdb02tcHhMhdLBECSbpZbdHhCNWadmjYlb0hrLFcHWbEtsXG3DQ3fgcfmfjoCGBh416ptwEsdXZTZxNnv9DSzbkHmvkmy5bCPlC4e2xsCDw/Sb/f0Z0adSIKfaP8qiwZm7wS8QlQ6K19m5WJhpvkDDGs9pI5UvORH/2Yhj8OdCia9plWdRviB7jielJMzYYArPAcx9mcBcRG17Y69x05YoxhXER2Y8eagL9eHtGLbMw57gmUJFl63o3CZa+8ZfvNuYJXM4Nxfgh889LGZafeqRifxI+286wtjkhyIYfMWXi9TaHb3y/tgEUdZTtYjJaSGxeKQMQ6FFC3soKPlILZU65ov5fhK7753p2SmV4aQUuu5KLp4IYHgsyZ9Jtbow9D92etPTXvSoibXnA7ZIIUly+g==
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?3ibOi+uZItYc+D9ZbCyI2Tq2GzIinek3glWZX3hsRRuVCXXP7cRQskLzfrjQ?=
+ =?us-ascii?Q?0kDIC16wWruEGVFUIfrS8R9SqBfN9M70dvJUm+x8PNS+zPkKo6O/YTnIP0q8?=
+ =?us-ascii?Q?qHaU/OOAkQwzOFyEMY5fPeAY0KQiOMnvT34mqgieSKCNcsGo7dfF1WyzAQFB?=
+ =?us-ascii?Q?fXFKCUFzOJgiqnOpUIYpMjId01lfOGwXRxKeSEW/PbkUOqct/UxKLlwh5idv?=
+ =?us-ascii?Q?iLcivYJGMftIZL9UYQ+ETgAvl0rHl344FEy4ufoEjHqcWFPJYAI1PtGI2PsG?=
+ =?us-ascii?Q?bdqPOLkKllHOAXhkGHhtmIgGbYiaknocSxmr4GF5Pzdl9V7WKq/MIYbaZKpi?=
+ =?us-ascii?Q?cBrbFhCsmZyZm8bYFLJokZZOaeWOpE55ludow9OJfHH74JUxO61TMDcD04nx?=
+ =?us-ascii?Q?1V4k85PU6kWlvPeM2eGKOwBTfGaqCaDqCnPqB0/J1VmILYgEDnTD1wUqrCUA?=
+ =?us-ascii?Q?zA2JJLUycCXmVbe2SY4bmDc4W+gOrKW2Fwybif8nkreZlbAzCGxdRrDBuoVE?=
+ =?us-ascii?Q?E2mJOMDldfh+nM45/wNZ5tpaxoO8JmeQAfn7xds6l5aYEW3XaNg+Gh9F2BMO?=
+ =?us-ascii?Q?dKShnYnMsAtmilBv763mTytbTct1RCEFX2VxE3c4yt/+6XkrCzuu3CbC/umO?=
+ =?us-ascii?Q?Mhspo1pI4tVrUfyl5Lg6OmJ9QjJ0uUfLFvu+LhESr95GADjEvBI0QOQOes/x?=
+ =?us-ascii?Q?dyKQq8sotGhL/mYKfCp7wSB1b+wmfKusKJXISAsM6AIiX2+VB6yPBT9Z3zDw?=
+ =?us-ascii?Q?Qhcg79cpph+/vJ8hJi0mgaktd0Xt776Qh73QvXWpfJVuRlPIOJl3Net9DZnd?=
+ =?us-ascii?Q?f5KlVd32OUSmdqDOBsKFdI0mMDNFRNRIvlBcYhvH40wU2QAo2nON/say+APv?=
+ =?us-ascii?Q?VLZjJD7stpGW6Ir6M5r3CgDBggvBC7NTL2C29abXpuxhTU5F9kiOURIPkoxF?=
+ =?us-ascii?Q?P9fF/GFtSbgvpnkVEVIsq4ujFqeCHGN6cvYi3gplgIy2VMT/iwfrU6IOG2nF?=
+ =?us-ascii?Q?fYxXOckmeqNlDWrz0+Pa3DblKQgUuNUkDr59kOd1CggaypugFBwf8DZ0lHit?=
+ =?us-ascii?Q?kvSLNCK3uUJw0eGzidFq/n2/zMXdSCqyyvidwsw2rULAnxU2F5E26D4t2lZq?=
+ =?us-ascii?Q?dq6Qw7LERSWF+MKnROuppj5bFZoO7gH5lp7JlkRUwTyf2k4qeizLeYKfD/54?=
+ =?us-ascii?Q?TWpvgDVu1193BwwmNu9pBOxZOl/7tGb03UQmqPsTLb/Qs9sfhyh8D7lfLXYQ?=
+ =?us-ascii?Q?/muH9M/tKyLqVcXWJu84K1wSWtAH6YVX7dQRQ/ukHYkistZZ/6GeNL7wviyn?=
+ =?us-ascii?Q?at+ZqwvRf5rytPb9/RsIWMwnOg/UfblMnN3KswVyuCARU0EfnFGXO4TF+Vjr?=
+ =?us-ascii?Q?Ba3+9HYkLCyB729uS41oczhRuRqgCRaKYkLGVN1Bjs9RI2BX3B1mGki9LzD8?=
+ =?us-ascii?Q?utO3dsrnMfQ=3D?=
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-746f3.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b1423ce-9d5c-438e-56ed-08da47a31f17
+X-MS-Exchange-CrossTenant-AuthSource: SYBP282MB3478.AUSP282.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2022 09:58:35.4929
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SYCP282MB0400
+X-MailFrom: wlemuel@hotmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: Z2MDLFPQGLWD7VT7Y7TJLVXWHZWVCVOR
-X-Message-ID-Hash: Z2MDLFPQGLWD7VT7Y7TJLVXWHZWVCVOR
-X-Mailman-Approved-At: Thu, 09 Jun 2022 22:41:07 +0000
-CC: elder@kernel.org, greybus-dev@lists.linaro.org, johan@kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, kangas.jd@gmail.com
+Message-ID-Hash: 7D4RCNQNLUBJOTDQPRKUMENKHU22WEO6
+X-Message-ID-Hash: 7D4RCNQNLUBJOTDQPRKUMENKHU22WEO6
+X-Mailman-Approved-At: Thu, 09 Jun 2022 22:41:13 +0000
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: audio: fix loop cursor use after iteration
+Subject: [greybus-dev] [PATCH] staging: greybus: loopback: fix a spelling error.
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/Z2MDLFPQGLWD7VT7Y7TJLVXWHZWVCVOR/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/AAPC6LPLLQOBXRGXJETY5SCVJD7F3NJL/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -70,61 +114,28 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-gbaudio_dapm_free_controls() iterates over widgets using
-list_for_each_entry_safe(), which leaves the loop cursor pointing to a
-meaningless structure if it completes a traversal of the list. The
-cursor was set to NULL at the end of the loop body, but would be
-overwritten by the final loop cursor update.
+asynchronus -> asynchronous
 
-Because of this behavior, the widget could be non-null after the loop
-even if the widget wasn't found, and the cleanup logic would treat the
-pointer as a valid widget to free.
-
-To fix this, introduce a temporary variable to act as the loop cursor
-and copy it to a variable that can be accessed after the loop finishes.
-
-This was detected with the help of Coccinelle.
-
-Signed-off-by: Jared Kangas <kangas.jd@gmail.com>
+Signed-off-by: Steve Lemuel <wlemuel@hotmail.com>
 ---
- drivers/staging/greybus/audio_helper.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ drivers/staging/greybus/loopback.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/greybus/audio_helper.c b/drivers/staging/greybus/audio_helper.c
-index 843760675876..07461a5d97c7 100644
---- a/drivers/staging/greybus/audio_helper.c
-+++ b/drivers/staging/greybus/audio_helper.c
-@@ -115,7 +115,7 @@ int gbaudio_dapm_free_controls(struct snd_soc_dapm_context *dapm,
- 			       int num)
- {
- 	int i;
--	struct snd_soc_dapm_widget *w, *next_w;
-+	struct snd_soc_dapm_widget *w, *next_w, *tmp_w;
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *parent = dapm->debugfs_dapm;
- 	struct dentry *debugfs_w = NULL;
-@@ -124,13 +124,14 @@ int gbaudio_dapm_free_controls(struct snd_soc_dapm_context *dapm,
- 	mutex_lock(&dapm->card->dapm_mutex);
- 	for (i = 0; i < num; i++) {
- 		/* below logic can be optimized to identify widget pointer */
--		list_for_each_entry_safe(w, next_w, &dapm->card->widgets,
-+		w = NULL;
-+		list_for_each_entry_safe(tmp_w, next_w, &dapm->card->widgets,
- 					 list) {
--			if (w->dapm != dapm)
--				continue;
--			if (!strcmp(w->name, widget->name))
-+			if (tmp_w->dapm == dapm &&
-+			    !strcmp(tmp_w->name, widget->name)) {
-+				w = tmp_w;
- 				break;
--			w = NULL;
-+			}
- 		}
- 		if (!w) {
- 			dev_err(dapm->dev, "%s: widget not found\n",
--- 
-2.34.3
+diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+index 2471448ba42a..1a61fce98056 100644
+--- a/drivers/staging/greybus/loopback.c
++++ b/drivers/staging/greybus/loopback.c
+@@ -870,7 +870,7 @@ static int gb_loopback_fn(void *data)
+ 		if (gb->send_count == gb->iteration_max) {
+ 			mutex_unlock(&gb->mutex);
+
+-			/* Wait for synchronous and asynchronus completion */
++			/* Wait for synchronous and asynchronous completion */
+ 			gb_loopback_async_wait_all(gb);
+
+ 			/* Mark complete unless user-space has poked us */
+--
+2.36.1
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
