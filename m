@@ -2,46 +2,145 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECD77535EAE
-	for <lists+greybus-dev@lfdr.de>; Fri, 27 May 2022 12:52:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E130053E49D
+	for <lists+greybus-dev@lfdr.de>; Mon,  6 Jun 2022 15:07:04 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A10683F19E
-	for <lists+greybus-dev@lfdr.de>; Fri, 27 May 2022 10:52:24 +0000 (UTC)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
-	by lists.linaro.org (Postfix) with ESMTPS id AA57C3F194
-	for <greybus-dev@lists.linaro.org>; Fri, 27 May 2022 10:52:22 +0000 (UTC)
-Received: from dggpemm500020.china.huawei.com (unknown [172.30.72.53])
-	by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4L8hRV5VkYz1JCTk;
-	Fri, 27 May 2022 18:50:46 +0800 (CST)
-Received: from dggpemm500018.china.huawei.com (7.185.36.111) by
- dggpemm500020.china.huawei.com (7.185.36.49) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Fri, 27 May 2022 18:52:19 +0800
-Received: from localhost.localdomain (10.175.112.125) by
- dggpemm500018.china.huawei.com (7.185.36.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Fri, 27 May 2022 18:52:19 +0800
-From: keliu <liuke94@huawei.com>
-To: <johan@kernel.org>, <elder@kernel.org>, <gregkh@linuxfoundation.org>,
-	<greybus-dev@lists.linaro.org>, <linux-kernel@vger.kernel.org>
-Date: Fri, 27 May 2022 11:13:48 +0000
-Message-ID: <20220527111348.3444003-1-liuke94@huawei.com>
-X-Mailer: git-send-email 2.25.1
+	by lists.linaro.org (Postfix) with ESMTP id 9BE113F446
+	for <lists+greybus-dev@lfdr.de>; Mon,  6 Jun 2022 13:07:03 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+	by lists.linaro.org (Postfix) with ESMTPS id 84C483E89F
+	for <greybus-dev@lists.linaro.org>; Mon,  6 Jun 2022 13:07:01 +0000 (UTC)
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2569PRh9003664;
+	Mon, 6 Jun 2022 13:06:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=corp-2021-07-09;
+ bh=GgUvU25WpTQsojfrvl4ZhuQNvODwpEJm48neXaCol7M=;
+ b=kSua8pbEXLBL5VVWeLJsWufGesFtxAoAdQyaTGAqx18X9b1UmMtD+AInWfPTPsuOKX2E
+ EP9ouxLb4eYQO9Sx/53dNvXWJfN5Nl6CLMHVQu5wCZsDsjhCziyPVObG1uEd2ouhgHZj
+ EuXg3gKhC8gNNuXfeW8zZcRFxyJVFI+W2uqDZxI5cbYdM7cQ09EvPZgHdaP9H63+FnKM
+ tVA52LBTEUWoTKhbKKEUWAqNu1OyRih/Pvbgt7J78QzuNrMJ+9BwsxZpJznpDDNSumC3
+ gvl9ooHwFr9RFNBC6AYFrCEjpUHcgDhA4UW8Y6JGdQM4pr1ImRxar3I25qOBSVzIka3P 5Q==
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ghexe8duc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 06 Jun 2022 13:06:48 +0000
+Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.16.1.2/8.16.1.2) with SMTP id 256D0T2p036598;
+	Mon, 6 Jun 2022 13:06:47 GMT
+Received: from nam12-bn8-obe.outbound.protection.outlook.com (mail-bn8nam12lp2177.outbound.protection.outlook.com [104.47.55.177])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com with ESMTP id 3gfwu1ghv2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 06 Jun 2022 13:06:47 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AlLMDof6XhP8LjDM7t77PiQ+EjzjGG6dAGcIR7Qe/r8jhAe+jeJSezak1d/MY79JXP7P7eJh7wFC3B1vEyucQafPEx6qG1JGD1QbUsT4Oei0hBptabTZM2q46Sn766E8xiaA48Av1Vt8QSMZGnO+lAHE/wv3qnmOucrDmddd0W2OlpX+jPbeuuukaqoXCJAIjJq1BUPzMUZhLIKLm05MMPKkQ1/KnypDDiThjBv/0AYp/3ExWeRJfGor4OHDPnxFKH3vmnvgF3bJbDZLF7DRhZgUWJ7MhhX/MRrgi5vCuf6vOMfCiXEGD9WF1YosBaOK9attOtKB+OmwWQk7Bn/avQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GgUvU25WpTQsojfrvl4ZhuQNvODwpEJm48neXaCol7M=;
+ b=Xs1gTGbF61jJkqHEWd2ZnC32H01uzyqQpAcoNeY2zc8MOEm+18DXyk0DdLFjFxFQpc4E4J61teI3/3kDg6amfe26S4nQkcNG+0v+DwVtlNSKTGSJtiuiRf9JAfr8XExnDopP4Y4w4d+/e+xsBJtMiXLPkVgaIAjn/nQJyjhSjQiG9mF+EM96c18w+9PnEfdMA1dBnnLHP+X0yTT56qXvHFTWpVBNE2F9QM6qkQjjIoMvNxIt+zLULitZiPA327JxFbYkH1PRrHA8kmSocLq7qxsv/BgJN3qYKd6rrbYgIyVNK0h3p0naOPgO64I5CWYZAjD8qjrW7b79EYJ0GUQi+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GgUvU25WpTQsojfrvl4ZhuQNvODwpEJm48neXaCol7M=;
+ b=tqERSY9GrjyxXcfdknFyk3AQlVX20azt13vXOkCcQi47OfjB1EAJpUR5qsDOk9QoMLYaqN8SwhvnmiBp7gIlEpcQA0Rrlfh38QKwtofvqLN9EXrHSKed16ZY0vwiU7YF9Swp/Tu/peaGa+25E8aIEH+iusGEfhZrs9F460CAaRA=
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by BY5PR10MB4161.namprd10.prod.outlook.com
+ (2603:10b6:a03:213::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.12; Mon, 6 Jun
+ 2022 13:06:45 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::5020:9b82:5917:40b]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::5020:9b82:5917:40b%6]) with mapi id 15.20.5314.019; Mon, 6 Jun 2022
+ 13:06:45 +0000
+Date: Mon, 6 Jun 2022 16:06:26 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Jared Kangas <kangas.jd@gmail.com>
+Message-ID: <20220606130626.GX2146@kadam>
+References: <20220605231806.720085-1-kangas.jd@gmail.com>
+Content-Disposition: inline
+In-Reply-To: <20220605231806.720085-1-kangas.jd@gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: JNAP275CA0055.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:4f::11)
+ To MWHPR1001MB2365.namprd10.prod.outlook.com (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-X-Originating-IP: [10.175.112.125]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- dggpemm500018.china.huawei.com (7.185.36.111)
-X-CFilter-Loop: Reflected
-Message-ID-Hash: KXWMI5UVSIYMLM2THDFGDB6WHZWU4XA6
-X-Message-ID-Hash: KXWMI5UVSIYMLM2THDFGDB6WHZWU4XA6
-X-MailFrom: liuke94@huawei.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1c2acea5-ec06-4fef-5c87-08da47bd681d
+X-MS-TrafficTypeDiagnostic: BY5PR10MB4161:EE_
+X-Microsoft-Antispam-PRVS: 
+	<BY5PR10MB4161CB36E9D032487E1E84718EA29@BY5PR10MB4161.namprd10.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	/ZuLM5lBG8PukGvmcWcFZP6Q8PtV7FmdkIP25xGvtrP7eoVOZCNRl/tQPg20VEwICBFUyKUhhipC3UyFl9AyseyRVODWDYaXFzevnbxcbSl4yf7tI3B94s92IqOV0Lfc1tscUM16fwvnDflcEbBNXlgaSuF1YqtyIGZel3HiIFsa8s5d6uPUwodTQVCbPSQ2Q5BKUfpg5eVj71lZ2PYCIWrSh2up9VrJWVqmsE4RZRISDEZehbhQEaTANM6xGFjdww1GYjOKfoYo82fnWPrhbG1QBFPDU2/ENTHr6whS/h/BWyEpQtTBt5KGY9Mr88wowZ00KdSqh2MxDLZumh/cm20h4lEGJYc9rs5PQUcoosXxLF9Dw2eovrDH8pPWaVT7oKmvd/BysL22S3Wy7ckN7aApbykG1KZPd4zKGfmEyJAMZE6CDMoztL25Jbh9o7tPlMpfawMo747JnQR0h0CT4sxisjZEmAt6kyabl+uvYGIDOBUcr9RF+cIsoQZnKCqGb4LdR01IDxo258FpK7YApVSo6TPifRw+xz7BiImO5EfrDlmjIW49vqIblM4dIX6xhgzBSqZmwYzP04vfxy42i4LvYDckVmn1/W35d3SJqXt57MTyMaYr9USHH/ctE2QxKoEJ+TGz9Mjs3ZTli7Y1HpvAMeNFKBXGzrQ9IDt14MZ/xllFARsfVGqUgsNR87KncgUiHgyGjhvA4qREGOR1jg==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2365.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(366004)(38100700002)(52116002)(6666004)(38350700002)(6916009)(83380400001)(44832011)(4744005)(6506007)(2906002)(86362001)(5660300002)(4326008)(33656002)(316002)(8676002)(33716001)(1076003)(508600001)(186003)(6486002)(66556008)(8936002)(66476007)(66946007)(26005)(9686003)(6512007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?SBUYx3MEpYc0orCOMmui1tOt7lGxEP2GYUQpJqKO3rt7jLy4Zh1B8Frl452k?=
+ =?us-ascii?Q?y8BUBXY6VeENaGnaNp+1JHT1QyPI6xo5LFOFbmreLVRywFmZWo5/j+mlz90n?=
+ =?us-ascii?Q?GGntMC9x+SGSjPqt2iU7DL5yXQ2z66QTLYz58qD8L1TFoqe661saTN/UvlOx?=
+ =?us-ascii?Q?zYs0tN3VivuCvFfIoU/CWEzVTDe8IUaA/Y42RmHB4r22yZiAh8wC8YPmVOSS?=
+ =?us-ascii?Q?Ki2KwGTp3Uw1ZNR8F9X/fzj2tDwR1hqK8j2dmmg3XrOw4sBRi0NrH+kOiIt/?=
+ =?us-ascii?Q?4Hviw/jZm5Cv8x2cZ3qft4JHw5tni3/7HKEU+nuZFd92GU4rhg5+eCXT6DEN?=
+ =?us-ascii?Q?XVU6o7pTxYYpmOjHZd7Yy/tw/VJlbXI3I6Tlv1Tt/jWkL6exAtnGac1mif+W?=
+ =?us-ascii?Q?jgwx/UlwYpGN1dY5DjohZV6a6vI6D+aIAvWsPjBjDxqdZB2OI/sJom0AXpHQ?=
+ =?us-ascii?Q?Iip7QI2DOrIQQMka8mfVXKCLFryLKSTyqKhnBeFCowPkgwBBf+DMXORZVRYy?=
+ =?us-ascii?Q?S+nKTP1gACXtq4QZfgrmnFyYAKri/kyPHJcFlQqAXccM22+UBTj2bcaG2azK?=
+ =?us-ascii?Q?Rt9Py9/Ua5HSRxeXKl/ZLxzTN2CDo/RKC8eNQiabaoNhl1CC4jFhoCQnzm2S?=
+ =?us-ascii?Q?BJ70M6OWwM28VhvjyhKxfVadRnIgeK/eHgYGvG6/z759WjAqfIKFziWKMPb3?=
+ =?us-ascii?Q?ctXvlk1ClGv/UhrfIohFaWjxeIjDHKP9K73zfGqykIJOGnW7+WEIzU0tAy3w?=
+ =?us-ascii?Q?3nW7SEsK4H2TSYZA+Ts5hKmMOMImKzL8ap1D1335G3vDnMW3UcKgNNSCHAag?=
+ =?us-ascii?Q?zxqkZQnXNoI2ZYDXTppZVbcd04+vOASYuEzp0Vn0JK6hnVEBRnvuCaZk8PvK?=
+ =?us-ascii?Q?WABKL6KDeGCPIx4yy2PgzGMxfK9A3/jucLeEcXQIAPJFd8uTuypOKUAFlSLm?=
+ =?us-ascii?Q?wXmmipPjoadnPOzwr2gB728HXsjV05CjqfIiWX/KFOqbJbMWBPLSiriECg50?=
+ =?us-ascii?Q?22u0Od9dKimO4wBkQ3ONnrWPvtqKON6NXqjnedP/qfYaUbIj/4+67p49SsIn?=
+ =?us-ascii?Q?OQsA50B79Z1TrRlN3oQyfHBi3Mb0hAiiRtOQLCCEnOaxhTTtg5rlDbkWP5dd?=
+ =?us-ascii?Q?l2ODaNtgo1wmIuI4G+JYqp18BEoLg71opVnAvuWYlMmVru8IEpxquq9IMx7B?=
+ =?us-ascii?Q?/UB1GErgwCFDmU7/YeTA8QJ5XA1C9+hR2WGPl1j6Cce+QbdZR/DUk3sJoPWw?=
+ =?us-ascii?Q?tVAV0+k8SzRjeEOoweMgk1ju/TTcIXfJktLrtuxR2m6rxtdBr/FsQeJLDv2w?=
+ =?us-ascii?Q?tUuvy45K2cIC6VdXoUZ2vaSxqtkreB3g+e+K91yi5pn0pr7qzDvPL095lgmc?=
+ =?us-ascii?Q?hnrDbNA8uEfz7p6ugryrhynvRFXEXM3xDl1UwORBLEcRoY+o+feNv9B2odFf?=
+ =?us-ascii?Q?ovWyktBNDMrdznz/fXSTusbdg27DyPTBsLnqhus5J/XKDVwraPTubppP1n7+?=
+ =?us-ascii?Q?43MkyVCP5CoD7MfuO30uTeE5VCxX9vZh3DCK47Wizt/gQSsHyF9sxbZ1OQ4d?=
+ =?us-ascii?Q?lqd8mIIHflgcVfGVFI/dkN+RX82eQzA3juFLEVLSxfHgm2Vr2ZnUUang4Ap+?=
+ =?us-ascii?Q?eCzGL4W+ibbRnbdV10KeZ4FSaEn/GU4m4WHsJik0krSup2dX/Kd5iZTVnDy0?=
+ =?us-ascii?Q?WemE5bhJKjYzlknimsv50i0JgbiqJfKwvKAN9tE9LPtp/Wm21WVJ2Zhj13Mq?=
+ =?us-ascii?Q?WAaLI/d8OB1K3FUIKek/rgejFtgmGz0=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c2acea5-ec06-4fef-5c87-08da47bd681d
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2022 13:06:45.1710
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WGR7C+apgRf0rwbbMp+Kqr5y3v1lhPm6kANDhgxgGUEaIjx46bOV4uZcDitTOmLDh5ClggsjFD49LV38P5Lsr/mcc4KjJUkKaiOtTfbRFNQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR10MB4161
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.517,18.0.874
+ definitions=2022-06-06_04:2022-06-02,2022-06-06 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=744 spamscore=0
+ adultscore=0 suspectscore=0 malwarescore=0 phishscore=0 bulkscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2204290000 definitions=main-2206060060
+X-Proofpoint-GUID: B05ZPBcFPjZmrChMFSF0a6OEIbUCL-YK
+X-Proofpoint-ORIG-GUID: B05ZPBcFPjZmrChMFSF0a6OEIbUCL-YK
+Message-ID-Hash: UN2GMGLBYTX4K3J3ELLKME5ISXSEM3UY
+X-Message-ID-Hash: UN2GMGLBYTX4K3J3ELLKME5ISXSEM3UY
+X-MailFrom: dan.carpenter@oracle.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: keliu <liuke94@huawei.com>
+CC: elder@kernel.org, greybus-dev@lists.linaro.org, johan@kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] drivers: greybus: Directly use ida_alloc()/free()
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: audio: fix loop cursor use after iteration
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/KXWMI5UVSIYMLM2THDFGDB6WHZWU4XA6/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/UN2GMGLBYTX4K3J3ELLKME5ISXSEM3UY/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -51,131 +150,33 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use ida_alloc()/ida_free() instead of deprecated
-ida_simple_get()/ida_simple_remove() .
+On Sun, Jun 05, 2022 at 04:18:06PM -0700, Jared Kangas wrote:
+> gbaudio_dapm_free_controls() iterates over widgets using
+> list_for_each_entry_safe(), which leaves the loop cursor pointing to a
+> meaningless structure if it completes a traversal of the list. The
+> cursor was set to NULL at the end of the loop body, but would be
+> overwritten by the final loop cursor update.
+> 
+> Because of this behavior, the widget could be non-null after the loop
+> even if the widget wasn't found, and the cleanup logic would treat the
+> pointer as a valid widget to free.
+> 
+> To fix this, introduce a temporary variable to act as the loop cursor
+> and copy it to a variable that can be accessed after the loop finishes.
+> 
+> This was detected with the help of Coccinelle.
+> 
 
-Signed-off-by: keliu <liuke94@huawei.com>
----
- drivers/greybus/es2.c       |  4 ++--
- drivers/greybus/hd.c        | 12 ++++++------
- drivers/greybus/interface.c |  8 ++++----
- 3 files changed, 12 insertions(+), 12 deletions(-)
+This needs a Fixes tag.
 
-diff --git a/drivers/greybus/es2.c b/drivers/greybus/es2.c
-index e89cca015095..c861fb2acd8a 100644
---- a/drivers/greybus/es2.c
-+++ b/drivers/greybus/es2.c
-@@ -522,7 +522,7 @@ static int es2_cport_allocate(struct gb_host_device *hd, int cport_id,
- 		return -EINVAL;
- 	}
- 
--	return ida_simple_get(id_map, ida_start, ida_end, GFP_KERNEL);
-+	return ida_alloc_range(id_map, ida_start, ida_end - 1, GFP_KERNEL);
- }
- 
- static void es2_cport_release(struct gb_host_device *hd, u16 cport_id)
-@@ -535,7 +535,7 @@ static void es2_cport_release(struct gb_host_device *hd, u16 cport_id)
- 		return;
- 	}
- 
--	ida_simple_remove(&hd->cport_id_map, cport_id);
-+	ida_free(&hd->cport_id_map, cport_id);
- }
- 
- static int cport_enable(struct gb_host_device *hd, u16 cport_id,
-diff --git a/drivers/greybus/hd.c b/drivers/greybus/hd.c
-index 72b21bf2d7d3..6ff5b0cfd539 100644
---- a/drivers/greybus/hd.c
-+++ b/drivers/greybus/hd.c
-@@ -50,7 +50,7 @@ int gb_hd_cport_reserve(struct gb_host_device *hd, u16 cport_id)
- 	struct ida *id_map = &hd->cport_id_map;
- 	int ret;
- 
--	ret = ida_simple_get(id_map, cport_id, cport_id + 1, GFP_KERNEL);
-+	ret = ida_alloc_range(id_map, cport_id, cport_id, GFP_KERNEL);
- 	if (ret < 0) {
- 		dev_err(&hd->dev, "failed to reserve cport %u\n", cport_id);
- 		return ret;
-@@ -64,7 +64,7 @@ void gb_hd_cport_release_reserved(struct gb_host_device *hd, u16 cport_id)
- {
- 	struct ida *id_map = &hd->cport_id_map;
- 
--	ida_simple_remove(id_map, cport_id);
-+	ida_free(id_map, cport_id);
- }
- EXPORT_SYMBOL_GPL(gb_hd_cport_release_reserved);
- 
-@@ -89,7 +89,7 @@ int gb_hd_cport_allocate(struct gb_host_device *hd, int cport_id,
- 		return -EINVAL;
- 	}
- 
--	return ida_simple_get(id_map, ida_start, ida_end, GFP_KERNEL);
-+	return ida_alloc_range(id_map, ida_start, ida_end - 1, GFP_KERNEL);
- }
- 
- /* Locking: Caller guarantees serialisation */
-@@ -100,7 +100,7 @@ void gb_hd_cport_release(struct gb_host_device *hd, u16 cport_id)
- 		return;
- 	}
- 
--	ida_simple_remove(&hd->cport_id_map, cport_id);
-+	ida_free(&hd->cport_id_map, cport_id);
- }
- 
- static void gb_hd_release(struct device *dev)
-@@ -111,7 +111,7 @@ static void gb_hd_release(struct device *dev)
- 
- 	if (hd->svc)
- 		gb_svc_put(hd->svc);
--	ida_simple_remove(&gb_hd_bus_id_map, hd->bus_id);
-+	ida_free(&gb_hd_bus_id_map, hd->bus_id);
- 	ida_destroy(&hd->cport_id_map);
- 	kfree(hd);
- }
-@@ -162,7 +162,7 @@ struct gb_host_device *gb_hd_create(struct gb_hd_driver *driver,
- 	if (!hd)
- 		return ERR_PTR(-ENOMEM);
- 
--	ret = ida_simple_get(&gb_hd_bus_id_map, 1, 0, GFP_KERNEL);
-+	ret = ida_alloc_min(&gb_hd_bus_id_map, 1, GFP_KERNEL);
- 	if (ret < 0) {
- 		kfree(hd);
- 		return ERR_PTR(ret);
-diff --git a/drivers/greybus/interface.c b/drivers/greybus/interface.c
-index 9ec949a438ef..f685e5f7b7b1 100644
---- a/drivers/greybus/interface.c
-+++ b/drivers/greybus/interface.c
-@@ -131,8 +131,8 @@ static int gb_interface_route_create(struct gb_interface *intf)
- 	int ret;
- 
- 	/* Allocate an interface device id. */
--	ret = ida_simple_get(&svc->device_id_map,
--			     GB_SVC_DEVICE_ID_MIN, GB_SVC_DEVICE_ID_MAX + 1,
-+	ret = ida_alloc_range(&svc->device_id_map,
-+			     GB_SVC_DEVICE_ID_MIN, GB_SVC_DEVICE_ID_MAX,
- 			     GFP_KERNEL);
- 	if (ret < 0) {
- 		dev_err(&intf->dev, "failed to allocate device id: %d\n", ret);
-@@ -165,7 +165,7 @@ static int gb_interface_route_create(struct gb_interface *intf)
- 	 * XXX anymore.
- 	 */
- err_ida_remove:
--	ida_simple_remove(&svc->device_id_map, device_id);
-+	ida_free(&svc->device_id_map, device_id);
- 
- 	return ret;
- }
-@@ -178,7 +178,7 @@ static void gb_interface_route_destroy(struct gb_interface *intf)
- 		return;
- 
- 	gb_svc_route_destroy(svc, svc->ap_intf_id, intf->interface_id);
--	ida_simple_remove(&svc->device_id_map, intf->device_id);
-+	ida_free(&svc->device_id_map, intf->device_id);
- 	intf->device_id = GB_INTERFACE_DEVICE_ID_BAD;
- }
- 
--- 
-2.25.1
+Fixes: 510e340efe0c ("staging: greybus: audio: Add helper APIs for dynamic audio modules")
+
+Otherwise, looks good!
+
+Reviewed-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+regards,
+dan carpenter
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
