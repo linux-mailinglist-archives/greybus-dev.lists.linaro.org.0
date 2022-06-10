@@ -2,50 +2,52 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D6BF545DDB
-	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jun 2022 09:54:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85680545DFA
+	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jun 2022 10:00:18 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 6ACDE3F4CB
-	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jun 2022 07:54:35 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id 1745B3EC74
-	for <greybus-dev@lists.linaro.org>; Fri, 10 Jun 2022 07:54:33 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B92CC3F4D3
+	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jun 2022 08:00:17 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by lists.linaro.org (Postfix) with ESMTPS id 383373EEB7
+	for <greybus-dev@lists.linaro.org>; Fri, 10 Jun 2022 08:00:10 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 97F9A61FD1;
-	Fri, 10 Jun 2022 07:54:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5CEC34114;
-	Fri, 10 Jun 2022 07:54:31 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 371FAB832A2;
+	Fri, 10 Jun 2022 08:00:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F7EC34114;
+	Fri, 10 Jun 2022 08:00:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654847672;
-	bh=DBQYB/NWje6Nr8mT58sp4vpMjE0yrhfHsUXtKYObB0w=;
-	h=From:To:Cc:Subject:Date:From;
-	b=dfpTaBopnWG8CcOHUvKfiXJy+VJv1UcOzVc6Z6N+l9InOyBVJwFs849QCxxzYSuYE
-	 EW99L4QqeD0vt0deGSi4RRQGZLn/BRQkWg9sQKk7CdXWoK6+LCkk4fbuCTicgkM9vp
-	 /BV/G6fv3ANFXgcuGbSmHfJtVMkPePd1mvH6kfzTsk9fOxLbveFqWaocqtFJNq50M+
-	 4WsgShqDTwrP+wdCsuQsAnFQbjzJMgCrF8KRV6oiY+u43X75v9HJ1bPUL/JaHppo+A
-	 j2ZVHOVMtOInwISsrCLAUAffB0Knc60YzO/I30TIhiz4+u15AX2HM+kn+J6tZA16Bh
-	 Kvzis5ZaKrdBA==
+	s=k20201202; t=1654848007;
+	bh=rIT5rAC8mwzXd9v1qd5sMTexcVFRTr1GesOWEmu8Wws=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NlboDRo98OjDCefRGijDSqyZu7a2wKmNKeEnhW+cI+cMmkEE6RgZNNAnU5TOFmfIc
+	 jwzf7MWHPPgDnaCdjFYYFeYAdLYk2v9rgR9Vn9lKvjtPQolynd4xvlcs0ZBjEf1H/o
+	 VrEt0MefzpYq/3FUjrv4m8Caarr38QtaJAY4K8Bv28Oa2QecvGQQF4ZHETYzqZyZpK
+	 2Mf5AzjRKPNrfSUidqV3ditTaEw2f3QeOKGBuAsJXrFxOx9rafaPRjZgQNjZgv1441
+	 ojFokEBHAwMMClKbeEu/BwwQh805gIKgqojUjpfCk4i3F+QGlySpH/ErdwPmIGJTZA
+	 dkgjoHtpzc3Xw==
 Received: from johan by xi.lan with local (Exim 4.94.2)
 	(envelope-from <johan@kernel.org>)
-	id 1nzZTP-0004vk-7o; Fri, 10 Jun 2022 09:54:27 +0200
+	id 1nzZYp-0004yN-83; Fri, 10 Jun 2022 10:00:03 +0200
+Date: Fri, 10 Jun 2022 10:00:03 +0200
 From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Fri, 10 Jun 2022 09:53:47 +0200
-Message-Id: <20220610075347.18917-1-johan@kernel.org>
-X-Mailer: git-send-email 2.35.1
+To: Jared Kangas <kangas.jd@gmail.com>
+Message-ID: <YqL6A3pVC8LOqE4d@hovoldconsulting.com>
+References: <20220609214517.85661-1-kangas.jd@gmail.com>
 MIME-Version: 1.0
-Message-ID-Hash: NQLZJLLTSH6DXN7FSVKK6UUKBQ3XO2AV
-X-Message-ID-Hash: NQLZJLLTSH6DXN7FSVKK6UUKBQ3XO2AV
+Content-Disposition: inline
+In-Reply-To: <20220609214517.85661-1-kangas.jd@gmail.com>
+Message-ID-Hash: NIFT6DWGQAZLIZN7Y6N5MVB37VJFGMMA
+X-Message-ID-Hash: NIFT6DWGQAZLIZN7Y6N5MVB37VJFGMMA
 X-MailFrom: johan@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Jared Kangas <kangas.jd@gmail.com>, Johan Hovold <johan@kernel.org>
+CC: elder@kernel.org, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, linux-staging@lists.linux.dev, Dan Carpenter <dan.carpenter@oracle.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: audio: replace safe list iteration
+Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: audio: fix loop cursor use after iteration
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/NQLZJLLTSH6DXN7FSVKK6UUKBQ3XO2AV/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/NIFT6DWGQAZLIZN7Y6N5MVB37VJFGMMA/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -55,41 +57,50 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-No entry is being removed from the list when iterating the widget list
-in gbaudio_dapm_free_controls() so there's no need to use
-list_for_each_entry_safe().
+On Thu, Jun 09, 2022 at 02:45:18PM -0700, Jared Kangas wrote:
+> gbaudio_dapm_free_controls() iterates over widgets using the
+> list_for_each_entry*() family of macros from <linux/list.h>, which
+> leaves the loop cursor pointing to a meaningless structure if it
+> completes a traversal of the list. The cursor was set to NULL at the end
+> of the loop body, but would be overwritten by the final loop cursor
+> update.
+> 
+> Because of this behavior, the widget could be non-null after the loop
+> even if the widget wasn't found, and the cleanup logic would treat the
+> pointer as a valid widget to free.
+> 
+> To fix this, introduce a temporary variable to act as the loop cursor
+> and copy it to a variable that can be accessed after the loop finishes.
+> Due to not removing any list elements, use list_for_each_entry() instead
+> of list_for_each_entry_safe() in the revised loop.
+> 
+> This was detected with the help of Coccinelle.
+> 
+> Fixes: 510e340efe0c ("staging: greybus: audio: Add helper APIs for dynamic audio modules")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Reviewed-by: Johan Hovold <johan@kernel.org>
+> Signed-off-by: Jared Kangas <kangas.jd@gmail.com>
+> ---
+> 
+> Changes since v1:
+>  * Removed safe list iteration as suggested by Johan Hovold <johan@kernel.org>
+>  * Updated patch changelog to explain the list iteration change
+>  * Added tags to changelog based on feedback (Cc:, Fixes:, Reviewed-by:)
 
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/staging/greybus/audio_helper.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Apparently Greg applied this to staging-next before we had a change to
+look at it. You should have received a notification from Greg when he
+did so.
 
-diff --git a/drivers/staging/greybus/audio_helper.c b/drivers/staging/greybus/audio_helper.c
-index 07461a5d97c7..05e91e6bc2a0 100644
---- a/drivers/staging/greybus/audio_helper.c
-+++ b/drivers/staging/greybus/audio_helper.c
-@@ -115,7 +115,7 @@ int gbaudio_dapm_free_controls(struct snd_soc_dapm_context *dapm,
- 			       int num)
- {
- 	int i;
--	struct snd_soc_dapm_widget *w, *next_w, *tmp_w;
-+	struct snd_soc_dapm_widget *w, *tmp_w;
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *parent = dapm->debugfs_dapm;
- 	struct dentry *debugfs_w = NULL;
-@@ -125,8 +125,7 @@ int gbaudio_dapm_free_controls(struct snd_soc_dapm_context *dapm,
- 	for (i = 0; i < num; i++) {
- 		/* below logic can be optimized to identify widget pointer */
- 		w = NULL;
--		list_for_each_entry_safe(tmp_w, next_w, &dapm->card->widgets,
--					 list) {
-+		list_for_each_entry(tmp_w, &dapm->card->widgets, list) {
- 			if (tmp_w->dapm == dapm &&
- 			    !strcmp(tmp_w->name, widget->name)) {
- 				w = tmp_w;
--- 
-2.35.1
+	https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging.git/commit/?h=staging-next&id=80c968a04a381dc0e690960c60ffd6b6aee7e157
 
+It seems unlikely that this would cause any issues in real life, but
+there's still a chance it will be picked up by the stable team despite
+the lack of a CC stable tag.
+
+I've just sent a follow-up patch to replace the list macro.
+
+Johan
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
