@@ -2,112 +2,109 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC754550CE8
-	for <lists+greybus-dev@lfdr.de>; Sun, 19 Jun 2022 22:25:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CECC7552E05
+	for <lists+greybus-dev@lfdr.de>; Tue, 21 Jun 2022 11:14:06 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A88E23F1D1
-	for <lists+greybus-dev@lfdr.de>; Sun, 19 Jun 2022 20:25:13 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de [85.220.165.71])
-	by lists.linaro.org (Postfix) with ESMTPS id E3DD63ECBD
-	for <greybus-dev@lists.linaro.org>; Sun, 19 Jun 2022 20:25:10 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.ext.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1o31Tj-0001i2-RS; Sun, 19 Jun 2022 22:25:03 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1o31Td-001Vpv-6C; Sun, 19 Jun 2022 22:24:58 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1o31Td-00HRae-Vz; Sun, 19 Jun 2022 22:24:57 +0200
-Date: Sun, 19 Jun 2022 22:24:50 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Song Chen <chensong_2000@189.cn>
-Message-ID: <20220619202450.c2ixwemrbwp2sazt@pengutronix.de>
-References: <1647597432-27586-1-git-send-email-chensong_2000@189.cn>
+	by lists.linaro.org (Postfix) with ESMTP id A464C3F2D4
+	for <lists+greybus-dev@lfdr.de>; Tue, 21 Jun 2022 09:14:05 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id 741DE3EF6A
+	for <greybus-dev@lists.linaro.org>; Tue, 21 Jun 2022 09:14:03 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 0961960F50;
+	Tue, 21 Jun 2022 09:14:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B25C3411C;
+	Tue, 21 Jun 2022 09:14:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1655802842;
+	bh=pL3F/GzW42CiWS3Yg7kxKAhUPHN0SvH5MN8TC9Ak5Ys=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MxZR/FXJDErptEmSt8w5bbP3lzcw8Pa0UN3pNctXJj6XoJvXKNRHYLFmLeAHT8Hne
+	 Y/vk8BjMpi+WlbfYL86H4bdjt/F9w7JUoAOri+UriPenbf4hAsVTB25nDTGDumShI+
+	 2DOqbBwF8z3abaBH9vr9PjQooQ9aP9RMYdHd/D665Ga/nlAcNu9J9eJByO1OMXIhuu
+	 QaKhvfvg1Redd8RR4HPWUrNv2A9PrayetJotZPEAAad7nos1kPNyw4xuii2mXg3fYc
+	 iO80v43tNR84DXygZxj7AFi7P2p7y6NDh8HLFA/OWa13KKl2rZ1RXWvZH6BAa1x3tp
+	 r7C2oCfMU6Arg==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+	(envelope-from <johan@kernel.org>)
+	id 1o3ZxL-0001jL-LK; Tue, 21 Jun 2022 11:13:56 +0200
+Date: Tue, 21 Jun 2022 11:13:55 +0200
+From: Johan Hovold <johan@kernel.org>
+To: keliu <liuke94@huawei.com>
+Message-ID: <YrGL0zLpdzGbcWE4@hovoldconsulting.com>
+References: <20220527063528.2356712-1-liuke94@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <1647597432-27586-1-git-send-email-chensong_2000@189.cn>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
-Message-ID-Hash: SKFNBRLEEQX3VE264OFPN62LRZ2B3KYP
-X-Message-ID-Hash: SKFNBRLEEQX3VE264OFPN62LRZ2B3KYP
-X-MailFrom: ukl@pengutronix.de
+Content-Disposition: inline
+In-Reply-To: <20220527063528.2356712-1-liuke94@huawei.com>
+Message-ID-Hash: D7TWZBH3Z4K5D7LKABSN3RB6H4DXWM6R
+X-Message-ID-Hash: D7TWZBH3Z4K5D7LKABSN3RB6H4DXWM6R
+X-MailFrom: johan@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: johan@kernel.org, elder@kernel.org, thierry.reding@gmail.com, lee.jones@linaro.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, elder@linaro.org
+CC: elder@kernel.org, vireshk@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v6] staging: greybus: introduce pwm_ops::apply
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: Directly use ida_alloc()/free()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/SKFNBRLEEQX3VE264OFPN62LRZ2B3KYP/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/D7TWZBH3Z4K5D7LKABSN3RB6H4DXWM6R/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: multipart/mixed; boundary="===============5703663664966639809=="
-
-
---===============5703663664966639809==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5jkw6rzfmqkhrj35"
-Content-Disposition: inline
-
-
---5jkw6rzfmqkhrj35
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello,
-
-On Fri, Mar 18, 2022 at 05:57:12PM +0800, Song Chen wrote:
-> Introduce newer .apply function in pwm_ops to replace legacy operations
-> including enable, disable, config and set_polarity.
->=20
-> This guarantees atomic changes of the pwm controller configuration.
->=20
-> Signed-off-by: Song Chen <chensong_2000@189.cn>
-
-for the record: This patch was applied by Greg, I'm marking it as
-"handled elsewhere" in the pwm patchwork.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---5jkw6rzfmqkhrj35
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmKvhg8ACgkQwfwUeK3K
-7AmNLQgAgW5qLr1UcrL5DrcIQNINK32n730Ls2hUGI/4QcZxbJfI+42XR2JJAtY8
-zGdWSiy7adHCdo4xPHTCGYYfYvP56MMFe3+5pgvrgvP+wjg6b40vmthvZJT5njZU
-LO30ySHraprHm9ju74JLWacI+ChO5ecDbj2kbDvTMftnWd5t7UkpkIH5dcMdOtso
-kEpXl5GtpYXDle+1vhgqT+Goy2103t4YF2s4ArfikN/kSxlCQ2eWHWTMkprkILGm
-0h5HrrMEmcuLD8PHqk2n0tqrjNcZHVvMatdRnXEG1jzzv53eTrOrvT1IRvfxM1F+
-sPsuSMuSIxxWQ0B4PNjjJVCGAM2SVg==
-=5fqr
------END PGP SIGNATURE-----
-
---5jkw6rzfmqkhrj35--
-
---===============5703663664966639809==
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
+On Fri, May 27, 2022 at 06:35:28AM +0000, keliu wrote:
+> Use ida_alloc()/ida_free() instead of deprecated
+> ida_simple_get()/ida_simple_remove() .
+> 
+> Signed-off-by: keliu <liuke94@huawei.com>
+
+Is "keliu" really your full legal name?
+
+> ---
+>  drivers/staging/greybus/audio_manager.c  |  8 ++++----
+>  drivers/staging/greybus/authentication.c |  4 ++--
+>  drivers/staging/greybus/fw-download.c    |  4 ++--
+>  drivers/staging/greybus/fw-management.c  | 12 ++++++------
+>  drivers/staging/greybus/gbphy.c          |  4 ++--
+>  drivers/staging/greybus/loopback.c       |  6 +++---
+>  drivers/staging/greybus/raw.c            |  6 +++---
+>  drivers/staging/greybus/vibrator.c       |  6 +++---
+>  8 files changed, 25 insertions(+), 25 deletions(-)
+ 
+> diff --git a/drivers/staging/greybus/authentication.c b/drivers/staging/greybus/authentication.c
+> index 297e69f011c7..01dd1cd958ea 100644
+> --- a/drivers/staging/greybus/authentication.c
+> +++ b/drivers/staging/greybus/authentication.c
+> @@ -348,7 +348,7 @@ int gb_cap_connection_init(struct gb_connection *connection)
+>  err_del_cdev:
+>  	cdev_del(&cap->cdev);
+>  err_remove_ida:
+> -	ida_simple_remove(&cap_minors_map, minor);
+> +	ida_free(&cap_minors_map, minor);
+>  err_connection_disable:
+>  	gb_connection_disable(connection);
+>  err_list_del:
+> @@ -372,7 +372,7 @@ void gb_cap_connection_exit(struct gb_connection *connection)
+>  
+>  	device_destroy(cap_class, cap->dev_num);
+>  	cdev_del(&cap->cdev);
+> -	ida_simple_remove(&cap_minors_map, MINOR(cap->dev_num));
+> +	ida_free(&cap_minors_map, MINOR(cap->dev_num));
+>  
+>  	/*
+>  	 * Disallow any new ioctl operations on the char device and wait for
+
+The above looks incomplete since you do not change the ida_simple_get()
+in gb_cap_connection_init().
+
+Please check for any similar mistakes throughout.
+
+Johan
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
-
---===============5703663664966639809==--
