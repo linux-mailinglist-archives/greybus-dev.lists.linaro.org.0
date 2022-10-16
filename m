@@ -2,47 +2,73 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C3115B6EA1
-	for <lists+greybus-dev@lfdr.de>; Tue, 13 Sep 2022 15:53:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94B80600006
+	for <lists+greybus-dev@lfdr.de>; Sun, 16 Oct 2022 16:51:19 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8E428479F8
-	for <lists+greybus-dev@lfdr.de>; Tue, 13 Sep 2022 13:53:37 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	by lists.linaro.org (Postfix) with ESMTPS id B8C4347990
-	for <greybus-dev@lists.linaro.org>; Tue, 13 Sep 2022 13:53:34 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id C3177B80E07
-	for <greybus-dev@lists.linaro.org>; Tue, 13 Sep 2022 13:53:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9FA7C433D6;
-	Tue, 13 Sep 2022 13:53:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1663077212;
-	bh=aup2nwX3kkZwT2fpjNlwE5UG1xXwi8SrWSRqDOplkjQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tfbWd0RBZMbNshwdkuNQn++nN9X0RLPcaK60s3OCX//2cV+ZO4x8O1r8IngPrFCEz
-	 ywY+7pZvFCQQR5xXodV7/KoWSnkkbifRNW4BKYyMTp8yTZu9yGMI6f0SOyV6Uy0K1X
-	 JwvOSOkxeGU/ibG51pKAWbCmCl2sj/cw61zPjs7g=
-Date: Tue, 13 Sep 2022 15:53:56 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Johan Hovold <johan@kernel.org>
-Message-ID: <YyCLdCsGouLie1/E@kroah.com>
-References: <20220902143715.320500-1-gregkh@linuxfoundation.org>
- <YyCAaaLuT5s1Jhy2@hovoldconsulting.com>
+	by lists.linaro.org (Postfix) with ESMTP id 39C613EFA1
+	for <lists+greybus-dev@lfdr.de>; Sun, 16 Oct 2022 14:51:18 +0000 (UTC)
+Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
+	by lists.linaro.org (Postfix) with ESMTPS id 8C1AA3EE76
+	for <greybus-dev@lists.linaro.org>; Sun, 16 Oct 2022 14:51:11 +0000 (UTC)
+Authentication-Results: lists.linaro.org;
+	dkim=pass header.d=inria.fr header.s=dc header.b=oAEVFMcR;
+	spf=pass (lists.linaro.org: domain of julia.lawall@inria.fr designates 192.134.164.104 as permitted sender) smtp.mailfrom=julia.lawall@inria.fr;
+	dmarc=pass (policy=none) header.from=inria.fr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=GAXZusUTGXd8GtiU3oJfzZebCfauRy06xX4D1JKKRTs=;
+  b=oAEVFMcRqNHtG/vJGzX4mpJJNG/R7AG95bbmRpYPVe8WhaAEVjBzY93E
+   x4BxMLvBoaQdXos/iDPbcTkijV/88bO1IiFIMVqesNQpwDZDLvY40k3Mq
+   ssrdGzgYsGeaJ8m3ZKWzOxN2VgA6b1b6UIFdufbZjw/1l/tLnJUwF7mYH
+   U=;
+X-IronPort-AV: E=Sophos;i="5.95,189,1661810400";
+   d="scan'208";a="31574090"
+Received: from 51.123.68.85.rev.sfr.net (HELO hadrien) ([85.68.123.51])
+  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2022 16:51:10 +0200
+Date: Sun, 16 Oct 2022 16:51:09 +0200 (CEST)
+From: Julia Lawall <julia.lawall@inria.fr>
+X-X-Sender: jll@hadrien
+To: Deepak R Varma <drv@mailo.com>
+In-Reply-To: <Y0wS4HQo9m/W/TrQ@debian-BULLSEYE-live-builder-AMD64>
+Message-ID: <alpine.DEB.2.22.394.2210161649400.2876@hadrien>
+References: <Y0wS4HQo9m/W/TrQ@debian-BULLSEYE-live-builder-AMD64>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YyCAaaLuT5s1Jhy2@hovoldconsulting.com>
-Message-ID-Hash: 6YGGNLZ3IPHKMOXMBTMWGYI5TANAOVGR
-X-Message-ID-Hash: 6YGGNLZ3IPHKMOXMBTMWGYI5TANAOVGR
-X-MailFrom: gregkh@linuxfoundation.org
+X-Rspamd-Server: lists.linaro.org
+X-Spamd-Bar: ---
+X-Rspamd-Queue-Id: 8C1AA3EE76
+X-Spamd-Result: default: False [-3.60 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	DMARC_POLICY_ALLOW(-0.50)[inria.fr,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:192.134.164.0/24];
+	R_DKIM_ALLOW(-0.20)[inria.fr:s=dc];
+	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[192.134.164.104:from];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:2200, ipnet:192.134.164.0/24, country:FR];
+	FROM_EQ_ENVFROM(0.00)[];
+	NEURAL_HAM(-0.00)[-0.949];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	DKIM_TRACE(0.00)[inria.fr:+]
+Message-ID-Hash: UUJK4UDIVK4E5RYEOULKYH6C6L7TZGGR
+X-Message-ID-Hash: UUJK4UDIVK4E5RYEOULKYH6C6L7TZGGR
+X-MailFrom: julia.lawall@inria.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, stable <stable@kernel.org>
+CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: audio_helper: remove unused and wrong debugfs usage
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: loopback: enclose macro statements in do-while loop
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/6YGGNLZ3IPHKMOXMBTMWGYI5TANAOVGR/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/UUJK4UDIVK4E5RYEOULKYH6C6L7TZGGR/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -52,38 +78,51 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 13, 2022 at 03:06:49PM +0200, Johan Hovold wrote:
-> On Fri, Sep 02, 2022 at 04:37:15PM +0200, Greg Kroah-Hartman wrote:
-> > In the greybus audio_helper code, the debugfs file for the dapm has the
-> > potential to be removed and memory will be leaked.  There is also the
-> > very real potential for this code to remove ALL debugfs entries from the
-> > system, and it seems like this is what will really happen if this code
-> > ever runs.  This all is very wrong as the greybus audio driver did not
-> > create this debugfs file, the sound core did and controls the lifespan
-> > of it.
-> 
-> Yeah, this looks very broken indeed.
-> 
-> > So remove all of the debugfs logic from the audio_helper code as there's
-> > no way it could be correct.  If this really is needed, it can come back
-> > with a fixup for the incorrect usage of the debugfs_lookup() call which
-> > is what caused this to be noticed at all.
-> 
-> > Cc: Johan Hovold <johan@kernel.org>
-> > Cc: Alex Elder <elder@kernel.org>
-> > Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > Cc: greybus-dev@lists.linaro.org
-> > Cc: linux-staging@lists.linux.dev
-> > Cc: stable <stable@kernel.org>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> 
-> I know this has already been applied, but still:
-> 
-> Acked-by: Johan Hovold <johan@kernel.org>
 
-Thanks for the review, much appreciated.
 
-greg k-h
+On Sun, 16 Oct 2022, Deepak R Varma wrote:
+
+> Include multiple statements of macro definition inside do-while{0} loop
+> to avoid possible partial program execution. Issue reported by
+> checkpatch script:
+>
+> ERROR: Macros with multiple statements should be enclosed in a do - while loop
+
+I don't think this change will compile.  See if you can figure out why
+not.
+
+julia
+
+>
+> Signed-off-by: Deepak R Varma <drv@mailo.com>
+> ---
+>  drivers/staging/greybus/loopback.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+> index 1a61fce98056..37214cb43937 100644
+> --- a/drivers/staging/greybus/loopback.c
+> +++ b/drivers/staging/greybus/loopback.c
+> @@ -163,9 +163,11 @@ static ssize_t name##_avg_show(struct device *dev,		\
+>  static DEVICE_ATTR_RO(name##_avg)
+>
+>  #define gb_loopback_stats_attrs(field)				\
+> +do {								\
+>  	gb_loopback_ro_stats_attr(field, min, u);		\
+>  	gb_loopback_ro_stats_attr(field, max, u);		\
+> -	gb_loopback_ro_avg_attr(field)
+> +	gb_loopback_ro_avg_attr(field);				\
+> +} while (0)
+>
+>  #define gb_loopback_attr(field, type)					\
+>  static ssize_t field##_show(struct device *dev,				\
+> --
+> 2.30.2
+>
+>
+>
+>
+>
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
