@@ -2,73 +2,76 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 564A06000C3
-	for <lists+greybus-dev@lfdr.de>; Sun, 16 Oct 2022 17:37:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 600CD6000C7
+	for <lists+greybus-dev@lfdr.de>; Sun, 16 Oct 2022 17:42:06 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4D11B3EF7F
-	for <lists+greybus-dev@lfdr.de>; Sun, 16 Oct 2022 15:37:54 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by lists.linaro.org (Postfix) with ESMTPS id AD3193EC0D
-	for <greybus-dev@lists.linaro.org>; Sun, 16 Oct 2022 15:37:48 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 531E33EEBC
+	for <lists+greybus-dev@lfdr.de>; Sun, 16 Oct 2022 15:42:05 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id 530373EEBC
+	for <greybus-dev@lists.linaro.org>; Sun, 16 Oct 2022 15:41:59 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=inria.fr header.s=dc header.b="MMcLda8/";
-	spf=pass (lists.linaro.org: domain of julia.lawall@inria.fr designates 192.134.164.104 as permitted sender) smtp.mailfrom=julia.lawall@inria.fr;
-	dmarc=pass (policy=none) header.from=inria.fr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=eU5vnCKd2piSgviMCdccLd6NpuEhhE6avHccbWMAHuI=;
-  b=MMcLda8/yp0YdxQmYklUxOmmR9oQJiDbdQAm7mJkUjs4RSRJXJbbn8T6
-   0JE82wYXchouJ8J5uO/5UzaanEl7ElJe+fUREgIGOaQccjXolJwAK/VGq
-   W9OOwR2sfhyfy6vzA8yiLTbsOXicd3Z2ASjBpdNwSTGCFbjq20l0c440m
-   E=;
-X-IronPort-AV: E=Sophos;i="5.95,189,1661810400";
-   d="scan'208";a="31575261"
-Received: from 51.123.68.85.rev.sfr.net (HELO hadrien) ([85.68.123.51])
-  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2022 17:37:47 +0200
-Date: Sun, 16 Oct 2022 17:37:46 +0200 (CEST)
-From: Julia Lawall <julia.lawall@inria.fr>
-X-X-Sender: jll@hadrien
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=pW1hVPZR;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
+	dmarc=pass (policy=none) header.from=linuxfoundation.org
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D14AE60B82;
+	Sun, 16 Oct 2022 15:41:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66CEC433C1;
+	Sun, 16 Oct 2022 15:41:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1665934918;
+	bh=+4RVTTrbXN+/4vqERN49TufdDPKikKJhXlmgMKsWEa0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pW1hVPZRwRW6UK3mrJJuJqasNXV0IR0NECIEAanaRD2TVTXTPm4K2quhIRScFnvyD
+	 nztnlhqv0E0AEoQY20/2wDgsc0alYVQfbSWdaLVRjeGK93AKQRT7mjHVOXRTLvQFT/
+	 uEtiHeh+aeJmO5USr66hvm9ntpAVO3/LspBlDPCQ=
+Date: Sun, 16 Oct 2022 17:40:59 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
 To: Deepak R Varma <drv@mailo.com>
-In-Reply-To: <Y0wi4itS3d8aExFc@debian-BULLSEYE-live-builder-AMD64>
-Message-ID: <alpine.DEB.2.22.394.2210161735060.2876@hadrien>
-References: <Y0wS4HQo9m/W/TrQ@debian-BULLSEYE-live-builder-AMD64> <alpine.DEB.2.22.394.2210161649400.2876@hadrien> <Y0wdDTUBrUT/cr9w@lion2204> <alpine.DEB.2.22.394.2210161709440.2876@hadrien> <Y0wi4itS3d8aExFc@debian-BULLSEYE-live-builder-AMD64>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Message-ID: <Y0wmC2oi0TOpvpPM@kroah.com>
+References: <Y0wS4HQo9m/W/TrQ@debian-BULLSEYE-live-builder-AMD64>
+ <alpine.DEB.2.22.394.2210161649400.2876@hadrien>
+ <Y0wdDTUBrUT/cr9w@lion2204>
+ <alpine.DEB.2.22.394.2210161709440.2876@hadrien>
+ <Y0wi4itS3d8aExFc@debian-BULLSEYE-live-builder-AMD64>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <Y0wi4itS3d8aExFc@debian-BULLSEYE-live-builder-AMD64>
 X-Rspamd-Server: lists.linaro.org
-X-Spamd-Bar: ---
-X-Rspamd-Queue-Id: AD3193EC0D
-X-Spamd-Result: default: False [-3.60 / 15.00];
+X-Spamd-Bar: ----
+X-Rspamd-Queue-Id: 530373EEBC
+X-Spamd-Result: default: False [-4.00 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	DMARC_POLICY_ALLOW(-0.50)[inria.fr,none];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:192.134.164.0/24];
-	R_DKIM_ALLOW(-0.20)[inria.fr:s=dc];
+	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
+	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
+	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[192.134.164.104:from];
+	NEURAL_HAM(-0.00)[-1.000];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:2200, ipnet:192.134.164.0/24, country:FR];
-	FROM_EQ_ENVFROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.950];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
 	RCPT_COUNT_SEVEN(0.00)[9];
-	TO_DN_SOME(0.00)[];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
+	FROM_EQ_ENVFROM(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	DKIM_TRACE(0.00)[inria.fr:+]
-Message-ID-Hash: GDY5ZLYMJB3ZSDAKPAOIMGZLVSPO6SLR
-X-Message-ID-Hash: GDY5ZLYMJB3ZSDAKPAOIMGZLVSPO6SLR
-X-MailFrom: julia.lawall@inria.fr
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[linuxfoundation.org:+];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[]
+Message-ID-Hash: SWJOGGS4EUIOSVG3KSCEY5RCCODZWJWC
+X-Message-ID-Hash: SWJOGGS4EUIOSVG3KSCEY5RCCODZWJWC
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+CC: Julia Lawall <julia.lawall@inria.fr>, outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH] staging: greybus: loopback: enclose macro statements in do-while loop
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GDY5ZLYMJB3ZSDAKPAOIMGZLVSPO6SLR/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/SWJOGGS4EUIOSVG3KSCEY5RCCODZWJWC/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -78,10 +81,7 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-
-
-On Sun, 16 Oct 2022, Deepak R Varma wrote:
-
+On Sun, Oct 16, 2022 at 11:27:30AM -0400, Deepak R Varma wrote:
 > On Sun, Oct 16, 2022 at 05:10:17PM +0200, Julia Lawall wrote:
 > >
 > >
@@ -105,73 +105,22 @@ On Sun, 16 Oct 2022, Deepak R Varma wrote:
 > > > modinfo tool. Can you please tell why you think it won't compile?
 > >
 > > Do you have a .o file for the .c file that you changed?
->
+> 
 > I see many .o files and a greybus.ko as well, but not the loopback.o
 > Am I missing anything with my configuration? I did set Greybus Support to (M) in
 > the menuconfig.
 
-Something must be missing in the configuration.
+CONFIG_GREYBUS_LOOPBACK has to be enabled in order to build the
+drivers/staging/greybus/loopback.c file.
 
-With make allyesconfig, you can just compile the file you changed, eg make
-drivers/staging/greybus/loopback.o and see if just that file compiles.
+A simple check would be to do:
+	make drivers/staging/greybus/loopback.o
 
-Sometimes you can's compile an individual file.  In that case, it may be
-possible to do make linux/file/path/ (assuming your file is in
-linux/file/path/foo.c).  The trailing / is essential.  make
-linux/file/path will do nothing.
+does that work with your change?
 
-julia
+thanks,
 
->
-> Thank you,
-> ./drv
->
-> >
-> > julia
-> >
-> > >
-> > > ./drv
-> > >
-> > > >
-> > > > julia
-> > > >
-> > > > >
-> > > > > Signed-off-by: Deepak R Varma <drv@mailo.com>
-> > > > > ---
-> > > > >  drivers/staging/greybus/loopback.c | 4 +++-
-> > > > >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > > > >
-> > > > > diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
-> > > > > index 1a61fce98056..37214cb43937 100644
-> > > > > --- a/drivers/staging/greybus/loopback.c
-> > > > > +++ b/drivers/staging/greybus/loopback.c
-> > > > > @@ -163,9 +163,11 @@ static ssize_t name##_avg_show(struct device *dev,		\
-> > > > >  static DEVICE_ATTR_RO(name##_avg)
-> > > > >
-> > > > >  #define gb_loopback_stats_attrs(field)				\
-> > > > > +do {								\
-> > > > >  	gb_loopback_ro_stats_attr(field, min, u);		\
-> > > > >  	gb_loopback_ro_stats_attr(field, max, u);		\
-> > > > > -	gb_loopback_ro_avg_attr(field)
-> > > > > +	gb_loopback_ro_avg_attr(field);				\
-> > > > > +} while (0)
-> > > > >
-> > > > >  #define gb_loopback_attr(field, type)					\
-> > > > >  static ssize_t field##_show(struct device *dev,				\
-> > > > > --
-> > > > > 2.30.2
-> > > > >
-> > > > >
-> > > > >
-> > > > >
-> > > > >
-> > >
-> > >
-> > >
-> >
->
->
->
+greg k-h
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
