@@ -2,151 +2,160 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id B885C6064D3
-	for <lists+greybus-dev@lfdr.de>; Thu, 20 Oct 2022 17:40:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39BB561546D
+	for <lists+greybus-dev@lfdr.de>; Tue,  1 Nov 2022 22:49:30 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A832B3F4D7
-	for <lists+greybus-dev@lfdr.de>; Thu, 20 Oct 2022 15:40:58 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id 181613EBF7
-	for <greybus-dev@lists.linaro.org>; Thu, 20 Oct 2022 15:40:53 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 2D5393E89F
+	for <lists+greybus-dev@lfdr.de>; Tue,  1 Nov 2022 21:49:29 +0000 (UTC)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com [209.85.166.53])
+	by lists.linaro.org (Postfix) with ESMTPS id EB69F3E89F
+	for <greybus-dev@lists.linaro.org>; Tue,  1 Nov 2022 21:49:22 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=skva0VPy;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8AAD161C21;
-	Thu, 20 Oct 2022 15:40:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0FEC433D6;
-	Thu, 20 Oct 2022 15:40:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1666280452;
-	bh=8LfYTvcOE361XSrCDq1dHKnQsaqFwcRl7ob/DFKlE2w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=skva0VPyG+mOfz8PBtYZK6FNMd7dA5GMQZti7ltVhJe8gM0bYm9NIqmNAgLzyVeoO
-	 TafGRASsEJxAtET3R4jugMq6Y1opguelmhCSyaE+VvU6monIK/I6JYVyMdsE7Z7rbf
-	 gSPhwH5QZud68pCXY5zh6ZXghxz74FceXbDhmgK8=
-Date: Thu, 20 Oct 2022 17:40:49 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Deepak R Varma <drv@mailo.com>
-Message-ID: <Y1FsAZQqFdX12lgb@kroah.com>
-References: <Y0wS4HQo9m/W/TrQ@debian-BULLSEYE-live-builder-AMD64>
- <alpine.DEB.2.22.394.2210161649400.2876@hadrien>
- <Y0wdDTUBrUT/cr9w@lion2204>
- <alpine.DEB.2.22.394.2210161709440.2876@hadrien>
- <Y0wi4itS3d8aExFc@debian-BULLSEYE-live-builder-AMD64>
- <Y0wmC2oi0TOpvpPM@kroah.com>
- <Y0woVSgGfUuvJUzY@debian-BULLSEYE-live-builder-AMD64>
- <Y1AXkRJRtmnEom5T@debian-BULLSEYE-live-builder-AMD64>
+	dkim=pass header.d=ieee.org header.s=google header.b=XLf9q+Yr;
+	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.166.53 as permitted sender) smtp.mailfrom=elder@ieee.org;
+	dmarc=pass (policy=quarantine) header.from=ieee.org
+Received: by mail-io1-f53.google.com with SMTP id d123so8797376iof.7
+        for <greybus-dev@lists.linaro.org>; Tue, 01 Nov 2022 14:49:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ieee.org; s=google;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=HejXL+J+QIXG9aHFC0KatU8gI5T0S5HF7LycLEhYP4k=;
+        b=XLf9q+YrCpSEojPiWImV+o706LQsz4Os76EOGQVTew1FOVpxlUxe35X0D2L7oB1Q/9
+         jK/dn/Fu2f7d5Y+UcN2IJg579s78sTn/J8gLb+Zu/5T+GFkonpTle7ch8HvdxsLgn6IG
+         AJGAJKmnFena6VCJCjNReK7oyjMu/bZF5gXC4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HejXL+J+QIXG9aHFC0KatU8gI5T0S5HF7LycLEhYP4k=;
+        b=J2hv3j1hJaCpUHiWeICzGcoGP5KrJfB6RVFIcg6BfPmCq0Csfqp80Szxo666O7em2s
+         wMliceG24TFMtvLtcwUGd55MptFhU4LA1YAiOKSHO3H0Ih/AGy7OTREfl6W3uDnlEnq5
+         6TD/Dth7+ydwwLA6PSPh/VxzIO3C4Mg9mfj4t5oIFbPkwa2A1SiC8BgkoH9Flq2VO7rL
+         hPx2l5iAO6X8WVSkvXQ4SM+xbs5f1qNkLyxUoJGqQLn8sTuF83nejcVoo/oleAJt3J6T
+         tAMgMc9fZjjypyPxJTJsazqUXbxgS+8GLsVYnql6QJ9BRQicNKouW2tSwH2nr0bHZOYB
+         EAZw==
+X-Gm-Message-State: ACrzQf0aAUGTrdUijRT0Y1lHyLoawBOK0dn/QYTX7mggWsLjYo3ZTRtS
+	OrNENYPN1wqbNeaI+ucC7Gga4Q==
+X-Google-Smtp-Source: AMsMyM6/m1cWkL+Pw6gKRxAuWst0ALy4aPYsPZTBDrZ3EqaBRU9Qibe+PqUodJI1JL0JjikvxtZvrQ==
+X-Received: by 2002:a02:94cf:0:b0:363:4a26:8cff with SMTP id x73-20020a0294cf000000b003634a268cffmr13638400jah.286.1667339362369;
+        Tue, 01 Nov 2022 14:49:22 -0700 (PDT)
+Received: from [172.22.22.4] ([98.61.227.136])
+        by smtp.googlemail.com with ESMTPSA id t11-20020a6bc30b000000b006bc53dd917fsm4327045iof.51.2022.11.01.14.49.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Nov 2022 14:49:21 -0700 (PDT)
+Message-ID: <a20c1378-926e-2f69-1473-fb654fd035f7@ieee.org>
+Date: Tue, 1 Nov 2022 16:49:20 -0500
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Y1AXkRJRtmnEom5T@debian-BULLSEYE-live-builder-AMD64>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <cover.1667336095.git.christophe.jaillet@wanadoo.fr>
+ <ebf1e6988a53a455990230a37cf759ee542ea7ec.1667336095.git.christophe.jaillet@wanadoo.fr>
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <ebf1e6988a53a455990230a37cf759ee542ea7ec.1667336095.git.christophe.jaillet@wanadoo.fr>
 X-Rspamd-Server: lists.linaro.org
-X-Spamd-Bar: -------------
-X-Rspamd-Queue-Id: 181613EBF7
-X-Spamd-Result: default: False [-13.50 / 15.00];
-	REPLY(-4.00)[];
-	DWL_DNSWL_HI(-3.50)[linuxfoundation.org:dkim];
+X-Spamd-Bar: ----
+X-Rspamd-Queue-Id: EB69F3E89F
+X-Spamd-Result: default: False [-4.00 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	RCVD_IN_DNSWL_HI(-1.00)[52.25.139.140:received,139.178.84.217:from];
-	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
-	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
-	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
+	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	MIME_TRACE(0.00)[0:+];
 	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	FREEMAIL_TO(0.00)[wanadoo.fr,kernel.org,linuxfoundation.org];
+	NEURAL_HAM(-0.00)[-0.991];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DKIM_TRACE(0.00)[ieee.org:+];
 	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	URIBL_BLOCKED(0.00)[ieee.org:dkim];
 	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[linuxfoundation.org:+];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[]
-Message-ID-Hash: I7XTHX5VXOT2CMVTGBSKP6WNDD7QBBLA
-X-Message-ID-Hash: I7XTHX5VXOT2CMVTGBSKP6WNDD7QBBLA
-X-MailFrom: gregkh@linuxfoundation.org
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.166.53:from]
+Message-ID-Hash: 4SNLIQN6TIIMPYTVB2FLSO7CMMKDXFW6
+X-Message-ID-Hash: 4SNLIQN6TIIMPYTVB2FLSO7CMMKDXFW6
+X-MailFrom: elder@ieee.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Julia Lawall <julia.lawall@inria.fr>, outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+CC: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, greybus-dev@lists.linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: loopback: enclose macro statements in do-while loop
+Subject: [greybus-dev] Re: [PATCH 11/30] greybus: svc: Use kstrtobool() instead of strtobool()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/I7XTHX5VXOT2CMVTGBSKP6WNDD7QBBLA/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/4SNLIQN6TIIMPYTVB2FLSO7CMMKDXFW6/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="us-ascii"; format="flowed"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 19, 2022 at 08:58:17PM +0530, Deepak R Varma wrote:
-> On Sun, Oct 16, 2022 at 11:50:45AM -0400, Deepak R Varma wrote:
-> > On Sun, Oct 16, 2022 at 05:40:59PM +0200, Greg KH wrote:
-> > > On Sun, Oct 16, 2022 at 11:27:30AM -0400, Deepak R Varma wrote:
-> > > > On Sun, Oct 16, 2022 at 05:10:17PM +0200, Julia Lawall wrote:
-> > > > >
-> > > > >
-> > > > > On Sun, 16 Oct 2022, Deepak R Varma wrote:
-> > > > >
-> > > > > > On Sun, Oct 16, 2022 at 04:51:09PM +0200, Julia Lawall wrote:
-> > > > > > >
-> > > > > > >
-> > > > > > > On Sun, 16 Oct 2022, Deepak R Varma wrote:
-> > > > > > >
-> > > > > > > > Include multiple statements of macro definition inside do-while{0} loop
-> > > > > > > > to avoid possible partial program execution. Issue reported by
-> > > > > > > > checkpatch script:
-> > > > > > > >
-> > > > > > > > ERROR: Macros with multiple statements should be enclosed in a do - while loop
-> > > > > > >
-> > > > > > > I don't think this change will compile.  See if you can figure out why
-> > > > > > > not.
-> > > > > >
-> > > > > > It did compile. I built the greybus driver and loaded it as well with the
-> > > > > > modinfo tool. Can you please tell why you think it won't compile?
-> > > > >
-> > > > > Do you have a .o file for the .c file that you changed?
-> > > >
-> > > > I see many .o files and a greybus.ko as well, but not the loopback.o
-> > > > Am I missing anything with my configuration? I did set Greybus Support to (M) in
-> > > > the menuconfig.
-> > >
-> > > CONFIG_GREYBUS_LOOPBACK has to be enabled in order to build the
-> > > drivers/staging/greybus/loopback.c file.
-> > >
-> > > A simple check would be to do:
-> > > 	make drivers/staging/greybus/loopback.o
-> > >
-> > > does that work with your change?
-> >
-> > No, it did not. I understand why it did not. My apologies for not looking into
-> > the build of loopback.o file when the greybus module was rebuilt.
-> >
-> > Please ignore my patch.
+On 11/1/22 4:13 PM, Christophe JAILLET wrote:
+> strtobool() is the same as kstrtobool().
+> However, the latter is more used within the kernel.
 > 
-> I just received a message from Kernel Test Robot that this patch failed to
-> compile. I had requested to drop/ignore this patch. However, looks like it
-> included in the staging-testing tree????
+> In order to remove strtobool() and slightly simplify kstrtox.h, switch to
+> the other function name.
+> 
+> While at it, include the corresponding header file (<linux/kstrtox.h>)
+> 
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-It just took a while to get to your patch, it picked it up off of the
-mailing list, the change is not applied anywhere.
+Looks OK to me.
 
-> Let me know anything required from me to fix the bot complaint. Thank you.
+Reviewed-by: Alex Elder <elder@linaro.org>
 
-There's nothing to do as it's long-gone from my queue.
+> ---
+> This patch is part of a serie that axes all usages of strtobool().
+> Each patch can be applied independently from the other ones.
+> 
+> The last patch of the serie removes the definition of strtobool().
+> 
+> You may not be in copy of the cover letter. So, if needed, it is available
+> at [1].
+> 
+> [1]: https://lore.kernel.org/all/cover.1667336095.git.christophe.jaillet@wanadoo.fr/
+> ---
+>   drivers/greybus/svc.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/greybus/svc.c b/drivers/greybus/svc.c
+> index 56d2b44d6fef..16cced80867a 100644
+> --- a/drivers/greybus/svc.c
+> +++ b/drivers/greybus/svc.c
+> @@ -7,6 +7,7 @@
+>    */
+>   
+>   #include <linux/debugfs.h>
+> +#include <linux/kstrtox.h>
+>   #include <linux/workqueue.h>
+>   #include <linux/greybus.h>
+>   
+> @@ -83,7 +84,7 @@ static ssize_t watchdog_store(struct device *dev,
+>   	int retval;
+>   	bool user_request;
+>   
+> -	retval = strtobool(buf, &user_request);
+> +	retval = kstrtobool(buf, &user_request);
+>   	if (retval)
+>   		return retval;
+>   
 
-thanks,
-
-greg k-h
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
