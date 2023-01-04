@@ -2,200 +2,116 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71C6465E715
-	for <lists+greybus-dev@lfdr.de>; Thu,  5 Jan 2023 09:51:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2BE2660F84
+	for <lists+greybus-dev@lfdr.de>; Sat,  7 Jan 2023 15:35:23 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 2EB293EF9A
-	for <lists+greybus-dev@lfdr.de>; Thu,  5 Jan 2023 08:51:26 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by lists.linaro.org (Postfix) with ESMTPS id E15583EF9A
-	for <greybus-dev@lists.linaro.org>; Thu,  5 Jan 2023 08:51:18 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 725613EBAF
+	for <lists+greybus-dev@lfdr.de>; Sat,  7 Jan 2023 14:35:22 +0000 (UTC)
+Received: from msg-1.mailo.com (msg-1.mailo.com [213.182.54.11])
+	by lists.linaro.org (Postfix) with ESMTPS id 5896E3E941
+	for <greybus-dev@lists.linaro.org>; Wed,  4 Jan 2023 03:57:50 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=intel.com header.s=Intel header.b=NRba8lE6;
-	spf=none (lists.linaro.org: domain of ilpo.jarvinen@linux.intel.com has no SPF policy when checking 192.55.52.93) smtp.mailfrom=ilpo.jarvinen@linux.intel.com;
-	dmarc=pass (policy=none) header.from=intel.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1672908678; x=1704444678;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version:content-id;
-  bh=MdpIx0ME+Xfwg6tq/OLwhK9h6Pxxj28cKiqlNMlnOkE=;
-  b=NRba8lE6qjElCAhAfyd/l7wt1ZqsX7HXEKd87qcQMwbkZVjmPtrBzf0a
-   hlyhHwcmbZw2ncJdTUDmKF4OFHVs12Vp/YmOlSsHFWHzEfo3PEB1Eh3y7
-   13QG2HFyHA/O9x3sfXp4T0qb2b9JraZi0nXeHcOTx7TwN8BXNH2oO7z/v
-   c5KyTY5jqDQ1Jt9msM8K0kgMpQNlwUBuOtsOuHpd+rWm1k8zzh2h04lmz
-   P17q6WBT8GD7/oDZWNiD0ez1mI/hdZeTO38lsbabvoB2rcAAZgX9VdGww
-   tsxay9DN+6hASWEcdVBt8zCS9coCol3XhiCjAP//Womwz8cd1tzoWYq9s
-   A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10580"; a="319860909"
-X-IronPort-AV: E=Sophos;i="5.96,302,1665471600";
-   d="scan'208";a="319860909"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jan 2023 00:51:17 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10580"; a="655496263"
-X-IronPort-AV: E=Sophos;i="5.96,302,1665471600";
-   d="scan'208";a="655496263"
-Received: from khaunx-mobl1.ger.corp.intel.com ([10.252.35.181])
-  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jan 2023 00:51:12 -0800
-Date: Thu, 5 Jan 2023 10:51:10 +0200 (EET)
-From: =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Jiri Slaby <jirislaby@kernel.org>
-In-Reply-To: <09043f30-c516-e173-3836-5e5dd5f5c472@kernel.org>
-Message-ID: <2cb9b67e-9bb-4fb2-e974-17050457d3@linux.intel.com>
-References: <20230104151531.73994-1-ilpo.jarvinen@linux.intel.com> <20230104151531.73994-8-ilpo.jarvinen@linux.intel.com> <09043f30-c516-e173-3836-5e5dd5f5c472@kernel.org>
+	dkim=pass header.d=mailo.com header.s=mailo header.b=mhmZWRg7;
+	spf=pass (lists.linaro.org: domain of drv@mailo.com designates 213.182.54.11 as permitted sender) smtp.mailfrom=drv@mailo.com;
+	dmarc=pass (policy=none) header.from=mailo.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
+	t=1672804662; bh=g68WjsKLgm0BGTYxv3eXQb4GtGzcoRHUdOjEJjW3wxY=;
+	h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
+	 Content-Type;
+	b=mhmZWRg7q9RRn1gaJqCAY8aA9wv7j52nQH+wxTIS3sijktduushce/wrRS2V2pS8d
+	 fDt+TJ2PCt4MRbhjE3a5XsNSTWUPxkvi7xJ/v9vhUF+pCZHEklAiE/+uKf/TNTBaZg
+	 Gw5kxjUfHUQdURs8gEz0XTDKWko6/iP1MWGyfnZs=
+Received: by b-5.in.mailobj.net [192.168.90.15] with ESMTP
+	via ip-206.mailobj.net [213.182.55.206]
+	Wed,  4 Jan 2023 04:57:42 +0100 (CET)
+X-EA-Auth: X/DPdo8+pBhmvVri8YvZq0puHGhoKFIrcwsvZGLQWmFtOckUnZf5FYyOYxYO9PtuPY2gUj2VwJjiahd9mMMg+B4hq+B0mD0m
+Date: Wed, 4 Jan 2023 09:27:37 +0530
+From: Deepak R Varma <drv@mailo.com>
+To: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Message-ID: <Y7T5MYfANf2xVsEx@qemulion>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1066211675-1672908637=:1832"
-Content-ID: <4fbbebce-aab4-fa64-6a79-6d25c81fe3c@linux.intel.com>
-X-Spamd-Result: default: False [-6.80 / 15.00];
-	REPLY(-4.00)[];
+Content-Disposition: inline
+X-Spamd-Result: default: False [-3.50 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
-	CTYPE_MIXED_BOGUS(1.00)[];
-	RCVD_IN_DNSWL_HI(-0.50)[192.55.52.93:from];
-	DMARC_POLICY_ALLOW(-0.50)[intel.com,none];
-	R_DKIM_ALLOW(-0.20)[intel.com:s=Intel];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
-	FREEMAIL_CC(0.00)[vger.kernel.org,linuxfoundation.org,arndb.de,linaro.org,gmail.com,kernel.org,pengutronix.de,nxp.com,suse.com,lists.linaro.org,lists.linux.dev,lists.ozlabs.org,lists.infradead.org];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	ASN(0.00)[asn:4983, ipnet:192.55.52.0/24, country:US];
-	MIME_TRACE(0.00)[0:+,1:+];
-	R_SPF_NA(0.00)[no SPF record];
-	DKIM_TRACE(0.00)[intel.com:+];
-	RCPT_COUNT_TWELVE(0.00)[21];
+	DMARC_POLICY_ALLOW(-0.50)[mailo.com,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:213.182.54.0/24];
+	R_DKIM_ALLOW(-0.20)[mailo.com:s=mailo];
+	MIME_GOOD(-0.10)[text/plain];
 	FROM_HAS_DN(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	ASN(0.00)[asn:8304, ipnet:213.182.32.0/19, country:FR];
+	NEURAL_HAM(-0.00)[-0.986];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_COUNT_TWO(0.00)[2];
 	ARC_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TO_DN_SOME(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	MID_RHS_MATCH_FROM(0.00)[]
+	DKIM_TRACE(0.00)[mailo.com:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: E15583EF9A
-X-Spamd-Bar: ------
-Message-ID-Hash: YNIWJ7I6T22D2LXZK5BDQ5NOUH3VKVSD
-X-Message-ID-Hash: YNIWJ7I6T22D2LXZK5BDQ5NOUH3VKVSD
-X-MailFrom: ilpo.jarvinen@linux.intel.com
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-serial <linux-serial@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ulf Hansson <ulf.hansson@linaro.org>, David Lin <dtwlin@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>, Oliver Neukum <oneukum@suse.com>, LKML <linux-kernel@vger.kernel.org>, linux-mmc@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, linux-usb@vger.kernel.org
+X-Rspamd-Queue-Id: 5896E3E941
+X-Spamd-Bar: ---
+X-MailFrom: drv@mailo.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: Y3QN7JVXOS77YTE3R6Z5HF6RFCSMK6XS
+X-Message-ID-Hash: Y3QN7JVXOS77YTE3R6Z5HF6RFCSMK6XS
+X-Mailman-Approved-At: Sat, 07 Jan 2023 14:35:16 +0000
+CC: Saurabh Singh Sengar <ssengar@microsoft.com>, Praveen Kumar <kumarpraveen@linux.microsoft.com>, Deepak R Varma <drv@mailo.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 07/10] tty: Convert ->dtr_rts() to take bool argument
+Subject: [greybus-dev] [PATCH] staging: greybus: Replace zero-length array by DECLARE_FLEX_ARRAY() helper
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YNIWJ7I6T22D2LXZK5BDQ5NOUH3VKVSD/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/Y3QN7JVXOS77YTE3R6Z5HF6RFCSMK6XS/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1066211675-1672908637=:1832
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
-Content-ID: <207e8c25-d560-4d87-27a8-5f9cb52ce14@linux.intel.com>
-
-On Thu, 5 Jan 2023, Jiri Slaby wrote:
-
-> On 04. 01. 23, 16:15, Ilpo J=E4rvinen wrote:
-> > Convert the raise/on parameter in ->dtr_rts() to bool through the
-> > callchain. The parameter is used like bool. In USB serial, there
-> > remains a few implicit bool -> larger type conversions because some
-> > devices use u8 in their control messages.
->=20
-> Reviewed-by: Jiri Slaby <jirislaby@kernel.org>
->=20
-> > Signed-off-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
-> > ---
-> ...
-> > --- a/drivers/char/pcmcia/synclink_cs.c
-> > +++ b/drivers/char/pcmcia/synclink_cs.c
-> > @@ -378,7 +378,7 @@ static void async_mode(MGSLPC_INFO *info);
-> >   static void tx_timeout(struct timer_list *t);
-> >     static bool carrier_raised(struct tty_port *port);
-> > -static void dtr_rts(struct tty_port *port, int onoff);
-> > +static void dtr_rts(struct tty_port *port, bool onoff);
->=20
-> Not anything for this patch, but having this dubbed "onoff" instead of "o=
-n"
-> makes it really confusing.
->=20
-> > --- a/drivers/mmc/core/sdio_uart.c
-> > +++ b/drivers/mmc/core/sdio_uart.c
-> > @@ -548,14 +548,14 @@ static bool uart_carrier_raised(struct tty_port
-> > *tport)
-> >    *	adjusted during an open, close and hangup.
-> >    */
-> >   -static void uart_dtr_rts(struct tty_port *tport, int onoff)
-> > +static void uart_dtr_rts(struct tty_port *tport, bool onoff)
-> >   {
-> >   	struct sdio_uart_port *port =3D
-> >   			container_of(tport, struct sdio_uart_port, port);
-> >   	int ret =3D sdio_uart_claim_func(port);
-> >   	if (ret)
-> >   		return;
-> > -	if (onoff =3D=3D 0)
-> > +	if (!onoff)
-> >   		sdio_uart_clear_mctrl(port, TIOCM_DTR | TIOCM_RTS);
-> >   	else
-> >   		sdio_uart_set_mctrl(port, TIOCM_DTR | TIOCM_RTS);
->=20
-> Especially here. What does "!onoff" mean? If it were:
->=20
-> if (on)
->   sdio_uart_set_mctrl(port, TIOCM_DTR | TIOCM_RTS);
-> else
->   sdio_uart_clear_mctrl(port, TIOCM_DTR | TIOCM_RTS);
->=20
-> it would be a lot more clear.
->=20
-> > --- a/drivers/tty/amiserial.c
-> > +++ b/drivers/tty/amiserial.c
-> > @@ -1459,7 +1459,7 @@ static bool amiga_carrier_raised(struct tty_port
-> > *port)
-> >   	return !(ciab.pra & SER_DCD);
-> >   }
-> >   -static void amiga_dtr_rts(struct tty_port *port, int raise)
-> > +static void amiga_dtr_rts(struct tty_port *port, bool raise)
->=20
-> Or "raise". That makes sense too and we call it as such in
-> tty_port_operations:
->=20
-> > --- a/include/linux/tty_port.h
-> > +++ b/include/linux/tty_port.h
-> ...
-> > @@ -32,7 +32,7 @@ struct tty_struct;
-> >    */
-> >   struct tty_port_operations {
-> >   	bool (*carrier_raised)(struct tty_port *port);
-> > -	void (*dtr_rts)(struct tty_port *port, int raise);
-> > +	void (*dtr_rts)(struct tty_port *port, bool raise);
-> >   	void (*shutdown)(struct tty_port *port);
-> >   	int (*activate)(struct tty_port *port, struct tty_struct *tty);
-> >   	void (*destruct)(struct tty_port *port);
->=20
-> Care to fix that up too?
-
-Sure. I noticed they were inconsistent but it didn't feel like changing=20
-the name "while at it" would be good as this is long already. I think I'll =
-
-make another patch out of the name changes.
-
---=20
- i.
---8323329-1066211675-1672908637=:1832
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+The code currently uses C90 standard extension based zero length array
+struct which is now deprecated and the new C99 standard extension of
+flexible array declarations are to be used instead. Also, the macro
+DECLARE_FLEX_ARRAY() allows to use single flexible array member in a
+structure. Refer to these links [1], [2] for details.
+
+[1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+[2] https://lkml.kernel.org/r/YxKY6O2hmdwNh8r8@work
+
+Issue identified using Coccinelle flexible_array.cocci semantic patch.
+
+Signed-off-by: Deepak R Varma <drv@mailo.com>
+---
+ drivers/staging/greybus/usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/staging/greybus/usb.c b/drivers/staging/greybus/usb.c
+index 8e9d9d59a357..b7badf87a3f0 100644
+--- a/drivers/staging/greybus/usb.c
++++ b/drivers/staging/greybus/usb.c
+@@ -27,7 +27,7 @@ struct gb_usb_hub_control_request {
+ };
+
+ struct gb_usb_hub_control_response {
+-	u8 buf[0];
++	DECLARE_FLEX_ARRAY(u8, buf);
+ };
+
+ struct gb_usb_device {
+--
+2.34.1
+
+
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
-
---8323329-1066211675-1672908637=:1832--
