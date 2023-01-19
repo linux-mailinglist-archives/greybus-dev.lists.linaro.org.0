@@ -2,44 +2,44 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3DEB674A6B
-	for <lists+greybus-dev@lfdr.de>; Fri, 20 Jan 2023 05:02:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05EA7674A6C
+	for <lists+greybus-dev@lfdr.de>; Fri, 20 Jan 2023 05:02:46 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id C2B893EF22
-	for <lists+greybus-dev@lfdr.de>; Fri, 20 Jan 2023 04:02:39 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (mail-dm6nam04on2043.outbound.protection.outlook.com [40.107.102.43])
-	by lists.linaro.org (Postfix) with ESMTPS id 3DD8E3EF35
-	for <greybus-dev@lists.linaro.org>; Thu, 19 Jan 2023 18:55:33 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 163B73EF22
+	for <lists+greybus-dev@lfdr.de>; Fri, 20 Jan 2023 04:02:45 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
+	by lists.linaro.org (Postfix) with ESMTPS id 6D9C33EF35
+	for <greybus-dev@lists.linaro.org>; Thu, 19 Jan 2023 18:55:59 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=amd.com header.s=selector1 header.b=vyvGqoFu;
-	spf=pass (lists.linaro.org: domain of amit.kumar-mahapatra@amd.com designates 40.107.102.43 as permitted sender) smtp.mailfrom=amit.kumar-mahapatra@amd.com;
+	dkim=pass header.d=amd.com header.s=selector1 header.b=uB84dKH8;
+	spf=pass (lists.linaro.org: domain of amit.kumar-mahapatra@amd.com designates 40.107.243.77 as permitted sender) smtp.mailfrom=amit.kumar-mahapatra@amd.com;
 	dmarc=pass (policy=quarantine) header.from=amd.com;
 	arc=pass ("microsoft.com:s=arcselector9901:i=1")
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=apztk2ifeyuGMyP/IRy3Vrcw4AtzTzrVtvt4K688GWNy2ZRwOb/xZfPzLDaeeKsXzTfMERIZO2PmH+05ifj3rvDUe+nJdWek4bwp0R38mtt2h0wB+fAsGyUvWksn9i08KGCLfPuPV2pJ3tAOASU6eei8aUPIPNnxtxkb1OGtpQWiXfvJf8zMJK01UL3qeS4Tml6LdJ0oKl5yEeU8e7hwzqIZt/k7pKfO6+vVc3J9MEbork1BSeVx2V9/uPzBHSYYryQiBWp3hP7ZBhBiMGCg4DoteWtxBHFkAu9YB1HfWEH5LK0Vep70gx8NimQiFkVTYRuMMgTBF5tGhCpvc/Molg==
+ b=JsCyp2it8BcFEUw7H2BwB/us1Jm2r61LoqinHxUUgS4XJ5Px1eUSEhjS0AVAf1dZBH3W1ok2NqGrFMmYz1BVRBKUc25J7On59DsQcvDWM0XHn6SifbeyYbSPe/p0c9gOfG23uRqvCnTgThew+RxYWf3Kpj7uJoXm6RJVFl7h7+EUNpfOKx88aYIFoMu+wOQRlmkLbHoCrPgV+1NSfRCyiCmZ5eZI+PGaxp3Kflzz3cH7n7ptykJW/4i2LNFd7OrYogT/et9eav1/I5Z5IZhWberJn/6dJLNKcWnDtdqcH24vLfm2r4KfQ5wt6rkbdmjMhzBLdEpjkoiEpEBvEBPYNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UFHms4K5Cy6aUNWv87wGZIlJV1SNhNSmBs7juCbK6Ns=;
- b=EU6waCbEn2As1J2VSkREEuzk49SmX1MitubijvA6+dWJMQ9boWN1HxQx49GBZ6OXnt3vzSkM8DggNOMqTr1qOJKnH5wx/67oTvu0FSMYh1NE7iLaOLREADFBzlfBnG3NqlUGO4TXmRyfRix31EZz7jnO+uMXnuL7EsRFuXiMebGHNHp+r+ua+zSyE8MVx+9cycd0lDwCRn2v4eN/RlrNxn+cVLPbl+Sqz7iKaGNXva+F6U/yAC2koAk65TYp+j31xZYQAUJAY1qFOMHJQ/oVxWJJmUDCcCkGoM5tJFSU89wmgj3YE+tUpJ6EGgD+XAfBR/PdmPqf/naCezF5/5i0/w==
+ bh=wqZKbgzYxdsDVeEGIXO3Jh2fBndlNWmGKU99ycD+Bfo=;
+ b=fDHgw1Z7ygzTUtNbw/TUrAtyaKMZIC/GuyfYG3EFcgCovH90GWrjpGuMHgivF2zYqw29zvQ4ucDXJBcBHCTE2/lnpsuZFNvzLduK7f47bWef97wROAQuI7bw+srpfs2xx5iF4rCPqi7OO9XyIjcm41OZnY+tkwYEHfyr85JPKEUYhDaUiwgT1OdAlpu4o7EpCjApO3EKSpKv1e9lkiQdXas6++7rG8fQpkhN7Esmyj8mCkM5ansXrZEQ5ju8bgNSDjdcc60bkw0En/QYbFucyfBhJCjc1CNIDXvXY3U7QA/l2bSSuuVY7bW/6gpkwyAnHha9ZvHgMmfkSkpJpsxHiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UFHms4K5Cy6aUNWv87wGZIlJV1SNhNSmBs7juCbK6Ns=;
- b=vyvGqoFuFYCyCnHl9W9Am3tS8l1406yqbLlrcn2SPYSnt5bzbzG7I39USsjyrT/7U8eHwHryheIFfYKzDFtDKSEROzV++RcEnplfOhV0BDH+to1/8/cz79QI3E2781Ner6oG4BpUOetPYWGtfLuj/Z7vWNbWKM35palLJUTIw8A=
-Received: from SJ0PR13CA0098.namprd13.prod.outlook.com (2603:10b6:a03:2c5::13)
- by CY8PR12MB7587.namprd12.prod.outlook.com (2603:10b6:930:9a::16) with
+ bh=wqZKbgzYxdsDVeEGIXO3Jh2fBndlNWmGKU99ycD+Bfo=;
+ b=uB84dKH8Y3ZSyK6D3lzJASCU45L13R75hTmgLZ+F8UgkgEN92fFiHEQFqzyao1Bh9BfP4vcvxBLJ9FeCxsyUmnEyo8+FdkP5AnmdHDfW+INMRrsHg+BVmj/Blnq71KeoNmbxRJ17XbUbZDJz2N417Ib7ObIKTxOfZAznuJYWZl4=
+Received: from BY5PR03CA0007.namprd03.prod.outlook.com (2603:10b6:a03:1e0::17)
+ by SJ0PR12MB5453.namprd12.prod.outlook.com (2603:10b6:a03:37f::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.24; Thu, 19 Jan
- 2023 18:55:29 +0000
-Received: from CO1PEPF00001A5E.namprd05.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::db) by SJ0PR13CA0098.outlook.office365.com
- (2603:10b6:a03:2c5::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6023.16 via Frontend
- Transport; Thu, 19 Jan 2023 18:55:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Thu, 19 Jan
+ 2023 18:55:56 +0000
+Received: from CO1PEPF00001A61.namprd05.prod.outlook.com
+ (2603:10b6:a03:1e0:cafe::55) by BY5PR03CA0007.outlook.office365.com
+ (2603:10b6:a03:1e0::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.26 via Frontend
+ Transport; Thu, 19 Jan 2023 18:55:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,20 +47,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1PEPF00001A5E.mail.protection.outlook.com (10.167.241.5) with Microsoft
+ CO1PEPF00001A61.mail.protection.outlook.com (10.167.241.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6002.11 via Frontend Transport; Thu, 19 Jan 2023 18:55:29 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ 15.20.6002.11 via Frontend Transport; Thu, 19 Jan 2023 18:55:55 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 19 Jan
- 2023 12:55:27 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 12:55:53 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 19 Jan
- 2023 12:55:26 -0600
+ 2023 10:55:52 -0800
 Received: from xhdsneeli40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 19 Jan 2023 12:55:01 -0600
+ Transport; Thu, 19 Jan 2023 12:55:27 -0600
 From: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
 To: <broonie@kernel.org>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
 	<vigneshr@ti.com>, <jic23@kernel.org>, <tudor.ambarus@microchip.com>,
@@ -84,34 +84,34 @@ To: <broonie@kernel.org>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
 	<christian.koenig@amd.com>, <j.neuschaefer@gmx.net>, <vireshk@kernel.org>,
 	<rmfrfs@gmail.com>, <johan@kernel.org>, <elder@kernel.org>,
 	<gregkh@linuxfoundation.org>
-Date: Fri, 20 Jan 2023 00:23:32 +0530
-Message-ID: <20230119185342.2093323-4-amit.kumar-mahapatra@amd.com>
+Date: Fri, 20 Jan 2023 00:23:33 +0530
+Message-ID: <20230119185342.2093323-5-amit.kumar-mahapatra@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230119185342.2093323-1-amit.kumar-mahapatra@amd.com>
 References: <20230119185342.2093323-1-amit.kumar-mahapatra@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00001A5E:EE_|CY8PR12MB7587:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4aca4ef3-8256-4657-afa8-08dafa4ebc0e
+X-MS-TrafficTypeDiagnostic: CO1PEPF00001A61:EE_|SJ0PR12MB5453:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49a2b5d5-3d48-496c-33a1-08dafa4ecbe8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	eSTmTyVf+1XOjkU4+KaPDlmjUCIS2xZDF1bD/vSncP/r+bUGwo0HYK9Is+SiRAxKLJ5pMaOynjC55UnUgNvhKuyVoPE0z6cySGAZCkbrIuunVdGp9bgaMmsyJ4MD7CTeCQCXoMwMMDEl20shfRjXjr4Nb3tvZrZK9zSEGhIa8JI/OoCJDJ9BZFrUN6PdcTD0H+Q6h84qPOyBj6aoUcxosbsrG2nhyRYC0dH46HBBAvWpjNkf76nIHocYMnbYLYdgZH7cUXLOufWhmgmaPNvgGrB1OW3Iz7IK9/F+HJbm7y2Ohqe96n59DLXBc1WhRpMOR84pQSMxXxUn5lSyjelVorJ5KK+yCJ1koEzRoZclXerR5pLYw1ghSOvg0lsMMaXramv0fvUEJv+8ysrCMwYXv04nMIGp+YXz6MkTv0w5WTiviKMxvQ4O3idm4WifsavI70zUojQN0eDnByhhZ+w7NpJJnHG4M6mt4dhbXVSNLVS9XQjrqRa2qVwpEOLhM+pb5n55qly7MGuPHTZB6XYBPCfnYTv/6XMKEctecwhHHM13aRacjtMyqHHsJaYxwTjIZGOxYJNZnu4IHYY4gXjph7Bh6trR5Q1SUed89ZZYE7LCvC6aMlo+PyZMAl0JXHvij77YWy0c6oYco5sWd3dF8/qTd89fj/RRZ6H11EgZx15JAE0dxv+U+AS26a1yQQDLNoeuc2XjJ9XYcdfgpcKfZCIjyrZ0M9VEs7UIji3cneE9lYi66WaVy8q07Rogi+6oSMVla5FzB7Rtn5rvT2jEl944IgvFOv6uhEQnYM6GKOyB/UAnqHDQxZZy4+j6/8uEFAtNiAxsUBccRNvL8lxfb85Vwk+S3M9fWWXqnB2cxRE=
+	WBA63KZnrxfvEplOF6JWZyk/dCvSFV6ENFZdkUzOsGSPpp4Uxf6sHv4syWeZUdhaDjMZNinPTweaylaukdzfG3zev+PVv/72U0ILn/Ir8wm+U+w9chS7H8uWv/f6jQzOm36r0sviyazZ2AizZaHTA5hjysjvFqSjrPvX2W8QKoJDy6pAYyxvTUjbgFDrmTg0/7kd5wLnH07sjuoVlgQmMPzye5uCsdRsuyy0swWf1j9gufBzMZmHNcJTcZmKXgZWf70jQgq7l2daGqg+2W06ewxV0lSO2hDTPoXxEOgatjnULspzZjazWqJa93epZD+mv3D8JjH0+o1dmZRlAqfoJ2VEeSqzrpP77gTUdQsTLvVsHyo7Pmri3djXithfDVRO/pTlHz+FTnCO+FlVV/UXnwdfoI5l/l++mQu9D+9Xww9ne3vBqILuoxFL+FM6f650fSf7KG/UL7/eqYy3WQuzZgZvT7OI+vljs97MmCVMmQRQ9IPNk4CcUwL7aF9u+5Djn0cAfjHmKsTkAaITLOH0DECpI//iNoX1UHhn4LUAc97HTqiRhO3Su0bKfk5d2hss+U9HSKswBV/sXdD7sWrM5y74vrBpl/vz4bdc6VW66Cu4Q6HgE7mQrE2J3eF080MNTZ6CRb794rktS33RAtitBrsJfHfJx0L5tiBS/JjERhJ+wSB5CP5l1AzDhGyCF/7M11JSABullrDN5mUBoPCbchoQ0vnIDZNB5oQFm7DnQxzer/dy7NMo8/c2yP96z/JmQpCY6Jcdv2+/kRmmSw4a6Jvc2elKEs0kAid1oxH3F8y2EU81vT3NFo0bFpl1N6ngCcPMMJazI/FESrz6aKgFuOp7Z5ObdBBA+3rl1Z3d4Ts=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(346002)(39860400002)(136003)(376002)(451199015)(36840700001)(46966006)(40470700004)(40460700003)(82310400005)(921005)(356005)(81166007)(36756003)(1191002)(40480700001)(86362001)(82740400003)(2616005)(6666004)(478600001)(186003)(26005)(8936002)(7366002)(1076003)(7406005)(7276002)(7336002)(36860700001)(2906002)(7416002)(5660300002)(4326008)(70206006)(8676002)(70586007)(110136005)(336012)(54906003)(426003)(316002)(83380400001)(41300700001)(47076005)(41080700001)(83996005)(84006005)(36900700001)(2101003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(136003)(346002)(396003)(376002)(451199015)(46966006)(36840700001)(40470700004)(86362001)(40460700003)(36756003)(6666004)(478600001)(8936002)(316002)(40480700001)(36860700001)(7276002)(7336002)(7366002)(82740400003)(70206006)(70586007)(7416002)(7406005)(5660300002)(4326008)(8676002)(41300700001)(186003)(921005)(356005)(26005)(1191002)(82310400005)(2906002)(1076003)(81166007)(83380400001)(336012)(54906003)(110136005)(426003)(2616005)(47076005)(41080700001)(2101003)(84006005)(83996005)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2023 18:55:29.2693
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2023 18:55:55.9232
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4aca4ef3-8256-4657-afa8-08dafa4ebc0e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49a2b5d5-3d48-496c-33a1-08dafa4ecbe8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	CO1PEPF00001A5E.namprd05.prod.outlook.com
+	CO1PEPF00001A61.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7587
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5453
 X-Spamd-Result: default: False [-3.50 / 15.00];
 	DWL_DNSWL_HI(-3.50)[amd.com:dkim];
 	BAYES_HAM(-3.00)[100.00%];
@@ -130,7 +130,7 @@ X-Spamd-Result: default: False [-3.50 / 15.00];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	FREEMAIL_CC(0.00)[amd.com,vger.kernel.org,jms.id.au,aj.id.au,upb.ro,microchip.com,bootlin.com,broadcom.com,gmail.com,pengutronix.de,nxp.com,baylibre.com,googlemail.com,google.com,somainline.org,samsung.com,nvidia.com,lists.ozlabs.org,lists.infradead.org,st-md-mailman.stormreply.com,lists.linux.dev,metafoo.de,analog.com,walle.cc,dabbelt.com,lists.freedesktop.org,lists.linaro.org];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[40.107.102.43:from];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[40.107.243.77:from];
 	FROM_EQ_ENVFROM(0.00)[];
 	TAGGED_RCPT(0.00)[];
 	DKIM_TRACE(0.00)[amd.com:+];
@@ -143,21 +143,21 @@ X-Spamd-Result: default: False [-3.50 / 15.00];
 	ASN(0.00)[asn:8075, ipnet:40.104.0.0/14, country:US]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 3DD8E3EF35
+X-Rspamd-Queue-Id: 6D9C33EF35
 X-Spamd-Bar: ---
 X-MailFrom: amit.kumar-mahapatra@amd.com
 X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-size; news-moderation; no-subject; digests; suspicious-header
-Message-ID-Hash: 5M2B5MEXCWC56JB43WOUINNEP3SID4AR
-X-Message-ID-Hash: 5M2B5MEXCWC56JB43WOUINNEP3SID4AR
+Message-ID-Hash: 3OWZ4FUSB2NR6FQSYXU22MNVBLCRJK5A
+X-Message-ID-Hash: 3OWZ4FUSB2NR6FQSYXU22MNVBLCRJK5A
 X-Mailman-Approved-At: Fri, 20 Jan 2023 04:02:17 +0000
 CC: git@amd.com, linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, joel@jms.id.au, andrew@aj.id.au, radu_nicolae.pirea@upb.ro, nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, claudiu.beznea@microchip.com, bcm-kernel-feedback-list@broadcom.com, fancer.lancer@gmail.com, kernel@pengutronix.de, festevam@gmail.com, linux-imx@nxp.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com, venture@google.com, yuenn@google.com, benjaminfair@google.com, yogeshgaur.83@gmail.com, konrad.dybcio@somainline.org, alim.akhtar@samsung.com, ldewangan@nvidia.com, michal.simek@amd.com, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.sto
  rmreply.com, linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, netdev@vger.kernel.org, linux-wpan@vger.kernel.org, libertas-dev@lists.infradead.org, linux-wireless@vger.kernel.org, linux-mtd@lists.infradead.org, lars@metafoo.de, Michael.Hennerich@analog.com, linux-iio@vger.kernel.org, michael@walle.cc, palmer@dabbelt.com, linux-riscv@lists.infradead.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, amitrkcian2002@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 03/13] net: Replace all spi->chip_select and spi->cs_gpiod references with function call
+Subject: [greybus-dev] [PATCH v2 04/13] iio: imu: Replace all spi->chip_select and spi->cs_gpiod references with function call
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5M2B5MEXCWC56JB43WOUINNEP3SID4AR/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/3OWZ4FUSB2NR6FQSYXU22MNVBLCRJK5A/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -180,134 +180,22 @@ spi->chip_select[idx] & spi->cs_gpiod[idx] respectively.
 
 Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
 ---
- drivers/net/ethernet/adi/adin1110.c            | 2 +-
- drivers/net/ethernet/asix/ax88796c_main.c      | 2 +-
- drivers/net/ethernet/davicom/dm9051.c          | 2 +-
- drivers/net/ethernet/qualcomm/qca_debug.c      | 2 +-
- drivers/net/ieee802154/ca8210.c                | 2 +-
- drivers/net/wan/slic_ds26522.c                 | 2 +-
- drivers/net/wireless/marvell/libertas/if_spi.c | 2 +-
- drivers/net/wireless/silabs/wfx/bus_spi.c      | 2 +-
- drivers/net/wireless/st/cw1200/cw1200_spi.c    | 2 +-
- 9 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/iio/imu/adis16400.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/adi/adin1110.c
-index 0805f249fff2..aee7a98725ba 100644
---- a/drivers/net/ethernet/adi/adin1110.c
-+++ b/drivers/net/ethernet/adi/adin1110.c
-@@ -515,7 +515,7 @@ static int adin1110_register_mdiobus(struct adin1110_priv *priv,
- 		return -ENOMEM;
+diff --git a/drivers/iio/imu/adis16400.c b/drivers/iio/imu/adis16400.c
+index c02fc35dceb4..3eda32e12a53 100644
+--- a/drivers/iio/imu/adis16400.c
++++ b/drivers/iio/imu/adis16400.c
+@@ -466,7 +466,7 @@ static int adis16400_initial_setup(struct iio_dev *indio_dev)
  
- 	snprintf(priv->mii_bus_name, MII_BUS_ID_SIZE, "%s-%u",
--		 priv->cfg->name, priv->spidev->chip_select);
-+		 priv->cfg->name, spi_get_chipselect(priv->spidev, 0));
- 
- 	mii_bus->name = priv->mii_bus_name;
- 	mii_bus->read = adin1110_mdio_read;
-diff --git a/drivers/net/ethernet/asix/ax88796c_main.c b/drivers/net/ethernet/asix/ax88796c_main.c
-index 21376c79f671..e551ffaed20d 100644
---- a/drivers/net/ethernet/asix/ax88796c_main.c
-+++ b/drivers/net/ethernet/asix/ax88796c_main.c
-@@ -1006,7 +1006,7 @@ static int ax88796c_probe(struct spi_device *spi)
- 	ax_local->mdiobus->parent = &spi->dev;
- 
- 	snprintf(ax_local->mdiobus->id, MII_BUS_ID_SIZE,
--		 "ax88796c-%s.%u", dev_name(&spi->dev), spi->chip_select);
-+		 "ax88796c-%s.%u", dev_name(&spi->dev), spi_get_chipselect(spi, 0));
- 
- 	ret = devm_mdiobus_register(&spi->dev, ax_local->mdiobus);
- 	if (ret < 0) {
-diff --git a/drivers/net/ethernet/davicom/dm9051.c b/drivers/net/ethernet/davicom/dm9051.c
-index de7105a84747..70728b2e5f18 100644
---- a/drivers/net/ethernet/davicom/dm9051.c
-+++ b/drivers/net/ethernet/davicom/dm9051.c
-@@ -1123,7 +1123,7 @@ static int dm9051_mdio_register(struct board_info *db)
- 	db->mdiobus->phy_mask = (u32)~BIT(1);
- 	db->mdiobus->parent = &spi->dev;
- 	snprintf(db->mdiobus->id, MII_BUS_ID_SIZE,
--		 "dm9051-%s.%u", dev_name(&spi->dev), spi->chip_select);
-+		 "dm9051-%s.%u", dev_name(&spi->dev), spi_get_chipselect(spi, 0));
- 
- 	ret = devm_mdiobus_register(&spi->dev, db->mdiobus);
- 	if (ret)
-diff --git a/drivers/net/ethernet/qualcomm/qca_debug.c b/drivers/net/ethernet/qualcomm/qca_debug.c
-index f62c39544e08..6f2fa2a42770 100644
---- a/drivers/net/ethernet/qualcomm/qca_debug.c
-+++ b/drivers/net/ethernet/qualcomm/qca_debug.c
-@@ -119,7 +119,7 @@ qcaspi_info_show(struct seq_file *s, void *what)
- 	seq_printf(s, "SPI mode         : %x\n",
- 		   qca->spi_dev->mode);
- 	seq_printf(s, "SPI chip select  : %u\n",
--		   (unsigned int)qca->spi_dev->chip_select);
-+		   (unsigned int)spi_get_chipselect(qca->spi_dev, 0));
- 	seq_printf(s, "SPI legacy mode  : %u\n",
- 		   (unsigned int)qca->legacy_mode);
- 	seq_printf(s, "SPI burst length : %u\n",
-diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
-index e1a569b99e4a..7093a07141bb 100644
---- a/drivers/net/ieee802154/ca8210.c
-+++ b/drivers/net/ieee802154/ca8210.c
-@@ -2967,7 +2967,7 @@ static int ca8210_test_interface_init(struct ca8210_priv *priv)
- 		sizeof(node_name),
- 		"ca8210@%d_%d",
- 		priv->spi->master->bus_num,
--		priv->spi->chip_select
-+		spi_get_chipselect(priv->spi, 0)
- 	);
- 
- 	test->ca8210_dfs_spi_int = debugfs_create_file(
-diff --git a/drivers/net/wan/slic_ds26522.c b/drivers/net/wan/slic_ds26522.c
-index 6063552cea9b..8a51cfcff99e 100644
---- a/drivers/net/wan/slic_ds26522.c
-+++ b/drivers/net/wan/slic_ds26522.c
-@@ -211,7 +211,7 @@ static int slic_ds26522_probe(struct spi_device *spi)
- 
- 	ret = slic_ds26522_init_configure(spi);
- 	if (ret == 0)
--		pr_info("DS26522 cs%d configured\n", spi->chip_select);
-+		pr_info("DS26522 cs%d configured\n", spi_get_chipselect(spi, 0));
- 
- 	return ret;
- }
-diff --git a/drivers/net/wireless/marvell/libertas/if_spi.c b/drivers/net/wireless/marvell/libertas/if_spi.c
-index ff1c7ec8c450..1225fc0e3352 100644
---- a/drivers/net/wireless/marvell/libertas/if_spi.c
-+++ b/drivers/net/wireless/marvell/libertas/if_spi.c
-@@ -1051,7 +1051,7 @@ static int if_spi_init_card(struct if_spi_card *card)
- 				"spi->max_speed_hz=%d\n",
- 				card->card_id, card->card_rev,
- 				card->spi->master->bus_num,
--				card->spi->chip_select,
-+				spi_get_chipselect(card->spi, 0),
- 				card->spi->max_speed_hz);
- 		err = if_spi_prog_helper_firmware(card, helper);
- 		if (err)
-diff --git a/drivers/net/wireless/silabs/wfx/bus_spi.c b/drivers/net/wireless/silabs/wfx/bus_spi.c
-index 7fb1afb8ed31..160b90114aad 100644
---- a/drivers/net/wireless/silabs/wfx/bus_spi.c
-+++ b/drivers/net/wireless/silabs/wfx/bus_spi.c
-@@ -208,7 +208,7 @@ static int wfx_spi_probe(struct spi_device *func)
- 
- 	/* Trace below is also displayed by spi_setup() if compiled with DEBUG */
- 	dev_dbg(&func->dev, "SPI params: CS=%d, mode=%d bits/word=%d speed=%d\n",
--		func->chip_select, func->mode, func->bits_per_word, func->max_speed_hz);
-+		spi_get_chipselect(func, 0), func->mode, func->bits_per_word, func->max_speed_hz);
- 	if (func->bits_per_word != 16 && func->bits_per_word != 8)
- 		dev_warn(&func->dev, "unusual bits/word value: %d\n", func->bits_per_word);
- 	if (func->max_speed_hz > 50000000)
-diff --git a/drivers/net/wireless/st/cw1200/cw1200_spi.c b/drivers/net/wireless/st/cw1200/cw1200_spi.c
-index fe0d220da44d..c82c0688b549 100644
---- a/drivers/net/wireless/st/cw1200/cw1200_spi.c
-+++ b/drivers/net/wireless/st/cw1200/cw1200_spi.c
-@@ -378,7 +378,7 @@ static int cw1200_spi_probe(struct spi_device *func)
- 	func->mode = SPI_MODE_0;
- 
- 	pr_info("cw1200_wlan_spi: Probe called (CS %d M %d BPW %d CLK %d)\n",
--		func->chip_select, func->mode, func->bits_per_word,
-+		spi_get_chipselect(func, 0), func->mode, func->bits_per_word,
- 		func->max_speed_hz);
- 
- 	if (cw1200_spi_on(plat_data)) {
+ 		dev_info(&indio_dev->dev, "%s: prod_id 0x%04x at CS%d (irq %d)\n",
+ 			indio_dev->name, prod_id,
+-			st->adis.spi->chip_select, st->adis.spi->irq);
++			spi_get_chipselect(st->adis.spi, 0), st->adis.spi->irq);
+ 	}
+ 	/* use high spi speed if possible */
+ 	if (st->variant->flags & ADIS16400_HAS_SLOW_MODE) {
 -- 
 2.17.1
 
