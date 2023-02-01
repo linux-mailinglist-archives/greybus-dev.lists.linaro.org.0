@@ -2,133 +2,146 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB4D368C13D
-	for <lists+greybus-dev@lfdr.de>; Mon,  6 Feb 2023 16:24:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3498F68F8B3
+	for <lists+greybus-dev@lfdr.de>; Wed,  8 Feb 2023 21:17:51 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 779B1413F3
-	for <lists+greybus-dev@lfdr.de>; Mon,  6 Feb 2023 15:24:58 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by lists.linaro.org (Postfix) with ESMTPS id 90C533EA2B
-	for <greybus-dev@lists.linaro.org>; Mon,  6 Feb 2023 15:24:52 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id C816541427
+	for <lists+greybus-dev@lfdr.de>; Wed,  8 Feb 2023 20:17:49 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id BA2F13ED39
+	for <greybus-dev@lists.linaro.org>; Wed,  1 Feb 2023 15:16:00 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=redhat.com header.s=mimecast20190719 header.b=SENYgnak;
-	spf=pass (lists.linaro.org: domain of benjamin.tissoires@redhat.com designates 170.10.133.124 as permitted sender) smtp.mailfrom=benjamin.tissoires@redhat.com;
-	dmarc=pass (policy=none) header.from=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675697092;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UeRsUwXraH00cd2sE5Kq7ZYAcSvC5OMPd9fEpRmgyQk=;
-	b=SENYgnakRJhx/uNe3a8pMjJAVC7mnf0NqW59TnQRnupUIGn01AVsYTSqhH8lhT3PvbWc0y
-	tfqjdvEofjMBjK/b+Ns056kOON8Pr2zW7MEIf5v1Q6AdC1f1GSEsG3jSk7ogJ3eDyp/0YF
-	PNUt2KUC8qEqUjsf/jDhoypBO+Kwne8=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-352-RJztv-YbNHGzSkzF7vckjg-1; Mon, 06 Feb 2023 10:24:51 -0500
-X-MC-Unique: RJztv-YbNHGzSkzF7vckjg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b=KU4ZzAZC;
+	spf=pass (lists.linaro.org: domain of broonie@kernel.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=broonie@kernel.org;
+	dmarc=pass (policy=none) header.from=kernel.org
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A01A1885627;
-	Mon,  6 Feb 2023 15:24:49 +0000 (UTC)
-Received: from plouf.local (ovpn-192-160.brq.redhat.com [10.40.192.160])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A5D9FC15BA0;
-	Mon,  6 Feb 2023 15:24:45 +0000 (UTC)
-From: Benjamin Tissoires <benjamin.tissoires@redhat.com>
-To: Basavaraj Natikar <basavaraj.natikar@amd.com>,
- Jiri Kosina <jikos@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>,
- =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Maximilian Luz <luzmaximilian@gmail.com>,
- Corentin Chary <corentin.chary@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Gross <markgross@kernel.org>,
- Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
- Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-In-Reply-To: <20230130-hid-const-ll-driver-v1-0-3fc282b3b1d0@weissschuh.net>
-References: <20230130-hid-const-ll-driver-v1-0-3fc282b3b1d0@weissschuh.net>
-Message-Id: <167569708530.2863874.629972838322099394.b4-ty@redhat.com>
-Date: Mon, 06 Feb 2023 16:24:45 +0100
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 58CC5617E3;
+	Wed,  1 Feb 2023 15:16:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52DF4C433D2;
+	Wed,  1 Feb 2023 15:15:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1675264559;
+	bh=LRcOg2q+eDGVIXXY2nwx4erwH77a/aRq28NUs5IDyCc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KU4ZzAZCfEIFr0jm610wDLcfNDu1BT7alWBq4lCdAi8jxLcmCiG+N3M8pD98e92bq
+	 jEveutD/LRtarHkLSi1VT+wkWbr0FiUwuP11kxiQ/FQ/0dLJS9f7wk4WIsY81RNwsT
+	 zE2rXqGv+swsJ+x2navfQqq5XD8GmEgv0vJSNVcB+mloglAaqXwO0rFQl2XUbT1nWE
+	 N9OHyols6boAqmJ12PCA7BF6t1yvrYW7Nw9tEb0eKdvPWGnJ5Rqf1wv3Ng4NK3ygNW
+	 owxjCxS1tCFcCwRtOSIJKriVsuXGINVmjP3mb2jgXizk7d2Q0jSrHyCO8vF9Om7Gjt
+	 MSXjxi7+9AcEg==
+Date: Wed, 1 Feb 2023 15:15:35 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Message-ID: <Y9qCF7DS+FQo1RYp@sirena.org.uk>
+References: <20230119185342.2093323-1-amit.kumar-mahapatra@amd.com>
+ <20230119185342.2093323-3-amit.kumar-mahapatra@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+In-Reply-To: <20230119185342.2093323-3-amit.kumar-mahapatra@amd.com>
+X-Cookie: Oh no, not again.
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 90C533EA2B
-X-Spamd-Bar: -----
-X-Spamd-Result: default: False [-6.00 / 15.00];
-	DWL_DNSWL_HI(-3.50)[redhat.com:dkim];
+X-Rspamd-Queue-Id: BA2F13ED39
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.60 / 15.00];
 	BAYES_HAM(-3.00)[99.99%];
+	SIGNED_PGP(-2.00)[];
+	FORGED_RECIPIENTS(2.00)[m:amit.kumar-mahapatra@amd.com,m:miquel.raynal@bootlin.com,m:richard@nod.at,m:vigneshr@ti.com,m:jic23@kernel.org,m:tudor.ambarus@microchip.com,m:pratyush@kernel.org,m:sanju.mehta@amd.com,m:chin-ting_kuo@aspeedtech.com,m:clg@kaod.org,m:kdasu.kdev@gmail.com,m:f.fainelli@gmail.com,m:rjui@broadcom.com,m:sbranden@broadcom.com,m:eajames@linux.ibm.com,m:olteanv@gmail.com,m:han.xu@nxp.com,m:john.garry@huawei.com,m:shawnguo@kernel.org,m:s.hauer@pengutronix.de,m:narmstrong@baylibre.com,m:khilman@baylibre.com,m:matthias.bgg@gmail.com,m:haibo.chen@nxp.com,m:linus.walleij@linaro.org,m:daniel@zonque.org,m:haojian.zhuang@gmail.com,m:robert.jarzmik@free.fr,m:agross@kernel.org,m:bjorn.andersson@linaro.org,m:heiko@sntech.de,m:krzysztof.kozlowski@linaro.org,m:andi@etezian.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:wens@csie.org,m:jernej.skrabec@gmail.com,m:samuel@sholland.org,m:masahisa.kojima@linaro.org,m:jaswinder.singh@linaro.org,m:rostedt@goodmis.org,m
+ :mingo@redhat.com,m:l.stelmach@samsung.com,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:alex.aring@gmail.com,m:stefan@datenfreihafen.org,m:kvalo@kernel.org,m:thierry.reding@gmail.com,m:jonathanh@nvidia.com,m:skomatineni@nvidia.com,m:sumit.semwal@linaro.org,m:christian.koenig@amd.com,m:j.neuschaefer@gmx.net,m:vireshk@kernel.org,m:rmfrfs@gmail.com,m:johan@kernel.org,m:elder@kernel.org,m:gregkh@linuxfoundation.org,m:git@amd.com,m:linux-spi@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:joel@jms.id.au,m:andrew@aj.id.au,m:radu_nicolae.pirea@upb.ro,m:nicolas.ferre@microchip.com,m:alexandre.belloni@bootlin.com,m:claudiu.beznea@microchip.com,m:bcm-kernel-feedback-list@broadcom.com,m:fancer.lancer@gmail.com,m:kernel@pengutronix.de,m:festevam@gmail.com,m:linux-imx@nxp.com,m:jbrunet@baylibre.com,m:martin.blumenstingl@googlemail.com,m:avifishman70@gmail.com,m:tmaimon77@gmail.com,m:tali.perry1@gmail.com,m:venture@google.com,m:yuenn@google.com,m:benjaminfa
+ ir@google.com,m:yogeshgaur.83@gmail.com,m:konrad.dybcio@somainline.org,m:alim.akhtar@samsung.com,m:ldewangan@nvidia.com,m:michal.simek@amd.com,m:linux-aspeed@lists.ozlabs.org,m:openbmc@lists.ozlabs.org,m:linux-arm-kernel@lists.infradead.org,m:linux-rpi-kernel@lists.infradead.org,m:linux-amlogic@lists.infradead.org,m:linux-mediatek@lists.infradead.org,m:linux-arm-msm@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-sunxi@lists.linux.dev,s:greybus-dev@lists.linaro.org];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[redhat.com,none];
-	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719];
-	R_SPF_ALLOW(-0.20)[+ip4:170.10.133.0/24];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[amd.com,kernel.org,microsoft.com,riseup.net,linux.intel.com,gmail.com,redhat.com,linuxfoundation.org,weissschuh.net];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:30031, ipnet:170.10.132.0/23, country:US];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,none];
+	R_SPF_ALLOW(-0.20)[+a:dfw.source.kernel.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	RCPT_COUNT_GT_50(0.00)[116];
+	FREEMAIL_CC(0.00)[bootlin.com,nod.at,ti.com,kernel.org,microchip.com,amd.com,aspeedtech.com,kaod.org,gmail.com,broadcom.com,linux.ibm.com,nxp.com,huawei.com,pengutronix.de,baylibre.com,linaro.org,zonque.org,free.fr,sntech.de,etezian.org,foss.st.com,csie.org,sholland.org,goodmis.org,redhat.com,samsung.com,davemloft.net,google.com,datenfreihafen.org,nvidia.com,gmx.net,linuxfoundation.org,vger.kernel.org,jms.id.au,aj.id.au,upb.ro,googlemail.com,somainline.org,lists.ozlabs.org,lists.infradead.org,st-md-mailman.stormreply.com,lists.linux.dev,metafoo.de,analog.com,walle.cc,dabbelt.com,lists.freedesktop.org,lists.linaro.org];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
-	DKIM_TRACE(0.00)[redhat.com:+];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FROM_EQ_ENVFROM(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[24];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	TAGGED_RCPT(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[170.10.133.124:from]
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[]
 X-Rspamd-Action: no action
-Message-ID-Hash: LLRRD26DR5H6LE4NKO4PW5TZ7RELJ2PW
-X-Message-ID-Hash: LLRRD26DR5H6LE4NKO4PW5TZ7RELJ2PW
-X-MailFrom: benjamin.tissoires@redhat.com
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org, platform-driver-x86@vger.kernel.org, acpi4asus-user@lists.sourceforge.net, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
+X-MailFrom: broonie@kernel.org
+X-Mailman-Rule-Hits: max-recipients
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-size; news-moderation; no-subject; digests; suspicious-header
+Message-ID-Hash: MEV73ANCL76EUELX734W5BFOLLFQJQSZ
+X-Message-ID-Hash: MEV73ANCL76EUELX734W5BFOLLFQJQSZ
+X-Mailman-Approved-At: Wed, 08 Feb 2023 20:17:45 +0000
+CC: miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, jic23@kernel.org, tudor.ambarus@microchip.com, pratyush@kernel.org, sanju.mehta@amd.com, chin-ting_kuo@aspeedtech.com, clg@kaod.org, kdasu.kdev@gmail.com, f.fainelli@gmail.com, rjui@broadcom.com, sbranden@broadcom.com, eajames@linux.ibm.com, olteanv@gmail.com, han.xu@nxp.com, john.garry@huawei.com, shawnguo@kernel.org, s.hauer@pengutronix.de, narmstrong@baylibre.com, khilman@baylibre.com, matthias.bgg@gmail.com, haibo.chen@nxp.com, linus.walleij@linaro.org, daniel@zonque.org, haojian.zhuang@gmail.com, robert.jarzmik@free.fr, agross@kernel.org, bjorn.andersson@linaro.org, heiko@sntech.de, krzysztof.kozlowski@linaro.org, andi@etezian.org, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, wens@csie.org, jernej.skrabec@gmail.com, samuel@sholland.org, masahisa.kojima@linaro.org, jaswinder.singh@linaro.org, rostedt@goodmis.org, mingo@redhat.com, l.stelmach@samsung.com, davem@davemloft.net, edumazet@google.com, kuba@kern
+ el.org, pabeni@redhat.com, alex.aring@gmail.com, stefan@datenfreihafen.org, kvalo@kernel.org, thierry.reding@gmail.com, jonathanh@nvidia.com, skomatineni@nvidia.com, sumit.semwal@linaro.org, christian.koenig@amd.com, j.neuschaefer@gmx.net, vireshk@kernel.org, johan@kernel.org, elder@kernel.org, git@amd.com, linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, joel@jms.id.au, andrew@aj.id.au, radu_nicolae.pirea@upb.ro, nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, claudiu.beznea@microchip.com, bcm-kernel-feedback-list@broadcom.com, fancer.lancer@gmail.com, kernel@pengutronix.de, festevam@gmail.com, linux-imx@nxp.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com, venture@google.com, yuenn@google.com, benjaminfair@google.com, yogeshgaur.83@gmail.com, konrad.dybcio@somainline.org, alim.akhtar@samsung.com, ldewangan@nvidia.com, michal.simek@amd.com, linux-aspeed@lists.ozlabs.org, openbmc@lis
+ ts.ozlabs.org, linux-arm-kernel@lists.infradead.org, linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, netdev@vger.kernel.org, linux-wpan@vger.kernel.org, libertas-dev@lists.infradead.org, linux-wireless@vger.kernel.org, linux-mtd@lists.infradead.org, lars@metafoo.de, Michael.Hennerich@analog.com, linux-iio@vger.kernel.org, michael@walle.cc, palmer@dabbelt.com, linux-riscv@lists.infradead.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, amitrkcian2002@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 0/9] HID: Constify lowlevel HID drivers
+Subject: [greybus-dev] Re: [PATCH v2 02/13] spi: Replace all spi->chip_select and spi->cs_gpiod references with function call
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/LLRRD26DR5H6LE4NKO4PW5TZ7RELJ2PW/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/MEV73ANCL76EUELX734W5BFOLLFQJQSZ/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============3281496052453831408=="
 
-T24gTW9uLCAzMCBKYW4gMjAyMyAwMzo1OTozNiArMDAwMCwgVGhvbWFzIFdlacOfc2NodWggd3Jv
-dGU6DQo+IFNpbmNlIDUyZDIyNTM0NjkwNCAoIkhJRDogTWFrZSBsb3dsZXZlbCBkcml2ZXIgc3Ry
-dWN0cyBjb25zdCIpIHRoZQ0KPiBsb3dsZXZlbCBISUQgZHJpdmVycyBhcmUgb25seSBleHBvc2Vk
-IGFzIGNvbnN0Lg0KPiANCj4gVGFrZSBhZHZhbnRhZ2Ugb2YgdGhpcyB0byBjb25zdGlmeSB0aGUg
-dW5kZXJseWluZyBzdHJ1Y3R1cmVzLCB0b28uDQo+IA0KPiANCg0KQXBwbGllZCB0byBoaWQvaGlk
-LmdpdCAoZm9yLTYuMy9oaWQtY29yZSksIHRoYW5rcyENCg0KWzEvOV0gSElEOiBhbWRfc2ZoOiBD
-b25zdGlmeSBsb3dsZXZlbCBISUQgZHJpdmVyDQogICAgICBodHRwczovL2dpdC5rZXJuZWwub3Jn
-L2hpZC9oaWQvYy82NWI3MDE1YmZlMTYNClsyLzldIEhJRDogaHlwZXJ2OiBDb25zdGlmeSBsb3ds
-ZXZlbCBISUQgZHJpdmVyDQogICAgICBodHRwczovL2dpdC5rZXJuZWwub3JnL2hpZC9oaWQvYy9k
-MzgyMTNhOTExYzUNClszLzldIEhJRDogbG9naXRlY2gtZGo6IENvbnN0aWZ5IGxvd2xldmVsIEhJ
-RCBkcml2ZXINCiAgICAgIGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvaGlkL2hpZC9jLzY2MmVlZThk
-NDZkZg0KWzQvOV0gSElEOiBzdGVhbTogQ29uc3RpZnkgbG93bGV2ZWwgSElEIGRyaXZlcg0KICAg
-ICAgaHR0cHM6Ly9naXQua2VybmVsLm9yZy9oaWQvaGlkL2MvZGRiNjc5MmYwZWYyDQpbNS85XSBI
-SUQ6IGludGVsLWlzaC1oaWQ6IENvbnN0aWZ5IGxvd2xldmVsIEhJRCBkcml2ZXINCiAgICAgIGh0
-dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvaGlkL2hpZC9jLzMzNTJjM2UwYmY5Yg0KWzYvOV0gSElEOiBz
-dXJmYWNlLWhpZDogQ29uc3RpZnkgbG93bGV2ZWwgSElEIGRyaXZlcg0KICAgICAgaHR0cHM6Ly9n
-aXQua2VybmVsLm9yZy9oaWQvaGlkL2MvZGQzNTBhZmMxNzU3DQpbNy85XSBwbGF0Zm9ybS94ODY6
-IGFzdXMtdGYxMDNjLWRvY2s6IENvbnN0aWZ5IGxvd2xldmVsIEhJRCBkcml2ZXINCiAgICAgIGh0
-dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvaGlkL2hpZC9jLzYzNTA5YjE0OWYxYg0KWzgvOV0gcGxhdGZv
-cm0veDg2OiBhc3VzLXRmMTAzYy1kb2NrOiBDb25zdGlmeSB0b3Byb3cga2V5bWFwDQogICAgICBo
-dHRwczovL2dpdC5rZXJuZWwub3JnL2hpZC9oaWQvYy83ODNjMzM5NGI0OTMNCls5LzldIHN0YWdp
-bmc6IGdyZXlidXM6IGhpZDogQ29uc3RpZnkgbG93bGV2ZWwgSElEIGRyaXZlcg0KICAgICAgaHR0
-cHM6Ly9naXQua2VybmVsLm9yZy9oaWQvaGlkL2MvZmYxN2JiODc2MDE0DQoNCkNoZWVycywNCi0t
-IA0KQmVuamFtaW4gVGlzc29pcmVzIDxiZW5qYW1pbi50aXNzb2lyZXNAcmVkaGF0LmNvbT4NCg0K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1k
-ZXYgbWFpbGluZyBsaXN0IC0tIGdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKVG8gdW5zdWJz
-Y3JpYmUgc2VuZCBhbiBlbWFpbCB0byBncmV5YnVzLWRldi1sZWF2ZUBsaXN0cy5saW5hcm8ub3Jn
-Cg==
+
+--===============3281496052453831408==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="RnOekfr0Q/w96KQx"
+Content-Disposition: inline
+
+
+--RnOekfr0Q/w96KQx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Jan 20, 2023 at 12:23:31AM +0530, Amit Kumar Mahapatra wrote:
+> Supporting multi-cs in spi drivers would require the chip_select & cs_gpiod
+> members of struct spi_device to be an array. But changing the type of these
+> members to array would break the spi driver functionality. To make the
+> transition smoother introduced four new APIs to get/set the
+> spi->chip_select & spi->cs_gpiod and replaced all spi->chip_select and
+> spi->cs_gpiod references with get or set API calls.
+> While adding multi-cs support in further patches the chip_select & cs_gpiod
+> members of the spi_device structure would be converted to arrays & the
+> "idx" parameter of the APIs would be used as array index i.e.,
+> spi->chip_select[idx] & spi->cs_gpiod[idx] respectively.
+
+This doesn't apply against current code, please check and resend.
+
+--RnOekfr0Q/w96KQx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmPaghYACgkQJNaLcl1U
+h9Cmcgf7BtQa6jVrXNU71IJVO9/XKJzR22YYvwnRLJqC4Pd6uUnIG4DAhyw1qQyf
+fucGeAY9Y8jlqFuw1RM+0pFy53EabmhZAQjypGnDXk/YJ0fTV2VJuT7bSfXC+JJe
+0Qs8nYPpVfn9TmLvBxiPjnsghneRyWbx+V7MzflSFTsVl/fM5ypTH92qZ3S6rTDh
+ExXE6oTe7hNyto8+VoMfi0qvdqTKMyPciO0DnOeUsbPG3FpAiNiHN1lD5yhI6QEM
+jA8R67+KRGUoFZsozgB5N3NN8BH9FWq5Hrl/ToTuWP1AT9C8prAEa2uwlU3YVDmA
+SztMxe2B+kl+AF4gZ5yyL6EOiMGk6g==
+=zhKL
+-----END PGP SIGNATURE-----
+
+--RnOekfr0Q/w96KQx--
+
+--===============3281496052453831408==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+
+--===============3281496052453831408==--
