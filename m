@@ -2,127 +2,133 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E5016BDC01
-	for <lists+greybus-dev@lfdr.de>; Thu, 16 Mar 2023 23:50:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 973866BDC02
+	for <lists+greybus-dev@lfdr.de>; Thu, 16 Mar 2023 23:51:03 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 60DCE3E8AA
-	for <lists+greybus-dev@lfdr.de>; Thu, 16 Mar 2023 22:50:57 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	by lists.linaro.org (Postfix) with ESMTPS id 958C53EA3C
-	for <greybus-dev@lists.linaro.org>; Sat, 11 Mar 2023 14:26:25 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 9A2453EF34
+	for <lists+greybus-dev@lfdr.de>; Thu, 16 Mar 2023 22:51:02 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	by lists.linaro.org (Postfix) with ESMTPS id 206BC3EA3F
+	for <greybus-dev@lists.linaro.org>; Sat, 11 Mar 2023 14:51:54 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20210112 header.b=bje2PGni;
-	spf=pass (lists.linaro.org: domain of error27@gmail.com designates 209.85.128.46 as permitted sender) smtp.mailfrom=error27@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20210112 header.b=VmrcOQrY;
+	spf=pass (lists.linaro.org: domain of eng.mennamahmoud.mm@gmail.com designates 209.85.221.47 as permitted sender) smtp.mailfrom=eng.mennamahmoud.mm@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-wm1-f46.google.com with SMTP id t25-20020a1c7719000000b003eb052cc5ccso8006482wmi.4
-        for <greybus-dev@lists.linaro.org>; Sat, 11 Mar 2023 06:26:25 -0800 (PST)
+Received: by mail-wr1-f47.google.com with SMTP id q16so7597364wrw.2
+        for <greybus-dev@lists.linaro.org>; Sat, 11 Mar 2023 06:51:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678544784;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=me1EJEGXaS0DFRZHEAYC72z0W2KEACpXBRzTLuD/pqM=;
-        b=bje2PGnirIumpFcmHIdEnssR5Ih4SfMCJX+snPXZ5XOcQ0J6ePcFUqOfwHbesaCJYd
-         06bZW2BNtDBkzA1cXGaLFQB6t5Fc7Aj4IuknfnT562lQ3x3n0lIRpDUlGyFXtPOSJF+V
-         V+8kpPFTKqDnQMFouOlzxVfHZFyXMJpMQei0Iz99bSU64wf0f0Fx9FDp1mWt8OPGMJyp
-         4HNiyvYlvfQ2Sk87rqeXyFNSUup7mvbNStVx74gG1px536ilCm9ytfc/stxRZwxoVIuf
-         64uBvSsQkhBTxgchaWaRMDpZ1ixD9tzUpuCfvcvXQTogcttF+XW1LgR/wwT/MUcoDqIZ
-         yuUQ==
+        d=gmail.com; s=20210112; t=1678546313;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=NTyGiahvzsQx6sDWzDztFd/3tHnrkFadviqDemTjFAk=;
+        b=VmrcOQrYSwQV3GHhymuNbikfTIPRLft+zy76bG4/a3MqV/JVBXU69qGUvIgLsWKGEf
+         be5WfHPnRlIcwA15+6ctfzo+8hL2sLPtktBjekIXX+Ql0QtpFxFwsg6GwxLIEzHo6Jy3
+         jSGEr/aWYJo4jC4OuX540W0v5Vj2BOh9oOBUVwhvRVVo1BH1FRlG8QNIA7087XE3B78b
+         JOyjY45LBBov+aFy9nW6tM4fH+bjaCPzAOfw2ZIWcHuDrKoRwyqGmrGb1MKPDoYGGjhX
+         hFvpNWkIPgm+BpooacQKs+hu4Eubkbpe0npHNYYBW7oJu0MKSOAVNSWoP6zQjfIe3CP3
+         wQsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678544784;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=me1EJEGXaS0DFRZHEAYC72z0W2KEACpXBRzTLuD/pqM=;
-        b=vR77BCWrzaiNt6q8s2w8MqNEh6BLo73+FmMx97UhfwpSmXWV1g/UEU9EIBjKl6YxBX
-         UwQ0L0lMmhmhZ1PPaou2/C3/zias7d2oN1zMXKowEitRE2i0pumPQ2o9DxsknuAO0Qlr
-         8CMsst2oyejxO0BdlOM5I0ibEzrmTQYqac7UcCP2T6yCRKExTCaSuo+jwWyxWcoFxugw
-         jRWMYvt2E6u1DoAlT42LpRHgL3SpyD/IGt1C7nrYxgpHvPRiLI9mMI/1wbvTtwCdhue+
-         Zroxh+Jhd6V7N+Qqb8v8ZjcFLDv7yVzr37kdmBhrjFC+stNYvWwmeKc5DgIv+5g9wE2e
-         NK5Q==
-X-Gm-Message-State: AO0yUKVToIe/PlJcLvbPHDWsbL8VzLtOjPBJq6xTyf+++YwbysMVz68m
-	Nt/GegKjFpVuxQzIFM0COTI=
-X-Google-Smtp-Source: AK7set+Qh1IspVxGiRADjG20G93XsreuhL9Jl2qPNZj8A73Pq5+CfKKG+SMWT1Syv/ti3R41zOXDVQ==
-X-Received: by 2002:a05:600c:35c4:b0:3e8:490b:e286 with SMTP id r4-20020a05600c35c400b003e8490be286mr5742615wmq.14.1678544784510;
-        Sat, 11 Mar 2023 06:26:24 -0800 (PST)
-Received: from localhost ([102.36.222.112])
-        by smtp.gmail.com with ESMTPSA id t17-20020a05600c451100b003dc434b39c7sm3644356wmo.0.2023.03.11.06.26.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Mar 2023 06:26:24 -0800 (PST)
-Date: Sat, 11 Mar 2023 17:26:20 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
-Message-ID: <5f574998-3141-467c-8b45-291acd6fba8c@kili.mountain>
-References: <b6521b9a75a4088d621246b436c7ec5d35365690.1678462486.git.eng.mennamahmoud.mm@gmail.com>
- <alpine.DEB.2.22.394.2303110958250.2802@hadrien>
- <71211670-60f9-11f4-1ee7-f94d4d9df4fb@gmail.com>
- <alpine.DEB.2.22.394.2303111354490.2802@hadrien>
- <61dab579-f10b-5538-8b61-ebe73ae5b4f1@gmail.com>
- <27dfe880-35f7-cbc1-cf8b-7bbd7f1c7301@gmail.com>
- <e0d7928e-854e-4d10-a90f-db87a7d60569@kili.mountain>
+        d=1e100.net; s=20210112; t=1678546313;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=NTyGiahvzsQx6sDWzDztFd/3tHnrkFadviqDemTjFAk=;
+        b=O+6jsMJE81YVdneDVggZCLfaYBWwg5Uo3zngCwus/sEDARM/tOEJNx/GYl9RhdliWe
+         Tx7q8LQSG3/7D7n3SUJQox8/DT8TuIZr/iwwsMID/2DoPfwCkNf7rZJiPuw2/Wu5EfRb
+         w9avkrNM+72Tg2hCbb8isgn91fd0MCM9XjX6AHqE013e6URTHdSMJynrHxbO6W2dD5F4
+         oNyL/WMJpNn7n7q1hFnFo9IRFuEE/n3m11bzOjjUmOdDkrO1fLoOtIm4MLuaPakv1ARy
+         EMRKdtTd1PIinXvTcHSpuqbjQ1UIP7ihDu4fZ+DweEloTyh0IZoR5rEoeskBHPmUp0ik
+         ToCw==
+X-Gm-Message-State: AO0yUKXEDmlEIywg0n8DPD3AmzpHxEZed2HjzaFOb/SsxlPB0LwcHyyi
+	4ZuXwnoqn5eOatruZOJx+l4=
+X-Google-Smtp-Source: AK7set98xG33fG+YUFZ6RdmVhMIXKcq9Ng+RDMAMc2Pv4Ch44mmJ8SD+JritEW9jgWY6pN++H95bnw==
+X-Received: by 2002:adf:ff92:0:b0:2c9:6562:232b with SMTP id j18-20020adfff92000000b002c96562232bmr18070401wrr.2.1678546312881;
+        Sat, 11 Mar 2023 06:51:52 -0800 (PST)
+Received: from [192.168.1.16] ([41.42.191.171])
+        by smtp.gmail.com with ESMTPSA id r14-20020adff70e000000b002c5804b6afasm2527762wrp.67.2023.03.11.06.51.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 11 Mar 2023 06:51:52 -0800 (PST)
+Message-ID: <c9ae27dc-3538-5432-6a6d-3e2ff034f467@gmail.com>
+Date: Sat, 11 Mar 2023 16:51:50 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <e0d7928e-854e-4d10-a90f-db87a7d60569@kili.mountain>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+To: Dan Carpenter <error27@gmail.com>
+References: <20230311135919.9129-1-eng.mennamahmoud.mm@gmail.com>
+ <10d2c15b-ff9f-4634-a013-7640c93435a7@kili.mountain>
+Content-Language: en-US
+From: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
+In-Reply-To: <10d2c15b-ff9f-4634-a013-7640c93435a7@kili.mountain>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 958C53EA3C
-X-Spamd-Bar: /
-X-Spamd-Result: default: False [0.49 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Rspamd-Queue-Id: 206BC3EA3F
+X-Spamd-Bar: -----
+X-Spamd-Result: default: False [-6.00 / 15.00];
+	BAYES_HAM(-3.00)[99.99%];
+	RCVD_IN_DNSWL_HI(-1.00)[209.85.221.47:from,41.42.191.171:received];
+	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20210112];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	BAYES_HAM(-0.01)[49.77%];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_TLS_LAST(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FROM_EQ_ENVFROM(0.00)[];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_HAS_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.46:from]
-X-MailFrom: error27@gmail.com
+	ARC_NA(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	TAGGED_FROM(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.221.47:from];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[]
+X-MailFrom: eng.mennamahmoud.mm@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: GZB7XK4LZ5GFDJ3UOIFZMIY6UU6HTYY7
-X-Message-ID-Hash: GZB7XK4LZ5GFDJ3UOIFZMIY6UU6HTYY7
+Message-ID-Hash: NBMSKM6DQBGWDHVKO5ADO2PY36XYEAA3
+X-Message-ID-Hash: NBMSKM6DQBGWDHVKO5ADO2PY36XYEAA3
 X-Mailman-Approved-At: Thu, 16 Mar 2023 22:50:29 +0000
-CC: Julia Lawall <julia.lawall@inria.fr>, outreachy@lists.linux.dev, vireshk@kernel.org, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 1/2] staging: greybus: Fix Alignment with parenthesis
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: eclose macro in a do - while loop
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GZB7XK4LZ5GFDJ3UOIFZMIY6UU6HTYY7/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/NBMSKM6DQBGWDHVKO5ADO2PY36XYEAA3/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-On Sat, Mar 11, 2023 at 05:23:11PM +0300, Dan Carpenter wrote:
-> People are giving you feedback to help you and not because they are
-                                                                  ^^^
-I meant "care" not "are".
-
-> about that particular line of code.
-
-regards,
-dan carpenter
-
-_______________________________________________
-greybus-dev mailing list -- greybus-dev@lists.linaro.org
-To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+DQpPbiDZodmh4oCPL9mj4oCPL9mi2aDZotmjINmh2aY62aDZpiwgRGFuIENhcnBlbnRlciB3cm90
+ZToNCj4gT24gU2F0LCBNYXIgMTEsIDIwMjMgYXQgMDM6NTk6MTlQTSArMDIwMCwgTWVubmEgTWFo
+bW91ZCB3cm90ZToNCj4+ICIgRVJST1I6IE1hY3JvcyB3aXRoIG11bHRpcGxlIHN0YXRlbWVudHMg
+c2hvdWxkIGJlIGVuY2xvc2VkIGluIGEgZG8gLQ0KPj4gd2hpbGUgbG9vcCINCj4+DQo+PiBSZXBv
+cnRlZCBieSBjaGVja3BhdGguDQo+Pg0KPj4gZG8gbG9vcCB3aXRoIHRoZSBjb25kaXRpb25hbCBl
+eHByZXNzaW9uIHNldCB0byBhIGNvbnN0YW50DQo+PiB2YWx1ZSBvZiB6ZXJvICgwKS5UaGlzIGNy
+ZWF0ZXMgYSBsb29wIHRoYXQNCj4+IHdpbGwgZXhlY3V0ZSBleGFjdGx5IG9uZSB0aW1lLlRoaXMg
+aXMgYSBjb2RpbmcgaWRpb20gdGhhdA0KPj4gYWxsb3dzIGEgbXVsdGktbGluZSBtYWNybyB0byBi
+ZSB1c2VkIGFueXdoZXJlDQo+PiB0aGF0IGEgc2luZ2xlIHN0YXRlbWVudCBjYW4gYmUgdXNlZC4N
+Cj4+DQo+PiBTbywgZW5jbG9zZSBgZ2JfbG9vcGJhY2tfc3RhdHNfYXR0cnNgIG1hY3JvIGluIGRv
+IC0gd2hpbGUgKDApIHRvDQo+PiBmaXggY2hlY2twYXRoIGVycm9yDQo+Pg0KPj4gU2lnbmVkLW9m
+Zi1ieTogTWVubmEgTWFobW91ZCA8ZW5nLm1lbm5hbWFobW91ZC5tbUBnbWFpbC5jb20+DQo+PiAt
+LS0NCj4gVGhpcyBicmVha3MgdGhlIGJ1aWxkLiAgWW91IG5lZWQgdG8gY29tcGlsZSB0aGUgY29k
+ZSBiZWZvcmUgc2VuZGluZyBhDQo+IHBhdGNoLg0KPg0KPiByZWdhcmRzLA0KPiBkYW4gY2FycGVu
+dGVyDQoNCg0KSSBzZWUsIEkgdGhvdWdodCBidWlsZGluZyB0aGUgZmlsZSBvbmx5IGVub3VnaC4g
+YXBwcmVjaWF0ZSB5b3VyIGZlZWRiYWNrLg0KDQoNClRoYW5rcywNCg0KTWVubmENCg0KDQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpncmV5YnVzLWRldiBt
+YWlsaW5nIGxpc3QgLS0gZ3JleWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpUbyB1bnN1YnNjcmli
+ZSBzZW5kIGFuIGVtYWlsIHRvIGdyZXlidXMtZGV2LWxlYXZlQGxpc3RzLmxpbmFyby5vcmcK
