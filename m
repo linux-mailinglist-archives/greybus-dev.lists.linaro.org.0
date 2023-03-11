@@ -2,105 +2,77 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7518F6B5579
-	for <lists+greybus-dev@lfdr.de>; Sat, 11 Mar 2023 00:18:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7567C6B598B
+	for <lists+greybus-dev@lfdr.de>; Sat, 11 Mar 2023 09:48:18 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8F5ED3F4EC
-	for <lists+greybus-dev@lfdr.de>; Fri, 10 Mar 2023 23:18:42 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	by lists.linaro.org (Postfix) with ESMTPS id DD5B63F056
-	for <greybus-dev@lists.linaro.org>; Fri, 10 Mar 2023 22:39:24 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7D8E03F4A4
+	for <lists+greybus-dev@lfdr.de>; Sat, 11 Mar 2023 08:48:17 +0000 (UTC)
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	by lists.linaro.org (Postfix) with ESMTPS id 5B7743F4A4
+	for <greybus-dev@lists.linaro.org>; Sat, 11 Mar 2023 08:48:10 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20210112 header.b=oXFqjObq;
-	spf=pass (lists.linaro.org: domain of kamrankhadijadj@gmail.com designates 209.85.221.52 as permitted sender) smtp.mailfrom=kamrankhadijadj@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-wr1-f52.google.com with SMTP id q16so6404834wrw.2
-        for <greybus-dev@lists.linaro.org>; Fri, 10 Mar 2023 14:39:24 -0800 (PST)
+	dkim=pass header.d=inria.fr header.s=dc header.b=hRooKtA4;
+	spf=pass (lists.linaro.org: domain of julia.lawall@inria.fr designates 192.134.164.83 as permitted sender) smtp.mailfrom=julia.lawall@inria.fr;
+	dmarc=pass (policy=none) header.from=inria.fr
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678487964;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=5PuvKOvfLUjyVO4mPIX/XjsIPQ+ajMnbP2SJqNrL1cI=;
-        b=oXFqjObqygxkHRfqqAMKRIVwozsa0l3DRG6a6G7slqeC+CHe384vkDLPFFrgbGeydG
-         kOyWZjR1179dMQJLO+/tAshkv3m/fLIQ9GVzY+IpruvMWcjLnEFkfdIjGzLuE3mCpzMl
-         pPcnQljNsdvoaKgdB+l6cu1hkxG9Itfx6XfTpL8ZJAzK+z6tsEy4BMFChg/kwBhWE2PD
-         VXznHjVeZosZojk7dMs3t3JzdXmlhdhS3gtM8Uht7t5EjvAM2UYmD2GidzVMbs6gI2A6
-         h86Y9mL27HXXz9sUl3QlbAPk4Gq8EuD74Mu7I5Ox+Z05pfIyMha48spVo9zCnOxh5f0B
-         dosw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678487964;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5PuvKOvfLUjyVO4mPIX/XjsIPQ+ajMnbP2SJqNrL1cI=;
-        b=omgeap/91L1xwLcT58YIqTbtD700LDEqG0TO/LWrFGFKhINoi7QO/izy95rTzjnekQ
-         WyAqF2NGCRi5XLSqzIy8hR+f1IYkhcbu5GOFS7J7fqManFdo3a85qRQoiJoBiYt0zhBb
-         rkwTVLyxXqX5/vgX2azL0IF/vdeVcASZji05c1ZFl+kCFcGZw5rsG5tW/OaasjxyeVgJ
-         1Y5b5PiTO2u8OCo86VepqSZnSBqT/ALQClM6n66j5tSXx6Fqmbm2eFzvwQ4KwvzW3Nkz
-         nr987YYRes/yyJ/YBvkmhSnXFFoOAu0r3loF+SITugSoQLFmORn3nFf8CsCqAVajwAR0
-         N4fQ==
-X-Gm-Message-State: AO0yUKWsHLJaOZ3guGaXA5zRBMRDW2lg1JiNQj52YJkLR9MSDclx+2ZD
-	BIMxoHYRjpoQY+WqK7yxyoE=
-X-Google-Smtp-Source: AK7set/7u/SY1mUQXvz+1eJcT8g0IyPHytdodVx6/Y9NnoSmRa1Uw6b/LVVnXac95BUA3XmVBqxmqQ==
-X-Received: by 2002:a5d:474b:0:b0:2c5:a38f:ca3a with SMTP id o11-20020a5d474b000000b002c5a38fca3amr2557906wrs.10.1678487963664;
-        Fri, 10 Mar 2023 14:39:23 -0800 (PST)
-Received: from khadija-virtual-machine ([39.41.45.115])
-        by smtp.gmail.com with ESMTPSA id f16-20020a7bcd10000000b003dfe5190376sm1095707wmj.35.2023.03.10.14.39.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Mar 2023 14:39:23 -0800 (PST)
-Date: Sat, 11 Mar 2023 03:39:20 +0500
-From: Khadija Kamran <kamrankhadijadj@gmail.com>
-To: Dan Carpenter <error27@gmail.com>, julia.lawall@inria.fr, drv@mailo.com
-Message-ID: <ZAuxmGmVQMSwig44@khadija-virtual-machine>
-References: <ZAtkW6g6DwPg/pDp@khadija-virtual-machine>
- <eb7475da-7548-4820-a2b6-ff0f6cf4be71@kili.mountain>
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=vxFDoEkmYm4fRNtCrXSAyIIoifg5XvMVqwsWgt4pM4w=;
+  b=hRooKtA4P4371CXHG+QqkG17tqUa8lHG0uaE2bw9+8YNXY0wKdL4OlUj
+   F5jFW8aSMmETGSf5MCcnoi9RGOX/1+Rs6hBAdPKH8fXx9sFXXEMXoIilb
+   pKRGH9ay/BH48o4KfcfHYFVYA0HIgZrFFEW69rip2fEQgwrU9lCsV4t3K
+   w=;
+X-IronPort-AV: E=Sophos;i="5.98,252,1673910000";
+   d="scan'208";a="96627374"
+Received: from 231.85.89.92.rev.sfr.net (HELO hadrien) ([92.89.85.231])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Mar 2023 09:48:09 +0100
+Date: Sat, 11 Mar 2023 09:48:09 +0100 (CET)
+From: Julia Lawall <julia.lawall@inria.fr>
+X-X-Sender: jll@hadrien
+To: Khadija Kamran <kamrankhadijadj@gmail.com>
+In-Reply-To: <ZAwqzPeLh1Dm10EJ@khadija-virtual-machine>
+Message-ID: <alpine.DEB.2.22.394.2303110947230.2802@hadrien>
+References: <ZAusnKYVTGvO5zoi@khadija-virtual-machine> <6e9fd119-6566-4778-899e-bc5a7ee7830c@kili.mountain> <ZAwelPOv45zThK6j@khadija-virtual-machine> <ZAwoTVeMDGu/44Ln@ubun2204.myguest.virtualbox.org> <ZAwqzPeLh1Dm10EJ@khadija-virtual-machine>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <eb7475da-7548-4820-a2b6-ff0f6cf4be71@kili.mountain>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: DD5B63F056
-X-Spamd-Bar: /
-X-Spamd-Result: default: False [0.91 / 15.00];
+X-Rspamd-Queue-Id: 5B7743F4A4
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.00 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[inria.fr,none];
 	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20210112];
+	R_SPF_ALLOW(-0.20)[+ip4:192.134.164.0/24];
+	R_DKIM_ALLOW(-0.20)[inria.fr:s=dc];
 	MIME_GOOD(-0.10)[text/plain];
-	BAYES_HAM(-0.09)[64.73%];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.221.52:from];
-	TAGGED_RCPT(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FROM_EQ_ENVFROM(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,inria.fr,mailo.com];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[]
-X-MailFrom: kamrankhadijadj@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: OS45R3JTUBGFVHGEWXFIZYLHNVOSJ6SO
-X-Message-ID-Hash: OS45R3JTUBGFVHGEWXFIZYLHNVOSJ6SO
-X-Mailman-Approved-At: Fri, 10 Mar 2023 23:17:53 +0000
-CC: outreachy@lists.linux.dev, Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+	FREEMAIL_CC(0.00)[mailo.com,gmail.com,lists.linux.dev,kernel.org,linuxfoundation.org,lists.linaro.org,vger.kernel.org];
+	ASN(0.00)[asn:2200, ipnet:192.134.164.0/24, country:FR];
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	NEURAL_HAM(-0.00)[-0.999];
+	DKIM_TRACE(0.00)[inria.fr:+];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FROM_HAS_DN(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2]
+Message-ID-Hash: MVXLFOCXMRJOYPVDIM6WXWLGNPKNF62J
+X-Message-ID-Hash: MVXLFOCXMRJOYPVDIM6WXWLGNPKNF62J
+X-MailFrom: julia.lawall@inria.fr
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: Deepak R Varma <drv@mailo.com>, Dan Carpenter <error27@gmail.com>, outreachy@lists.linux.dev, Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: fix exceeds line length
+Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: remove tabs to fix line length and merge lines
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OS45R3JTUBGFVHGEWXFIZYLHNVOSJ6SO/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/MVXLFOCXMRJOYPVDIM6WXWLGNPKNF62J/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -110,13 +82,79 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hey! 
-Sorry, I am unable to understand this enough. Since it is mentioned that
-the patch raises another checkpatch warning, should I stop working on
-this patch and look for some other files? Kindly let me know.
 
-As for now, I have submitted another revision of this patch.
-Thank you.
+
+On Sat, 11 Mar 2023, Khadija Kamran wrote:
+
+> On Sat, Mar 11, 2023 at 12:35:49PM +0530, Deepak R Varma wrote:
+> > On Sat, Mar 11, 2023 at 11:24:20AM +0500, Khadija Kamran wrote:
+> > > On Sat, Mar 11, 2023 at 07:16:19AM +0300, Dan Carpenter wrote:
+> > > > On Sat, Mar 11, 2023 at 03:18:04AM +0500, Khadija Kamran wrote:
+> > > > > In file drivers/staging/greybus/arche-platform.c,
+> > > > > - Length of line 181 exceeds 100 columns, fix by removing tabs from the
+> > > > >   line.
+> > > > > - If condition and spin_unlock_...() call is split into two lines, join
+> > > > > them to form a single line.
+> > > > >
+> > > > > Signed-off-by: Khadija Kamran <kamrankhadijadj@gmail.com>
+> > > > > ---
+> > > > > Changes in v2:
+> > > > >  - Change the subject and log message
+> > > > >  - Merge if condition and spin_unlock...() from two lines to one
+> > > >
+> > > > Apply your patch and then re-run checkpatch.pl -f on the file.  You will
+> > > > see the problem.
+> > >
+> > > Hey Dan!
+> > > When I run checkpatch.pl on my file, I can see that my old CHECK no
+> > > longer exists instead a new CHECK is mentioned saying 'Alignment should
+> > > match open parenthesis'. I understand this from your previous email.
+> > > Should I stop working on this file and leave it as is?
+> >
+> > Hi Dan,
+> > Not trying to speak for you, so please override my message if this is
+> > inaccurate.
+> >
+> > Hi Khadija,
+> > Yes. It is not useful to resolve one warning and introduce another. Tomorrow
+> > someone else is going to try and revert it. So do not make the "remove tab"
+> > change. I still like the merging of the split lines. It appears to improve code
+> > readability. You can send in a v3 with just that merge change and wait for
+> > feedback.
+> >
+> Hey Deepak,
+> Thank you for the feedback. Before sending a patch v3, I think I should
+> wait for more feedback.
+
+Khadija,
+
+Please put some blank lines around your responses so they are easier to
+find.
+
+thanks,
+julia
+
+> > Also, remember to check your change with checkpatch. There is a section about
+> > post-commit hooks on the tutorials page. This will allow you to integrate
+> > checkpatch as part of your git commit step and do the job for you.
+> >
+> > And also, always build your change locally on your machine. No new warnings or
+> > errors should arise.
+> >
+> Yes I will keep that in mind for next patches. Thank you!
+> > Hope that helps.
+> > Deepak.
+> >
+> >
+> > > Thank you!
+> > > >
+> > > > regards,
+> > > > dan carpenter
+> > >
+> >
+> >
+>
+>
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
