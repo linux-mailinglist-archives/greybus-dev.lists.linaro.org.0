@@ -2,104 +2,103 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4C6F6C39CA
-	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 20:07:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1763D6C39CC
+	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 20:07:08 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3E6E7441E4
-	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 19:07:01 +0000 (UTC)
-Received: from mail-il1-f169.google.com (mail-il1-f169.google.com [209.85.166.169])
-	by lists.linaro.org (Postfix) with ESMTPS id 638A43F19C
-	for <greybus-dev@lists.linaro.org>; Fri, 17 Mar 2023 14:17:59 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 2100A3EF88
+	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 19:07:07 +0000 (UTC)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	by lists.linaro.org (Postfix) with ESMTPS id 6271F3EC46
+	for <greybus-dev@lists.linaro.org>; Sun, 19 Mar 2023 11:08:37 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20210112 header.b=fLsYWDju;
-	spf=pass (lists.linaro.org: domain of questioneight@gmail.com designates 209.85.166.169 as permitted sender) smtp.mailfrom=questioneight@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20210112 header.b=EWqzApqK;
+	spf=pass (lists.linaro.org: domain of eng.mennamahmoud.mm@gmail.com designates 209.85.208.49 as permitted sender) smtp.mailfrom=eng.mennamahmoud.mm@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-il1-f169.google.com with SMTP id h11so2798818ild.11
-        for <greybus-dev@lists.linaro.org>; Fri, 17 Mar 2023 07:17:59 -0700 (PDT)
+Received: by mail-ed1-f49.google.com with SMTP id b20so3532610edd.1
+        for <greybus-dev@lists.linaro.org>; Sun, 19 Mar 2023 04:08:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679062679;
-        h=content-disposition:mime-version:message-id:subject:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=bLuzKAEkaqcIq6AVNq4PWYMR9r7yckQDIYx3W14fFbQ=;
-        b=fLsYWDjuE07eQ6G7uOVyBOIkC4PhM2uiPK5xhuv90Xm/LclY/Ra0qzFnB8lU6UJS7P
-         OXqIu97p4TXATvyYYNKHslRWDEScL1KR088FLjH2yVx3qaGpBKQN1rmU8tasyAMQRV8w
-         OjpbjB+OctmWGzKRNWuPHTe/GhvMyVhQcDlILgN3ry4q4j6GMkK+2iQy7t9jjAsXhcwK
-         /4sQD+m50YS9i/w6B//y5hNhOjObq93mxgT45VM2fGmbs/bCkATU9d2fokGy9zcYJNmX
-         C5R62cV6FxRSnItqIPEepLiTCtmjD4slIQZBNXzqdLlPNzqCKPu7ZkCTItQP/g4+x6jx
-         W7AA==
+        d=gmail.com; s=20210112; t=1679224116;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=KvKtR1SyAlL8ZclsQUDCqvyh4Wf6MUHzliuNE/yYx4s=;
+        b=EWqzApqKGHadxWZtuIft3/9k1Z/U4tnCN8u/aqfrNv6utosGaFw523fJ6leRaqEll4
+         EQ28CbfFXGQMNlxErCoLR+Qk5RC/HUMST2x7w6ufa6xR/Xo1z0LJM3VfO/JgBUrCEvso
+         FTyn+GRt1ath2vas19mi3uVsa9U11EzxEPdR/ZwUw/WaQaV1mELNtTGWjT4q0euhB9i/
+         rC36xSR3eVmaTVjGyeUUfk0Aja3WyroUNB+dVS8kdiMfVjFOkL6GqeN1gef7vJO9Dd2E
+         qnCkh9xFyemZ1n+yg03sgw0m633doI8TJyS3h1BdE+4u7pnuI4oRPMKDyEIBe3twjMSf
+         yU5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679062679;
-        h=content-disposition:mime-version:message-id:subject:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bLuzKAEkaqcIq6AVNq4PWYMR9r7yckQDIYx3W14fFbQ=;
-        b=Ty9cUau9GO4N8QmJrx88ghLos/HrU015IwaBTw2a1zkYRBJAJi6djUVr8zu4fpIp+a
-         rl4vWyANEZuvZMfG5sVCnZxir80Vvu8PeJplDKHuagUPn3EBEwgRYnl5dmv6Cq0g4XBZ
-         ZSTEYXO+f9fJE/QoO3F1+PYu2e9mAZv9TFUH/HDzWELHKFrx0U8vEDVN/DZHV9dVAGeX
-         xCLAmxcQGK0I/gRrX5hVPAcwVI5NoRNqezjByI9OlvIKPHeNQsSdoKa/WsQ5OJ49pK23
-         WrQI03sH4ATGa1wKV7yjfnX0TrTYmFRnrLFZ+K1XWtMHS5WU9qcObfBmvtOoX0W+zzJV
-         Ee4g==
-X-Gm-Message-State: AO0yUKUJoi0WA7ZTMu/MLWZ992p0+cc82loLZkpkzIN8I67JovPivPoA
-	mNn6vZPT6QiuBHgMiINrpOo=
-X-Google-Smtp-Source: AK7set+OyC/Lyv3VlxfdCZWj7X/hYLmc594LVPMonaUxAi00/vpMqSiwJu5BZFZkgYI4SpckqUM1NA==
-X-Received: by 2002:a92:ddca:0:b0:323:162a:80d4 with SMTP id d10-20020a92ddca000000b00323162a80d4mr5978ilr.4.1679062678808;
-        Fri, 17 Mar 2023 07:17:58 -0700 (PDT)
-Received: from pikachu-Z97-D3H ([76.76.64.93])
-        by smtp.gmail.com with ESMTPSA id s20-20020a92c5d4000000b00315d1153ffcsm618638ilt.65.2023.03.17.07.17.57
+        d=1e100.net; s=20210112; t=1679224116;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KvKtR1SyAlL8ZclsQUDCqvyh4Wf6MUHzliuNE/yYx4s=;
+        b=oeek3fM3JaCEbVWI3GH25dIUHzdWzpgF/gX0IGQ89nW5iM+Ui3OW/yjikW+O+dE2Zf
+         4Fk3w1w6on+JmUgYWJUScsZsioo8xz842LrA5U+9Scisb5kJOYjr0QSLEuhz1S7/qXz3
+         iWK2HFvhCd6iFd7+3h2edYR2n7sSIpT0WpZK6g1T7NyWEtoKZDweaPrIcc6zb06G0Gyi
+         /99NYbzQBTPID4piPJ6wsdbp8RgpvB6AdJUhV9cyHAx67G8Gef2urU7SJ8KYG7koq2BY
+         ubnKydfILczwlMjSFQ9ZHqibi0eXI9ZTT6SM6Tj/KA41086WYYVIODMnbNeqOzki19ZH
+         BvVw==
+X-Gm-Message-State: AO0yUKUgS1jGcgrEZy7pTThIED22sEmN9vYR4dhiQ2zMepgkbi4keGg/
+	r/tO5pMRVZdr289NfSgl768=
+X-Google-Smtp-Source: AK7set+M2KsLZ2J+fCSTK7GAzj2ZqhFqHG2PxlB63b1Ee3POlZ7DfjOfSQV70skSwAKtdTXkkftrew==
+X-Received: by 2002:a17:906:1991:b0:92e:c4c9:7a43 with SMTP id g17-20020a170906199100b0092ec4c97a43mr5679412ejd.25.1679224116271;
+        Sun, 19 Mar 2023 04:08:36 -0700 (PDT)
+Received: from alaa-emad.. ([41.42.177.251])
+        by smtp.gmail.com with ESMTPSA id m20-20020a170906259400b0092b8c1f41ebsm3122889ejb.24.2023.03.19.04.08.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Mar 2023 07:17:58 -0700 (PDT)
-Date: Fri, 17 Mar 2023 08:17:56 -0600
-From: Mark Thomas Heim <questioneight@gmail.com>
-To: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
-	Mark Greer <mgreer@animalcreek.com>,
-	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
-Message-ID: <20230317141756.GA43753@pikachu-Z97-D3H>
+        Sun, 19 Mar 2023 04:08:35 -0700 (PDT)
+From: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
+To: gregkh@linuxfoundation.org
+Date: Sun, 19 Mar 2023 13:08:31 +0200
+Message-Id: <20230319110831.39931-1-eng.mennamahmoud.mm@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 638A43F19C
+X-Rspamd-Queue-Id: 6271F3EC46
 X-Spamd-Bar: --
 X-Spamd-Result: default: False [-2.00 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	MID_RHS_NOT_FQDN(0.50)[];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20210112];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.166.169:from];
-	NEURAL_HAM(-0.00)[-0.999];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.208.49:from];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_COUNT_TWO(0.00)[2];
+	ARC_NA(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FREEMAIL_CC(0.00)[lists.linux.dev,kernel.org,lists.linaro.org,vger.kernel.org,gmail.com];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	TO_DN_NONE(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
 	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
 	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FREEMAIL_TO(0.00)[gmail.com,animalcreek.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FROM_EQ_ENVFROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[]
-X-MailFrom: questioneight@gmail.com
+X-MailFrom: eng.mennamahmoud.mm@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: KNROUUEQT5IVQKFEARY57OVAK7DCL46I
-X-Message-ID-Hash: KNROUUEQT5IVQKFEARY57OVAK7DCL46I
+Message-ID-Hash: YKVAA67UOFCN2AISU4MH6HFBTCEJYGGI
+X-Message-ID-Hash: YKVAA67UOFCN2AISU4MH6HFBTCEJYGGI
 X-Mailman-Approved-At: Tue, 21 Mar 2023 19:06:55 +0000
+CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, eng.mennamahmoud.mm@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: extract a fxn to improve clarity
+Subject: [greybus-dev] [PATCH] staging: greybus: add blank line after struct
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/KNROUUEQT5IVQKFEARY57OVAK7DCL46I/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YKVAA67UOFCN2AISU4MH6HFBTCEJYGGI/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -109,86 +108,39 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The gb_audio_gb_get_topology function at the top of the file
-needs to be split per a TODO comment above the function. It
-is necessary to refactor the code to pull out a method
-that has fewer parameters to improve readability. A
-prototype for the new function is now in the relevant header,
-and the simpler function calls replace the old ones.
+add blank line after struct for readability as
+reported by checkpatch script
 
-Signed-off-by: Mark Thomas Heim <questioneight@gmail.com>
+" CHECK: Please use a blank line after function/struct/union/enum
+declarations"
+
+Signed-off-by: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
 ---
- drivers/staging/greybus/audio_codec.h |  2 ++
- drivers/staging/greybus/audio_gb.c    | 21 +++++++++++----------
- 2 files changed, 13 insertions(+), 10 deletions(-)
+ drivers/staging/greybus/gbphy.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/staging/greybus/audio_codec.h b/drivers/staging/greybus/audio_codec.h
-index ce15e800e607..a2e8361952b8 100644
---- a/drivers/staging/greybus/audio_codec.h
-+++ b/drivers/staging/greybus/audio_codec.h
-@@ -177,6 +177,8 @@ int gbaudio_register_module(struct gbaudio_module_info *module);
- void gbaudio_unregister_module(struct gbaudio_module_info *module);
- 
- /* protocol related */
-+int fetch_gb_audio_data(struct gb_connection *connection, int type,
-+			void *response, int response_size);
- int gb_audio_gb_get_topology(struct gb_connection *connection,
- 			     struct gb_audio_topology **topology);
- int gb_audio_gb_get_control(struct gb_connection *connection,
-diff --git a/drivers/staging/greybus/audio_gb.c b/drivers/staging/greybus/audio_gb.c
-index 9d8994fdb41a..3c924d13f0e7 100644
---- a/drivers/staging/greybus/audio_gb.c
-+++ b/drivers/staging/greybus/audio_gb.c
-@@ -8,7 +8,13 @@
- #include <linux/greybus.h>
- #include "audio_codec.h"
- 
--/* TODO: Split into separate calls */
-+int fetch_gb_audio_data(struct gb_connection *connection,
-+			int type, void *response, int response_size)
-+{
-+	return gb_operation_sync(connection, type, NULL, 0,
-+				 response, response_size);
-+}
+diff --git a/drivers/staging/greybus/gbphy.h b/drivers/staging/greybus/gbphy.h
+index d4a225b76338..1de510499480 100644
+--- a/drivers/staging/greybus/gbphy.h
++++ b/drivers/staging/greybus/gbphy.h
+@@ -15,6 +15,7 @@ struct gbphy_device {
+ 	struct list_head list;
+ 	struct device dev;
+ };
 +
- int gb_audio_gb_get_topology(struct gb_connection *connection,
- 			     struct gb_audio_topology **topology)
- {
-@@ -17,28 +23,23 @@ int gb_audio_gb_get_topology(struct gb_connection *connection,
- 	u16 size;
- 	int ret;
+ #define to_gbphy_dev(d) container_of(d, struct gbphy_device, dev)
  
--	ret = gb_operation_sync(connection, GB_AUDIO_TYPE_GET_TOPOLOGY_SIZE,
--				NULL, 0, &size_resp, sizeof(size_resp));
-+	ret = fetch_gb_audio_data(connection, GB_AUDIO_TYPE_GET_TOPOLOGY_SIZE,
-+				  &size_resp, sizeof(size_resp));
- 	if (ret)
- 		return ret;
--
- 	size = le16_to_cpu(size_resp.size);
- 	if (size < sizeof(*topo))
- 		return -ENODATA;
--
- 	topo = kzalloc(size, GFP_KERNEL);
- 	if (!topo)
- 		return -ENOMEM;
--
--	ret = gb_operation_sync(connection, GB_AUDIO_TYPE_GET_TOPOLOGY, NULL, 0,
--				topo, size);
-+	ret = fetch_gb_audio_data(connection, GB_AUDIO_TYPE_GET_TOPOLOGY,
-+				  topo, size);
- 	if (ret) {
- 		kfree(topo);
- 		return ret;
- 	}
--
- 	*topology = topo;
--
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(gb_audio_gb_get_topology);
+ static inline void *gb_gbphy_get_data(struct gbphy_device *gdev)
+@@ -43,6 +44,7 @@ struct gbphy_driver {
+ 
+ 	struct device_driver driver;
+ };
++
+ #define to_gbphy_driver(d) container_of(d, struct gbphy_driver, driver)
+ 
+ int gb_gbphy_register_driver(struct gbphy_driver *driver,
 -- 
-2.25.1
+2.34.1
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
