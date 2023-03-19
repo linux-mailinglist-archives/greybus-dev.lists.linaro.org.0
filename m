@@ -2,61 +2,61 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A9226C39D5
-	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 20:07:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBD8A6C39D6
+	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 20:07:57 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 7E287441DD
-	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 19:07:51 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	by lists.linaro.org (Postfix) with ESMTPS id 99F5A3E96A
-	for <greybus-dev@lists.linaro.org>; Sun, 19 Mar 2023 13:25:49 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id D3624441DD
+	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 19:07:56 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	by lists.linaro.org (Postfix) with ESMTPS id 1CA733E965
+	for <greybus-dev@lists.linaro.org>; Sun, 19 Mar 2023 15:29:24 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20210112 header.b=mNQgmGbT;
-	spf=pass (lists.linaro.org: domain of eng.mennamahmoud.mm@gmail.com designates 209.85.208.49 as permitted sender) smtp.mailfrom=eng.mennamahmoud.mm@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20210112 header.b=EL0OaV88;
+	spf=pass (lists.linaro.org: domain of eng.mennamahmoud.mm@gmail.com designates 209.85.208.54 as permitted sender) smtp.mailfrom=eng.mennamahmoud.mm@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-ed1-f49.google.com with SMTP id w9so37244652edc.3
-        for <greybus-dev@lists.linaro.org>; Sun, 19 Mar 2023 06:25:49 -0700 (PDT)
+Received: by mail-ed1-f54.google.com with SMTP id w9so37896884edc.3
+        for <greybus-dev@lists.linaro.org>; Sun, 19 Mar 2023 08:29:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679232348;
+        d=gmail.com; s=20210112; t=1679239763;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1ZHVKRyqUkVQgHIPcnrjM4VftHtoW1MPmlfE9Rq46vI=;
-        b=mNQgmGbT+HVA15+DOSJlLUEnpBIvOyX+j5cvdZStAMH3VF92O9PT06RNqnKRcLovaL
-         P30ex7z0Rp9MyvhsrqrkReKNRvyDU8AwDnEANAvLUiQ6kvbh9Uru5Up9soTO/7BSyub8
-         Sd58TAIV1/wEw/MjVS5H4ulLp8ToU4GBHkw/APoVrk4OPB9rBU1ml8FlRR1IicVjvqnU
-         TIVfbOmEHMt2YTG0rr16Qxh3pVdfbKIs0nVC4oMTf0MSbp0tnoRKdErZji/f+qQ2jf0u
-         WXpQJjZ/5ob5O6P+f2bPFt6qcqoEEpnPUkHalWUkXthEOEMawcOA2WqTCGknztflUuhD
-         /FJw==
+        bh=hHi5+GWz44QI22N2lgNwAXCVNfgTvzls3W9uzDI9R7I=;
+        b=EL0OaV88uE7w1zSJ8q0s8ZyR5j+/8i5pUz0qyWMyVWZz50lSmaSeDG+c2UTxTnThfy
+         scFRyh8qZAlhcbxsZgZPKW9RItpvfjaOqs5rMAJQGTTg1OI+eY+tR2XEZwF4Odh64BHk
+         vBtJ5PVTbpwsJK+MrFXklMEvz6f6RCUfqU9F4Nipl4wVgybrMSDLSmd34EuIJfW+kWjO
+         PYJcMCoav9zF3nxDVWQ85kBXM/L6v73W3CIn11H6VRiYC87NTpaDwMnScnJnAqKdWhEk
+         Hx3GMQrux+sjljqCLC651Vh1LrAIiJOHy/K+wyJ3nwEIxhGEJkQ0iuEeBiCMyZP4Xjvj
+         maaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679232348;
+        d=1e100.net; s=20210112; t=1679239763;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=1ZHVKRyqUkVQgHIPcnrjM4VftHtoW1MPmlfE9Rq46vI=;
-        b=d9/Zf9BRtUqyonfQdvsAF4Vl9ZJr3k6UrasgDxxD6yFmC50WhrjdT2gvQ/W3l0SMcN
-         9K4L/eBUojf9qj3RBVcl5NCkBP+iC96Q9bYXeC5Qhi+vGgXLr2ODoTbtXTgDCBuZlsZ6
-         mMpSwYOiVuefrQHfC8N31emdvnkFcX7Ki1s07vRDmkzMOxxrV9QI5aQNyYdU700JwxQu
-         XRMqt+BsEaKQRIfvvIkeBslDzYqM1VzSND8uB1Is47mqrDGhPnZvatooapAgyzd0LnQE
-         DHmLeiHMtOqST4nG0wWiy3z41aZVENTQwyjbWCXH6Z179hlKrb6W68B3XjnWpLtJUcwL
-         uhOQ==
-X-Gm-Message-State: AO0yUKVtqjijeIwiGfreVdciTYlxjwO9jIIU0gcHqB8TIYFeR9C9/L+R
-	qofgCQ5lfg+1lhzckbWwdtk=
-X-Google-Smtp-Source: AK7set/2uQPzlmU1OHFq9zDhnY7GnvreG7DHR7u3GAV4giydFft8V9GEoMXX+yqrcLSXhEr6GQVUyw==
-X-Received: by 2002:a17:906:2e91:b0:931:7c20:f75a with SMTP id o17-20020a1709062e9100b009317c20f75amr5049951eji.53.1679232348497;
-        Sun, 19 Mar 2023 06:25:48 -0700 (PDT)
+        bh=hHi5+GWz44QI22N2lgNwAXCVNfgTvzls3W9uzDI9R7I=;
+        b=YEPvMWhLJiCtigY0OPuOtOynpS2I/Yp7FPV9n3SLDCydBphBNlyDF9nE7n1h2clNOa
+         MCK69MxKc2VND5wmNuXED+mu2Xsf+q5XF1B7XfDlvxI5EAKAeslZ3dN2nNZAxgMCPn7N
+         hATtApQWjZ/ArCCIvjKLwmbY4432ScWptIdR+1yH3YitmtvHdO4pXGNClOq2tvwdVuT4
+         SyN5I8U3hsEg/DAs7p9FTNqPf+w9uDgucfLNq2gcKyrV1cKMkjbWhJm3ow8Z5hDhKadm
+         sPeelYdrRM3BgbNQYREETHmFAj8SzB5LjyfWY+MoFVkTo+zBeJRVDdcaLB6fNVu6KjQ0
+         EWDA==
+X-Gm-Message-State: AO0yUKXKBdLLPA70p9um2Rt6Dv/Ty7I4mbdfQzAHUdbLcLnlcR+eH2/l
+	NXiPygRPFxxoMa7z0V6364A=
+X-Google-Smtp-Source: AK7set/E0e+CI78tJzcFXyh5kyZx43f/wgftRrGinMc5pR7pChEra9ob+MPRBBpdNINOjJ8OqOz06g==
+X-Received: by 2002:a17:906:8415:b0:930:3916:df19 with SMTP id n21-20020a170906841500b009303916df19mr5737952ejx.5.1679239762248;
+        Sun, 19 Mar 2023 08:29:22 -0700 (PDT)
 Received: from alaa-emad.. ([41.42.177.251])
-        by smtp.gmail.com with ESMTPSA id by22-20020a170906a2d600b008cecb8f374asm3235200ejb.0.2023.03.19.06.25.47
+        by smtp.gmail.com with ESMTPSA id ia9-20020a170907a06900b00932b3e2c015sm2425429ejc.51.2023.03.19.08.29.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Mar 2023 06:25:48 -0700 (PDT)
+        Sun, 19 Mar 2023 08:29:21 -0700 (PDT)
 From: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
 To: gregkh@linuxfoundation.org
-Date: Sun, 19 Mar 2023 15:24:51 +0200
-Message-Id: <20230319132452.151877-2-eng.mennamahmoud.mm@gmail.com>
+Date: Sun, 19 Mar 2023 17:29:09 +0200
+Message-Id: <20230319152909.163598-1-eng.mennamahmoud.mm@gmail.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 99F5A3E96A
+X-Rspamd-Queue-Id: 1CA733E965
 X-Spamd-Bar: --
 X-Spamd-Result: default: False [-2.00 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
@@ -64,20 +64,20 @@ X-Spamd-Result: default: False [-2.00 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20210112];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
 	MIME_GOOD(-0.10)[text/plain];
 	TAGGED_RCPT(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.208.49:from];
-	NEURAL_HAM(-0.00)[-1.000];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.208.54:from];
+	NEURAL_HAM(-0.00)[-0.999];
 	RCVD_COUNT_TWO(0.00)[2];
 	ARC_NA(0.00)[];
 	TAGGED_FROM(0.00)[];
-	FREEMAIL_CC(0.00)[lists.linux.dev,kernel.org,lists.linaro.org,vger.kernel.org,gmail.com];
+	FREEMAIL_CC(0.00)[lists.linux.dev,kernel.org,gmail.com,pengutronix.de,lists.linaro.org,vger.kernel.org];
 	DKIM_TRACE(0.00)[gmail.com:+];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	TO_DN_NONE(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -90,15 +90,15 @@ X-Spamd-Result: default: False [-2.00 / 15.00];
 X-MailFrom: eng.mennamahmoud.mm@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: ZWYMUDMJMJT26D6S2CLE2EYECMSAAK5T
-X-Message-ID-Hash: ZWYMUDMJMJT26D6S2CLE2EYECMSAAK5T
+Message-ID-Hash: TZNVAJPVJNKDJV355ZSCG66M6AARPH22
+X-Message-ID-Hash: TZNVAJPVJNKDJV355ZSCG66M6AARPH22
 X-Mailman-Approved-At: Tue, 21 Mar 2023 19:06:56 +0000
-CC: outreachy@lists.linux.dev, vireshk@kernel.org, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, eng.mennamahmoud.mm@gmail.com
+CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, thierry.reding@gmail.com, u.kleine-koenig@pengutronix.de, greybus-dev@lists.linaro.org, linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, eng.mennamahmoud.mm@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH RESEND] staging: greybus: remove unnecessary blank line
+Subject: [greybus-dev] [PATCH] staging: greybus: remove unnecessary blank line
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZWYMUDMJMJT26D6S2CLE2EYECMSAAK5T/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TZNVAJPVJNKDJV355ZSCG66M6AARPH22/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -115,21 +115,21 @@ by checkpatch:
 
 Signed-off-by: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
 ---
- drivers/staging/greybus/greybus_authentication.h | 1 -
+ drivers/staging/greybus/pwm.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/staging/greybus/greybus_authentication.h b/drivers/staging/greybus/greybus_authentication.h
-index 7edc7295b7ab..48b4a9794d3c 100644
---- a/drivers/staging/greybus/greybus_authentication.h
-+++ b/drivers/staging/greybus/greybus_authentication.h
-@@ -41,7 +41,6 @@
- #define CAP_AUTH_RESULT_CR_NO_KEY	0x03
- #define CAP_AUTH_RESULT_CR_SIG_FAIL	0x04
+diff --git a/drivers/staging/greybus/pwm.c b/drivers/staging/greybus/pwm.c
+index 3fda172239d2..26d39e08c3b6 100644
+--- a/drivers/staging/greybus/pwm.c
++++ b/drivers/staging/greybus/pwm.c
+@@ -24,7 +24,6 @@ struct gb_pwm_chip {
+ #define pwm_chip_to_gb_pwm_chip(chip) \
+ 	container_of(chip, struct gb_pwm_chip, chip)
  
 -
- /* IOCTL support */
- struct cap_ioc_get_endpoint_uid {
- 	__u8			uid[8];
+ static int gb_pwm_count_operation(struct gb_pwm_chip *pwmc)
+ {
+ 	struct gb_pwm_count_response response;
 -- 
 2.34.1
 
