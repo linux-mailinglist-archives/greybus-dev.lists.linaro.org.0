@@ -2,78 +2,77 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD56C6BEB55
-	for <lists+greybus-dev@lfdr.de>; Fri, 17 Mar 2023 15:33:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 369966C00BD
+	for <lists+greybus-dev@lfdr.de>; Sun, 19 Mar 2023 12:19:14 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D1FE93F52B
-	for <lists+greybus-dev@lfdr.de>; Fri, 17 Mar 2023 14:33:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id C1E683F19C
-	for <greybus-dev@lists.linaro.org>; Fri, 17 Mar 2023 14:33:28 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id DB50543E55
+	for <lists+greybus-dev@lfdr.de>; Sun, 19 Mar 2023 11:19:12 +0000 (UTC)
+Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
+	by lists.linaro.org (Postfix) with ESMTPS id EF1873EC46
+	for <greybus-dev@lists.linaro.org>; Sun, 19 Mar 2023 11:19:06 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=gf57b+Y3;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 59445622CD;
-	Fri, 17 Mar 2023 14:33:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4115BC433A1;
-	Fri, 17 Mar 2023 14:33:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1679063607;
-	bh=53j9p3OHoAI+PGZYPMlMcpu+VNaa0nVHUAUhmn0hpxY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gf57b+Y3HNie1X1+4Ctks74ZjmyS0VjcUpN+TPomNk67GXHJX6MKBJclB7q/ypmZY
-	 8yqWTGEx7M2iDRFwCCce9Bf03X+MT057qFKBGmZvu1r9EbjdOE8rSsx2tFY+RU9qxt
-	 gK9JyMqmoOcuDwJxQlp6pmm5ZSAt78V4l6KsGoCo=
-Date: Fri, 17 Mar 2023 15:33:21 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Mark Thomas Heim <questioneight@gmail.com>
-Message-ID: <ZBR6MZifQBMLV8Ps@kroah.com>
-References: <20230317141756.GA43753@pikachu-Z97-D3H>
+	dkim=pass header.d=inria.fr header.s=dc header.b=TUYsFGhB;
+	spf=pass (lists.linaro.org: domain of julia.lawall@inria.fr designates 192.134.164.104 as permitted sender) smtp.mailfrom=julia.lawall@inria.fr;
+	dmarc=pass (policy=none) header.from=inria.fr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=CQbZdqTfpVu04Ol9krfmhGs0dWnMUsVc9ERV0IPCHsY=;
+  b=TUYsFGhB6RGQGpI5HNU/e8R5tyhjwlf4NekFFoOVsbSn6Z9yBI5+1zC+
+   b0PatNixPTPwidnW79TDtgImtXTt5+zc4Gf5bI1XdxIgeB8YRtn6k+8tN
+   uCpT//ok+WFIFbWDGccRY+2JB5uoaLu14janzobW89CQnykZzxFcQsllJ
+   A=;
+X-IronPort-AV: E=Sophos;i="5.98,273,1673910000";
+   d="scan'208";a="50605204"
+Received: from 231.85.89.92.rev.sfr.net (HELO hadrien) ([92.89.85.231])
+  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Mar 2023 12:19:06 +0100
+Date: Sun, 19 Mar 2023 12:19:04 +0100 (CET)
+From: Julia Lawall <julia.lawall@inria.fr>
+X-X-Sender: jll@hadrien
+To: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
+In-Reply-To: <20230319110831.39931-1-eng.mennamahmoud.mm@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2303191216240.2867@hadrien>
+References: <20230319110831.39931-1-eng.mennamahmoud.mm@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230317141756.GA43753@pikachu-Z97-D3H>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: C1E683F19C
+X-Rspamd-Queue-Id: EF1873EC46
 X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.50 / 15.00];
+X-Spamd-Result: default: False [-2.10 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
-	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
-	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
+	DMARC_POLICY_ALLOW(-0.50)[inria.fr,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:192.134.164.0/24];
+	R_DKIM_ALLOW(-0.20)[inria.fr:s=dc];
+	RWL_MAILSPIKE_GOOD(-0.10)[192.134.164.104:from];
 	MIME_GOOD(-0.10)[text/plain];
+	ASN(0.00)[asn:2200, ipnet:192.134.164.0/24, country:FR];
+	RCVD_TLS_LAST(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MIME_TRACE(0.00)[0:+];
-	NEURAL_HAM(-0.00)[-0.997];
 	FREEMAIL_TO(0.00)[gmail.com];
-	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
-	DKIM_TRACE(0.00)[linuxfoundation.org:+];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_CC(0.00)[gmail.com,animalcreek.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_ONE(0.00)[1];
+	DKIM_TRACE(0.00)[inria.fr:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	FROM_HAS_DN(0.00)[];
-	TAGGED_RCPT(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TO_DN_SOME(0.00)[];
-	URIBL_BLOCKED(0.00)[linuxfoundation.org:dkim];
-	RCVD_TLS_ALL(0.00)[]
-Message-ID-Hash: ASHDJZT6QI7CYLBU42TL7TCS7FV5T6NC
-X-Message-ID-Hash: ASHDJZT6QI7CYLBU42TL7TCS7FV5T6NC
-X-MailFrom: gregkh@linuxfoundation.org
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[]
+Message-ID-Hash: JXXMI7ZKCLJHNOGFSLBKDFOHC4CZZ52Q
+X-Message-ID-Hash: JXXMI7ZKCLJHNOGFSLBKDFOHC4CZZ52Q
+X-MailFrom: julia.lawall@inria.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
+CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: extract a fxn to improve clarity
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: add blank line after struct
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ASHDJZT6QI7CYLBU42TL7TCS7FV5T6NC/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/JXXMI7ZKCLJHNOGFSLBKDFOHC4CZZ52Q/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -83,80 +82,62 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 17, 2023 at 08:17:56AM -0600, Mark Thomas Heim wrote:
-> The gb_audio_gb_get_topology function at the top of the file
-> needs to be split per a TODO comment above the function. It
-> is necessary to refactor the code to pull out a method
-> that has fewer parameters to improve readability. A
-> prototype for the new function is now in the relevant header,
-> and the simpler function calls replace the old ones.
 
-Note, you have a full 72 characters to use for a changelog, please use
-the whole line.
 
-And what is "fxn" in the subject line?  Ironic you use an abbreviation
-when trying to improve clarity :)
+On Sun, 19 Mar 2023, Menna Mahmoud wrote:
 
-> Signed-off-by: Mark Thomas Heim <questioneight@gmail.com>
+> add blank line after struct for readability as
+
+The log message should start with a capital letter, so "Add".
+
+> reported by checkpatch script
+
+"reported by checkpatch" or "reported by the checkpatch script".
+The first is more concise, and it doesn't really matter whether checkpatch
+is a script or something else.
+
+> " CHECK: Please use a blank line after function/struct/union/enum
+> declarations"
+
+I guess the #define was concatenated to the end of the definition to show
+that it is closely related to the definition.  With the #define, it seems
+rather natural, but the better soltution would be to make a static inline
+function in both cases.  There would naturally be a blank line before a
+function definition as well.
+
+julia
+
+>
+> Signed-off-by: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
 > ---
->  drivers/staging/greybus/audio_codec.h |  2 ++
->  drivers/staging/greybus/audio_gb.c    | 21 +++++++++++----------
->  2 files changed, 13 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/audio_codec.h b/drivers/staging/greybus/audio_codec.h
-> index ce15e800e607..a2e8361952b8 100644
-> --- a/drivers/staging/greybus/audio_codec.h
-> +++ b/drivers/staging/greybus/audio_codec.h
-> @@ -177,6 +177,8 @@ int gbaudio_register_module(struct gbaudio_module_info *module);
->  void gbaudio_unregister_module(struct gbaudio_module_info *module);
->  
->  /* protocol related */
-> +int fetch_gb_audio_data(struct gb_connection *connection, int type,
-> +			void *response, int response_size);
-
-Why is this a global function?
-
-And why if it is a global function, are you not using the gb_audio_*
-prefix?  Be aware of the global namespace please.
-
->  int gb_audio_gb_get_topology(struct gb_connection *connection,
->  			     struct gb_audio_topology **topology);
->  int gb_audio_gb_get_control(struct gb_connection *connection,
-> diff --git a/drivers/staging/greybus/audio_gb.c b/drivers/staging/greybus/audio_gb.c
-> index 9d8994fdb41a..3c924d13f0e7 100644
-> --- a/drivers/staging/greybus/audio_gb.c
-> +++ b/drivers/staging/greybus/audio_gb.c
-> @@ -8,7 +8,13 @@
->  #include <linux/greybus.h>
->  #include "audio_codec.h"
->  
-> -/* TODO: Split into separate calls */
-> +int fetch_gb_audio_data(struct gb_connection *connection,
-> +			int type, void *response, int response_size)
-> +{
-> +	return gb_operation_sync(connection, type, NULL, 0,
-> +				 response, response_size);
-> +}
+>  drivers/staging/greybus/gbphy.h | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/staging/greybus/gbphy.h b/drivers/staging/greybus/gbphy.h
+> index d4a225b76338..1de510499480 100644
+> --- a/drivers/staging/greybus/gbphy.h
+> +++ b/drivers/staging/greybus/gbphy.h
+> @@ -15,6 +15,7 @@ struct gbphy_device {
+>  	struct list_head list;
+>  	struct device dev;
+>  };
 > +
->  int gb_audio_gb_get_topology(struct gb_connection *connection,
->  			     struct gb_audio_topology **topology)
->  {
-> @@ -17,28 +23,23 @@ int gb_audio_gb_get_topology(struct gb_connection *connection,
->  	u16 size;
->  	int ret;
->  
-> -	ret = gb_operation_sync(connection, GB_AUDIO_TYPE_GET_TOPOLOGY_SIZE,
-> -				NULL, 0, &size_resp, sizeof(size_resp));
-> +	ret = fetch_gb_audio_data(connection, GB_AUDIO_TYPE_GET_TOPOLOGY_SIZE,
-> +				  &size_resp, sizeof(size_resp));
-
-What are you actually changing here besides the name?
-
-How did this fix up the TODO at all?
-
-confused,
-
-greg k-h
+>  #define to_gbphy_dev(d) container_of(d, struct gbphy_device, dev)
+>
+>  static inline void *gb_gbphy_get_data(struct gbphy_device *gdev)
+> @@ -43,6 +44,7 @@ struct gbphy_driver {
+>
+>  	struct device_driver driver;
+>  };
+> +
+>  #define to_gbphy_driver(d) container_of(d, struct gbphy_driver, driver)
+>
+>  int gb_gbphy_register_driver(struct gbphy_driver *driver,
+> --
+> 2.34.1
+>
+>
+>
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
