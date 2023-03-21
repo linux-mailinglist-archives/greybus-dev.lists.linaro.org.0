@@ -2,137 +2,181 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7155C6C3716
-	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 17:40:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DD6E6C3735
+	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 17:43:13 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 5BCEC3EBA6
-	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 16:40:01 +0000 (UTC)
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
-	by lists.linaro.org (Postfix) with ESMTPS id 6ECFC3EBA6
-	for <greybus-dev@lists.linaro.org>; Tue, 21 Mar 2023 16:39:56 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 32FC343E59
+	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 16:43:12 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de [85.220.165.71])
+	by lists.linaro.org (Postfix) with ESMTPS id 68EF73EC46
+	for <greybus-dev@lists.linaro.org>; Tue, 21 Mar 2023 16:43:08 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=inria.fr header.s=dc header.b=mK6kLhXL;
-	spf=pass (lists.linaro.org: domain of julia.lawall@inria.fr designates 192.134.164.83 as permitted sender) smtp.mailfrom=julia.lawall@inria.fr;
-	dmarc=pass (policy=none) header.from=inria.fr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=PzFbeSMMbS4CC7XY2NIBhcKqrJEORtC8j3V9n4WJKHA=;
-  b=mK6kLhXLytGD1zE70XoQ6WcMB+mJyZieWcb6GqWmQMfOVpN0GBdaE4fg
-   1oU3+eZXBLvCLchaYuZFATS8et4Q+7qxQ7ZV1p29S1a4Art/+eDSPeeo+
-   8HfOFnSJUZZMC/ekg0lpUiwC/tW/C9oBktNSKwlOlb1b1qOWJEJWKMl27
-   c=;
-X-IronPort-AV: E=Sophos;i="5.98,279,1673910000";
-   d="scan'208";a="98353568"
-Received: from dt-lawall.paris.inria.fr ([128.93.67.65])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Mar 2023 17:39:55 +0100
-Date: Tue, 21 Mar 2023 17:39:55 +0100 (CET)
-From: Julia Lawall <julia.lawall@inria.fr>
+	dkim=none;
+	spf=pass (lists.linaro.org: domain of ukl@pengutronix.de designates 85.220.165.71 as permitted sender) smtp.mailfrom=ukl@pengutronix.de;
+	dmarc=none
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.ext.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1pef4e-0003Cx-Tg; Tue, 21 Mar 2023 17:43:00 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1pef4e-005jSE-25; Tue, 21 Mar 2023 17:43:00 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1pef4d-006oRj-BW; Tue, 21 Mar 2023 17:42:59 +0100
+Date: Tue, 21 Mar 2023 17:42:59 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
 To: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
-In-Reply-To: <196b5d53-701f-e2dd-596c-9fdb6a59f5cd@gmail.com>
-Message-ID: <8020f263-158d-db6e-f34-425b72983bb@inria.fr>
-References: <cover.1679352669.git.eng.mennamahmoud.mm@gmail.com> <ee77a227-13bd-70ad-1d8e-f9719970e0f8@inria.fr> <196b5d53-701f-e2dd-596c-9fdb6a59f5cd@gmail.com>
+Message-ID: <20230321164259.nt6varbc6v6bavrz@pengutronix.de>
+References: <cover.1679352669.git.eng.mennamahmoud.mm@gmail.com>
+ <1274302b52ae905dab6f75377d625598facbbdf1.1679352669.git.eng.mennamahmoud.mm@gmail.com>
+ <20230321154728.3r7ut3rl2pccmo2e@pengutronix.de>
+ <7c883bac-382c-b429-ab21-4675dce02474@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1428913748-1679416795=:10740"
+In-Reply-To: <7c883bac-382c-b429-ab21-4675dce02474@gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 6ECFC3EBA6
-X-Spamd-Bar: -
-X-Spamd-Result: default: False [-1.50 / 15.00];
+X-Rspamd-Queue-Id: 68EF73EC46
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.60 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
+	SIGNED_PGP(-2.00)[];
 	SUSPICIOUS_RECIPS(1.50)[];
-	CTYPE_MIXED_BOGUS(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[inria.fr,none];
-	R_DKIM_ALLOW(-0.20)[inria.fr:s=dc];
-	R_SPF_ALLOW(-0.20)[+ip4:192.134.164.0/24:c];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
+	FORGED_SENDER(0.30)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
+	R_SPF_ALLOW(-0.20)[+mx];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	RCVD_TLS_LAST(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
-	ASN(0.00)[asn:2200, ipnet:192.134.164.0/24, country:FR];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_ONE(0.00)[1];
-	MIME_TRACE(0.00)[0:+,1:+];
-	FROM_HAS_DN(0.00)[];
+	R_DKIM_NA(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	ASN(0.00)[asn:25394, ipnet:85.220.128.0/17, country:DE];
 	RCPT_COUNT_TWELVE(0.00)[12];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	MID_RHS_MATCH_FROM(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[linuxfoundation.org,lists.linux.dev,kernel.org,gmail.com,lists.linaro.org,vger.kernel.org,inria.fr];
+	FROM_HAS_DN(0.00)[];
 	TAGGED_RCPT(0.00)[];
 	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[linuxfoundation.org,lists.linux.dev,kernel.org,gmail.com,pengutronix.de,lists.linaro.org,vger.kernel.org];
-	DKIM_TRACE(0.00)[inria.fr:+];
-	ARC_NA(0.00)[]
-Message-ID-Hash: JJTKX46QSFYKDH4Y4TMFLHZHNVG4KM5J
-X-Message-ID-Hash: JJTKX46QSFYKDH4Y4TMFLHZHNVG4KM5J
-X-MailFrom: julia.lawall@inria.fr
+	DMARC_NA(0.00)[pengutronix.de];
+	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de]
+Message-ID-Hash: G4K3AZN4IDWP375GWRRLJJF4R5TO5T7P
+X-Message-ID-Hash: G4K3AZN4IDWP375GWRRLJJF4R5TO5T7P
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, vireshk@kernel.org, thierry.reding@gmail.com, u.kleine-koenig@pengutronix.de, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, linux-pwm@vger.kernel.org
+CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, vireshk@kernel.org, thierry.reding@gmail.com, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, linux-pwm@vger.kernel.org, Julia Lawall <julia.lawall@inria.fr>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 0/3] edits in greybus driver
+Subject: [greybus-dev] Re: [PATCH 2/3] staging: greybus: use inline function for macros
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/JJTKX46QSFYKDH4Y4TMFLHZHNVG4KM5J/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/G4K3AZN4IDWP375GWRRLJJF4R5TO5T7P/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
+Content-Type: multipart/mixed; boundary="===============4182972106981763248=="
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1428913748-1679416795=:10740
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--===============4182972106981763248==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ycczzpqu7aadwq6j"
+Content-Disposition: inline
 
-DQoNCk9uIFR1ZSwgMjEgTWFyIDIwMjMsIE1lbm5hIE1haG1vdWQgd3JvdGU6DQoNCj4NCj4gT24g
-2aLZoS/Zoy/Zotmg2aLZoyDZodmjOtmk2aYsIEp1bGlhIExhd2FsbCB3cm90ZToNCj4gPg0KPiA+
-IE9uIFR1ZSwgMjEgTWFyIDIwMjMsIE1lbm5hIE1haG1vdWQgd3JvdGU6DQo+ID4NCj4gPiA+IFRo
-aXMgcGF0Y2hzZXQgaW5jbHVkZXMgY2hhbmdlIGhhcHBlbmVkIGluIGdyZXlidXMgZHJpdmVyIGlu
-IHRocmVlDQo+ID4gPiBkaWZmZXJlbnQgZmlsZXMgdHdvIG9mIHRoZW0gcGF0Y2ggb25lIGFuZCB0
-aHJlZSByZWxhdGVkIHRvDQo+ID4gPiBjaGVja3BhdGNoIGlzc3VlIGFuZCBpbiBzZWNvbmQgcGF0
-Y2ggY29udmVydCB0d28NCj4gPiA+IGBjb250YWluZXJfb2ZgIG1hY3JvcyBpbnRvIGlubGluZSBm
-dW5jdGlvbnMuDQo+ID4gPg0KPiA+ID4gTWVubmEgTWFobW91ZCAoMyk6DQo+ID4gPiAgICBzdGFn
-aW5nOiBncmV5YnVzOiByZW1vdmUgdW5uZWNlc3NhcnkgYmxhbmsgbGluZQ0KPiA+ID4gICAgc3Rh
-Z2luZzogZ3JleWJ1czogdXNlIGlubGluZSBmdW5jdGlvbiBmb3IgbWFjcm9zDQo+ID4gPiAgICBz
-dGFnaW5nOiBncmV5YnVzOiByZW1vdmUgdW5uZWNlc3NhcnkgYmxhbmsgbGluZQ0KPiA+IERpZmZl
-cmVudCBwYXRjaGVzIHNob3VsZCBoYXZlIGRpZmZlcmVudCBzdWJqZWN0IGxpbmVzLg0KPiBCdXQg
-SSBoYXZlIGFscmVhZHkgdGhlIHNhbWUgZWRpdCBpbiBib3RoIGZpbGUsIHNvIHNob3VsZCBJIHJl
-LXdyaXRlIHRoZQ0KPiBzdWJqZWN0IGZvciBvbmUgb2YgdGhlbT8NCj4gPiAgICBZb3UgbmVlZCB0
-byBlaXRoZXINCj4gPiBiZSBtb3JlIHNwZWNpZmljIGFib3V0IHRoZSBmaWxlIGFmZmVjdGVkIG9y
-IG1lcmdlIHRoZSB0d28gcGF0Y2hlcyB3aXRoIHRoZQ0KPiA+IHNhbWUgc3ViamVjdCBpbnRvIG9u
-ZS4NCj4NCj4gZWFjaCBwYXRjaCByZWxhdGVkIHRvIGRpZmZlcmVudCBmaWxlLiBTbywgQ2FuIEkg
-dG8gbWVyZ2UgdHdvIGNvbW1pdHMgZm9yDQo+IGRpZmZlcmVudCBmaWxlcyBidXQgaGF2ZSB0aGUg
-c2FtZSBlZGl0IGluIG9uZSBwYXRjaD8NCg0KVGhleSBhcmUgYm90aCBmb3IgZ3JleWJ1cywgd2hp
-Y2ggaXMgd2hhdCB5b3UgYWR2ZXJ0aXNlIGluIHRoZSBzdWJqZWN0DQpsaW5lLiAgQW5kIHRoZSBz
-ZW5zZSBvZiB0aGUgY2hhbmdlcyBpcyB0aGUgc2FtZSwgYW5kIHRoZSBjaGFuZ2VzIGFyZSBxdWl0
-ZQ0Kc2ltcGxlLiAgU28gSSB0aGluayB5b3UgY291bGQganVzdCBwdXQgdGhlbSBpbiBvbmUgcGF0
-Y2guICBJZiB5b3UgZmluZA0Kb3RoZXIgb2NjdXJyZW5jZXMgb2YgdGhlIHByb2JsZW0gaW4gZ3Jl
-eWJ1cyB5b3UgY291bGQgbWFrZSBvbmUgcGF0Y2ggdGhhdA0KZml4ZXMgYWxsIG9mIHRoZW0uDQoN
-Cj4gYnV0IGluIHRoaXMgY2FzZSBubyBuZWVkIHRvIGNyZWF0ZSBwYXRjaHNldCBmb3IgYWxsIGNo
-YW5nZXMgaW4gYGdyZXlidXNgDQo+IGRyaXZlciwgcmlnaHQ/DQoNCkEgcGF0Y2hzZXQgaXMgbmVl
-ZGVkIGlmIHRoZSBjaGFuZ2VzIGFmZmVjdCB0aGUgc2FtZSBmaWxlLCBiZWNhdXNlIHRoZXJlDQpt
-aWdodCBiZSBjb21wbGljYXRpb25zIGlmIHRoZSBwYXRjaGVzIGFyZSBhcHBsaWVkIGluIHRoZSB3
-cm9uZyBvcmRlci4NCg0KPg0KPiBJZiBva2F5IHdpdGggdGhhdCwgc2hvdWxkIEkgdmVyc2lvbmlu
-ZyB0aGUgcGF0Y2hlcyB0byByZXNlbmQgdGhlbSBhZ2Fpbiwgb3INCj4gc2hvdWxkIGFkZCAiUkVT
-RU5EIiBzdWJqZWN0IHByZWZpeD8NCg0KUkVTRU5EIHdvdWxkIGJlIGlmIHlvdSBzZW5kIGV4YWN0
-bHkgdGhlIHNhbWUgdGhpbmcsIGJlY2F1c2Ugc29tZSB0aW1lIGhhcw0KcGFzc2VkIGFuZCB5b3Ug
-YXJlIHdvcnJpZWQgdGhhdCB0aGUgcGF0Y2ggaGFzIGJlZW4gbG9zdC4gIE5vdyB0aGF0IHlvdQ0K
-aGF2ZSBwdXQgdGhlc2UgaW4gYSBzZXJpZXMsIGl0IGlzIHBlcmhhcHMgYmVzdCB0byBsZWF2ZSB0
-aGVtIGluIGEgc2VyaWVzDQphbmQgaW5jcmVhc2UgdGhlIHZlcnNpb24gbnVtYmVyLCB0byBhdm9p
-ZCBjb25mdXNpb24gb24gdGhlIHBhcnQgb2YgcGVvcGxlDQpyZWFkaW5nIHRoZSBwYXRjaGVzLg0K
-DQpqdWxpYQ0KDQo+IHBsZWFzZSB0ZWxsIG1lIHRoZSBiZXN0IHdheSB0byByZXNlbmQgdGhlc2Ug
-cGF0Y2hlcywgYXBwcmVjaWF0ZSB5b3VyIGhlbHAuDQo+DQo+DQo+IE1lbm5hDQo+DQo+DQo+ID4N
-Cj4gPiBqdWxpYQ0KPiA+DQo+ID4gPiAgIGRyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL2dicGh5Lmgg
-ICAgICAgICAgICAgICAgICB8IDEwICsrKysrKysrLS0NCj4gPiA+ICAgZHJpdmVycy9zdGFnaW5n
-L2dyZXlidXMvZ3JleWJ1c19hdXRoZW50aWNhdGlvbi5oIHwgIDEgLQ0KPiA+ID4gICBkcml2ZXJz
-L3N0YWdpbmcvZ3JleWJ1cy9wd20uYyAgICAgICAgICAgICAgICAgICAgfCAgMSAtDQo+ID4gPiAg
-IDMgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KPiA+ID4N
-Cj4gPiA+IC0tDQo+ID4gPiAyLjM0LjENCj4gPiA+DQo+ID4gPg0KPiA+ID4NCj4=
 
---8323329-1428913748-1679416795=:10740
+--ycczzpqu7aadwq6j
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Mar 21, 2023 at 06:25:29PM +0200, Menna Mahmoud wrote:
+>=20
+> On =D9=A2=D9=A1=E2=80=8F/=D9=A3=E2=80=8F/=D9=A2=D9=A0=D9=A2=D9=A3 =D9=A1=
+=D9=A7:=D9=A4=D9=A7, Uwe Kleine-K=C3=B6nig wrote:
+> > Hello,
+> >=20
+> > just some nitpicks:
+> >=20
+> > On Tue, Mar 21, 2023 at 01:04:33AM +0200, Menna Mahmoud wrote:
+> > > Convert `to_gbphy_dev` and `to_gbphy_driver` macros into a
+> > > static inline function.
+> > >=20
+> > > it is not great to have macro that use `container_of` macro,
+> > s/it/It/; s/macro/macros/; s/use/use the/;
+> Okay, I will fix it.
+> >=20
+> > > because from looking at the definition one cannot tell what type
+> > > it applies to.
+> > > [...]
+> > > -#define to_gbphy_dev(d) container_of(d, struct gbphy_device, dev)
+> > > +static inline struct gbphy_device *to_gbphy_dev(const struct device =
+*d)
+> > drivers/staging/greybus/gbphy.c always passes a variable named
+> > "dev" to this macro. So I'd call the parameter "dev", too, instead of
+> > "d". This is also a more typical name for variables of that type.
+> >=20
+> > > +{
+> > > +	return container_of(d, struct gbphy_device, dev);
+> > > +}
+> > > [...]
+> > >   };
+> > > -#define to_gbphy_driver(d) container_of(d, struct gbphy_driver, driv=
+er)
+> > > +static inline struct gbphy_driver *to_gbphy_driver(struct device_dri=
+ver *d)
+> > > +{
+> > > +	return container_of(d, struct gbphy_driver, driver);
+> > > +}
+> > With a similar reasoning (and also to not have "d"s that are either
+> > device or device_driver) I'd recommend "drv" here.
+>=20
+>=20
+> please check this with Julia, because she said they should different.
+
+At least use "_dev" instead of "d" which seems to be a common idiom,
+too:
+
+	$ git grep -P 'container_of\(_(?<ident>[A-Za-z_0-9-]*)\s*,[^,]*,\s*\g{iden=
+t}\s*\)' | wc -l
+	570
+
+("drv" should be fine, because the third argument is "driver" there.)
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=C3=B6nig         =
+   |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--ycczzpqu7aadwq6j
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmQZ3pIACgkQj4D7WH0S
+/k5pUQf/XJUDV6EvqcrGxi++Gu/Dk83CxxiHdJnuv3linIJyLi93tZYagEMj773b
+zxh1hIg8sW9OY0D/5HIkMjjhziTA432DNiFWW85/B+eOduuRE2fQHZ8kHOMiXH+R
+P2k2cPlJLW9pV3n6odYFqmn0BGoQvgOAgDUfftIgZ6Wfc6bEX7cl7rOAXaPxrz+s
+b0hgLYCkQJ5x19/n6JmO6eQq3IvCZyye8y2NgU28gHQ7tCDy3M4cy4o6rM+45GOP
+QnptwPU1+WnnmOfztzLTGFZwVnQs/t0rKMn7yC6cu0WdbPtILq8ug+ZE5Rx4cRv5
+VmFAwNr1gpOVs8Yix3vuHqXFhvTk6Q==
+=iXWj
+-----END PGP SIGNATURE-----
+
+--ycczzpqu7aadwq6j--
+
+--===============4182972106981763248==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -142,4 +186,4 @@ _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
 
---8323329-1428913748-1679416795=:10740--
+--===============4182972106981763248==--
