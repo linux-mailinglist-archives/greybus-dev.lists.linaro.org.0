@@ -2,80 +2,78 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id D72496C3C59
-	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 21:59:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A2786C45C7
+	for <lists+greybus-dev@lfdr.de>; Wed, 22 Mar 2023 10:09:07 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 78F6B3F23D
-	for <lists+greybus-dev@lfdr.de>; Tue, 21 Mar 2023 20:59:20 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by lists.linaro.org (Postfix) with ESMTPS id C7A713ED72
-	for <greybus-dev@lists.linaro.org>; Tue, 21 Mar 2023 20:59:15 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B43C83F340
+	for <lists+greybus-dev@lfdr.de>; Wed, 22 Mar 2023 09:09:05 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id B75003E950
+	for <greybus-dev@lists.linaro.org>; Wed, 22 Mar 2023 09:09:01 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=inria.fr header.s=dc header.b=nqFkP6g7;
-	spf=pass (lists.linaro.org: domain of julia.lawall@inria.fr designates 192.134.164.104 as permitted sender) smtp.mailfrom=julia.lawall@inria.fr;
-	dmarc=pass (policy=none) header.from=inria.fr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=9q3c6DZ84qERaYxwpBLMMZMDxJrnwUpqZmpXF6Hs6ks=;
-  b=nqFkP6g7VrkH6F9TIZQuEyi4wfkMDquj8ZeBCPqQE62fZzKFPB/t3ip8
-   O58YVcqMbnHQV7IEILZ/MbN+HnYPzihOvUaByrZiJeE4f0O8FcpchHgoR
-   s1ZX/QVdcpKsZUgfS4zT5u/gLNi9II2BsXIWw0vikJ4H7ZVgfLR+aap4O
-   s=;
-X-IronPort-AV: E=Sophos;i="5.98,279,1673910000";
-   d="scan'208";a="50854107"
-Received: from 231.85.89.92.rev.sfr.net (HELO hadrien) ([92.89.85.231])
-  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Mar 2023 21:59:14 +0100
-Date: Tue, 21 Mar 2023 21:59:13 +0100 (CET)
-From: Julia Lawall <julia.lawall@inria.fr>
-X-X-Sender: jll@hadrien
-To: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
-In-Reply-To: <20230321181725.8691-1-eng.mennamahmoud.mm@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2303212158170.2919@hadrien>
-References: <20230321181725.8691-1-eng.mennamahmoud.mm@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=d1OisgQ3;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
+	dmarc=pass (policy=none) header.from=linuxfoundation.org
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6A11D61FCB;
+	Wed, 22 Mar 2023 09:09:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 516BDC433D2;
+	Wed, 22 Mar 2023 09:09:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1679476140;
+	bh=G5b3E38x/jL73QIWqA904ByX2RljZo34BWnDHuIWST4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=d1OisgQ3kA6KZO2NMncX4J+In0DzpHNsGCPNh8uInjTrCbM6+WJvPdxB+99AZCREW
+	 YnldyxxnzkOq8U0coa5vLdhtUOFv6Wugf3lKzUe5TGYzGKJXD7Dft247h52Q2Gx5hc
+	 5gpeAWuz84EQaecvfSVanCIiklw+ir/OEoXmZSmk=
+Date: Wed, 22 Mar 2023 10:08:58 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Khadija Kamran <kamrankhadijadj@gmail.com>
+Message-ID: <ZBrFqtyY/HydnBdT@kroah.com>
+References: <ZBgYsqkpdYpGQniB@khadija-virtual-machine>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <ZBgYsqkpdYpGQniB@khadija-virtual-machine>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: C7A713ED72
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.60 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Queue-Id: B75003E950
+X-Spamd-Bar: ------
+X-Spamd-Result: default: False [-6.50 / 15.00];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[inria.fr,none];
-	MID_RHS_NOT_FQDN(0.50)[];
-	RCVD_IN_DNSWL_HI(-0.50)[192.134.164.104:from];
-	R_DKIM_ALLOW(-0.20)[inria.fr:s=dc];
-	R_SPF_ALLOW(-0.20)[+ip4:192.134.164.0/24];
+	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
+	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
+	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[192.134.164.104:from];
+	NEURAL_HAM(-0.00)[-1.000];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	ASN(0.00)[asn:2200, ipnet:192.134.164.0/24, country:FR];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[linuxfoundation.org,lists.linux.dev,kernel.org,gmail.com,pengutronix.de,lists.linaro.org,vger.kernel.org];
-	RCVD_COUNT_ONE(0.00)[1];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,kernel.org,lists.linaro.org,vger.kernel.org];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[linuxfoundation.org:+];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	DKIM_TRACE(0.00)[inria.fr:+]
-Message-ID-Hash: ITTXKLVQ6JRT74CJBEZ5ANWUGOOJP3Y2
-X-Message-ID-Hash: ITTXKLVQ6JRT74CJBEZ5ANWUGOOJP3Y2
-X-MailFrom: julia.lawall@inria.fr
+	RCVD_COUNT_TWO(0.00)[2]
+Message-ID-Hash: ZQ76QTMO76UIG25SEIZT7AKD2FRZU5CZ
+X-Message-ID-Hash: ZQ76QTMO76UIG25SEIZT7AKD2FRZU5CZ
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, vireshk@kernel.org, thierry.reding@gmail.com, u.kleine-koenig@pengutronix.de, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, linux-pwm@vger.kernel.org
+CC: outreachy@lists.linux.dev, Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v2 1/2] staging: greybus: remove unnecessary blank line
+Subject: [greybus-dev] Re: [PATCH v3] staging: greybus: merge split lines
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ITTXKLVQ6JRT74CJBEZ5ANWUGOOJP3Y2/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZQ76QTMO76UIG25SEIZT7AKD2FRZU5CZ/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -85,81 +83,24 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+On Mon, Mar 20, 2023 at 01:26:26PM +0500, Khadija Kamran wrote:
+> If condition and spin_unlock_...() call is split into two lines, merge
+> them to form a single line.
+> 
+> Suggested-by: Deepak R Varma drv@mailo.com
 
+You need to properly quote email addresses for our tools to handle them,
+put a <> around them like you did here:
 
-On Tue, 21 Mar 2023, Menna Mahmoud wrote:
+> Signed-off-by: Khadija Kamran <kamrankhadijadj@gmail.com>
 
-> Remove unnecessary blank line before struct as reported
-> by checkpatch:
->
-> " CHECK: Please don't use multiple blank lines "
->
-> Signed-off-by: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
-> ---
-> change in v2:
-> 	add patches that have same edit in sigle patch.
-> ---
->  drivers/staging/greybus/greybus_authentication.h | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/staging/greybus/greybus_authentication.h b/drivers/staging/greybus/greybus_authentication.h
-> index 7edc7295b7ab..48b4a9794d3c 100644
-> --- a/drivers/staging/greybus/greybus_authentication.h
-> +++ b/drivers/staging/greybus/greybus_authentication.h
-> @@ -41,7 +41,6 @@
->  #define CAP_AUTH_RESULT_CR_NO_KEY	0x03
->  #define CAP_AUTH_RESULT_CR_SIG_FAIL	0x04
->
-> -
->  /* IOCTL support */
->  struct cap_ioc_get_endpoint_uid {
->  	__u8			uid[8];
-> --
-> 2.34.1
->
->
-> From 6f56ebcda89f91cdfe6e64c0707dc476ebc1e819 Mon Sep 17 00:00:00 2001
-> From: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
-> Date: Tue, 21 Mar 2023 00:03:32 +0200
-> Subject: [PATCH v2 2/2] staging: greybus: remove unnecessary blank line
+See?
 
-This doesn't look right.  If you put two changes in a single message, you
-shouldn't repeat the log message etc.  Use git log -p to look at what
-others have done.
+Please fix up and resend.
 
-julia
+thanks,
 
->
-> Remove unnecessary blank line before struct as reported
-> by checkpatch:
->
-> " CHECK: Please don't use multiple blank lines "
->
-> Signed-off-by: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
-> ---
-> change in v2:
->         add patches that have same edit in sigle patch.
-> ---
->  drivers/staging/greybus/pwm.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/staging/greybus/pwm.c b/drivers/staging/greybus/pwm.c
-> index 3fda172239d2..26d39e08c3b6 100644
-> --- a/drivers/staging/greybus/pwm.c
-> +++ b/drivers/staging/greybus/pwm.c
-> @@ -24,7 +24,6 @@ struct gb_pwm_chip {
->  #define pwm_chip_to_gb_pwm_chip(chip) \
->  	container_of(chip, struct gb_pwm_chip, chip)
->
-> -
->  static int gb_pwm_count_operation(struct gb_pwm_chip *pwmc)
->  {
->  	struct gb_pwm_count_response response;
-> --
-> 2.34.1
->
->
->
+greg k-h
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
