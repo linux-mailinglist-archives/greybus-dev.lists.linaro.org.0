@@ -2,105 +2,86 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 330066C6A15
-	for <lists+greybus-dev@lfdr.de>; Thu, 23 Mar 2023 14:55:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 858E76C6F57
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Mar 2023 18:36:56 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 450473ED16
-	for <lists+greybus-dev@lfdr.de>; Thu, 23 Mar 2023 13:55:03 +0000 (UTC)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	by lists.linaro.org (Postfix) with ESMTPS id C045B3E975
-	for <greybus-dev@lists.linaro.org>; Thu, 23 Mar 2023 09:04:49 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 45A2243E53
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Mar 2023 17:36:55 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+	by lists.linaro.org (Postfix) with ESMTPS id 895FB3E96A
+	for <greybus-dev@lists.linaro.org>; Thu, 23 Mar 2023 17:36:49 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20210112 header.b=VovKeNVY;
-	spf=pass (lists.linaro.org: domain of sumitraartsy@gmail.com designates 209.85.214.170 as permitted sender) smtp.mailfrom=sumitraartsy@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pl1-f170.google.com with SMTP id o11so21715802ple.1
-        for <greybus-dev@lists.linaro.org>; Thu, 23 Mar 2023 02:04:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679562289;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=i9ruC/xMC7tL0m+Bw7Ok6wqKxtgof/3SmFbXbg58scA=;
-        b=VovKeNVYIntxSqSwNWdqBNoEkgHtZj1u9gRBjoOhUTw4PVGblIMga680+V+hAKcuu1
-         9K53BgtPNgXP/RlEwIzsDqktSDJ2DYi1xD8BQ9MhFUeTZojlldhjBlqncCA7Lu5k3BrR
-         1P5jKkrFeVpSxlwCTyCF2J5GHSzvdOIUN/J9oABTuTuITbiWrc2FWzi7JYmJNBcs46U+
-         h/QQ+0qOQ9snZEY+MwqAynbRxoUHUKiBHe65wgenOlSKRBmztMNouKK8Vp6lqrrLcKPR
-         Y6FjIRHpvs4T+BX03DM/Ah8ybGbzDZqDH+c9d+SdFIwF2lcN4HHvAEP8wgCNds7exe1P
-         eqcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679562289;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=i9ruC/xMC7tL0m+Bw7Ok6wqKxtgof/3SmFbXbg58scA=;
-        b=52wSz/NRMpfjHMucerdMr8TU4WeoO1kKk50UrAYONHzeDLm4OKRiazS1rAZ8saXFcd
-         Hu7NnPl/C/v6sA5seElTn1AAZwbQjxCRP63o/5UL1e0iCbIlso8X0RwMrjvL7O5TTd65
-         jhsh6VSgqM+KQ7ychBCnzDpjDq7nvs8QM2bM527OuoULu4O6M9dOTmrS2eYeIkBPwDAF
-         y2/lELC+xw0589TXCf6TDdal0AOQNqZnr4A5s5bCrtz0OkLoqtAxx3MaKF/BltoNu0n5
-         538M3W0sebpI71FsRwBZIfszZ7bB9cpsianhgzZjyOLtoM9l/+LkPhq9ZbdF4nJLW+nG
-         fcjw==
-X-Gm-Message-State: AO0yUKUnS9LcX8vyQBOpj7o3rZWN+K44EuIRBDl+6LX7Gu+PRT9gaiFF
-	u8csIgRSKGTfBrtcKfxNOR8=
-X-Google-Smtp-Source: AK7set9t/l3/U0AE9cUZeRhxD7T95vWcwj6YWiY0Q1zLdKmBzXfwVrm3upUYzVgfarO+slDO2qVrvw==
-X-Received: by 2002:a05:6a20:66aa:b0:d0:212d:ead0 with SMTP id o42-20020a056a2066aa00b000d0212dead0mr2342077pzh.26.1679562288804;
-        Thu, 23 Mar 2023 02:04:48 -0700 (PDT)
-Received: from ubuntu.localdomain ([117.207.139.205])
-        by smtp.gmail.com with ESMTPSA id q8-20020a656848000000b005034a57b963sm11277116pgt.58.2023.03.23.02.04.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Mar 2023 02:04:48 -0700 (PDT)
-From: Sumitra Sharma <sumitraartsy@gmail.com>
-To: outreachy@lists.linux.dev
-Date: Thu, 23 Mar 2023 02:03:41 -0700
-Message-Id: <fa02078208917ce81ad3fb6d453e8487a5ba7505.1679558269.git.sumitraartsy@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1679558269.git.sumitraartsy@gmail.com>
+	dkim=pass header.d=intel.com header.s=Intel header.b=aji+3SwV;
+	spf=pass (lists.linaro.org: domain of alison.schofield@intel.com designates 192.55.52.136 as permitted sender) smtp.mailfrom=alison.schofield@intel.com;
+	dmarc=pass (policy=none) header.from=intel.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679593009; x=1711129009;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+oRZBGlRDE2mN2HqkB0otRZAMosS9UyIjnPhkCjAn4k=;
+  b=aji+3SwV1kjXCw4WTvJrLTHnmwjQh86TyAuk3hHN0I7V/9JNyO741RKm
+   mWa357oz4HTKW3eJaTi8gXPX22nDBbG7ILkRb4DyXwMFoQJjN0Nj5WsMC
+   s80kPsRMCMi8WxNbHp7rteUmSqPSaGrca1AJ/V7vdP9PraQfoLFlY53LL
+   X1jpcZFNOgtc5RH48LbJf0DQmXktvX74NJmkxUkifdIZIGqJKj65eN1Kx
+   joRHLvvS+A6LK26dCwQnCEviZis1GT5rUT5s1vtvZErMlAYLne9W3pXaH
+   5fDZuOx6G5zdjo8B4IoE4qOJGqfp2Ae0+mqGsW90hcM3LtBEy9NIANTdh
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="319228535"
+X-IronPort-AV: E=Sophos;i="5.98,285,1673942400";
+   d="scan'208";a="319228535"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Mar 2023 10:36:48 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="806351892"
+X-IronPort-AV: E=Sophos;i="5.98,285,1673942400";
+   d="scan'208";a="806351892"
+Received: from aschofie-mobl2.amr.corp.intel.com (HELO aschofie-mobl2) ([10.252.131.62])
+  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Mar 2023 10:36:47 -0700
+Date: Thu, 23 Mar 2023 10:36:46 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Sumitra Sharma <sumitraartsy@gmail.com>
+Message-ID: <ZByOLjobQ2TrdFXQ@aschofie-mobl2>
 References: <cover.1679558269.git.sumitraartsy@gmail.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <cover.1679558269.git.sumitraartsy@gmail.com>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: C045B3E975
-X-Spamd-Bar: ----
-X-Spamd-Result: default: False [-4.60 / 15.00];
+X-Rspamd-Queue-Id: 895FB3E96A
+X-Spamd-Bar: ----------
+X-Spamd-Result: default: False [-10.50 / 15.00];
+	REPLY(-4.00)[];
 	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
-	RCVD_IN_DNSWL_HI(-1.00)[117.207.139.205:received,209.85.214.170:from];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20210112];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.170:from];
+	WHITELIST_SPF_DKIM(-3.00)[intel.com:d:+,intel.com:s:+];
+	DMARC_POLICY_ALLOW(-0.50)[intel.com,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:192.55.52.136/32];
+	R_DKIM_ALLOW(-0.20)[intel.com:s=Intel];
 	MIME_GOOD(-0.10)[text/plain];
-	FROM_HAS_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	ARC_NA(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_TWO(0.00)[2]
-X-MailFrom: sumitraartsy@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: DKXK6CNR6TZOTM7OB36PYZABKNMDRZDO
-X-Message-ID-Hash: DKXK6CNR6TZOTM7OB36PYZABKNMDRZDO
-X-Mailman-Approved-At: Thu, 23 Mar 2023 13:54:41 +0000
-CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Sumitra Sharma <sumitraartsy@gmail.com>
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	ASN(0.00)[asn:4983, ipnet:192.55.52.0/24, country:US];
+	FREEMAIL_TO(0.00)[gmail.com];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[]
+Message-ID-Hash: L5ZWCIK4JVTSFBI5YJWYFUVYCSLZITN4
+X-Message-ID-Hash: L5ZWCIK4JVTSFBI5YJWYFUVYCSLZITN4
+X-MailFrom: alison.schofield@intel.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH 3/3] Staging: greybus: Convert macro struct pwm_chip_to_gb_pwm_chip to an inline function
+Subject: [greybus-dev] Re: [PATCH 0/3] Staging: greybus: Convert macro definitions to
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/DKXK6CNR6TZOTM7OB36PYZABKNMDRZDO/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/L5ZWCIK4JVTSFBI5YJWYFUVYCSLZITN4/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -110,37 +91,41 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Convert 'pwm_chip_to_gb_pwm_chip' from a macro to a static
-inline function, to make the relevant types apparent in the
-definition and to benefit from the type checking performed by
-the compiler at call sites.
+On Thu, Mar 23, 2023 at 02:01:04AM -0700, Sumitra Sharma wrote:
+> Convert macros to a static inline function, to make the relevant 
+> types apparent in the definition and to benefit from the type 
+> checking performed by the compiler at call sites.
+> 
+> Sumitra Sharma (3):
+>   Staging: greybus: Convert macro gpio_chip_to_gb_gpio_controller to an
+>     inline function
+>   Staging: greybus: Convert macro struct gb_audio_manager_module to an
+>     inline function
+>   Staging: greybus: Convert macro struct pwm_chip_to_gb_pwm_chip to an
+>     inline function
 
-Signed-off-by: Sumitra Sharma <sumitraartsy@gmail.com>
----
- drivers/staging/greybus/pwm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Hi Sumitra,
 
-diff --git a/drivers/staging/greybus/pwm.c b/drivers/staging/greybus/pwm.c
-index 3fda172239d2..88da1d796f13 100644
---- a/drivers/staging/greybus/pwm.c
-+++ b/drivers/staging/greybus/pwm.c
-@@ -21,9 +21,11 @@ struct gb_pwm_chip {
- 	struct pwm_chip		chip;
- 	struct pwm_chip		*pwm;
- };
--#define pwm_chip_to_gb_pwm_chip(chip) \
--	container_of(chip, struct gb_pwm_chip, chip)
- 
-+static inline struct gb_pwm_chip *pwm_chip_to_gb_pwm_chip(struct pwm_chip *chip)
-+{
-+	return container_of(chip, struct gb_pwm_chip, chip);
-+}
- 
- static int gb_pwm_count_operation(struct gb_pwm_chip *pwmc)
- {
--- 
-2.25.1
+Please review:
 
+https://kernelnewbies.org/Outreachyfirstpatch#:~:text=Following%20the%20Driver%20commit%20style
+
+That is the section on 'Following the driver commit style'.
+
+Cover letter Subject seems to be needlessly truncated.
+
+Alison
+
+> 
+>  drivers/staging/greybus/audio_manager_module.c | 7 +++++--
+>  drivers/staging/greybus/gpio.c                 | 7 +++++--
+>  drivers/staging/greybus/pwm.c                  | 6 ++++--
+>  3 files changed, 14 insertions(+), 6 deletions(-)
+> 
+> -- 
+> 2.25.1
+> 
+> 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
