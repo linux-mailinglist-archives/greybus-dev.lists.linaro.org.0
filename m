@@ -2,143 +2,131 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id C38C86C5859
-	for <lists+greybus-dev@lfdr.de>; Wed, 22 Mar 2023 22:01:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E01F16C6A11
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Mar 2023 14:54:46 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 94DDF441E1
-	for <lists+greybus-dev@lfdr.de>; Wed, 22 Mar 2023 21:01:57 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de [85.220.165.71])
-	by lists.linaro.org (Postfix) with ESMTPS id 5FC553E975
-	for <greybus-dev@lists.linaro.org>; Wed, 22 Mar 2023 21:01:51 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id E6E223E8AB
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Mar 2023 13:54:45 +0000 (UTC)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	by lists.linaro.org (Postfix) with ESMTPS id C95C23E975
+	for <greybus-dev@lists.linaro.org>; Thu, 23 Mar 2023 09:01:36 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=none;
-	spf=pass (lists.linaro.org: domain of ukl@pengutronix.de designates 85.220.165.71 as permitted sender) smtp.mailfrom=ukl@pengutronix.de;
-	dmarc=none
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.ext.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1pf5aY-0006RO-BY; Wed, 22 Mar 2023 22:01:42 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1pf5aW-00600B-VU; Wed, 22 Mar 2023 22:01:40 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1pf5aW-0078GS-7J; Wed, 22 Mar 2023 22:01:40 +0100
-Date: Wed, 22 Mar 2023 22:01:40 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
-Message-ID: <20230322210140.xocbx7t4opo2tqmi@pengutronix.de>
-References: <20230322113735.31214-1-eng.mennamahmoud.mm@gmail.com>
+	dkim=pass header.d=gmail.com header.s=20210112 header.b=GT9VzWPW;
+	spf=pass (lists.linaro.org: domain of sumitraartsy@gmail.com designates 209.85.210.177 as permitted sender) smtp.mailfrom=sumitraartsy@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-pf1-f177.google.com with SMTP id fd25so12732498pfb.1
+        for <greybus-dev@lists.linaro.org>; Thu, 23 Mar 2023 02:01:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1679562096;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8RWJzOeM5GIaIf82zupXR/wrUWqvRt22D3jyGfDKRi0=;
+        b=GT9VzWPWIi3fRiiTEQRqtMPzOf4UlHEtpXWnaON7ZeEB/MsGe1J2NYF8yO4jWTpa+B
+         FDQV3dtv10AicBYCDB/kw4dhLuluZpSeo4pELv0kz4QwZ437E+CFPkbAktP56Z68kafx
+         pl9eoxJaIMGEU+MxDRx2AeiYW560rczy2CdmHzR3iR7Udwr6HKFYfK8/2xHYyh4B6rw6
+         hnQbxBujs2CSMhjGSR8KDudwUIzlEFct3Frk27NrUzCEGG6WfEI9/Jn0Z6SYnMJT5EC0
+         xuUOiTtxrHodzem+fDQjMWr07zfXJvklPIPaKReyyu8FYIdkCtcTIrJm2FBO1YWJ8x/m
+         IhLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679562096;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8RWJzOeM5GIaIf82zupXR/wrUWqvRt22D3jyGfDKRi0=;
+        b=yHpcJn2ni74/VCJI8Vim3SBCLt5mIKQN8jfz+1PVjeVYp5FzCtWV1GfKFMVAe2gc06
+         /qmFEHrXf4TAIZncuOvJs1kuDqnCPDJQrHA3seSp+WNqwxqAwVuEQ7Y8xAceF25ppf9S
+         LnGkuA96PSxvhgDzEdw8v+fqOcXrWHaPiaW7UTD+XTLqiBmRjmzQRJKjF5WtbxjetnPx
+         hKJLWvPwd+99QE47Z+KPb/h6CeKSSErPRhi2uDNvZpNgptuCot9dPV23VszEvDN0hz8g
+         vaTW32T4+sEA1WGc7hrwYe3jB5zhbyVPfN9gkwJjjJQBWBZ0XP986wUHWd6PV2C8h3Cu
+         eBtQ==
+X-Gm-Message-State: AO0yUKXjhu5NtuQH0etSZS94p2k+mKWahEVdEZDsDKMdUiRnc58VROwF
+	woDZz1EEPKqt2tCcQDItMHY=
+X-Google-Smtp-Source: AK7set9PXu7Uw9YhBNw4+ICSHXADaMDo6mZwCvehYYG3R5Lm9keHwVatsPeUKZXZPuWSWtZHu4/U5w==
+X-Received: by 2002:a62:1d8f:0:b0:5dc:6dec:e992 with SMTP id d137-20020a621d8f000000b005dc6dece992mr5088682pfd.1.1679562095852;
+        Thu, 23 Mar 2023 02:01:35 -0700 (PDT)
+Received: from ubuntu.localdomain ([117.207.139.205])
+        by smtp.gmail.com with ESMTPSA id i21-20020aa787d5000000b00625f5aaa1d9sm11346893pfo.83.2023.03.23.02.01.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Mar 2023 02:01:35 -0700 (PDT)
+From: Sumitra Sharma <sumitraartsy@gmail.com>
+To: outreachy@lists.linux.dev
+Date: Thu, 23 Mar 2023 02:01:04 -0700
+Message-Id: <cover.1679558269.git.sumitraartsy@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20230322113735.31214-1-eng.mennamahmoud.mm@gmail.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 5FC553E975
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.60 / 15.00];
+X-Rspamd-Queue-Id: C95C23E975
+X-Spamd-Bar: ----
+X-Spamd-Result: default: False [-4.60 / 15.00];
 	BAYES_HAM(-3.00)[99.99%];
-	SIGNED_PGP(-2.00)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	FORGED_SENDER(0.30)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
-	R_SPF_ALLOW(-0.20)[+mx];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	R_DKIM_NA(0.00)[];
+	MID_CONTAINS_FROM(1.00)[];
+	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
+	RCVD_IN_DNSWL_HI(-1.00)[117.207.139.205:received,209.85.210.177:from];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20210112];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.177:from];
+	FREEMAIL_CC(0.00)[kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
 	NEURAL_HAM(-0.00)[-1.000];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	ASN(0.00)[asn:25394, ipnet:85.220.128.0/17, country:DE];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[linuxfoundation.org,lists.linux.dev,kernel.org,gmail.com,lists.linaro.org,vger.kernel.org];
 	FROM_HAS_DN(0.00)[];
-	TAGGED_RCPT(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	TO_DN_SOME(0.00)[];
-	DMARC_NA(0.00)[pengutronix.de];
-	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de]
-Message-ID-Hash: Y6HWGTBQB5HQ7J45ZIXRUSBDAO6VNQQL
-X-Message-ID-Hash: Y6HWGTBQB5HQ7J45ZIXRUSBDAO6VNQQL
-X-MailFrom: ukl@pengutronix.de
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: outreachy@lists.linux.dev, johan@kernel.org, elder@kernel.org, vireshk@kernel.org, thierry.reding@gmail.com, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, linux-pwm@vger.kernel.org
+	ARC_NA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_TLS_LAST(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_TWO(0.00)[2]
+X-MailFrom: sumitraartsy@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: JRXH2RWR4P7EE4GXQSTANXNMFQYWICZF
+X-Message-ID-Hash: JRXH2RWR4P7EE4GXQSTANXNMFQYWICZF
+X-Mailman-Approved-At: Thu, 23 Mar 2023 13:54:41 +0000
+CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Sumitra Sharma <sumitraartsy@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v4] staging: greybus: remove unnecessary blank line
+Subject: [greybus-dev] [PATCH 0/3] Staging: greybus: Convert macro definitions to
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/Y6HWGTBQB5HQ7J45ZIXRUSBDAO6VNQQL/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/JRXH2RWR4P7EE4GXQSTANXNMFQYWICZF/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: multipart/mixed; boundary="===============2261791474675113944=="
-
-
---===============2261791474675113944==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r7q7putkqdcorqid"
-Content-Disposition: inline
-
-
---r7q7putkqdcorqid
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Mar 22, 2023 at 01:37:34PM +0200, Menna Mahmoud wrote:
-> Remove unnecessary blank line before struct as reported
-> by checkpatch:
->=20
-> " CHECK: Please don't use multiple blank lines "
->=20
-> Signed-off-by: Menna Mahmoud <eng.mennamahmoud.mm@gmail.com>
-
-Looks good to me now. Thanks for not giving up.
-
-Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---r7q7putkqdcorqid
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmQbbLMACgkQj4D7WH0S
-/k7wQgf+ONVndGTHzhy+YKot/A+pZ9zlWAAJfJnxJbCjhLQnmIepoZGbGLY35dXs
-kxnpfkm4+BOxJ8XaMh17TTit9MgoaDNbAajhI3D3ssvjL3ty5NK/aU5FbtYK7cB5
-H9rufT4+ew9h59P+OkndlFdArjEOKuNx8YY2KUkdc2kOsKAJXwOnM44MKwRmM40X
-hnNRfcF5UeHA7inux3952me5wzdiym2JUq6x9xowrKU0TOdUklDZhUwxlO//NeBK
-T57BaRK7NBPl5WG2NA6rLVeRHnzADSR7W2AXYJTV8ZFSjvelvwjaJd7Bf4UTZk9N
-kPnHTdnkBKbzNXqw5yQXHAWe5Xcbfg==
-=sOsU
------END PGP SIGNATURE-----
-
---r7q7putkqdcorqid--
-
---===============2261791474675113944==
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+Convert macros to a static inline function, to make the relevant 
+types apparent in the definition and to benefit from the type 
+checking performed by the compiler at call sites.
+
+Sumitra Sharma (3):
+  Staging: greybus: Convert macro gpio_chip_to_gb_gpio_controller to an
+    inline function
+  Staging: greybus: Convert macro struct gb_audio_manager_module to an
+    inline function
+  Staging: greybus: Convert macro struct pwm_chip_to_gb_pwm_chip to an
+    inline function
+
+ drivers/staging/greybus/audio_manager_module.c | 7 +++++--
+ drivers/staging/greybus/gpio.c                 | 7 +++++--
+ drivers/staging/greybus/pwm.c                  | 6 ++++--
+ 3 files changed, 14 insertions(+), 6 deletions(-)
+
+-- 
+2.25.1
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
-
---===============2261791474675113944==--
