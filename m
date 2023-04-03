@@ -2,89 +2,89 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82AA56D43A5
-	for <lists+greybus-dev@lfdr.de>; Mon,  3 Apr 2023 13:37:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEC286D43A7
+	for <lists+greybus-dev@lfdr.de>; Mon,  3 Apr 2023 13:37:45 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9486B3ED7B
-	for <lists+greybus-dev@lfdr.de>; Mon,  3 Apr 2023 11:37:39 +0000 (UTC)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	by lists.linaro.org (Postfix) with ESMTPS id 7F3E13EC79
-	for <greybus-dev@lists.linaro.org>; Mon,  3 Apr 2023 04:29:42 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id E50943ED7B
+	for <lists+greybus-dev@lfdr.de>; Mon,  3 Apr 2023 11:37:44 +0000 (UTC)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	by lists.linaro.org (Postfix) with ESMTPS id 25C533ED7B
+	for <greybus-dev@lists.linaro.org>; Mon,  3 Apr 2023 06:24:01 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20210112 header.b=Fy8VjOwS;
-	spf=pass (lists.linaro.org: domain of error27@gmail.com designates 209.85.208.44 as permitted sender) smtp.mailfrom=error27@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20210112 header.b=Gut8oqvT;
+	spf=pass (lists.linaro.org: domain of error27@gmail.com designates 209.85.208.45 as permitted sender) smtp.mailfrom=error27@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-ed1-f44.google.com with SMTP id t10so111910753edd.12
-        for <greybus-dev@lists.linaro.org>; Sun, 02 Apr 2023 21:29:42 -0700 (PDT)
+Received: by mail-ed1-f45.google.com with SMTP id eg48so112695741edb.13
+        for <greybus-dev@lists.linaro.org>; Sun, 02 Apr 2023 23:24:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680496181;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=0+jcEm/umXiKxj33UWcwhHckJKdBkBpU3hyzsLfjMvA=;
-        b=Fy8VjOwSwpwI1ksHIQhvJN9cc7dd0AL/usn9dPPsOmfay4L3YpmQxsE/cG4wG67xfn
-         3UKcwW41butcDqsY307Gam4LB8cXgR1XAySBqR5J9PE+QsBERuhkcpemfMqJ57w71g0N
-         VVmBgCHfysEM6o5aFRkpRgMvCqAaX9zl94fwa+qKHQKkeQlx92QqQysGbsihS7HXcmz1
-         yIhe1JzI7i2pIYyBEF8RbMnW53psGCowl+Oa7EXxTN59gUrvxRL3S7g4WlpbmoXJHGpp
-         n8otfAtKo0sxMHiIgLVa6xtGECMjNu46UfXPm+51Hue7UdwEz3zwH5kPvEP14rdaGWhl
-         gk8Q==
+        d=gmail.com; s=20210112; t=1680503040;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ElJuNUFsMwi5roY3yyQjQy4Z7CYKWDGQhJKFQymJzes=;
+        b=Gut8oqvT/qTTCSw9tafkiGG4ANcTSTe9WKKbcS+OIQeFNEzv8PEkAGACUDo0vLkSvO
+         mpoWxf0S+uPbwz+gIh7GBgNPKDLW0Jj5b7ej3mdCraL//CWZEiizZq+s6WIWFSw/qzbB
+         Cqq289fNXw2UwlUKqZvX1KSpVVN1ork23LdwzrdjAjjFMCO4OvgFNp9PZzEUwLe8gmTr
+         L+opyiHomo4VNaNBddzAwcpHpNnkQBbahQ7USHr3/0HuJMrmW7NJqFGtygOUSIiwSsTA
+         UeK3D2TTjYrIflxoiaGQ0y/Ughn1Twnau3pJDmVcDP6CdQYNA6Uhg9gv5qWgtAox8NYi
+         q5Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680496181;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0+jcEm/umXiKxj33UWcwhHckJKdBkBpU3hyzsLfjMvA=;
-        b=LIEIrOcv6Wpn0cADtnUrpdSgD2PkQlsFa2OPY7h7zp4WYH1gKO2t9gnbJzNSH4Y6R4
-         nmq1CkQ/FGnH9CaixOKSBUvrzTN0+uRElqj5jPMJVt6xE+Y6kmmS9XlnYv15yGdi9EUz
-         MYan4O6mGIJC3do/ujarRHLzHVKjng2So/eMkRMjdS46tgYmwh5tQA5B2ajl1rkxPvfh
-         gesG+kceV9jsgq7y3F7RYepl47wErNsbHZP/2ynMzfko4CAoiCoTkAgaimFbhY2RkFSq
-         /RZVIbwBSR/QaS1+axRyybuI8fIdE2ctRh7SRSSwrCFm4HQ2LdgSnDlez9keZeB3o8ZL
-         rGOQ==
-X-Gm-Message-State: AAQBX9eofazQEvw/oc+m2pGx5++d34L7p+nXSfXh0S0OdfRviIliSSJM
-	hfgY+U677/WIMCYKn5eeVqc=
-X-Google-Smtp-Source: AKy350Yuy8uDeMonDQ7b86zEISWdqvmRyRD2Bz4PYcHY4udEA3IvmVg6cfFd7ZnAk0dlXK3ghr4PcQ==
-X-Received: by 2002:a17:906:ac1:b0:92d:9767:8e0a with SMTP id z1-20020a1709060ac100b0092d97678e0amr30159313ejf.13.1680496181093;
-        Sun, 02 Apr 2023 21:29:41 -0700 (PDT)
+        d=1e100.net; s=20210112; t=1680503040;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ElJuNUFsMwi5roY3yyQjQy4Z7CYKWDGQhJKFQymJzes=;
+        b=r/5amdSyCmDYEuTZ1Bq8sXfmUfCFgguz1ncfyC1lKxu6qdqcvMuM+Oo3/UEXkOl+5d
+         9hiC6nPVER720/TVu4ssC8EI3+rC8HKaeriUZ8PRm8iKzR/XNq0ceTVO7RSc2bDBEWy7
+         8ROSax5T65x7yC7sA9QK9SsFgW7Yopx08GuF6JW3ywauqw4QX7EH+nZNDBiZZqYmH6QY
+         C/Q3cEy4rXU7TaW+sOH1+IbqHCXEQg1OaEOKF2NqmihOgCLqjuLlq+pl8jWZ+XNyZYfL
+         U72qQOOMf8+y1XxfiYFnVZ2534RkouRdVcrFA/zWiG81Va6OI9xHbz9Tq6xqcqP//7T/
+         Jfdg==
+X-Gm-Message-State: AAQBX9e3YoxH8Pkx5HZIWmavffg1nGwcvIebYR95hW22uWJ9X/HxOaN5
+	O5I2iPblN9fRHZ2+xYVDlLc=
+X-Google-Smtp-Source: AKy350YcXj0yllddeu+1jsJraGt8twyveoS6qIyHUSlt3jrxCweF3OZruDJcTgVetha/Lpdr+rRVwA==
+X-Received: by 2002:a17:906:7f1a:b0:8b1:29ed:e206 with SMTP id d26-20020a1709067f1a00b008b129ede206mr30080061ejr.28.1680503040092;
+        Sun, 02 Apr 2023 23:24:00 -0700 (PDT)
 Received: from localhost ([102.36.222.112])
-        by smtp.gmail.com with ESMTPSA id l2-20020a170906938200b00948a57aac08sm445563ejx.204.2023.04.02.21.29.39
+        by smtp.gmail.com with ESMTPSA id a26-20020a50c31a000000b005027686918bsm3955881edb.11.2023.04.02.23.23.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Apr 2023 21:29:40 -0700 (PDT)
-Date: Mon, 3 Apr 2023 07:29:36 +0300
+        Sun, 02 Apr 2023 23:23:59 -0700 (PDT)
+Date: Mon, 3 Apr 2023 09:23:55 +0300
 From: Dan Carpenter <error27@gmail.com>
-To: Khadija Kamran <kamrankhadijadj@gmail.com>
-Message-ID: <9688d93f-5ece-4799-898d-98515a98f9be@kili.mountain>
-References: <cover.1680185025.git.kamrankhadijadj@gmail.com>
- <96d04a4ff3d4a46293355f5afae3a8ece65f2c5b.1680185025.git.kamrankhadijadj@gmail.com>
- <6ce8aa34-e600-4d6a-adad-ead8255342e5@kili.mountain>
- <ZChs5jB7DMCUnVzr@khadija-virtual-machine>
+To: =?iso-8859-1?Q?=C1ngel?= Alberto Carretero <angelalbertoc.r@gmail.com>
+Message-ID: <2cb170e2-3551-4f2a-9cd3-065d9bd4504b@kili.mountain>
+References: <20230402122550.70682-1-angelalbertoc.r@gmail.com>
+ <2023040252-racoon-daintily-3589@gregkh>
+ <0af15115-9641-a1c8-f398-c4e8e77379a3@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZChs5jB7DMCUnVzr@khadija-virtual-machine>
+In-Reply-To: <0af15115-9641-a1c8-f398-c4e8e77379a3@gmail.com>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 7F3E13EC79
-X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.50 / 15.00];
+X-Rspamd-Queue-Id: 25C533ED7B
+X-Spamd-Bar: ------
+X-Spamd-Result: default: False [-6.00 / 15.00];
+	DWL_DNSWL_HI(-3.50)[gmail.com:dkim];
 	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20210112];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	FROM_HAS_DN(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.208.44:from];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,vger.kernel.org,intel.com];
-	NEURAL_HAM(-0.00)[-1.000];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.208.45:from];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	TAGGED_RCPT(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
 	FREEMAIL_ENVFROM(0.00)[gmail.com];
 	DKIM_TRACE(0.00)[gmail.com:+];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	FROM_EQ_ENVFROM(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
@@ -93,162 +93,81 @@ X-Spamd-Result: default: False [-2.50 / 15.00];
 X-MailFrom: error27@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: XRFUU3OYQZ3OIFN45IPQJGO3RYSTTEVX
-X-Message-ID-Hash: XRFUU3OYQZ3OIFN45IPQJGO3RYSTTEVX
+Message-ID-Hash: 7S6NURUVNB4I63BL7M77DJ6UNUUE6V33
+X-Message-ID-Hash: 7S6NURUVNB4I63BL7M77DJ6UNUUE6V33
 X-Mailman-Approved-At: Mon, 03 Apr 2023 11:36:45 +0000
-CC: outreachy@lists.linux.dev, hvaibhav.linux@gmail.com, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Alison Schofield <alison.schofield@intel.com>
+CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 2/2] staging: greybus: refactor arche_platform_wd_irq()
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: loopback: fix up checkpath macro do while error.
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XRFUU3OYQZ3OIFN45IPQJGO3RYSTTEVX/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/7S6NURUVNB4I63BL7M77DJ6UNUUE6V33/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Apr 01, 2023 at 10:41:58PM +0500, Khadija Kamran wrote:
-> On Thu, Mar 30, 2023 at 06:23:19PM +0300, Dan Carpenter wrote:
-> > On Thu, Mar 30, 2023 at 07:11:25PM +0500, Khadija Kamran wrote:
-> > > Linux kernel coding-style suggests to fix your program if it needs more
-> > > than 3 levels of indentation. Due to indentation, line length also
-> > > exceeds 100 columns, resulting in issues reported by checkpatch.
-> > > 
-> > > Refactor the arche_platform_wd_irq() function and reduce the indentation
-> > > with the help of goto statement.
-> > > 
-> > > Suggested-by: Alison Schofield <alison.schofield@intel.com>
-> > > Signed-off-by: Khadija Kamran <kamrankhadijadj@gmail.com>
+On Sun, Apr 02, 2023 at 08:22:35PM +0200, =C1ngel Alberto Carretero wrote:
+>=20
+>=20
+> On 02/04/2023 15:16, Greg Kroah-Hartman wrote:
+> > On Sun, Apr 02, 2023 at 02:25:51PM +0200, Angel Alberto Carretero wrote:
+> > > Wrap macro in a do-while statement.
+> > >=20
+> > > Signed-off-by: Angel Alberto Carretero <angelalbertoc.r@gmail.com>
 > > > ---
-> > >  drivers/staging/greybus/arche-platform.c | 79 ++++++++++++------------
-> > >  1 file changed, 41 insertions(+), 38 deletions(-)
-> > > 
-> > > diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
-> > > index a64c1af091b0..dde30c8da1a1 100644
-> > > --- a/drivers/staging/greybus/arche-platform.c
-> > > +++ b/drivers/staging/greybus/arche-platform.c
-> > > @@ -158,49 +158,52 @@ static irqreturn_t arche_platform_wd_irq(int irq, void *devid)
-> > >  
-> > >  	spin_lock_irqsave(&arche_pdata->wake_lock, flags);
-> > >  
-> > > -	if (gpiod_get_value(arche_pdata->wake_detect)) {
-> > > -		/* wake/detect rising */
-> > > +	if (!gpiod_get_value(arche_pdata->wake_detect))
-> > > +		goto falling;
-> > >  
-> > > +	/* wake/detect rising */
-> > > +
-> > > +	/*
-> > > +	 * If wake/detect line goes high after low, within less than
-> > > +	 * 30msec, then standby boot sequence is initiated, which is not
-> > > +	 * supported/implemented as of now. So ignore it.
-> > > +	 */
-> > > +	if (arche_pdata->wake_detect_state != WD_STATE_BOOT_INIT)
-> > > +		goto out;
-> > 
-> > This checks that we are in WD_STATE_BOOT_INIT state.
-> > 
-> > > +
-> > > +	if (time_before(jiffies,
-> > > +			arche_pdata->wake_detect_start +
-> > > +			msecs_to_jiffies(WD_COLDBOOT_PULSE_WIDTH_MS))) {
-> > > +		arche_platform_set_wake_detect_state(arche_pdata,
-> > > +						     WD_STATE_IDLE);
-> > > +		got out;
-> > > +	}
-> > > +
-> > > +	/* Check we are not in middle of irq thread already */
-> > > +	if (arche_pdata->wake_detect_state !=
-> > > +			WD_STATE_COLDBOOT_START) {
-> > 
-> > This checks that we are not in WD_STATE_COLDBOOT_START state.  How are
-> > we going to be in COLDBOOT if we are in INIT?  Is this changing in the
-> > background?  Can this check be removed?  This might be took tricky to
-> > answer but it's important that we understand this before we continue.
-> > 
-> > 
-> > > +		arche_platform_set_wake_detect_state(arche_pdata,
-> > > +						     WD_STATE_COLDBOOT_TRIG);
-> > > +		rc = IRQ_WAKE_THREAD;
-> > > +		goto out;
-> > > +	}
-> > 
-> > Let's assume the above check cannot be removed.
-> > 
-> > In the original code if gpiod_get_value(arche_pdata->wake_detect)
-> > returned true and arche_pdata->wake_detect_state == WD_STATE_IDLE then
-> > it just returned without doing anything, but now we fall through to the
-> > falling: label below.
-> 
-> Hey Dan,
-> 
-> Just to clear my undrstanding in the new code, if
-> gpiod_get_value(arche_pdata->wake_detect) returned true, we go to the
-> rising section. In the rising section if arche_pdata->wake_detect_state
-> == WD_STATE_IDLE then the condition,
-> if (arche_pdata->wake_detect_state != WD_STATE_BOOT_INIT) becomes true
-> so we goto out label. I do not understand how we go to falling label.
-> 
-> Regards,
-> Khadija
+> > >   drivers/staging/greybus/loopback.c | 8 +++++---
+> > >   1 file changed, 5 insertions(+), 3 deletions(-)
+> > >=20
+> > > diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/gre=
+ybus/loopback.c
+> > > index d7b39f3bb652..371809770ed0 100644
+> > > --- a/drivers/staging/greybus/loopback.c
+> > > +++ b/drivers/staging/greybus/loopback.c
+> > > @@ -162,9 +162,11 @@ static ssize_t name##_avg_show(struct device *de=
+v,		\
+> > >   static DEVICE_ATTR_RO(name##_avg)
+> > >   #define gb_loopback_stats_attrs(field)				\
+> > > -	gb_loopback_ro_stats_attr(field, min, u);		\
+> > > -	gb_loopback_ro_stats_attr(field, max, u);		\
+> > > -	gb_loopback_ro_avg_attr(field)
+> > > +	do {		\
+> > > +		gb_loopback_ro_stats_attr(field, min, u);		\
+> > > +		gb_loopback_ro_stats_attr(field, max, u);		\
+> > > +		gb_loopback_ro_avg_attr(field);		\
+> > > +	} while (0)
+> > >   #define gb_loopback_attr(field, type)					\
+> > >   static ssize_t field##_show(struct device *dev,				\
+> > > --=20
+> > > 2.40.0
+> > >=20
+> > >=20
+> >=20
+> > Any specific reason why you did not test build your change before
+> > submitting it?
+> >=20
+> > thanks,
+> >=20
+> > greg k-h
+>=20
+> Apologies, we can drop the patch. I was trying to find an error as part
+> of the eudyptula challenge and thought I was compiling the driver
+> correctly. Upon further examination, the macro cannot be written with a
+> do-while because it is defining functions.
 
-Let me show you in the original code:
+The "eudyptula challenge" and other first patch guides should be updated
+to tell people to search for their code on lore.kernel.org before
+sending a patch.
 
-STEP 1:	if (gpiod_get_value(arche_pdata->wake_detect)) {
-
-Assume this condition is true.
-
-STEP 2:		if (arche_pdata->wake_detect_state == WD_STATE_BOOT_INIT) {
-
-Assume this condition is true.
-
-STEP 3:		if (time_before(jiffies, ...)
-
-Assume that time is up.
-
-STEP 4:			if (arche_pdata->wake_detect_state !=
-					WD_STATE_COLDBOOT_START) {
-
-Assume that it is equal.  We are done.  return IRQ_HANDLED;
-
-Now in the new code:
-
-STEP 1:	if (!gpiod_get_value(arche_pdata->wake_detect))
-		goto falling;
-
-Assume we don't goto falling.
-
-STEP 2:	if (arche_pdata->wake_detect_state != WD_STATE_BOOT_INIT)
-
-Assume that it == WD_STATE_BOOT_INIT.
-
-STEP 3:	if (time_before(jiffies, ...)
-
-Assume that time is up.
-
-STEP 4:	if (arche_pdata->wake_detect_state != WD_STATE_COLDBOOT_START) {
-
-Assume that it is equal.  Before, in the old code it would return
-return IRQ_HANDLED; at this point.  But now it does:
-
-STEP 5:	if (arche_pdata->wake_detect_state == WD_STATE_IDLE) {
-
-Which seems like it's a contradictory condition with STEP 4 so it's
-probably impossible.  But on the other hand, we have already checked
-contradictory conditions between STEP 2 and STEP 4 so who knows what's
-going on?
-
-This function is very hard to understand.
-
-Also if stuff is changing in the background and there is no way the
-locking is correct.
+See if you can fix one of the howtos.
 
 regards,
 dan carpenter
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
