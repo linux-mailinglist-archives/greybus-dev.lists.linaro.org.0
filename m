@@ -2,77 +2,82 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4141C6EA2F5
-	for <lists+greybus-dev@lfdr.de>; Fri, 21 Apr 2023 07:05:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE80B6EA3D3
+	for <lists+greybus-dev@lfdr.de>; Fri, 21 Apr 2023 08:29:01 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 0176F3F97E
-	for <lists+greybus-dev@lfdr.de>; Fri, 21 Apr 2023 05:05:07 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id BB94B3EE47
+	for <lists+greybus-dev@lfdr.de>; Fri, 21 Apr 2023 06:29:00 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id BF67D3EC7A
-	for <greybus-dev@lists.linaro.org>; Fri, 21 Apr 2023 05:05:01 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id 513CB3EC16
+	for <greybus-dev@lists.linaro.org>; Fri, 21 Apr 2023 06:28:56 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=RKZVw14V;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b=SGjhVfix;
+	spf=pass (lists.linaro.org: domain of johan@kernel.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=johan@kernel.org;
+	dmarc=pass (policy=none) header.from=kernel.org
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5ECB760DB5;
-	Fri, 21 Apr 2023 05:05:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5445EC433EF;
-	Fri, 21 Apr 2023 05:05:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1682053500;
-	bh=UHCTZ4kDpkUYHNfhYhRYIYeovcY56hwy7QCLZ/BHRmY=;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C62F264DFA;
+	Fri, 21 Apr 2023 06:28:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34A3AC433EF;
+	Fri, 21 Apr 2023 06:28:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1682058535;
+	bh=fDzyTwqwYy1p3E1HPlBerUNEVhCJC25uaFNzEjHZIpo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RKZVw14Vld5k6lO22Tvv12c5r+qTz+ti/yRl01DEw3XkcFw6v/5FaNKrJVsuQ9jBw
-	 g8DhOVrePP7UJqd9Pk9eySbVwls9egEFaxg8kR/LVJOBZScN32SrUImFiPd6BMIqxO
-	 WYCrBTtcZ70RTmbTVETMNAA3d2k5o1nTiP9A10i0=
-Date: Fri, 21 Apr 2023 07:03:18 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=SGjhVfixPmGjuaAJVvku0cH3xNGa38Gx0ysu7qeDMkzf7dJ1rGglsr0vKFF2BpHqT
+	 GPgAZwgmY6v6+sekGp8RoiP5A5IZQgTg68avEKyX06/daqD+xvRmRHV9SANnXofIbg
+	 XLKgHXj8z4HiPXKw4t11dg7XWgRwMXph6ER1SmqEGPS76CNgYV39aapQZntVbMJSpv
+	 1pqRqcrQzR2tm4EsOigXsoOIpUk1aVQi1+0YjG17t949/efhcVUHLtuW788Hwo2tjE
+	 h+FVTzbVyS1DitCtuTXnLvkfm82ugcNhO29085r18rC7vGkNr3ORCUcn3z52CzOJd7
+	 +iOcbApRk332w==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+	(envelope-from <johan@kernel.org>)
+	id 1ppkGc-000659-JO; Fri, 21 Apr 2023 08:29:11 +0200
+Date: Fri, 21 Apr 2023 08:29:10 +0200
+From: Johan Hovold <johan@kernel.org>
 To: Tejun Heo <tj@kernel.org>
-Message-ID: <ZEIZFjfAA0MyuCLT@kroah.com>
+Message-ID: <ZEItNlmuw5MHDBXH@hovoldconsulting.com>
 References: <20230421025046.4008499-1-tj@kernel.org>
  <20230421025046.4008499-3-tj@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20230421025046.4008499-3-tj@kernel.org>
-X-Spamd-Result: default: False [-9.00 / 15.00];
+X-Spamd-Result: default: False [-8.00 / 15.00];
 	REPLY(-4.00)[];
 	BAYES_HAM(-3.00)[100.00%];
-	DWL_DNSWL_LOW(-1.00)[linuxfoundation.org:dkim];
-	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
-	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
-	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,none];
+	R_SPF_ALLOW(-0.20)[+a:dfw.source.kernel.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.10)[text/plain];
 	NEURAL_HAM(-0.00)[-1.000];
 	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,meta.com,kernel.org,lists.linaro.org];
 	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_TLS_LAST(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,meta.com,kernel.org,linuxfoundation.org,lists.linaro.org];
 	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[linuxfoundation.org:+];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2]
+	RCVD_VIA_SMTP_AUTH(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: BF67D3EC7A
-X-Spamd-Bar: ---------
-Message-ID-Hash: HKLGKQNSVDFNHTF3222SIXEGHHABFYZX
-X-Message-ID-Hash: HKLGKQNSVDFNHTF3222SIXEGHHABFYZX
-X-MailFrom: gregkh@linuxfoundation.org
+X-Rspamd-Queue-Id: 513CB3EC16
+X-Spamd-Bar: --------
+Message-ID-Hash: VMEEOB24BL6ZSMS5G3ZUEK44FNL54U6V
+X-Message-ID-Hash: VMEEOB24BL6ZSMS5G3ZUEK44FNL54U6V
+X-MailFrom: johan@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: jiangshanlai@gmail.com, linux-kernel@vger.kernel.org, kernel-team@meta.com, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org
+CC: jiangshanlai@gmail.com, linux-kernel@vger.kernel.org, kernel-team@meta.com, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH 02/22] greybus: Use alloc_ordered_workqueue() to create ordered workqueues
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/HKLGKQNSVDFNHTF3222SIXEGHHABFYZX/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/VMEEOB24BL6ZSMS5G3ZUEK44FNL54U6V/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -91,24 +96,7 @@ On Thu, Apr 20, 2023 at 04:50:26PM -1000, Tejun Heo wrote:
 > simultaneously. When fully serialized execution - one by one in the queueing
 > order - is needed, an ordered workqueue should be used which can be created
 > with alloc_ordered_workqueue().
-> 
-> However, alloc_ordered_workqueue() was a later addition. Before it, an
-> ordered workqueue could be obtained by creating an UNBOUND workqueue with
-> @max_active==1. This originally was an implementation side-effect which was
-> broken by 4c16bd327c74 ("workqueue: restore WQ_UNBOUND/max_active==1 to be
-> ordered"). Because there were users that depended on the ordered execution,
-> 5c0338c68706 ("workqueue: restore WQ_UNBOUND/max_active==1 to be ordered")
-> made workqueue allocation path to implicitly promote UNBOUND workqueues w/
-> @max_active==1 to ordered workqueues.
-> 
-> While this has worked okay, overloading the UNBOUND allocation interface
-> this way creates other issues. It's difficult to tell whether a given
-> workqueue actually needs to be ordered and users that legitimately want a
-> min concurrency level wq unexpectedly gets an ordered one instead. With
-> planned UNBOUND workqueue updates to improve execution locality and more
-> prevalence of chiplet designs which can benefit from such improvements, this
-> isn't a state we wanna be in forever.
-> 
+
 > This patch series audits all callsites that create an UNBOUND workqueue w/
 > @max_active==1 and converts them to alloc_ordered_workqueue() as necessary.
 > 
@@ -141,8 +129,7 @@ On Thu, Apr 20, 2023 at 04:50:26PM -1000, Tejun Heo wrote:
 > Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 > Cc: greybus-dev@lists.linaro.org
 
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
+Acked-by: Johan Hovold <johan@kernel.org>
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
