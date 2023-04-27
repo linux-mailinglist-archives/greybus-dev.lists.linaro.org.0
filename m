@@ -2,206 +2,285 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30A2B6EA5A3
-	for <lists+greybus-dev@lfdr.de>; Fri, 21 Apr 2023 10:16:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 016A06F48FF
+	for <lists+greybus-dev@lfdr.de>; Tue,  2 May 2023 19:15:06 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 244B73F981
-	for <lists+greybus-dev@lfdr.de>; Fri, 21 Apr 2023 08:16:04 +0000 (UTC)
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com [209.85.166.54])
-	by lists.linaro.org (Postfix) with ESMTPS id F3B963EE47
-	for <greybus-dev@lists.linaro.org>; Fri, 21 Apr 2023 08:15:58 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B11633F5B7
+	for <lists+greybus-dev@lfdr.de>; Tue,  2 May 2023 17:15:04 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	by lists.linaro.org (Postfix) with ESMTPS id 8B3EF3EE2C
+	for <greybus-dev@lists.linaro.org>; Thu, 27 Apr 2023 06:27:56 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=ieee.org header.s=google header.b=HS27dZTQ;
-	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.166.54 as permitted sender) smtp.mailfrom=elder@ieee.org;
-	dmarc=pass (policy=quarantine) header.from=ieee.org
-Received: by mail-io1-f54.google.com with SMTP id ca18e2360f4ac-7637c5ed865so168824339f.3
-        for <greybus-dev@lists.linaro.org>; Fri, 21 Apr 2023 01:15:58 -0700 (PDT)
+	dkim=pass header.d=gmail.com header.s=20221208 header.b=E1burq30;
+	spf=pass (lists.linaro.org: domain of kamrankhadijadj@gmail.com designates 209.85.128.53 as permitted sender) smtp.mailfrom=kamrankhadijadj@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-3f19323259dso68482235e9.3
+        for <greybus-dev@lists.linaro.org>; Wed, 26 Apr 2023 23:27:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1682064958; x=1684656958;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qCGHRBc+uVHcj0EdY6TeoG6GbZWnSmTkOlbKkZxZR9A=;
-        b=HS27dZTQ/xyvfSneaQekhHkzapypxPOR9xdvahvYgvDQdNwCgmyh+hWm94qg9PDiFJ
-         JfysofErBDhQA/HBN1RIPTDUgoNCQPmy28GJT0JfJwXpWVPiEFaEa1eGYpDssxjnPKad
-         ND4Do1kKYY1hw4bP72aMorvjUlRYIp89179/w=
+        d=gmail.com; s=20221208; t=1682576875; x=1685168875;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=M+Q6Yeni4/TzbxAxTvVHzNKtVswqKwlCXXDuNOp8S9U=;
+        b=E1burq30fK2jViySXdTDPkln1s3+moVqNN5Yrb/SmseBcmrokfn6+DwK8NSArF0HE2
+         MPpdvVUZQu4RGom+xGVXq2yseM6/zkuQOsZoYxk6tvKeRx8A9s11NgbFM+6n/E8ot/Y4
+         uwL0hkLrDqp6Epbx4U3wUl2tZebOgJaU80oPHHEsT1SYJbfUIDDku7VQ+ilO52x+t6rr
+         NxDl97e7APP5gxyijUAXNremZfibI3RUGCPGDVHeLGcKizG7Rbk2+H9g8NyxejpUnVKl
+         A+38Aj7N6jkTvpB0U74TqmeU3cgKXaomUCMQ9pyZBXevsQQmp+emTlHUegHHE0SyLSKm
+         15Gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682064958; x=1684656958;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qCGHRBc+uVHcj0EdY6TeoG6GbZWnSmTkOlbKkZxZR9A=;
-        b=C9SfR2ns/pRmaWE1Cc1XCq8nLYkRNCOITjzIGHp63ZPFoyuyiwsPa2rv/yTgAjTcKP
-         2TUyNCWVbyaZ2Z9OqI5oCo3x7EbcOGF3iQwj8QAeA5eCoM+tXyDCx0S7AMopVKNi9Qp7
-         nohYy3wlMyR5qLEkJSBwql1xFLB78u7gYtOmkRIFVHhbgIiUbiR6F+t4gE9MHfO6MehI
-         fNC+vljsB9E9ebsu2kbvxAM1gYEbiUTOfm0TquH1PQZCDiUzaQ1B3M+7sALfNgFJMd8o
-         dFeJ1Yvgv2slFY8oPGxS4C5u/jN6jyIeknXnKHFN+N7QMGDVfcnbufQ+KC1J1BWm6aug
-         Rjww==
-X-Gm-Message-State: AAQBX9dD5hKPJoVl3GRmyctTITXZ18OckLKDfMlNRkgByU2s3MyDvRiX
-	LyCLWVYov+EEz3yIb5c946NGAw==
-X-Google-Smtp-Source: AKy350a/Ot5qjHO2A6etlksx60Ur9+OLDkpJY5TIXGN6F+YYh4pskZCRYr2Iu4Swk0XPJRox724XXw==
-X-Received: by 2002:a5e:9401:0:b0:763:8eea:5d8b with SMTP id q1-20020a5e9401000000b007638eea5d8bmr3006483ioj.4.1682064958394;
-        Fri, 21 Apr 2023 01:15:58 -0700 (PDT)
-Received: from [172.22.22.4] ([98.61.227.136])
-        by smtp.googlemail.com with ESMTPSA id e22-20020a5d9256000000b0076356c2d1acsm905845iol.52.2023.04.21.01.15.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Apr 2023 01:15:57 -0700 (PDT)
-Message-ID: <57f311ec-381a-e468-3b28-bd73521d5e00@ieee.org>
-Date: Fri, 21 Apr 2023 03:15:56 -0500
+        d=1e100.net; s=20221208; t=1682576875; x=1685168875;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=M+Q6Yeni4/TzbxAxTvVHzNKtVswqKwlCXXDuNOp8S9U=;
+        b=SOfxP6LWpmqJ3Zprn5q59wztfqd3Nrrc1wmMyG/76uY4MekFdq51jk+lx2Drk/DkCQ
+         +mTPN+tM56Co24GRq4hGvUnbmiBP7SznYR+HOKTzK45kb0xyEqNQdp4aHR17F7lIjmGC
+         iBtbYZNXdWS6xEIk0VczP0u20okMx9AL2X96t8oRm/D/iGoPgyJbxNqWrabuSYdO4uhR
+         bZw/bxdGuYwiIjuhZ70MMPl8oQWhzGueUTcpX2LgkeAKsZihN0+ly9ZGHbYSDpbjzuK5
+         jafFYxOxgI8bR5hczg2/iUu8XTfQKvWoAqtfDeEFQ8o1EQBb0TeF1HiD0H7SAF3g5zu9
+         3kSQ==
+X-Gm-Message-State: AC+VfDxltVPwe0JoSLTCf+NztQa8yHHa9Gad+IKyddHIg1cbk/mj7gwR
+	MO32ppY1woWwfhsevY/NQw8=
+X-Google-Smtp-Source: ACHHUZ67MU4iq/WyDLqRO35iB0klFuxM2t4I+8VJZbkaravbmfao+YZfKg06zqz4OmEpabV9LldLRA==
+X-Received: by 2002:a7b:cbcb:0:b0:3ee:19b4:a2e6 with SMTP id n11-20020a7bcbcb000000b003ee19b4a2e6mr536563wmi.19.1682576875297;
+        Wed, 26 Apr 2023 23:27:55 -0700 (PDT)
+Received: from khadija-virtual-machine ([124.29.208.67])
+        by smtp.gmail.com with ESMTPSA id 14-20020a05600c028e00b003f18b942338sm19831740wmk.3.2023.04.26.23.27.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Apr 2023 23:27:54 -0700 (PDT)
+Date: Thu, 27 Apr 2023 11:27:51 +0500
+From: Khadija Kamran <kamrankhadijadj@gmail.com>
+To: Dan Carpenter <error27@gmail.com>
+Message-ID: <ZEoV5/S3owfPVil7@khadija-virtual-machine>
+References: <cover.1680185025.git.kamrankhadijadj@gmail.com>
+ <96d04a4ff3d4a46293355f5afae3a8ece65f2c5b.1680185025.git.kamrankhadijadj@gmail.com>
+ <6ce8aa34-e600-4d6a-adad-ead8255342e5@kili.mountain>
+ <ZChs5jB7DMCUnVzr@khadija-virtual-machine>
+ <9688d93f-5ece-4799-898d-98515a98f9be@kili.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Tejun Heo <tj@kernel.org>, jiangshanlai@gmail.com
-References: <20230421025046.4008499-1-tj@kernel.org>
- <20230421025046.4008499-3-tj@kernel.org>
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20230421025046.4008499-3-tj@kernel.org>
-X-Spamd-Result: default: False [-8.00 / 15.00];
-	REPLY(-4.00)[];
+Content-Disposition: inline
+In-Reply-To: <9688d93f-5ece-4799-898d-98515a98f9be@kili.mountain>
+X-Spamd-Result: default: False [-2.00 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20221208];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
 	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com];
+	TAGGED_RCPT(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.53:from];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,vger.kernel.org,intel.com];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	TO_DN_SOME(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_COUNT_TWO(0.00)[2];
 	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	BLOCKLISTDE_FAIL(0.00)[98.61.227.136:server fail,209.85.166.54:server fail];
-	DKIM_TRACE(0.00)[ieee.org:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.166.54:from]
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: F3B963EE47
-X-Spamd-Bar: --------
-Message-ID-Hash: 3LN2WEW7U6D2VM4AELVODAKHNQO7MXRY
-X-Message-ID-Hash: 3LN2WEW7U6D2VM4AELVODAKHNQO7MXRY
-X-MailFrom: elder@ieee.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, kernel-team@meta.com, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org
+X-Rspamd-Queue-Id: 8B3EF3EE2C
+X-Spamd-Bar: --
+X-MailFrom: kamrankhadijadj@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: XD24QDZOAZQJ2Z4A6ZVS4WOKWUX5TRCA
+X-Message-ID-Hash: XD24QDZOAZQJ2Z4A6ZVS4WOKWUX5TRCA
+X-Mailman-Approved-At: Tue, 02 May 2023 17:15:01 +0000
+CC: outreachy@lists.linux.dev, hvaibhav.linux@gmail.com, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Alison Schofield <alison.schofield@intel.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 02/22] greybus: Use alloc_ordered_workqueue() to create ordered workqueues
+Subject: [greybus-dev] Re: [PATCH 2/2] staging: greybus: refactor arche_platform_wd_irq()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/3LN2WEW7U6D2VM4AELVODAKHNQO7MXRY/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XD24QDZOAZQJ2Z4A6ZVS4WOKWUX5TRCA/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"; format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 4/20/23 9:50 PM, Tejun Heo wrote:
-> BACKGROUND
-> ==========
+On Mon, Apr 03, 2023 at 07:29:36AM +0300, Dan Carpenter wrote:
+> On Sat, Apr 01, 2023 at 10:41:58PM +0500, Khadija Kamran wrote:
+> > On Thu, Mar 30, 2023 at 06:23:19PM +0300, Dan Carpenter wrote:
+> > > On Thu, Mar 30, 2023 at 07:11:25PM +0500, Khadija Kamran wrote:
+> > > > Linux kernel coding-style suggests to fix your program if it needs more
+> > > > than 3 levels of indentation. Due to indentation, line length also
+> > > > exceeds 100 columns, resulting in issues reported by checkpatch.
+> > > > 
+> > > > Refactor the arche_platform_wd_irq() function and reduce the indentation
+> > > > with the help of goto statement.
+> > > > 
+> > > > Suggested-by: Alison Schofield <alison.schofield@intel.com>
+> > > > Signed-off-by: Khadija Kamran <kamrankhadijadj@gmail.com>
+> > > > ---
+> > > >  drivers/staging/greybus/arche-platform.c | 79 ++++++++++++------------
+> > > >  1 file changed, 41 insertions(+), 38 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
+> > > > index a64c1af091b0..dde30c8da1a1 100644
+> > > > --- a/drivers/staging/greybus/arche-platform.c
+> > > > +++ b/drivers/staging/greybus/arche-platform.c
+> > > > @@ -158,49 +158,52 @@ static irqreturn_t arche_platform_wd_irq(int irq, void *devid)
+> > > >  
+> > > >  	spin_lock_irqsave(&arche_pdata->wake_lock, flags);
+> > > >  
+> > > > -	if (gpiod_get_value(arche_pdata->wake_detect)) {
+> > > > -		/* wake/detect rising */
+> > > > +	if (!gpiod_get_value(arche_pdata->wake_detect))
+> > > > +		goto falling;
+> > > >  
+> > > > +	/* wake/detect rising */
+> > > > +
+> > > > +	/*
+> > > > +	 * If wake/detect line goes high after low, within less than
+> > > > +	 * 30msec, then standby boot sequence is initiated, which is not
+> > > > +	 * supported/implemented as of now. So ignore it.
+> > > > +	 */
+> > > > +	if (arche_pdata->wake_detect_state != WD_STATE_BOOT_INIT)
+> > > > +		goto out;
+> > > 
+> > > This checks that we are in WD_STATE_BOOT_INIT state.
+> > > 
+> > > > +
+> > > > +	if (time_before(jiffies,
+> > > > +			arche_pdata->wake_detect_start +
+> > > > +			msecs_to_jiffies(WD_COLDBOOT_PULSE_WIDTH_MS))) {
+> > > > +		arche_platform_set_wake_detect_state(arche_pdata,
+> > > > +						     WD_STATE_IDLE);
+> > > > +		got out;
+> > > > +	}
+> > > > +
+> > > > +	/* Check we are not in middle of irq thread already */
+> > > > +	if (arche_pdata->wake_detect_state !=
+> > > > +			WD_STATE_COLDBOOT_START) {
+> > > 
+> > > This checks that we are not in WD_STATE_COLDBOOT_START state.  How are
+> > > we going to be in COLDBOOT if we are in INIT?  Is this changing in the
+> > > background?  Can this check be removed?  This might be took tricky to
+> > > answer but it's important that we understand this before we continue.
+> > > 
+> > > 
+> > > > +		arche_platform_set_wake_detect_state(arche_pdata,
+> > > > +						     WD_STATE_COLDBOOT_TRIG);
+> > > > +		rc = IRQ_WAKE_THREAD;
+> > > > +		goto out;
+> > > > +	}
+> > > 
+> > > Let's assume the above check cannot be removed.
+> > > 
+> > > In the original code if gpiod_get_value(arche_pdata->wake_detect)
+> > > returned true and arche_pdata->wake_detect_state == WD_STATE_IDLE then
+> > > it just returned without doing anything, but now we fall through to the
+> > > falling: label below.
 > 
-> When multiple work items are queued to a workqueue, their execution order
-> doesn't match the queueing order. They may get executed in any order and
-> simultaneously. When fully serialized execution - one by one in the queueing
-> order - is needed, an ordered workqueue should be used which can be created
-> with alloc_ordered_workqueue().
+> Let me show you in the original code:
 > 
-> However, alloc_ordered_workqueue() was a later addition. Before it, an
-> ordered workqueue could be obtained by creating an UNBOUND workqueue with
-> @max_active==1. This originally was an implementation side-effect which was
-> broken by 4c16bd327c74 ("workqueue: restore WQ_UNBOUND/max_active==1 to be
-> ordered"). Because there were users that depended on the ordered execution,
-> 5c0338c68706 ("workqueue: restore WQ_UNBOUND/max_active==1 to be ordered")
-> made workqueue allocation path to implicitly promote UNBOUND workqueues w/
-> @max_active==1 to ordered workqueues.
+> STEP 1:	if (gpiod_get_value(arche_pdata->wake_detect)) {
 > 
-> While this has worked okay, overloading the UNBOUND allocation interface
-> this way creates other issues. It's difficult to tell whether a given
-> workqueue actually needs to be ordered and users that legitimately want a
-> min concurrency level wq unexpectedly gets an ordered one instead. With
-> planned UNBOUND workqueue updates to improve execution locality and more
-> prevalence of chiplet designs which can benefit from such improvements, this
-> isn't a state we wanna be in forever.
+> Assume this condition is true.
 > 
-> This patch series audits all callsites that create an UNBOUND workqueue w/
-> @max_active==1 and converts them to alloc_ordered_workqueue() as necessary.
+> STEP 2:		if (arche_pdata->wake_detect_state == WD_STATE_BOOT_INIT) {
 > 
-> WHAT TO LOOK FOR
-> ================
+> Assume this condition is true.
 > 
-> The conversions are from
+> STEP 3:		if (time_before(jiffies, ...)
 > 
->    alloc_workqueue(WQ_UNBOUND | flags, 1, args..)
+> Assume that time is up.
 > 
-> to
+> STEP 4:			if (arche_pdata->wake_detect_state !=
+> 					WD_STATE_COLDBOOT_START) {
 > 
->    alloc_ordered_workqueue(flags, args...)
+> Assume that it is equal.  We are done.  return IRQ_HANDLED;
 > 
-> which don't cause any functional changes. If you know that fully ordered
-> execution is not ncessary, please let me know. I'll drop the conversion and
-> instead add a comment noting the fact to reduce confusion while conversion
-> is in progress.
+> Now in the new code:
 > 
-> If you aren't fully sure, it's completely fine to let the conversion
-> through. The behavior will stay exactly the same and we can always
-> reconsider later.
+> STEP 1:	if (!gpiod_get_value(arche_pdata->wake_detect))
+> 		goto falling;
 > 
-> As there are follow-up workqueue core changes, I'd really appreciate if the
-> patch can be routed through the workqueue tree w/ your acks. Thanks.
+> Assume we don't goto falling.
+> 
+> STEP 2:	if (arche_pdata->wake_detect_state != WD_STATE_BOOT_INIT)
+> 
+> Assume that it == WD_STATE_BOOT_INIT.
+> 
+> STEP 3:	if (time_before(jiffies, ...)
+> 
+> Assume that time is up.
+> 
+> STEP 4:	if (arche_pdata->wake_detect_state != WD_STATE_COLDBOOT_START) {
+> 
+> Assume that it is equal.  Before, in the old code it would return
+> return IRQ_HANDLED; at this point.  But now it does:
+> 
+> STEP 5:	if (arche_pdata->wake_detect_state == WD_STATE_IDLE) {
+> 
+> Which seems like it's a contradictory condition with STEP 4 so it's
+> probably impossible.  But on the other hand, we have already checked
+> contradictory conditions between STEP 2 and STEP 4 so who knows what's
+> going on?
 
-Both of the workqueues affected here should be ordered.
 
-Acked-by: Alex Elder <elder@linaro.org>
+Hey Dan!
+
+Sorry about the delay in the reply. I want to continue working on the
+completion of this thread. 
+
+Thank you for the above steps, they clearly explain the problem you
+addressed in the new code. Can't this problem be resolved by "goto out;"
+right above the 'falling:' label?
+
+I'm copy pasting your mail here,
+
+On Mon, Apr 03, 2023 at 07:29:36AM +0300, Dan Carpenter wrote:
+> > > This checks that we are not in WD_STATE_COLDBOOT_START state.  How are
+> > > we going to be in COLDBOOT if we are in INIT?  Is this changing in the
+> > > background?  Can this check be removed?
+
+> It turned out the answer was yes, it can be removed.
+
+> > Also if stuff is changing in the background and there is no way the
+> > locking is correct.
+
+> The locking is correct.  Take a look at it.
+
+> We are holding the &arche_pdata->wake_lock in arche_platform_wd_irq()
+> and every place that calls arche_platform_set_wake_detect_state() takes
+> that lock first.  So it can't change in the background.
+
+> Delete the check like so.
+
+If we delete the check then the indentation problem would be
+automatically addressed. Also, there would be a single exit path to the
+function. Should I send a patch or is there anything else that should be
+addressed. 
+
+Thank you!
+
+Regards,
+Khadija
 
 > 
-> Signed-off-by: Tejun Heo <tj@kernel.org>
-> Cc: Johan Hovold <johan@kernel.org>
-> Cc: Alex Elder <elder@kernel.org>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: greybus-dev@lists.linaro.org
-> ---
->   drivers/greybus/connection.c | 4 ++--
->   drivers/greybus/svc.c        | 2 +-
->   2 files changed, 3 insertions(+), 3 deletions(-)
+> This function is very hard to understand.
 > 
-> diff --git a/drivers/greybus/connection.c b/drivers/greybus/connection.c
-> index e3799a53a193..9c88861986c8 100644
-> --- a/drivers/greybus/connection.c
-> +++ b/drivers/greybus/connection.c
-> @@ -187,8 +187,8 @@ _gb_connection_create(struct gb_host_device *hd, int hd_cport_id,
->   	spin_lock_init(&connection->lock);
->   	INIT_LIST_HEAD(&connection->operations);
->   
-> -	connection->wq = alloc_workqueue("%s:%d", WQ_UNBOUND, 1,
-> -					 dev_name(&hd->dev), hd_cport_id);
-> +	connection->wq = alloc_ordered_workqueue("%s:%d", 0, dev_name(&hd->dev),
-> +						 hd_cport_id);
->   	if (!connection->wq) {
->   		ret = -ENOMEM;
->   		goto err_free_connection;
-> diff --git a/drivers/greybus/svc.c b/drivers/greybus/svc.c
-> index 16cced80867a..0d7e749174a4 100644
-> --- a/drivers/greybus/svc.c
-> +++ b/drivers/greybus/svc.c
-> @@ -1318,7 +1318,7 @@ struct gb_svc *gb_svc_create(struct gb_host_device *hd)
->   	if (!svc)
->   		return NULL;
->   
-> -	svc->wq = alloc_workqueue("%s:svc", WQ_UNBOUND, 1, dev_name(&hd->dev));
-> +	svc->wq = alloc_ordered_workqueue("%s:svc", 0, dev_name(&hd->dev));
->   	if (!svc->wq) {
->   		kfree(svc);
->   		return NULL;
-
+> Also if stuff is changing in the background and there is no way the
+> locking is correct.
+> 
+> regards,
+> dan carpenter
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
