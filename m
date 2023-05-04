@@ -2,103 +2,69 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA4016FBBA9
-	for <lists+greybus-dev@lfdr.de>; Tue,  9 May 2023 01:55:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D126FF0FC
+	for <lists+greybus-dev@lfdr.de>; Thu, 11 May 2023 14:02:21 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D2E493E9D4
-	for <lists+greybus-dev@lfdr.de>; Mon,  8 May 2023 23:55:56 +0000 (UTC)
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	by lists.linaro.org (Postfix) with ESMTPS id 22C033E9D4
-	for <greybus-dev@lists.linaro.org>; Mon,  8 May 2023 23:55:53 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 61BBE44354
+	for <lists+greybus-dev@lfdr.de>; Thu, 11 May 2023 12:02:20 +0000 (UTC)
+Received: from hust.edu.cn (mail.hust.edu.cn [202.114.0.240])
+	by lists.linaro.org (Postfix) with ESMTPS id 313373EF1C
+	for <greybus-dev@lists.linaro.org>; Thu,  4 May 2023 14:02:45 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20221208 header.b=eDmEQkTI;
-	spf=pass (lists.linaro.org: domain of htejun@gmail.com designates 209.85.215.175 as permitted sender) smtp.mailfrom=htejun@gmail.com;
-	dmarc=fail reason="SPF not aligned (relaxed), DKIM not aligned (relaxed)" header.from=kernel.org (policy=none)
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-52c759b7d45so4722325a12.3
-        for <greybus-dev@lists.linaro.org>; Mon, 08 May 2023 16:55:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683590152; x=1686182152;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2YJeCVahMakSFFIeHkE0L5vaAYWzeS9qst+vBo++bi0=;
-        b=eDmEQkTIIHMRWU2ntPglrb0g3MKZDF4Lz5fmmHbtX87ohKxjyU6xPw0WkmwtQ5Dmot
-         uGL20P5UfpNoi+/vrdkkAczY+r3cNJfPIkEqvbGHQ0HhU1SYD9fJRMPO5DnJa7fGCFxQ
-         oPv6i/8RjMJPNQMo1Dm/gF/Q0fwa9VYP2suNlp8qLe0do4nPZpTiBZSd0RsBCF39SeKh
-         S0g3hygvbANJn5pD5CVuiu3dl4TTdcV2J93xNyKC0vnWjbFIByCpR7bBr/VRW09a7bDe
-         bfoN61mfw84Y3mWoiCCLmAppkvcrEAEVDrJ4OrvIlHxr9G+Gnbq7917NUNBiLpd2meIm
-         Lhzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683590152; x=1686182152;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=2YJeCVahMakSFFIeHkE0L5vaAYWzeS9qst+vBo++bi0=;
-        b=WfMFrC+SmKkY10eQJXaTUiVS+cpstScV52RzOb0oWhmi0hjkF3jdq4QYQ05q8rWV1T
-         XvfaUG4epxs86pZwtENJuzTZ0l+x0AbobMqXSzGrTiL9t2UcUTjwVtLBbpJ3Mo5ZOXG9
-         s6ofvv3emO5VxQqHTQemiZDEgbQG3e2ttnUp0BeK03byCtvqO071SRs5d4H2k6a3i1r2
-         cimPXghqaFexcYRrkcoupOAg3c/gEny8+0U4W00qbr/R0FMybM28RS/DcuoylkIR2hKV
-         y97M5RxzkgMIocm7UHXSWvom01dQfqpM0/Xm/uGG0JaMSqUJTp0nIF6ZNzSHIzLNutTf
-         kXXA==
-X-Gm-Message-State: AC+VfDx2naDL3YxDRdCWsB+VGqmsMrInOag/19Vrsn5OVaDfD1wqPZYQ
-	2VJiGIHHLVjiu7npHf0AJfo=
-X-Google-Smtp-Source: ACHHUZ7uPD3bqVE30fL2j9i8d5ZClVd6/6A8t67rGZjmf/al2IN17DxPUOk+QF1xgTZAd79abA8e4w==
-X-Received: by 2002:a05:6a20:3d20:b0:100:377b:2753 with SMTP id y32-20020a056a203d2000b00100377b2753mr7867297pzi.14.1683590151987;
-        Mon, 08 May 2023 16:55:51 -0700 (PDT)
-Received: from localhost (2603-800c-1a02-1bae-a7fa-157f-969a-4cde.res6.spectrum.com. [2603:800c:1a02:1bae:a7fa:157f:969a:4cde])
-        by smtp.gmail.com with ESMTPSA id 17-20020aa79251000000b00637b0c719c5sm454513pfp.201.2023.05.08.16.55.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 May 2023 16:55:51 -0700 (PDT)
-Sender: Tejun Heo <htejun@gmail.com>
-Date: Mon, 8 May 2023 13:55:50 -1000
-From: Tejun Heo <tj@kernel.org>
-To: jiangshanlai@gmail.com
-Message-ID: <ZFmMBq6Gsc-pWrDS@slm.duckdns.org>
-References: <20230421025046.4008499-1-tj@kernel.org>
- <20230421025046.4008499-3-tj@kernel.org>
+	dkim=none;
+	spf=pass (lists.linaro.org: domain of dzm91@hust.edu.cn designates 202.114.0.240 as permitted sender) smtp.mailfrom=dzm91@hust.edu.cn;
+	dmarc=none
+Received: from localhost.localdomain ([172.16.0.254])
+	(user=dzm91@hust.edu.cn mech=LOGIN bits=0)
+	by mx1.hust.edu.cn  with ESMTP id 344E1fZO011334-344E1fZR011334
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Thu, 4 May 2023 22:01:46 +0800
+From: Dongliang Mu <dzm91@hust.edu.cn>
+To: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jacopo Mondi <jacopo.mondi@linaro.org>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Date: Thu,  4 May 2023 21:58:41 +0800
+Message-Id: <20230504135841.1566958-1-dzm91@hust.edu.cn>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230421025046.4008499-3-tj@kernel.org>
-X-Spamd-Result: default: False [-3.53 / 15.00];
-	BAYES_HAM(-1.43)[91.15%];
-	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
-	RCVD_IN_DNSWL_HI(-1.00)[209.85.215.175:from,2603:800c:1a02:1bae:a7fa:157f:969a:4cde:received];
-	FORGED_SENDER(0.30)[tj@kernel.org,htejun@gmail.com];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20221208];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+X-FEAS-AUTH-USER: dzm91@hust.edu.cn
+X-Spamd-Result: default: False [-2.30 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	RCVD_IN_DNSWL_HI(-0.50)[202.114.0.240:from];
+	R_SPF_ALLOW(-0.20)[+ip4:202.114.0.240];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[kernel.org : SPF not aligned (relaxed), DKIM not aligned (relaxed),none];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.215.175:from];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FROM_NEQ_ENVFROM(0.00)[tj@kernel.org,htejun@gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	NEURAL_HAM(-0.00)[-1.000];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	RCVD_TLS_LAST(0.00)[];
+	ASN(0.00)[asn:4538, ipnet:202.114.0.0/19, country:CN];
+	FROM_EQ_ENVFROM(0.00)[];
+	R_DKIM_NA(0.00)[];
+	RCVD_COUNT_ONE(0.00)[1];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	NEURAL_SPAM(0.00)[0.998];
 	FROM_HAS_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	RCVD_COUNT_TWO(0.00)[2]
+	DMARC_NA(0.00)[hust.edu.cn];
+	ARC_NA(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 22C033E9D4
-X-Spamd-Bar: ---
-Message-ID-Hash: 6OYHBY4AIE53DF442LK4KJDJYFN5JPLP
-X-Message-ID-Hash: 6OYHBY4AIE53DF442LK4KJDJYFN5JPLP
-X-MailFrom: htejun@gmail.com
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, kernel-team@meta.com, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org
+X-Rspamd-Queue-Id: 313373EF1C
+X-Spamd-Bar: --
+X-MailFrom: dzm91@hust.edu.cn
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: 3JHAJ4PDGRI77NMBLYCJ4JT3VAIHZN4N
+X-Message-ID-Hash: 3JHAJ4PDGRI77NMBLYCJ4JT3VAIHZN4N
+X-Mailman-Approved-At: Thu, 11 May 2023 12:02:17 +0000
+CC: Dongliang Mu <dzm91@hust.edu.cn>, Greg Kroah-Hartman <gregkh@google.com>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 02/22] greybus: Use alloc_ordered_workqueue() to create ordered workqueues
+Subject: [greybus-dev] [PATCH] drivers: staging: greybus: fix GPF issue in gb_camera_capture
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/6OYHBY4AIE53DF442LK4KJDJYFN5JPLP/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/3JHAJ4PDGRI77NMBLYCJ4JT3VAIHZN4N/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -108,12 +74,35 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Applied to wq/for-6.5-cleanup-ordered.
+In gb_camera_capture(), it does not check the value of settings
+before dereferencing it. And gb_camera_debugfs_capture calls
+gb_camera_capture with the 6th parameter settings as NULL.
 
-Thanks.
+Fix this by checking the value of setting at the starting of
+gb_camera_capture.
 
+Fixes: 3265edaf0d70 ("greybus: Add driver for the camera class protocol")
+Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
+---
+ drivers/staging/greybus/camera.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/camera.c
+index cdbb42cd413b..5a4b26e7f645 100644
+--- a/drivers/staging/greybus/camera.c
++++ b/drivers/staging/greybus/camera.c
+@@ -659,7 +659,7 @@ static int gb_camera_capture(struct gb_camera *gcam, u32 request_id,
+ 	size_t req_size;
+ 	int ret;
+ 
+-	if (settings_size > GB_CAMERA_MAX_SETTINGS_SIZE)
++	if (settings_size > GB_CAMERA_MAX_SETTINGS_SIZE || !settings)
+ 		return -EINVAL;
+ 
+ 	req_size = sizeof(*req) + settings_size;
 -- 
-tejun
+2.39.2
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
