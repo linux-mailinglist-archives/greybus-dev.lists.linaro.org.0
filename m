@@ -2,98 +2,82 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BADC6F6E44
-	for <lists+greybus-dev@lfdr.de>; Thu,  4 May 2023 16:53:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 207786F6E55
+	for <lists+greybus-dev@lfdr.de>; Thu,  4 May 2023 16:54:18 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9E6F74435C
-	for <lists+greybus-dev@lfdr.de>; Thu,  4 May 2023 14:53:22 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	by lists.linaro.org (Postfix) with ESMTPS id D85DC3EF1C
-	for <greybus-dev@lists.linaro.org>; Thu,  4 May 2023 14:53:17 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 3044B44358
+	for <lists+greybus-dev@lfdr.de>; Thu,  4 May 2023 14:54:17 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id 9D20D3EF1C
+	for <greybus-dev@lists.linaro.org>; Thu,  4 May 2023 14:54:13 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=QhHC7viA;
-	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.128.45 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
-	dmarc=pass (policy=none) header.from=linaro.org
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-3f173af665fso4678455e9.3
-        for <greybus-dev@lists.linaro.org>; Thu, 04 May 2023 07:53:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1683211997; x=1685803997;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=lX/T27vjnEh8k9QeLjynwVpeQJ5Iqp1VjSSNsMcOBEs=;
-        b=QhHC7viAls5QeeFDlr8Zxb6K0EZlwkRgePgufMqP08s34GEK45rZTvj2Rj0/EqNLwA
-         0Q+PVahifxAYy4wnJlt9nFHcBO7gk7AROz7YCRzAHQfRbx4Wo9UFBw17ogFSOIED4oJb
-         gCytz7C0GpOpIhQZ1PfuA3F3D5rT4vd4/xSlS7xjHQeB+lU3PcxRBkB3hevXwIsDb3I+
-         3c8PtSzJvJ8ZVqosi1ECeolxhcEiPAD39C6nnBdMtuCuoT9zuNXi8BvX8fvja3JotePN
-         fgOMDJhHJKF62H3E29aJw1a/vYRCCKoCk/H4RLqencEaoHC4TfjiEKDR+5myMhwr7t0z
-         Og7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683211997; x=1685803997;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lX/T27vjnEh8k9QeLjynwVpeQJ5Iqp1VjSSNsMcOBEs=;
-        b=MkV7G3NqEC/YPERT7SJQ4kz2pI0qAyP1jacqqgskgtLFu1pThoVIYT8SF4zIHbGt5K
-         hOUDILY8ifNRu/VuzaJISGv5R4B3YJfaqqM99xiIp/6Y8sr1sLG6W86dcCgzGqZr5oAu
-         qqEzL3YUa3UHed6hZ4wnET1RElNphijFALcj3npxBINK01j4FVTFzCFfUnxRomjLUHW5
-         DdpPqHrNGp09rp3wl4LAA1+zS5vvBI0yIJYuJD5ByQh4R1klV6+IRQnf1Au46pLKhVdq
-         IqGwPXS/akQUkOCNDvbNFmxKllY59w040xSxpvS8Fkxr9uOYmgSyA1A4GZZLKxR+6ZKz
-         Jwsg==
-X-Gm-Message-State: AC+VfDzxBCyDL2c1gtaUIhU1r7bWCT2z9rWPiShZDlLoNM7vvlySvxgb
-	T9X8HfQoZu0SfSxH9Kp/P2eB2Ru9
-X-Google-Smtp-Source: ACHHUZ6GzN7URCucXGCsHRKXlnQyu6W06FtpSOkUPc/LLEF2fjxm7I4m5YoT/ZUAKJT3AvAfP/qXmw==
-X-Received: by 2002:a05:600c:2104:b0:3f1:6f44:ff3a with SMTP id u4-20020a05600c210400b003f16f44ff3amr17146491wml.13.1683211996867;
-        Thu, 04 May 2023 07:53:16 -0700 (PDT)
-Received: from localhost ([102.36.222.112])
-        by smtp.gmail.com with ESMTPSA id m20-20020a7bce14000000b003f3195be0a0sm5161389wmc.31.2023.05.04.07.53.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 May 2023 07:53:15 -0700 (PDT)
-Date: Thu, 4 May 2023 17:53:02 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b="RGc7/jfZ";
+	spf=pass (lists.linaro.org: domain of johan@kernel.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=johan@kernel.org;
+	dmarc=pass (policy=none) header.from=kernel.org
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5003862C76;
+	Thu,  4 May 2023 14:54:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC219C433D2;
+	Thu,  4 May 2023 14:54:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1683212052;
+	bh=TmACzxlSeb+WERvLsvXQwELOey/j51OsQ52OPnlwneM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RGc7/jfZgBMqdOT/Q8ZklvtXELuPyC9G8Adup84Tf9khzhzWdDv88vQQ9IDmJm1Sf
+	 1n4pccodaWrjOOxU2AuhH0AhIf+m75+vtQOctPrO6jmPvVaoQPuaazFvTkDj3ZNCcs
+	 KxlZJowPBY61AortnBGbZBlPSZKNmF2RT4k+MD6kTJmdctso3MMxdpxf+KgWg7YI3t
+	 h7TvpRp4hQ3t65AbR3jzyG4LkkR10bddkOijzbDvowHKWwjpWhdRqbA1jpg/nWKPh7
+	 p91/odYPl18phx6XoRXPLc0MerVB7Vh/KE/eL4BlsoeVvQy/kkeOMc6FRbd/DjbBIr
+	 ANWGE77uzyqFQ==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+	(envelope-from <johan@kernel.org>)
+	id 1puaLc-0004eW-Oc; Thu, 04 May 2023 16:54:21 +0200
+Date: Thu, 4 May 2023 16:54:20 +0200
+From: Johan Hovold <johan@kernel.org>
 To: Dongliang Mu <dzm91@hust.edu.cn>
-Message-ID: <bc5546c0-2c16-4b2d-ada1-c6dcf1d8c1a4@kili.mountain>
+Message-ID: <ZFPHHImqiVRRV5Cd@hovoldconsulting.com>
 References: <20230504135841.1566958-1-dzm91@hust.edu.cn>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20230504135841.1566958-1-dzm91@hust.edu.cn>
 X-Spamd-Result: default: False [-9.50 / 15.00];
-	DWL_DNSWL_HI(-3.50)[linaro.org:dkim];
-	BAYES_HAM(-3.00)[99.99%];
-	RCVD_IN_DNSWL_HI(-1.00)[209.85.128.45:from,102.36.222.112:received];
+	DWL_DNSWL_HI(-3.50)[kernel.org:dkim];
+	BAYES_HAM(-3.00)[100.00%];
 	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	RCVD_IN_DNSWL_HI(-1.00)[139.178.84.217:from,52.25.139.140:received];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,none];
+	R_SPF_ALLOW(-0.20)[+a:dfw.source.kernel.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MIME_GOOD(-0.10)[text/plain];
-	FROM_EQ_ENVFROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_TWO(0.00)[2];
+	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_TLS_LAST(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
+	FROM_EQ_ENVFROM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RCVD_COUNT_THREE(0.00)[3];
 	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.45:from];
-	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: D85DC3EF1C
+X-Rspamd-Queue-Id: 9D20D3EF1C
 X-Spamd-Bar: ---------
-Message-ID-Hash: 5MDLAPTAEJKJMLRUIDQNZ6LRCY2RW37C
-X-Message-ID-Hash: 5MDLAPTAEJKJMLRUIDQNZ6LRCY2RW37C
-X-MailFrom: dan.carpenter@linaro.org
+Message-ID-Hash: HNYT3RCIUGU6XGTJDKN2HDZ4O7MI7DQN
+X-Message-ID-Hash: HNYT3RCIUGU6XGTJDKN2HDZ4O7MI7DQN
+X-MailFrom: johan@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Jacopo Mondi <jacopo.mondi@linaro.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Greg Kroah-Hartman <gregkh@google.com>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+CC: Alex Elder <elder@kernel.org>, Jacopo Mondi <jacopo.mondi@linaro.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Greg Kroah-Hartman <gregkh@google.com>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH] drivers: staging: greybus: fix GPF issue in gb_camera_capture
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5MDLAPTAEJKJMLRUIDQNZ6LRCY2RW37C/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/HNYT3RCIUGU6XGTJDKN2HDZ4O7MI7DQN/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -107,21 +91,34 @@ On Thu, May 04, 2023 at 09:58:41PM +0800, Dongliang Mu wrote:
 > In gb_camera_capture(), it does not check the value of settings
 > before dereferencing it. And gb_camera_debugfs_capture calls
 > gb_camera_capture with the 6th parameter settings as NULL.
-> 
+
+Looks like you just broke gb_camera_debugfs_capture() which relies on
+passing NULL as settings.
+
 > Fix this by checking the value of setting at the starting of
 > gb_camera_capture.
 > 
 > Fixes: 3265edaf0d70 ("greybus: Add driver for the camera class protocol")
 > Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
 > ---
+>  drivers/staging/greybus/camera.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/camera.c
+> index cdbb42cd413b..5a4b26e7f645 100644
+> --- a/drivers/staging/greybus/camera.c
+> +++ b/drivers/staging/greybus/camera.c
+> @@ -659,7 +659,7 @@ static int gb_camera_capture(struct gb_camera *gcam, u32 request_id,
+>  	size_t req_size;
+>  	int ret;
+>  
+> -	if (settings_size > GB_CAMERA_MAX_SETTINGS_SIZE)
+> +	if (settings_size > GB_CAMERA_MAX_SETTINGS_SIZE || !settings)
+>  		return -EINVAL;
+>  
+>  	req_size = sizeof(*req) + settings_size;
 
-No.  The original code is correct.  memcpy(p, NULL, 0); is allowed.
-
-I don't see a bug.
-
-regards,
-dan carpenter
-
+Johan
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
