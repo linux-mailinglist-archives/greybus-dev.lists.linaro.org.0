@@ -2,240 +2,339 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 715F574867E
-	for <lists+greybus-dev@lfdr.de>; Wed,  5 Jul 2023 16:37:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E52D754159
+	for <lists+greybus-dev@lfdr.de>; Fri, 14 Jul 2023 19:51:10 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 30050413E0
-	for <lists+greybus-dev@lfdr.de>; Wed,  5 Jul 2023 14:37:33 +0000 (UTC)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	by lists.linaro.org (Postfix) with ESMTPS id 0215F3EF6B
-	for <greybus-dev@lists.linaro.org>; Tue,  4 Jul 2023 09:00:39 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 1E5813F503
+	for <lists+greybus-dev@lfdr.de>; Fri, 14 Jul 2023 17:51:09 +0000 (UTC)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com [209.85.166.53])
+	by lists.linaro.org (Postfix) with ESMTPS id A56FE3F503
+	for <greybus-dev@lists.linaro.org>; Fri, 14 Jul 2023 17:51:02 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20221208 header.b=ncuOnvqc;
-	spf=pass (lists.linaro.org: domain of islituo@gmail.com designates 209.85.208.182 as permitted sender) smtp.mailfrom=islituo@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-2b69ed7d050so85698151fa.2
-        for <greybus-dev@lists.linaro.org>; Tue, 04 Jul 2023 02:00:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688461237; x=1691053237;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=gwsmGBw6iq4zpC21lit8Yc2cNVPBKyoDscm8/pa0hjI=;
-        b=ncuOnvqcmZFLoIuvKBeHBd2qVVsdHvRNlZ90oBrmc56TsB6ltjTp5Qd0Q9vHE2p7gb
-         xGLkJ78NsR1zjAAtsXzq4uJ8Iy4NfFGwopvFvSWza7LOV/IAdpWQZCUY12jMTHpdjYuX
-         iJr1rFnChO/DEAXYbrIeDJZ7SlB6xY52GFks1XePnfVdELDlxz7gFd9Yu2d6meGnS3hc
-         c8wcigbQMltrHMLoWMK78p+WWw40DXCDiFpbZJpf7L48ko4ryldwyaRZqzwsgCI4UHpQ
-         yu4gYJXNvGkdv0yLgW3DhQbHNSpUZssYdE637WtzpxBY/uSLnzZCjc+xCUohoeW4/jK7
-         Vftg==
+	dkim=none;
+	spf=pass (lists.linaro.org: domain of robherring2@gmail.com designates 209.85.166.53 as permitted sender) smtp.mailfrom=robherring2@gmail.com;
+	dmarc=fail reason="SPF not aligned (relaxed), No valid DKIM" header.from=kernel.org (policy=none)
+Received: by mail-io1-f53.google.com with SMTP id ca18e2360f4ac-7836164a08aso89279039f.1
+        for <greybus-dev@lists.linaro.org>; Fri, 14 Jul 2023 10:51:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688461237; x=1691053237;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20221208; t=1689357062; x=1691949062;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=gwsmGBw6iq4zpC21lit8Yc2cNVPBKyoDscm8/pa0hjI=;
-        b=TX+xoscQMuAbl8Q91YX+WG+60k9nOEzqM0ATevp4SVdXTfaIAM0DnkIag+5hMUy6MT
-         QL6l/D+PfzhpSUCnFnobcb2/vopYAoGB9CV1PgPznDRDoO72+BOSkZ39OBqKPRcNq4xs
-         dlKmvlPtJsiBuJ1iqHn2tMcjjCsvMqflDfR4OD9YHofRpBsWF5OPUKdz6IDyLbluc/wM
-         2eXbCfnNC1apuPiTnjP9ZOHMjGiSNgWnz8e8sjb9ly9Ic0eZQHf4e6vBfFJ2/P0bgAI9
-         dvHYOOYLTzm2TxporsY1xzWRnkpQTrX01jpfCX2Y0cWt5EhMm7/C82UN6L5YBBorIgSm
-         i2Yg==
-X-Gm-Message-State: ABy/qLaS1J/mRWX4mUmhIxkwhjE6OGFtrXqLi7f7ahqQMyuGz3OL6Dqb
-	PiLV3oBsfnUiN+nJDa6kk5xqy3KlvgE0GqIeyV4=
-X-Google-Smtp-Source: APBJJlEo3WZ6vmoBQPNT6CdhjL4c2f2oGBwAe3/3TvGnnC3oQHkE7dA2qmSRFz+DMU/N5U4Xh0xm5ntCPfHevQLAFZA=
-X-Received: by 2002:a19:5002:0:b0:4fb:9469:d65f with SMTP id
- e2-20020a195002000000b004fb9469d65fmr8221694lfb.37.1688461237411; Tue, 04 Jul
- 2023 02:00:37 -0700 (PDT)
+        bh=dfZt0Y26M5pBCstI8AhRHneftpCtl5efvu3OXJ2yZ/o=;
+        b=RT9hdOliy5aU6A97yW4RNvPuzeOaaG2yF0tDNzsi7v4U6kyBdZCjOgZ4wFhqNYhy4H
+         H9rKYVZf0OkFe5bEKn8k649SPeCQPWMa64qt1k7RuFBJcpndRqg0nRQwKqvG9taENAY5
+         1UKqSwXmFOPq/Bfc0nzd+Xf5/b6wzrPsmKpYhupR880qnJxKx9Ely0xPHUr+9+y2Do3K
+         pUtJZmG+UzEOw9Xdr5aoN1QoXn4bgH8C6fPi2gfIjE3Upn283vqJO0Q14l0U6C1jDrdd
+         8pvKjWsPJyvCDkP7kwkNLDgPs9gyZHTtJ+SVqcjtpkuMr71wB4im99xf2eAAfVXF2/ms
+         Vm5A==
+X-Gm-Message-State: ABy/qLaXwm4y426Ml4q+QC1QQrR0i45YOTfgys/EbZCz+8FKC/G1TYXM
+	2dVRndeVLz9yulkYob8OaQ==
+X-Google-Smtp-Source: APBJJlG4GBp9dJrKCr9W02IYXrOkhCe1wTDrg4ydVMkkkfirpBpwQ5ks/kK/kiwd4gjtEHeHFggP/Q==
+X-Received: by 2002:a92:d181:0:b0:341:e2aa:3552 with SMTP id z1-20020a92d181000000b00341e2aa3552mr4865990ilz.4.1689357062084;
+        Fri, 14 Jul 2023 10:51:02 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.250])
+        by smtp.gmail.com with ESMTPSA id ee13-20020a056638292d00b0042b1354452csm2789728jab.83.2023.07.14.10.50.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Jul 2023 10:51:01 -0700 (PDT)
+Received: (nullmailer pid 4064549 invoked by uid 1000);
+	Fri, 14 Jul 2023 17:50:06 -0000
+From: Rob Herring <robh@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
+	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	Steve Longerbeam <slongerbeam@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Maxime Ripard <mripard@kernel.org>,
+	Paul Kocialkowski <paul.kocialkowski@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+	Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Christian Gromm <christian.gromm@microchip.com>
+Date: Fri, 14 Jul 2023 11:50:01 -0600
+Message-Id: <20230714175002.4064428-1-robh@kernel.org>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-References: <20230626084339.998784-1-islituo@gmail.com> <2023070352-upscale-bankable-76a7@gregkh>
-In-Reply-To: <2023070352-upscale-bankable-76a7@gregkh>
-From: Tuo Li <islituo@gmail.com>
-Date: Tue, 4 Jul 2023 17:00:27 +0800
-Message-ID: <CADm8TekvdE9HR3_WreztGx=p8VRXjR=wZiKkgrHDsDUotvpafA@mail.gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-X-Spamd-Result: default: False [-8.00 / 15.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[99.99%];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20221208];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+X-Spamd-Result: default: False [-0.40 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	RCVD_IN_DNSWL_HI(-0.50)[64.188.179.250:received];
+	R_MISSING_CHARSET(0.50)[];
+	FORGED_SENDER(0.30)[robh@kernel.org,robherring2@gmail.com];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
+	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[kernel.org : SPF not aligned (relaxed), No valid DKIM,none];
 	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	NEURAL_HAM(-0.00)[-0.999];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,outlook.com,buaa.edu.cn];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	RCVD_COUNT_ONE(0.00)[1];
-	FROM_EQ_ENVFROM(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_TLS_LAST(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
 	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[36];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_IN_DNSWL_NONE(0.00)[209.85.166.53:from];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.166.53:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	R_DKIM_NA(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	DWL_DNSWL_NONE(0.00)[gmail.com:dkim];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.208.182:from]
+	FROM_NEQ_ENVFROM(0.00)[robh@kernel.org,robherring2@gmail.com];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	FREEMAIL_TO(0.00)[linuxfoundation.org,gmail.com,kernel.org,pengutronix.de,nxp.com,linaro.org,baylibre.com,googlemail.com,bootlin.com,csie.org,sholland.org,nvidia.com,microchip.com];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 0215F3EF6B
-X-Spamd-Bar: -------
-X-MailFrom: islituo@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: MH6IBSCKS4AMEE2OVAB64Z3S5PRMKAFW
-X-Message-ID-Hash: MH6IBSCKS4AMEE2OVAB64Z3S5PRMKAFW
-X-Mailman-Approved-At: Wed, 05 Jul 2023 14:37:27 +0000
-CC: dtwlin@gmail.com, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, baijiaju1990@outlook.com, BassCheck <bass@buaa.edu.cn>
+X-Rspamd-Queue-Id: A56FE3F503
+X-Spamd-Bar: /
+Message-ID-Hash: ONN4OAAOZCXPJPCWZXNCU4T7OWSXBJ6L
+X-Message-ID-Hash: ONN4OAAOZCXPJPCWZXNCU4T7OWSXBJ6L
+X-MailFrom: robherring2@gmail.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: devicetree@vger.kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: fix a possible data-inconsistency due to data race in get_serial_info()
+Subject: [greybus-dev] [PATCH] staging: Explicitly include correct DT includes
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/MH6IBSCKS4AMEE2OVAB64Z3S5PRMKAFW/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ONN4OAAOZCXPJPCWZXNCU4T7OWSXBJ6L/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: multipart/mixed; boundary="===============5755392528011268545=="
-
---===============5755392528011268545==
-Content-Type: multipart/alternative; boundary="00000000000045e47005ffa58433"
-
---00000000000045e47005ffa58433
-Content-Type: text/plain; charset="UTF-8"
-
-Thanks for your reply!
-
-
-> > The variables gb_tty->port.close_delay and gb_tty->port.closing_wait are
-> > ofter accessed together while holding the lock gb_tty->port.mutex. Here
-> is
-> > an example in set_serial_info():
-> >
-> >   mutex_lock(&gb_tty->port.mutex);
-> >   ...
-> >   gb_tty->port.close_delay = close_delay;
-> >   gb_tty->port.closing_wait = closing_wait;
-> >   ...
-> >   mutex_unlock(&gb_tty->port.mutex);
-> >
-> > However, they are accessed without holding the lock gb_tty->port.mutex
-> when
-> > are accessed in get_serial_info():
-> >
-> >   ss->close_delay = jiffies_to_msecs(gb_tty->port.close_delay) / 10;
-> >   ss->closing_wait =
-> >     gb_tty->port.closing_wait == ASYNC_CLOSING_WAIT_NONE ?
-> >       ASYNC_CLOSING_WAIT_NONE :
-> >       jiffies_to_msecs(gb_tty->port.closing_wait) / 10;
-> >
-> > In my opinion, this may be a harmful race, because ss->close_delay can be
-> > inconsistent with ss->closing_wait if gb_tty->port.close_delay and
-> > gb_tty->port.closing_wait are updated by another thread after the
-> > assignment to ss->close_delay.
->
-> And how can that happen?
->
-
-I am sorry that this data race is reported by a static analysis tool, and
-thus I do not know how to write a test case to trigger this data race.
-
-Also you have trailing whitespace in your changelog text :(
->
-
-I am sorry to bother you, and I will be careful in the subsequent patches.
-
-> Besides, the select operator may return wrong value if
-> > gb_tty->port.closing_wait is updated right after the condition is
-> > calculated.
-> >
-> > To fix this possible data-inconsistency caused by data race, a lock and
-> > unlock pair is added when accessing different fields of gb_tty->port.
-> >
-> > Reported-by: BassCheck <bass@buaa.edu.cn>
->
-> As per the documentation for research tools like this, you need to
-> explain how this was tested.
->
-
-I use a static analysis tool to detect this possible data race. It first
-collects
-all struct fields that may be protected by a lock when accessed. And then,
-for each of such struct fields, it calculates the proportion of the
-protected
-accesses in all accesses. If the proportion is greater than a given
-threshold,
-the tool generates warnings for those unprotected field accesses.
-Any suggestion on this static analysis tool will be appreciated.
-
-Sincerely,
-Tuo Li
-
---00000000000045e47005ffa58433
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Thanks for your reply!</div><div>=C2=A0</div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex"><span style=3D"color:rgb(80,0,80)=
-">&gt; The variables gb_tty-&gt;port.close_delay and gb_tty-&gt;port.closin=
-g_wait are<br>&gt; ofter accessed together while holding the lock gb_tty-&g=
-t;port.mutex. Here is<br>&gt; an example in set_serial_info():<br>&gt;<br>&=
-gt;=C2=A0 =C2=A0mutex_lock(&amp;gb_tty-&gt;port.mutex);<br>&gt;=C2=A0 =C2=
-=A0...<br>&gt;=C2=A0 =C2=A0gb_tty-&gt;port.close_delay =3D close_delay;<br>=
-&gt;=C2=A0 =C2=A0gb_tty-&gt;port.closing_wait =3D closing_wait;<br>&gt;=C2=
-=A0 =C2=A0...<br>&gt;=C2=A0 =C2=A0mutex_unlock(&amp;gb_tty-&gt;port.mutex);=
-<br>&gt;<br>&gt; However, they are accessed without holding the lock gb_tty=
--&gt;port.mutex when<br>&gt; are accessed in get_serial_info():<br>&gt;<br>=
-&gt;=C2=A0 =C2=A0ss-&gt;close_delay =3D jiffies_to_msecs(gb_tty-&gt;port.cl=
-ose_delay) / 10;<br>&gt;=C2=A0 =C2=A0ss-&gt;closing_wait =3D<br>&gt;=C2=A0 =
-=C2=A0 =C2=A0gb_tty-&gt;port.closing_wait =3D=3D ASYNC_CLOSING_WAIT_NONE ?<=
-br>&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0ASYNC_CLOSING_WAIT_NONE :<br>&gt;=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0jiffies_to_msecs(gb_tty-&gt;port.closing_wait) / 10;<br=
->&gt;<br>&gt; In my opinion, this may be a harmful race, because ss-&gt;clo=
-se_delay can be<br>&gt; inconsistent with ss-&gt;closing_wait if gb_tty-&gt=
-;port.close_delay and<br>&gt; gb_tty-&gt;port.closing_wait are updated by a=
-nother thread after the<br>&gt; assignment to ss-&gt;close_delay.<br><br></=
-span>And how can that happen?<br></blockquote><div>=C2=A0</div><div>I am so=
-rry that this data race is reported by a static analysis tool, and=C2=A0</d=
-iv><div>thus I do not know how to write a test case to trigger this data ra=
-ce.</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">A=
-lso you have trailing whitespace in your changelog text :(<br></blockquote>=
-<div><br></div><div>I am sorry to bother you, and I will be careful in the=
-=C2=A0subsequent patches.</div><div><br></div><blockquote class=3D"gmail_qu=
-ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
-4);padding-left:1ex">&gt; Besides, the select operator may return wrong val=
-ue if<br>&gt; gb_tty-&gt;port.closing_wait is updated right after the condi=
-tion is<br>&gt; calculated.<br>&gt;<br>&gt; To fix this possible data-incon=
-sistency caused by data race, a lock and<br>&gt; unlock pair is added when =
-accessing different fields of gb_tty-&gt;port.<br>&gt;<br>&gt; Reported-by:=
- BassCheck &lt;<a href=3D"mailto:bass@buaa.edu.cn" target=3D"_blank">bass@b=
-uaa.edu.cn</a>&gt;<br><br>As per the documentation for research tools like =
-this, you need to<br>explain how this was tested.<br></blockquote><div><br>=
-</div><div>I use a static analysis tool to detect this possible data race. =
-It first collects</div><div>all struct fields that may be protected by a lo=
-ck when accessed. And then,=C2=A0</div><div>for each of such struct fields,=
- it calculates the proportion of the protected=C2=A0</div><div>accesses in =
-all accesses. If the proportion is greater than a given threshold,=C2=A0</d=
-iv><div>the tool generates warnings for those unprotected field accesses.</=
-div><div>Any suggestion on this static analysis tool will be appreciated.</=
-div><div><br></div><div>Sincerely,</div><div>Tuo Li</div></div>
-
---00000000000045e47005ffa58433--
-
---===============5755392528011268545==
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+The DT of_device.h and of_platform.h date back to the separate
+of_platform_bus_type before it as merged into the regular platform bus.
+As part of that merge prepping Arm DT support 13 years ago, they
+"temporarily" include each other. They also include platform_device.h
+and of.h. As a result, there's a pretty much random mix of those include
+files used throughout the tree. In order to detangle these headers and
+replace the implicit includes with struct declarations, users need to
+explicitly include the correct includes.
+
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ drivers/staging/axis-fifo/axis-fifo.c             | 6 ++----
+ drivers/staging/greybus/arche-platform.c          | 1 +
+ drivers/staging/media/imx/imx-media-capture.c     | 1 -
+ drivers/staging/media/imx/imx-media-dev-common.c  | 2 --
+ drivers/staging/media/imx/imx8mq-mipi-csi2.c      | 1 -
+ drivers/staging/media/meson/vdec/esparser.c       | 1 -
+ drivers/staging/media/meson/vdec/vdec.c           | 2 +-
+ drivers/staging/media/sunxi/cedrus/cedrus_hw.c    | 2 +-
+ drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c | 1 -
+ drivers/staging/media/tegra-video/csi.c           | 1 -
+ drivers/staging/media/tegra-video/vi.c            | 2 +-
+ drivers/staging/media/tegra-video/vip.c           | 1 -
+ drivers/staging/most/dim2/dim2.c                  | 2 +-
+ drivers/staging/pi433/pi433_if.c                  | 1 -
+ 14 files changed, 7 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/staging/axis-fifo/axis-fifo.c b/drivers/staging/axis-fifo/axis-fifo.c
+index 98db47cb4fa4..5910fada7075 100644
+--- a/drivers/staging/axis-fifo/axis-fifo.c
++++ b/drivers/staging/axis-fifo/axis-fifo.c
+@@ -15,6 +15,8 @@
+  */
+ 
+ #include <linux/kernel.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
+ #include <linux/wait.h>
+ #include <linux/mutex.h>
+ #include <linux/device.h>
+@@ -32,10 +34,6 @@
+ #include <linux/jiffies.h>
+ #include <linux/miscdevice.h>
+ 
+-#include <linux/of_address.h>
+-#include <linux/of_device.h>
+-#include <linux/of_platform.h>
+-
+ /* ----------------------------
+  *       driver parameters
+  * ----------------------------
+diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
+index ebe835f25d13..891b75327d7f 100644
+--- a/drivers/staging/greybus/arche-platform.c
++++ b/drivers/staging/greybus/arche-platform.c
+@@ -20,6 +20,7 @@
+ #include <linux/suspend.h>
+ #include <linux/time.h>
+ #include <linux/greybus.h>
++#include <linux/of.h>
+ #include "arche_platform.h"
+ 
+ #if IS_ENABLED(CONFIG_USB_HSIC_USB3613)
+diff --git a/drivers/staging/media/imx/imx-media-capture.c b/drivers/staging/media/imx/imx-media-capture.c
+index 4364df27c6d2..4846078315ff 100644
+--- a/drivers/staging/media/imx/imx-media-capture.c
++++ b/drivers/staging/media/imx/imx-media-capture.c
+@@ -7,7 +7,6 @@
+ #include <linux/delay.h>
+ #include <linux/fs.h>
+ #include <linux/module.h>
+-#include <linux/of_platform.h>
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/platform_device.h>
+ #include <linux/sched.h>
+diff --git a/drivers/staging/media/imx/imx-media-dev-common.c b/drivers/staging/media/imx/imx-media-dev-common.c
+index 991820a8500f..7b7cbec08326 100644
+--- a/drivers/staging/media/imx/imx-media-dev-common.c
++++ b/drivers/staging/media/imx/imx-media-dev-common.c
+@@ -6,8 +6,6 @@
+  * Copyright (c) 2016 Mentor Graphics Inc.
+  */
+ 
+-#include <linux/of_graph.h>
+-#include <linux/of_platform.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-ioctl.h>
+diff --git a/drivers/staging/media/imx/imx8mq-mipi-csi2.c b/drivers/staging/media/imx/imx8mq-mipi-csi2.c
+index ca2efcc21efe..c84b6dceece2 100644
+--- a/drivers/staging/media/imx/imx8mq-mipi-csi2.c
++++ b/drivers/staging/media/imx/imx8mq-mipi-csi2.c
+@@ -17,7 +17,6 @@
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/of.h>
+-#include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+diff --git a/drivers/staging/media/meson/vdec/esparser.c b/drivers/staging/media/meson/vdec/esparser.c
+index 7b15fc54efe4..4632346f04a9 100644
+--- a/drivers/staging/media/meson/vdec/esparser.c
++++ b/drivers/staging/media/meson/vdec/esparser.c
+@@ -11,7 +11,6 @@
+ #include <linux/ioctl.h>
+ #include <linux/list.h>
+ #include <linux/module.h>
+-#include <linux/of_device.h>
+ #include <linux/reset.h>
+ #include <linux/interrupt.h>
+ #include <media/videobuf2-dma-contig.h>
+diff --git a/drivers/staging/media/meson/vdec/vdec.c b/drivers/staging/media/meson/vdec/vdec.c
+index 5ca4b1200831..219185aaa588 100644
+--- a/drivers/staging/media/meson/vdec/vdec.c
++++ b/drivers/staging/media/meson/vdec/vdec.c
+@@ -4,7 +4,7 @@
+  * Author: Maxime Jourdan <mjourdan@baylibre.com>
+  */
+ 
+-#include <linux/of_device.h>
++#include <linux/of.h>
+ #include <linux/clk.h>
+ #include <linux/io.h>
+ #include <linux/module.h>
+diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_hw.c b/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
+index fa86a658fdc6..b696bf884cbd 100644
+--- a/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
++++ b/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
+@@ -14,8 +14,8 @@
+  */
+ 
+ #include <linux/platform_device.h>
++#include <linux/of.h>
+ #include <linux/of_reserved_mem.h>
+-#include <linux/of_device.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/interrupt.h>
+ #include <linux/clk.h>
+diff --git a/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c b/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c
+index 0dc75adbd9d8..8337dc487047 100644
+--- a/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c
++++ b/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c
+@@ -10,7 +10,6 @@
+ #include <linux/interrupt.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+-#include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+diff --git a/drivers/staging/media/tegra-video/csi.c b/drivers/staging/media/tegra-video/csi.c
+index 052172017b3b..e79657920dc8 100644
+--- a/drivers/staging/media/tegra-video/csi.c
++++ b/drivers/staging/media/tegra-video/csi.c
+@@ -10,7 +10,6 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_graph.h>
+-#include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ 
+diff --git a/drivers/staging/media/tegra-video/vi.c b/drivers/staging/media/tegra-video/vi.c
+index 79284c3b6cae..4add037537a2 100644
+--- a/drivers/staging/media/tegra-video/vi.c
++++ b/drivers/staging/media/tegra-video/vi.c
+@@ -11,8 +11,8 @@
+ #include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+-#include <linux/of_device.h>
+ #include <linux/of_graph.h>
++#include <linux/of_platform.h>
+ #include <linux/platform_device.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/pm_runtime.h>
+diff --git a/drivers/staging/media/tegra-video/vip.c b/drivers/staging/media/tegra-video/vip.c
+index a1ab886acc18..4cf3fde7e034 100644
+--- a/drivers/staging/media/tegra-video/vip.c
++++ b/drivers/staging/media/tegra-video/vip.c
+@@ -13,7 +13,6 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_graph.h>
+-#include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ 
+diff --git a/drivers/staging/most/dim2/dim2.c b/drivers/staging/most/dim2/dim2.c
+index 44d3252d4612..ed6a9cc88541 100644
+--- a/drivers/staging/most/dim2/dim2.c
++++ b/drivers/staging/most/dim2/dim2.c
+@@ -8,7 +8,6 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+ #include <linux/module.h>
+-#include <linux/of_platform.h>
+ #include <linux/printk.h>
+ #include <linux/kernel.h>
+ #include <linux/init.h>
+@@ -21,6 +20,7 @@
+ #include <linux/sched.h>
+ #include <linux/kthread.h>
+ #include <linux/most.h>
++#include <linux/of.h>
+ #include "hal.h"
+ #include "errors.h"
+ #include "sysfs.h"
+diff --git a/drivers/staging/pi433/pi433_if.c b/drivers/staging/pi433/pi433_if.c
+index 220e157d4a5e..58887619b83f 100644
+--- a/drivers/staging/pi433/pi433_if.c
++++ b/drivers/staging/pi433/pi433_if.c
+@@ -31,7 +31,6 @@
+ #include <linux/errno.h>
+ #include <linux/mutex.h>
+ #include <linux/of.h>
+-#include <linux/of_device.h>
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
+ #include <linux/gpio/consumer.h>
+-- 
+2.40.1
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
-
---===============5755392528011268545==--
