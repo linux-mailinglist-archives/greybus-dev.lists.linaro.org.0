@@ -2,96 +2,98 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27A4C757F1F
-	for <lists+greybus-dev@lfdr.de>; Tue, 18 Jul 2023 16:13:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9749757F21
+	for <lists+greybus-dev@lfdr.de>; Tue, 18 Jul 2023 16:13:27 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id B5EAE43D20
-	for <lists+greybus-dev@lfdr.de>; Tue, 18 Jul 2023 14:13:21 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	by lists.linaro.org (Postfix) with ESMTPS id C4B613F672
-	for <greybus-dev@lists.linaro.org>; Tue, 18 Jul 2023 14:13:15 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id DD52D43D20
+	for <lists+greybus-dev@lfdr.de>; Tue, 18 Jul 2023 14:13:26 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	by lists.linaro.org (Postfix) with ESMTPS id 1F6673F96E
+	for <greybus-dev@lists.linaro.org>; Tue, 18 Jul 2023 14:13:16 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JzNN3Nm2;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=puSiuL4M;
-	spf=pass (lists.linaro.org: domain of tiwai@suse.de designates 195.135.220.28 as permitted sender) smtp.mailfrom=tiwai@suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=u9BkKTYh;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Rr3EQJKg;
+	spf=pass (lists.linaro.org: domain of tiwai@suse.de designates 195.135.220.29 as permitted sender) smtp.mailfrom=tiwai@suse.de;
 	dmarc=pass (policy=none) header.from=suse.de
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D35362190B;
-	Tue, 18 Jul 2023 14:13:14 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 373A21FDC0;
+	Tue, 18 Jul 2023 14:13:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1689689594; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=jYz0yKW28gmyrJl6b360seloo2D1rNdugsefOjCWxHs=;
-	b=JzNN3Nm2P0wESOvaptWZuuJKIQXgrSBnkDOO9v+xaEV+b4jFeXEZsHCP6NDrAQ0Ka/PGVk
-	PBFy9B3RFRS8SiL0jsvBOzzDG5LbsXCeE+0BVzGTG6wFCgqbUDjY/X3w6xVhxLOypSsd2s
-	LoP2ZUfv34+OZN72GKW8/Mct58VlC9Y=
+	t=1689689595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BcDEzrbkRqKzsapxFuOq3yrfLpAupt5MotP4t86n1fg=;
+	b=u9BkKTYhFekmE7NtOaU43IGHkQTZEwCsG8M/h7OqlA+p2+Ik88dAFstLBixK43SHo5pA0Q
+	GarVLlDZ6NqFETsH2hYGFNamxc7CzgzDcLTPgjcdbWwAmHt3X1qwqA04LCYY1uy5cT/lJB
+	2oF/DFB+dy76WQP5Qo5FIyldJOpy+/w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689689594;
+	s=susede2_ed25519; t=1689689595;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=jYz0yKW28gmyrJl6b360seloo2D1rNdugsefOjCWxHs=;
-	b=puSiuL4MJh0OB5f28b9iYQ47y6AOaroe7EZp2zw7VqRHnWC8fEE1W5iquqiC3Lxhd6Dnqf
-	szbRoCvNHkjuUOAA==
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BcDEzrbkRqKzsapxFuOq3yrfLpAupt5MotP4t86n1fg=;
+	b=Rr3EQJKgDPW/CjTzuUkvPFAy9EHZdkKkhOgQ70EvDfuqUVPBCuwCdmMZlKpWm8d783k+3l
+	6RCE+Qvt83tlgKBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 93123134B0;
-	Tue, 18 Jul 2023 14:13:14 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0BF51134B0;
+	Tue, 18 Jul 2023 14:13:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id EcgAI/qdtmQ8AQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 18 Jul 2023 14:13:14 +0000
+	id YPsGAvudtmQ8AQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 18 Jul 2023 14:13:15 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Tue, 18 Jul 2023 16:12:53 +0200
-Message-Id: <20230718141304.1032-1-tiwai@suse.de>
+Date: Tue, 18 Jul 2023 16:12:55 +0200
+Message-Id: <20230718141304.1032-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20230718141304.1032-1-tiwai@suse.de>
+References: <20230718141304.1032-1-tiwai@suse.de>
 MIME-Version: 1.0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: C4B613F672
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.00 / 15.00];
+X-Rspamd-Queue-Id: 1F6673F96E
+X-Spamd-Bar: ----
+X-Spamd-Result: default: False [-4.00 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
 	MID_CONTAINS_FROM(1.00)[];
 	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
-	RCVD_IN_DNSWL_HI(-0.50)[195.135.220.28:from];
+	RCVD_IN_DNSWL_HI(-0.50)[195.135.220.29:from];
+	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.de,none];
-	R_SPF_ALLOW(-0.20)[+ip4:195.135.220.0/27];
 	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	R_SPF_ALLOW(-0.20)[+ip4:195.135.220.0/27:c];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[suse.de,kernel.org,microchip.com,linuxfoundation.org,metafoo.de,animalcreek.com,analog.com,gmail.com,lists.linaro.org];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	ASN(0.00)[asn:29298, ipnet:195.135.220.0/23, country:DE];
+	RCVD_TLS_ALL(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
+	ASN(0.00)[asn:29298, ipnet:195.135.220.0/23, country:DE];
+	MIME_TRACE(0.00)[0:+];
 	RCVD_COUNT_THREE(0.00)[3];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	ARC_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DKIM_TRACE(0.00)[suse.de:+];
 	FROM_HAS_DN(0.00)[];
-	TAGGED_RCPT(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-Message-ID-Hash: TSDC4XIEAX5RWBLIFM4Q6QBR74WKI4QK
-X-Message-ID-Hash: TSDC4XIEAX5RWBLIFM4Q6QBR74WKI4QK
+	ARC_NA(0.00)[]
+Message-ID-Hash: QL6HPIAHVBA4M5ZOMB5CZQPC7KD5IMSE
+X-Message-ID-Hash: QL6HPIAHVBA4M5ZOMB5CZQPC7KD5IMSE
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>, Alex Elder <elder@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>, Johan Hovold <johan@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, Mark Brown <broonie@kernel.org>, =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>, greybus-dev@lists.linaro.org
+CC: Takashi Iwai <tiwai@suse.de>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH 00/11] ALSA: Make control API taking controls_rwsem consistently
+Subject: [greybus-dev] [PATCH 02/11] staging: greybus: audio_helper: Use snd_ctl_remove_id()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TSDC4XIEAX5RWBLIFM4Q6QBR74WKI4QK/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/QL6HPIAHVBA4M5ZOMB5CZQPC7KD5IMSE/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -101,53 +103,65 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-A few ALSA control API helpers like snd_ctl_rename(), snd_ctl_remove()
-and snd_ctl_find_*() suppose the callers taking card->controls_rwsem.
-But it's error-prone and fragile.  This patch set tries to change
-those API functions to take the card->controls>rwsem internally by
-themselves, so that the drivers don't need to take care of lockings.
+Use the standard snd_ctl_remove_id() helper function instead of open
+code.  This allows us to reduce the manual card->rwsem lock in the
+caller side.
 
-After applying this patch set, only a couple of places still touch
-card->controls_rwsem (which are OK-ish as they need for traversing the
-control linked list).
+Cc: Johan Hovold <johan@kernel.org>
+Cc: Alex Elder <elder@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: greybus-dev@lists.linaro.org
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ drivers/staging/greybus/audio_helper.c | 20 ++++----------------
+ 1 file changed, 4 insertions(+), 16 deletions(-)
 
-
-Takashi
-
-===
-
-Takashi Iwai (11):
-  ALSA: control: Take card->controls_rwsem in snd_ctl_rename()
-  staging: greybus: audio_helper: Use snd_ctl_remove_id()
-  ASoC: atmel: mchp-pdmc: Use snd_ctl_remove_id()
-  ALSA: control: Take controls_rwsem lock in snd_ctl_remove()
-  ALSA: control: Add lockdep warning to internal functions
-  ASoC: sigmadsp: Simplify with snd_ctl_activate_id()
-  staging: greybus: Avoid abusing controls_rwsem
-  ALSA: control: Make snd_ctl_find_id() argument const
-  ALSA: control: Introduce unlocked version for snd_ctl_find_*() helpers
-  ALSA: control: Take lock in snd_ctl_find_id() and snd_ctl_find_numid()
-  ALSA: emu10k1: Go back and simplify with snd_ctl_find_id()
-
- drivers/staging/greybus/audio_codec.c  |  18 ++--
- drivers/staging/greybus/audio_codec.h  |   1 +
- drivers/staging/greybus/audio_helper.c |  20 +---
- include/sound/control.h                |   6 +-
- sound/core/control.c                   | 126 ++++++++++++++++++++-----
- sound/core/control_compat.c            |   2 +-
- sound/core/control_led.c               |   2 +-
- sound/core/jack.c                      |   2 -
- sound/core/oss/mixer_oss.c             |  10 +-
- sound/core/pcm.c                       |   2 -
- sound/isa/sb/emu8000.c                 |   2 -
- sound/isa/sb/sb16_csp.c                |   2 -
- sound/pci/emu10k1/emufx.c              |   5 -
- sound/pci/hda/hda_codec.c              |   2 -
- sound/soc/atmel/mchp-pdmc.c            |  12 +--
- sound/soc/codecs/sigmadsp.c            |  25 +----
- sound/soc/soc-topology.c               |   3 -
- 17 files changed, 129 insertions(+), 111 deletions(-)
-
+diff --git a/drivers/staging/greybus/audio_helper.c b/drivers/staging/greybus/audio_helper.c
+index 223987616e07..97ce5b9ad7fd 100644
+--- a/drivers/staging/greybus/audio_helper.c
++++ b/drivers/staging/greybus/audio_helper.c
+@@ -149,7 +149,6 @@ static int gbaudio_remove_controls(struct snd_card *card, struct device *dev,
+ 	for (i = 0; i < num_controls; i++) {
+ 		const struct snd_kcontrol_new *control = &controls[i];
+ 		struct snd_ctl_elem_id id;
+-		struct snd_kcontrol *kctl;
+ 
+ 		if (prefix)
+ 			snprintf(id.name, sizeof(id.name), "%s %s", prefix,
+@@ -161,17 +160,10 @@ static int gbaudio_remove_controls(struct snd_card *card, struct device *dev,
+ 		id.device = control->device;
+ 		id.subdevice = control->subdevice;
+ 		id.index = control->index;
+-		kctl = snd_ctl_find_id(card, &id);
+-		if (!kctl) {
+-			dev_err(dev, "Failed to find %s\n", control->name);
+-			continue;
+-		}
+-		err = snd_ctl_remove(card, kctl);
+-		if (err < 0) {
++		err = snd_ctl_remove_id(card, &id);
++		if (err < 0)
+ 			dev_err(dev, "%d: Failed to remove %s\n", err,
+ 				control->name);
+-			continue;
+-		}
+ 	}
+ 	return 0;
+ }
+@@ -181,11 +173,7 @@ int gbaudio_remove_component_controls(struct snd_soc_component *component,
+ 				      unsigned int num_controls)
+ {
+ 	struct snd_card *card = component->card->snd_card;
+-	int err;
+ 
+-	down_write(&card->controls_rwsem);
+-	err = gbaudio_remove_controls(card, component->dev, controls,
+-				      num_controls, component->name_prefix);
+-	up_write(&card->controls_rwsem);
+-	return err;
++	return gbaudio_remove_controls(card, component->dev, controls,
++				       num_controls, component->name_prefix);
+ }
 -- 
 2.35.3
 
