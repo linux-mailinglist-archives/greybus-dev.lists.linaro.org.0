@@ -2,83 +2,106 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id C251878674F
-	for <lists+greybus-dev@lfdr.de>; Thu, 24 Aug 2023 08:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B12E787434
+	for <lists+greybus-dev@lfdr.de>; Thu, 24 Aug 2023 17:30:07 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id C3F8A43F03
-	for <lists+greybus-dev@lfdr.de>; Thu, 24 Aug 2023 06:03:56 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id BBBF73EC22
-	for <greybus-dev@lists.linaro.org>; Thu, 24 Aug 2023 06:03:48 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 2778A40F1E
+	for <lists+greybus-dev@lfdr.de>; Thu, 24 Aug 2023 15:30:06 +0000 (UTC)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	by lists.linaro.org (Postfix) with ESMTPS id 8AAE143EE6
+	for <greybus-dev@lists.linaro.org>; Tue, 22 Aug 2023 08:02:27 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=yinMnJJ5;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 45C8963466;
-	Thu, 24 Aug 2023 06:03:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31E61C433C8;
-	Thu, 24 Aug 2023 06:03:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1692857027;
-	bh=0VyVeVFbgJTPwWE317XkoOj0pt6l9LCT/ooWkDEt2ts=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=yinMnJJ5AZtyfJUrkmLZu8+WgGSTgldgA+FqRsJDOcg/GIXC7JDJFXSqOUURxoMBT
-	 uSgsAKE2+FV8dpfR72J5OeoLH3BRzSRzBFkBUWQ2Qz99monYOmSKDvrx4j7u5Fc0Ng
-	 FsLB/+Vfwu5ldmjnQgG6p8I9c9faz78UhG48q3oc=
-Date: Thu, 24 Aug 2023 08:03:45 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Ayush Singh <ayushdevel1325@gmail.com>
-Message-ID: <2023082452-reflex-nuclear-cb7f@gregkh>
-References: <20230823165520.181301-1-ayushdevel1325@gmail.com>
- <20230823165520.181301-4-ayushdevel1325@gmail.com>
- <2023082307-untapped-automatic-ec5f@gregkh>
- <ebf72b7e-61b7-5592-8b8d-865ffc5c3e82@gmail.com>
+	dkim=pass header.d=gmail.com header.s=20221208 header.b=aNpu76vC;
+	spf=pass (lists.linaro.org: domain of roheetchavan@gmail.com designates 209.85.214.181 as permitted sender) smtp.mailfrom=roheetchavan@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-1bdb7b0c8afso23612335ad.3
+        for <greybus-dev@lists.linaro.org>; Tue, 22 Aug 2023 01:02:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1692691346; x=1693296146;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GHuVqZQ6eWzWGlZ3K43xXY3+GR5axkEe+E8WbhwDchs=;
+        b=aNpu76vCZhA/BQGp5D9JvSshleIwRjcI0bMuCHgAKG+hB2+6j9iuUEQ8IOrqQ7UGXH
+         mR7HYX3NOcBmt+JvV6JwS4OkqezRJoeLi78y/SIKUTuyz3l+e0BewAaA01aIRgMhYNY0
+         +w0jj7a2ilWT2KdIXqCivGboFkul7STHaQfDAjPgjmv8CxeGolCmeYVi31bYWoK1wz2n
+         awxKIRn6vsGZ0rcOjtmBGVkIV/mmeRdKQyRZvzMXxj69bWzyQQw8b/NxzwocJi7IXdTy
+         kio/MXFC5O//lHnNIbpn4DMeWmXLvuOJV4aT7iqW9UO0EtM4qwN+BZs8RjBY7p2WwDiZ
+         JeIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692691346; x=1693296146;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GHuVqZQ6eWzWGlZ3K43xXY3+GR5axkEe+E8WbhwDchs=;
+        b=AsTgTELuxAUYFREHbYfMUbFDYtZ59n88kjulitX5gNdPZUhYIANWBYpQnHDSeJQXQa
+         KYdgakx6xbBELvixOAu/1Y08KU6t6JHAdwOHP1LOYg8h2QgVl4xTTpuN9RhsxKR6yHYE
+         jRtT1WiXxqvGPRjzW8MihOpvB1tjf6ax0vvEJYte9bn78l1VfFu+Pu4LopAMruSgw0eu
+         WZWuHWqN8Lt2VMElXNOPGEdk4x4AuM1uMsiUINsgrp+8V0dBdBAlkavqn+7QQ6CB3syc
+         qOl+2NMfBgfaH+aMatdKqUPn6ctQ2p1mh43wdIXesU0WYnLtfGepKjfcvOo3f/k5fdVg
+         sPPQ==
+X-Gm-Message-State: AOJu0YwNPTxr8WynoMj2IuxgWPetV6OhRBnm+u7l0tYPpbaqxl+xANMp
+	1cwXmMOwVFp12H7TSIHWWg8=
+X-Google-Smtp-Source: AGHT+IF1C0krg/CMZNxa0h4RWEEaL/o1F/F9Blg+aKZTbZ19HcNAA0bakcIF1eMWrK16YWy+ksG//Q==
+X-Received: by 2002:a17:902:7890:b0:1bd:d14a:7e14 with SMTP id q16-20020a170902789000b001bdd14a7e14mr6195774pll.65.1692691346525;
+        Tue, 22 Aug 2023 01:02:26 -0700 (PDT)
+Received: from XHD-CHAVAN-L1.amd.com ([149.199.50.128])
+        by smtp.gmail.com with ESMTPSA id g9-20020a170902c38900b001a1b66af22fsm8418789plg.62.2023.08.22.01.02.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Aug 2023 01:02:26 -0700 (PDT)
+From: Rohit Chavan <roheetchavan@gmail.com>
+To: Viresh Kumar <vireshk@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Date: Tue, 22 Aug 2023 13:32:13 +0530
+Message-Id: <20230822080213.6757-1-roheetchavan@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ebf72b7e-61b7-5592-8b8d-865ffc5c3e82@gmail.com>
-X-Rspamd-Queue-Id: BBBF73EC22
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.50 / 15.00];
-	REPLY(-4.00)[];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
+X-Rspamd-Queue-Id: 8AAE143EE6
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.60 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
-	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20221208];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.181:from];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_FIVE(0.00)[5];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	NEURAL_HAM(-0.00)[-0.999];
+	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.linaro.org,gmail.com,kernel.org];
-	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[gmail.com];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
 	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	DKIM_TRACE(0.00)[linuxfoundation.org:+]
+	RCVD_COUNT_TWO(0.00)[2];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	DKIM_TRACE(0.00)[gmail.com:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: VJ4H64MG6HP5QHTSQRCMXORLQWAIFJDD
-X-Message-ID-Hash: VJ4H64MG6HP5QHTSQRCMXORLQWAIFJDD
-X-MailFrom: gregkh@linuxfoundation.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: greybus-dev@lists.linaro.org, hvaibhav.linux@gmail.com, elder@kernel.org, johan@kernel.org
+X-MailFrom: roheetchavan@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: JNXQXX7WDVBD4HBCHBH5STD7DMV3HUPL
+X-Message-ID-Hash: JNXQXX7WDVBD4HBCHBH5STD7DMV3HUPL
+X-Mailman-Approved-At: Thu, 24 Aug 2023 15:30:00 +0000
+CC: Rohit Chavan <roheetchavan@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 3/4] Add HDLC helper for beagleplay driver
+Subject: [greybus-dev] [PATCH] staging: greybus: fix alignment of open parenthesis
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/VJ4H64MG6HP5QHTSQRCMXORLQWAIFJDD/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/JNXQXX7WDVBD4HBCHBH5STD7DMV3HUPL/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -88,35 +111,40 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 24, 2023 at 11:21:26AM +0530, Ayush Singh wrote:
-> > And to answer this question, no, it probably shouldn't be here in
-> > drivers/staging/ it should be in the "real" part of the kernel as it is
-> > a real driver.  drivers/staging/ is for stuff that still needs work to
-> > do to get it out of that part of the kernel, do the work ahead of time
-> > and then you don't have to mess with that at all.
-> 
-> What do you mean by "real" part of kernel? You mean non-staging? The HDLC module/code initially started out as a part of beagleplay greybus driver (which started from wpanusb [1]). I separated it out since it should be possible to use it from other drivers which need async HDLC framing, but I am not sure how suitable it is to be used outside of UART. Thus, I do not feel it should be outside staging for now.
-> 
-> > No need for a .h file for a simple .c file, just put it all together
-> > into one file please.
-> 
-> Well, it is not really a standalone driver. It is supposed to be used by some other driver (like serdev) to stack HDLC on top of that. So I think it needs .h file?
-> 
-> > > +int hdlc_rx(struct hdlc_driver *drv, const unsigned char *data, size_t count)
-> > Why is this a global function?
-> 
-> These functions are called by any driver that wants to stack HDLC on top of the underlying transport. The HDLC files themselves can only read an HDLC frame or create an HDLC frame. It does not really care much about the underlying transport
-> 
-> I absolutely wish to make it clear that all the HDLC code can be put in beagleplay greybus driver (that's how it began). I just thought it might be better to separate it out for clarity and possibly allowing future drivers to use it for async HDLC framing.
+Fixed all CHECK: Alignment should match open parenthesis
+as reported by checkpatch to adhere to the Linux kernel
+coding-style guidelines.
 
-Worry about future drivers then, in the future.  We write kernel code
-for today, for what is needed today, and if you want to reuse anything
-later, wonderful, the code can be changed then to do so.  But never make
-anything more complex today than it has to be.
+Signed-off-by: Rohit Chavan <roheetchavan@gmail.com>
+---
+ drivers/staging/greybus/fw-core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-thanks,
+diff --git a/drivers/staging/greybus/fw-core.c b/drivers/staging/greybus/fw-core.c
+index 57bebf24636b..0fb15a60412f 100644
+--- a/drivers/staging/greybus/fw-core.c
++++ b/drivers/staging/greybus/fw-core.c
+@@ -89,7 +89,7 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+ 			}
 
-greg k-h
+ 			connection = gb_connection_create(bundle, cport_id,
+-						gb_fw_mgmt_request_handler);
++							  gb_fw_mgmt_request_handler);
+ 			if (IS_ERR(connection)) {
+ 				ret = PTR_ERR(connection);
+ 				dev_err(&bundle->dev,
+@@ -110,7 +110,7 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+ 			}
+
+ 			connection = gb_connection_create(bundle, cport_id,
+-						gb_fw_download_request_handler);
++							  gb_fw_download_request_handler);
+ 			if (IS_ERR(connection)) {
+ 				dev_err(&bundle->dev, "failed to create download connection (%ld)\n",
+ 					PTR_ERR(connection));
+--
+2.30.2
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
