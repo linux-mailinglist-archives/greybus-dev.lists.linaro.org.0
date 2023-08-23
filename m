@@ -2,104 +2,81 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC285785DF6
-	for <lists+greybus-dev@lfdr.de>; Wed, 23 Aug 2023 18:56:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4AC8785E82
+	for <lists+greybus-dev@lfdr.de>; Wed, 23 Aug 2023 19:25:54 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 0A8633EE8C
-	for <lists+greybus-dev@lfdr.de>; Wed, 23 Aug 2023 16:56:12 +0000 (UTC)
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	by lists.linaro.org (Postfix) with ESMTPS id 8DF0740F68
-	for <greybus-dev@lists.linaro.org>; Wed, 23 Aug 2023 16:55:58 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id AE2AA40F64
+	for <lists+greybus-dev@lfdr.de>; Wed, 23 Aug 2023 17:25:53 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id 4C3883E9D4
+	for <greybus-dev@lists.linaro.org>; Wed, 23 Aug 2023 17:25:47 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20221208 header.b="TLs/gznQ";
-	spf=pass (lists.linaro.org: domain of ayushdevel1325@gmail.com designates 209.85.214.176 as permitted sender) smtp.mailfrom=ayushdevel1325@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-1bc8a2f71eeso38668625ad.0
-        for <greybus-dev@lists.linaro.org>; Wed, 23 Aug 2023 09:55:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692809757; x=1693414557;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pL3H+krm56PnU1cD5lNdLEjclSjlnFMa/G8DTHbCwfU=;
-        b=TLs/gznQGQsHpoRWhV/m+2H1t8mVJiV6cMvEdDIhsKt2fwGQLBQkuL+XBxV5I53h+R
-         y40jhxODdtnb6+Fq3U+NVKlgwl3aCKimiDGfUs7eanL2rrPaETWUI5MxYrG0i2RVJvdv
-         Ay/2HT910PCNTRA9AfK8I9PtcSBC9wtOfWvi5fJIcYom8Dqulg54j2m+YXi7M0Zy/5i3
-         J39zHKntX+qeGVt9wIn+N+iligjIba3DImZw8d0FNcaPLTjkxW+eCf0UfYu12ACVwRG9
-         Fn4MfHgPhT5PpbW30/tOg0cnIUerXWnheec9JfMpgn6rAvm+NrnbH11j27cmmwENJH3I
-         jweA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692809757; x=1693414557;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pL3H+krm56PnU1cD5lNdLEjclSjlnFMa/G8DTHbCwfU=;
-        b=VwavuMlZ5ShBZ+7t4ZPrZgBFZ05285s7GUHuHAxDrPQJcuiwD0nwRkdxx01yF9RF1n
-         r3nzUHYICnubiTCeqvyMRLRbOcqad4R020EDLSUiPqA/qZwzojDY4YzV/OndXUrl3rXR
-         kfKzuAJILENP7rwp5cySEr2TJ47rA29PdcIvtebFxZ+CCacZYBKowNF01foWEl7FHk/8
-         suJabkAtMgGqWOTtYGF+s8NiyV0eMfoZ01Tc4IIe46co8Xc+JClhfPEU5nFrUzl8lA9H
-         TglCg6UFGUwB8Pzz9jMn9nOeDMH0A0XAEsRadDYgXRuqdSr8AWAoCA3x15pZiYJcBWSY
-         RC8Q==
-X-Gm-Message-State: AOJu0Yz/alXmpsbTg8EGmi4x8pKri//h2Swhtv1LrWlB4Xr1yTc+lvC3
-	DV6fLJAh5tC7d6nO7LLyP+5bylwoWiUzr3lp
-X-Google-Smtp-Source: AGHT+IGPKuE7dXdatkv5FRR7OgrEDSJGSA8VJpMjwrzXnovaFW6cE6tA1Fl0d7ZxWkZhwAf6IL1FHA==
-X-Received: by 2002:a17:903:187:b0:1b6:6c32:59a8 with SMTP id z7-20020a170903018700b001b66c3259a8mr12575097plg.36.1692809757282;
-        Wed, 23 Aug 2023 09:55:57 -0700 (PDT)
-Received: from toolbox.iitism.net ([103.15.228.92])
-        by smtp.gmail.com with ESMTPSA id ix21-20020a170902f81500b001bb8895848bsm11256247plb.71.2023.08.23.09.55.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Aug 2023 09:55:56 -0700 (PDT)
-From: Ayush Singh <ayushdevel1325@gmail.com>
-To: greybus-dev@lists.linaro.org
-Date: Wed, 23 Aug 2023 22:25:20 +0530
-Message-ID: <20230823165520.181301-5-ayushdevel1325@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230823165520.181301-1-ayushdevel1325@gmail.com>
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=r4yvEO4E;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
+	dmarc=pass (policy=none) header.from=linuxfoundation.org
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id BEA6763445;
+	Wed, 23 Aug 2023 17:25:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3726C433C8;
+	Wed, 23 Aug 2023 17:25:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1692811546;
+	bh=tBwkxiCDD+1d0TlFLhibsCUAW639s2vR7ziOhftWltY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=r4yvEO4EJ7mptj4TsxWBlSD8+Psx0NBW3gFOWrS2u5GgfaLfBadmZiW9xcUNe1yOp
+	 Ricd/S29kgcGuTDDXX1olE3mHAdj0rOKiv//a2gCpO0gsQ4LXUJ6ahqswjVaPlicuD
+	 ipRIBiBnzsG6P4wIo/p6HKslUsb3oRIh/cRgJWvg=
+Date: Wed, 23 Aug 2023 19:25:43 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Ayush Singh <ayushdevel1325@gmail.com>
+Message-ID: <2023082318-walk-tacking-e577@gregkh>
 References: <20230823165520.181301-1-ayushdevel1325@gmail.com>
+ <20230823165520.181301-2-ayushdevel1325@gmail.com>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 8DF0740F68
-X-Spamd-Bar: -----
-X-Spamd-Result: default: False [-5.00 / 15.00];
+Content-Disposition: inline
+In-Reply-To: <20230823165520.181301-2-ayushdevel1325@gmail.com>
+X-Rspamd-Queue-Id: 4C3883E9D4
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.50 / 15.00];
 	REPLY(-4.00)[];
+	MID_END_EQ_FROM_USER_PART(4.00)[];
 	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20221208];
+	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
+	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
 	MIME_GOOD(-0.10)[text/plain];
-	FROM_EQ_ENVFROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	RCVD_TLS_LAST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	TAGGED_RCPT(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.linaro.org,gmail.com,kernel.org];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FROM_EQ_ENVFROM(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,linuxfoundation.org,kernel.org];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.214.176:from];
-	TAGGED_RCPT(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_HAS_DN(0.00)[]
+	DKIM_TRACE(0.00)[linuxfoundation.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: ABKITIPMEHNAVRFJZXGFI3T7EEC2RZDL
-X-Message-ID-Hash: ABKITIPMEHNAVRFJZXGFI3T7EEC2RZDL
-X-MailFrom: ayushdevel1325@gmail.com
+Message-ID-Hash: 3HOAN4SPNTEHOHOIUMABNWZHOHHD3JAF
+X-Message-ID-Hash: 3HOAN4SPNTEHOHOIUMABNWZHOHHD3JAF
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: hvaibhav.linux@gmail.com, elder@kernel.org, johan@kernel.org, Ayush Singh <ayushdevel1325@gmail.com>
+CC: greybus-dev@lists.linaro.org, hvaibhav.linux@gmail.com, elder@kernel.org, johan@kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH 4/4] Allow building beagleplay greybus driver
+Subject: [greybus-dev] Re: [PATCH 1/4] Add beagleplaygreybus to devicetree
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ABKITIPMEHNAVRFJZXGFI3T7EEC2RZDL/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/3HOAN4SPNTEHOHOIUMABNWZHOHHD3JAF/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -109,48 +86,64 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add KConfig and Makefile stuff
+On Wed, Aug 23, 2023 at 10:25:17PM +0530, Ayush Singh wrote:
+> This UART is used for communication with beagleplay cc1352
+> 
+> Signed-off-by: Ayush Singh <ayushdevel1325@gmail.com>
+> ---
+>  arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts b/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
+> index 7c1402b0fa2d..feead1396718 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
+> @@ -755,4 +755,8 @@ &main_uart6 {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&wifi_debug_uart_pins_default>;
+>  	status = "okay";
+> +
+> +	beagleplaygreybus {
+> +		compatible = "beagle,beagleplaygreybus";
+> +	};
+>  };
+> -- 
+> 2.41.0
+> 
 
-Signed-off-by: Ayush Singh <ayushdevel1325@gmail.com>
----
- drivers/staging/greybus/Kconfig  | 9 +++++++++
- drivers/staging/greybus/Makefile | 5 +++++
- 2 files changed, 14 insertions(+)
+Hi,
 
-diff --git a/drivers/staging/greybus/Kconfig b/drivers/staging/greybus/Kconfig
-index 927cfa4bc989..5306d773c3ce 100644
---- a/drivers/staging/greybus/Kconfig
-+++ b/drivers/staging/greybus/Kconfig
-@@ -213,4 +213,13 @@ config GREYBUS_ARCHE
- 	  To compile this code as a module, chose M here: the module
- 	  will be called gb-arche.ko
- 
-+config GREYBUS_BEAGLEPLAY
-+	tristate "Greybus BeaglePlay driver"
-+	depends on TTY
-+	help
-+	  Select this option if you have a BeaglePlay device.
-+
-+	  To compile this code as a module, chose M here: the module
-+	  will be called gb-beagleplay.ko
-+
- endif	# GREYBUS
-diff --git a/drivers/staging/greybus/Makefile b/drivers/staging/greybus/Makefile
-index 7c5e89622334..a94a88bfad01 100644
---- a/drivers/staging/greybus/Makefile
-+++ b/drivers/staging/greybus/Makefile
-@@ -71,3 +71,8 @@ obj-$(CONFIG_GREYBUS_USB)		+= gb-usb.o
- gb-arche-y	:= arche-platform.o arche-apb-ctrl.o
- 
- obj-$(CONFIG_GREYBUS_ARCHE)	+= gb-arche.o
-+
-+# Beagleplay Greybus driver
-+gb-beagleplay-y	:= beagleplay-greybus-driver.o hdlc.o
-+
-+obj-$(CONFIG_GREYBUS_BEAGLEPLAY)	+= gb-beagleplay.o
--- 
-2.41.0
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
+You are receiving this message because of the following common error(s)
+as indicated below:
+
+- You did not specify a description of why the patch is needed, or
+  possibly, any description at all, in the email body.  Please read the
+  section entitled "The canonical patch format" in the kernel file,
+  Documentation/process/submitting-patches.rst for what is needed in
+  order to properly describe the change.
+
+- You did not write a descriptive Subject: for the patch, allowing Greg,
+  and everyone else, to know what this patch is all about.  Please read
+  the section entitled "The canonical patch format" in the kernel file,
+  Documentation/process/submitting-patches.rst for what a proper
+  Subject: line should look like.
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
+
+thanks,
+
+greg k-h's patch email bot
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
