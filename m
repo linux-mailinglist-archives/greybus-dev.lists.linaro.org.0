@@ -2,74 +2,84 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52E597844B0
-	for <lists+greybus-dev@lfdr.de>; Tue, 22 Aug 2023 16:49:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0BD678516E
+	for <lists+greybus-dev@lfdr.de>; Wed, 23 Aug 2023 09:25:13 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 349FD40F51
-	for <lists+greybus-dev@lfdr.de>; Tue, 22 Aug 2023 14:49:16 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
-	by lists.linaro.org (Postfix) with ESMTPS id 19E013F34D
-	for <greybus-dev@lists.linaro.org>; Tue, 22 Aug 2023 14:49:09 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B965943FD7
+	for <lists+greybus-dev@lfdr.de>; Wed, 23 Aug 2023 07:25:12 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id 77FCA3F5BD
+	for <greybus-dev@lists.linaro.org>; Wed, 23 Aug 2023 07:25:05 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=none;
-	spf=pass (lists.linaro.org: domain of yuehaibing@huawei.com designates 45.249.212.189 as permitted sender) smtp.mailfrom=yuehaibing@huawei.com;
-	dmarc=pass (policy=quarantine) header.from=huawei.com
-Received: from canpemm500007.china.huawei.com (unknown [172.30.72.55])
-	by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4RVXGL1lj2zLpFQ;
-	Tue, 22 Aug 2023 22:46:02 +0800 (CST)
-Received: from [10.174.179.215] (10.174.179.215) by
- canpemm500007.china.huawei.com (7.192.104.62) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.31; Tue, 22 Aug 2023 22:49:05 +0800
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20230818124338.37880-1-yuehaibing@huawei.com>
- <2023082220-washbowl-shed-6be9@gregkh>
-From: Yue Haibing <yuehaibing@huawei.com>
-Message-ID: <db71380f-c84a-5f11-5ec8-4e81a0a061f0@huawei.com>
-Date: Tue, 22 Aug 2023 22:49:05 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b=LWyMlhWR;
+	spf=pass (lists.linaro.org: domain of johan@kernel.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=johan@kernel.org;
+	dmarc=pass (policy=none) header.from=kernel.org
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 0D09164994;
+	Wed, 23 Aug 2023 07:25:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AD3BC433C7;
+	Wed, 23 Aug 2023 07:25:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692775504;
+	bh=1studFEeQMbmLRoPYWeUq2xQ+7OX2VLP9fugdfnqMkE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LWyMlhWRv6sXMsR1yMY0M9pZpNmcpuiFGEDlVRBO4ODn9UpeuaWafzD6RukGWnyDg
+	 PD0UtLcmgoyihQa3WbjhfDgV8NYgm03/Wr/rieFEDyRZT/R61YE5jdIQWvJuejV0Lt
+	 yvDtExPHqxNWIMWIDxuYITnvaSL7zgXCS14NZj/RX5DlzX7bDlitsl9BOfLlAtLcIn
+	 8wHhUZ7wrp2I9JCozw7Q/hLK674mQQX1Jj3jdt7zTAAaZYLONydoLMzgHJaZ7WAwjG
+	 hyQRQAcJtEnmGcOHjAsp+aIBGs5X2OPXUyubrhgJ6+jowHRj31YFcYQg6S1AEWkEu2
+	 niB3JP7EqEV+A==
+Received: from johan by theta with local (Exim 4.96)
+	(envelope-from <johan@kernel.org>)
+	id 1qYiEX-0007eb-1b;
+	Wed, 23 Aug 2023 09:24:53 +0200
+Date: Wed, 23 Aug 2023 09:24:53 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Yang Yingliang <yangyingliang@huawei.com>
+Message-ID: <ZOW0ReI1EUM70YGm@hovoldconsulting.com>
+References: <20230811070826.739049-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <2023082220-washbowl-shed-6be9@gregkh>
-Content-Language: en-US
-X-Originating-IP: [10.174.179.215]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- canpemm500007.china.huawei.com (7.192.104.62)
-X-CFilter-Loop: Reflected
-X-Rspamd-Queue-Id: 19E013F34D
-X-Spamd-Bar: -------
-X-Spamd-Result: default: False [-7.80 / 15.00];
-	REPLY(-4.00)[];
+Content-Disposition: inline
+In-Reply-To: <20230811070826.739049-1-yangyingliang@huawei.com>
+X-Rspamd-Queue-Id: 77FCA3F5BD
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.50 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	DMARC_POLICY_ALLOW(-0.50)[huawei.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:45.249.212.187/29];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,none];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+a:dfw.source.kernel.org];
 	MIME_GOOD(-0.10)[text/plain];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:134543, ipnet:45.249.212.0/24, country:CN];
-	R_DKIM_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.947];
-	HAS_XOIP(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.linux.dev,lists.linaro.org,gmail.com,kernel.org,linuxfoundation.org];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_FIVE(0.00)[5]
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: LBSOAGCPCGJ3SM4366NU6JDBXYM5ZNJQ
-X-Message-ID-Hash: LBSOAGCPCGJ3SM4366NU6JDBXYM5ZNJQ
-X-MailFrom: yuehaibing@huawei.com
+Message-ID-Hash: AWRQFCZCATYN45ROXBDZTGK47LDEOCUH
+X-Message-ID-Hash: AWRQFCZCATYN45ROXBDZTGK47LDEOCUH
+X-MailFrom: johan@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org
+CC: linux-staging@lists.linux.dev, greybus-dev@lists.linaro.org, hvaibhav.linux@gmail.com, elder@kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH -next] greybus: svc: Remove unused declarations
+Subject: [greybus-dev] Re: [PATCH -next] staging: greybus: arche-apb-ctrl: remove unnecessary platform_set_drvdata()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/LBSOAGCPCGJ3SM4366NU6JDBXYM5ZNJQ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/AWRQFCZCATYN45ROXBDZTGK47LDEOCUH/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -79,47 +89,34 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2023/8/22 22:32, Greg KH wrote:
-> On Fri, Aug 18, 2023 at 08:43:38PM +0800, Yue Haibing wrote:
->> Commit 84427943d2da ("greybus: svc: drop legacy-protocol dependency")
->> removed these implementations but not the declarations.
->>
->> Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
->> ---
->>  include/linux/greybus/svc.h | 3 ---
->>  1 file changed, 3 deletions(-)
->>
->> diff --git a/include/linux/greybus/svc.h b/include/linux/greybus/svc.h
->> index 5afaf5f06856..da547fb9071b 100644
->> --- a/include/linux/greybus/svc.h
->> +++ b/include/linux/greybus/svc.h
->> @@ -100,7 +100,4 @@ bool gb_svc_watchdog_enabled(struct gb_svc *svc);
->>  int gb_svc_watchdog_enable(struct gb_svc *svc);
->>  int gb_svc_watchdog_disable(struct gb_svc *svc);
->>  
->> -int gb_svc_protocol_init(void);
->> -void gb_svc_protocol_exit(void);
->> -
->>  #endif /* __SVC_H */
->> -- 
->> 2.34.1
->>
+On Fri, Aug 11, 2023 at 03:08:26PM +0800, Yang Yingliang wrote:
+> Remove unnecessary platform_set_drvdata(..., NULL) in ->remove(),
+> the driver_data will be cleared in device_unbind_cleanup() after
+> calling ->remove() in driver call code.
+
+s/call/core/
+ 
+> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> ---
+>  drivers/staging/greybus/arche-apb-ctrl.c | 1 -
+>  1 file changed, 1 deletion(-)
 > 
-> Nice, how did you find these?
+> diff --git a/drivers/staging/greybus/arche-apb-ctrl.c b/drivers/staging/greybus/arche-apb-ctrl.c
+> index 8541995008da..5c77c1813214 100644
+> --- a/drivers/staging/greybus/arche-apb-ctrl.c
+> +++ b/drivers/staging/greybus/arche-apb-ctrl.c
+> @@ -423,7 +423,6 @@ static void arche_apb_ctrl_remove(struct platform_device *pdev)
+>  {
+>  	device_remove_file(&pdev->dev, &dev_attr_state);
+>  	poweroff_seq(pdev);
+> -	platform_set_drvdata(pdev, NULL);
+>  }
 
-Just use grep to check like below, then filter out known false item
+Should be ok:
 
-grep -rP --include=*.h '^(?:\w+\s+){1,3}\*{0,3}\s{0,3}\w+[\t]*\(' * |grep -P -oh '\w+\s*\('|sort| uniq -c| sort -n| grep -P '^\s+1\b'|sed -r -e 's/^\s+1\s+//' -e 's/\(//'|while read line ;
- do
-        CNT=`git grep -w $line |wc -l` ;
-        if [ $CNT -eq 1 ];then
-                git grep -wn $line
-        fi
-done
+Reviewed-by: Johan Hovold <johan@kernel.org>
 
-
-> .
-> 
+Johan
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
