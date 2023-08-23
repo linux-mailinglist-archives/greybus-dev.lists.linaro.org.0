@@ -2,43 +2,43 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35476785E8D
-	for <lists+greybus-dev@lfdr.de>; Wed, 23 Aug 2023 19:29:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C04CB785EB6
+	for <lists+greybus-dev@lfdr.de>; Wed, 23 Aug 2023 19:36:13 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3F13E40F64
-	for <lists+greybus-dev@lfdr.de>; Wed, 23 Aug 2023 17:29:13 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id C268B40F64
+	for <lists+greybus-dev@lfdr.de>; Wed, 23 Aug 2023 17:36:12 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id BF2143EC47
-	for <greybus-dev@lists.linaro.org>; Wed, 23 Aug 2023 17:29:06 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id 3B80B3E9D4
+	for <greybus-dev@lists.linaro.org>; Wed, 23 Aug 2023 17:36:06 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=FAXylhUW;
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=DG50Nf4u;
 	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
 	dmarc=pass (policy=none) header.from=linuxfoundation.org
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 59AF762AA9;
-	Wed, 23 Aug 2023 17:29:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03C24C433C8;
-	Wed, 23 Aug 2023 17:29:04 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C031762072;
+	Wed, 23 Aug 2023 17:36:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79A60C433C7;
+	Wed, 23 Aug 2023 17:36:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1692811745;
-	bh=DxcClGKkNufjpCe6gbxIVXqDxKNDQaHPhD/YzzhrwDE=;
+	s=korg; t=1692812165;
+	bh=fPJjHEwHbLOFY4h2ocPzHpcsjZgmBXwAcomI6tx0EL8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FAXylhUWJPRV1t2SGPJZqg5CGJnww3CnYPDgUkJxyHI7k3nOKLGgdUVohWW//4qi1
-	 p/gK8S5PhnJmPbez8rN5Fh6SoP708wNF7Q4Rq10wiUyna+Pgjvx2CfxdzdQqgLfj6d
-	 Wac2NSJx9OA3klGaz79AH5mAnbiHraiw/YXWlXbs=
-Date: Wed, 23 Aug 2023 19:29:02 +0200
+	b=DG50Nf4uiZSWSMYfALwSYY44R/B4mM6Tm6ShrhOIhuz0mw4U2AXO3rGnm2zvrciyT
+	 ErcWxQ82jmoOPkBoGCdA5fEmQJxNus1idCzBYLrDCqH36Vlgz9OKW89e44GZ80gi8c
+	 M2860njcg3z5x7VyqStl16YSxQlQMU6lY+IWpac0=
+Date: Wed, 23 Aug 2023 19:36:02 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Ayush Singh <ayushdevel1325@gmail.com>
-Message-ID: <2023082307-untapped-automatic-ec5f@gregkh>
+Message-ID: <2023082317-vagabond-lent-95ea@gregkh>
 References: <20230823165520.181301-1-ayushdevel1325@gmail.com>
- <20230823165520.181301-4-ayushdevel1325@gmail.com>
+ <20230823165520.181301-3-ayushdevel1325@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230823165520.181301-4-ayushdevel1325@gmail.com>
-X-Rspamd-Queue-Id: BF2143EC47
+In-Reply-To: <20230823165520.181301-3-ayushdevel1325@gmail.com>
+X-Rspamd-Queue-Id: 3B80B3E9D4
 X-Spamd-Bar: ---
 X-Spamd-Result: default: False [-3.50 / 15.00];
 	REPLY(-4.00)[];
@@ -67,16 +67,16 @@ X-Spamd-Result: default: False [-3.50 / 15.00];
 	DKIM_TRACE(0.00)[linuxfoundation.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: 4OUQR7VE6QHSHNBTNJPFDBDYQIQC2BCV
-X-Message-ID-Hash: 4OUQR7VE6QHSHNBTNJPFDBDYQIQC2BCV
+Message-ID-Hash: TJBQCDS6OQ23LZA4XZ6FIREKOWSD3JHW
+X-Message-ID-Hash: TJBQCDS6OQ23LZA4XZ6FIREKOWSD3JHW
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: greybus-dev@lists.linaro.org, hvaibhav.linux@gmail.com, elder@kernel.org, johan@kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 3/4] Add HDLC helper for beagleplay driver
+Subject: [greybus-dev] Re: [PATCH 2/4] Add beagleplay greybus driver
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/4OUQR7VE6QHSHNBTNJPFDBDYQIQC2BCV/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TJBQCDS6OQ23LZA4XZ6FIREKOWSD3JHW/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -86,178 +86,292 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 23, 2023 at 10:25:19PM +0530, Ayush Singh wrote:
-> This file provides functions that allow sending and recieving async HDLC
-> frames over any transport. Currently only tested with UART.
-> 
-> I am not quite sure where these files should go so I have put them close
-> to Beagleplay greybus driver for now.
-
-This shouldn't be in a changelog text :)
-
-You can put comments below the --- line.
-
-And to answer this question, no, it probably shouldn't be here in
-drivers/staging/ it should be in the "real" part of the kernel as it is
-a real driver.  drivers/staging/ is for stuff that still needs work to
-do to get it out of that part of the kernel, do the work ahead of time
-and then you don't have to mess with that at all.
-
-> 
+On Wed, Aug 23, 2023 at 10:25:18PM +0530, Ayush Singh wrote:
 > Signed-off-by: Ayush Singh <ayushdevel1325@gmail.com>
+
+I can't take patches without any changelog text at all (neither do you
+want me to.)
+
+Writing the changelog is usually the hardest part.  Take a look at the
+link my patch bot sent you and read that to see what to do.
+
 > ---
->  drivers/staging/greybus/hdlc.c | 229 +++++++++++++++++++++++++++++++++
->  drivers/staging/greybus/hdlc.h | 137 ++++++++++++++++++++
+>  .../greybus/beagleplay-greybus-driver.c       | 264 ++++++++++++++++++
 
-No need for a .h file for a simple .c file, just put it all together
-into one file please.
+This is a really really really long name for a driver.
 
->  2 files changed, 366 insertions(+)
->  create mode 100644 drivers/staging/greybus/hdlc.c
->  create mode 100644 drivers/staging/greybus/hdlc.h
-> 
-> diff --git a/drivers/staging/greybus/hdlc.c b/drivers/staging/greybus/hdlc.c
-> new file mode 100644
-> index 000000000000..079d4c10e476
-> --- /dev/null
-> +++ b/drivers/staging/greybus/hdlc.c
-> @@ -0,0 +1,229 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2023 Ayush Singh <ayushdevel1325@gmail.com>
-> + */
+Why not beagle_gb.c?
+
+
+
+>  .../greybus/beagleplay-greybus-driver.h       |  28 ++
+
+Again, no need for .h files for a simple .c file.
+
+> +#define BEAGLEPLAY_GREYBUS_DRV_VERSION "0.1.0"
+
+driver versions make no sense in the kernel tree, just drop this.
+
+> +#define BEAGLEPLAY_GREYBUS_DRV_NAME "bcfgreybus"
+
+KBUILD_MODNAME?
+
+> +#define BEAGLEPLAY_GB_MAX_CPORTS 32
+
+Where does this number come from?
+
 > +
-> +#include "hdlc.h"
-> +#include <linux/device.h>
-> +#include <linux/crc-ccitt.h>
-> +#include <linux/serdev.h>
+> +static const struct of_device_id beagleplay_greybus_of_match[] = {
+> +	{
+> +		.compatible = "beagle,beagleplaygreybus",
+
+Are you sure this will work?  You need to get your dt changes properly
+reviewed first.
+
+> +	},
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(of, beagleplay_greybus_of_match);
 > +
-> +static void hdlc_write_locked(struct hdlc_driver *drv)
+> +static int beagleplay_greybus_serdev_write_locked(void *drvdata,
+> +						  const unsigned char *buf,
+> +						  size_t buf_len)
 > +{
-> +	// must be locked already
-
-What must be locked?  I don't understand this comment, sorry.
-
-> +	int head = smp_load_acquire(&drv->tx_circ_buf.head);
-> +	int tail = drv->tx_circ_buf.tail;
-> +	int count = CIRC_CNT_TO_END(head, tail, TX_CIRC_BUF_SIZE);
-> +	int written;
+> +	struct beagleplay_greybus *beagleplay_greybus;
 > +
-> +	if (count >= 1) {
-> +		written = drv->hdlc_send_frame_cb(dev_get_drvdata(drv->parent),
-> +						  &drv->tx_circ_buf.buf[tail],
-> +						  count);
+> +	beagleplay_greybus = drvdata;
+> +	return serdev_device_write_buf(beagleplay_greybus->serdev, buf,
+> +				       buf_len);
+> +}
 > +
-> +		/* Finish consuming HDLC data */
-> +		smp_store_release(&drv->tx_circ_buf.tail,
-> +				  (tail + written) & (TX_CIRC_BUF_SIZE - 1));
+> +static void
+> +beagleplay_greybus_handle_greybus_frame(struct beagleplay_greybus *bg,
+> +					u8 *buffer, size_t buffer_len)
+> +{
+> +	u16 cport_id;
+> +	struct gb_operation_msg_hdr *hdr =
+> +		(struct gb_operation_msg_hdr *)buffer;
+> +	memcpy(&cport_id, hdr->pad, sizeof(u16));
+
+
+Did you run checkpatch on the code before sending it?  Please do so.
+
+
+> +	if (hdr->result) {
+> +		dev_warn(
+> +			&bg->serdev->dev,
+> +			"Failed Greybus Operation %u of Type %X on CPort %u with Status %u",
+> +			hdr->operation_id, hdr->type, cport_id, hdr->result);
+> +	} else {
+> +		dev_dbg(&bg->serdev->dev,
+> +			"Successful Greybus Operation %u of Type %X on CPort %u",
+> +			hdr->operation_id, hdr->type, cport_id);
+> +	}
+> +	greybus_data_rcvd(bg->gb_host_device, cport_id, buffer, buffer_len);
+> +}
+> +
+> +static void beagleplay_greybus_handle_dbg_frame(struct beagleplay_greybus *bg,
+> +						const char *buffer,
+> +						size_t buffer_len)
+> +{
+> +	char buf[RX_HDLC_PAYLOAD];
+
+Are you sure you can do all of that on the stack?
+
+> +
+> +	memcpy(buf, buffer, buffer_len);
+> +	buf[buffer_len] = 0;
+> +	dev_dbg(&bg->serdev->dev, "CC1352 Debug: %s", buf);
+
+Why are you using a stack buffer for a debug log?
+
+And no need for prefixes on a debug message, that comes for free from
+the dynamic debug infrastructure.
+
+and are you sure this buffer is a string?
+
+> +}
+> +
+> +static void beagleplay_greybus_handle_hdlc_rx_frame(void *drv_data, u8 *buffer,
+> +						    size_t buffer_len,
+> +						    uint8_t address)
+> +{
+> +	struct beagleplay_greybus *beagleplay_greybus;
+> +
+> +	beagleplay_greybus = drv_data;
+
+This is usually just one line:
+	struct beagleplay_greybus *beagleplay_greybus = drv_data;
+
+but really, use less characters, how about:
+	struct beagle_gb *beagle_gb = data;
+
+or something like that.
+
+> +
+> +	switch (address) {
+> +	case ADDRESS_DBG:
+> +		beagleplay_greybus_handle_dbg_frame(beagleplay_greybus, buffer,
+> +						    buffer_len);
+
+very long function names, you can make them smaller :)
+
+
+> +		break;
+> +	case ADDRESS_GREYBUS:
+> +		beagleplay_greybus_handle_greybus_frame(beagleplay_greybus,
+> +							buffer, buffer_len);
+> +		break;
+> +	default:
+> +		dev_warn(&beagleplay_greybus->serdev->dev,
+> +			 "Got Unknown Frame %u", address);
 > +	}
 > +}
 > +
-> +static void hdlc_append(struct hdlc_driver *drv, u8 value)
+> +static int beagleplay_greybus_tty_receive(struct serdev_device *serdev,
+> +					  const unsigned char *data,
+> +					  size_t count)
 > +{
-> +	// must be locked already
+> +	struct beagleplay_greybus *beagleplay_greybus;
+> +
+> +	beagleplay_greybus = serdev_device_get_drvdata(serdev);
+> +	return hdlc_rx(beagleplay_greybus->hdlc_drv, data, count);
+> +}
+> +
+> +static void beagleplay_greybus_tty_wakeup(struct serdev_device *serdev)
+> +{
+> +	struct beagleplay_greybus *beagleplay_greybus;
+> +
+> +	beagleplay_greybus = serdev_device_get_drvdata(serdev);
+> +	hdlc_tx_wakeup(beagleplay_greybus->hdlc_drv);
+> +}
+> +
+> +static struct serdev_device_ops beagleplay_greybus_ops = {
+> +	.receive_buf = beagleplay_greybus_tty_receive,
+> +	.write_wakeup = beagleplay_greybus_tty_wakeup,
+> +};
+> +
+> +static int gb_message_send(struct gb_host_device *hd, u16 cport_id,
+> +			   struct gb_message *message, gfp_t gfp_mask)
+> +{
+> +	struct beagleplay_greybus *beagleplay_greybus;
+> +	char block_payload[HDLC_MAX_BLOCK_SIZE];
+> +
+> +	dev_dbg(&hd->dev,
+> +		"Sending Greybus message with Operation %u, Type: %X on Cport %u",
+> +		message->header->operation_id, message->header->type, cport_id);
+> +
+> +	if (message->header->size > HDLC_MAX_BLOCK_SIZE) {
+> +		dev_err(&hd->dev, "Greybus message too big");
+> +		return -1;
 
-Again, I don't understand.
+Please always use real error values, not made up negative numbers.
+-ETOBIG?
 
-> +	int head, tail;
-> +
-> +	head = drv->tx_circ_buf.head;
-> +
-> +	while (true) {
-> +		tail = READ_ONCE(drv->tx_circ_buf.tail);
-> +
-> +		if (CIRC_SPACE(head, tail, TX_CIRC_BUF_SIZE) >= 1) {
-> +			drv->tx_circ_buf.buf[head] = value;
-> +
-> +			/* Finish producing HDLC byte */
-> +			smp_store_release(&drv->tx_circ_buf.head,
-> +					  (head + 1) & (TX_CIRC_BUF_SIZE - 1));
-> +			return;
-> +		}
-> +		dev_warn(drv->parent, "Tx circ buf full\n");
-> +		usleep_range(3000, 5000);
 > +	}
+> +
+> +	beagleplay_greybus = dev_get_drvdata(&hd->dev);
+> +	memcpy(message->header->pad, &cport_id, sizeof(u16));
+> +	memcpy(&block_payload, message->header,
+> +	       sizeof(struct gb_operation_msg_hdr));
+> +	memcpy(&block_payload[sizeof(struct gb_operation_msg_hdr)],
+> +	       message->payload, message->payload_size);
+> +	hdlc_send_async(beagleplay_greybus->hdlc_drv, message->header->size,
+> +			&block_payload, ADDRESS_GREYBUS, 0x03);
+> +
+> +	greybus_message_sent(beagleplay_greybus->gb_host_device, message, 0);
+> +	return 0;
 > +}
 > +
-> +static void hdlc_append_escaped(struct hdlc_driver *drv, u8 value)
+> +static void gb_message_cancel(struct gb_message *message)
 > +{
-> +	if (value == HDLC_FRAME || value == HDLC_ESC) {
-> +		hdlc_append(drv, HDLC_ESC);
-> +		value ^= HDLC_XOR;
+> +}
+
+Why is an empty function needed?  That feels wrong.
+
+> +
+> +static struct gb_hd_driver gb_hdlc_driver = { .message_send = gb_message_send,
+> +					      .message_cancel =
+> +						      gb_message_cancel };
+
+Formatting can be fixed up here.
+
+> +
+> +static void beagleplay_greybus_start_svc(struct beagleplay_greybus *bg)
+> +{
+> +	const u8 command[1] = { CONTROL_SVC_START };
+
+Are you sure this is allowed on the stack?
+
+> +
+> +	hdlc_send_async(bg->hdlc_drv, sizeof(command), command, ADDRESS_CONTROL,
+> +			0x03);
+> +}
+> +
+> +static void beagleplay_greybus_stop_svc(struct beagleplay_greybus *bg)
+> +{
+> +	const u8 command = CONTROL_SVC_STOP;
+> +
+> +	hdlc_send_async(bg->hdlc_drv, 1, &command, ADDRESS_CONTROL, 0x03);
+> +}
+> +
+> +static int beagleplay_greybus_probe(struct serdev_device *serdev)
+> +{
+> +	struct beagleplay_greybus *bg;
+> +	u32 speed = 115200;
+> +	int ret = 0;
+> +
+> +	bg = devm_kmalloc(&serdev->dev, sizeof(struct beagleplay_greybus),
+> +			  GFP_KERNEL);
+> +
+> +	bg->serdev = serdev;
+> +
+> +	serdev_device_set_drvdata(serdev, bg);
+> +	serdev_device_set_client_ops(serdev, &beagleplay_greybus_ops);
+> +
+> +	ret = serdev_device_open(serdev);
+> +	if (ret) {
+> +		dev_err(&bg->serdev->dev, "Unable to Open Device");
+> +		return ret;
 > +	}
-> +	hdlc_append(drv, value);
-> +}
 > +
-> +static void hdlc_append_tx_frame(struct hdlc_driver *drv)
-> +{
-> +	drv->tx_crc = 0xFFFF;
-> +	hdlc_append(drv, HDLC_FRAME);
-> +}
+> +	speed = serdev_device_set_baudrate(serdev, speed);
+> +	dev_info(&bg->serdev->dev, "Using baudrate %u\n", speed);
 > +
-> +static void hdlc_append_tx_u8(struct hdlc_driver *drv, u8 value)
-> +{
-> +	drv->tx_crc = crc_ccitt(drv->tx_crc, &value, 1);
-> +	hdlc_append_escaped(drv, value);
-> +}
+> +	serdev_device_set_flow_control(serdev, false);
 > +
-> +static void hdlc_append_tx_buffer(struct hdlc_driver *drv, const void *buffer,
-> +				  size_t len)
-> +{
-> +	size_t i;
+> +	// Init HDLC
+> +	bg->hdlc_drv =
+> +		hdlc_init(&serdev->dev, beagleplay_greybus_serdev_write_locked,
+> +			  beagleplay_greybus_handle_hdlc_rx_frame);
+> +	if (!bg->hdlc_drv) {
+> +		dev_err(&serdev->dev, "Failed to initialize HDLC");
+> +		return -ENOMEM;
+> +	}
 > +
-> +	for (i = 0; i < len; i++)
-> +		hdlc_append_tx_u8(drv, ((u8 *)buffer)[i]);
-> +}
-> +
-> +static void hdlc_append_tx_crc(struct hdlc_driver *drv)
-> +{
-> +	drv->tx_crc ^= 0xffff;
-> +	hdlc_append_escaped(drv, drv->tx_crc & 0xff);
-> +	hdlc_append_escaped(drv, (drv->tx_crc >> 8) & 0xff);
-> +}
-> +
-> +static void hdlc_handle_rx_frame(struct hdlc_driver *drv)
-> +{
-> +	u8 address = drv->rx_buffer[0];
-> +	char *buf = &drv->rx_buffer[2];
-> +	size_t buf_len = drv->rx_buffer_len - 4;
-> +
-> +	drv->hdlc_process_frame_cb(dev_get_drvdata(drv->parent), buf, buf_len,
-> +				   address);
-> +}
-> +
-> +static void hdlc_transmit(struct work_struct *work)
-> +{
-> +	struct hdlc_driver *drv =
-> +		container_of(work, struct hdlc_driver, tx_work);
-> +
-> +	spin_lock_bh(&drv->tx_consumer_lock);
-> +	hdlc_write_locked(drv);
-> +	spin_unlock_bh(&drv->tx_consumer_lock);
-> +}
-> +
-> +static void hdlc_send_s_frame_ack(struct hdlc_driver *drv)
-> +{
-> +	u8 address = drv->rx_buffer[0];
-> +
-> +	hdlc_send_async(drv, 0, NULL, address, (drv->rx_buffer[1] >> 1) & 0x7);
-> +}
-> +
-> +int hdlc_rx(struct hdlc_driver *drv, const unsigned char *data, size_t count)
+> +	// Greybus setup
+> +	bg->gb_host_device =
+> +		gb_hd_create(&gb_hdlc_driver, &serdev->dev, TX_CIRC_BUF_SIZE,
+> +			     BEAGLEPLAY_GB_MAX_CPORTS);
+> +	if (IS_ERR(bg->gb_host_device)) {
+> +		dev_err(&bg->serdev->dev,
+> +			"Unable to create Greybus Host Device");
+> +		return -1;
 
-Why is this a global function?
+How about returning the error given to you?
 
-> +void hdlc_send_async(struct hdlc_driver *drv, u16 length, const void *buffer,
-> +		     u8 address, u8 control)
-> +{
 
-Same here, why is this global?
+> +	}
+> +	ret = gb_hd_add(bg->gb_host_device);
+> +	if (ret) {
+> +		dev_err(&serdev->dev, "Failed to add Greybus Host Device");
+> +		return ret;
 
-Who calls these new functions?  There seems to be something missing here
-as if this is never called, there's no need for it?
+Did you just leak memory?
 
-confused,
+
+Anyway, these are all tiny things, it's great to see this work
+happening, it's getting close!
 
 greg k-h
 _______________________________________________
