@@ -2,50 +2,50 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 849B078D5DF
-	for <lists+greybus-dev@lfdr.de>; Wed, 30 Aug 2023 14:28:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2364278D5E2
+	for <lists+greybus-dev@lfdr.de>; Wed, 30 Aug 2023 14:30:02 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 92D6A3EFC6
-	for <lists+greybus-dev@lfdr.de>; Wed, 30 Aug 2023 12:28:33 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 247CB3EFC7
+	for <lists+greybus-dev@lfdr.de>; Wed, 30 Aug 2023 12:30:01 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id D9A353EC22
-	for <greybus-dev@lists.linaro.org>; Wed, 30 Aug 2023 12:28:26 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id 397C13ED19
+	for <greybus-dev@lists.linaro.org>; Wed, 30 Aug 2023 12:29:54 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=oVuVP77n;
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=DQs3yVzZ;
 	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
 	dmarc=pass (policy=none) header.from=linuxfoundation.org
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 833E961115;
-	Wed, 30 Aug 2023 12:28:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63E89C433C7;
-	Wed, 30 Aug 2023 12:28:25 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D4EEF61FB6;
+	Wed, 30 Aug 2023 12:29:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6890C433C7;
+	Wed, 30 Aug 2023 12:29:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1693398505;
-	bh=E5WvTKWIdsxhzUPKPX5mHCQEtd2s9hTQ3mqIDk+5esk=;
+	s=korg; t=1693398593;
+	bh=lww/lAvSVd/cX9JGqfklrGxfzhLs62082CnxQDVeoMI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oVuVP77nTMcZehW/fMCaapPMBHAKFdBkSTlMtWN1p/tkWVdyzqwyVR3GFlzJykr5x
-	 eo+SjpzrQxQl+U9eTJ+Ov44wJj1Jzr6mVke36aXh5sWcB2lsZpi9p6zBuHrTg62e7B
-	 I1Vm/+FTDLViDUbpuCK8zBGaUTpOEi/RzMEb9OUY=
-Date: Wed, 30 Aug 2023 14:28:23 +0200
+	b=DQs3yVzZjjen+3rCSxMC3oJJDTGOK4plNgI1EQNBBfZy4nwLsj1moMnlbNfQfujWr
+	 wYQ/amgwWd9hnuIMmpCJmfIg1u9HL70sfm1e0Ri1q1/b0+VwwmUDdS5em1U7Vuezwa
+	 56b10BIe6rHQVX4WumKFRPqnWpx2QOxhLWh8smPo=
+Date: Wed, 30 Aug 2023 14:29:50 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Ayush Singh <ayushdevel1325@gmail.com>
-Message-ID: <2023083005-trough-patchy-f60a@gregkh>
+Message-ID: <2023083028-portfolio-repayment-8be8@gregkh>
 References: <20230830122427.284415-1-ayushdevel1325@gmail.com>
  <20230830122427.284415-3-ayushdevel1325@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20230830122427.284415-3-ayushdevel1325@gmail.com>
-X-Rspamd-Queue-Id: D9A353EC22
-X-Spamd-Bar: ---------
+X-Rspamd-Queue-Id: 397C13ED19
+X-Spamd-Bar: --------
 X-Spamd-Result: default: False [-9.00 / 15.00];
 	REPLY(-4.00)[];
 	MID_END_EQ_FROM_USER_PART(4.00)[];
 	DWL_DNSWL_HI(-3.50)[linuxfoundation.org:dkim];
-	BAYES_HAM(-3.00)[100.00%];
-	RCVD_IN_DNSWL_HI(-1.00)[139.178.84.217:from,52.25.139.140:received];
+	BAYES_HAM(-3.00)[99.99%];
+	RCVD_IN_DNSWL_HI(-1.00)[52.25.139.140:received,139.178.84.217:from];
 	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
 	MID_RHS_NOT_FQDN(0.50)[];
@@ -70,8 +70,8 @@ X-Spamd-Result: default: False [-9.00 / 15.00];
 	RCPT_COUNT_FIVE(0.00)[5]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: FN2DS7KBN4O7OQL3JTKUXI2IQGATKWXW
-X-Message-ID-Hash: FN2DS7KBN4O7OQL3JTKUXI2IQGATKWXW
+Message-ID-Hash: NANH42TKD2PXBB5NR653XPTUGGYBQKGX
+X-Message-ID-Hash: NANH42TKD2PXBB5NR653XPTUGGYBQKGX
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: greybus-dev@lists.linaro.org, hvaibhav.linux@gmail.com, elder@kernel.org, johan@kernel.org
@@ -79,7 +79,7 @@ X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH 2/2] staging/greybus: Add BeaglePlay Linux Driver
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FN2DS7KBN4O7OQL3JTKUXI2IQGATKWXW/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/NANH42TKD2PXBB5NR653XPTUGGYBQKGX/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -105,19 +105,10 @@ On Wed, Aug 30, 2023 at 05:54:27PM +0530, Ayush Singh wrote:
 > - Add Kconfig option to enable the driver
 > - Update Makefile to build the driver
 > - Update MAINTAINERS
-> 
-> Signed-off-by: Ayush Singh <ayushdevel1325@gmail.com>
-> ---
->  MAINTAINERS                             |   5 +
->  drivers/staging/greybus/Kconfig         |   9 +
->  drivers/staging/greybus/Makefile        |   3 +
->  drivers/staging/greybus/gb-beagleplay.c | 493 ++++++++++++++++++++++++
 
-Why is this in drivers/staging/ and not in drivers/greybus/ ?
+Always run scripts/checkpatch.pl so that a maintainer doesn't have to
+ask you why you didn't run scripts/checkpatch.pl on your patch :)
 
-thanks,
-
-greg k-h
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
