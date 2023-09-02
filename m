@@ -2,98 +2,98 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89295790920
-	for <lists+greybus-dev@lfdr.de>; Sat,  2 Sep 2023 20:23:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5858879092A
+	for <lists+greybus-dev@lfdr.de>; Sat,  2 Sep 2023 20:29:35 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 35E473EF6B
-	for <lists+greybus-dev@lfdr.de>; Sat,  2 Sep 2023 18:23:52 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	by lists.linaro.org (Postfix) with ESMTPS id 211693EF47
-	for <greybus-dev@lists.linaro.org>; Sat,  2 Sep 2023 18:23:45 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 225713EF6B
+	for <lists+greybus-dev@lfdr.de>; Sat,  2 Sep 2023 18:29:34 +0000 (UTC)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	by lists.linaro.org (Postfix) with ESMTPS id 08B0D3EA01
+	for <greybus-dev@lists.linaro.org>; Sat,  2 Sep 2023 18:29:28 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20221208 header.b="EcB0/wT4";
-	spf=pass (lists.linaro.org: domain of ayushdevel1325@gmail.com designates 209.85.214.174 as permitted sender) smtp.mailfrom=ayushdevel1325@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20221208 header.b=ZUD+AXl0;
+	spf=pass (lists.linaro.org: domain of ayushdevel1325@gmail.com designates 209.85.214.176 as permitted sender) smtp.mailfrom=ayushdevel1325@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-1c06f6f98c0so965065ad.3
-        for <greybus-dev@lists.linaro.org>; Sat, 02 Sep 2023 11:23:45 -0700 (PDT)
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-1c313f8c6c9so965465ad.3
+        for <greybus-dev@lists.linaro.org>; Sat, 02 Sep 2023 11:29:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1693679024; x=1694283824; darn=lists.linaro.org;
+        d=gmail.com; s=20221208; t=1693679367; x=1694284167; darn=lists.linaro.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
         bh=S/h6f60a51OBLWnoS64kjCROnu9sNnSGTdI4hkrdrgU=;
-        b=EcB0/wT4/fwL17Dr2UWtc0iDPiyDZ4jdRTVAqC5zLAFbnUpZtdneefD2mHT7uyA/BD
-         fJnlhdEMD65wc1zpJ2hzotqdLSdW0pfF1l+8AGTVwbXynW6ymoYi7joPqaA66ZnwCSoQ
-         RjpDx0+OPizPgD+gzRh2x9T8YeeqPwmvgmYbr+yIJofj4dkOhfYY5QE1Yq9kYEpLTE7w
-         n514pxyp/95WTvG3Zn+gzkKn8Er2ZPNdLc+xmdcU4RG590JghJDLoUC7x8kBRbebxEme
-         IAXBZ0dXWeb2rn/ibyFeVv/+tSmBoI7BFYWA+yHv0oef5OJFnEF1P6aRKLVPcVIdP6RZ
-         jhBA==
+        b=ZUD+AXl0RssO50O7JRnh+cJILqpMsGlS74aysIbR5oStY2VtjbgKxRfnC2ARQS7wta
+         3z7e5BbGivr0qwAz9ff1sl1l+FCe6NvC8zmcULuI6xrRLyXUdo2IQtMdi1EyjtchlgWL
+         MRz0Q+xRT1pNUUSg4+cHKKA1y9h4fQw+EfQtxQblx1YJFXu0opApJ3sZXNbHaG7J7wbP
+         CGKkt1ZJ8HzRJJ4z/k0aUK3kUekTeTCWApfgb/LSFaxdKxsOZloYsEJCtevdZUlB038X
+         y9S/b9xLsKXr2zN1ClZBsD34Nv4Jcw7u3C8HvNxjRJj5t3fgCbeLz9NGojsQNSbDz/b9
+         EUBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693679024; x=1694283824;
+        d=1e100.net; s=20221208; t=1693679367; x=1694284167;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
         bh=S/h6f60a51OBLWnoS64kjCROnu9sNnSGTdI4hkrdrgU=;
-        b=co2mwz1o+Q3HOz56DGkVmciH/+EwA5T8z7H4Yat7O2lBKl0a7ufz5qtENCiPTaAEOq
-         DRx+eoaacyPzfLkcZLtPHC1/2ZREb1uqGYzm9HnNHCMLrw/aVjsB0Sp4reXCd560WrT3
-         KJxM0wZo3liSGel1p1C8E2QNNamq6P9rdF2yctlh0Yrg+D913CUZ40J/GUca9XI3fDqs
-         Tthavkws13fhefIVp89IVezLUy2ZhUJgdQRxRya5EjkFYTdhxzkJ+kyrdlTQwLmEwJrh
-         5unAP0pG54zqAAYCkDi8v9Obo1U9Z8tV63wVi30ioQsfLfzstvrm/XvrrTFVXcPATSgD
-         fc+g==
-X-Gm-Message-State: AOJu0YwyVscrR6aaGIhoks0myMDEsHoA/HL4zz2/hZaWXtbJRcrcIIn8
-	D2JTJtf5SrD/d+Rrvldi/ypsf2/iVK4=
-X-Google-Smtp-Source: AGHT+IHFvEafo7q0avmTsrUfG8fYgqrU08jnX3qM1X8SnECauUTJFJ8cH1IXNkXvVcsJmrwcsG3Fzg==
-X-Received: by 2002:a17:902:be05:b0:1bb:c06e:647a with SMTP id r5-20020a170902be0500b001bbc06e647amr6563279pls.53.1693679023694;
-        Sat, 02 Sep 2023 11:23:43 -0700 (PDT)
+        b=SKMchw7Uc9YU6ei3j/g6IdezJ/yNrzZrDmHVFsS9BwzZCCu+Xil3Nm1/QzLHkjyBJk
+         nVTfboCrloKIJxn7nR+cAvg1S+d1aZgTtTenef0Tgazvt/g77G3yUWGRXU22TCl/SJFG
+         qO5XsinBB6lnH8w2R9tq0MSzfbiFx4FYUfZIhHKSvPKSj6Z6rJ/VnDd8b9AJSf2dOSf5
+         I7t+yRGzRGclDk/9+mTW0lmCcSNF8KRJSr/bTeOxXTszEsIQdO544OhUGjUhUW/3jZ9p
+         rxSb4My0bs9fHEx1A+pkReO6TbG/ZUU072VCdHljqf10vBdvw+3QjIltEt5KC2Bdfx5a
+         3FCg==
+X-Gm-Message-State: AOJu0YyAUty+cmAOcZJCrNDr2+xXIeEyqJK3w4pKrAGRNJq9Yex97L94
+	2VOKeW5TeFa5GbL3eIzLbImlJ+bYi5U=
+X-Google-Smtp-Source: AGHT+IG/uEbtoVkHaVb2B12zE2+36cqoiOeVslgBCDws8JeZpUrN1RRTE+9A140Ffx7K8OEhgJKP3g==
+X-Received: by 2002:a17:902:eacc:b0:1bf:2e5c:7367 with SMTP id p12-20020a170902eacc00b001bf2e5c7367mr6724508pld.42.1693679366775;
+        Sat, 02 Sep 2023 11:29:26 -0700 (PDT)
 Received: from toolbox.iitism.net ([103.15.228.93])
-        by smtp.gmail.com with ESMTPSA id i4-20020a170902eb4400b001b801044466sm4899870pli.114.2023.09.02.11.23.40
+        by smtp.gmail.com with ESMTPSA id i6-20020a170902eb4600b001bf846dd2d0sm4918970pli.13.2023.09.02.11.29.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 02 Sep 2023 11:23:43 -0700 (PDT)
+        Sat, 02 Sep 2023 11:29:26 -0700 (PDT)
 From: Ayush Singh <ayushdevel1325@gmail.com>
 To: greybus-dev@lists.linaro.org
-Date: Sat,  2 Sep 2023 23:52:23 +0530
-Message-ID: <20230902182243.1838554-1-ayushdevel1325@gmail.com>
+Date: Sat,  2 Sep 2023 23:58:40 +0530
+Message-ID: <20230902182845.1840620-1-ayushdevel1325@gmail.com>
 X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 211693EF47
+X-Rspamd-Queue-Id: 08B0D3EA01
 X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.60 / 15.00];
+X-Spamd-Result: default: False [-2.50 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20221208];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20221208];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.174:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.214.176:from];
 	NEURAL_HAM(-0.00)[-0.999];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,linuxfoundation.org,beagleboard.org,ti.com];
 	FREEMAIL_ENVFROM(0.00)[gmail.com];
 	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,linuxfoundation.org,beagleboard.org,ti.com];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_TWO(0.00)[2];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: GRGPFXEHD5L5UYOIMNXAMUOTFUHIK4NX
-X-Message-ID-Hash: GRGPFXEHD5L5UYOIMNXAMUOTFUHIK4NX
+Message-ID-Hash: GKOFWZ5IJMNXIWVDOM3WRNU2B2S4244G
+X-Message-ID-Hash: GKOFWZ5IJMNXIWVDOM3WRNU2B2S4244G
 X-MailFrom: ayushdevel1325@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Ayush Singh <ayushdevel1325@gmail.com>, devicetree@vger.kernel.org, Vaishnav M A <vaishnav@beagleboard.org>, Nishanth Menon <nm@ti.com>
+CC: Ayush Singh <ayushdevel1325@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Vaishnav M A <vaishnav@beagleboard.org>, Nishanth Menon <nm@ti.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] [PATCH v4 0/3] greybus: Add BeaglePlay Greybus Driver
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GRGPFXEHD5L5UYOIMNXAMUOTFUHIK4NX/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GKOFWZ5IJMNXIWVDOM3WRNU2B2S4244G/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
