@@ -2,144 +2,189 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 561297B69DB
-	for <lists+greybus-dev@lfdr.de>; Tue,  3 Oct 2023 15:08:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EDAD7B8B19
+	for <lists+greybus-dev@lfdr.de>; Wed,  4 Oct 2023 20:46:57 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 6530A40CF1
-	for <lists+greybus-dev@lfdr.de>; Tue,  3 Oct 2023 13:08:18 +0000 (UTC)
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
-	by lists.linaro.org (Postfix) with ESMTPS id 964163EAC1
-	for <greybus-dev@lists.linaro.org>; Tue,  3 Oct 2023 13:08:09 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 18B2B3F02A
+	for <lists+greybus-dev@lfdr.de>; Wed,  4 Oct 2023 18:46:56 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	by lists.linaro.org (Postfix) with ESMTPS id 089353F02A
+	for <greybus-dev@lists.linaro.org>; Wed,  4 Oct 2023 18:46:49 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=ti.com header.s=ti-com-17Q1 header.b=GW2og72a;
-	spf=pass (lists.linaro.org: domain of nm@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=nm@ti.com;
-	dmarc=pass (policy=quarantine) header.from=ti.com
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
-	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 393D7xtu090568;
-	Tue, 3 Oct 2023 08:07:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1696338479;
-	bh=Zp1B+zFrIeVSClx3EFpcOSTc44sv/meIKlkORkGW3I4=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To;
-	b=GW2og72aWeylJQLIaR5npYOz2CojwYHS2ZG3DOegeb26K5qc5vB8YUqNyucAcUqZG
-	 X9Lk31lKtTeNENwkIz9Oj57R0kSdCSHOg/8sMbw/WHoehoXuXeUhRTJ56EUqu0Ga8a
-	 eMN5cq6GULauidqPkGFNU5QD8nzMnbyE4OD6D5fA=
-Received: from DLEE110.ent.ti.com (dlee110.ent.ti.com [157.170.170.21])
-	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 393D7xEG013176
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Oct 2023 08:07:59 -0500
-Received: from DLEE113.ent.ti.com (157.170.170.24) by DLEE110.ent.ti.com
- (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 3
- Oct 2023 08:07:59 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE113.ent.ti.com
- (157.170.170.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Tue, 3 Oct 2023 08:07:59 -0500
-Received: from localhost (ileaxei01-snat.itg.ti.com [10.180.69.5])
-	by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 393D7xQD010350;
-	Tue, 3 Oct 2023 08:07:59 -0500
-Date: Tue, 3 Oct 2023 08:07:59 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Ayush Singh <ayushdevel1325@gmail.com>
-Message-ID: <20231003130759.ipr5s7n573c3ijyn@sponge>
-References: <20231002182454.211165-1-ayushdevel1325@gmail.com>
- <20231002182454.211165-2-ayushdevel1325@gmail.com>
- <55f63415-781a-4107-8643-9f77c7ee38d1@linaro.org>
- <2105b93c-0502-e909-ea09-dba73d43b912@gmail.com>
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=ZjoaqZPk;
+	spf=pass (lists.linaro.org: domain of ayushdevel1325@gmail.com designates 209.85.214.182 as permitted sender) smtp.mailfrom=ayushdevel1325@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-1c735473d1aso675015ad.1
+        for <greybus-dev@lists.linaro.org>; Wed, 04 Oct 2023 11:46:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1696445208; x=1697050008; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PXD3JwB7k7KInA/zPG1O5KwkNXcpwCRiREJJeHB9B40=;
+        b=ZjoaqZPkp6+RfxwCn9HSozE5OtqbXSiK7MfkYf5UMs8szqqOtbyZPbSRYccEDkt4Vy
+         b5SXnR2RSu2xEVZS2HoVVvAajO805s+f8egXZB1sYm+bfLnkRcnAc7JaIUqXrlKElghK
+         ckH3t4eM+Wb3r8TpTop3t7BVoeH5omJG9UOaE4bEE9KvczuvLCgiRgYiBt6cMbEcq6hQ
+         w6wu669qO1Rc9OtyMFJCgVurwgvZPXsSD0Q6agL47Xadc7tkDTZm0C6Gf32MZREahkFQ
+         OxgHOl1MclhKMefMWEmLGLefBLG8hfsbotLhh+QAwMLBgUaJg18g2iS5VMN7onVNzhIe
+         7+wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696445208; x=1697050008;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PXD3JwB7k7KInA/zPG1O5KwkNXcpwCRiREJJeHB9B40=;
+        b=Z8/zIPfgKxv6tK5gHKXpJceiIalVe9YiwDRr8KRUzBsUQlXViY1I5whGeZJ0dteg6T
+         wybcOWpiiLOdFzV8yy19CfCg2YhezNOMA0ExKKHNwH2gzC/FVAV+5oaBkZkBV3X5KuJh
+         sq0a5DPMTisTHbryzdWpM0UNeqLwSGZxQvjclE4vh6tMatzMvDsIiucwNNNPKtBZAXIY
+         pLKVXccQP703u8Z/IMwuv+HUjO4A7yJiL9WzgLjUoHFvih3poB7vyVm6b7l7Qe6zVcIo
+         yNmq12w3bhQuHWpH0bT4hRB1ZU/knPlyJDM9oX6B5M9cVGoJ7owxg/Hk8VzAx6WvAN/w
+         jYGA==
+X-Gm-Message-State: AOJu0Yz+O8zk5E6EEQvPTvRuvUa2kq2X85ZZuZRUqz6tEXYsukrnD47D
+	RJ3U2/NCszqhU+/O+E28Sx0ymuZMI6I=
+X-Google-Smtp-Source: AGHT+IGTFkvIxDDTNFDTn1be9zBor9vq4zlQ3n+WWE9iG14rKAErWEsBVhxYkRKjGo8y/JF8XD8WrA==
+X-Received: by 2002:a17:903:110d:b0:1c1:fe97:bf34 with SMTP id n13-20020a170903110d00b001c1fe97bf34mr3774660plh.24.1696445207671;
+        Wed, 04 Oct 2023 11:46:47 -0700 (PDT)
+Received: from toolbox.iitism.net ([103.15.228.93])
+        by smtp.gmail.com with ESMTPSA id j13-20020a170902c3cd00b001b9d95945afsm4063903plj.155.2023.10.04.11.46.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Oct 2023 11:46:46 -0700 (PDT)
+From: Ayush Singh <ayushdevel1325@gmail.com>
+To: greybus-dev@lists.linaro.org
+Date: Thu,  5 Oct 2023 00:16:35 +0530
+Message-ID: <20231004184639.462510-1-ayushdevel1325@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <2105b93c-0502-e909-ea09-dba73d43b912@gmail.com>
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Spamd-Bar: -----
-X-Spamd-Result: default: False [-6.00 / 15.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[99.99%];
+X-Spamd-Bar: -
+X-Spamd-Result: default: False [-1.10 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[ti.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[ti.com:s=ti-com-17Q1];
-	R_SPF_ALLOW(-0.20)[+ip4:198.47.19.0/24:c];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.182:from];
 	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ASN(0.00)[asn:161, ipnet:198.47.19.0/24, country:US];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	TAGGED_RCPT(0.00)[dt];
-	ARC_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	URIBL_BLOCKED(0.00)[ti.com:dkim];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	DKIM_TRACE(0.00)[ti.com:+]
+	FROM_EQ_ENVFROM(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,linuxfoundation.org,beagleboard.org,ti.com,linaro.org];
+	TAGGED_RCPT(0.00)[dt];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	NEURAL_HAM(-0.00)[-1.000];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	FROM_HAS_DN(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 964163EAC1
-Message-ID-Hash: S6FVVG32TUTRXJWGARODTNZYDCAXB574
-X-Message-ID-Hash: S6FVVG32TUTRXJWGARODTNZYDCAXB574
-X-MailFrom: nm@ti.com
+X-Rspamd-Queue-Id: 089353F02A
+Message-ID-Hash: CBMC25GFHFOPHHKYRHG7UTJAOTONJKGV
+X-Message-ID-Hash: CBMC25GFHFOPHHKYRHG7UTJAOTONJKGV
+X-MailFrom: ayushdevel1325@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, greybus-dev@lists.linaro.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, vaishnav@beagleboard.org, krzysztof.kozlowski+dt@linaro.org, vigneshr@ti.com, kristo@kernel.org, robh+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org
+CC: Ayush Singh <ayushdevel1325@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, vaishnav@beagleboard.org, nm@ti.com, krzysztof.kozlowski+dt@linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v6 1/3] dt-bindings: Add beaglecc1352
+Subject: [greybus-dev] [PATCH v7 0/3] greybus: Add BeaglePlay Greybus Driver
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/S6FVVG32TUTRXJWGARODTNZYDCAXB574/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/CBMC25GFHFOPHHKYRHG7UTJAOTONJKGV/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 17:39-20231003, Ayush Singh wrote:
-> > > driver.
-> > > 
-> > > Signed-off-by: Ayush Singh <ayushdevel1325@gmail.com>
-> > > ---
-> > >   .../devicetree/bindings/net/ti,cc1352p7.yaml  | 48 +++++++++++++++++++
-> > >   MAINTAINERS                                   |  6 +++
-> > >   2 files changed, 54 insertions(+)
-> > >   create mode 100644 Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/net/ti,cc1352p7.yaml b/Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
-> > > new file mode 100644
-> > > index 000000000000..57bc2c43e5b1
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
-> > > @@ -0,0 +1,48 @@
-> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/net/ti,cc1352p7.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Texas Instruments Simplelink CC1352P7 wireless MCU
-> > > +
-> > > +description:
-> > > +  The cc1352p7 mcu can be connected via SPI or UART.
-> > If over SPI, then the binding is incomplete. This is fine for now, I guess.
-> > 
-> > Best regards,
-> > Krzysztof
-> 
-> Well, I added the line about SPI because the data sheet states that CC1352P7
-> can be connected over SPI or UART when used as wireless MCU. But yes, I do
-> not have much knowledge about SPI itself, so the bindings might be
-> incomplete for SPI usage. Should I remove it or leave it be?
+BeagleConnect is both a technology concept and a line of board designs
+that implement the technology. Born from Greybus, a mechanism for
+dynamically extending a Linux system with embedded peripherals,
+BeagleConnect adds two key elements: a 6LoWPAN transport and mikroBUS
+manifests. The 6LoWPAN transport provides for arbitrary connections,
+including the IEEE802.15.4g long-range wireless transport supported
+between BeaglePlay and BeagleConnect Freedom (the first BeagleConnect
+board design). The mikroBUS manifests provide for rapid prototyping
+and low-node-count production with sensor boards following the
+mikroBUS freely-licensable embedded bus standard such that existing
+Linux drivers can be loaded upon Greybus discovery of the nodes.
+This patch set provides the Linux-side hooks required for the 6LoWPAN
+transport for BeagleConnect on BeaglePlay. Also adds required devicetree
+additions.
 
-I'd suggest to leave it for now, we can expand as there is a need.
+Tested over `next-20230825`.
 
+Link: https://programmershideaway.xyz/tags/gsoc23/ GSoC23 Blog
+Link: https://git.beagleboard.org/gsoc/greybus/cc1352-firmware Zephyr App
+Link: https://github.com/Ayush1325/linux/tree/gb-beagleplay GitHub Branch
+Link: https://docs.beagleboard.org/latest/boards/beagleconnect/index.html BeagleConnect
+Link: https://docs.beagleboard.org/latest/boards/beagleplay/index.html BeaglePlay
+Link: https://github.com/Ayush1325/linux/tree/gb-beagleplay Github Repo
+Link: https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/thread/NYA3N2JYG3WIRCDXHYINNXYOCSVYRTSF/ Patch v6
+
+Changes in Patch v7
+v6 -> v7:
+- Drop speed variable
+- Fix commit message
+- add clock-names and descriptions
+- fix power lines
+
+v5 -> v6:
+- Rename compatible to `ti,cc1352p7`
+- Fix formatting
+- Use kerneldoc
+- Add clocks, power-gpios, reset-gpios to dt bindings
+
+v4 -> v5:
+- Move DT Bindings to net
+- Rename compatible to `beagle,play-cc1352`
+- Expose CC1352 as MCU
+- Remove redundant tracing messages
+- Fix memory leaks
+
+v3 -> v4:
+- Add DT Bindings
+- Reorder commits
+- Improve commit messages
+
+v2 -> v3:
+- Move gb-beagleplay out of staging
+
+v1 -> v2:
+- Combine the driver into a single file
+- Remove redundant code
+- Fix Checkpatch complaints
+- Other suggested changes
+
+
+Ayush Singh (3):
+  dt-bindings: net: Add ti,cc1352p7
+  greybus: Add BeaglePlay Linux Driver
+  dts: ti: k3-am625-beagleplay: Add beaglecc1352
+
+ .../devicetree/bindings/net/ti,cc1352p7.yaml  |  51 ++
+ MAINTAINERS                                   |   7 +
+ .../arm64/boot/dts/ti/k3-am625-beagleplay.dts |   4 +
+ drivers/greybus/Kconfig                       |  10 +
+ drivers/greybus/Makefile                      |   2 +
+ drivers/greybus/gb-beagleplay.c               | 501 ++++++++++++++++++
+ 6 files changed, 575 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
+ create mode 100644 drivers/greybus/gb-beagleplay.c
+
+
+base-commit: 6269320850097903b30be8f07a5c61d9f7592393
 -- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+2.41.0
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
