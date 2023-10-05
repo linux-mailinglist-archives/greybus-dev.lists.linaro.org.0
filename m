@@ -2,39 +2,41 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83DF77B9DF3
-	for <lists+greybus-dev@lfdr.de>; Thu,  5 Oct 2023 15:58:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E93CB7B9DF2
+	for <lists+greybus-dev@lfdr.de>; Thu,  5 Oct 2023 15:58:49 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 92C3F40CD7
-	for <lists+greybus-dev@lfdr.de>; Thu,  5 Oct 2023 13:58:55 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	by lists.linaro.org (Postfix) with ESMTPS id 7053340C33
-	for <greybus-dev@lists.linaro.org>; Thu,  5 Oct 2023 13:58:46 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 007CE40C33
+	for <lists+greybus-dev@lfdr.de>; Thu,  5 Oct 2023 13:58:49 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id 1AD2D3EFA7
+	for <greybus-dev@lists.linaro.org>; Thu,  5 Oct 2023 13:58:41 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=ptJJPyqo;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 145.40.73.55 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=V2p1hDhN;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
 	dmarc=pass (policy=none) header.from=linuxfoundation.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id E5A96CE22C6;
-	Thu,  5 Oct 2023 13:58:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8F81C43140;
-	Thu,  5 Oct 2023 13:58:42 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 9BC4761981;
+	Thu,  5 Oct 2023 13:58:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C52EEC43142;
+	Thu,  5 Oct 2023 13:58:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1696514323;
-	bh=DBqd7AkU7DoctJZB0I+61/B9KY1iQe4pE42vmDX0AyY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=ptJJPyqoL9jyG92VOx03xz1lMgofmxd2qO7NZ8CcbYm5yNHCMf8nWXbX/MjZZ1/p0
-	 7dYNC3pAj83a8hqUQHTLGOLoB+ip6enJbnbZM79ZLo1YtvXMZm2jG5NBCQ1qJfejBe
-	 F7TPvYBuxM+c6NXSTgjSJ1oJnleIeZ4gWTTe+nTM=
+	s=korg; t=1696514320;
+	bh=5pLx0oV6bg6h2ZrtEPu2Hn5oOoMFTmfUpUEMcaBhv+g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=V2p1hDhNf/h8zw4v3DVF9FkdwMg8Zai0AvvpOf6zl6cAvMGLEnG2C3kJ1Pcg4cMh0
+	 CVJoBGxwyXXULQuaiuFNr+sUtJqK7otsLII7covBEu3tWQX9exB8NpY4ytvpsYtevU
+	 eSJx+a+hcirGFtWg83gRzJW3vt+blGerh6PCca2o=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: greybus-dev@lists.linaro.org,
 	linux-staging@lists.linux.dev
-Date: Thu,  5 Oct 2023 15:58:34 +0200
-Message-ID: <2023100533-broadband-hunk-9e91@gregkh>
+Date: Thu,  5 Oct 2023 15:58:35 +0200
+Message-ID: <2023100534-showoff-alright-6c95@gregkh>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <2023100533-broadband-hunk-9e91@gregkh>
+References: <2023100533-broadband-hunk-9e91@gregkh>
 MIME-Version: 1.0
-Lines: 81
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2583; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=DBqd7AkU7DoctJZB0I+61/B9KY1iQe4pE42vmDX0AyY=; b=owGbwMvMwCRo6H6F97bub03G02pJDKlyBzlZa/er/6s6eWmpSMDJU2W7Z85/pXy59zTHbqslV bfNsqU9O2JZGASZGGTFFFm+bOM5ur/ikKKXoe1pmDmsTCBDGLg4BWAiNswM87Ofh/TaBruIr7LQ 6cre27FAw1iyimF+Wvd11YCnUT+1bhxWe2Ouuybf7cl+AA==
+Lines: 78
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2480; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=5pLx0oV6bg6h2ZrtEPu2Hn5oOoMFTmfUpUEMcaBhv+g=; b=owGbwMvMwCRo6H6F97bub03G02pJDKlyB7n2RddOaQudZy9QdP3BpG3GR5a513/qfyJ7xPTZn /hH+y+c7YhlYRBkYpAVU2T5so3n6P6KQ4pehranYeawMoEMYeDiFICJsOswLDj9Q1bJ/+TVPYLz o54GWQb1CJRvAYo21XEwR0Ssn8TzJK45Zn4p45FAL1EA
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 X-Spamd-Bar: +
 X-Spamd-Result: default: False [1.00 / 15.00];
@@ -43,11 +45,11 @@ X-Spamd-Result: default: False [1.00 / 15.00];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
 	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:145.40.73.55];
+	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
 	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
 	MIME_GOOD(-0.10)[text/plain];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	ASN(0.00)[asn:54825, ipnet:145.40.73.0/24, country:US];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
@@ -62,17 +64,17 @@ X-Spamd-Result: default: False [1.00 / 15.00];
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
 X-Spam-Level: *
-X-Rspamd-Queue-Id: 7053340C33
-Message-ID-Hash: SW5PTRMOWQMLYYSQBGZWFM5P6H255KUP
-X-Message-ID-Hash: SW5PTRMOWQMLYYSQBGZWFM5P6H255KUP
+X-Rspamd-Queue-Id: 1AD2D3EFA7
+Message-ID-Hash: GNR3QUOICMF4XDQU52E6OKMQ4BYOBCFT
+X-Message-ID-Hash: GNR3QUOICMF4XDQU52E6OKMQ4BYOBCFT
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH 1/3] staging: greybus: raw: make raw_class constant
+Subject: [greybus-dev] [PATCH 2/3] staging: greybus: authentication: make cap_class constant
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/SW5PTRMOWQMLYYSQBGZWFM5P6H255KUP/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GNR3QUOICMF4XDQU52E6OKMQ4BYOBCFT/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -92,75 +94,72 @@ Cc: Alex Elder <elder@kernel.org>
 Cc: greybus-dev@lists.linaro.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/staging/greybus/raw.c | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+ drivers/staging/greybus/authentication.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/staging/greybus/raw.c b/drivers/staging/greybus/raw.c
-index 8bca8cb12cc6..a00978c8e1d2 100644
---- a/drivers/staging/greybus/raw.c
-+++ b/drivers/staging/greybus/raw.c
-@@ -32,7 +32,10 @@ struct raw_data {
- 	u8 data[];
+diff --git a/drivers/staging/greybus/authentication.c b/drivers/staging/greybus/authentication.c
+index 7e01790a4659..b67315641d18 100644
+--- a/drivers/staging/greybus/authentication.c
++++ b/drivers/staging/greybus/authentication.c
+@@ -36,7 +36,10 @@ struct gb_cap {
+ 	dev_t			dev_num;
  };
  
--static struct class *raw_class;
-+static const struct class raw_class = {
-+	.name = "gb_raw",
+-static struct class *cap_class;
++static const struct class cap_class = {
++	.name = "gb_authenticate",
 +};
 +
- static int raw_major;
- static const struct file_operations raw_fops;
- static DEFINE_IDA(minors);
-@@ -195,7 +198,7 @@ static int gb_raw_probe(struct gb_bundle *bundle,
- 	if (retval)
- 		goto error_connection_disable;
+ static dev_t cap_dev_num;
+ static DEFINE_IDA(cap_minors_map);
+ static LIST_HEAD(cap_list);
+@@ -336,7 +339,7 @@ int gb_cap_connection_init(struct gb_connection *connection)
+ 		goto err_remove_ida;
  
--	raw->device = device_create(raw_class, &connection->bundle->dev,
-+	raw->device = device_create(&raw_class, &connection->bundle->dev,
- 				    raw->dev, raw, "gb!raw%d", minor);
- 	if (IS_ERR(raw->device)) {
- 		retval = PTR_ERR(raw->device);
-@@ -229,7 +232,7 @@ static void gb_raw_disconnect(struct gb_bundle *bundle)
- 	struct raw_data *temp;
+ 	/* Add a soft link to the previously added char-dev within the bundle */
+-	cap->class_device = device_create(cap_class, cap->parent, cap->dev_num,
++	cap->class_device = device_create(&cap_class, cap->parent, cap->dev_num,
+ 					  NULL, "gb-authenticate-%d", minor);
+ 	if (IS_ERR(cap->class_device)) {
+ 		ret = PTR_ERR(cap->class_device);
+@@ -370,7 +373,7 @@ void gb_cap_connection_exit(struct gb_connection *connection)
  
- 	// FIXME - handle removing a connection when the char device node is open.
--	device_destroy(raw_class, raw->dev);
-+	device_destroy(&raw_class, raw->dev);
- 	cdev_del(&raw->cdev);
- 	gb_connection_disable(connection);
- 	ida_simple_remove(&minors, MINOR(raw->dev));
-@@ -340,11 +343,9 @@ static int raw_init(void)
- 	dev_t dev;
- 	int retval;
+ 	cap = gb_connection_get_data(connection);
  
--	raw_class = class_create("gb_raw");
--	if (IS_ERR(raw_class)) {
--		retval = PTR_ERR(raw_class);
-+	retval = class_register(&raw_class);
-+	if (retval)
- 		goto error_class;
--	}
+-	device_destroy(cap_class, cap->dev_num);
++	device_destroy(&cap_class, cap->dev_num);
+ 	cdev_del(&cap->cdev);
+ 	ida_simple_remove(&cap_minors_map, MINOR(cap->dev_num));
  
- 	retval = alloc_chrdev_region(&dev, 0, NUM_MINORS, "gb_raw");
- 	if (retval < 0)
-@@ -361,7 +362,7 @@ static int raw_init(void)
- error_gb:
- 	unregister_chrdev_region(dev, NUM_MINORS);
- error_chrdev:
--	class_destroy(raw_class);
-+	class_unregister(&raw_class);
- error_class:
- 	return retval;
- }
-@@ -371,7 +372,7 @@ static void __exit raw_exit(void)
+@@ -402,9 +405,9 @@ int cap_init(void)
  {
- 	greybus_deregister(&gb_raw_driver);
- 	unregister_chrdev_region(MKDEV(raw_major, 0), NUM_MINORS);
--	class_destroy(raw_class);
-+	class_unregister(&raw_class);
- 	ida_destroy(&minors);
+ 	int ret;
+ 
+-	cap_class = class_create("gb_authenticate");
+-	if (IS_ERR(cap_class))
+-		return PTR_ERR(cap_class);
++	ret = class_register(&cap_class);
++	if (ret)
++		return ret;
+ 
+ 	ret = alloc_chrdev_region(&cap_dev_num, 0, NUM_MINORS,
+ 				  "gb_authenticate");
+@@ -414,13 +417,13 @@ int cap_init(void)
+ 	return 0;
+ 
+ err_remove_class:
+-	class_destroy(cap_class);
++	class_unregister(&cap_class);
+ 	return ret;
  }
- module_exit(raw_exit);
+ 
+ void cap_exit(void)
+ {
+ 	unregister_chrdev_region(cap_dev_num, NUM_MINORS);
+-	class_destroy(cap_class);
++	class_unregister(&cap_class);
+ 	ida_destroy(&cap_minors_map);
+ }
 -- 
 2.42.0
 
