@@ -2,75 +2,74 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD74B7BB8EA
-	for <lists+greybus-dev@lfdr.de>; Fri,  6 Oct 2023 15:20:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 861F97BED9B
+	for <lists+greybus-dev@lfdr.de>; Mon,  9 Oct 2023 23:53:12 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8A1FD3F23D
-	for <lists+greybus-dev@lfdr.de>; Fri,  6 Oct 2023 13:20:19 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	by lists.linaro.org (Postfix) with ESMTPS id 4332A40C57
-	for <greybus-dev@lists.linaro.org>; Fri,  6 Oct 2023 13:20:10 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 339093EAAE
+	for <lists+greybus-dev@lfdr.de>; Mon,  9 Oct 2023 21:53:11 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id 6F62C3EAAE
+	for <greybus-dev@lists.linaro.org>; Mon,  9 Oct 2023 21:53:04 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=Z0J5LgVg;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 145.40.68.75 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b=IyYdAZ9E;
+	spf=pass (lists.linaro.org: domain of gustavoars@kernel.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gustavoars@kernel.org;
+	dmarc=pass (policy=none) header.from=kernel.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 305D9B828DB;
-	Fri,  6 Oct 2023 13:20:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F146C433C9;
-	Fri,  6 Oct 2023 13:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1696598408;
-	bh=bkjpF90xs9W6T4GDw1pW54wVAZduRqdmSqenrnKSVcE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z0J5LgVgp4BGBGj1lMOMt+xJoI2Ba4Z7PR4IPip5Yn70+NgGSi1U3CbVMzOICe3C6
-	 OWTBOcaLvpI1LOPbT9SWpMjRCsNWYvhjbfpKKiNOdNJ/6UV1DvrAddOMfv3lL2N9/5
-	 bs+bsMdo/P4OjncA4lCHgwmI8uZ8KKf2e7fx9B1o=
-Date: Fri, 6 Oct 2023 15:20:05 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Deepak R Varma <drv@mailo.com>
-Message-ID: <2023100649-oxymoron-entrap-b959@gregkh>
-References: <2023100533-broadband-hunk-9e91@gregkh>
- <ZSAHoIN8p2ROXvh/@runicha.com>
+	by dfw.source.kernel.org (Postfix) with ESMTP id EE556613DC;
+	Mon,  9 Oct 2023 21:53:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CBB9C433C7;
+	Mon,  9 Oct 2023 21:53:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1696888383;
+	bh=W+VZfakyDjRAObO1dDQmRahEdfhe6IqKNZRo1tRwkuk=;
+	h=Date:From:To:Cc:Subject:From;
+	b=IyYdAZ9EdWVH9jfcqTIBghy4+Muh2EwEWNScrz4b6/aGOUsd4mtqMfoBGTvK0lO6c
+	 onA3n0Ti125FvNmSQK8G0nHnkQuQfLHPIw94GdKqymW9RjYlnO5rr8K59gXix6rYDv
+	 K+smp/Ptnv2nHzZokKGH0fagbuF1UXumVrzSuy0S+2dpj6k0oYedewNK8JDJCA4UBh
+	 2kaFeZIXRSskXp46DKazFRFkJSWh0LQUEl4WA4ZKmoYOfpOlfrz6Q1kGaCyWSDkKHV
+	 R+pJO6bQVK5kh2aPVWX0fFUVo6ErAoyTDyV3dCkv9qD4GYbDHRsqsj4TsHtEtYQEZn
+	 AaCet59ZGYm5w==
+Date: Mon, 9 Oct 2023 15:52:59 -0600
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <ZSR2O6zGyT/VX6ve@work>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZSAHoIN8p2ROXvh/@runicha.com>
-X-Spamd-Bar: /
-X-Spamd-Result: default: False [0.50 / 15.00];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.50 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
 	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:ams.source.kernel.org];
-	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,none];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+a:dfw.source.kernel.org];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ASN(0.00)[asn:54825, ipnet:145.40.68.0/24, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	URIBL_BLOCKED(0.00)[ams.source.kernel.org:helo,ams.source.kernel.org:rdns];
-	RCVD_COUNT_TWO(0.00)[2];
 	RCVD_TLS_LAST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	DKIM_TRACE(0.00)[linuxfoundation.org:+]
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[kernel.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 4332A40C57
-Message-ID-Hash: VFCTL57VGJ6IJZSYH4W36KNX5QI76INF
-X-Message-ID-Hash: VFCTL57VGJ6IJZSYH4W36KNX5QI76INF
-X-MailFrom: gregkh@linuxfoundation.org
+X-Rspamd-Queue-Id: 6F62C3EAAE
+Message-ID-Hash: 7KHVYETHIHJSTUEBDSWOJ6CQNVFIBQYB
+X-Message-ID-Hash: 7KHVYETHIHJSTUEBDSWOJ6CQNVFIBQYB
+X-MailFrom: gustavoars@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-hardening@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 1/3] staging: greybus: raw: make raw_class constant
+Subject: [greybus-dev] [PATCH][next] staging: greybus: Add __counted_by for struct apr_rx_buf and use struct_size()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/VFCTL57VGJ6IJZSYH4W36KNX5QI76INF/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/7KHVYETHIHJSTUEBDSWOJ6CQNVFIBQYB/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -80,27 +79,49 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 06, 2023 at 06:42:00PM +0530, Deepak R Varma wrote:
-> On Thu, Oct 05, 2023 at 03:58:34PM +0200, Greg Kroah-Hartman wrote:
-> > Now that the driver core allows for struct class to be in read-only
-> 
-> Hello Greg,
-> When you say "Now", has anything changed recently that facilitates this
-> improvement?
+Prepare for the coming implementation by GCC and Clang of the __counted_by
+attribute. Flexible array members annotated with __counted_by can have
+their accesses bounds-checked at run-time via CONFIG_UBSAN_BOUNDS (for
+array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
+functions).
 
-Yes.  Well, it showed up in the 6.4 kernel, so not that long ago.
+While there, use struct_size() helper, instead of the open-coded
+version, to calculate the size for the allocation of the whole
+flexible structure, including of course, the flexible-array member.
 
-> Where can I read more about this change?
+This code was found with the help of Coccinelle, and audited and
+fixed manually.
 
-Running:
-	git log --oneline --author=gregkh v6.3..v6.4 drivers/base/
-will show you the some of work that happened here to make this possible.
-There was work done to the driver core, and the kobject core in earlier
-kernel releases that the changes in 6.4 built on top of.
+Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+---
+ drivers/staging/greybus/raw.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-thanks,
+diff --git a/drivers/staging/greybus/raw.c b/drivers/staging/greybus/raw.c
+index a00978c8e1d2..b9c6eff7cdc1 100644
+--- a/drivers/staging/greybus/raw.c
++++ b/drivers/staging/greybus/raw.c
+@@ -29,7 +29,7 @@ struct gb_raw {
+ struct raw_data {
+ 	struct list_head entry;
+ 	u32 len;
+-	u8 data[];
++	u8 data[] __counted_by(len);
+ };
+ 
+ static const struct class raw_class = {
+@@ -73,7 +73,7 @@ static int receive_data(struct gb_raw *raw, u32 len, u8 *data)
+ 		goto exit;
+ 	}
+ 
+-	raw_data = kmalloc(sizeof(*raw_data) + len, GFP_KERNEL);
++	raw_data = kmalloc(struct_size(raw_data, data, len), GFP_KERNEL);
+ 	if (!raw_data) {
+ 		retval = -ENOMEM;
+ 		goto exit;
+-- 
+2.34.1
 
-greg k-h
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
