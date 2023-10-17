@@ -2,100 +2,104 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13E767CC03F
-	for <lists+greybus-dev@lfdr.de>; Tue, 17 Oct 2023 12:11:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 217827CC041
+	for <lists+greybus-dev@lfdr.de>; Tue, 17 Oct 2023 12:11:37 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D9B1140433
-	for <lists+greybus-dev@lfdr.de>; Tue, 17 Oct 2023 10:11:30 +0000 (UTC)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	by lists.linaro.org (Postfix) with ESMTPS id 358A43EA1B
-	for <greybus-dev@lists.linaro.org>; Tue, 17 Oct 2023 10:11:24 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 26CC340439
+	for <lists+greybus-dev@lfdr.de>; Tue, 17 Oct 2023 10:11:36 +0000 (UTC)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	by lists.linaro.org (Postfix) with ESMTPS id 342CA40440
+	for <greybus-dev@lists.linaro.org>; Tue, 17 Oct 2023 10:11:29 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=NqLAot7m;
-	spf=pass (lists.linaro.org: domain of ayushdevel1325@gmail.com designates 209.85.215.169 as permitted sender) smtp.mailfrom=ayushdevel1325@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=T4C86HFB;
+	spf=pass (lists.linaro.org: domain of ayushdevel1325@gmail.com designates 209.85.214.174 as permitted sender) smtp.mailfrom=ayushdevel1325@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-53fbf2c42bfso4095082a12.3
-        for <greybus-dev@lists.linaro.org>; Tue, 17 Oct 2023 03:11:24 -0700 (PDT)
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-1ca215cc713so16519085ad.3
+        for <greybus-dev@lists.linaro.org>; Tue, 17 Oct 2023 03:11:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697537483; x=1698142283; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TP+yHaT3MV6NArdvH5yoIRCANwfJASikQilnTxXadnY=;
-        b=NqLAot7mWv/f1crS1GhlWeqknUmH8m9/ShlqIsZtNWq3FWoRcGDXx9XQqTS0wZWgo9
-         V5ZD3n+Z5cdWostcOBem1CkEjY3TVzxM/I+CWSWqvMZr2OyMQBsDn3WsVEUd/lyPP4qi
-         q5v9h26a2fPOIMF2tPDc29OHYaymeBYuCsUpHh0/k5uljI7vmcNqD4k+3mCW2lKgrLv+
-         lAJcijMDS/hVNise/xWad6TM4bVtan0UYC/lq63MDfIXPq9IbPws+2H3Ho4RNOlRZAWe
-         2RZl0RkUcSwJ187RWd4blhGDRcZ0Ar85V9NYEjLPWyQynwHhPf9zl5id95Y5e1b9dr3S
-         Om/g==
+        d=gmail.com; s=20230601; t=1697537487; x=1698142287; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=L/xhityidHANRldjqCZLdwURqWfb6ZxMT/TSWeuUQRw=;
+        b=T4C86HFBHLxLVHoo5uDIinA0B0A9g4s4QbO7R9W2jiA/Cf7TLy3+HcNID7tOKehQf4
+         CLwd2pg+JiOcNCM4Ts8EskP6uYEH/soP52KTBHBPLc1szKzrS42Is2uqIE2AVMmkS+ZV
+         RRqlGgoFRjeJIiVCpm3hPdXe1obQKmgVkfquxvVWx/WSA+Ry7d6TvsfpNhjNw2S6UwpZ
+         z+xprgsNtX8nnkEmpR/oJuy+QXmvdAJ8V9e9Uh8MbgDXtsGjTpyZ9iU/WMXd/EuKI6lO
+         D70+OKDi1hq/Vr59Hnw8QFrNqYatDlenhwSeC9qewl1DkJYuwzsQNCtkaC+PsjCwHFdD
+         m0tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697537483; x=1698142283;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TP+yHaT3MV6NArdvH5yoIRCANwfJASikQilnTxXadnY=;
-        b=Q5fDZd7t5kBvMFkUiBm7TfwUSt6r/Ai6SJdKzM26k2FYw7DLQe2h+RVw61tycWFymw
-         qUzGV9es1cpqHGheKOXivft7nGPIlZ6m4bMyv3u/GMcNa4kBhXbLSwjWh55TJYRnKb2W
-         LTwX5CDTv8uav8l7rdUzgVrSCgxbTVID8f0qJi6Bx7lied919dkrpTcNWJDUMpPKAqKF
-         N5FmIxkgqlED25Ja7AF9NXEfY4Sstt1vY7hzCFJWABYcEt5q4o1Th4v8/6tXJu5uMX8/
-         DCqBiI9z3DtFbz7mpuLsQQ1D81jTMlcE4z8/XPLkXGi9Z8DITts1s9ZJvaL5/ec0LgrC
-         Z0xA==
-X-Gm-Message-State: AOJu0YyVpZ5aLAp1Tn3GTyPpU3ACfTMOR8Th3u1E+ZvHQx+jYONSYaQi
-	Vj+DBsr9rqlsQ5epRqtNS58EVLx7AtgbkQ==
-X-Google-Smtp-Source: AGHT+IFv5Ij+lYOunw/pXkSzHDIoX8M+fWEaXeai9SMXKos/VOq7HPRDaYj9nbQKVbQcXvs0HxdQrg==
-X-Received: by 2002:a05:6a21:3b46:b0:171:6b28:75c5 with SMTP id zy6-20020a056a213b4600b001716b2875c5mr1404253pzb.56.1697537482804;
-        Tue, 17 Oct 2023 03:11:22 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1697537487; x=1698142287;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=L/xhityidHANRldjqCZLdwURqWfb6ZxMT/TSWeuUQRw=;
+        b=MsmR9q+Cigfk7Wjji5oCe2u/php6XNFDvTBYVeHRbe6xjbq8BNYbcbps98kx8cgaLR
+         2onN3ugFVDHpH7uIv0zvD/U1qi+u3eb3hMViVnmk7X2Wrv+rac0fdStwtrhQJwqKzREQ
+         UAlTIDcNDB59uLzIUszKtxa2pep+aaPZq8ym9LhsUSl6B5jpaf1YB0BLmTYy7DmCjPPf
+         WLWOA2J5LjKrukC1Vrz07adxtXVqrVHNTx+GKH0XgFgXcXqXmpvcafrAqkYTwaX23abS
+         PC0dA9XRIBBtoKEVWkzoSWvAyAG/pGapqORNaJHMruTw/IA5Rmdk7W+rP+o85GWoSFkP
+         ve4A==
+X-Gm-Message-State: AOJu0Yw+r8sw9o+8E4GU6Z7pZYj47z/wnYxWVERVGKHqFDLUe3FAgWBb
+	j2j47iaZhJ7lUAJ5KgsC9wnlUfWF6CzoPw==
+X-Google-Smtp-Source: AGHT+IERzA5Z7Z0TYiNwEpJH1G57kh34XWYQ19Y6Czdr8THGHCovdeCYtJWE1UDEHzJ5penp9zhgfQ==
+X-Received: by 2002:a17:902:ce8b:b0:1ca:3d53:2867 with SMTP id f11-20020a170902ce8b00b001ca3d532867mr2062576plg.15.1697537487400;
+        Tue, 17 Oct 2023 03:11:27 -0700 (PDT)
 Received: from toolbox.iitism.net ([103.15.228.94])
-        by smtp.gmail.com with ESMTPSA id q9-20020a170902dac900b001bbb8d5166bsm1127634plx.123.2023.10.17.03.11.19
+        by smtp.gmail.com with ESMTPSA id q9-20020a170902dac900b001bbb8d5166bsm1127634plx.123.2023.10.17.03.11.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Oct 2023 03:11:22 -0700 (PDT)
+        Tue, 17 Oct 2023 03:11:26 -0700 (PDT)
 From: Ayush Singh <ayushdevel1325@gmail.com>
 To: greybus-dev@lists.linaro.org
-Date: Tue, 17 Oct 2023 15:41:11 +0530
-Message-ID: <20231017101116.178041-1-ayushdevel1325@gmail.com>
+Date: Tue, 17 Oct 2023 15:41:12 +0530
+Message-ID: <20231017101116.178041-2-ayushdevel1325@gmail.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20231017101116.178041-1-ayushdevel1325@gmail.com>
+References: <20231017101116.178041-1-ayushdevel1325@gmail.com>
 MIME-Version: 1.0
-X-Spamd-Bar: -
-X-Spamd-Result: default: False [-1.10 / 15.00];
+X-Spamd-Bar: -----
+X-Spamd-Result: default: False [-5.10 / 15.00];
+	REPLY(-4.00)[];
 	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
 	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_MISSING_CHARSET(0.50)[];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.215.169:from];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	ARC_NA(0.00)[];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.174:from];
 	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,linuxfoundation.org,beagleboard.org,ti.com,linaro.org];
-	TAGGED_RCPT(0.00)[dt];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	NEURAL_HAM(-0.00)[-1.000];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,linuxfoundation.org,beagleboard.org,ti.com,linaro.org,kernel.org,lists.infradead.org];
 	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
 	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	TAGGED_RCPT(0.00)[dt];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FROM_HAS_DN(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 358A43EA1B
-Message-ID-Hash: PCT44XC76LIO4ZMNHMBMO2QFZ3SRGVVA
-X-Message-ID-Hash: PCT44XC76LIO4ZMNHMBMO2QFZ3SRGVVA
+X-Rspamd-Queue-Id: 342CA40440
+Message-ID-Hash: RCKKP4MUCUGFZFBU7XX22T63CRNVVSPH
+X-Message-ID-Hash: RCKKP4MUCUGFZFBU7XX22T63CRNVVSPH
 X-MailFrom: ayushdevel1325@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Ayush Singh <ayushdevel1325@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, vaishnav@beagleboard.org, nm@ti.com, krzysztof.kozlowski+dt@linaro.org
+CC: Ayush Singh <ayushdevel1325@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, vaishnav@beagleboard.org, nm@ti.com, krzysztof.kozlowski+dt@linaro.org, vigneshr@ti.com, kristo@kernel.org, robh+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v9 0/3] greybus: Add BeaglePlay Greybus Driver
+Subject: [greybus-dev] [PATCH v9 1/3] dt-bindings: net: Add ti,cc1352p7
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/PCT44XC76LIO4ZMNHMBMO2QFZ3SRGVVA/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/RCKKP4MUCUGFZFBU7XX22T63CRNVVSPH/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -105,91 +109,96 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-BeagleConnect is both a technology concept and a line of board designs
-that implement the technology. Born from Greybus, a mechanism for
-dynamically extending a Linux system with embedded peripherals,
-BeagleConnect adds two key elements: a 6LoWPAN transport and mikroBUS
-manifests. The 6LoWPAN transport provides for arbitrary connections,
-including the IEEE802.15.4g long-range wireless transport supported
-between BeaglePlay and BeagleConnect Freedom (the first BeagleConnect
-board design). The mikroBUS manifests provide for rapid prototyping
-and low-node-count production with sensor boards following the
-mikroBUS freely-licensable embedded bus standard such that existing
-Linux drivers can be loaded upon Greybus discovery of the nodes.
-This patch set provides the Linux-side hooks required for the 6LoWPAN
-transport for BeagleConnect on BeaglePlay. Also adds required devicetree
-additions.
+Add DT bindings for Texas Instruments Simplelink CC1352P7 wireless MCU
 
-Tested over `next-20230825`.
+BeaglePlay has CC1352P7 co-processor connected to the main AM62 (running
+Linux) over UART. In the BeagleConnect Technology, CC1352 is responsible
+for handling 6LoWPAN communication with beagleconnect freedom nodes as
+well as their discovery.
 
-Link: https://programmershideaway.xyz/tags/gsoc23/ GSoC23 Blog
-Link: https://git.beagleboard.org/gsoc/greybus/cc1352-firmware Zephyr App
-Link: https://github.com/Ayush1325/linux/tree/gb-beagleplay GitHub Branch
-Link: https://docs.beagleboard.org/latest/boards/beagleconnect/index.html BeagleConnect
-Link: https://docs.beagleboard.org/latest/boards/beagleplay/index.html BeaglePlay
-Link: https://github.com/Ayush1325/linux/tree/gb-beagleplay Github Repo
-Link: https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/thread/5RQV7OG5KI4BQWRN5ZCGZIFRMM6ERKPP/ Patch v8
-
-Changes in Patch v9
-v8 -> v9:
-- Some capitalization in dt-bindings
-- add reset-gpios and vdds-supply to beagleplay device tree
-
-v7 -> v8:
-- fix clocks
-- fix reset-gpios
-- depend on serdev
-
-v6 -> v7:
-- Drop speed variable
-- Fix commit message
-- add clock-names and descriptions
-- fix power lines
-
-v5 -> v6:
-- Rename compatible to `ti,cc1352p7`
-- Fix formatting
-- Use kerneldoc
-- Add clocks, power-gpios, reset-gpios to dt bindings
-
-v4 -> v5:
-- Move DT Bindings to net
-- Rename compatible to `beagle,play-cc1352`
-- Expose CC1352 as MCU
-- Remove redundant tracing messages
-- Fix memory leaks
-
-v3 -> v4:
-- Add DT Bindings
-- Reorder commits
-- Improve commit messages
-
-v2 -> v3:
-- Move gb-beagleplay out of staging
-
-v1 -> v2:
-- Combine the driver into a single file
-- Remove redundant code
-- Fix Checkpatch complaints
-- Other suggested changes
-
-Ayush Singh (3):
-  dt-bindings: net: Add ti,cc1352p7
-  greybus: Add BeaglePlay Linux Driver
-  dts: ti: k3-am625-beagleplay: Add beaglecc1352
-
- .../devicetree/bindings/net/ti,cc1352p7.yaml  |  51 ++
- MAINTAINERS                                   |   7 +
- .../arm64/boot/dts/ti/k3-am625-beagleplay.dts |   6 +
- drivers/greybus/Kconfig                       |  10 +
- drivers/greybus/Makefile                      |   2 +
- drivers/greybus/gb-beagleplay.c               | 501 ++++++++++++++++++
- 6 files changed, 577 insertions(+)
+Signed-off-by: Ayush Singh <ayushdevel1325@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Reviewed-by: Nishanth Menon <nm@ti.com>
+---
+ .../devicetree/bindings/net/ti,cc1352p7.yaml  | 51 +++++++++++++++++++
+ MAINTAINERS                                   |  6 +++
+ 2 files changed, 57 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
- create mode 100644 drivers/greybus/gb-beagleplay.c
 
-
-base-commit: 6269320850097903b30be8f07a5c61d9f7592393
+diff --git a/Documentation/devicetree/bindings/net/ti,cc1352p7.yaml b/Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
+new file mode 100644
+index 000000000000..3dde10de4630
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
+@@ -0,0 +1,51 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/ti,cc1352p7.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments Simplelink CC1352P7 wireless MCU
++
++description:
++  The CC1352P7 MCU can be connected via SPI or UART.
++
++maintainers:
++  - Ayush Singh <ayushdevel1325@gmail.com>
++
++properties:
++  compatible:
++    const: ti,cc1352p7
++
++  clocks:
++    items:
++      - description: high-frequency main system (MCU and peripherals) clock
++      - description: low-frequency system clock
++
++  clock-names:
++    items:
++      - const: sclk_hf
++      - const: sclk_lf
++
++  reset-gpios:
++    maxItems: 1
++
++  vdds-supply: true
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    serial {
++      mcu {
++        compatible = "ti,cc1352p7";
++        clocks = <&sclk_hf 0>, <&sclk_lf 25>;
++        clock-names = "sclk_hf", "sclk_lf";
++        reset-gpios = <&pio 35 GPIO_ACTIVE_LOW>;
++        vdds-supply = <&vdds>;
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 37b9626ee654..5467669d7963 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8969,6 +8969,12 @@ F:	drivers/staging/greybus/sdio.c
+ F:	drivers/staging/greybus/spi.c
+ F:	drivers/staging/greybus/spilib.c
+ 
++GREYBUS BEAGLEPLAY DRIVERS
++M:	Ayush Singh <ayushdevel1325@gmail.com>
++L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
++
+ GREYBUS SUBSYSTEM
+ M:	Johan Hovold <johan@kernel.org>
+ M:	Alex Elder <elder@kernel.org>
 -- 
 2.41.0
 
