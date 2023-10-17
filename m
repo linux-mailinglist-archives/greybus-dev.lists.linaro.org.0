@@ -2,95 +2,143 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 957817F5FE1
-	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 14:15:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80A347F6625
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 19:26:16 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A6C7A4030A
-	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 13:15:27 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	by lists.linaro.org (Postfix) with ESMTPS id 46A0A3F52E
-	for <greybus-dev@lists.linaro.org>; Thu, 23 Nov 2023 13:15:20 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 8CFB440A7C
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 18:26:15 +0000 (UTC)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	by lists.linaro.org (Postfix) with ESMTPS id 4FEC23EA1B
+	for <greybus-dev@lists.linaro.org>; Tue, 17 Oct 2023 02:35:50 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=oW+fyBse;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 145.40.68.75 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 41C38B80FBF;
-	Thu, 23 Nov 2023 13:15:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DAE9C433C8;
-	Thu, 23 Nov 2023 13:15:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1700745318;
-	bh=K+DNH7DzHe6581zgyhM/KZXPPp8xkP+h7tBgMCoC63w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oW+fyBsed4oLSs6iEResGo9tBuulLceSKzmMTOuaPcZqATIV20wNvM1cGR8KCo1X/
-	 plBoAoc15qQjBoM8l/OGDKJBzp2Lsskg3DcEZseQxM+lwMOGIN/uSHSvf/rVROk8L6
-	 s3eBZyHQ5QYOh+tbMCc6g+TBWOhs/Uo8704WbH30=
-Date: Thu, 23 Nov 2023 12:55:35 +0000
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <2023112331-flagpole-unloader-b72e@gregkh>
-References: <20231121134901.208535-1-u.kleine-koenig@pengutronix.de>
- <20231121134901.208535-104-u.kleine-koenig@pengutronix.de>
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=N0VeWKo5;
+	spf=pass (lists.linaro.org: domain of nandhakumar.singaram@gmail.com designates 209.85.210.182 as permitted sender) smtp.mailfrom=nandhakumar.singaram@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-6b87c1edfd5so2214458b3a.1
+        for <greybus-dev@lists.linaro.org>; Mon, 16 Oct 2023 19:35:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1697510149; x=1698114949; darn=lists.linaro.org;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=adVf8A3/crcNLY+ksyRtmx34jr6J2QTaDzuwLDhSC/s=;
+        b=N0VeWKo5+u8brn/9trMDnCRCv3mTWN9mcsy6yGbmBRG6WY2fohly7cXideHMV0hSct
+         GhD14iCxxDODKOGzHPhuKPTzWaD/NJFaNdLSL2VrnTTYIrJrGqXFFzMVcu1eictH8P1H
+         APlarr2g795jrhouES9WSNmVaz3CCpdtY94bb0eHkhI0Em4WW6huHq8Ruab3OjAjkMsC
+         aNPh6S9cFozWc7vfEGld9DRdGPySQK2OtL6Xq8k/+k99vQ00WZuosT3tzCi282Nn6vXc
+         GoHoAMMfVaTAjKjvctVXOC6I77U6SmyVBRqRXfpkyy4bG4w+bpuhOjw+aN+z0cleUisy
+         aGtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697510149; x=1698114949;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=adVf8A3/crcNLY+ksyRtmx34jr6J2QTaDzuwLDhSC/s=;
+        b=ma1VG+lbhnc++T16OX52M2cvz6DQZZtb5y4zZGq9wA9H0160M0tDOdaEH0g8TOWD0a
+         s04DOgWNh8qHhjniVyZ7uBBN33L+IndTY6uQWmlm46k8FhU9y+liVpTeyQELIRKSmaNo
+         geY4FsOPc0HTr8pKPOLSL7uR8LM9upGpl2cAZ3EQcrnqGUr58wxKOSzh9iMGz3krM7Fv
+         OaiQJo0YTOmFogOC6UpKnGVM4xHuxrMghUrjxiViHERqaxAimAe8z0F3qmvrjin6Q4rE
+         oPV6Y5k8r93i9GKD9RXjNjsNi+gEJ3n3qZi/c1g1ipmzWyBorhLKH2gvmCEKa7w3i273
+         AB+g==
+X-Gm-Message-State: AOJu0YyTXqr7LTHL1jn21r9fmWbHmZlk2beOfD5GqwEdBZt62mG8uhTW
+	9VnqcjkKrfhesb+rEpuyWmQ=
+X-Google-Smtp-Source: AGHT+IGsxCdNX8EsBwdlLG99DRr/sy9DKnvwetQovuD3b+34tn5DtoIYTWI4DKjHRYl0JJQ2+vjVbQ==
+X-Received: by 2002:a05:6a00:158f:b0:691:2d4:23b2 with SMTP id u15-20020a056a00158f00b0069102d423b2mr1185579pfk.15.1697510149277;
+        Mon, 16 Oct 2023 19:35:49 -0700 (PDT)
+Received: from ubuntu ([223.226.54.200])
+        by smtp.gmail.com with ESMTPSA id x28-20020aa79a5c000000b0068fb9f98467sm248234pfj.107.2023.10.16.19.35.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Oct 2023 19:35:48 -0700 (PDT)
+Date: Mon, 16 Oct 2023 19:35:44 -0700
+From: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
+To: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
+	Mark Greer <mgreer@animalcreek.com>,
+	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Message-ID: <20231017023544.GA6684@ubuntu>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231121134901.208535-104-u.kleine-koenig@pengutronix.de>
-X-Rspamd-Queue-Id: 46A0A3F52E
-X-Spamd-Bar: /
-X-Spamd-Result: default: False [0.50 / 15.00];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
-	BAYES_HAM(-3.00)[99.99%];
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.10 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
 	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
-	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
-	R_SPF_ALLOW(-0.20)[+ip4:145.40.68.75];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.182:from];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:54825, ipnet:145.40.68.0/24, country:US];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,animalcreek.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[linuxfoundation.org:+]
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	NEURAL_HAM(-0.00)[-0.998];
+	TAGGED_RCPT(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVFROM(0.00)[gmail.com]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: FGHJ5SSNUCRDGRUXQ7DLC34U2OJVKPI2
-X-Message-ID-Hash: FGHJ5SSNUCRDGRUXQ7DLC34U2OJVKPI2
-X-MailFrom: gregkh@linuxfoundation.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, kernel@pengutronix.de
+X-Rspamd-Queue-Id: 4FEC23EA1B
+X-MailFrom: nandhakumar.singaram@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: FWSHRXMB22PTKEIN3PD34M55WI6PESMB
+X-Message-ID-Hash: FWSHRXMB22PTKEIN3PD34M55WI6PESMB
+X-Mailman-Approved-At: Thu, 23 Nov 2023 18:26:10 +0000
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v3 103/108] staging: greybus: pwm: Make use of devm_pwmchip_alloc() function
+Subject: [greybus-dev] [PATCH] staging: greybus: Modify lines end with a '('
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FGHJ5SSNUCRDGRUXQ7DLC34U2OJVKPI2/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FWSHRXMB22PTKEIN3PD34M55WI6PESMB/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 21, 2023 at 02:50:45PM +0100, Uwe Kleine-K=F6nig wrote:
-> This prepares the greybus pwm driver to further changes of the pwm core
-> outlined in the commit introducing devm_pwmchip_alloc(). There is no
-> intended semantical change and the driver should behave as before.
->=20
-> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-> ---
->  drivers/staging/greybus/pwm.c | 75 ++++++++++-------------------------
->  1 file changed, 20 insertions(+), 55 deletions(-)
+Adhere to linux coding style. Reported by checkpatch.pl:
+CHECK: Lines should not end with a '('
 
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
+---
+ drivers/staging/greybus/audio_manager_private.h | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/staging/greybus/audio_manager_private.h b/drivers/staging/greybus/audio_manager_private.h
+index 2b3a766c7de7..daca5b48b986 100644
+--- a/drivers/staging/greybus/audio_manager_private.h
++++ b/drivers/staging/greybus/audio_manager_private.h
+@@ -12,10 +12,9 @@
+ 
+ #include "audio_manager.h"
+ 
+-int gb_audio_manager_module_create(
+-	struct gb_audio_manager_module **module,
+-	struct kset *manager_kset,
+-	int id, struct gb_audio_manager_module_descriptor *desc);
++int gb_audio_manager_module_create(struct gb_audio_manager_module **module,
++				   struct kset *manager_kset, int id,
++				   struct gb_audio_manager_module_descriptor *desc);
+ 
+ /* module destroyed via kobject_put */
+ 
+-- 
+2.25.1
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
