@@ -2,105 +2,103 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80A347F6625
-	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 19:26:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF56E7F6626
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 19:26:21 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8CFB440A7C
-	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 18:26:15 +0000 (UTC)
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	by lists.linaro.org (Postfix) with ESMTPS id 4FEC23EA1B
-	for <greybus-dev@lists.linaro.org>; Tue, 17 Oct 2023 02:35:50 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id D5F4A40447
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 18:26:20 +0000 (UTC)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	by lists.linaro.org (Postfix) with ESMTPS id 96B293EFEA
+	for <greybus-dev@lists.linaro.org>; Thu, 19 Oct 2023 21:39:55 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=N0VeWKo5;
-	spf=pass (lists.linaro.org: domain of nandhakumar.singaram@gmail.com designates 209.85.210.182 as permitted sender) smtp.mailfrom=nandhakumar.singaram@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b="cxDCby/S";
+	spf=pass (lists.linaro.org: domain of nandhakumar.singaram@gmail.com designates 209.85.214.179 as permitted sender) smtp.mailfrom=nandhakumar.singaram@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-6b87c1edfd5so2214458b3a.1
-        for <greybus-dev@lists.linaro.org>; Mon, 16 Oct 2023 19:35:50 -0700 (PDT)
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-1bf55a81eeaso1216765ad.0
+        for <greybus-dev@lists.linaro.org>; Thu, 19 Oct 2023 14:39:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697510149; x=1698114949; darn=lists.linaro.org;
+        d=gmail.com; s=20230601; t=1697751595; x=1698356395; darn=lists.linaro.org;
         h=content-disposition:mime-version:message-id:subject:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=adVf8A3/crcNLY+ksyRtmx34jr6J2QTaDzuwLDhSC/s=;
-        b=N0VeWKo5+u8brn/9trMDnCRCv3mTWN9mcsy6yGbmBRG6WY2fohly7cXideHMV0hSct
-         GhD14iCxxDODKOGzHPhuKPTzWaD/NJFaNdLSL2VrnTTYIrJrGqXFFzMVcu1eictH8P1H
-         APlarr2g795jrhouES9WSNmVaz3CCpdtY94bb0eHkhI0Em4WW6huHq8Ruab3OjAjkMsC
-         aNPh6S9cFozWc7vfEGld9DRdGPySQK2OtL6Xq8k/+k99vQ00WZuosT3tzCi282Nn6vXc
-         GoHoAMMfVaTAjKjvctVXOC6I77U6SmyVBRqRXfpkyy4bG4w+bpuhOjw+aN+z0cleUisy
-         aGtg==
+        bh=Bzd/mX+G6RAAmLpCVFwycoQWQ7+3hjDN3n5S0L3+DGw=;
+        b=cxDCby/SrI4jy90y9ULgE6Y0svkT5CJ9qr/L9jv2iLPoxeS+VdvNj069FXQ8BB1lW1
+         ahUqwqsOvEaTWOqJhfVI/waH+5Cvv5dUsyaMfhdVJ6BTYuRDv/SqYBzQtsK1AvJR8rdv
+         1Ma7N5TXCh4B7TtotNtC47evnehXrVFhCjyrbWPnb/CMW1qRynd1FnbmAPOXS49r+IKq
+         hzUyeYYQdjvyVRGVvu2NTCdqAds/8CzlIYD/uoC/MWDR+3NQWCdD09x5aUiAqhXqpuBV
+         rCVc9KnL58tP6KUpjl6EXAnMFTsgy3u6BLlsGAAls3GKAUxSozAZWyueZg25Ioe3Ijyi
+         TnFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697510149; x=1698114949;
+        d=1e100.net; s=20230601; t=1697751595; x=1698356395;
         h=content-disposition:mime-version:message-id:subject:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=adVf8A3/crcNLY+ksyRtmx34jr6J2QTaDzuwLDhSC/s=;
-        b=ma1VG+lbhnc++T16OX52M2cvz6DQZZtb5y4zZGq9wA9H0160M0tDOdaEH0g8TOWD0a
-         s04DOgWNh8qHhjniVyZ7uBBN33L+IndTY6uQWmlm46k8FhU9y+liVpTeyQELIRKSmaNo
-         geY4FsOPc0HTr8pKPOLSL7uR8LM9upGpl2cAZ3EQcrnqGUr58wxKOSzh9iMGz3krM7Fv
-         OaiQJo0YTOmFogOC6UpKnGVM4xHuxrMghUrjxiViHERqaxAimAe8z0F3qmvrjin6Q4rE
-         oPV6Y5k8r93i9GKD9RXjNjsNi+gEJ3n3qZi/c1g1ipmzWyBorhLKH2gvmCEKa7w3i273
-         AB+g==
-X-Gm-Message-State: AOJu0YyTXqr7LTHL1jn21r9fmWbHmZlk2beOfD5GqwEdBZt62mG8uhTW
-	9VnqcjkKrfhesb+rEpuyWmQ=
-X-Google-Smtp-Source: AGHT+IGsxCdNX8EsBwdlLG99DRr/sy9DKnvwetQovuD3b+34tn5DtoIYTWI4DKjHRYl0JJQ2+vjVbQ==
-X-Received: by 2002:a05:6a00:158f:b0:691:2d4:23b2 with SMTP id u15-20020a056a00158f00b0069102d423b2mr1185579pfk.15.1697510149277;
-        Mon, 16 Oct 2023 19:35:49 -0700 (PDT)
-Received: from ubuntu ([223.226.54.200])
-        by smtp.gmail.com with ESMTPSA id x28-20020aa79a5c000000b0068fb9f98467sm248234pfj.107.2023.10.16.19.35.46
+        bh=Bzd/mX+G6RAAmLpCVFwycoQWQ7+3hjDN3n5S0L3+DGw=;
+        b=I6LSz98P2WuyuZSa6U8Z3Ir7h0P182L4+UYII08AZUF4xCztSCntkGpyBF4vTQY+GR
+         OMBKPLjdH7MQnADkvoA2SyjOjks7IZpRR33FjY9PTg+IMVaqyEhzMZemNGuHc2EdUXY8
+         9BW4FK/6Cbvgp/K/VaQTFcsH08AJKFGuwnRNEzotULN2lKfAZ8TLavHJEKo/Et9EbXWk
+         zUlBc9kREQmJU73iKdfB6vous7SVRsikZ0Y2H9Zddm4spNfKhQNW1eKwABC/+aFGWkaR
+         rmk2Mj9fTw+c0iz9X7EXoE2PmFLv62NzY5neiUvKaCrLIt2DxnZctVINGbeegqHspV9g
+         reog==
+X-Gm-Message-State: AOJu0YzdldORLEIlJNyo5f+2pcWm9+VQ0jV4qxqkhmeYTAcMpCHbIM00
+	mRxUp2OyDVm4a4rps7d4yDM=
+X-Google-Smtp-Source: AGHT+IEew7sjFWHoyX6Y6D3tw3dxh1tKP/k/G09xg9iUhwupWSCDOHHKl3pt+RSE+yOl7VXPtuGVCg==
+X-Received: by 2002:a17:902:eb84:b0:1c3:62c4:7f12 with SMTP id q4-20020a170902eb8400b001c362c47f12mr176220plg.5.1697751594598;
+        Thu, 19 Oct 2023 14:39:54 -0700 (PDT)
+Received: from ubuntu ([122.167.60.51])
+        by smtp.gmail.com with ESMTPSA id jh4-20020a170903328400b001bb9bc8d232sm182694plb.61.2023.10.19.14.39.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Oct 2023 19:35:48 -0700 (PDT)
-Date: Mon, 16 Oct 2023 19:35:44 -0700
+        Thu, 19 Oct 2023 14:39:54 -0700 (PDT)
+Date: Thu, 19 Oct 2023 14:39:49 -0700
 From: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
-To: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
-	Mark Greer <mgreer@animalcreek.com>,
-	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+To: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Message-ID: <20231017023544.GA6684@ubuntu>
+Message-ID: <20231019213949.GA2922@ubuntu>
 MIME-Version: 1.0
 Content-Disposition: inline
-X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.10 / 15.00];
+X-Spamd-Bar: ---------
+X-Spamd-Result: default: False [-9.10 / 15.00];
+	DWL_DNSWL_HI(-3.50)[gmail.com:dkim];
 	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
+	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
+	RCVD_IN_DNSWL_HI(-1.00)[122.167.60.51:received,209.85.214.179:from];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	MID_RHS_NOT_FQDN(0.50)[];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.182:from];
 	MIME_GOOD(-0.10)[text/plain];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.179:from];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,animalcreek.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
-	FROM_HAS_DN(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	TAGGED_FROM(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:+];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
 	RCVD_COUNT_TWO(0.00)[2];
 	FROM_EQ_ENVFROM(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	NEURAL_HAM(-0.00)[-0.998];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVFROM(0.00)[gmail.com]
+	RCPT_COUNT_FIVE(0.00)[6]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 4FEC23EA1B
+X-Rspamd-Queue-Id: 96B293EFEA
 X-MailFrom: nandhakumar.singaram@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: FWSHRXMB22PTKEIN3PD34M55WI6PESMB
-X-Message-ID-Hash: FWSHRXMB22PTKEIN3PD34M55WI6PESMB
-X-Mailman-Approved-At: Thu, 23 Nov 2023 18:26:10 +0000
+Message-ID-Hash: OT6YALST6LR7KH3VYF7HV7HZDAY44FSI
+X-Message-ID-Hash: OT6YALST6LR7KH3VYF7HV7HZDAY44FSI
+X-Mailman-Approved-At: Thu, 23 Nov 2023 18:26:11 +0000
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: Modify lines end with a '('
+Subject: [greybus-dev] [PATCH] staging: greybus: Alignment should match open parenthesis
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FWSHRXMB22PTKEIN3PD34M55WI6PESMB/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OT6YALST6LR7KH3VYF7HV7HZDAY44FSI/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -111,31 +109,59 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 Adhere to linux coding style. Reported by checkpatch.pl:
-CHECK: Lines should not end with a '('
+CHECK: Alignment should match open parenthesis
 
 Signed-off-by: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
 ---
- drivers/staging/greybus/audio_manager_private.h | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/staging/greybus/camera.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/staging/greybus/audio_manager_private.h b/drivers/staging/greybus/audio_manager_private.h
-index 2b3a766c7de7..daca5b48b986 100644
---- a/drivers/staging/greybus/audio_manager_private.h
-+++ b/drivers/staging/greybus/audio_manager_private.h
-@@ -12,10 +12,9 @@
+diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/camera.c
+index cdbb42cd413b..405c8e78aa72 100644
+--- a/drivers/staging/greybus/camera.c
++++ b/drivers/staging/greybus/camera.c
+@@ -220,7 +220,7 @@ static int gb_camera_operation_sync_flags(struct gb_connection *connection,
+ }
  
- #include "audio_manager.h"
+ static int gb_camera_get_max_pkt_size(struct gb_camera *gcam,
+-		struct gb_camera_configure_streams_response *resp)
++				      struct gb_camera_configure_streams_response *resp)
+ {
+ 	unsigned int max_pkt_size = 0;
+ 	unsigned int i;
+@@ -267,8 +267,7 @@ static int gb_camera_get_max_pkt_size(struct gb_camera *gcam,
+  * Validate the stream configuration response verifying padding is correctly
+  * set and the returned number of streams is supported
+  */
+-static const int gb_camera_configure_streams_validate_response(
+-		struct gb_camera *gcam,
++static const int gb_camera_configure_streams_validate_response(struct gb_camera *gcam,
+ 		struct gb_camera_configure_streams_response *resp,
+ 		unsigned int nstreams)
+ {
+@@ -378,8 +377,8 @@ struct ap_csi_config_request {
+ #define GB_CAMERA_CSI_CLK_FREQ_MARGIN		150000000U
  
--int gb_audio_manager_module_create(
--	struct gb_audio_manager_module **module,
--	struct kset *manager_kset,
--	int id, struct gb_audio_manager_module_descriptor *desc);
-+int gb_audio_manager_module_create(struct gb_audio_manager_module **module,
-+				   struct kset *manager_kset, int id,
-+				   struct gb_audio_manager_module_descriptor *desc);
+ static int gb_camera_setup_data_connection(struct gb_camera *gcam,
+-		struct gb_camera_configure_streams_response *resp,
+-		struct gb_camera_csi_params *csi_params)
++					   struct gb_camera_configure_streams_response *resp,
++					   struct gb_camera_csi_params *csi_params)
+ {
+ 	struct ap_csi_config_request csi_cfg;
+ 	struct gb_connection *conn;
+@@ -783,8 +782,9 @@ static ssize_t gb_camera_op_capabilities(void *priv, char *data, size_t len)
+ }
  
- /* module destroyed via kobject_put */
- 
+ static int gb_camera_op_configure_streams(void *priv, unsigned int *nstreams,
+-		unsigned int *flags, struct gb_camera_stream *streams,
+-		struct gb_camera_csi_params *csi_params)
++					  unsigned int *flags,
++					  struct gb_camera_stream *streams,
++					  struct gb_camera_csi_params *csi_params)
+ {
+ 	struct gb_camera *gcam = priv;
+ 	struct gb_camera_stream_config *gb_streams;
 -- 
 2.25.1
 
