@@ -2,61 +2,62 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809D97D2296
-	for <lists+greybus-dev@lfdr.de>; Sun, 22 Oct 2023 12:25:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2241A7D22D6
+	for <lists+greybus-dev@lfdr.de>; Sun, 22 Oct 2023 13:18:50 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 5370440B6A
-	for <lists+greybus-dev@lfdr.de>; Sun, 22 Oct 2023 10:25:01 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	by lists.linaro.org (Postfix) with ESMTPS id 23AF73EC22
-	for <greybus-dev@lists.linaro.org>; Sun, 22 Oct 2023 10:24:55 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 28E0E3F5C2
+	for <lists+greybus-dev@lfdr.de>; Sun, 22 Oct 2023 11:18:49 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by lists.linaro.org (Postfix) with ESMTPS id 42A683EC4B
+	for <greybus-dev@lists.linaro.org>; Sun, 22 Oct 2023 11:18:43 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=U+vuhcxP;
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=afBYMa61;
 	dmarc=pass (policy=none) header.from=linuxfoundation.org;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 145.40.73.55 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 145.40.68.75 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 2B757CE1AC0;
-	Sun, 22 Oct 2023 10:24:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8D9C433C7;
-	Sun, 22 Oct 2023 10:24:50 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id 231E1B810DF;
+	Sun, 22 Oct 2023 11:18:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2082FC433C8;
+	Sun, 22 Oct 2023 11:18:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1697970291;
-	bh=rocEYGXI/G9okpJsJE4vyG5wyCbThbR7bpXwTaR8FhM=;
+	s=korg; t=1697973521;
+	bh=7HLrsmOIb/DsMFPqh3P97aAYxVWou/9n9huI2vTErUc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=U+vuhcxP3ETlx3q42gJfPFqDUbIFHHddIqCkL3O1kk8C1lB66NWtIiVKORS2ny9WU
-	 MVa2Vg09sUBLZgqyOwGTW/v+yCXd0FRlX2mjoudtIsg/7N2EmUAGOYCNdzWLezSRin
-	 p0D2WJuvQCHq1nB6hdZe946Fu0o2lK9zoaV0xyrc=
-Date: Sun, 22 Oct 2023 12:24:48 +0200
+	b=afBYMa61PkdIdJQViO3od6LRZ597VUgJM5vacKWgQ8WKaLcu/TMmQRIecWLsg7uo3
+	 yjMkTKg+c3aIPME85+ZxaMfsDQD/difEl/lB/H1Y4tj7gAYwmo/nDkaWx+cBMwzwyY
+	 XYUBp21Y1Y7AxPg65QRciAxCDYrgZCWM82npfLUE=
+Date: Sun, 22 Oct 2023 13:18:38 +0200
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
-Message-ID: <2023102210-undead-pucker-a1f2@gregkh>
-References: <20231021214840.GA6557@ubuntu>
+Message-ID: <2023102217-irregular-accurate-a84a@gregkh>
+References: <cover.1697969950.git.nandhakumar.singaram@gmail.com>
+ <827f8417afa3943e8b71910a7ba88ea35614dd2c.1697969950.git.nandhakumar.singaram@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231021214840.GA6557@ubuntu>
+In-Reply-To: <827f8417afa3943e8b71910a7ba88ea35614dd2c.1697969950.git.nandhakumar.singaram@gmail.com>
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 23AF73EC22
+X-Rspamd-Queue-Id: 42A683EC4B
 X-Spamd-Bar: ++
 X-Spamd-Result: default: False [2.00 / 15.00];
 	MID_END_EQ_FROM_USER_PART(4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
+	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
 	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
-	R_SPF_ALLOW(-0.20)[+ip4:145.40.73.55];
+	R_SPF_ALLOW(-0.20)[+ip4:145.40.68.75];
 	MIME_GOOD(-0.10)[text/plain];
 	TAGGED_RCPT(0.00)[];
 	ARC_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:54825, ipnet:145.40.73.0/24, country:US];
+	ASN(0.00)[asn:54825, ipnet:145.40.68.0/24, country:US];
 	MIME_TRACE(0.00)[0:+];
 	FREEMAIL_TO(0.00)[gmail.com];
 	NEURAL_HAM(-0.00)[-1.000];
 	TO_DN_SOME(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FREEMAIL_CC(0.00)[kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	FROM_EQ_ENVFROM(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
@@ -64,16 +65,16 @@ X-Spamd-Result: default: False [2.00 / 15.00];
 	DKIM_TRACE(0.00)[linuxfoundation.org:+]
 X-Rspamd-Action: no action
 X-Spam-Level: **
-Message-ID-Hash: MUHWMDAKLVD62G55UFJFTXZJVM7UQADF
-X-Message-ID-Hash: MUHWMDAKLVD62G55UFJFTXZJVM7UQADF
+Message-ID-Hash: 74QRCC7MC3EGJDNPHMYSDXSAIHCW5QTP
+X-Message-ID-Hash: 74QRCC7MC3EGJDNPHMYSDXSAIHCW5QTP
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, kumaran.4353@gmail.com
+CC: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, kumaran.4353@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: avoid macro argument precedence issues
+Subject: [greybus-dev] Re: [PATCH 1/3] staging: greybus: Modify lines end with a '('
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/MUHWMDAKLVD62G55UFJFTXZJVM7UQADF/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/74QRCC7MC3EGJDNPHMYSDXSAIHCW5QTP/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -83,35 +84,18 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 21, 2023 at 02:48:40PM -0700, Nandha Kumar Singaram wrote:
-> Adhere to linux coding style, added parentheses around
-> macro argument 'gcam'.
-> CHECK: Macro argument 'gcam' may be better as '(gcam)' to
-> avoid precedence issues
+On Sun, Oct 22, 2023 at 03:39:28AM -0700, Nandha Kumar Singaram wrote:
+> Adhere to linux coding style. Reported by checkpatch.pl:
+> CHECK: Lines should not end with a '('
 > 
 > Signed-off-by: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
 > ---
->  drivers/staging/greybus/camera.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/camera.c
-> index cdbb42cd413b..ae49e37a87e9 100644
-> --- a/drivers/staging/greybus/camera.c
-> +++ b/drivers/staging/greybus/camera.c
-> @@ -180,9 +180,9 @@ static const struct gb_camera_fmt_info *gb_camera_get_format_info(u16 gb_fmt)
->  
->  #define GB_CAMERA_MAX_SETTINGS_SIZE	8192
->  
-> -#define gcam_dbg(gcam, format...)	dev_dbg(&gcam->bundle->dev, format)
-> -#define gcam_info(gcam, format...)	dev_info(&gcam->bundle->dev, format)
-> -#define gcam_err(gcam, format...)	dev_err(&gcam->bundle->dev, format)
-> +#define gcam_dbg(gcam, format...)	dev_dbg(&(gcam)->bundle->dev, format)
-> +#define gcam_info(gcam, format...)	dev_info(&(gcam)->bundle->dev, format)
-> +#define gcam_err(gcam, format...)	dev_err(&(gcam)->bundle->dev, format)
+>  drivers/staging/greybus/camera.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 
-Sorry, but checkpatch is wrong here, this is not a problem at all.  Look
-at what you changed and think about if the macro argument could actually
-be anything other than a pointer.
+Subject line should be:
+	"staging: greybus: camera: Modify..."
+right?
 
 thanks,
 
