@@ -2,75 +2,75 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBD457F6636
-	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 19:27:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82F797F6637
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 19:27:48 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id F149540ADF
-	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 18:27:41 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	by lists.linaro.org (Postfix) with ESMTPS id F12D53EFD6
-	for <greybus-dev@lists.linaro.org>; Sun, 22 Oct 2023 12:18:10 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 8ABA53EF5A
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 18:27:47 +0000 (UTC)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	by lists.linaro.org (Postfix) with ESMTPS id 1F3253EC22
+	for <greybus-dev@lists.linaro.org>; Sun, 22 Oct 2023 12:22:17 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=nq8DRcl8;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=CwuFgeze;
 	dmarc=pass (policy=none) header.from=gmail.com;
-	spf=pass (lists.linaro.org: domain of nandhakumar.singaram@gmail.com designates 209.85.210.178 as permitted sender) smtp.mailfrom=nandhakumar.singaram@gmail.com
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-6b36e1fcea0so1744251b3a.1
-        for <greybus-dev@lists.linaro.org>; Sun, 22 Oct 2023 05:18:10 -0700 (PDT)
+	spf=pass (lists.linaro.org: domain of nandhakumar.singaram@gmail.com designates 209.85.214.174 as permitted sender) smtp.mailfrom=nandhakumar.singaram@gmail.com
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-1cace3e142eso10501015ad.3
+        for <greybus-dev@lists.linaro.org>; Sun, 22 Oct 2023 05:22:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697977090; x=1698581890; darn=lists.linaro.org;
+        d=gmail.com; s=20230601; t=1697977336; x=1698582136; darn=lists.linaro.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=PE4+6mfVrbVPnjzZCicIAFyglp4nXFWxs8H1/H4u0+Y=;
-        b=nq8DRcl8DRnnm3ywvCCN4/b27fV/zjS1uqxr+xAJ5uJI3aoIjybhkVS+LttnLpEpE/
-         ZhNaWbLvHm3eCvAxE7PPp5kvknZalC1VTBAxyWkRoaUyv+3lXpGX8D1NkFb2/jywR+cc
-         dcgvcCEXAgUb9KJIuuyGedsI1bM3TVd+NrO/PIJkW+3N+Dh5H428J86Zj60PNCPLoTcA
-         vWhkgCLeI+3KxixAbm4ZFRQcl3LD9l1bONwjpocDPPgk79Wv4JbYGo+GBQk8pdcWxF1M
-         AvI7RjtQFp2TsnC1j8llMYYdY2FulP1MkZjDVBPhM6GCh/sSbUllpR3hPLEcyytUUWEE
-         zyBQ==
+        bh=Ytqp4yNQw6UYpoau4Yu6tPgcTfKhaPGEv4GOXMbKcHo=;
+        b=CwuFgezeZtpFc4/ohmpdFc+ZdSRHhWItFeS8UWYqrcNkXIrdZBNXG6ayxp+0kKF0dA
+         FIlckg1WO2/UiK7Y6kHnoQU0VQ1EvAmFEBTUbqnl520hTCROg7ma07usKOdNZl1BvoBe
+         5Sg+qgzIrFtsqmoTLj/b7lqSr33aUhkNQFTfu5GLvmgRG9Sdk6nr9tEq87OrSqhmy3jI
+         pVBYR0gLDibf+7OEYIKBk21GZNoQR2oHKDfxWDluFeqOo8eyKSDgd2P3KJ+R+vXP89B4
+         nDkzM3fKE8j8JV7U+bcyNCsFoFIiKWyOfyq10CTZoPyflBkHXGjdtsWEnQcz9bW39lM5
+         qm3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697977090; x=1698581890;
+        d=1e100.net; s=20230601; t=1697977336; x=1698582136;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PE4+6mfVrbVPnjzZCicIAFyglp4nXFWxs8H1/H4u0+Y=;
-        b=G4j6BT2TPjaPxPuyIp2W/R1QN1fGm3BS4206Ii0+qXYmp+xsg9jndXjY3ePy71a34h
-         1RoF+IltigFqbHK6IAFGQdXgFFQT5L6acLHSZtaU4b1KVboxJpSXD0c/t71j5T+iKVAM
-         GK2E5gRSAsk1e0vaKdFRST6Tm7UxLQFGrOMKzBdGr7sTxXeNJ0piOf6wyvFiGnd3MEmq
-         WgXnwMEibxZ0vAFzqWdRDZJi4XzkAIcucMXIZYf2KW+IG4d8kMATdZfCpK3RX6UfS15x
-         e/E3yj3anpzl+tjEJYQNm7xahSfG+UwnbVsQv23YoZCvUZ1Awp23OG6es1jXX7gaO+QQ
-         oUzQ==
-X-Gm-Message-State: AOJu0YxnU0lFe637czxLdNyS39PrqA+KFTEBSQmvQIe8x466qHg5vrfy
-	rnOQLSWtt1gAeyPNnb0nLsY=
-X-Google-Smtp-Source: AGHT+IE8H30sWK+Ba1pN9DY8WJX2lDbNtDqXWBEsdV+UbFfQ0u9AgPoZsSFH8lJmSevKs6+8uTVHPQ==
-X-Received: by 2002:a05:6a00:9398:b0:68b:a137:3739 with SMTP id ka24-20020a056a00939800b0068ba1373739mr5872707pfb.4.1697977090042;
-        Sun, 22 Oct 2023 05:18:10 -0700 (PDT)
+        bh=Ytqp4yNQw6UYpoau4Yu6tPgcTfKhaPGEv4GOXMbKcHo=;
+        b=tvVhIqufQ8KaFBrZAkrmDUEc6LRif6NeD1iRtX+iR7nlRA9Os8kxaMsahseMNPckc0
+         IibA4gKqjC76NReFXLLPdO8yyvXqg4Uk0S0fBtUAqoWrNBOYAvPSqOl+N80vRtTFO4nE
+         xDyzVyX1Ywx0rx5WAgG90Q35vFuwvQm6oyxbZlH4zR3aOgkW1zsTs42lVgTd9UHC9FcB
+         OPi7icCy4BnGLTPPTTiJMrZPOF0wKGjcxdVrKlnvMlXWZbBep4ioxX//sPxOoUrxhU5Q
+         cfDMqaF9HVOgTgvOu9lzzWm/yShaC7gn1QtTXMXJESvrOsTnvkg3vW2cWYY7EtSsDftr
+         upjw==
+X-Gm-Message-State: AOJu0Yy0mz4AlZ3rw6ZfAbCM/6qqQI+KgNMonV7FX9zy+xhNGIP0KANS
+	T3OI9It8L0oy4Zh5Gn5Ny/o=
+X-Google-Smtp-Source: AGHT+IF1FBY7sLm9rNomTWAVxhv2/l5Ypb5rjdG1xEhEaWJX2DT9XfTahzDniulHJdMPesFNNO62Kg==
+X-Received: by 2002:a17:902:c948:b0:1c9:e0f9:a676 with SMTP id i8-20020a170902c94800b001c9e0f9a676mr5156866pla.6.1697977336197;
+        Sun, 22 Oct 2023 05:22:16 -0700 (PDT)
 Received: from ubuntu ([122.171.143.200])
-        by smtp.gmail.com with ESMTPSA id t3-20020a6564c3000000b005ac384b71cbsm3599506pgv.60.2023.10.22.05.18.07
+        by smtp.gmail.com with ESMTPSA id m15-20020a170902db0f00b001bbb8d5166bsm4341897plx.123.2023.10.22.05.22.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Oct 2023 05:18:09 -0700 (PDT)
-Date: Sun, 22 Oct 2023 05:18:01 -0700
+        Sun, 22 Oct 2023 05:22:15 -0700 (PDT)
+Date: Sun, 22 Oct 2023 05:22:11 -0700
 From: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
 To: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
 	Alex Elder <elder@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Message-ID: <5f63b332c83f5f0e95f59e673b0292c27fecb411.1697976302.git.nandhakumar.singaram@gmail.com>
+Message-ID: <39be7bb04ce1362b00aa31a638ebe2e88dd81fec.1697976302.git.nandhakumar.singaram@gmail.com>
 References: <cover.1697976302.git.nandhakumar.singaram@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <cover.1697976302.git.nandhakumar.singaram@gmail.com>
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: F12D53EFD6
+X-Rspamd-Queue-Id: 1F3253EC22
 X-Spamd-Bar: --
 X-Spamd-Result: default: False [-2.60 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.178:from];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.174:from];
 	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
@@ -95,15 +95,15 @@ X-Rspamd-Action: no action
 X-MailFrom: nandhakumar.singaram@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: TVVBC7FPYZLNC4VMDY7UTRZQFHH5BIDI
-X-Message-ID-Hash: TVVBC7FPYZLNC4VMDY7UTRZQFHH5BIDI
-X-Mailman-Approved-At: Thu, 23 Nov 2023 18:26:54 +0000
+Message-ID-Hash: TYQGBWLYZOGO5AM3EJBNBYMQ4Q6EIKVT
+X-Message-ID-Hash: TYQGBWLYZOGO5AM3EJBNBYMQ4Q6EIKVT
+X-Mailman-Approved-At: Thu, 23 Nov 2023 18:26:55 +0000
 CC: kumaran.4353@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 2/3] staging: greybus: camera: Modify lines end with a '('
+Subject: [greybus-dev] [PATCH v2 3/3] staging: greybus: bootrom: fixed prefer using ftrace warning
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TVVBC7FPYZLNC4VMDY7UTRZQFHH5BIDI/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TYQGBWLYZOGO5AM3EJBNBYMQ4Q6EIKVT/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -114,27 +114,26 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 Adhere to linux coding style. Reported by checkpatch.pl:
-CHECK: Lines should not end with a '('
+WARNING: Unnecessary ftrace-like logging - prefer using ftrace
 
 Signed-off-by: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
 ---
- drivers/staging/greybus/camera.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/staging/greybus/bootrom.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/camera.c
-index 6516e7efaab9..40d3b8aca8f0 100644
---- a/drivers/staging/greybus/camera.c
-+++ b/drivers/staging/greybus/camera.c
-@@ -267,8 +267,7 @@ static int gb_camera_get_max_pkt_size(struct gb_camera *gcam,
-  * Validate the stream configuration response verifying padding is correctly
-  * set and the returned number of streams is supported
-  */
--static const int gb_camera_configure_streams_validate_response(
--		struct gb_camera *gcam,
-+static const int gb_camera_configure_streams_validate_response(struct gb_camera *gcam,
- 		struct gb_camera_configure_streams_response *resp,
- 		unsigned int nstreams)
+diff --git a/drivers/staging/greybus/bootrom.c b/drivers/staging/greybus/bootrom.c
+index a8efb86de140..79581457c4af 100644
+--- a/drivers/staging/greybus/bootrom.c
++++ b/drivers/staging/greybus/bootrom.c
+@@ -491,8 +491,6 @@ static void gb_bootrom_disconnect(struct gb_bundle *bundle)
  {
+ 	struct gb_bootrom *bootrom = greybus_get_drvdata(bundle);
+ 
+-	dev_dbg(&bundle->dev, "%s\n", __func__);
+-
+ 	gb_connection_disable(bootrom->connection);
+ 
+ 	/* Disable timeouts */
 -- 
 2.25.1
 
