@@ -2,202 +2,174 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFD5A7D8424
-	for <lists+greybus-dev@lfdr.de>; Thu, 26 Oct 2023 16:00:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45A697D881D
+	for <lists+greybus-dev@lfdr.de>; Thu, 26 Oct 2023 20:18:14 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id DA7C13E94E
-	for <lists+greybus-dev@lfdr.de>; Thu, 26 Oct 2023 14:00:35 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
-	by lists.linaro.org (Postfix) with ESMTPS id 8E9043E94E
-	for <greybus-dev@lists.linaro.org>; Thu, 26 Oct 2023 14:00:29 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 4B9A83F37B
+	for <lists+greybus-dev@lfdr.de>; Thu, 26 Oct 2023 18:18:13 +0000 (UTC)
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+	by lists.linaro.org (Postfix) with ESMTPS id A85D23F088
+	for <greybus-dev@lists.linaro.org>; Thu, 26 Oct 2023 18:18:07 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=intel.com header.s=Intel header.b="j8VxZBm/";
-	dmarc=pass (policy=none) header.from=intel.com;
-	spf=pass (lists.linaro.org: domain of lkp@intel.com designates 192.55.52.93 as permitted sender) smtp.mailfrom=lkp@intel.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1698328829; x=1729864829;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hMIb6jIAp5cnu41iskfx2yl/V0PgGK/sntAZ4A8XnVI=;
-  b=j8VxZBm/iSeiqKeo5X/tKh4GB8+OLLzGYEjUuGvrYX6GrZloGxXstYgM
-   v+i0FG4S1Bba8Sy4spu2H/0MSgnjcdGOuJ+qs6othoUkzzpQ1zQWVJwDs
-   VVr3XBs4xStaBppYEwwBLLd1FDWAyAnfJA/xZFIH9HpZhPe0175AFFP2Z
-   jGaH4kw46DFhXZN9MPxGT2SjZinmE5e9qf5A5x98DoPj5n5amJaGa6qsn
-   aDwVsHYZGp4A3+dJYrb9cAF8K8p5FisCX4H6T7yk8EX6k3iCWfo5Qe4nR
-   FjVHZtu9wrO9eNHJZ6jFd4rotQualFpoaNcDyajuh87H9etgSrxWD3BKP
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="384761287"
-X-IronPort-AV: E=Sophos;i="6.03,253,1694761200";
-   d="scan'208";a="384761287"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2023 07:00:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="752759221"
-X-IronPort-AV: E=Sophos;i="6.03,253,1694761200";
-   d="scan'208";a="752759221"
-Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
-  by orsmga007.jf.intel.com with ESMTP; 26 Oct 2023 07:00:23 -0700
-Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qw0uL-0009q3-1h;
-	Thu, 26 Oct 2023 14:00:21 +0000
-Date: Thu, 26 Oct 2023 22:00:01 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ayush Singh <ayushdevel1325@gmail.com>, greybus-dev@lists.linaro.org
-Message-ID: <202310262150.cA8h8EiZ-lkp@intel.com>
-References: <20231017101116.178041-2-ayushdevel1325@gmail.com>
+	dkim=pass header.d=ieee.org header.s=google header.b=C10zcibt;
+	dmarc=pass (policy=quarantine) header.from=ieee.org;
+	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.210.50 as permitted sender) smtp.mailfrom=elder@ieee.org
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-6ce2d4567caso741373a34.2
+        for <greybus-dev@lists.linaro.org>; Thu, 26 Oct 2023 11:18:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ieee.org; s=google; t=1698344287; x=1698949087; darn=lists.linaro.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0Zrdmi0PlCbzd03QyeNEy+ZQ9+9RTjcBkZ1MibcLC6s=;
+        b=C10zcibt/zFiQomt18ZR1DnwjH06lWUJC/4CQ3O0kXTTkVxSZ/hjcnpHj9gBMoGWxz
+         6mfAnVIpGNiGBhyv2IlxdED9No4zC0hY/9kGI13ya0CndEUdVsKVMzB9skVD3Bc23Syv
+         poEN1cbk8uqw5ruejn8VFQ0Pt16vmNcsAekec=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698344287; x=1698949087;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0Zrdmi0PlCbzd03QyeNEy+ZQ9+9RTjcBkZ1MibcLC6s=;
+        b=aIUPMFE62KmyiG8URP73eXdg3b3UwrhwH7RH2vDiGJHIYfuj2QZaCLdPt8KaGao8AA
+         PlrtXqGyuu8zrz11nkeI3UD/VD7y/lrwPUNClO2hHVNs00Ty1X25vKfvZDIX5oezwGvP
+         updGCs4hBW+xgCyc1xIa5qVKXofhqsNNHJDL5rdu3sfDKvSXx8LlTTwPQ0yGixKXNTXH
+         kq8OodOvmaS5erH5Y8VIQCNTIbKRfYL6BVokXex5lGO39IuZMZWLKhVDy6GgOhjgPHz4
+         mnsOnVKZ0V6w0Rpeo5DY0j9fLFrhax8J/pvPwitTLt68cTk8dQTeWrG6pgeUysGLx5bO
+         Ji6A==
+X-Gm-Message-State: AOJu0Yyl9joU4LKvb5AfxvnrRO+wNQ7Hpye8ndB+OVwY6+POLDVRjy4b
+	BfQDobjs41sX/J3s4a9DPA0Xbg==
+X-Google-Smtp-Source: AGHT+IEhH9iVCLpzD7q41stWzYUMoDwk7Inn9AfGlPa4LLttvZiBlDsYRkt/rVnmVZRzHuZbvXTnNg==
+X-Received: by 2002:a05:6830:3d0e:b0:6c0:7bab:3457 with SMTP id eu14-20020a0568303d0e00b006c07bab3457mr173489otb.20.1698344287106;
+        Thu, 26 Oct 2023 11:18:07 -0700 (PDT)
+Received: from [172.22.22.28] (c-98-61-227-136.hsd1.mn.comcast.net. [98.61.227.136])
+        by smtp.googlemail.com with ESMTPSA id x144-20020a4a4196000000b00581f11e81c7sm607913ooa.7.2023.10.26.11.18.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Oct 2023 11:18:06 -0700 (PDT)
+Message-ID: <7703f20b-60e1-4140-8380-5a5157bc49b0@ieee.org>
+Date: Thu, 26 Oct 2023 13:18:04 -0500
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231017101116.178041-2-ayushdevel1325@gmail.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>,
+ Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
+ Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <cover.1697976302.git.nandhakumar.singaram@gmail.com>
+ <d2630a16ff9eca40b03dcade63c197fdd5e5b78f.1697976302.git.nandhakumar.singaram@gmail.com>
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <d2630a16ff9eca40b03dcade63c197fdd5e5b78f.1697976302.git.nandhakumar.singaram@gmail.com>
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 8E9043E94E
-X-Spamd-Bar: ----
-X-Spamd-Result: default: False [-4.50 / 15.00];
+X-Rspamd-Queue-Id: A85D23F088
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.59 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	WHITELIST_SPF_DKIM(-3.00)[intel.com:d:+,intel.com:s:+];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[intel.com,none];
-	R_DKIM_ALLOW(-0.20)[intel.com:s=Intel];
-	R_SPF_ALLOW(-0.20)[+ip4:192.55.52.93/32];
+	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	ASN(0.00)[asn:4983, ipnet:192.55.52.0/24, country:US];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,vger.kernel.org,linuxfoundation.org,beagleboard.org,ti.com,linaro.org,kernel.org,lists.infradead.org];
-	TAGGED_RCPT(0.00)[dt];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.50:from];
+	XM_UA_NO_VERSION(0.01)[];
+	FREEMAIL_CC(0.00)[gmail.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,lists.linaro.org];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
 	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[ieee.org:+];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RCVD_COUNT_TWO(0.00)[2];
 	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	DKIM_TRACE(0.00)[intel.com:+]
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DWL_DNSWL_BLOCKED(0.00)[ieee.org:dkim];
+	TO_DN_SOME(0.00)[]
 X-Rspamd-Action: no action
-Message-ID-Hash: 3WD2BNI7AKFRDNSCAFWW7WKU4PCOGWEH
-X-Message-ID-Hash: 3WD2BNI7AKFRDNSCAFWW7WKU4PCOGWEH
-X-MailFrom: lkp@intel.com
+Message-ID-Hash: MMVGDHJKMWNIUFXA2A7BW2LA3LZI6VSE
+X-Message-ID-Hash: MMVGDHJKMWNIUFXA2A7BW2LA3LZI6VSE
+X-MailFrom: elder@ieee.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: oe-kbuild-all@lists.linux.dev, Ayush Singh <ayushdevel1325@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, vaishnav@beagleboard.org, nm@ti.com, krzysztof.kozlowski+dt@linaro.org, vigneshr@ti.com, kristo@kernel.org, robh+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, Krzysztof Kozlowski <krzk@kernel.org>
+CC: kumaran.4353@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v9 1/3] dt-bindings: net: Add ti,cc1352p7
+Subject: [greybus-dev] Re: [PATCH v2 1/3] staging: greybus: camera: Alignment should match open parenthesis
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/3WD2BNI7AKFRDNSCAFWW7WKU4PCOGWEH/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/MMVGDHJKMWNIUFXA2A7BW2LA3LZI6VSE/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="us-ascii"; format="flowed"
 Content-Transfer-Encoding: 7bit
 
-Hi Ayush,
+On 10/22/23 7:15 AM, Nandha Kumar Singaram wrote:
+> Adhere to linux coding style. Reported by checkpatch.pl:
+> CHECK: Alignment should match open parenthesis
 
-kernel test robot noticed the following build warnings:
+Generally, the result of this patch in isolation looks OK.
+But when you compare it with your next patch, what you're
+doing here becomes inconsistent with the indentation used
+for the function arguments there.
 
-[auto build test WARNING on 6269320850097903b30be8f07a5c61d9f7592393]
+There is value in consistency as advocated by checkpatch,
+but there's also value in consistency within a single
+source file.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ayush-Singh/dt-bindings-net-Add-ti-cc1352p7/20231017-181305
-base:   6269320850097903b30be8f07a5c61d9f7592393
-patch link:    https://lore.kernel.org/r/20231017101116.178041-2-ayushdevel1325%40gmail.com
-patch subject: [PATCH v9 1/3] dt-bindings: net: Add ti,cc1352p7
-compiler: loongarch64-linux-gcc (GCC) 13.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20231026/202310262150.cA8h8EiZ-lkp@intel.com/reproduce)
+I'd stay away from these white space changes.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202310262150.cA8h8EiZ-lkp@intel.com/
+					-Alex
 
-dtcheck warnings: (new ones prefixed by >>)
->> Documentation/devicetree/bindings/mtd/amlogic,meson-nand.yaml:70:27: [error] string value is redundantly quoted with any quotes (quoted-strings)
-   Documentation/devicetree/bindings/mtd/amlogic,meson-nand.yaml:71:28: [error] string value is redundantly quoted with any quotes (quoted-strings)
+> Signed-off-by: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
+> ---
+>   drivers/staging/greybus/camera.c | 10 +++++-----
+>   1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/camera.c
+> index ae49e37a87e9..6516e7efaab9 100644
+> --- a/drivers/staging/greybus/camera.c
+> +++ b/drivers/staging/greybus/camera.c
+> @@ -220,7 +220,7 @@ static int gb_camera_operation_sync_flags(struct gb_connection *connection,
+>   }
+>   
+>   static int gb_camera_get_max_pkt_size(struct gb_camera *gcam,
+> -		struct gb_camera_configure_streams_response *resp)
+> +				      struct gb_camera_configure_streams_response *resp)
+>   {
+>   	unsigned int max_pkt_size = 0;
+>   	unsigned int i;
+> @@ -378,8 +378,8 @@ struct ap_csi_config_request {
+>   #define GB_CAMERA_CSI_CLK_FREQ_MARGIN		150000000U
+>   
+>   static int gb_camera_setup_data_connection(struct gb_camera *gcam,
+> -		struct gb_camera_configure_streams_response *resp,
+> -		struct gb_camera_csi_params *csi_params)
+> +					   struct gb_camera_configure_streams_response *resp,
+> +					   struct gb_camera_csi_params *csi_params)
+>   {
+>   	struct ap_csi_config_request csi_cfg;
+>   	struct gb_connection *conn;
+> @@ -783,8 +783,8 @@ static ssize_t gb_camera_op_capabilities(void *priv, char *data, size_t len)
+>   }
+>   
+>   static int gb_camera_op_configure_streams(void *priv, unsigned int *nstreams,
+> -		unsigned int *flags, struct gb_camera_stream *streams,
+> -		struct gb_camera_csi_params *csi_params)
+> +					  unsigned int *flags, struct gb_camera_stream *streams,
+> +					  struct gb_camera_csi_params *csi_params)
+>   {
+>   	struct gb_camera *gcam = priv;
+>   	struct gb_camera_stream_config *gb_streams;
 
-vim +70 Documentation/devicetree/bindings/mtd/amlogic,meson-nand.yaml
-
-fbc00b5e746f13 Liang Yang      2022-09-07   8  
-fbc00b5e746f13 Liang Yang      2022-09-07   9  allOf:
-fbc00b5e746f13 Liang Yang      2022-09-07  10    - $ref: nand-controller.yaml
-fbc00b5e746f13 Liang Yang      2022-09-07  11  
-fbc00b5e746f13 Liang Yang      2022-09-07  12  maintainers:
-fbc00b5e746f13 Liang Yang      2022-09-07  13    - liang.yang@amlogic.com
-fbc00b5e746f13 Liang Yang      2022-09-07  14  
-fbc00b5e746f13 Liang Yang      2022-09-07  15  properties:
-fbc00b5e746f13 Liang Yang      2022-09-07  16    compatible:
-fbc00b5e746f13 Liang Yang      2022-09-07  17      enum:
-fbc00b5e746f13 Liang Yang      2022-09-07  18        - amlogic,meson-gxl-nfc
-fbc00b5e746f13 Liang Yang      2022-09-07  19        - amlogic,meson-axg-nfc
-fbc00b5e746f13 Liang Yang      2022-09-07  20  
-fbc00b5e746f13 Liang Yang      2022-09-07  21    reg:
-fbc00b5e746f13 Liang Yang      2022-09-07  22      maxItems: 2
-fbc00b5e746f13 Liang Yang      2022-09-07  23  
-fbc00b5e746f13 Liang Yang      2022-09-07  24    reg-names:
-fbc00b5e746f13 Liang Yang      2022-09-07  25      items:
-fbc00b5e746f13 Liang Yang      2022-09-07  26        - const: nfc
-fbc00b5e746f13 Liang Yang      2022-09-07  27        - const: emmc
-fbc00b5e746f13 Liang Yang      2022-09-07  28  
-fbc00b5e746f13 Liang Yang      2022-09-07  29    interrupts:
-fbc00b5e746f13 Liang Yang      2022-09-07  30      maxItems: 1
-fbc00b5e746f13 Liang Yang      2022-09-07  31  
-fbc00b5e746f13 Liang Yang      2022-09-07  32    clocks:
-fbc00b5e746f13 Liang Yang      2022-09-07  33      minItems: 2
-fbc00b5e746f13 Liang Yang      2022-09-07  34  
-fbc00b5e746f13 Liang Yang      2022-09-07  35    clock-names:
-fbc00b5e746f13 Liang Yang      2022-09-07  36      items:
-fbc00b5e746f13 Liang Yang      2022-09-07  37        - const: core
-fbc00b5e746f13 Liang Yang      2022-09-07  38        - const: device
-fbc00b5e746f13 Liang Yang      2022-09-07  39  
-fbc00b5e746f13 Liang Yang      2022-09-07  40  patternProperties:
-fbc00b5e746f13 Liang Yang      2022-09-07  41    "^nand@[0-7]$":
-fbc00b5e746f13 Liang Yang      2022-09-07  42      type: object
-e37eaf5ebc5be6 Miquel Raynal   2023-06-19  43      $ref: raw-nand-chip.yaml
-fbc00b5e746f13 Liang Yang      2022-09-07  44      properties:
-fbc00b5e746f13 Liang Yang      2022-09-07  45        reg:
-fbc00b5e746f13 Liang Yang      2022-09-07  46          minimum: 0
-fbc00b5e746f13 Liang Yang      2022-09-07  47          maximum: 1
-fbc00b5e746f13 Liang Yang      2022-09-07  48  
-fbc00b5e746f13 Liang Yang      2022-09-07  49        nand-ecc-mode:
-fbc00b5e746f13 Liang Yang      2022-09-07  50          const: hw
-fbc00b5e746f13 Liang Yang      2022-09-07  51  
-fbc00b5e746f13 Liang Yang      2022-09-07  52        nand-ecc-step-size:
-c3519aed2a3faf Arseniy Krasnov 2023-07-11  53          enum: [512, 1024]
-fbc00b5e746f13 Liang Yang      2022-09-07  54  
-fbc00b5e746f13 Liang Yang      2022-09-07  55        nand-ecc-strength:
-fbc00b5e746f13 Liang Yang      2022-09-07  56          enum: [8, 16, 24, 30, 40, 50, 60]
-fbc00b5e746f13 Liang Yang      2022-09-07  57          description: |
-fbc00b5e746f13 Liang Yang      2022-09-07  58            The ECC configurations that can be supported are as follows.
-fbc00b5e746f13 Liang Yang      2022-09-07  59              meson-gxl-nfc 8, 16, 24, 30, 40, 50, 60
-fbc00b5e746f13 Liang Yang      2022-09-07  60              meson-axg-nfc 8
-fbc00b5e746f13 Liang Yang      2022-09-07  61  
-262bc0096b7c91 Arseniy Krasnov 2023-06-08  62        nand-rb:
-262bc0096b7c91 Arseniy Krasnov 2023-06-08  63          maxItems: 1
-262bc0096b7c91 Arseniy Krasnov 2023-06-08  64          items:
-262bc0096b7c91 Arseniy Krasnov 2023-06-08  65            maximum: 0
-262bc0096b7c91 Arseniy Krasnov 2023-06-08  66  
-e37eaf5ebc5be6 Miquel Raynal   2023-06-19  67      unevaluatedProperties: false
-e37eaf5ebc5be6 Miquel Raynal   2023-06-19  68  
-350301a3d73b21 Arseniy Krasnov 2023-07-17  69      dependencies:
-350301a3d73b21 Arseniy Krasnov 2023-07-17 @70        nand-ecc-strength: ['nand-ecc-step-size']
-350301a3d73b21 Arseniy Krasnov 2023-07-17  71        nand-ecc-step-size: ['nand-ecc-strength']
-350301a3d73b21 Arseniy Krasnov 2023-07-17  72  
-e37eaf5ebc5be6 Miquel Raynal   2023-06-19  73  
-fbc00b5e746f13 Liang Yang      2022-09-07  74  required:
-fbc00b5e746f13 Liang Yang      2022-09-07  75    - compatible
-fbc00b5e746f13 Liang Yang      2022-09-07  76    - reg
-fbc00b5e746f13 Liang Yang      2022-09-07  77    - interrupts
-fbc00b5e746f13 Liang Yang      2022-09-07  78    - clocks
-fbc00b5e746f13 Liang Yang      2022-09-07  79    - clock-names
-fbc00b5e746f13 Liang Yang      2022-09-07  80  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
