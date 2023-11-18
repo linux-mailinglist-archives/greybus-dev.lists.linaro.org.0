@@ -2,106 +2,101 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 419D67F6639
-	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 19:28:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ADDF7F663A
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 19:28:07 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 527863F98E
-	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 18:27:59 +0000 (UTC)
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	by lists.linaro.org (Postfix) with ESMTPS id 0FBD83EFA7
-	for <greybus-dev@lists.linaro.org>; Sat, 28 Oct 2023 20:25:38 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 61CA03F98E
+	for <lists+greybus-dev@lfdr.de>; Thu, 23 Nov 2023 18:28:06 +0000 (UTC)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	by lists.linaro.org (Postfix) with ESMTPS id 7F3A43F62D
+	for <greybus-dev@lists.linaro.org>; Sat, 18 Nov 2023 18:05:10 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=EdGLPvp4;
-	dmarc=pass (policy=none) header.from=gmail.com;
-	spf=pass (lists.linaro.org: domain of nandhakumar.singaram@gmail.com designates 209.85.210.46 as permitted sender) smtp.mailfrom=nandhakumar.singaram@gmail.com
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-6ce2b6b3cb6so2159618a34.3
-        for <greybus-dev@lists.linaro.org>; Sat, 28 Oct 2023 13:25:38 -0700 (PDT)
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=Ezy4EFns;
+	spf=pass (lists.linaro.org: domain of hkallweit1@gmail.com designates 209.85.208.181 as permitted sender) smtp.mailfrom=hkallweit1@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-2c8769edd9fso6052461fa.0
+        for <greybus-dev@lists.linaro.org>; Sat, 18 Nov 2023 10:05:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698524737; x=1699129537; darn=lists.linaro.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q6s/dbIiHsKw5qILIs0FnO/CHdVCCm522luSBKh8UXM=;
-        b=EdGLPvp4YS46yPKJY6Qvs8Y9mCGhbk8ZzN59G2Xb+BlOKouQpAQgkqzpOaZnhD3aFw
-         ljLEG8bq9iT4FqHehAfRgQkJe1YAHYH14q2oQVeWDfFCBYV7qSHKRf/ne2W4fOKCkp/X
-         dC9vLoUNO9IXXYlf7DCeu1ji6YpI2IwsYN/+tK69iRf0ypKeYb9JMsTO8scnakjBEfgH
-         P2RutpBEYtOSqbMxAxZ1nlYWmQ4J9lluuk5YzSHmLtNooW8D2I8HzT/wHB66ZFqR94kl
-         d4m3fqbGJaSDsJx2In+TCJ5aibYoPoJuytE8fKGoRQ25tP+55cthT8f2F2MaahpDy8dU
-         YXVQ==
+        d=gmail.com; s=20230601; t=1700330709; x=1700935509; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mu6uKqetedFX6br/8gaH2MKtwUbnJweRqllZD/aw3RQ=;
+        b=Ezy4EFns2w3S/MPvnk3+YLsKih4C/tFGFUDjnocfUluvII6AC9/fWphsfVftjKKVI9
+         H7MAyHVV7Pq3jzBUG1gOzw8i0CPCqIYwpCzQR0W9AcnfWa3D/tvy+zP3y5hombmHhJ9R
+         ube4dG7zL8uzF2Uky4npImZfCWUbAFNNiiM5pOeHNsGgMt2cdD785XuupFVBkPOzjAfN
+         p22CpiB1Y/Xv/UaVAxUyCyGcysI9ct+q067za5qgci2LJ8IfsC3QiUat/ae7CS9gNVCj
+         Nvh5bikz+VhfQnJ54HWu/vwMEq7tfIlz6ziP0hWsXHTlnnRn4aqIPmRQHusCwV6Z2opo
+         E/6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698524737; x=1699129537;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q6s/dbIiHsKw5qILIs0FnO/CHdVCCm522luSBKh8UXM=;
-        b=IIEzpyvCSZhaZdDasTklW5FzX5ii25h9cMXAX81wbSUfHf/NTvTdolJzT74YNYy0Vb
-         o3xVMlaXaYMxTfjZOSCjbH6BJnBCwaxzGy3Rq4N3wYnFv400eG3GMcy3IBci3T8ChwPG
-         VGvt3anxLsuzSKn3ru8xZx8F8If2IJBLg9mXJujsjadTjPRaJGaBiOj51blvu5tbMODB
-         xY+CiKd6Wv+Y19CMPEWED/FAOV8lYbySuOCnhBBBZQT0jE9+HA+1KEUePTCoRJL5Bsce
-         DMHLk6zutPN5Fi3fgfMkQtbEYi4mY16y4FoBCh/BLZ2GLHdB/4ut4AVle8aDEiWW4LcP
-         46Dw==
-X-Gm-Message-State: AOJu0Yxpnqs0DztpQaH/M5ctW8dhoMQ58i8xDAQmkTJHHanEB5DJAVls
-	ObJTZohU2tAe06s//Q3jBCA=
-X-Google-Smtp-Source: AGHT+IHgdcrSFcttPGdKfN9SFlEHz8t+uTkvmaSR08wn5o7z7JDWzEKSLWaWmcv5gBShAZhWs2kn5A==
-X-Received: by 2002:a05:6808:2a87:b0:3ad:f536:2f26 with SMTP id fc7-20020a0568082a8700b003adf5362f26mr6254410oib.18.1698524737423;
-        Sat, 28 Oct 2023 13:25:37 -0700 (PDT)
-Received: from ubuntu ([122.171.167.85])
-        by smtp.gmail.com with ESMTPSA id a18-20020aa780d2000000b006c06804cd39sm3288830pfn.153.2023.10.28.13.25.35
+        d=1e100.net; s=20230601; t=1700330709; x=1700935509;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mu6uKqetedFX6br/8gaH2MKtwUbnJweRqllZD/aw3RQ=;
+        b=aQ8HuyeluPZC41hESof9C2a7wXXVbZ6J4o94HBaatYTBQrC69azszKLXWKf0lo97p2
+         1D7qzl2n+NHHTvy9wff59CaU1aLksBp3mQjM2JHC/0q682eJR9vJl88qZkxVsuhHleYn
+         vJ2MMCYYkqS8YJQi79uGbxDw9fKv5s/wf3OENoXgazv0jgL9Z4T5F/0I852+4yQR8d6+
+         1L76ummiwzc+S5EkcsmsQfJtNp7cKZpyhaH7Arr2BEs0rkm+oQOvpamFD44aSTQrddEt
+         /ABoN74jlH6PSFEjLKLMR3mxNBO6a/45lWzjRiag2PL6QS66UJURLbow+DaOgxN92dcs
+         XhPg==
+X-Gm-Message-State: AOJu0YyJCT576yxzIJm58Zn/sHJFq760q65Lwgw50Q0kp8cE9LXNTmo/
+	lfonOdeTHojr94297ECnwss=
+X-Google-Smtp-Source: AGHT+IHyeiAuLwBQ6RhMnfmUjm6ZpWN6lhi+Qcl6w/VI4MWj6Kf1RrN8easfjONwVJiPd/NUafO3dQ==
+X-Received: by 2002:a2e:9c84:0:b0:2c5:1ea4:4e99 with SMTP id x4-20020a2e9c84000000b002c51ea44e99mr2049253lji.48.1700330708944;
+        Sat, 18 Nov 2023 10:05:08 -0800 (PST)
+Received: from zotac.lan. (dynamic-2a01-0c22-77bf-8300-2223-08ff-fe18-0310.c22.pool.telefonica.de. [2a01:c22:77bf:8300:2223:8ff:fe18:310])
+        by smtp.gmail.com with ESMTPSA id m20-20020a1709062b9400b009f2c769b4ebsm2079456ejg.151.2023.11.18.10.05.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Oct 2023 13:25:37 -0700 (PDT)
-Date: Sat, 28 Oct 2023 13:25:31 -0700
-From: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
-To: Alex Elder <elder@ieee.org>
-Message-ID: <20231028202531.GB2432@ubuntu>
-References: <cover.1697976302.git.nandhakumar.singaram@gmail.com>
- <39be7bb04ce1362b00aa31a638ebe2e88dd81fec.1697976302.git.nandhakumar.singaram@gmail.com>
- <5d457162-d20a-43a5-989e-ef263fbd91b2@ieee.org>
+        Sat, 18 Nov 2023 10:05:08 -0800 (PST)
+From: Heiner Kallweit <hkallweit1@gmail.com>
+To: Wolfram Sang <wsa@kernel.org>,
+	linuxppc-dev@lists.ozlabs.org
+Date: Sat, 18 Nov 2023 19:04:54 +0100
+Message-ID: <20231118180504.1785-1-hkallweit1@gmail.com>
+X-Mailer: git-send-email 2.42.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5d457162-d20a-43a5-989e-ef263fbd91b2@ieee.org>
-X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 0FBD83EFA7
+X-Rspamd-Queue-Id: 7F3A43F62D
 X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.10 / 15.00];
+X-Spamd-Result: default: False [-2.50 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.46:from];
 	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	MIME_TRACE(0.00)[0:+];
 	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	TO_DN_SOME(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVFROM(0.00)[gmail.com]
+	ARC_NA(0.00)[];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.208.181:from];
+	NEURAL_HAM(-0.00)[-1.000];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,csgroup.eu,lists.linaro.org,lists.linux.dev];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_COUNT_TWO(0.00)[2];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+]
 X-Rspamd-Action: no action
-X-MailFrom: nandhakumar.singaram@gmail.com
+X-Rspamd-Server: lists.linaro.org
+X-MailFrom: hkallweit1@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: J6DVNIVI7WI6ZSULSUXQUWPDN2VRJDKX
-X-Message-ID-Hash: J6DVNIVI7WI6ZSULSUXQUWPDN2VRJDKX
-X-Mailman-Approved-At: Thu, 23 Nov 2023 18:27:06 +0000
-CC: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, kumaran.4353@gmail.com
+Message-ID-Hash: LEL43L6ELFR4EORIKEU7VWAQNKUEWMVP
+X-Message-ID-Hash: LEL43L6ELFR4EORIKEU7VWAQNKUEWMVP
+X-Mailman-Approved-At: Thu, 23 Nov 2023 18:27:50 +0000
+CC: linux-i2c@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>, Christophe Leroy <christophe.leroy@csgroup.eu>, Nicholas Piggin <npiggin@gmail.com>, linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-media@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v2 3/3] staging: greybus: bootrom: fixed prefer using ftrace warning
+Subject: [greybus-dev] [PATCH 00/10] Don't let i2c adapters declare I2C_CLASS_SPD support if they support I2C_CLASS_HWMON
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/J6DVNIVI7WI6ZSULSUXQUWPDN2VRJDKX/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/LEL43L6ELFR4EORIKEU7VWAQNKUEWMVP/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -111,39 +106,46 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 26, 2023 at 01:20:47PM -0500, Alex Elder wrote:
-> On 10/22/23 7:22 AM, Nandha Kumar Singaram wrote:
-> > Adhere to linux coding style. Reported by checkpatch.pl:
-> > WARNING: Unnecessary ftrace-like logging - prefer using ftrace
-> > 
-> > Signed-off-by: Nandha Kumar Singaram <nandhakumar.singaram@gmail.com>
-> 
-> This change looks reasonable to me, though I don't think
-> ftrace provides device information.
-> 
-> Acked-by: Alex Elder <elder@linaro.org>
-> 
-> > ---
-> >   drivers/staging/greybus/bootrom.c | 2 --
-> >   1 file changed, 2 deletions(-)
-> > 
-> > diff --git a/drivers/staging/greybus/bootrom.c b/drivers/staging/greybus/bootrom.c
-> > index a8efb86de140..79581457c4af 100644
-> > --- a/drivers/staging/greybus/bootrom.c
-> > +++ b/drivers/staging/greybus/bootrom.c
-> > @@ -491,8 +491,6 @@ static void gb_bootrom_disconnect(struct gb_bundle *bundle)
-> >   {
-> >   	struct gb_bootrom *bootrom = greybus_get_drvdata(bundle);
-> > -	dev_dbg(&bundle->dev, "%s\n", __func__);
-> > -
-> >   	gb_connection_disable(bootrom->connection);
-> >   	/* Disable timeouts */
->
+After removal of the legacy eeprom driver the only remaining I2C
+client device driver supporting I2C_CLASS_SPD is jc42. Because this
+driver also supports I2C_CLASS_HWMON, adapters don't have to
+declare support for I2C_CLASS_SPD if they support I2C_CLASS_HWMON.
+It's one step towards getting rid of I2C_CLASS_SPD mid-term.
 
-Thanks Alex for the review and feedback.
+Series was created supported by Coccinelle and its splitpatch.
 
-Regards,
-Nandha Kumar
+Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+
+---
+
+ drivers/i2c/busses/i2c-ali1535.c                  |    2 +-
+ drivers/i2c/busses/i2c-ali1563.c                  |    2 +-
+ drivers/i2c/busses/i2c-ali15x3.c                  |    2 +-
+ drivers/i2c/busses/i2c-amd756.c                   |    2 +-
+ drivers/i2c/busses/i2c-amd8111.c                  |    2 +-
+ drivers/i2c/busses/i2c-elektor.c                  |    2 +-
+ drivers/i2c/busses/i2c-gpio.c                     |    2 +-
+ drivers/i2c/busses/i2c-ibm_iic.c                  |    2 +-
+ drivers/i2c/busses/i2c-iop3xx.c                   |    2 +-
+ drivers/i2c/busses/i2c-isch.c                     |    2 +-
+ drivers/i2c/busses/i2c-kempld.c                   |    4 ++--
+ drivers/i2c/busses/i2c-mlxcpld.c                  |    2 +-
+ drivers/i2c/busses/i2c-nforce2.c                  |    2 +-
+ drivers/i2c/busses/i2c-pasemi-pci.c               |    2 +-
+ drivers/i2c/busses/i2c-piix4.c                    |    2 +-
+ drivers/i2c/busses/i2c-scmi.c                     |    2 +-
+ drivers/i2c/busses/i2c-sh7760.c                   |    2 +-
+ drivers/i2c/busses/i2c-sibyte.c                   |    4 ++--
+ drivers/i2c/busses/i2c-sis5595.c                  |    2 +-
+ drivers/i2c/busses/i2c-sis630.c                   |    2 +-
+ drivers/i2c/busses/i2c-sis96x.c                   |    2 +-
+ drivers/i2c/busses/i2c-via.c                      |    2 +-
+ drivers/i2c/busses/i2c-viapro.c                   |    2 +-
+ drivers/i2c/busses/scx200_acb.c                   |    2 +-
+ drivers/i2c/i2c-stub.c                            |    2 +-
+ drivers/media/pci/netup_unidvb/netup_unidvb_i2c.c |    2 +-
+ drivers/staging/greybus/i2c.c                     |    2 +-
+ 27 files changed, 29 insertions(+), 29 deletions(-)
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
