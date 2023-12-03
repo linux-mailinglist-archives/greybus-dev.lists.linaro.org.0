@@ -2,142 +2,149 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id A84307F9805
-	for <lists+greybus-dev@lfdr.de>; Mon, 27 Nov 2023 04:49:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 516B8802171
+	for <lists+greybus-dev@lfdr.de>; Sun,  3 Dec 2023 08:17:30 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id B021C40B86
-	for <lists+greybus-dev@lfdr.de>; Mon, 27 Nov 2023 03:49:04 +0000 (UTC)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	by lists.linaro.org (Postfix) with ESMTPS id 2768440A67
-	for <greybus-dev@lists.linaro.org>; Fri, 24 Nov 2023 10:16:27 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 01E363F65B
+	for <lists+greybus-dev@lfdr.de>; Sun,  3 Dec 2023 07:17:29 +0000 (UTC)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	by lists.linaro.org (Postfix) with ESMTPS id 06F253F65B
+	for <greybus-dev@lists.linaro.org>; Sun,  3 Dec 2023 07:17:23 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=e2pGcsxF;
-	spf=pass (lists.linaro.org: domain of hkallweit1@gmail.com designates 209.85.218.45 as permitted sender) smtp.mailfrom=hkallweit1@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=Gwxt4NX4;
+	spf=pass (lists.linaro.org: domain of ayushdevel1325@gmail.com designates 209.85.210.171 as permitted sender) smtp.mailfrom=ayushdevel1325@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-9fd0059a967so541020566b.1
-        for <greybus-dev@lists.linaro.org>; Fri, 24 Nov 2023 02:16:27 -0800 (PST)
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-6cb55001124so3492891b3a.0
+        for <greybus-dev@lists.linaro.org>; Sat, 02 Dec 2023 23:17:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700820986; x=1701425786; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hQhIen8bUSqCDzW7zy5bjryP0TL4VgTr4AnDnzWte8c=;
-        b=e2pGcsxFcxooiDIMve/2wtSlQkqm666DfA2VIHeTrJwQXvIKpxTUE20HiwmsrGgo+9
-         kjkftHoyPqMmMZMZYT2VES/+apUebgT68KqHUS+/DJwiEgPNeJ3zCVMMQKCqZo9CIUN0
-         1cXo+CbBhmshjxoJtRIjJaCuQJwMlCjOnNEWARnlyr5GRgwB6AfAHcbszZjT6JWRLbmI
-         MAFNRmmzkAR5/a3uLiLGNfg2wWS9m7VyWhzDmLfyPoAqbSswuuZulKrEvSFZhlgofhiq
-         57tYpbIDTA0vuNNRa4eyi9Y+H8VUQzJht92109nXaLMz7SbEZYeVCo0fCdfjtDifurQK
-         mRtQ==
+        d=gmail.com; s=20230601; t=1701587842; x=1702192642; darn=lists.linaro.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CfTKmTcoIZjeKZQASJtJ+cTwOxU9NGJjwL6rBXc5GsQ=;
+        b=Gwxt4NX4WSjP7sg27W6pTprju7eTccPNUA8IBJLRUdilLJ+Yq85aYty5OG9hbO9PFt
+         Wcm3ihHgz+5E23xaFlWWFO+z0SRGKhnJu9baLgUKBuFToEVbWEiHN+5K6boQHWfoITPX
+         yx7elA22VRYUlOwt1sCmxXzrswVGi6toVGUoAYx7EXudoiJ/3GY0ACRXrv2cj3lybULW
+         vvpsS/tM481mpCUOz6AjuhB25ToFTCnbn1ZBwRqWlEY/xlZTP3uZP6UmeTQIXR8zdZjt
+         6OXRur4fCYSvA1AHzjdfjnfcSUzz3C0pQCgiY8m2huRJHG39qK2l1G35ykLRBQlr9Hvg
+         WZlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700820986; x=1701425786;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hQhIen8bUSqCDzW7zy5bjryP0TL4VgTr4AnDnzWte8c=;
-        b=Md1tQ+briqpCF2MWJj3jMnj4WVEG/Qkv73ZYnqZ9dk9LqRc3p/8yupJ0YMkjEiuDnG
-         S28Ky0c+D8LNgLsN7RfkaeNqiY8847n+wFwIhJD1LfjHqvKgCCUsZQcIH0pZl4wIN/9z
-         j2NGpbUSiE28yuF/SnIbwdsimMdoNDSVbJM6NHVHOM+5gART7YqBClTdjZh0BFM83LgD
-         s0DikUcObDE6Z9EXcEwhSsLIL7P6U5pwGgK5HX/v/saPcuvq2ZFF5GQ3JK7/dxpliowz
-         Tqpnd/KoY6KLTvKeHBNtdDlPjJ8L78prbZ31CYAxxxheG0Hlq29KV1DHih5R0otO3B2N
-         i/wA==
-X-Gm-Message-State: AOJu0Yx5TB/RLDA+EjWSkL8FLMQs9ZYrtYyx2H2ew1E22uDYkhfKhJU/
-	kYnpxsbV/YZSvziXFSy4VHs=
-X-Google-Smtp-Source: AGHT+IHz9/ZoaYSQJbFyOHsePDZMaOznbJoXwDJXSZ85fMNDrqkQyfPkDwrbhFLw3bibv4ewkyWC7g==
-X-Received: by 2002:a17:906:78c:b0:a04:e1e7:d14c with SMTP id l12-20020a170906078c00b00a04e1e7d14cmr4941004ejc.32.1700820985634;
-        Fri, 24 Nov 2023 02:16:25 -0800 (PST)
-Received: from zotac.lan. (dynamic-2a01-0c22-72cf-8300-2223-08ff-fe18-0310.c22.pool.telefonica.de. [2a01:c22:72cf:8300:2223:8ff:fe18:310])
-        by smtp.gmail.com with ESMTPSA id oq12-20020a170906cc8c00b009fbf15cee7fsm1887801ejb.69.2023.11.24.02.16.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Nov 2023 02:16:25 -0800 (PST)
-From: Heiner Kallweit <hkallweit1@gmail.com>
-To: Wolfram Sang <wsa@kernel.org>,
-	Viresh Kumar <vireshk@kernel.org>
-Date: Fri, 24 Nov 2023 11:16:11 +0100
-Message-ID: <20231124101619.6470-3-hkallweit1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231124101619.6470-1-hkallweit1@gmail.com>
-References: <20231124101619.6470-1-hkallweit1@gmail.com>
+        d=1e100.net; s=20230601; t=1701587842; x=1702192642;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=CfTKmTcoIZjeKZQASJtJ+cTwOxU9NGJjwL6rBXc5GsQ=;
+        b=mC1STwizH3O+uejT+q+ihRbdBYIgEouBRuaIToqPwMHFvlk2QAPOeEBYep2a1zul2Y
+         G27IgLXVu7pkRLS81WCamZXvmY7E/ddoR7xqREjguC0kU3jM4Iubjy+y3nReZUKYJ9Zf
+         qkWbC0aTg82GdikwFKjsS7vWpJ42VlhUv+J7OtD6zuNp5kJtm4NBE6D05DVPZ1+zb4B8
+         4/k8+j1W1bd+gB8q7GVh9E8vzEgD1D5vwJG0yq5/QpN7kwodNi83v9eGQDAxgJt65Vdh
+         mEEkf+PtFhCAwfBwqIjd8d+qyKV8iMoc/FaO/bmjOUzz3Z+LQZfbLJ7GFzG+ynnnkO2N
+         iS/Q==
+X-Gm-Message-State: AOJu0Yxo11YI+3H9J9rc6UdUl0ndC6HVaMKdZLk7aHInE29cwl9+ZaUp
+	UZzBJccGHcnPPML5DwKZszg=
+X-Google-Smtp-Source: AGHT+IGGUI4OufP5G1eDvjfBKvHdT4e4o5GBFj7MhGryxLC59egOc/jgBZQaoKdM9qCBOyOj4GvcRg==
+X-Received: by 2002:a05:6a20:b79f:b0:18f:97c:3865 with SMTP id fh31-20020a056a20b79f00b0018f097c3865mr1564954pzb.63.1701587841948;
+        Sat, 02 Dec 2023 23:17:21 -0800 (PST)
+Received: from ?IPV6:2401:4900:1f3e:53bf:50c7:2988:e019:4b97? ([2401:4900:1f3e:53bf:50c7:2988:e019:4b97])
+        by smtp.gmail.com with ESMTPSA id i185-20020a62c1c2000000b006c988fda657sm6003574pfg.177.2023.12.02.23.17.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 02 Dec 2023 23:17:21 -0800 (PST)
+Message-ID: <32cf0a82-23b0-437e-b466-c05ceeb87da6@gmail.com>
+Date: Sun, 3 Dec 2023 12:47:15 +0530
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 2768440A67
-X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.60 / 15.00];
+User-Agent: Mozilla Thunderbird
+To: Alex Elder <elder@ieee.org>, greybus-dev@lists.linaro.org
+References: <20231114140103.784484-1-ayushdevel1325@gmail.com>
+ <fea9d86b-54c7-493b-a7bd-8320bc2e8ced@ieee.org>
+Content-Language: en-US
+From: Ayush Singh <ayushdevel1325@gmail.com>
+In-Reply-To: <fea9d86b-54c7-493b-a7bd-8320bc2e8ced@ieee.org>
+X-Rspamd-Queue-Id: 06F253F65B
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.99 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_MISSING_CHARSET(0.50)[];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.218.45:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	XM_UA_NO_VERSION(0.01)[];
 	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev];
+	TO_DN_SOME(0.00)[];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.210.171:from];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RCVD_TLS_LAST(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-MailFrom: hkallweit1@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 46P6LXSE736UOBWVM3UUQ24NNLVULNXB
-X-Message-ID-Hash: 46P6LXSE736UOBWVM3UUQ24NNLVULNXB
-X-Mailman-Approved-At: Mon, 27 Nov 2023 03:48:53 +0000
-CC: linux-i2c@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-ID-Hash: ZDXMAUJOR3LJ7KA7SBFNINCSE6IKCIQ2
+X-Message-ID-Hash: ZDXMAUJOR3LJ7KA7SBFNINCSE6IKCIQ2
+X-MailFrom: ayushdevel1325@gmail.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: johan@kernel.org, elder@kernel.org, linux-kernel@vger.kernel.org, kernel test robot <yujie.liu@intel.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 02/10] staging: greybus: Don't let i2c adapters declare I2C_CLASS_SPD support if they support I2C_CLASS_HWMON
+Subject: [greybus-dev] Re: [PATCH] greybus: gb-beagleplay: fix restricted __le16 degrades to integer warning
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/46P6LXSE736UOBWVM3UUQ24NNLVULNXB/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZDXMAUJOR3LJ7KA7SBFNINCSE6IKCIQ2/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-After removal of the legacy eeprom driver the only remaining I2C
-client device driver supporting I2C_CLASS_SPD is jc42. Because this
-driver also supports I2C_CLASS_HWMON, adapters don't have to
-declare support for I2C_CLASS_SPD if they support I2C_CLASS_HWMON.
-It's one step towards getting rid of I2C_CLASS_SPD mid-term.
-
-Series was created supported by Coccinelle and its splitpatch.
-
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
-
----
- drivers/staging/greybus/i2c.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/staging/greybus/i2c.c b/drivers/staging/greybus/i2c.c
-index de2f6516d..22325ab9d 100644
---- a/drivers/staging/greybus/i2c.c
-+++ b/drivers/staging/greybus/i2c.c
-@@ -264,7 +264,7 @@ static int gb_i2c_probe(struct gbphy_device *gbphy_dev,
- 	/* Looks good; up our i2c adapter */
- 	adapter = &gb_i2c_dev->adapter;
- 	adapter->owner = THIS_MODULE;
--	adapter->class = I2C_CLASS_HWMON | I2C_CLASS_SPD;
-+	adapter->class = I2C_CLASS_HWMON;
- 	adapter->algo = &gb_i2c_algorithm;
- 
- 	adapter->dev.parent = &gbphy_dev->dev;
-
-_______________________________________________
-greybus-dev mailing list -- greybus-dev@lists.linaro.org
-To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+SSBhcG9sb2dpemUgZm9yIHRoZSBsYXRlIHJlc3BvbnNlIChjb2xsZWdlIGV4YW1zIHdlcmUgZ29p
+bmcgb24pLg0KDQpJIHdpbGwgZ28gdGhyb3VnaCB0aGUgZHJpdmVyIHRvIGZpbmQgaWYgYW55IG90
+aGVyIGVuZGlhbm5lc3MgZml4ZXMgYXJlIA0KbmVlZGVkLg0KDQpBcyBmb3IgYGhkbGNfcGF5bG9h
+ZC0+bGVuYCwgdGhlIHdob2xlIGBoZGxjX3BheWxvYWRgIGlzIGFuIGFic3RyYWN0aW9uIA0KdG8g
+c3RvcmUgYXJyYXkgbGVuZ3RoIHdpdGggdGhlIGFjdHVhbCBwb2ludGVyLiBUaGUgbGVuIGlzIG5l
+dmVyIGFjdHVhbGx5IA0Kc2VudCBvdmVyIEhETEMsIHNvIGl0IHNob3VsZCBiZSBmaW5lLg0KDQoN
+CkF5dXNoIFNpbmdoDQoNCk9uIDExLzE0LzIzIDIwOjI3LCBBbGV4IEVsZGVyIHdyb3RlOg0KPiBP
+biAxMS8xNC8yMyA4OjAxIEFNLCBBeXVzaCBTaW5naCB3cm90ZToNCj4+IGdyZXlidXMgbWVzc2Fn
+ZSBoZWFkZXItPnNpemUgYXJlIG9mIHR5cGUgX19sZTE2LCBzbyB0byBmaXggdGhpcyB3YXJuaW5n
+cw0KPj4gd2UgYXJlIHVzaW5nIGxlMTZfdG9fY3B1KCkgbWFjcm9zLg0KPg0KPiBUaGlzIGlzIG1v
+cmUgdGhhbiBhIHdhcm5pbmcsIGl0J3MgYSBidWcgKHRob3VnaCBpdCBoYXMgbm8NCj4gZWZmZWN0
+IHdpdGggYSBsaXR0bGUtZW5kaWFuIG5hdGl2ZSBDUFUpLg0KPg0KPiBJIHN1Z2dlc3QgeW91IGFk
+ZDoNCj4NCj4gRml4ZXM6IGVjNTU4YmJmZWE2NzEgKCJncmV5YnVzOiBBZGQgQmVhZ2xlUGxheSBM
+aW51eCBEcml2ZXIiKQ0KPg0KPiBTaG91bGQgeW91ciBoZGxjX3BheWxvYWQtPmxlbiBmaWVsZCBi
+ZSBkZWZpbmVkIGFzIGxpdHRsZS1lbmRpYW4/DQo+IEkndmUgb25seSBzY2FubmVkIHRocm91Z2gg
+dGhpcyBmaWxlIGF0IHRoaXMgcG9pbnQgYnV0IEknbSB0aGlua2luZw0KPiB0aGVyZSBtaWdodCBi
+ZSBvdGhlciBlbmRpYW5uZXNzIGZpeGVzIG5lZWRlZCBhcyB3ZWxsLg0KPg0KPiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAtQWxleA0KPg0KPg0KPg0KPj4NCj4+IFJlcG9y
+dGVkLWJ5OiBrZXJuZWwgdGVzdCByb2JvdCA8eXVqaWUubGl1QGludGVsLmNvbT4NCj4+IENsb3Nl
+czogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDIzMTEwNzIzMjkuWG9najdoR1ctbGtwQGlu
+dGVsLmNvbS8NCj4+IFNpZ25lZC1vZmYtYnk6IEF5dXNoIFNpbmdoIDxheXVzaGRldmVsMTMyNUBn
+bWFpbC5jb20+DQo+PiAtLS0NCj4+IMKgIGRyaXZlcnMvZ3JleWJ1cy9nYi1iZWFnbGVwbGF5LmMg
+fCAyICstDQo+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24o
+LSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncmV5YnVzL2diLWJlYWdsZXBsYXkuYyAN
+Cj4+IGIvZHJpdmVycy9ncmV5YnVzL2diLWJlYWdsZXBsYXkuYw0KPj4gaW5kZXggNDMzMThjMTk5
+M2JhLi5iM2Y0N2I1Y2JiZmEgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dyZXlidXMvZ2ItYmVh
+Z2xlcGxheS5jDQo+PiArKysgYi9kcml2ZXJzL2dyZXlidXMvZ2ItYmVhZ2xlcGxheS5jDQo+PiBA
+QCAtMzQ0LDcgKzM0NCw3IEBAIHN0YXRpYyBpbnQgZ2JfbWVzc2FnZV9zZW5kKHN0cnVjdCBnYl9o
+b3N0X2RldmljZSANCj4+ICpoZCwgdTE2IGNwb3J0LCBzdHJ1Y3QgZ2JfbWVzc2ENCj4+IMKgwqDC
+oMKgwqAgZGV2X2RiZygmaGQtPmRldiwgIlNlbmRpbmcgZ3JleWJ1cyBtZXNzYWdlIHdpdGggT3Bl
+cmF0aW9uICV1LCANCj4+IFR5cGU6ICVYIG9uIENwb3J0ICV1IiwNCj4+IMKgwqDCoMKgwqDCoMKg
+wqDCoCBtc2ctPmhlYWRlci0+b3BlcmF0aW9uX2lkLCBtc2ctPmhlYWRlci0+dHlwZSwgY3BvcnQp
+Ow0KPj4gwqAgLcKgwqDCoCBpZiAobXNnLT5oZWFkZXItPnNpemUgPiBSWF9IRExDX1BBWUxPQUQp
+DQo+PiArwqDCoMKgIGlmIChsZTE2X3RvX2NwdShtc2ctPmhlYWRlci0+c2l6ZSkgPiBSWF9IRExD
+X1BBWUxPQUQpDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIGRldl9lcnJfcHJvYmUoJmhk
+LT5kZXYsIC1FMkJJRywgIkdyZXlidXMgbWVzc2FnZSB0b28gDQo+PiBiaWciKTsNCj4+IMKgIMKg
+wqDCoMKgwqAgbWVtY3B5KG1zZy0+aGVhZGVyLT5wYWQsICZjcG9ydCwgc2l6ZW9mKGNwb3J0KSk7
+DQo+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpncmV5
+YnVzLWRldiBtYWlsaW5nIGxpc3QgLS0gZ3JleWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpUbyB1
+bnN1YnNjcmliZSBzZW5kIGFuIGVtYWlsIHRvIGdyZXlidXMtZGV2LWxlYXZlQGxpc3RzLmxpbmFy
+by5vcmcK
