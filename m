@@ -2,154 +2,179 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F17380EED6
-	for <lists+greybus-dev@lfdr.de>; Tue, 12 Dec 2023 15:31:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F28780F8DC
+	for <lists+greybus-dev@lfdr.de>; Tue, 12 Dec 2023 22:05:21 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 46E143F029
-	for <lists+greybus-dev@lfdr.de>; Tue, 12 Dec 2023 14:31:05 +0000 (UTC)
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	by lists.linaro.org (Postfix) with ESMTPS id 676333EF33
-	for <greybus-dev@lists.linaro.org>; Tue, 12 Dec 2023 14:30:59 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B9A3343D43
+	for <lists+greybus-dev@lfdr.de>; Tue, 12 Dec 2023 21:05:19 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by lists.linaro.org (Postfix) with ESMTPS id 2424D3F98C
+	for <greybus-dev@lists.linaro.org>; Tue, 12 Dec 2023 21:05:14 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=LE4rTwG5;
-	spf=pass (lists.linaro.org: domain of ayushdevel1325@gmail.com designates 209.85.215.180 as permitted sender) smtp.mailfrom=ayushdevel1325@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-5c699b44dddso2832649a12.1
-        for <greybus-dev@lists.linaro.org>; Tue, 12 Dec 2023 06:30:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702391458; x=1702996258; darn=lists.linaro.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fLxmEV46v22txwFa1AVF+a9kLvKBmUdsjhpPYXuqg68=;
-        b=LE4rTwG5r7oiIS1j4c+mDl+ihx9tbsLS/WXyWJyoc1550kGmEXpPLTCmXikkKDSMoy
-         sCLC7mdi8Cm6MqckA3Tx/p3OBlwsXr0k9so/W7OoCvkeTwqJwAxNAC/nYeskwFU47Afi
-         +7QKEM2LMoj+oV7/NtMuVtUbf7G9Zqd3yMKp80+z59iwEwCm5Dg2uMdmaR2n+QmUTVRF
-         RqM4SAP2FweBF/nMa+iO4bXxGhJ1V8Ayg7n0rsTVp73F4YFbf7EOAPgbaHtSfyOFVzuv
-         52l0VI5ib0eeuMP+3EUdV/J39k7O+0nxPeVZDODnfmVzNsaccZahDcKQ8tn2Zo4JsZCx
-         NCnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702391458; x=1702996258;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fLxmEV46v22txwFa1AVF+a9kLvKBmUdsjhpPYXuqg68=;
-        b=RJK1UgN5kZhyLwrhvkW8ZluAtWjbsiSLGQfR/b7028Omif8XqamJzbpDKlGG+fTm1y
-         FKOG3psBPXi3L05KSdqXQ5DrmcztrdN3H73EVFj5QR1sS7hIYwjlpc5HPwvopwVkk/wa
-         k2Hri6ijViVCEolizehoKAd05oftkKsrRelbYI8pmiG1YUdgoLT8NWNlEsa4QW0E8geF
-         RXZ9Lzd3267bnOs75iiTOxRqMSmFtao52VJvU8usq9g+cfxAS3Af68l6d5beQBVGExtg
-         FV5BJmrknDX2vH5NrJFkkvIwDCQ/hNqcsv6qazFYMXaj2sKyKX1gnFUv5dYhxJggPiSB
-         uqkQ==
-X-Gm-Message-State: AOJu0YzEWa4W2teOy3jcqKd8PvaqvcoTqlhw/r5qT7csw8iA9BcceN36
-	y0kSbDaKUgHEM1PTFvcxvsg=
-X-Google-Smtp-Source: AGHT+IFL54CYdCheHswHgye1orgRAHKB3RtZKK/0Uf04FuiqrNkuXtBmj4FcrK3a7VUkrqr9FylNRQ==
-X-Received: by 2002:a05:6a20:639e:b0:18f:97c:4f58 with SMTP id m30-20020a056a20639e00b0018f097c4f58mr2188874pzg.100.1702391458310;
-        Tue, 12 Dec 2023 06:30:58 -0800 (PST)
-Received: from ?IPV6:2406:3003:2007:229e:ac29:68d8:877:4f72? ([2406:3003:2007:229e:ac29:68d8:877:4f72])
-        by smtp.gmail.com with ESMTPSA id s24-20020a632158000000b005c67ca3c2c2sm8115302pgm.21.2023.12.12.06.30.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 12 Dec 2023 06:30:57 -0800 (PST)
-Message-ID: <27e768dd-f752-40d8-b4e0-0be34eb1d409@gmail.com>
-Date: Tue, 12 Dec 2023 20:00:52 +0530
+	dkim=none;
+	spf=pass (lists.linaro.org: domain of ukl@pengutronix.de designates 185.203.201.7 as permitted sender) smtp.mailfrom=ukl@pengutronix.de;
+	dmarc=none
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rD9wF-0001Oy-5K; Tue, 12 Dec 2023 22:05:11 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rD9wE-00FQEY-2C; Tue, 12 Dec 2023 22:05:10 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rD9wD-001snP-Ol; Tue, 12 Dec 2023 22:05:09 +0100
+Date: Tue, 12 Dec 2023 22:05:09 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thierry Reding <thierry.reding@gmail.com>
+Message-ID: <20231212210509.focpb63fbmahqij3@pengutronix.de>
+References: <cover.1701860672.git.u.kleine-koenig@pengutronix.de>
+ <ZXM4CdJxg-XrYhkn@orome.fritz.box>
+ <20231208185033.e6ty2cajcfle6dgk@pengutronix.de>
+ <ZXbzcFTnDTKoZAta@orome.fritz.box>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Alex Elder <elder@ieee.org>, greybus-dev@lists.linaro.org
-References: <20231211065420.213664-1-ayushdevel1325@gmail.com>
- <20231211065420.213664-2-ayushdevel1325@gmail.com>
- <786e357b-df63-42bb-bc8a-b5fc8d6e9146@ieee.org>
-From: Ayush Singh <ayushdevel1325@gmail.com>
-In-Reply-To: <786e357b-df63-42bb-bc8a-b5fc8d6e9146@ieee.org>
-X-Rspamd-Queue-Id: 676333EF33
-X-Spamd-Bar: --------
-X-Spamd-Result: default: False [-8.09 / 15.00];
-	REPLY(-4.00)[];
+In-Reply-To: <ZXbzcFTnDTKoZAta@orome.fritz.box>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
+X-Rspamd-Queue-Id: 2424D3F98C
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.60 / 15.00];
 	BAYES_HAM(-3.00)[99.99%];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.215.180:from];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	URIBL_BLOCKED(0.00)[mail-pg1-f180.google.com:rdns,mail-pg1-f180.google.com:helo];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	MID_RHS_MATCH_FROM(0.00)[];
+	SIGNED_PGP(-2.00)[];
+	SUSPICIOUS_RECIPS(1.50)[];
+	FORGED_SENDER(0.30)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
+	R_SPF_ALLOW(-0.20)[+mx];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FREEMAIL_ENVFROM(0.00)[gmail.com]
+	ARC_NA(0.00)[];
+	ASN(0.00)[asn:209379, ipnet:185.203.200.0/22, country:DE];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	R_DKIM_NA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCVD_TLS_LAST(0.00)[];
+	DMARC_NA(0.00)[pengutronix.de];
+	TO_DN_SOME(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: MLRTIFXAZKVTMJONFWVATTK2ZMTWIVHT
-X-Message-ID-Hash: MLRTIFXAZKVTMJONFWVATTK2ZMTWIVHT
-X-MailFrom: ayushdevel1325@gmail.com
+Message-ID-Hash: MGNHCVWGMVRAZAR7C3XMSEVXJLX4UYVG
+X-Message-ID-Hash: MGNHCVWGMVRAZAR7C3XMSEVXJLX4UYVG
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: johan@kernel.org, elder@kernel.org, linux-kernel@vger.kernel.org, nm@ti.com, yujie.liu@intel.com
+CC: linux-doc@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, linux-hardening@vger.kernel.org, linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org, chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org, Bartosz Golaszewski <brgl@bgdev.pl>, linux-staging@lists.linux.dev, linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-pwm@vger.kernel.org, greybus-dev@lists.linaro.org, linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, asahi@lists.linux.dev, kernel@pengutronix.de
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH V2 1/1] greybus: gb-beagleplay: Remove use of pad bytes
+Subject: [greybus-dev] Re: [PATCH v4 000/115] pwm: Fix lifetime issues for pwm_chips
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/MLRTIFXAZKVTMJONFWVATTK2ZMTWIVHT/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/MGNHCVWGMVRAZAR7C3XMSEVXJLX4UYVG/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7312881373889375350=="
 
-DQpPbiAxMi8xMi8yMyAxOTozMSwgQWxleCBFbGRlciB3cm90ZToNCj4gT24gMTIvMTEvMjMgMTI6
-NTQgQU0sIEF5dXNoIFNpbmdoIHdyb3RlOg0KPj4gTWFrZSBnYi1iZWFnbGVwbGF5IGdyZXlidXMg
-c3BlYyBjb21wbGlhbnQgYnkgbW92aW5nIGNwb3J0IGluZm9ybWF0aW9uIHRvDQo+PiB0cmFuc3Bv
-cnQgbGF5ZXIgaW5zdGVhZCBvZiB1c2luZyBgaGVhZGVyLT5wYWRgIGJ5dGVzLg0KPj4NCj4+IEdy
-ZXlidXMgSERMQyBmcmFtZSBub3cgaGFzIHRoZSBmb2xsb3dpbmcgcGF5bG9hZDoNCj4+IDEuIGxl
-MTYgY3BvcnQNCj4+IDIuIGdiX29wZXJhdGlvbl9tc2dfaGRyIG1zZ19oZWFkZXINCj4+IDMuIHU4
-ICptc2dfcGF5bG9hZA0KPj4NCj4+IEZpeGVzOiBlYzU1OGJiZmVhNjcgKCJncmV5YnVzOiBBZGQg
-QmVhZ2xlUGxheSBMaW51eCBEcml2ZXIiKQ0KPj4gU2lnbmVkLW9mZi1ieTogQXl1c2ggU2luZ2gg
-PGF5dXNoZGV2ZWwxMzI1QGdtYWlsLmNvbT4NCj4NCj4gSSB3b3VsZCBzYXkgdGhhdCB0aGlzIGlz
-IGFuIGltcHJvdmVtZW50LCBidXQgSSB3aXNoIEkNCj4gaGFkIGEgYmV0dGVyIHBpY3R1cmUgaW4g
-bWluZCBvZiBob3cgdGhpcyB3b3Jrcy7CoCBUaGUNCj4gaW5pdGlhbCBjb21taXQgcHJvdmlkZWQg
-c29tZSBleHBsYW5hdGlvbiwgYnV0IGV2ZW4NCj4gdGhlcmUgaXQgdGFsa3MgYWJvdXQgdGhlICJD
-QzEzNTIgKHJ1bm5pbmcgU1ZDIFplcGh5cg0KPiBhcHBsaWNhdGlvbikiIGFuZCB0aGF0IGxlYWRz
-IG1lIHRvIHdvbmRlciBldmVuIGhvdw0KPiB0aGUgaGFyZHdhcmUgaXMgc3RydWN0dXJlZC7CoCAo
-SSdtIG5vdCByZWFsbHkgYXNraW5nDQo+IHlvdSBmb3IgdGhpcyByaWdodCBub3csIGJ1dCB5b3Ug
-aGF2ZSBhIHJlZmVyZW5jZSB0bw0KPiBzb21ldGhpbmcgdGhhdCBwcm92aWRlcyBzb21lIGJhY2tn
-cm91bmQsIHlvdSBzaG91bGQNCj4gcHJvdmlkZSBpdCBmb3IgY29udGV4dC4pDQoNClllcywgSSBh
-bSB0aGlua2luZyBvZiByZXZhbXBpbmcgdGhlIEJlYWdsZSBjb25uZWN0IGRvY3MgdG8gcmVmbGVj
-dCB0aGUgDQpuZXcgYXJjaGl0ZWN0dXJlIHdpdGggc29tZSBjaGFydHMgYW5kIHByb3ZpZGUgYSBi
-ZXR0ZXIgb3ZlcmFsbCBwaWN0dXJlLiANCkl0IGlzIHNvcmVseSBuZWVkZWQgYXQgdGhpcyBwb2lu
-dC4NCg0KDQo+IEFub3RoZXIgZ2VuZXJhbCBjb21tZW50IGlzIHRoYXQgdGhlIHVzZSBvZiBIRExD
-IHNlZW1zDQo+IGxpa2UgaXQgY291bGQgYmUgYSBtb3JlIGNsZWFybHkgc2VwYXJhdGVkIGxheWVy
-IHRoYXQNCj4gY291bGQgYmUgdXNlZCBieSBvdGhlciBHcmV5YnVzIHByb3RvY29scyBvciBhcHBs
-aWNhdGlvbnMuDQo+IE1heWJlIHRoYXQncyBvdmVya2lsbCwgYnV0IGl0IGlzIGEgZGlzdGluY3Qg
-bGF5ZXIsIHJpZ2h0Pw0KDQpJbml0aWFsIGNvbW1pdHMgb2YgZ2ItYmVhZ2xlcGxheSBkaWQgc2Vw
-YXJhdGUgYWxsIHRoZSBIRExDIHBhcnRzIGZyb20gDQp0aGUgZHJpdmVyLiBIb3dldmVyLCBpdCB3
-YXMgZGVjaWRlZCB0byBrZWVwIGl0IHRvZ2V0aGVyIGFuZCBtYXliZSANCmV4dHJhY3QgaXQgaW4g
-dGhlIGZ1dHVyZSBpZiBvdGhlciBkcml2ZXJzIG5lZWQgaXQuDQoNCg0KPg0KPiBJIGhhZCBhIGNv
-bW1lbnQgb3IgdHdvIGFib3V0IHVzaW5nICh2b2lkICopIGluc3RlYWQgb2YNCj4gKHU4ICopLCB0
-byByZWR1Y2UgdGhlIG5lZWQgZm9yIGV4cGxpY2l0IHR5cGUgY2FzdHMuwqAgQnV0DQo+IEkgZm91
-bmQgdGhhdCAodTggKikgaXMgdXNlZCBlbHNld2hlcmUgaW4gdGhlIEdyZXlidXMgY29kZS4NCj4N
-Cj4gT25lIGNvbW1lbnQgSSAqd2lsbCogc2hhcmUgaXMgdGhhdCB0aGUgc2VyZGV2IFJYIGNhbGxi
-YWNrDQo+IGhhcyBhIGNvbnN0IHJlY2VpdmUgYnVmZmVyLsKgIEkgcmVjb21tZW5kIHlvdSBwcmVz
-ZXJ2ZSB0aGF0DQo+ICJjb25zdG5lc3MiIGluIHlvdXIgY29kZS4NCj4NCj4gwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLUFsZXgNCg0KVGhlIGNvbnN0bmVzcyBvZiB0aGUg
-cmVjZWl2ZSBidWZmZXIgaXMgYWN0dWFsbHkgcHJlc2VydmVkLiBUaGUgDQpgZ2JfdHR5X3JlY2Vp
-dmVgIGZ1bmN0aW9uIGNhbGxzIGBoZGxjX3J4YCAod2hpY2ggdGFrZXMgY29uc3QgdTggKikuIFRo
-aXMgDQpmdW5jdGlvbiBjb3BpZXMgdGhlIGRhdGEgdG8gYSBzZXBhcmF0ZSBidWZmZXIgDQooYGdi
-X2JlYWdsZXBsYXktPnJ4X2J1ZmZlcmApIGZvciBmdXJ0aGVyIHByb2Nlc3NpbmcuIFNvIHRoZSBj
-b25zdCBkYXRhIA0KaXMgbm90IG1vZGlmaWVkLg0KDQoNCkF5dXNoIFNpbmdoDQoNCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxp
-bmcgbGlzdCAtLSBncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnClRvIHVuc3Vic2NyaWJlIHNl
-bmQgYW4gZW1haWwgdG8gZ3JleWJ1cy1kZXYtbGVhdmVAbGlzdHMubGluYXJvLm9yZwo=
+
+--===============7312881373889375350==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gyt34nc3mm25zmmf"
+Content-Disposition: inline
+
+
+--gyt34nc3mm25zmmf
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Thierry,
+
+On Mon, Dec 11, 2023 at 12:33:04PM +0100, Thierry Reding wrote:
+> On Fri, Dec 08, 2023 at 07:50:33PM +0100, Uwe Kleine-K=F6nig wrote:
+> > You don't need to touch all drivers because you didn't change struct
+> > pwm_chip::dev yet. (If you really want, you don't need to change that,
+> > but then you have some duplication as chip->dev holds the same value as
+> > priv->dev.parent in the end.)
+>=20
+> I don't think that's a problem. These are for two logically separate
+> things, after all.
+
+How are they different? I'd say one is the initializer for the other and
+(ideally) unused after that. With that interpretation they are indeed
+different, but then it's ugly that the initializer keeps staying around.
+
+> Duplication can also sometimes be useful to simplify
+> things. There are plently of cases where we use local variables for the
+> same reason.
+
+local variables go away though after the respective function is left.
+chip->dev and its copy priv->dev.parent stay around for the full
+lifetime of the chip.
+
+> > > @@ -58,23 +60,24 @@ static struct pwm_chip *pwmchip_find_by_name(cons=
+t char *name)
+> > > =20
+> > >  static int pwm_device_request(struct pwm_device *pwm, const char *la=
+bel)
+> > >  {
+> > > +	struct pwm_chip *chip =3D pwm->priv->chip;
+> >=20
+> > With my approach getting the chip of a struct pwm_device is only one
+> > pointer dereference away. You need two.
+>=20
+> None of the functions here are called very often, so even if this isn't
+> optimized away it would hardly matter.
+
+I'd say pwm_apply_state() at least matters. Also I think that making a
+slow path quicker is a good thing.=20
+
+I wonder how we'll converge to an approach that can go into the
+mainline given that we both have our strong opinions.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--gyt34nc3mm25zmmf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmV4ywQACgkQj4D7WH0S
+/k4AOQf/Rn+1it6Pa2jcb+shcSHEefw76NASZ1jTJwzdnczaZca+4/TdY0/HLE/V
+27TLO93Qd9e4o0E4uFjg/T9KbZy+cu9WxiCJ9LgBEhgPaLIWe9opiDarsy2BNLJi
+e6lERFOmyBoG3USP7t/iEQn5C+0+gC6/pcPVWk8TJO/mc2kr8ioQRsaHtaE0AsX0
+hpZS0GH+ypW5d1saF+TMkSDV4QUzmTaXxsSDqG9/vnXhjln6wlriyIo2gJI2qQ6R
+gBrGVWoz8SnG3OjfGZwo9KhL+KPTbjIba4erb1KbE9j9Ul7c3xF/nA6GcTwU/IcQ
+6WQMUp7Ez5oG8txpknnsR9R2Iimimw==
+=APXJ
+-----END PGP SIGNATURE-----
+
+--gyt34nc3mm25zmmf--
+
+--===============7312881373889375350==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+
+--===============7312881373889375350==--
