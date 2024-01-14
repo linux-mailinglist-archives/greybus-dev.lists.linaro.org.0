@@ -2,101 +2,85 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6184E8288A2
-	for <lists+greybus-dev@lfdr.de>; Tue,  9 Jan 2024 16:01:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63F1B82D2A1
+	for <lists+greybus-dev@lfdr.de>; Mon, 15 Jan 2024 01:01:25 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 32A9540D0F
-	for <lists+greybus-dev@lfdr.de>; Tue,  9 Jan 2024 15:01:25 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	by lists.linaro.org (Postfix) with ESMTPS id 9E4A040455
-	for <greybus-dev@lists.linaro.org>; Tue,  9 Jan 2024 15:01:21 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 0B96043F66
+	for <lists+greybus-dev@lfdr.de>; Mon, 15 Jan 2024 00:01:24 +0000 (UTC)
+Received: from smtp.smtpout.orange.fr (smtp-20.smtpout.orange.fr [80.12.242.20])
+	by lists.linaro.org (Postfix) with ESMTPS id 6A2E743FD4
+	for <greybus-dev@lists.linaro.org>; Sun, 14 Jan 2024 09:57:12 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=XVfmkezJ;
-	spf=pass (lists.linaro.org: domain of rmfrfs@gmail.com designates 209.85.128.50 as permitted sender) smtp.mailfrom=rmfrfs@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-40e461c1f44so24562445e9.3
-        for <greybus-dev@lists.linaro.org>; Tue, 09 Jan 2024 07:01:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704812480; x=1705417280; darn=lists.linaro.org;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=kFSSTbq7IPBf5s843uaxKy0JnvdppW2Wga9+VXd4oEI=;
-        b=XVfmkezJXIOnDtKUViSzTKjA8s2jBXO7Wujlxt3RB6JJ0dD3uYxTgyag9gccF4Yz0K
-         9MyiB4r6DctzDIq6in615xmu0hl+Ks043uxYSv2bp0ABLXDDr/5CFECixH28iYnD7mZ0
-         Te3B2I3U4+ahtj+7VFD4r7ylFbQIp61PgYqSoLCj+PkUzp/xQ8hHD4Atm7OoBkD4UtWg
-         Am5lwx7cfWYmfVKqxgfn/Nuk5O7d1XC17UjjdkpUPpvbULqKthCLLgsJWRkP5bK3yafg
-         ZpOfdR90M3d44AxWmMUBQqsZRH3yelUH8AxQjM1pAMYmTohSqasFjDgh8S77ajrHOVwh
-         T1ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704812480; x=1705417280;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kFSSTbq7IPBf5s843uaxKy0JnvdppW2Wga9+VXd4oEI=;
-        b=tx23W9T1d9ayfwd/t9wzCLtu3jw9G3U2q9OLUACrrltSHxm6FxQynPu/YHiQBC/FN5
-         7TvCY55/HUiJmCCOBrTWsYEFqLunkZ8nQvYUIToXh39fVc9IEES/QM3EYK/Mk7Wb8dma
-         8ijzbgyJa9MIr0MBQTZO136pJZy1/BG4ZTvVxk1NvLQpee6PfgW7D1RYGvj3mmMA3kpN
-         d3LVsJgBXyU8Ksb/yFTR/Q6NgOYLEoN4ZcLKUlibU7Poab/aZu6H0T4f4v+ig9Xt4Y81
-         vh/qpHkmVV8ZSymxjFL6fyxoyoO+iYTrh+3XXt5wbzN1PpN053sh+ag4Yyb6h+d6AVgz
-         2OlQ==
-X-Gm-Message-State: AOJu0Yz4Wv+/bYuSOTm/mK3oFtTkyCc1NzCjMy45tcQJfIHwZR/iXHMw
-	cJ413jyJmcMRjsnajRuwbkd5aurUiChOqA==
-X-Google-Smtp-Source: AGHT+IFnCZV4eOcSwHP2r/qM2xNuE/Uh53VLu5Icgk7vJJUxvGy3erlqRBeM/fpa2jWk5pyp9xPW+A==
-X-Received: by 2002:a05:600c:21c7:b0:40e:46b3:fe3a with SMTP id x7-20020a05600c21c700b0040e46b3fe3amr1964801wmj.47.1704812480117;
-        Tue, 09 Jan 2024 07:01:20 -0800 (PST)
-Received: from localhost (a109-49-32-45.cpe.netcabo.pt. [109.49.32.45])
-        by smtp.gmail.com with ESMTPSA id h4-20020a05600c314400b0040d7c3d5454sm15009382wmo.3.2024.01.09.07.01.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jan 2024 07:01:19 -0800 (PST)
-From: Rui Miguel Silva <rmfrfs@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>, Pavel Machek <pavel@ucw.cz>, Lee Jones
- <lee@kernel.org>
-In-Reply-To: <20240109090715.982332-2-arnd@kernel.org>
-References: <20240109090715.982332-1-arnd@kernel.org>
- <20240109090715.982332-2-arnd@kernel.org>
-Date: Tue, 09 Jan 2024 15:01:18 +0000
-Message-ID: <m3mstey2ip.fsf@gmail.com>
+	dkim=pass header.d=wanadoo.fr header.s=t20230301 header.b=OZLsa+cG;
+	spf=pass (lists.linaro.org: domain of christophe.jaillet@wanadoo.fr designates 80.12.242.20 as permitted sender) smtp.mailfrom=christophe.jaillet@wanadoo.fr;
+	dmarc=pass (policy=none) header.from=wanadoo.fr
+Received: from fedora.home ([92.140.202.140])
+	by smtp.orange.fr with ESMTPA
+	id OxEsri9TbPUoqOxEsr29aG; Sun, 14 Jan 2024 10:57:11 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1705226231;
+	bh=lqzv3ZLxuAAMhNo6bpMj22uaPMyMoPdULdX0yVOZDFo=;
+	h=From:To:Cc:Subject:Date;
+	b=OZLsa+cGkeNE3acSjtG9Rpfl/q1SQ/ND8zZ0J8UJJ+Cv9dXcAAOWllJKok/Ycr59a
+	 Hefs//IBAtWUrcGbOsR9XN9IMKLTBa1zlDpbmuH8+3SJ69AgG2dPawvayP78jPW7Yx
+	 Q89X9SRD7/9wASbLVW33qKX2jE4nxhELqGJxt5h1RdZR8M4r9KMs8ILGd2TUE58m6b
+	 oxeYctlUsSeW/8JDtW0omTcCn00rl8PxJCdv8qF4nJJ+hm5MEBSxaD9wM0fXneGCL7
+	 NGs+ab67jwKVOI5cTpCozYurSnwzf3k/HPl5fWrJoi8kz013tEW7Lnt7Lmy5WARz0g
+	 DE/pIR4ymc7Jw==
+X-ME-Helo: fedora.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sun, 14 Jan 2024 10:57:11 +0100
+X-ME-IP: 92.140.202.140
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Sun, 14 Jan 2024 10:57:02 +0100
+Message-ID: <26425379d3eb9ba1b9af44468576ee20c77eb248.1705226208.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-8.00 / 15.00];
-	REPLY(-4.00)[];
+X-Spamd-Result: default: False [-2.60 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[wanadoo.fr,none];
+	R_DKIM_ALLOW(-0.20)[wanadoo.fr:s=t20230301];
+	R_SPF_ALLOW(-0.20)[+ip4:80.12.242.0/25];
+	RWL_MAILSPIKE_VERYGOOD(-0.20)[80.12.242.20:from];
 	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_CC(0.00)[lunn.ch,arndb.de,gmail.com,redhat.com,traphandler.com,vger.kernel.org,kernel.org,linuxfoundation.org,linux.intel.com,kemnade.info,lists.linaro.org,lists.linux.dev];
+	ONCE_RECEIVED(0.10)[];
+	RCVD_COUNT_ONE(0.00)[1];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_FROM(0.00)[wanadoo.fr];
+	ASN(0.00)[asn:3215, ipnet:80.12.240.0/20, country:FR];
+	FREEMAIL_ENVFROM(0.00)[wanadoo.fr];
+	ARC_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.50:from];
-	FREEMAIL_ENVFROM(0.00)[gmail.com]
+	FREEMAIL_CC(0.00)[vger.kernel.org,wanadoo.fr,lists.linaro.org];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DKIM_TRACE(0.00)[wanadoo.fr:+]
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 9E4A040455
-X-Spamd-Bar: --------
-Message-ID-Hash: EBUD7KMCX4DNMYGS7345NM2TC4YVEJMK
-X-Message-ID-Hash: EBUD7KMCX4DNMYGS7345NM2TC4YVEJMK
-X-MailFrom: rmfrfs@gmail.com
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Andrew Lunn <andrew@lunn.ch>, Arnd Bergmann <arnd@arndb.de>, Heiner Kallweit <hkallweit1@gmail.com>, Hans de Goede <hdegoede@redhat.com>, Jean-Jacques Hiblot <jjhiblot@traphandler.com>, linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andreas Kemnade <andreas@kemnade.info>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
+X-Rspamd-Queue-Id: 6A2E743FD4
+X-Spamd-Bar: --
+X-MailFrom: christophe.jaillet@wanadoo.fr
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: Y76PMFSX2BOCHZY46ZG7IFW54MHFETB4
+X-Message-ID-Hash: Y76PMFSX2BOCHZY46ZG7IFW54MHFETB4
+X-Mailman-Approved-At: Mon, 15 Jan 2024 00:01:21 +0000
+CC: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, Christophe JAILLET <christophe.jaillet@wanadoo.fr>, greybus-dev@lists.linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 2/2] leds: make flash and multicolor dependencies unconditional
+Subject: [greybus-dev] [PATCH] greybus: Remove usage of the deprecated ida_simple_xx() API
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/EBUD7KMCX4DNMYGS7345NM2TC4YVEJMK/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/Y76PMFSX2BOCHZY46ZG7IFW54MHFETB4/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -106,258 +90,159 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hey Arnd,
-Many thanks for the patch.
+ida_alloc() and ida_free() should be preferred to the deprecated
+ida_simple_get() and ida_simple_remove().
 
-Arnd Bergmann <arnd@kernel.org> writes:
+Note that the upper limit of ida_simple_get() is exclusive, but the one of
+ida_alloc_range()/ida_alloc_max() is inclusive. So a -1 has been added when
+needed.
 
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> Along the same lines as making devm_led_classdev_register() declared
-> extern unconditional, do the same thing for the two sub-classes
-> that have similar stubs.
->
-> The users of these interfaces go to great lengths to allow building
-> with both the generic leds API and the extended version, but realistically
-> there is not much use in this, so just simplify it to always rely
-> on it and remove the confusing fallback logic.
->
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/leds/Kconfig                 |  4 ++--
->  drivers/leds/flash/Kconfig           |  4 ++--
->  drivers/staging/greybus/Kconfig      |  2 +-
->  drivers/staging/greybus/light.c      | 21 --------------------
->  include/linux/led-class-flash.h      | 24 -----------------------
->  include/linux/led-class-multicolor.h | 29 ----------------------------
->  6 files changed, 5 insertions(+), 79 deletions(-)
->
-> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-> index d721b254e1e4..9613a45a35bd 100644
-> --- a/drivers/leds/Kconfig
-> +++ b/drivers/leds/Kconfig
-> @@ -395,7 +395,7 @@ config LEDS_LP3952
->  config LEDS_LP50XX
->  	tristate "LED Support for TI LP5036/30/24/18/12/09 LED driver chip"
->  	depends on LEDS_CLASS && REGMAP_I2C
-> -	depends on LEDS_CLASS_MULTICOLOR || !LEDS_CLASS_MULTICOLOR
-> +	depends on LEDS_CLASS_MULTICOLOR
->  	help
->  	  If you say yes here you get support for the Texas Instruments
->  	  LP5036, LP5030, LP5024, LP5018, LP5012 and LP5009 LED driver.
-> @@ -406,7 +406,7 @@ config LEDS_LP50XX
->  config LEDS_LP55XX_COMMON
->  	tristate "Common Driver for TI/National LP5521/5523/55231/5562/8501"
->  	depends on LEDS_CLASS
-> -	depends on LEDS_CLASS_MULTICOLOR || !LEDS_CLASS_MULTICOLOR
-> +	depends on LEDS_CLASS_MULTICOLOR
->  	depends on OF
->  	depends on I2C
->  	select FW_LOADER
-> diff --git a/drivers/leds/flash/Kconfig b/drivers/leds/flash/Kconfig
-> index 4e08dbc05709..b95f90cd5749 100644
-> --- a/drivers/leds/flash/Kconfig
-> +++ b/drivers/leds/flash/Kconfig
-> @@ -51,8 +51,8 @@ config LEDS_MAX77693
->  config LEDS_MT6360
->  	tristate "LED Support for Mediatek MT6360 PMIC"
->  	depends on LEDS_CLASS && OF
-> -	depends on LEDS_CLASS_FLASH || !LEDS_CLASS_FLASH
-> -	depends on LEDS_CLASS_MULTICOLOR || !LEDS_CLASS_MULTICOLOR
-> +	depends on LEDS_CLASS_FLASH
-> +	depends on LEDS_CLASS_MULTICOLOR
->  	depends on V4L2_FLASH_LED_CLASS || !V4L2_FLASH_LED_CLASS
->  	depends on MFD_MT6360
->  	help
-> diff --git a/drivers/staging/greybus/Kconfig b/drivers/staging/greybus/Kconfig
-> index 927cfa4bc989..1e745a8d439c 100644
-> --- a/drivers/staging/greybus/Kconfig
-> +++ b/drivers/staging/greybus/Kconfig
-> @@ -64,7 +64,7 @@ config GREYBUS_HID
->  
->  config GREYBUS_LIGHT
->  	tristate "Greybus LED Class driver"
-> -	depends on LEDS_CLASS
-> +	depends on LEDS_CLASS_FLASH
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ drivers/greybus/es2.c       |  8 ++++----
+ drivers/greybus/hd.c        | 16 ++++++++--------
+ drivers/greybus/interface.c |  9 ++++-----
+ 3 files changed, 16 insertions(+), 17 deletions(-)
 
-Agree with the change for the greybus driver, one note, since you are
-cleaning up this, maybe also remove the other #if down when setting
-the flash specific operations, right?
+diff --git a/drivers/greybus/es2.c b/drivers/greybus/es2.c
+index e89cca015095..1ee78d0d90b4 100644
+--- a/drivers/greybus/es2.c
++++ b/drivers/greybus/es2.c
+@@ -513,16 +513,16 @@ static int es2_cport_allocate(struct gb_host_device *hd, int cport_id,
+ 
+ 	if (cport_id < 0) {
+ 		ida_start = 0;
+-		ida_end = hd->num_cports;
++		ida_end = hd->num_cports - 1;
+ 	} else if (cport_id < hd->num_cports) {
+ 		ida_start = cport_id;
+-		ida_end = cport_id + 1;
++		ida_end = cport_id;
+ 	} else {
+ 		dev_err(&hd->dev, "cport %d not available\n", cport_id);
+ 		return -EINVAL;
+ 	}
+ 
+-	return ida_simple_get(id_map, ida_start, ida_end, GFP_KERNEL);
++	return ida_alloc_range(id_map, ida_start, ida_end, GFP_KERNEL);
+ }
+ 
+ static void es2_cport_release(struct gb_host_device *hd, u16 cport_id)
+@@ -535,7 +535,7 @@ static void es2_cport_release(struct gb_host_device *hd, u16 cport_id)
+ 		return;
+ 	}
+ 
+-	ida_simple_remove(&hd->cport_id_map, cport_id);
++	ida_free(&hd->cport_id_map, cport_id);
+ }
+ 
+ static int cport_enable(struct gb_host_device *hd, u16 cport_id,
+diff --git a/drivers/greybus/hd.c b/drivers/greybus/hd.c
+index 72b21bf2d7d3..bc5fd2f53d8b 100644
+--- a/drivers/greybus/hd.c
++++ b/drivers/greybus/hd.c
+@@ -50,7 +50,7 @@ int gb_hd_cport_reserve(struct gb_host_device *hd, u16 cport_id)
+ 	struct ida *id_map = &hd->cport_id_map;
+ 	int ret;
+ 
+-	ret = ida_simple_get(id_map, cport_id, cport_id + 1, GFP_KERNEL);
++	ret = ida_alloc_range(id_map, cport_id, cport_id, GFP_KERNEL);
+ 	if (ret < 0) {
+ 		dev_err(&hd->dev, "failed to reserve cport %u\n", cport_id);
+ 		return ret;
+@@ -64,7 +64,7 @@ void gb_hd_cport_release_reserved(struct gb_host_device *hd, u16 cport_id)
+ {
+ 	struct ida *id_map = &hd->cport_id_map;
+ 
+-	ida_simple_remove(id_map, cport_id);
++	ida_free(id_map, cport_id);
+ }
+ EXPORT_SYMBOL_GPL(gb_hd_cport_release_reserved);
+ 
+@@ -80,16 +80,16 @@ int gb_hd_cport_allocate(struct gb_host_device *hd, int cport_id,
+ 
+ 	if (cport_id < 0) {
+ 		ida_start = 0;
+-		ida_end = hd->num_cports;
++		ida_end = hd->num_cports - 1;
+ 	} else if (cport_id < hd->num_cports) {
+ 		ida_start = cport_id;
+-		ida_end = cport_id + 1;
++		ida_end = cport_id;
+ 	} else {
+ 		dev_err(&hd->dev, "cport %d not available\n", cport_id);
+ 		return -EINVAL;
+ 	}
+ 
+-	return ida_simple_get(id_map, ida_start, ida_end, GFP_KERNEL);
++	return ida_alloc_range(id_map, ida_start, ida_end, GFP_KERNEL);
+ }
+ 
+ /* Locking: Caller guarantees serialisation */
+@@ -100,7 +100,7 @@ void gb_hd_cport_release(struct gb_host_device *hd, u16 cport_id)
+ 		return;
+ 	}
+ 
+-	ida_simple_remove(&hd->cport_id_map, cport_id);
++	ida_free(&hd->cport_id_map, cport_id);
+ }
+ 
+ static void gb_hd_release(struct device *dev)
+@@ -111,7 +111,7 @@ static void gb_hd_release(struct device *dev)
+ 
+ 	if (hd->svc)
+ 		gb_svc_put(hd->svc);
+-	ida_simple_remove(&gb_hd_bus_id_map, hd->bus_id);
++	ida_free(&gb_hd_bus_id_map, hd->bus_id);
+ 	ida_destroy(&hd->cport_id_map);
+ 	kfree(hd);
+ }
+@@ -162,7 +162,7 @@ struct gb_host_device *gb_hd_create(struct gb_hd_driver *driver,
+ 	if (!hd)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	ret = ida_simple_get(&gb_hd_bus_id_map, 1, 0, GFP_KERNEL);
++	ret = ida_alloc_min(&gb_hd_bus_id_map, 1, GFP_KERNEL);
+ 	if (ret < 0) {
+ 		kfree(hd);
+ 		return ERR_PTR(ret);
+diff --git a/drivers/greybus/interface.c b/drivers/greybus/interface.c
+index 9ec949a438ef..c3cfd62831ff 100644
+--- a/drivers/greybus/interface.c
++++ b/drivers/greybus/interface.c
+@@ -131,9 +131,8 @@ static int gb_interface_route_create(struct gb_interface *intf)
+ 	int ret;
+ 
+ 	/* Allocate an interface device id. */
+-	ret = ida_simple_get(&svc->device_id_map,
+-			     GB_SVC_DEVICE_ID_MIN, GB_SVC_DEVICE_ID_MAX + 1,
+-			     GFP_KERNEL);
++	ret = ida_alloc_range(&svc->device_id_map, GB_SVC_DEVICE_ID_MIN,
++			      GB_SVC_DEVICE_ID_MAX, GFP_KERNEL);
+ 	if (ret < 0) {
+ 		dev_err(&intf->dev, "failed to allocate device id: %d\n", ret);
+ 		return ret;
+@@ -165,7 +164,7 @@ static int gb_interface_route_create(struct gb_interface *intf)
+ 	 * XXX anymore.
+ 	 */
+ err_ida_remove:
+-	ida_simple_remove(&svc->device_id_map, device_id);
++	ida_free(&svc->device_id_map, device_id);
+ 
+ 	return ret;
+ }
+@@ -178,7 +177,7 @@ static void gb_interface_route_destroy(struct gb_interface *intf)
+ 		return;
+ 
+ 	gb_svc_route_destroy(svc, svc->ap_intf_id, intf->interface_id);
+-	ida_simple_remove(&svc->device_id_map, intf->device_id);
++	ida_free(&svc->device_id_map, intf->device_id);
+ 	intf->device_id = GB_INTERFACE_DEVICE_ID_BAD;
+ }
+ 
+-- 
+2.43.0
 
-#if IS_REACHABLE(CONFIG_LEDS_CLASS_FLASH)
-/* Flash specific operations */
-static int gb_lights_flash_intensity_set(struct led_classdev_flash *fcdev,
-					 u32 brightness)
-{
-	struct gb_channel *channel = container_of(fcdev, struct gb_channel,
-						  fled);
-	int ret;
-.
-.
-.
-.
-
-#else
-static int gb_lights_channel_flash_config(struct gb_channel *channel)
-{
-	struct gb_connection *connection = get_conn_from_channel(channel);
-
-	dev_err(&connection->bundle->dev, "no support for flash devices\n");
-	return 0;
-}
-.
-.
-.
-
-
-Thanks again.
-
-Cheers,
-    Rui
-
->  	help
->  	  Select this option if you have a device that follows the
->  	  Greybus LED Class specification.
-> diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
-> index 87d36948c610..d62f97249aca 100644
-> --- a/drivers/staging/greybus/light.c
-> +++ b/drivers/staging/greybus/light.c
-> @@ -29,13 +29,9 @@ struct gb_channel {
->  	struct attribute_group		*attr_group;
->  	const struct attribute_group	**attr_groups;
->  	struct led_classdev		*led;
-> -#if IS_REACHABLE(CONFIG_LEDS_CLASS_FLASH)
->  	struct led_classdev_flash	fled;
->  	struct led_flash_setting	intensity_uA;
->  	struct led_flash_setting	timeout_us;
-> -#else
-> -	struct led_classdev		cled;
-> -#endif
->  	struct gb_light			*light;
->  	bool				is_registered;
->  	bool				releasing;
-> @@ -84,7 +80,6 @@ static bool is_channel_flash(struct gb_channel *channel)
->  				   | GB_CHANNEL_MODE_INDICATOR));
->  }
->  
-> -#if IS_REACHABLE(CONFIG_LEDS_CLASS_FLASH)
->  static struct gb_channel *get_channel_from_cdev(struct led_classdev *cdev)
->  {
->  	struct led_classdev_flash *fled_cdev = lcdev_to_flcdev(cdev);
-> @@ -153,22 +148,6 @@ static int __gb_lights_flash_brightness_set(struct gb_channel *channel)
->  
->  	return __gb_lights_flash_intensity_set(channel, intensity);
->  }
-> -#else
-> -static struct gb_channel *get_channel_from_cdev(struct led_classdev *cdev)
-> -{
-> -	return container_of(cdev, struct gb_channel, cled);
-> -}
-> -
-> -static struct led_classdev *get_channel_cdev(struct gb_channel *channel)
-> -{
-> -	return &channel->cled;
-> -}
-> -
-> -static int __gb_lights_flash_brightness_set(struct gb_channel *channel)
-> -{
-> -	return 0;
-> -}
-> -#endif
->  
->  static int gb_lights_color_set(struct gb_channel *channel, u32 color);
->  static int gb_lights_fade_set(struct gb_channel *channel);
-> diff --git a/include/linux/led-class-flash.h b/include/linux/led-class-flash.h
-> index 612b4cab3819..36df927ec4b7 100644
-> --- a/include/linux/led-class-flash.h
-> +++ b/include/linux/led-class-flash.h
-> @@ -85,7 +85,6 @@ static inline struct led_classdev_flash *lcdev_to_flcdev(
->  	return container_of(lcdev, struct led_classdev_flash, led_cdev);
->  }
->  
-> -#if IS_ENABLED(CONFIG_LEDS_CLASS_FLASH)
->  /**
->   * led_classdev_flash_register_ext - register a new object of LED class with
->   *				     init data and with support for flash LEDs
-> @@ -116,29 +115,6 @@ int devm_led_classdev_flash_register_ext(struct device *parent,
->  void devm_led_classdev_flash_unregister(struct device *parent,
->  					struct led_classdev_flash *fled_cdev);
->  
-> -#else
-> -
-> -static inline int led_classdev_flash_register_ext(struct device *parent,
-> -				    struct led_classdev_flash *fled_cdev,
-> -				    struct led_init_data *init_data)
-> -{
-> -	return 0;
-> -}
-> -
-> -static inline void led_classdev_flash_unregister(struct led_classdev_flash *fled_cdev) {};
-> -static inline int devm_led_classdev_flash_register_ext(struct device *parent,
-> -				     struct led_classdev_flash *fled_cdev,
-> -				     struct led_init_data *init_data)
-> -{
-> -	return 0;
-> -}
-> -
-> -static inline void devm_led_classdev_flash_unregister(struct device *parent,
-> -					struct led_classdev_flash *fled_cdev)
-> -{};
-> -
-> -#endif  /* IS_ENABLED(CONFIG_LEDS_CLASS_FLASH) */
-> -
->  static inline int led_classdev_flash_register(struct device *parent,
->  					   struct led_classdev_flash *fled_cdev)
->  {
-> diff --git a/include/linux/led-class-multicolor.h b/include/linux/led-class-multicolor.h
-> index 210d57bcd767..db9f34c6736e 100644
-> --- a/include/linux/led-class-multicolor.h
-> +++ b/include/linux/led-class-multicolor.h
-> @@ -30,7 +30,6 @@ static inline struct led_classdev_mc *lcdev_to_mccdev(
->  	return container_of(led_cdev, struct led_classdev_mc, led_cdev);
->  }
->  
-> -#if IS_ENABLED(CONFIG_LEDS_CLASS_MULTICOLOR)
->  /**
->   * led_classdev_multicolor_register_ext - register a new object of led_classdev
->   *				      class with support for multicolor LEDs
-> @@ -64,34 +63,6 @@ int devm_led_classdev_multicolor_register_ext(struct device *parent,
->  
->  void devm_led_classdev_multicolor_unregister(struct device *parent,
->  					    struct led_classdev_mc *mcled_cdev);
-> -#else
-> -
-> -static inline int led_classdev_multicolor_register_ext(struct device *parent,
-> -					    struct led_classdev_mc *mcled_cdev,
-> -					    struct led_init_data *init_data)
-> -{
-> -	return 0;
-> -}
-> -
-> -static inline void led_classdev_multicolor_unregister(struct led_classdev_mc *mcled_cdev) {};
-> -static inline int led_mc_calc_color_components(struct led_classdev_mc *mcled_cdev,
-> -					       enum led_brightness brightness)
-> -{
-> -	return 0;
-> -}
-> -
-> -static inline int devm_led_classdev_multicolor_register_ext(struct device *parent,
-> -					  struct led_classdev_mc *mcled_cdev,
-> -					  struct led_init_data *init_data)
-> -{
-> -	return 0;
-> -}
-> -
-> -static inline void devm_led_classdev_multicolor_unregister(struct device *parent,
-> -					    struct led_classdev_mc *mcled_cdev)
-> -{};
-> -
-> -#endif  /* IS_ENABLED(CONFIG_LEDS_CLASS_MULTICOLOR) */
->  
->  static inline int led_classdev_multicolor_register(struct device *parent,
->  					    struct led_classdev_mc *mcled_cdev)
-> -- 
-> 2.39.2
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
