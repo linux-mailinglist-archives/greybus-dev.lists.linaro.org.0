@@ -2,202 +2,129 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A88782E18C
-	for <lists+greybus-dev@lfdr.de>; Mon, 15 Jan 2024 21:21:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1121A82E934
+	for <lists+greybus-dev@lfdr.de>; Tue, 16 Jan 2024 06:38:57 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9C36D43D34
-	for <lists+greybus-dev@lfdr.de>; Mon, 15 Jan 2024 20:21:27 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
-	by lists.linaro.org (Postfix) with ESMTPS id 81BAF3F360
-	for <greybus-dev@lists.linaro.org>; Mon, 15 Jan 2024 20:21:23 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 0745F40B37
+	for <lists+greybus-dev@lfdr.de>; Tue, 16 Jan 2024 05:38:56 +0000 (UTC)
+Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
+	by lists.linaro.org (Postfix) with ESMTPS id 4F7FD3EF1D
+	for <greybus-dev@lists.linaro.org>; Tue, 16 Jan 2024 05:38:53 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=none;
-	spf=pass (lists.linaro.org: domain of ukl@pengutronix.de designates 185.203.201.7 as permitted sender) smtp.mailfrom=ukl@pengutronix.de;
-	dmarc=none
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rPTSI-0004wq-LT; Mon, 15 Jan 2024 21:21:10 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rPTSI-0005hZ-8L; Mon, 15 Jan 2024 21:21:10 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rPTSI-000N8t-0Z;
-	Mon, 15 Jan 2024 21:21:10 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Mark Brown <broonie@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Date: Mon, 15 Jan 2024 21:13:12 +0100
-Message-ID: <188f907d08d4a57d1058f01bc4939f209a4c8e43.1705348270.git.u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1705348269.git.u.kleine-koenig@pengutronix.de>
+	dkim=pass header.d=linaro.org header.s=google header.b="J1jKz/LM";
+	spf=pass (lists.linaro.org: domain of viresh.kumar@linaro.org designates 209.85.160.45 as permitted sender) smtp.mailfrom=viresh.kumar@linaro.org;
+	dmarc=pass (policy=none) header.from=linaro.org
+Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-206b77b9f4bso3495968fac.1
+        for <greybus-dev@lists.linaro.org>; Mon, 15 Jan 2024 21:38:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1705383532; x=1705988332; darn=lists.linaro.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=7yUFUU66f8Pu7tZiWG2Vaq0nR6vJICcLg6Vq70eDraI=;
+        b=J1jKz/LMBo1XnHMLEpkeWhwFoBqBL9Nc8UYe9W5ugOEenD4IvpPaWG3GxZWPhJQDbS
+         R0lHeWFnHTqgATvbfGduFSs4BOlqFx7YmjfkbDjJocEbrhiIg8Z4nvSAGGNrZaDZicg2
+         dZwZTegAALl6V35ybjIUStT4pdBUmAwDJtTbEGADvp+XUq1dqHbC+3poJaIdTj5T5PVe
+         PJpsOOqYSLPCdaR55n7n1kykW72V53uPwiPbfJr6servDyAE/JgZ3q8LFaMEntV5r3Xm
+         Yjx8c/+eUh/tsBu/UH1+IOHTpp/C0kqz/dqlU2xDgZRJRd/qrDC3GLRofsqipVubIAWh
+         Ynhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705383532; x=1705988332;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=7yUFUU66f8Pu7tZiWG2Vaq0nR6vJICcLg6Vq70eDraI=;
+        b=Arjw65JIQpZlze/lULuxfEAGjzVtzSE8fkyzUAaU35vCGzqjidpgPH482ZlpQSSiV+
+         pTQ440UCnBgATImZCNIsaMTYj5dIkS8zQqiq4RusNjuX13uRA0NOF+7xmu4yQBqHYFWU
+         AqSPIGvrwqhXyPgxXnvWNNaHeLIv9PzJdkU8PzbDbJOi460n3JeoZJ2A/CKGn3bKlJDy
+         KV+tTDswE8Ucl+8855mMPzwUlOfH9sD/7JtumtHjCJoCetPRaxaWHWtk/FnX5xog6hJI
+         4uAQOs15JswwVHeeEjvub3BGFq/S8zw2uohIh0rR5k4gt0Y5FWGZBA3k28jf2XAQEaNx
+         znBQ==
+X-Gm-Message-State: AOJu0Yy+1jcvxL/8Ilo4XywwbZei5yRvA3YmKALBzuAyZiGt8Bg9OUqP
+	ShJGRdB9qO+5xXycuL5ZFMjMU34sG8Qh4oGb
+X-Google-Smtp-Source: AGHT+IEfDKhikqk0PQDjlpmEeKuxVyvTuSVywSGF6JHipf9nnyT0gOg1FuJ6LMT4BnZJjbrWRG40Jg==
+X-Received: by 2002:a05:6870:414b:b0:205:ccc5:2740 with SMTP id r11-20020a056870414b00b00205ccc52740mr10523146oad.10.1705383532496;
+        Mon, 15 Jan 2024 21:38:52 -0800 (PST)
+Received: from localhost ([122.172.81.83])
+        by smtp.gmail.com with ESMTPSA id n9-20020a6563c9000000b005c21c23180bsm7951734pgv.76.2024.01.15.21.38.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jan 2024 21:38:51 -0800 (PST)
+Date: Tue, 16 Jan 2024 11:08:49 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <20240116053849.ymahw5hzwmtsqglh@vireshk-i7>
 References: <cover.1705348269.git.u.kleine-koenig@pengutronix.de>
+ <188f907d08d4a57d1058f01bc4939f209a4c8e43.1705348270.git.u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6252; i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id; bh=+bgf1pgHJVDIktxZ8peLmYEBtS27RvvwZP/EDTR1/wE=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlpZHepgF4UUU2iRxU8Sc/+uQb5wuW3uLYtXtCC yajJew1bHqJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZaWR3gAKCRCPgPtYfRL+ ToiXB/4vNgRTgJz1SRfvqrxItK8uJjsHlxp5VD/cNlKt9Xa9SC4y4s1LNmKTnLnPYXpW1fLUJoY hh3aHyUFdIy9nJrZA9bXdaPipp/4GJkDMjFbNiaqCxmy29WmTQnO1QJaZ4ms5tUjvN0cwJ0FbHE +WZMpeZ9F8qxS/eVg+v9/pVs1fRMH1YSQBFawhFPQk5z5lUXX7bUGP1FhYMAPqc5G7iMY7WeFsG Erl4qvzYAM4nAiomSVfSL6drJzvWgPDRXBmTb4CwZJ18O7uCX21huPqq6qOunmSh6Bg6X0wReNE ae5Fo4V1Wdl1oEs7iUmva9EIc3Zn+AjLSPennkT3yi0/pB0/
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
+Content-Disposition: inline
+In-Reply-To: <188f907d08d4a57d1058f01bc4939f209a4c8e43.1705348270.git.u.kleine-koenig@pengutronix.de>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.50 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-6.10 / 15.00];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	FORGED_SENDER(0.30)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
-	R_SPF_ALLOW(-0.20)[+mx];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[renesas];
-	FREEMAIL_CC(0.00)[vger.kernel.org,pengutronix.de,gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.160.45:from];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:209379, ipnet:185.203.200.0/22, country:DE];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	R_DKIM_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
-	DMARC_NA(0.00)[pengutronix.de];
+	FREEMAIL_CC(0.00)[kernel.org,glider.be,vger.kernel.org,pengutronix.de,gmail.com,linuxfoundation.org,lists.linaro.org,lists.linux.dev];
+	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[]
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	MISSING_XM_UA(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	TAGGED_RCPT(0.00)[renesas];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[]
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 81BAF3F360
-X-Spamd-Bar: /
-Message-ID-Hash: ASGWHOH3SB2HE7ZBIY3GAMSMENRN7GOV
-X-Message-ID-Hash: ASGWHOH3SB2HE7ZBIY3GAMSMENRN7GOV
-X-MailFrom: ukl@pengutronix.de
+X-Rspamd-Queue-Id: 4F7FD3EF1D
+X-Spamd-Bar: ------
+Message-ID-Hash: E74236VDXBIX7CKBJEVY7TZBHJUMF3UA
+X-Message-ID-Hash: E74236VDXBIX7CKBJEVY7TZBHJUMF3UA
+X-MailFrom: viresh.kumar@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-spi@vger.kernel.org, kernel@pengutronix.de, Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
+CC: Mark Brown <broonie@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, linux-spi@vger.kernel.org, kernel@pengutronix.de, Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH 26/33] staging: greybus: spi: Follow renaming of SPI "master" to "controller"
+Subject: [greybus-dev] Re: [PATCH 26/33] staging: greybus: spi: Follow renaming of SPI "master" to "controller"
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ASGWHOH3SB2HE7ZBIY3GAMSMENRN7GOV/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/E74236VDXBIX7CKBJEVY7TZBHJUMF3UA/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-SW4gY29tbWl0IDhjYWFiNzVmZDJjMiAoInNwaTogR2VuZXJhbGl6ZSBTUEkgIm1hc3RlciIgdG8g
-ImNvbnRyb2xsZXIiIikNCnNvbWUgZnVuY3Rpb25zIGFuZCBzdHJ1Y3QgbWVtYmVycyB3ZXJlIHJl
-bmFtZWQuIFRvIG5vdCBicmVhayBhbGwgZHJpdmVycw0KY29tcGF0aWJpbGl0eSBtYWNyb3Mgd2Vy
-ZSBwcm92aWRlZC4NCg0KVG8gYmUgYWJsZSB0byByZW1vdmUgdGhlc2UgY29tcGF0aWJpbGl0eSBt
-YWNyb3MgcHVzaCB0aGUgcmVuYW1pbmcgaW50bw0KdGhpcyBkcml2ZXIuDQoNClNpZ25lZC1vZmYt
-Ynk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+DQot
-LS0NCiBkcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9zcGlsaWIuYyB8IDY2ICsrKysrKysrKysrKysr
-KystLS0tLS0tLS0tLS0tLS0tDQogMSBmaWxlIGNoYW5nZWQsIDMzIGluc2VydGlvbnMoKyksIDMz
-IGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvc3Bp
-bGliLmMgYi9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9zcGlsaWIuYw0KaW5kZXggZWZiM2JlYzU4
-ZTE1Li4zNGYxMDY4NTEzOWYgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9z
-cGlsaWIuYw0KKysrIGIvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvc3BpbGliLmMNCkBAIC00Miw3
-ICs0Miw3IEBAIHN0cnVjdCBnYl9zcGlsaWIgew0KIA0KICNkZWZpbmUgWEZFUl9USU1FT1VUX1RP
-TEVSQU5DRQkJMjAwDQogDQotc3RhdGljIHN0cnVjdCBzcGlfbWFzdGVyICpnZXRfbWFzdGVyX2Zy
-b21fc3BpKHN0cnVjdCBnYl9zcGlsaWIgKnNwaSkNCitzdGF0aWMgc3RydWN0IHNwaV9jb250cm9s
-bGVyICpnZXRfY29udHJvbGxlcl9mcm9tX3NwaShzdHJ1Y3QgZ2Jfc3BpbGliICpzcGkpDQogew0K
-IAlyZXR1cm4gZ2JfY29ubmVjdGlvbl9nZXRfZGF0YShzcGktPmNvbm5lY3Rpb24pOw0KIH0NCkBA
-IC0zMjQsMTAgKzMyNCwxMCBAQCBzdGF0aWMgdm9pZCBnYl9zcGlfZGVjb2RlX3Jlc3BvbnNlKHN0
-cnVjdCBnYl9zcGlsaWIgKnNwaSwNCiAJfQ0KIH0NCiANCi1zdGF0aWMgaW50IGdiX3NwaV90cmFu
-c2Zlcl9vbmVfbWVzc2FnZShzdHJ1Y3Qgc3BpX21hc3RlciAqbWFzdGVyLA0KK3N0YXRpYyBpbnQg
-Z2Jfc3BpX3RyYW5zZmVyX29uZV9tZXNzYWdlKHN0cnVjdCBzcGlfY29udHJvbGxlciAqY3RsciwN
-CiAJCQkJICAgICAgIHN0cnVjdCBzcGlfbWVzc2FnZSAqbXNnKQ0KIHsNCi0Jc3RydWN0IGdiX3Nw
-aWxpYiAqc3BpID0gc3BpX21hc3Rlcl9nZXRfZGV2ZGF0YShtYXN0ZXIpOw0KKwlzdHJ1Y3QgZ2Jf
-c3BpbGliICpzcGkgPSBzcGlfY29udHJvbGxlcl9nZXRfZGV2ZGF0YShjdGxyKTsNCiAJc3RydWN0
-IGdiX2Nvbm5lY3Rpb24gKmNvbm5lY3Rpb24gPSBzcGktPmNvbm5lY3Rpb247DQogCXN0cnVjdCBn
-Yl9zcGlfdHJhbnNmZXJfcmVzcG9uc2UgKnJlc3BvbnNlOw0KIAlzdHJ1Y3QgZ2Jfb3BlcmF0aW9u
-ICpvcGVyYXRpb247DQpAQCAtMzcxLDIxICszNzEsMjEgQEAgc3RhdGljIGludCBnYl9zcGlfdHJh
-bnNmZXJfb25lX21lc3NhZ2Uoc3RydWN0IHNwaV9tYXN0ZXIgKm1hc3RlciwNCiBvdXQ6DQogCW1z
-Zy0+c3RhdHVzID0gcmV0Ow0KIAljbGVhbl94ZmVyX3N0YXRlKHNwaSk7DQotCXNwaV9maW5hbGl6
-ZV9jdXJyZW50X21lc3NhZ2UobWFzdGVyKTsNCisJc3BpX2ZpbmFsaXplX2N1cnJlbnRfbWVzc2Fn
-ZShjdGxyKTsNCiANCiAJcmV0dXJuIHJldDsNCiB9DQogDQotc3RhdGljIGludCBnYl9zcGlfcHJl
-cGFyZV90cmFuc2Zlcl9oYXJkd2FyZShzdHJ1Y3Qgc3BpX21hc3RlciAqbWFzdGVyKQ0KK3N0YXRp
-YyBpbnQgZ2Jfc3BpX3ByZXBhcmVfdHJhbnNmZXJfaGFyZHdhcmUoc3RydWN0IHNwaV9jb250cm9s
-bGVyICpjdGxyKQ0KIHsNCi0Jc3RydWN0IGdiX3NwaWxpYiAqc3BpID0gc3BpX21hc3Rlcl9nZXRf
-ZGV2ZGF0YShtYXN0ZXIpOw0KKwlzdHJ1Y3QgZ2Jfc3BpbGliICpzcGkgPSBzcGlfY29udHJvbGxl
-cl9nZXRfZGV2ZGF0YShjdGxyKTsNCiANCiAJcmV0dXJuIHNwaS0+b3BzLT5wcmVwYXJlX3RyYW5z
-ZmVyX2hhcmR3YXJlKHNwaS0+cGFyZW50KTsNCiB9DQogDQotc3RhdGljIGludCBnYl9zcGlfdW5w
-cmVwYXJlX3RyYW5zZmVyX2hhcmR3YXJlKHN0cnVjdCBzcGlfbWFzdGVyICptYXN0ZXIpDQorc3Rh
-dGljIGludCBnYl9zcGlfdW5wcmVwYXJlX3RyYW5zZmVyX2hhcmR3YXJlKHN0cnVjdCBzcGlfY29u
-dHJvbGxlciAqY3RscikNCiB7DQotCXN0cnVjdCBnYl9zcGlsaWIgKnNwaSA9IHNwaV9tYXN0ZXJf
-Z2V0X2RldmRhdGEobWFzdGVyKTsNCisJc3RydWN0IGdiX3NwaWxpYiAqc3BpID0gc3BpX2NvbnRy
-b2xsZXJfZ2V0X2RldmRhdGEoY3Rscik7DQogDQogCXNwaS0+b3BzLT51bnByZXBhcmVfdHJhbnNm
-ZXJfaGFyZHdhcmUoc3BpLT5wYXJlbnQpOw0KIA0KQEAgLTQ0MCw3ICs0NDAsNyBAQCBzdGF0aWMg
-aW50IGdiX3NwaV9nZXRfbWFzdGVyX2NvbmZpZyhzdHJ1Y3QgZ2Jfc3BpbGliICpzcGkpDQogDQog
-c3RhdGljIGludCBnYl9zcGlfc2V0dXBfZGV2aWNlKHN0cnVjdCBnYl9zcGlsaWIgKnNwaSwgdTgg
-Y3MpDQogew0KLQlzdHJ1Y3Qgc3BpX21hc3RlciAqbWFzdGVyID0gZ2V0X21hc3Rlcl9mcm9tX3Nw
-aShzcGkpOw0KKwlzdHJ1Y3Qgc3BpX2NvbnRyb2xsZXIgKmN0bHIgPSBnZXRfY29udHJvbGxlcl9m
-cm9tX3NwaShzcGkpOw0KIAlzdHJ1Y3QgZ2Jfc3BpX2RldmljZV9jb25maWdfcmVxdWVzdCByZXF1
-ZXN0Ow0KIAlzdHJ1Y3QgZ2Jfc3BpX2RldmljZV9jb25maWdfcmVzcG9uc2UgcmVzcG9uc2U7DQog
-CXN0cnVjdCBzcGlfYm9hcmRfaW5mbyBzcGlfYm9hcmQgPSB7IHswfSB9Ow0KQEAgLTQ3MSwxMSAr
-NDcxLDExIEBAIHN0YXRpYyBpbnQgZ2Jfc3BpX3NldHVwX2RldmljZShzdHJ1Y3QgZ2Jfc3BpbGli
-ICpzcGksIHU4IGNzKQ0KIAkJcmV0dXJuIC1FSU5WQUw7DQogDQogCXNwaV9ib2FyZC5tb2RlCQk9
-IGxlMTZfdG9fY3B1KHJlc3BvbnNlLm1vZGUpOw0KLQlzcGlfYm9hcmQuYnVzX251bQk9IG1hc3Rl
-ci0+YnVzX251bTsNCisJc3BpX2JvYXJkLmJ1c19udW0JPSBjdGxyLT5idXNfbnVtOw0KIAlzcGlf
-Ym9hcmQuY2hpcF9zZWxlY3QJPSBjczsNCiAJc3BpX2JvYXJkLm1heF9zcGVlZF9oegk9IGxlMzJf
-dG9fY3B1KHJlc3BvbnNlLm1heF9zcGVlZF9oeik7DQogDQotCXNwaWRldiA9IHNwaV9uZXdfZGV2
-aWNlKG1hc3RlciwgJnNwaV9ib2FyZCk7DQorCXNwaWRldiA9IHNwaV9uZXdfZGV2aWNlKGN0bHIs
-ICZzcGlfYm9hcmQpOw0KIAlpZiAoIXNwaWRldikNCiAJCXJldHVybiAtRUlOVkFMOw0KIA0KQEAg
-LTQ4Niw1MiArNDg2LDUyIEBAIGludCBnYl9zcGlsaWJfbWFzdGVyX2luaXQoc3RydWN0IGdiX2Nv
-bm5lY3Rpb24gKmNvbm5lY3Rpb24sIHN0cnVjdCBkZXZpY2UgKmRldiwNCiAJCQkgIHN0cnVjdCBz
-cGlsaWJfb3BzICpvcHMpDQogew0KIAlzdHJ1Y3QgZ2Jfc3BpbGliICpzcGk7DQotCXN0cnVjdCBz
-cGlfbWFzdGVyICptYXN0ZXI7DQorCXN0cnVjdCBzcGlfY29udHJvbGxlciAqY3RscjsNCiAJaW50
-IHJldDsNCiAJdTggaTsNCiANCiAJLyogQWxsb2NhdGUgbWFzdGVyIHdpdGggc3BhY2UgZm9yIGRh
-dGEgKi8NCi0JbWFzdGVyID0gc3BpX2FsbG9jX21hc3RlcihkZXYsIHNpemVvZigqc3BpKSk7DQot
-CWlmICghbWFzdGVyKSB7DQorCWN0bHIgPSBzcGlfYWxsb2NfbWFzdGVyKGRldiwgc2l6ZW9mKCpz
-cGkpKTsNCisJaWYgKCFjdGxyKSB7DQogCQlkZXZfZXJyKGRldiwgImNhbm5vdCBhbGxvYyBTUEkg
-bWFzdGVyXG4iKTsNCiAJCXJldHVybiAtRU5PTUVNOw0KIAl9DQogDQotCXNwaSA9IHNwaV9tYXN0
-ZXJfZ2V0X2RldmRhdGEobWFzdGVyKTsNCisJc3BpID0gc3BpX2NvbnRyb2xsZXJfZ2V0X2RldmRh
-dGEoY3Rscik7DQogCXNwaS0+Y29ubmVjdGlvbiA9IGNvbm5lY3Rpb247DQotCWdiX2Nvbm5lY3Rp
-b25fc2V0X2RhdGEoY29ubmVjdGlvbiwgbWFzdGVyKTsNCisJZ2JfY29ubmVjdGlvbl9zZXRfZGF0
-YShjb25uZWN0aW9uLCBjdGxyKTsNCiAJc3BpLT5wYXJlbnQgPSBkZXY7DQogCXNwaS0+b3BzID0g
-b3BzOw0KIA0KLQkvKiBnZXQgbWFzdGVyIGNvbmZpZ3VyYXRpb24gKi8NCisJLyogZ2V0IGNvbnRy
-b2xsZXIgY29uZmlndXJhdGlvbiAqLw0KIAlyZXQgPSBnYl9zcGlfZ2V0X21hc3Rlcl9jb25maWco
-c3BpKTsNCiAJaWYgKHJldCkNCiAJCWdvdG8gZXhpdF9zcGlfcHV0Ow0KIA0KLQltYXN0ZXItPmJ1
-c19udW0gPSAtMTsgLyogQWxsb3cgc3BpLWNvcmUgdG8gYWxsb2NhdGUgaXQgZHluYW1pY2FsbHkg
-Ki8NCi0JbWFzdGVyLT5udW1fY2hpcHNlbGVjdCA9IHNwaS0+bnVtX2NoaXBzZWxlY3Q7DQotCW1h
-c3Rlci0+bW9kZV9iaXRzID0gc3BpLT5tb2RlOw0KLQltYXN0ZXItPmZsYWdzID0gc3BpLT5mbGFn
-czsNCi0JbWFzdGVyLT5iaXRzX3Blcl93b3JkX21hc2sgPSBzcGktPmJpdHNfcGVyX3dvcmRfbWFz
-azsNCisJY3Rsci0+YnVzX251bSA9IC0xOyAvKiBBbGxvdyBzcGktY29yZSB0byBhbGxvY2F0ZSBp
-dCBkeW5hbWljYWxseSAqLw0KKwljdGxyLT5udW1fY2hpcHNlbGVjdCA9IHNwaS0+bnVtX2NoaXBz
-ZWxlY3Q7DQorCWN0bHItPm1vZGVfYml0cyA9IHNwaS0+bW9kZTsNCisJY3Rsci0+ZmxhZ3MgPSBz
-cGktPmZsYWdzOw0KKwljdGxyLT5iaXRzX3Blcl93b3JkX21hc2sgPSBzcGktPmJpdHNfcGVyX3dv
-cmRfbWFzazsNCiANCiAJLyogQXR0YWNoIG1ldGhvZHMgKi8NCi0JbWFzdGVyLT5jbGVhbnVwID0g
-Z2Jfc3BpX2NsZWFudXA7DQotCW1hc3Rlci0+c2V0dXAgPSBnYl9zcGlfc2V0dXA7DQotCW1hc3Rl
-ci0+dHJhbnNmZXJfb25lX21lc3NhZ2UgPSBnYl9zcGlfdHJhbnNmZXJfb25lX21lc3NhZ2U7DQor
-CWN0bHItPmNsZWFudXAgPSBnYl9zcGlfY2xlYW51cDsNCisJY3Rsci0+c2V0dXAgPSBnYl9zcGlf
-c2V0dXA7DQorCWN0bHItPnRyYW5zZmVyX29uZV9tZXNzYWdlID0gZ2Jfc3BpX3RyYW5zZmVyX29u
-ZV9tZXNzYWdlOw0KIA0KIAlpZiAob3BzICYmIG9wcy0+cHJlcGFyZV90cmFuc2Zlcl9oYXJkd2Fy
-ZSkgew0KLQkJbWFzdGVyLT5wcmVwYXJlX3RyYW5zZmVyX2hhcmR3YXJlID0NCisJCWN0bHItPnBy
-ZXBhcmVfdHJhbnNmZXJfaGFyZHdhcmUgPQ0KIAkJCWdiX3NwaV9wcmVwYXJlX3RyYW5zZmVyX2hh
-cmR3YXJlOw0KIAl9DQogDQogCWlmIChvcHMgJiYgb3BzLT51bnByZXBhcmVfdHJhbnNmZXJfaGFy
-ZHdhcmUpIHsNCi0JCW1hc3Rlci0+dW5wcmVwYXJlX3RyYW5zZmVyX2hhcmR3YXJlID0NCisJCWN0
-bHItPnVucHJlcGFyZV90cmFuc2Zlcl9oYXJkd2FyZSA9DQogCQkJZ2Jfc3BpX3VucHJlcGFyZV90
-cmFuc2Zlcl9oYXJkd2FyZTsNCiAJfQ0KIA0KLQltYXN0ZXItPmF1dG9fcnVudGltZV9wbSA9IHRy
-dWU7DQorCWN0bHItPmF1dG9fcnVudGltZV9wbSA9IHRydWU7DQogDQotCXJldCA9IHNwaV9yZWdp
-c3Rlcl9tYXN0ZXIobWFzdGVyKTsNCisJcmV0ID0gc3BpX3JlZ2lzdGVyX2NvbnRyb2xsZXIoY3Rs
-cik7DQogCWlmIChyZXQgPCAwKQ0KIAkJZ290byBleGl0X3NwaV9wdXQ7DQogDQpAQCAtNTQ4LDEy
-ICs1NDgsMTIgQEAgaW50IGdiX3NwaWxpYl9tYXN0ZXJfaW5pdChzdHJ1Y3QgZ2JfY29ubmVjdGlv
-biAqY29ubmVjdGlvbiwgc3RydWN0IGRldmljZSAqZGV2LA0KIAlyZXR1cm4gMDsNCiANCiBleGl0
-X3NwaV9wdXQ6DQotCXNwaV9tYXN0ZXJfcHV0KG1hc3Rlcik7DQorCXNwaV9jb250cm9sbGVyX3B1
-dChjdGxyKTsNCiANCiAJcmV0dXJuIHJldDsNCiANCiBleGl0X3NwaV91bnJlZ2lzdGVyOg0KLQlz
-cGlfdW5yZWdpc3Rlcl9tYXN0ZXIobWFzdGVyKTsNCisJc3BpX3VucmVnaXN0ZXJfY29udHJvbGxl
-cihjdGxyKTsNCiANCiAJcmV0dXJuIHJldDsNCiB9DQpAQCAtNTYxLDkgKzU2MSw5IEBAIEVYUE9S
-VF9TWU1CT0xfR1BMKGdiX3NwaWxpYl9tYXN0ZXJfaW5pdCk7DQogDQogdm9pZCBnYl9zcGlsaWJf
-bWFzdGVyX2V4aXQoc3RydWN0IGdiX2Nvbm5lY3Rpb24gKmNvbm5lY3Rpb24pDQogew0KLQlzdHJ1
-Y3Qgc3BpX21hc3RlciAqbWFzdGVyID0gZ2JfY29ubmVjdGlvbl9nZXRfZGF0YShjb25uZWN0aW9u
-KTsNCisJc3RydWN0IHNwaV9jb250cm9sbGVyICpjdGxyID0gZ2JfY29ubmVjdGlvbl9nZXRfZGF0
-YShjb25uZWN0aW9uKTsNCiANCi0Jc3BpX3VucmVnaXN0ZXJfbWFzdGVyKG1hc3Rlcik7DQorCXNw
-aV91bnJlZ2lzdGVyX2NvbnRyb2xsZXIoY3Rscik7DQogfQ0KIEVYUE9SVF9TWU1CT0xfR1BMKGdi
-X3NwaWxpYl9tYXN0ZXJfZXhpdCk7DQogDQotLSANCjIuNDMuMA0KDQpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpncmV5YnVzLWRldiBtYWlsaW5nIGxpc3Qg
-LS0gZ3JleWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpUbyB1bnN1YnNjcmliZSBzZW5kIGFuIGVt
-YWlsIHRvIGdyZXlidXMtZGV2LWxlYXZlQGxpc3RzLmxpbmFyby5vcmcK
+On 15-01-24, 21:13, Uwe Kleine-K=F6nig wrote:
+> In commit 8caab75fd2c2 ("spi: Generalize SPI "master" to "controller"")
+> some functions and struct members were renamed. To not break all drivers
+> compatibility macros were provided.
+>=20
+> To be able to remove these compatibility macros push the renaming into
+> this driver.
+>=20
+> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+> ---
+>  drivers/staging/greybus/spilib.c | 66 ++++++++++++++++----------------
+>  1 file changed, 33 insertions(+), 33 deletions(-)
+
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+
+--=20
+viresh
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
