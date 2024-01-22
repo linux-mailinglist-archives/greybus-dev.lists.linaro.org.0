@@ -2,200 +2,136 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBDD1836F0D
-	for <lists+greybus-dev@lfdr.de>; Mon, 22 Jan 2024 19:08:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2519A836F96
+	for <lists+greybus-dev@lfdr.de>; Mon, 22 Jan 2024 19:18:53 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 92CCC43D44
-	for <lists+greybus-dev@lfdr.de>; Mon, 22 Jan 2024 18:08:39 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
-	by lists.linaro.org (Postfix) with ESMTPS id 821A03EFEA
-	for <greybus-dev@lists.linaro.org>; Mon, 22 Jan 2024 18:08:33 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 22285442ED
+	for <lists+greybus-dev@lfdr.de>; Mon, 22 Jan 2024 18:18:52 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by lists.linaro.org (Postfix) with ESMTPS id D86BF3EFEA
+	for <greybus-dev@lists.linaro.org>; Mon, 22 Jan 2024 18:18:46 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=none;
-	spf=pass (lists.linaro.org: domain of ukl@pengutronix.de designates 185.203.201.7 as permitted sender) smtp.mailfrom=ukl@pengutronix.de;
-	dmarc=none
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rRyiY-00024D-OT; Mon, 22 Jan 2024 19:08:18 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rRyiY-001eQq-3A; Mon, 22 Jan 2024 19:08:18 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rRyiY-005ZyZ-01;
-	Mon, 22 Jan 2024 19:08:18 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Mark Brown <broonie@kernel.org>
-Date: Mon, 22 Jan 2024 19:07:21 +0100
-Message-ID: <687fdfb1c7c050d00e5dca06af8ea1701893e163.1705944943.git.u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b=c8fifh16;
+	dmarc=pass (policy=none) header.from=kernel.org;
+	spf=pass (lists.linaro.org: domain of broonie@kernel.org designates 145.40.73.55 as permitted sender) smtp.mailfrom=broonie@kernel.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 37E0CCE2C10;
+	Mon, 22 Jan 2024 18:18:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84691C433F1;
+	Mon, 22 Jan 2024 18:18:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1705947523;
+	bh=McOauSyMQNxtPZ0g7TEpEiNFuLd+iPYfNexDMsX/FI0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=c8fifh16cqrlBPFhmdK0/1YCmVp+FCQJRM3mcc61e8B54POXfNtNHCezXLI06U+BW
+	 2HyC31K2GKN8pqxyPoe5eH43Wr1IvzJ4qYvgVKrZ28cOHRapgl4U0tO7nRd1Hg96Gu
+	 /I85mPr8fKbNlof8bDAKADfRcHtOpPxmy3YbesJ0DqFFZ2OTYAI+xKJ3khkG5PRPqb
+	 IkZ7Lha5tDCBsHZjVT1Pc0QMwPbNJ0JMPGxW7jUMjEknv7bvXLCARAShkNA8Yp5eXw
+	 Jxu0Ft8Uip4jzu6W9VwfTzuvxciZJpio1DrdN7XFmAH69ub0PysqfBMv84es2fWtex
+	 o4y4YVecDwVTQ==
+Date: Mon, 22 Jan 2024 18:18:22 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <e62cdf7f-ce58-4f46-a0a0-25ce9fb271b1@sirena.org.uk>
 References: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6302; i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id; bh=aR72fLAJVx43JzZB4WaHKHgt0KKZlpVLtQyD9QU8l/s=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlrq7hRhH9m4zBhtjAjGezjLEeZiG03Q7WLMWEv McvFHzlNKeJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZa6u4QAKCRCPgPtYfRL+ TuQBCACGyTB/nnj4QgjPJOTeKzozWLcHJUFgjPKehmDcqOqdZouNUfcXV9LVnxqmg/2pNl8Pm9M gcaiZ7CsuF5vneNrGhGA+bgG+xNtwECk4xecNuGx6BM5zL8UIFrL/vMNlADXppZ0DLrbS8A58id WZPZcZtZvl9lk0Ws8zNN+58Re9s4aEPMQZF53SknaqOXJsf6zqY4YQuPLU6vO6/WkJPlLyTxrEL 1Ea6OWRiZJHO8/8QFxsyiNqrucZg4VM9ZfamWMZtrulMXQaHUxrMHiskCXzSRLElWkq62ZjGgwA eFd+tj1x3Fnv03tqItOewWWpoRqRK960+jPYSGEcWHTyOCwc
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
+In-Reply-To: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
+X-Cookie: Nice guys don't finish nice.
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 821A03EFEA
-X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.00 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	FORGED_SENDER(0.30)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
-	R_SPF_ALLOW(-0.20)[+mx];
-	MIME_GOOD(-0.10)[text/plain];
+X-Rspamd-Queue-Id: D86BF3EFEA
+X-Spamd-Bar: --------
+X-Spamd-Result: default: False [-8.60 / 15.00];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	SIGNED_PGP(-2.00)[];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,none];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+ip4:145.40.73.55];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	TAGGED_RCPT(0.00)[renesas];
+	ASN(0.00)[asn:54825, ipnet:145.40.73.0/24, country:US];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
-	ASN(0.00)[asn:209379, ipnet:185.203.200.0/22, country:DE];
-	R_DKIM_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	NEURAL_HAM(-0.00)[-0.982];
-	DMARC_NA(0.00)[pengutronix.de];
+	NEURAL_HAM(-0.00)[-1.000];
+	TO_DN_SOME(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[pengutronix.de,kernel.org,gmail.com,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,linaro.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
+	FREEMAIL_CC(0.00)[pengutronix.de,kernel.org,intel.com,redhat.com,vger.kernel.org,gmail.com,datenfreihafen.org,bootlin.com,davemloft.net,google.com,metafoo.de,analog.com,linaro.org,ansari.sh,linux.intel.com,huawei.com,digiteqautomotive.com,netup.ru,arndb.de,linuxfoundation.org,nod.at,ti.com,sntech.de,amd.com,alsa-project.org,lists.infradead.org,googlemail.com,glider.be,raritan.com,chromium.org,lists.linux.dev,collabora.com,suse.de,lists.freedesktop.org,lists.linaro.org,gmx.de,ziepe.ca,rowland.harvard.edu,iki.fi,amarulasolutions.com,yandex.ru,lwn.net,arm.com];
 	RCVD_TLS_LAST(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	TO_DN_SOME(0.00)[]
-Message-ID-Hash: FJYDHQCR3VWZKYGPYZPMSF6TD76VZ3PL
-X-Message-ID-Hash: FJYDHQCR3VWZKYGPYZPMSF6TD76VZ3PL
-X-MailFrom: ukl@pengutronix.de
+	RCPT_COUNT_GT_50(0.00)[90];
+	DKIM_TRACE(0.00)[kernel.org:+]
+Message-ID-Hash: EQ7YMNVQL4KAV5VLISKJM2HC6GIBA624
+X-Message-ID-Hash: EQ7YMNVQL4KAV5VLISKJM2HC6GIBA624
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: kernel@pengutronix.de, Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, Viresh Kumar <viresh.kumar@linaro.org>
+CC: kernel@pengutronix.de, Moritz Fischer <mdf@kernel.org>, Wu Hao <hao.wu@intel.com>, Xu Yilun <yilun.xu@intel.com>, Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Aring <alex.aring@gmail.com>, Stefan Schmidt <stefan@datenfreihafen.org>, Miquel Raynal <miquel.raynal@bootlin.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-wpan@vger.kernel.org, netdev@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>, Rayyan Ansari <rayyan@ansari.sh>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Jonathan Cameron <Jonathan.Cameron@huawei.com>, Martin Tuma <martin.tuma@digiteqautomotive.com>, Mauro Carvalho Chehab <m
+ chehab@kernel.org>, linux-media@vger.kernel.org, Sergey Kozlov <serjk@netup.ru>, Arnd Bergmann <arnd@arndb.de>, Yang Yingliang <yangyingliang@huawei.com>, linux-mmc@vger.kernel.org, Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Michal Simek <michal.simek@amd.com>, Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>, linux-mtd@lists.infradead.org, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Geert Uytterhoeven <geert+renesas@glider.be>, Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>, Simon Horman <horms@kernel.org>, Ronald Wahl <ronald.wahl@raritan.com>, Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, Max Filippov <jcmvbkbc@gmail.com>, linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@lin
+ aro.org>, linux-arm-msm@vger.kernel.org, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-mediatek@lists.infradead.org, Thomas Zimmermann <tzimmermann@suse.de>, Javier Martinez Canillas <javierm@redhat.com>, Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>, dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev, Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, linux-integrity@vger.kernel.org, Herve Codina <herve.codina@bootlin.com>, Alan Stern <stern@rowland.harvard.edu>, Aaro Koskinen <aaro.koskinen@iki.fi>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, linux-usb@vger.kernel.org, Helge Deller <deller@gmx.de>, Dario Binacchi <dario.binacchi@amarulasolutions.com>, Kalle Valo <kvalo@kernel.
+ org>, Dmitry Antipov <dmantipov@yandex.ru>, libertas-dev@lists.infradead.org, linux-wireless@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, James Clark <james.clark@arm.com>, Bjorn Helgaas <bhelgaas@google.com>, linux-doc@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 26/33] staging: greybus: spi: Follow renaming of SPI "master" to "controller"
+Subject: [greybus-dev] Re: [PATCH v2 00/33] spi: get rid of some legacy macros
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FJYDHQCR3VWZKYGPYZPMSF6TD76VZ3PL/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/EQ7YMNVQL4KAV5VLISKJM2HC6GIBA624/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============3379283548936970474=="
 
-SW4gY29tbWl0IDhjYWFiNzVmZDJjMiAoInNwaTogR2VuZXJhbGl6ZSBTUEkgIm1hc3RlciIgdG8g
-ImNvbnRyb2xsZXIiIikNCnNvbWUgZnVuY3Rpb25zIGFuZCBzdHJ1Y3QgbWVtYmVycyB3ZXJlIHJl
-bmFtZWQuIFRvIG5vdCBicmVhayBhbGwgZHJpdmVycw0KY29tcGF0aWJpbGl0eSBtYWNyb3Mgd2Vy
-ZSBwcm92aWRlZC4NCg0KVG8gYmUgYWJsZSB0byByZW1vdmUgdGhlc2UgY29tcGF0aWJpbGl0eSBt
-YWNyb3MgcHVzaCB0aGUgcmVuYW1pbmcgaW50bw0KdGhpcyBkcml2ZXIuDQoNCkFja2VkLWJ5OiBW
-aXJlc2ggS3VtYXIgPHZpcmVzaC5rdW1hckBsaW5hcm8ub3JnPg0KU2lnbmVkLW9mZi1ieTogVXdl
-IEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4NCi0tLQ0KIGRy
-aXZlcnMvc3RhZ2luZy9ncmV5YnVzL3NwaWxpYi5jIHwgNjYgKysrKysrKysrKysrKysrKy0tLS0t
-LS0tLS0tLS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgMzMgaW5zZXJ0aW9ucygrKSwgMzMgZGVsZXRp
-b25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9zcGlsaWIuYyBi
-L2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3NwaWxpYi5jDQppbmRleCBlZmIzYmVjNThlMTUuLjM0
-ZjEwNjg1MTM5ZiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL3NwaWxpYi5j
-DQorKysgYi9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9zcGlsaWIuYw0KQEAgLTQyLDcgKzQyLDcg
-QEAgc3RydWN0IGdiX3NwaWxpYiB7DQogDQogI2RlZmluZSBYRkVSX1RJTUVPVVRfVE9MRVJBTkNF
-CQkyMDANCiANCi1zdGF0aWMgc3RydWN0IHNwaV9tYXN0ZXIgKmdldF9tYXN0ZXJfZnJvbV9zcGko
-c3RydWN0IGdiX3NwaWxpYiAqc3BpKQ0KK3N0YXRpYyBzdHJ1Y3Qgc3BpX2NvbnRyb2xsZXIgKmdl
-dF9jb250cm9sbGVyX2Zyb21fc3BpKHN0cnVjdCBnYl9zcGlsaWIgKnNwaSkNCiB7DQogCXJldHVy
-biBnYl9jb25uZWN0aW9uX2dldF9kYXRhKHNwaS0+Y29ubmVjdGlvbik7DQogfQ0KQEAgLTMyNCwx
-MCArMzI0LDEwIEBAIHN0YXRpYyB2b2lkIGdiX3NwaV9kZWNvZGVfcmVzcG9uc2Uoc3RydWN0IGdi
-X3NwaWxpYiAqc3BpLA0KIAl9DQogfQ0KIA0KLXN0YXRpYyBpbnQgZ2Jfc3BpX3RyYW5zZmVyX29u
-ZV9tZXNzYWdlKHN0cnVjdCBzcGlfbWFzdGVyICptYXN0ZXIsDQorc3RhdGljIGludCBnYl9zcGlf
-dHJhbnNmZXJfb25lX21lc3NhZ2Uoc3RydWN0IHNwaV9jb250cm9sbGVyICpjdGxyLA0KIAkJCQkg
-ICAgICAgc3RydWN0IHNwaV9tZXNzYWdlICptc2cpDQogew0KLQlzdHJ1Y3QgZ2Jfc3BpbGliICpz
-cGkgPSBzcGlfbWFzdGVyX2dldF9kZXZkYXRhKG1hc3Rlcik7DQorCXN0cnVjdCBnYl9zcGlsaWIg
-KnNwaSA9IHNwaV9jb250cm9sbGVyX2dldF9kZXZkYXRhKGN0bHIpOw0KIAlzdHJ1Y3QgZ2JfY29u
-bmVjdGlvbiAqY29ubmVjdGlvbiA9IHNwaS0+Y29ubmVjdGlvbjsNCiAJc3RydWN0IGdiX3NwaV90
-cmFuc2Zlcl9yZXNwb25zZSAqcmVzcG9uc2U7DQogCXN0cnVjdCBnYl9vcGVyYXRpb24gKm9wZXJh
-dGlvbjsNCkBAIC0zNzEsMjEgKzM3MSwyMSBAQCBzdGF0aWMgaW50IGdiX3NwaV90cmFuc2Zlcl9v
-bmVfbWVzc2FnZShzdHJ1Y3Qgc3BpX21hc3RlciAqbWFzdGVyLA0KIG91dDoNCiAJbXNnLT5zdGF0
-dXMgPSByZXQ7DQogCWNsZWFuX3hmZXJfc3RhdGUoc3BpKTsNCi0Jc3BpX2ZpbmFsaXplX2N1cnJl
-bnRfbWVzc2FnZShtYXN0ZXIpOw0KKwlzcGlfZmluYWxpemVfY3VycmVudF9tZXNzYWdlKGN0bHIp
-Ow0KIA0KIAlyZXR1cm4gcmV0Ow0KIH0NCiANCi1zdGF0aWMgaW50IGdiX3NwaV9wcmVwYXJlX3Ry
-YW5zZmVyX2hhcmR3YXJlKHN0cnVjdCBzcGlfbWFzdGVyICptYXN0ZXIpDQorc3RhdGljIGludCBn
-Yl9zcGlfcHJlcGFyZV90cmFuc2Zlcl9oYXJkd2FyZShzdHJ1Y3Qgc3BpX2NvbnRyb2xsZXIgKmN0
-bHIpDQogew0KLQlzdHJ1Y3QgZ2Jfc3BpbGliICpzcGkgPSBzcGlfbWFzdGVyX2dldF9kZXZkYXRh
-KG1hc3Rlcik7DQorCXN0cnVjdCBnYl9zcGlsaWIgKnNwaSA9IHNwaV9jb250cm9sbGVyX2dldF9k
-ZXZkYXRhKGN0bHIpOw0KIA0KIAlyZXR1cm4gc3BpLT5vcHMtPnByZXBhcmVfdHJhbnNmZXJfaGFy
-ZHdhcmUoc3BpLT5wYXJlbnQpOw0KIH0NCiANCi1zdGF0aWMgaW50IGdiX3NwaV91bnByZXBhcmVf
-dHJhbnNmZXJfaGFyZHdhcmUoc3RydWN0IHNwaV9tYXN0ZXIgKm1hc3RlcikNCitzdGF0aWMgaW50
-IGdiX3NwaV91bnByZXBhcmVfdHJhbnNmZXJfaGFyZHdhcmUoc3RydWN0IHNwaV9jb250cm9sbGVy
-ICpjdGxyKQ0KIHsNCi0Jc3RydWN0IGdiX3NwaWxpYiAqc3BpID0gc3BpX21hc3Rlcl9nZXRfZGV2
-ZGF0YShtYXN0ZXIpOw0KKwlzdHJ1Y3QgZ2Jfc3BpbGliICpzcGkgPSBzcGlfY29udHJvbGxlcl9n
-ZXRfZGV2ZGF0YShjdGxyKTsNCiANCiAJc3BpLT5vcHMtPnVucHJlcGFyZV90cmFuc2Zlcl9oYXJk
-d2FyZShzcGktPnBhcmVudCk7DQogDQpAQCAtNDQwLDcgKzQ0MCw3IEBAIHN0YXRpYyBpbnQgZ2Jf
-c3BpX2dldF9tYXN0ZXJfY29uZmlnKHN0cnVjdCBnYl9zcGlsaWIgKnNwaSkNCiANCiBzdGF0aWMg
-aW50IGdiX3NwaV9zZXR1cF9kZXZpY2Uoc3RydWN0IGdiX3NwaWxpYiAqc3BpLCB1OCBjcykNCiB7
-DQotCXN0cnVjdCBzcGlfbWFzdGVyICptYXN0ZXIgPSBnZXRfbWFzdGVyX2Zyb21fc3BpKHNwaSk7
-DQorCXN0cnVjdCBzcGlfY29udHJvbGxlciAqY3RsciA9IGdldF9jb250cm9sbGVyX2Zyb21fc3Bp
-KHNwaSk7DQogCXN0cnVjdCBnYl9zcGlfZGV2aWNlX2NvbmZpZ19yZXF1ZXN0IHJlcXVlc3Q7DQog
-CXN0cnVjdCBnYl9zcGlfZGV2aWNlX2NvbmZpZ19yZXNwb25zZSByZXNwb25zZTsNCiAJc3RydWN0
-IHNwaV9ib2FyZF9pbmZvIHNwaV9ib2FyZCA9IHsgezB9IH07DQpAQCAtNDcxLDExICs0NzEsMTEg
-QEAgc3RhdGljIGludCBnYl9zcGlfc2V0dXBfZGV2aWNlKHN0cnVjdCBnYl9zcGlsaWIgKnNwaSwg
-dTggY3MpDQogCQlyZXR1cm4gLUVJTlZBTDsNCiANCiAJc3BpX2JvYXJkLm1vZGUJCT0gbGUxNl90
-b19jcHUocmVzcG9uc2UubW9kZSk7DQotCXNwaV9ib2FyZC5idXNfbnVtCT0gbWFzdGVyLT5idXNf
-bnVtOw0KKwlzcGlfYm9hcmQuYnVzX251bQk9IGN0bHItPmJ1c19udW07DQogCXNwaV9ib2FyZC5j
-aGlwX3NlbGVjdAk9IGNzOw0KIAlzcGlfYm9hcmQubWF4X3NwZWVkX2h6CT0gbGUzMl90b19jcHUo
-cmVzcG9uc2UubWF4X3NwZWVkX2h6KTsNCiANCi0Jc3BpZGV2ID0gc3BpX25ld19kZXZpY2UobWFz
-dGVyLCAmc3BpX2JvYXJkKTsNCisJc3BpZGV2ID0gc3BpX25ld19kZXZpY2UoY3RsciwgJnNwaV9i
-b2FyZCk7DQogCWlmICghc3BpZGV2KQ0KIAkJcmV0dXJuIC1FSU5WQUw7DQogDQpAQCAtNDg2LDUy
-ICs0ODYsNTIgQEAgaW50IGdiX3NwaWxpYl9tYXN0ZXJfaW5pdChzdHJ1Y3QgZ2JfY29ubmVjdGlv
-biAqY29ubmVjdGlvbiwgc3RydWN0IGRldmljZSAqZGV2LA0KIAkJCSAgc3RydWN0IHNwaWxpYl9v
-cHMgKm9wcykNCiB7DQogCXN0cnVjdCBnYl9zcGlsaWIgKnNwaTsNCi0Jc3RydWN0IHNwaV9tYXN0
-ZXIgKm1hc3RlcjsNCisJc3RydWN0IHNwaV9jb250cm9sbGVyICpjdGxyOw0KIAlpbnQgcmV0Ow0K
-IAl1OCBpOw0KIA0KIAkvKiBBbGxvY2F0ZSBtYXN0ZXIgd2l0aCBzcGFjZSBmb3IgZGF0YSAqLw0K
-LQltYXN0ZXIgPSBzcGlfYWxsb2NfbWFzdGVyKGRldiwgc2l6ZW9mKCpzcGkpKTsNCi0JaWYgKCFt
-YXN0ZXIpIHsNCisJY3RsciA9IHNwaV9hbGxvY19tYXN0ZXIoZGV2LCBzaXplb2YoKnNwaSkpOw0K
-KwlpZiAoIWN0bHIpIHsNCiAJCWRldl9lcnIoZGV2LCAiY2Fubm90IGFsbG9jIFNQSSBtYXN0ZXJc
-biIpOw0KIAkJcmV0dXJuIC1FTk9NRU07DQogCX0NCiANCi0Jc3BpID0gc3BpX21hc3Rlcl9nZXRf
-ZGV2ZGF0YShtYXN0ZXIpOw0KKwlzcGkgPSBzcGlfY29udHJvbGxlcl9nZXRfZGV2ZGF0YShjdGxy
-KTsNCiAJc3BpLT5jb25uZWN0aW9uID0gY29ubmVjdGlvbjsNCi0JZ2JfY29ubmVjdGlvbl9zZXRf
-ZGF0YShjb25uZWN0aW9uLCBtYXN0ZXIpOw0KKwlnYl9jb25uZWN0aW9uX3NldF9kYXRhKGNvbm5l
-Y3Rpb24sIGN0bHIpOw0KIAlzcGktPnBhcmVudCA9IGRldjsNCiAJc3BpLT5vcHMgPSBvcHM7DQog
-DQotCS8qIGdldCBtYXN0ZXIgY29uZmlndXJhdGlvbiAqLw0KKwkvKiBnZXQgY29udHJvbGxlciBj
-b25maWd1cmF0aW9uICovDQogCXJldCA9IGdiX3NwaV9nZXRfbWFzdGVyX2NvbmZpZyhzcGkpOw0K
-IAlpZiAocmV0KQ0KIAkJZ290byBleGl0X3NwaV9wdXQ7DQogDQotCW1hc3Rlci0+YnVzX251bSA9
-IC0xOyAvKiBBbGxvdyBzcGktY29yZSB0byBhbGxvY2F0ZSBpdCBkeW5hbWljYWxseSAqLw0KLQlt
-YXN0ZXItPm51bV9jaGlwc2VsZWN0ID0gc3BpLT5udW1fY2hpcHNlbGVjdDsNCi0JbWFzdGVyLT5t
-b2RlX2JpdHMgPSBzcGktPm1vZGU7DQotCW1hc3Rlci0+ZmxhZ3MgPSBzcGktPmZsYWdzOw0KLQlt
-YXN0ZXItPmJpdHNfcGVyX3dvcmRfbWFzayA9IHNwaS0+Yml0c19wZXJfd29yZF9tYXNrOw0KKwlj
-dGxyLT5idXNfbnVtID0gLTE7IC8qIEFsbG93IHNwaS1jb3JlIHRvIGFsbG9jYXRlIGl0IGR5bmFt
-aWNhbGx5ICovDQorCWN0bHItPm51bV9jaGlwc2VsZWN0ID0gc3BpLT5udW1fY2hpcHNlbGVjdDsN
-CisJY3Rsci0+bW9kZV9iaXRzID0gc3BpLT5tb2RlOw0KKwljdGxyLT5mbGFncyA9IHNwaS0+Zmxh
-Z3M7DQorCWN0bHItPmJpdHNfcGVyX3dvcmRfbWFzayA9IHNwaS0+Yml0c19wZXJfd29yZF9tYXNr
-Ow0KIA0KIAkvKiBBdHRhY2ggbWV0aG9kcyAqLw0KLQltYXN0ZXItPmNsZWFudXAgPSBnYl9zcGlf
-Y2xlYW51cDsNCi0JbWFzdGVyLT5zZXR1cCA9IGdiX3NwaV9zZXR1cDsNCi0JbWFzdGVyLT50cmFu
-c2Zlcl9vbmVfbWVzc2FnZSA9IGdiX3NwaV90cmFuc2Zlcl9vbmVfbWVzc2FnZTsNCisJY3Rsci0+
-Y2xlYW51cCA9IGdiX3NwaV9jbGVhbnVwOw0KKwljdGxyLT5zZXR1cCA9IGdiX3NwaV9zZXR1cDsN
-CisJY3Rsci0+dHJhbnNmZXJfb25lX21lc3NhZ2UgPSBnYl9zcGlfdHJhbnNmZXJfb25lX21lc3Nh
-Z2U7DQogDQogCWlmIChvcHMgJiYgb3BzLT5wcmVwYXJlX3RyYW5zZmVyX2hhcmR3YXJlKSB7DQot
-CQltYXN0ZXItPnByZXBhcmVfdHJhbnNmZXJfaGFyZHdhcmUgPQ0KKwkJY3Rsci0+cHJlcGFyZV90
-cmFuc2Zlcl9oYXJkd2FyZSA9DQogCQkJZ2Jfc3BpX3ByZXBhcmVfdHJhbnNmZXJfaGFyZHdhcmU7
-DQogCX0NCiANCiAJaWYgKG9wcyAmJiBvcHMtPnVucHJlcGFyZV90cmFuc2Zlcl9oYXJkd2FyZSkg
-ew0KLQkJbWFzdGVyLT51bnByZXBhcmVfdHJhbnNmZXJfaGFyZHdhcmUgPQ0KKwkJY3Rsci0+dW5w
-cmVwYXJlX3RyYW5zZmVyX2hhcmR3YXJlID0NCiAJCQlnYl9zcGlfdW5wcmVwYXJlX3RyYW5zZmVy
-X2hhcmR3YXJlOw0KIAl9DQogDQotCW1hc3Rlci0+YXV0b19ydW50aW1lX3BtID0gdHJ1ZTsNCisJ
-Y3Rsci0+YXV0b19ydW50aW1lX3BtID0gdHJ1ZTsNCiANCi0JcmV0ID0gc3BpX3JlZ2lzdGVyX21h
-c3RlcihtYXN0ZXIpOw0KKwlyZXQgPSBzcGlfcmVnaXN0ZXJfY29udHJvbGxlcihjdGxyKTsNCiAJ
-aWYgKHJldCA8IDApDQogCQlnb3RvIGV4aXRfc3BpX3B1dDsNCiANCkBAIC01NDgsMTIgKzU0OCwx
-MiBAQCBpbnQgZ2Jfc3BpbGliX21hc3Rlcl9pbml0KHN0cnVjdCBnYl9jb25uZWN0aW9uICpjb25u
-ZWN0aW9uLCBzdHJ1Y3QgZGV2aWNlICpkZXYsDQogCXJldHVybiAwOw0KIA0KIGV4aXRfc3BpX3B1
-dDoNCi0Jc3BpX21hc3Rlcl9wdXQobWFzdGVyKTsNCisJc3BpX2NvbnRyb2xsZXJfcHV0KGN0bHIp
-Ow0KIA0KIAlyZXR1cm4gcmV0Ow0KIA0KIGV4aXRfc3BpX3VucmVnaXN0ZXI6DQotCXNwaV91bnJl
-Z2lzdGVyX21hc3RlcihtYXN0ZXIpOw0KKwlzcGlfdW5yZWdpc3Rlcl9jb250cm9sbGVyKGN0bHIp
-Ow0KIA0KIAlyZXR1cm4gcmV0Ow0KIH0NCkBAIC01NjEsOSArNTYxLDkgQEAgRVhQT1JUX1NZTUJP
-TF9HUEwoZ2Jfc3BpbGliX21hc3Rlcl9pbml0KTsNCiANCiB2b2lkIGdiX3NwaWxpYl9tYXN0ZXJf
-ZXhpdChzdHJ1Y3QgZ2JfY29ubmVjdGlvbiAqY29ubmVjdGlvbikNCiB7DQotCXN0cnVjdCBzcGlf
-bWFzdGVyICptYXN0ZXIgPSBnYl9jb25uZWN0aW9uX2dldF9kYXRhKGNvbm5lY3Rpb24pOw0KKwlz
-dHJ1Y3Qgc3BpX2NvbnRyb2xsZXIgKmN0bHIgPSBnYl9jb25uZWN0aW9uX2dldF9kYXRhKGNvbm5l
-Y3Rpb24pOw0KIA0KLQlzcGlfdW5yZWdpc3Rlcl9tYXN0ZXIobWFzdGVyKTsNCisJc3BpX3VucmVn
-aXN0ZXJfY29udHJvbGxlcihjdGxyKTsNCiB9DQogRVhQT1JUX1NZTUJPTF9HUEwoZ2Jfc3BpbGli
-X21hc3Rlcl9leGl0KTsNCiANCi0tIA0KMi40My4wDQoNCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdCAtLSBncmV5
-YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnClRvIHVuc3Vic2NyaWJlIHNlbmQgYW4gZW1haWwgdG8g
-Z3JleWJ1cy1kZXYtbGVhdmVAbGlzdHMubGluYXJvLm9yZwo=
+
+--===============3379283548936970474==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="T+I3YsJdHvT4lja9"
+Content-Disposition: inline
+
+
+--T+I3YsJdHvT4lja9
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Jan 22, 2024 at 07:06:55PM +0100, Uwe Kleine-K=F6nig wrote:
+
+> Note that Jonathan Cameron has already applied patch 3 to his tree, it
+> didn't appear in a public tree though yet. I still included it here to
+> make the kernel build bots happy.
+
+It's also going to be needed for buildability of the end of the series.
+
+--T+I3YsJdHvT4lja9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmWusW0ACgkQJNaLcl1U
+h9AR1Af8DbPI9TFuBXKEh4BM61G07z/XXFesQgMYJFn7hnO/3qPq0DB2udfdH+HR
+WrEFwWfImJcLCzV8lyZSjyQS8FeUMRbP7r99FeoYIb8amMJfpQIN7gD1IJ+OzZGL
+9PhsdsnLY3FgKjHbQCA6B6TnEDwI/0zpTfNjtElcXbWRB+V9uqBR/i8Uk02ngrKd
+MFM4BWy/tlEQvi0AQcylB9znY58FISMxd4ww1jeW0euV6Do4c1U3/9N+ivg6WNfs
+rKxD/BMTdGNcwlR3dWzHBLLYk3YAMLSi8p37kFSHwDGoHFtHCuUNPhA4RsVlbb9P
+SyEM0rudlzp/uFBuKSBT2nWslCLfjA==
+=Dr9Y
+-----END PGP SIGNATURE-----
+
+--T+I3YsJdHvT4lja9--
+
+--===============3379283548936970474==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+
+--===============3379283548936970474==--
