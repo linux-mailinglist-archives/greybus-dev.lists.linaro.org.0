@@ -2,187 +2,260 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5126883CDD4
-	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jan 2024 21:55:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AC5583DCB1
+	for <lists+greybus-dev@lfdr.de>; Fri, 26 Jan 2024 15:46:25 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4F59840F0B
-	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jan 2024 20:55:18 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
-	by lists.linaro.org (Postfix) with ESMTPS id F1A053F38E
-	for <greybus-dev@lists.linaro.org>; Thu, 25 Jan 2024 20:55:12 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 3F9DF40C96
+	for <lists+greybus-dev@lfdr.de>; Fri, 26 Jan 2024 14:46:24 +0000 (UTC)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com [209.85.166.51])
+	by lists.linaro.org (Postfix) with ESMTPS id 1DBAA3F00C
+	for <greybus-dev@lists.linaro.org>; Fri, 26 Jan 2024 14:46:18 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=none;
-	spf=pass (lists.linaro.org: domain of ukl@pengutronix.de designates 185.203.201.7 as permitted sender) smtp.mailfrom=ukl@pengutronix.de;
-	dmarc=none
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rT6kK-0000q6-2e; Thu, 25 Jan 2024 21:54:48 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rT6kE-002MbB-Qk; Thu, 25 Jan 2024 21:54:42 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rT6kE-0088NE-2C;
-	Thu, 25 Jan 2024 21:54:42 +0100
-Date: Thu, 25 Jan 2024 21:54:42 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Message-ID: <h4l5ki3mvayfmfb73jnrokmxu3p2ewutihx4rytefmpce7bcxq@nhsyy2fw6fds>
-References: <cover.1706182805.git.u.kleine-koenig@pengutronix.de>
- <1cae6f73264ab313205eaa9483251f7aaf259cb4.1706182805.git.u.kleine-koenig@pengutronix.de>
- <c89cbecf-253d-4a2c-8782-304b7b620175@broadcom.com>
- <e3xeos2rtfydqj3hz3ql7xkon3aa3aingww7q5lpb3xa4arqrs@6jgwfrgay4le>
+	dkim=pass header.d=ieee.org header.s=google header.b=asZE74L+;
+	dmarc=pass (policy=quarantine) header.from=ieee.org;
+	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.166.51 as permitted sender) smtp.mailfrom=elder@ieee.org
+Received: by mail-io1-f51.google.com with SMTP id ca18e2360f4ac-7bed9f5d35dso16794839f.3
+        for <greybus-dev@lists.linaro.org>; Fri, 26 Jan 2024 06:46:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ieee.org; s=google; t=1706280377; x=1706885177; darn=lists.linaro.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+fOeMhswGKKywc98Ol+L/tQdueW05KSRu1NRm5hdKMU=;
+        b=asZE74L+wbNFrHayQCjEXayLBWFGJN2PdSToCVZTdBcgTXAFwRkOiKTIzpoTT7+yef
+         C8yGapJQxFwb5AcbwbQTmcTr7e2k60Ti3jVRPhh0SuehZDt2QYXSle0o+emYDfKHNmYV
+         IUJ2MDz7FTHiZWlsnUp2Qii+odMAoMA2X0NUQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706280377; x=1706885177;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+fOeMhswGKKywc98Ol+L/tQdueW05KSRu1NRm5hdKMU=;
+        b=Re7y0jQPvw1xpJWhHec0nXA413El6rx1zColIqZQtb3WyrcBQgoaVrBrjEsPhuUkfh
+         eRHBAIJsdWmkoOQrFYffYiJCmJiAx98ERAzLmXXZI+7CIo/dzgpfJZ1CLvTNpmWg1dDg
+         U4u6SDY9p9t7RJv4AIQaKzBuVs8nfnClNJKDyzkhPGCTk4Ielyix0J2MWUYni5EDpw4T
+         S44zpkeYZ0NPNWcrVebISM9P9YBYEhsn9bW1zVuf7hs8LAzme4zAirLB4gpsnmAAISyU
+         m/fVBkVzJPtXZP1Muy84ptdD/MVcu1q7nq7NQLXEeZmjzWyzaSE363rEayOVHwMvq6DN
+         o46A==
+X-Gm-Message-State: AOJu0YwTlDdCluyDGFwVQEGe7FLPFfk8HulRYg8jMApXeBkv9DgDlY8u
+	7d/pU2xPM2AqL7VEUTZrIDEZSUX7S0M73sLKVGq5fQcWZfrsrG1gf7uGiAB2OQ==
+X-Google-Smtp-Source: AGHT+IHPKNTTIuqxmxUXX+GYDw5eJqWPMSNjv7gvon8UkNl63wZGZwG0UoFW7ov83g+zHjLtZvF2MQ==
+X-Received: by 2002:a5e:870d:0:b0:7bf:1ddd:b900 with SMTP id y13-20020a5e870d000000b007bf1dddb900mr2060688ioj.8.1706280377416;
+        Fri, 26 Jan 2024 06:46:17 -0800 (PST)
+Received: from [172.22.22.28] (c-98-61-227-136.hsd1.mn.comcast.net. [98.61.227.136])
+        by smtp.googlemail.com with ESMTPSA id n13-20020a5ed90d000000b007befaf58e52sm396589iop.30.2024.01.26.06.46.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 26 Jan 2024 06:46:16 -0800 (PST)
+Message-ID: <c796d34c-0076-488b-9643-8ecfdaa2a32b@ieee.org>
+Date: Fri, 26 Jan 2024 08:46:15 -0600
 MIME-Version: 1.0
-In-Reply-To: <e3xeos2rtfydqj3hz3ql7xkon3aa3aingww7q5lpb3xa4arqrs@6jgwfrgay4le>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-pwm@vger.kernel.org
+References: <cover.1706182805.git.u.kleine-koenig@pengutronix.de>
+ <57b2e034d878c39d472d9dfc86b2c39272e4eabf.1706182805.git.u.kleine-koenig@pengutronix.de>
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <57b2e034d878c39d472d9dfc86b2c39272e4eabf.1706182805.git.u.kleine-koenig@pengutronix.de>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: F1A053F38E
+X-Rspamd-Queue-Id: 1DBAA3F00C
 X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.10 / 15.00];
+X-Spamd-Result: default: False [-3.99 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	SIGNED_PGP(-2.00)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	FORGED_SENDER(0.30)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+mx];
-	RCVD_TLS_LAST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.166.51:from];
 	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:209379, ipnet:185.203.200.0/22, country:DE];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	URIBL_BLOCKED(0.00)[pengutronix.de:url,pengutronix.de:email];
-	TAGGED_RCPT(0.00)[];
-	R_DKIM_NA(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[58];
-	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
-	FREEMAIL_CC(0.00)[bootlin.com,chromium.org,samsung.com,foss.st.com,lists.freedesktop.org,microchip.com,crapouillou.net,ideasonboard.com,intel.com,lists.infradead.org,gmail.com,st-md-mailman.stormreply.com,baylibre.com,lists.linux.dev,vger.kernel.org,kernel.org,sholland.org,csie.org,broadcom.com,nxp.com,suse.de,kwiboo.se,googlemail.com,pengutronix.de,linux.intel.com,lists.linaro.org,sifive.com,ffwll.ch,collabora.com,linaro.org,linuxfoundation.org,tuxon.dev,dabbelt.com];
-	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DMARC_NA(0.00)[pengutronix.de]
-Message-ID-Hash: AYKD5EW2C7VA7EGUR7MJQF5PPRSGTY4G
-X-Message-ID-Hash: AYKD5EW2C7VA7EGUR7MJQF5PPRSGTY4G
-X-MailFrom: ukl@pengutronix.de
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_COUNT_TWO(0.00)[2];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	DKIM_TRACE(0.00)[ieee.org:+]
+Message-ID-Hash: TCMPRSSB25DZBLQVCZSGF6N4EXEP4LWA
+X-Message-ID-Hash: TCMPRSSB25DZBLQVCZSGF6N4EXEP4LWA
+X-MailFrom: elder@ieee.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Alexandre Belloni <alexandre.belloni@bootlin.com>, Douglas Anderson <dianders@chromium.org>, Alim Akhtar <alim.akhtar@samsung.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, dri-devel@lists.freedesktop.org, Nicolas Ferre <nicolas.ferre@microchip.com>, Paul Cercueil <paul@crapouillou.net>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Andrzej Hajda <andrzej.hajda@intel.com>, linux-amlogic@lists.infradead.org, Guenter Roeck <groeck@chromium.org>, linux-riscv@lists.infradead.org, David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>, chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>, Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>, linux-staging@lists.linux.dev, Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>, Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, NXP Linux Team <linux-imx@
- nxp.com>, linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev, linux-pwm@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, Jonas Karlman <jonas@kwiboo.se>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Johan Hovold <johan@kernel.org>, Maxime Ripard <mripard@kernel.org>, greybus-dev@lists.linaro.org, Fabrice Gasnier <fabrice.gasnier@foss.st.com>, linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org, Fabio Estevam <festevam@gmail.com>, Paul Walmsley <paul.walmsley@sifive.com>, Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Benson Leung <bleung@chromium.org>, kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>, Alex Elder <elder@kernel.org>, Scott Branden <sbranden@broadcom
- .com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Palmer Dabbelt <palmer@dabbelt.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, kernel@pengutronix.de
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v5 003/111] pwm: Provide a macro to get the parent device of a given chip
+Subject: [greybus-dev] Re: [PATCH v5 038/111] staging: greybus: pwm: Make use of pwmchip_parent() macro
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/AYKD5EW2C7VA7EGUR7MJQF5PPRSGTY4G/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TCMPRSSB25DZBLQVCZSGF6N4EXEP4LWA/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: multipart/mixed; boundary="===============6137817165377483916=="
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-
---===============6137817165377483916==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2cxtxp6sbv6wwe5j"
-Content-Disposition: inline
-
-
---2cxtxp6sbv6wwe5j
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jan 25, 2024 at 09:29:37PM +0100, Uwe Kleine-K=F6nig wrote:
-> On Thu, Jan 25, 2024 at 11:32:47AM -0800, Florian Fainelli wrote:
-> > On 1/25/24 04:08, Uwe Kleine-K=F6nig wrote:
-> > > Currently a pwm_chip stores in its struct device *dev member a pointer
-> > > to the parent device. Preparing a change that embeds a full struct
-> > > device in struct pwm_chip, this accessor macro should be used in all
-> > > drivers directly accessing chip->dev now. This way struct pwm_chip and
-> > > this macro can be changed without having to touch all drivers in the
-> > > same change set.
-> > >=20
-> > > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-> >=20
-> > Nit: this is not a macro but an inline function.
->=20
-> Oh right, it used to be a macro, but I changed that. I made the commit
-> log read:
->=20
->     pwm: Provide an inline function to get the parent device of a given c=
-hip
->=20
->     Currently a pwm_chip stores in its struct device *dev member a pointer
->     to the parent device. Preparing a change that embeds a full struct
->     device in struct pwm_chip, this accessor function should be used in a=
-ll
->     drivers directly accessing chip->dev now. This way struct pwm_chip and
->     this new function can be changed without having to touch all drivers =
-in
->     the same change set.
-
-While looking into further feedback, I noticed I did the same mistake in
-all the patches that convert the drivers to use this function. I did
-
-	git filter-branch --msg-filter 'sed "s/Make use of pwmchip_parent() macro/=
-Make use of pwmchip_parent() accessor/; s/commit as struct pwm_chip::dev, u=
-se the macro/commit as struct pwm_chip::dev, use the accessor/; s/provided =
-for exactly this purpose./function provided for exactly this purpose./"' li=
-nus/master..
-
-on my branch to make the typical commit log read:
-
-	pwm: atmel: Make use of pwmchip_parent() accessor
-=09
-	struct pwm_chip::dev is about to change. To not have to touch this
-	driver in the same commit as struct pwm_chip::dev, use the accessor
-	function provided for exactly this purpose.
-
-I wont resend the whole series if this is the only change to it.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---2cxtxp6sbv6wwe5j
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmWyypEACgkQj4D7WH0S
-/k5psggAul+UfI+G8dHEaH2KDgkBUUlYZUwuEaOFluY8XF2KWBYgzrV6GTSkw5wT
-Me32hGYPzkH5GThVge4EwflIY6st1Dpe7hApskZcERowT4iaqpLmRhMLJSfbNFFL
-TKdck+IYqa1cFxKcnCqPr5UHCx9DR2zJulclKHey+IaAQbbiSZ7PXqTliJidSqA4
-gcZdCllP/NksXCjwuu7f3ffFYfT4eD4biOf/g24aQx4AkSSB/1xPNtYnwHwe9U7Q
-NfCN0EtnmSN3qHIMZQ0v8PHGjfE/VvFR+cIRqaher18JI/FRZFfNPMhT1hniO7vh
-qGInsEnK5ClF+KhK7XpBNiDRRAyXtw==
-=6bo9
------END PGP SIGNATURE-----
-
---2cxtxp6sbv6wwe5j--
-
---===============6137817165377483916==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-greybus-dev mailing list -- greybus-dev@lists.linaro.org
-To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
-
---===============6137817165377483916==--
+T24gMS8yNS8yNCA2OjA5IEFNLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToNCj4gc3RydWN0IHB3
+bV9jaGlwOjpkZXYgaXMgYWJvdXQgdG8gY2hhbmdlLiBUbyBub3QgaGF2ZSB0byB0b3VjaCB0aGlz
+DQo+IGRyaXZlciBpbiB0aGUgc2FtZSBjb21taXQgYXMgc3RydWN0IHB3bV9jaGlwOjpkZXYsIHVz
+ZSB0aGUgbWFjcm8NCj4gcHJvdmlkZWQgZm9yIGV4YWN0bHkgdGhpcyBwdXJwb3NlLg0KPiANCj4g
+QWNrZWQtYnk6IEdyZWcgS3JvYWgtSGFydG1hbiA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+
+DQo+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVu
+Z3V0cm9uaXguZGU+DQoNCkkgdGhpbmsgSSdkIHJhdGhlciBzZWUgdGhlIGZvb3RwcmludCBvZiB5
+b3VyIGNoYW5nZSBiZSBtdWNoDQpzbWFsbGVyIHRoYW4gaXQgaXMuICBQbGVhc2Ugc2VlIGJlbG93
+Lg0KDQoJCQkJCS1BbGV4DQoNCj4gLS0tDQo+ICAgZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvcHdt
+LmMgfCA1NSArKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLQ0KPiAgIDEgZmlsZSBj
+aGFuZ2VkLCAyNiBpbnNlcnRpb25zKCspLCAyOSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9wd20uYyBiL2RyaXZlcnMvc3RhZ2luZy9ncmV5
+YnVzL3B3bS5jDQo+IGluZGV4IGEzY2I2OGNmYTBmOS4uNzVlMDUxODc5MWQ4IDEwMDY0NA0KPiAt
+LS0gYS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9wd20uYw0KPiArKysgYi9kcml2ZXJzL3N0YWdp
+bmcvZ3JleWJ1cy9wd20uYw0KPiBAQCAtMTcsNyArMTcsNiBAQA0KPiAgIHN0cnVjdCBnYl9wd21f
+Y2hpcCB7DQo+ICAgCXN0cnVjdCBnYl9jb25uZWN0aW9uCSpjb25uZWN0aW9uOw0KPiAgIAl1OAkJ
+CXB3bV9tYXg7CS8qIG1heCBwd20gbnVtYmVyICovDQo+IC0NCj4gICAJc3RydWN0IHB3bV9jaGlw
+CQljaGlwOw0KPiAgIH07DQo+ICAgDQo+IEBAIC0zOSw5ICszOCw5IEBAIHN0YXRpYyBpbnQgZ2Jf
+cHdtX2NvdW50X29wZXJhdGlvbihzdHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3bWMpDQo+ICAgCXJldHVy
+biAwOw0KPiAgIH0NCj4gICANCj4gLXN0YXRpYyBpbnQgZ2JfcHdtX2FjdGl2YXRlX29wZXJhdGlv
+bihzdHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3bWMsDQo+IC0JCQkJICAgICB1OCB3aGljaCkNCj4gK3N0
+YXRpYyBpbnQgZ2JfcHdtX2FjdGl2YXRlX29wZXJhdGlvbihzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAs
+IHU4IHdoaWNoKQ0KDQpXaHkgY2hhbmdlIHRoZSB0eXBlIG9mIHRoZSBhcmd1bWVudCBoZXJlPw0K
+DQo+ICAgew0KPiArCXN0cnVjdCBnYl9wd21fY2hpcCAqcHdtYyA9IHB3bV9jaGlwX3RvX2diX3B3
+bV9jaGlwKGNoaXApOw0KPiAgIAlzdHJ1Y3QgZ2JfcHdtX2FjdGl2YXRlX3JlcXVlc3QgcmVxdWVz
+dDsNCj4gICAJc3RydWN0IGdicGh5X2RldmljZSAqZ2JwaHlfZGV2Ow0KPiAgIAlpbnQgcmV0Ow0K
+PiBAQCAtNTEsNyArNTAsNyBAQCBzdGF0aWMgaW50IGdiX3B3bV9hY3RpdmF0ZV9vcGVyYXRpb24o
+c3RydWN0IGdiX3B3bV9jaGlwICpwd21jLA0KPiAgIA0KPiAgIAlyZXF1ZXN0LndoaWNoID0gd2hp
+Y2g7DQo+ICAgDQo+IC0JZ2JwaHlfZGV2ID0gdG9fZ2JwaHlfZGV2KHB3bWMtPmNoaXAuZGV2KTsN
+Cj4gKwlnYnBoeV9kZXYgPSB0b19nYnBoeV9kZXYocHdtY2hpcF9wYXJlbnQoY2hpcCkpOw0KDQpK
+dXN0IG1ha2UgdGhpcyBsaW5lIGxvb2sgbGlrZSB0aGlzOg0KDQoJZ2JwaHlfZGV2ID0gdG9fZ2Jw
+aHlfZGV2KHB3bWNoaXBfcGFyZW50KCZwd21jLT5jaGlwKSk7DQoNCj4gICAJcmV0ID0gZ2JwaHlf
+cnVudGltZV9nZXRfc3luYyhnYnBoeV9kZXYpOw0KPiAgIAlpZiAocmV0KQ0KPiAgIAkJcmV0dXJu
+IHJldDsNCj4gQEAgLTY0LDkgKzYzLDEwIEBAIHN0YXRpYyBpbnQgZ2JfcHdtX2FjdGl2YXRlX29w
+ZXJhdGlvbihzdHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3bWMsDQo+ICAgCXJldHVybiByZXQ7DQo+ICAg
+fQ0KPiAgIA0KPiAtc3RhdGljIGludCBnYl9wd21fZGVhY3RpdmF0ZV9vcGVyYXRpb24oc3RydWN0
+IGdiX3B3bV9jaGlwICpwd21jLA0KPiArc3RhdGljIGludCBnYl9wd21fZGVhY3RpdmF0ZV9vcGVy
+YXRpb24oc3RydWN0IHB3bV9jaGlwICpjaGlwLA0KPiAgIAkJCQkgICAgICAgdTggd2hpY2gpDQoN
+ClNhbWUgcXVlc3Rpb24gaGVyZS4NCg0KPiAgIHsNCj4gKwlzdHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3
+bWMgPSBwd21fY2hpcF90b19nYl9wd21fY2hpcChjaGlwKTsNCj4gICAJc3RydWN0IGdiX3B3bV9k
+ZWFjdGl2YXRlX3JlcXVlc3QgcmVxdWVzdDsNCj4gICAJc3RydWN0IGdicGh5X2RldmljZSAqZ2Jw
+aHlfZGV2Ow0KPiAgIAlpbnQgcmV0Ow0KPiBAQCAtNzYsNyArNzYsNyBAQCBzdGF0aWMgaW50IGdi
+X3B3bV9kZWFjdGl2YXRlX29wZXJhdGlvbihzdHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3bWMsDQo+ICAg
+DQo+ICAgCXJlcXVlc3Qud2hpY2ggPSB3aGljaDsNCj4gICANCj4gLQlnYnBoeV9kZXYgPSB0b19n
+YnBoeV9kZXYocHdtYy0+Y2hpcC5kZXYpOw0KPiArCWdicGh5X2RldiA9IHRvX2dicGh5X2Rldihw
+d21jaGlwX3BhcmVudChjaGlwKSk7DQoNCglnYnBoeV9kZXYgPSB0b19nYnBoeV9kZXYocHdtY2hp
+cF9wYXJlbnQoJnB3bWMtPmNoaXApKTsNCg0KPiAgIAlyZXQgPSBnYnBoeV9ydW50aW1lX2dldF9z
+eW5jKGdicGh5X2Rldik7DQo+ICAgCWlmIChyZXQpDQo+ICAgCQlyZXR1cm4gcmV0Ow0KPiBAQCAt
+ODksOSArODksMTAgQEAgc3RhdGljIGludCBnYl9wd21fZGVhY3RpdmF0ZV9vcGVyYXRpb24oc3Ry
+dWN0IGdiX3B3bV9jaGlwICpwd21jLA0KPiAgIAlyZXR1cm4gcmV0Ow0KPiAgIH0NCj4gICANCj4g
+LXN0YXRpYyBpbnQgZ2JfcHdtX2NvbmZpZ19vcGVyYXRpb24oc3RydWN0IGdiX3B3bV9jaGlwICpw
+d21jLA0KPiArc3RhdGljIGludCBnYl9wd21fY29uZmlnX29wZXJhdGlvbihzdHJ1Y3QgcHdtX2No
+aXAgKmNoaXAsDQo+ICAgCQkJCSAgIHU4IHdoaWNoLCB1MzIgZHV0eSwgdTMyIHBlcmlvZCkNCg0K
+QW5kIGhlcmUuDQoNCj4gICB7DQo+ICsJc3RydWN0IGdiX3B3bV9jaGlwICpwd21jID0gcHdtX2No
+aXBfdG9fZ2JfcHdtX2NoaXAoY2hpcCk7DQo+ICAgCXN0cnVjdCBnYl9wd21fY29uZmlnX3JlcXVl
+c3QgcmVxdWVzdDsNCj4gICAJc3RydWN0IGdicGh5X2RldmljZSAqZ2JwaHlfZGV2Ow0KPiAgIAlp
+bnQgcmV0Ow0KPiBAQCAtMTAzLDcgKzEwNCw3IEBAIHN0YXRpYyBpbnQgZ2JfcHdtX2NvbmZpZ19v
+cGVyYXRpb24oc3RydWN0IGdiX3B3bV9jaGlwICpwd21jLA0KPiAgIAlyZXF1ZXN0LmR1dHkgPSBj
+cHVfdG9fbGUzMihkdXR5KTsNCj4gICAJcmVxdWVzdC5wZXJpb2QgPSBjcHVfdG9fbGUzMihwZXJp
+b2QpOw0KPiAgIA0KPiAtCWdicGh5X2RldiA9IHRvX2dicGh5X2Rldihwd21jLT5jaGlwLmRldik7
+DQo+ICsJZ2JwaHlfZGV2ID0gdG9fZ2JwaHlfZGV2KHB3bWNoaXBfcGFyZW50KGNoaXApKTsNCg0K
+CWdicGh5X2RldiA9IHRvX2dicGh5X2Rldihwd21jaGlwX3BhcmVudCgmcHdtYy0+Y2hpcCkpOw0K
+DQo+ICAgCXJldCA9IGdicGh5X3J1bnRpbWVfZ2V0X3N5bmMoZ2JwaHlfZGV2KTsNCj4gICAJaWYg
+KHJldCkNCj4gICAJCXJldHVybiByZXQ7DQo+IEBAIC0xMTYsOSArMTE3LDEwIEBAIHN0YXRpYyBp
+bnQgZ2JfcHdtX2NvbmZpZ19vcGVyYXRpb24oc3RydWN0IGdiX3B3bV9jaGlwICpwd21jLA0KPiAg
+IAlyZXR1cm4gcmV0Ow0KPiAgIH0NCj4gICANCj4gLXN0YXRpYyBpbnQgZ2JfcHdtX3NldF9wb2xh
+cml0eV9vcGVyYXRpb24oc3RydWN0IGdiX3B3bV9jaGlwICpwd21jLA0KPiArc3RhdGljIGludCBn
+Yl9wd21fc2V0X3BvbGFyaXR5X29wZXJhdGlvbihzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAsDQo+ICAg
+CQkJCQkgdTggd2hpY2gsIHU4IHBvbGFyaXR5KQ0KDQpBbmQgaGVyZS4NCg0KPiAgIHsNCj4gKwlz
+dHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3bWMgPSBwd21fY2hpcF90b19nYl9wd21fY2hpcChjaGlwKTsN
+Cj4gICAJc3RydWN0IGdiX3B3bV9wb2xhcml0eV9yZXF1ZXN0IHJlcXVlc3Q7DQo+ICAgCXN0cnVj
+dCBnYnBoeV9kZXZpY2UgKmdicGh5X2RldjsNCj4gICAJaW50IHJldDsNCj4gQEAgLTEyOSw3ICsx
+MzEsNyBAQCBzdGF0aWMgaW50IGdiX3B3bV9zZXRfcG9sYXJpdHlfb3BlcmF0aW9uKHN0cnVjdCBn
+Yl9wd21fY2hpcCAqcHdtYywNCj4gICAJcmVxdWVzdC53aGljaCA9IHdoaWNoOw0KPiAgIAlyZXF1
+ZXN0LnBvbGFyaXR5ID0gcG9sYXJpdHk7DQo+ICAgDQo+IC0JZ2JwaHlfZGV2ID0gdG9fZ2JwaHlf
+ZGV2KHB3bWMtPmNoaXAuZGV2KTsNCj4gKwlnYnBoeV9kZXYgPSB0b19nYnBoeV9kZXYocHdtY2hp
+cF9wYXJlbnQoY2hpcCkpOw0KDQoJZ2JwaHlfZGV2ID0gdG9fZ2JwaHlfZGV2KHB3bWNoaXBfcGFy
+ZW50KCZwd21jLT5jaGlwKSk7DQoNCj4gICAJcmV0ID0gZ2JwaHlfcnVudGltZV9nZXRfc3luYyhn
+YnBoeV9kZXYpOw0KPiAgIAlpZiAocmV0KQ0KPiAgIAkJcmV0dXJuIHJldDsNCj4gQEAgLTE0Miw5
+ICsxNDQsOSBAQCBzdGF0aWMgaW50IGdiX3B3bV9zZXRfcG9sYXJpdHlfb3BlcmF0aW9uKHN0cnVj
+dCBnYl9wd21fY2hpcCAqcHdtYywNCj4gICAJcmV0dXJuIHJldDsNCj4gICB9DQo+ICAgDQo+IC1z
+dGF0aWMgaW50IGdiX3B3bV9lbmFibGVfb3BlcmF0aW9uKHN0cnVjdCBnYl9wd21fY2hpcCAqcHdt
+YywNCj4gLQkJCQkgICB1OCB3aGljaCkNCj4gK3N0YXRpYyBpbnQgZ2JfcHdtX2VuYWJsZV9vcGVy
+YXRpb24oc3RydWN0IHB3bV9jaGlwICpjaGlwLCB1OCB3aGljaCkNCg0KQW5kIG9uIGFuZCBvbi4N
+Cg0KPiAgIHsNCj4gKwlzdHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3bWMgPSBwd21fY2hpcF90b19nYl9w
+d21fY2hpcChjaGlwKTsNCj4gICAJc3RydWN0IGdiX3B3bV9lbmFibGVfcmVxdWVzdCByZXF1ZXN0
+Ow0KPiAgIAlzdHJ1Y3QgZ2JwaHlfZGV2aWNlICpnYnBoeV9kZXY7DQo+ICAgCWludCByZXQ7DQo+
+IEBAIC0xNTQsNyArMTU2LDcgQEAgc3RhdGljIGludCBnYl9wd21fZW5hYmxlX29wZXJhdGlvbihz
+dHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3bWMsDQo+ICAgDQo+ICAgCXJlcXVlc3Qud2hpY2ggPSB3aGlj
+aDsNCj4gICANCj4gLQlnYnBoeV9kZXYgPSB0b19nYnBoeV9kZXYocHdtYy0+Y2hpcC5kZXYpOw0K
+PiArCWdicGh5X2RldiA9IHRvX2dicGh5X2Rldihwd21jaGlwX3BhcmVudChjaGlwKSk7DQo+ICAg
+CXJldCA9IGdicGh5X3J1bnRpbWVfZ2V0X3N5bmMoZ2JwaHlfZGV2KTsNCj4gICAJaWYgKHJldCkN
+Cj4gICAJCXJldHVybiByZXQ7DQo+IEBAIC0xNjcsOSArMTY5LDkgQEAgc3RhdGljIGludCBnYl9w
+d21fZW5hYmxlX29wZXJhdGlvbihzdHJ1Y3QgZ2JfcHdtX2NoaXAgKnB3bWMsDQo+ICAgCXJldHVy
+biByZXQ7DQo+ICAgfQ0KPiAgIA0KPiAtc3RhdGljIGludCBnYl9wd21fZGlzYWJsZV9vcGVyYXRp
+b24oc3RydWN0IGdiX3B3bV9jaGlwICpwd21jLA0KPiAtCQkJCSAgICB1OCB3aGljaCkNCj4gK3N0
+YXRpYyBpbnQgZ2JfcHdtX2Rpc2FibGVfb3BlcmF0aW9uKHN0cnVjdCBwd21fY2hpcCAqY2hpcCwg
+dTggd2hpY2gpDQo+ICAgew0KPiArCXN0cnVjdCBnYl9wd21fY2hpcCAqcHdtYyA9IHB3bV9jaGlw
+X3RvX2diX3B3bV9jaGlwKGNoaXApOw0KPiAgIAlzdHJ1Y3QgZ2JfcHdtX2Rpc2FibGVfcmVxdWVz
+dCByZXF1ZXN0Ow0KPiAgIAlzdHJ1Y3QgZ2JwaHlfZGV2aWNlICpnYnBoeV9kZXY7DQo+ICAgCWlu
+dCByZXQ7DQo+IEBAIC0xODIsNyArMTg0LDcgQEAgc3RhdGljIGludCBnYl9wd21fZGlzYWJsZV9v
+cGVyYXRpb24oc3RydWN0IGdiX3B3bV9jaGlwICpwd21jLA0KPiAgIAlyZXQgPSBnYl9vcGVyYXRp
+b25fc3luYyhwd21jLT5jb25uZWN0aW9uLCBHQl9QV01fVFlQRV9ESVNBQkxFLA0KPiAgIAkJCQkm
+cmVxdWVzdCwgc2l6ZW9mKHJlcXVlc3QpLCBOVUxMLCAwKTsNCj4gICANCj4gLQlnYnBoeV9kZXYg
+PSB0b19nYnBoeV9kZXYocHdtYy0+Y2hpcC5kZXYpOw0KPiArCWdicGh5X2RldiA9IHRvX2dicGh5
+X2Rldihwd21jaGlwX3BhcmVudChjaGlwKSk7DQo+ICAgCWdicGh5X3J1bnRpbWVfcHV0X2F1dG9z
+dXNwZW5kKGdicGh5X2Rldik7DQo+ICAgDQo+ICAgCXJldHVybiByZXQ7DQo+IEBAIC0xOTAsMTkg
+KzE5MiwxNSBAQCBzdGF0aWMgaW50IGdiX3B3bV9kaXNhYmxlX29wZXJhdGlvbihzdHJ1Y3QgZ2Jf
+cHdtX2NoaXAgKnB3bWMsDQo+ICAgDQo+ICAgc3RhdGljIGludCBnYl9wd21fcmVxdWVzdChzdHJ1
+Y3QgcHdtX2NoaXAgKmNoaXAsIHN0cnVjdCBwd21fZGV2aWNlICpwd20pDQo+ICAgew0KDQpJIGd1
+ZXNzIG15IHF1ZXN0aW9uIG5vdyBpcywgd2h5IGRvbid0IHRoaXMgZnVuY3Rpb24gYW5kIHRoZQ0K
+bmV4dCBvbmUgdGFrZSBhIGdiX3B3bV9jaGlwIHBvaW50ZXIgYXMgYXJndW1lbnQgbGlrZSB0aGUg
+cmVzdC4uLg0KKE5vdCB5b3VyIHByb2JsZW0tLWRvbid0ICJmaXgiIHRoaXMgaW4gdGhpcyBzZXJp
+ZXMuKQ0KDQo+IC0Jc3RydWN0IGdiX3B3bV9jaGlwICpwd21jID0gcHdtX2NoaXBfdG9fZ2JfcHdt
+X2NoaXAoY2hpcCk7DQo+IC0NCj4gLQlyZXR1cm4gZ2JfcHdtX2FjdGl2YXRlX29wZXJhdGlvbihw
+d21jLCBwd20tPmh3cHdtKTsNCj4gKwlyZXR1cm4gZ2JfcHdtX2FjdGl2YXRlX29wZXJhdGlvbihj
+aGlwLCBwd20tPmh3cHdtKTsNCj4gICB9Ow0KPiAgIA0KPiAgIHN0YXRpYyB2b2lkIGdiX3B3bV9m
+cmVlKHN0cnVjdCBwd21fY2hpcCAqY2hpcCwgc3RydWN0IHB3bV9kZXZpY2UgKnB3bSkNCj4gICB7
+DQo+IC0Jc3RydWN0IGdiX3B3bV9jaGlwICpwd21jID0gcHdtX2NoaXBfdG9fZ2JfcHdtX2NoaXAo
+Y2hpcCk7DQo+IC0NCj4gICAJaWYgKHB3bV9pc19lbmFibGVkKHB3bSkpDQo+IC0JCWRldl93YXJu
+KGNoaXAtPmRldiwgImZyZWVpbmcgUFdNIGRldmljZSB3aXRob3V0IGRpc2FibGluZ1xuIik7DQo+
+ICsJCWRldl93YXJuKHB3bWNoaXBfcGFyZW50KGNoaXApLCAiZnJlZWluZyBQV00gZGV2aWNlIHdp
+dGhvdXQgZGlzYWJsaW5nXG4iKTsNCj4gICANCj4gLQlnYl9wd21fZGVhY3RpdmF0ZV9vcGVyYXRp
+b24ocHdtYywgcHdtLT5od3B3bSk7DQo+ICsJZ2JfcHdtX2RlYWN0aXZhdGVfb3BlcmF0aW9uKGNo
+aXAsIHB3bS0+aHdwd20pOw0KPiAgIH0NCj4gICANCj4gICBzdGF0aWMgaW50IGdiX3B3bV9hcHBs
+eShzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAsIHN0cnVjdCBwd21fZGV2aWNlICpwd20sDQo+IEBAIC0y
+MTIsMjIgKzIxMCwyMSBAQCBzdGF0aWMgaW50IGdiX3B3bV9hcHBseShzdHJ1Y3QgcHdtX2NoaXAg
+KmNoaXAsIHN0cnVjdCBwd21fZGV2aWNlICpwd20sDQo+ICAgCWJvb2wgZW5hYmxlZCA9IHB3bS0+
+c3RhdGUuZW5hYmxlZDsNCj4gICAJdTY0IHBlcmlvZCA9IHN0YXRlLT5wZXJpb2Q7DQo+ICAgCXU2
+NCBkdXR5X2N5Y2xlID0gc3RhdGUtPmR1dHlfY3ljbGU7DQo+IC0Jc3RydWN0IGdiX3B3bV9jaGlw
+ICpwd21jID0gcHdtX2NoaXBfdG9fZ2JfcHdtX2NoaXAoY2hpcCk7DQo+ICAgDQo+ICAgCS8qIFNl
+dCBwb2xhcml0eSAqLw0KPiAgIAlpZiAoc3RhdGUtPnBvbGFyaXR5ICE9IHB3bS0+c3RhdGUucG9s
+YXJpdHkpIHsNCj4gICAJCWlmIChlbmFibGVkKSB7DQo+IC0JCQlnYl9wd21fZGlzYWJsZV9vcGVy
+YXRpb24ocHdtYywgcHdtLT5od3B3bSk7DQo+ICsJCQlnYl9wd21fZGlzYWJsZV9vcGVyYXRpb24o
+Y2hpcCwgcHdtLT5od3B3bSk7DQo+ICAgCQkJZW5hYmxlZCA9IGZhbHNlOw0KPiAgIAkJfQ0KPiAt
+CQllcnIgPSBnYl9wd21fc2V0X3BvbGFyaXR5X29wZXJhdGlvbihwd21jLCBwd20tPmh3cHdtLCBz
+dGF0ZS0+cG9sYXJpdHkpOw0KPiArCQllcnIgPSBnYl9wd21fc2V0X3BvbGFyaXR5X29wZXJhdGlv
+bihjaGlwLCBwd20tPmh3cHdtLCBzdGF0ZS0+cG9sYXJpdHkpOw0KPiAgIAkJaWYgKGVycikNCj4g
+ICAJCQlyZXR1cm4gZXJyOw0KPiAgIAl9DQo+ICAgDQo+ICAgCWlmICghc3RhdGUtPmVuYWJsZWQp
+IHsNCj4gICAJCWlmIChlbmFibGVkKQ0KPiAtCQkJZ2JfcHdtX2Rpc2FibGVfb3BlcmF0aW9uKHB3
+bWMsIHB3bS0+aHdwd20pOw0KPiArCQkJZ2JfcHdtX2Rpc2FibGVfb3BlcmF0aW9uKGNoaXAsIHB3
+bS0+aHdwd20pOw0KPiAgIAkJcmV0dXJuIDA7DQo+ICAgCX0NCj4gICANCj4gQEAgLTI0MywxMyAr
+MjQwLDEzIEBAIHN0YXRpYyBpbnQgZ2JfcHdtX2FwcGx5KHN0cnVjdCBwd21fY2hpcCAqY2hpcCwg
+c3RydWN0IHB3bV9kZXZpY2UgKnB3bSwNCj4gICAJaWYgKGR1dHlfY3ljbGUgPiBwZXJpb2QpDQo+
+ICAgCQlkdXR5X2N5Y2xlID0gcGVyaW9kOw0KPiAgIA0KPiAtCWVyciA9IGdiX3B3bV9jb25maWdf
+b3BlcmF0aW9uKHB3bWMsIHB3bS0+aHdwd20sIGR1dHlfY3ljbGUsIHBlcmlvZCk7DQo+ICsJZXJy
+ID0gZ2JfcHdtX2NvbmZpZ19vcGVyYXRpb24oY2hpcCwgcHdtLT5od3B3bSwgZHV0eV9jeWNsZSwg
+cGVyaW9kKTsNCj4gICAJaWYgKGVycikNCj4gICAJCXJldHVybiBlcnI7DQo+ICAgDQo+ICAgCS8q
+IGVuYWJsZS9kaXNhYmxlICovDQo+ICAgCWlmICghZW5hYmxlZCkNCj4gLQkJcmV0dXJuIGdiX3B3
+bV9lbmFibGVfb3BlcmF0aW9uKHB3bWMsIHB3bS0+aHdwd20pOw0KPiArCQlyZXR1cm4gZ2JfcHdt
+X2VuYWJsZV9vcGVyYXRpb24oY2hpcCwgcHdtLT5od3B3bSk7DQo+ICAgDQo+ICAgCXJldHVybiAw
+Ow0KPiAgIH0NCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KZ3JleWJ1cy1kZXYgbWFpbGluZyBsaXN0IC0tIGdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5v
+cmcKVG8gdW5zdWJzY3JpYmUgc2VuZCBhbiBlbWFpbCB0byBncmV5YnVzLWRldi1sZWF2ZUBsaXN0
+cy5saW5hcm8ub3JnCg==
