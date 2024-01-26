@@ -2,264 +2,163 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 306D583DD74
-	for <lists+greybus-dev@lfdr.de>; Fri, 26 Jan 2024 16:27:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67C2883DF5B
+	for <lists+greybus-dev@lfdr.de>; Fri, 26 Jan 2024 17:59:35 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 41EDB40D34
-	for <lists+greybus-dev@lfdr.de>; Fri, 26 Jan 2024 15:27:24 +0000 (UTC)
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com [209.85.166.54])
-	by lists.linaro.org (Postfix) with ESMTPS id 6F80E3F372
-	for <greybus-dev@lists.linaro.org>; Fri, 26 Jan 2024 15:27:18 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 64E7B43CC4
+	for <lists+greybus-dev@lfdr.de>; Fri, 26 Jan 2024 16:59:34 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by lists.linaro.org (Postfix) with ESMTPS id E2DCD3F00C
+	for <greybus-dev@lists.linaro.org>; Fri, 26 Jan 2024 16:59:28 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=ieee.org header.s=google header.b="JNXnH/iL";
-	dmarc=pass (policy=quarantine) header.from=ieee.org;
-	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.166.54 as permitted sender) smtp.mailfrom=elder@ieee.org
-Received: by mail-io1-f54.google.com with SMTP id ca18e2360f4ac-7beefdfe71eso30776439f.0
-        for <greybus-dev@lists.linaro.org>; Fri, 26 Jan 2024 07:27:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1706282838; x=1706887638; darn=lists.linaro.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=a4YLTamt/dfCfCUlCRgJ4PI4VKPOTvevkMpm6aJpxeo=;
-        b=JNXnH/iLvp50hLpuJKHFQQiBHgyBIBSQ5zhgBOJuM9M1o4gmpf2t4ZiL4Bez3oeeUw
-         DZ3uiQb5qN/Yd6TLNg8sxPvFNGmFMaesa0R8j4noxn/BF42r1Z4wM4k4EO5WNPQNQG/r
-         ZljTnQfGSooRi2Q3qQ3hyF6jivFyNcZFpN58c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706282838; x=1706887638;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=a4YLTamt/dfCfCUlCRgJ4PI4VKPOTvevkMpm6aJpxeo=;
-        b=u6Xv202mWKNeOkSohkeYZsR35TxljjZDw4CUE/GfQYffTNDaRqoFe6QdFYI+0wPEkK
-         GpORSkAKgZH6GwW6kV5CI6fLmHW3uDA+hs/h2SRA7zaOhHIBiMwZ8eNVwRm0sCOBDyCw
-         yceArfEofANNeaxXRvQ5pNih6D4JwLBXoEgeVEQ0qXPTwibg/FDPwXYaDwqYZwskec8c
-         8ea7rEnZqJIjUNSUHuL3r/JhjuypJwXwuZNUHlS3apiZWHt2nG0SLPGLBHtXJjhvr8O0
-         m07Y73xUpuN8fuatCs6XzrbHQt6Cy79OID5nE1g9v+fMDIIX+2JZJ1WXMhtqNzGgopIR
-         W9gg==
-X-Gm-Message-State: AOJu0YxsRKb/4oUsq0QF6eTDY5phj4DzK7u7RjSLr7uPB4iEvkwe3VAH
-	ChQMWDAKAiA1y5/8FCTcbm5i1OcH+SLBcjkCXZrOcs8iJ1/JArUJmFpeYyGlKQ==
-X-Google-Smtp-Source: AGHT+IH2+E2ZGiBvOqV5jJVhXW/UdB37L5HITTy5G70/vnCA1pyoTK6U/M9SXKioRh4tqGEiNYUhgw==
-X-Received: by 2002:a5e:dd01:0:b0:7bf:d258:6344 with SMTP id t1-20020a5edd01000000b007bfd2586344mr109800iop.0.1706282837817;
-        Fri, 26 Jan 2024 07:27:17 -0800 (PST)
-Received: from [172.22.22.28] (c-98-61-227-136.hsd1.mn.comcast.net. [98.61.227.136])
-        by smtp.googlemail.com with ESMTPSA id d8-20020a056602184800b007bc102fb67asm412821ioi.10.2024.01.26.07.27.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 26 Jan 2024 07:27:17 -0800 (PST)
-Message-ID: <53dfea0f-6840-4a02-af9d-65a99a53f28a@ieee.org>
-Date: Fri, 26 Jan 2024 09:27:16 -0600
+	dkim=none;
+	spf=pass (lists.linaro.org: domain of ukl@pengutronix.de designates 185.203.201.7 as permitted sender) smtp.mailfrom=ukl@pengutronix.de;
+	dmarc=none
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rTPY4-0002Qf-3X; Fri, 26 Jan 2024 17:59:24 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rTPY3-002YBo-Go; Fri, 26 Jan 2024 17:59:23 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rTPY3-008nkw-1P;
+	Fri, 26 Jan 2024 17:59:23 +0100
+Date: Fri, 26 Jan 2024 17:59:23 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Alex Elder <elder@ieee.org>
+Message-ID: <yqq3vzx2pni75kx3rhamngrbudcikngcrhvdcvrl45kfz5ypni@mjttju35xhhx>
+References: <cover.1706182805.git.u.kleine-koenig@pengutronix.de>
+ <fb29256a7f2dcda5ae92119997ac717a6280911f.1706182805.git.u.kleine-koenig@pengutronix.de>
+ <4980ba8e-081f-47c3-aa63-a972a266577a@ieee.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <26425379d3eb9ba1b9af44468576ee20c77eb248.1705226208.git.christophe.jaillet@wanadoo.fr>
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <26425379d3eb9ba1b9af44468576ee20c77eb248.1705226208.git.christophe.jaillet@wanadoo.fr>
+In-Reply-To: <4980ba8e-081f-47c3-aa63-a972a266577a@ieee.org>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 6F80E3F372
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.99 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
-	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.166.54:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	FREEMAIL_TO(0.00)[wanadoo.fr,kernel.org,linuxfoundation.org];
+X-Rspamd-Queue-Id: E2DCD3F00C
+X-Spamd-Bar: --------
+X-Spamd-Result: default: False [-8.60 / 15.00];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	SIGNED_PGP(-2.00)[];
+	MID_RHS_NOT_FQDN(0.50)[];
+	FORGED_SENDER(0.30)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
+	R_SPF_ALLOW(-0.20)[+mx];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:209379, ipnet:185.203.200.0/22, country:DE];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	NEURAL_HAM(-0.00)[-0.973];
+	R_DKIM_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
 	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	DKIM_TRACE(0.00)[ieee.org:+]
-Message-ID-Hash: YLTEARCPZU4FT6O2NG5HIT4DJ56Q2WZA
-X-Message-ID-Hash: YLTEARCPZU4FT6O2NG5HIT4DJ56Q2WZA
-X-MailFrom: elder@ieee.org
+	DMARC_NA(0.00)[pengutronix.de];
+	RCVD_COUNT_THREE(0.00)[3];
+	ARC_NA(0.00)[]
+Message-ID-Hash: QCVZSNTYT5IZSL5KIHMCVD4SNDB6FHDK
+X-Message-ID-Hash: QCVZSNTYT5IZSL5KIHMCVD4SNDB6FHDK
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, greybus-dev@lists.linaro.org
+CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, kernel@pengutronix.de
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] greybus: Remove usage of the deprecated ida_simple_xx() API
+Subject: [greybus-dev] Re: [PATCH v5 106/111] staging: greybus: pwm: Make use of devm_pwmchip_alloc() function
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YLTEARCPZU4FT6O2NG5HIT4DJ56Q2WZA/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/QCVZSNTYT5IZSL5KIHMCVD4SNDB6FHDK/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"; format="flowed"
+Content-Type: multipart/mixed; boundary="===============5877646291522416468=="
+
+
+--===============5877646291522416468==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4p5vvjyq24h4p6cg"
+Content-Disposition: inline
+
+
+--4p5vvjyq24h4p6cg
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Alex,
+
+On Fri, Jan 26, 2024 at 09:08:15AM -0600, Alex Elder wrote:
+> On 1/25/24 6:10 AM, Uwe Kleine-K=F6nig wrote:
+> > +	chip =3D devm_pwmchip_alloc(&gbphy_dev->dev, response.count, sizeof(*=
+pwmc));
+> > +	if (IS_ERR(chip)) {
+> > +		ret =3D PTR_ERR(chip);
+> > +		goto exit_connection_destroy;
+> >   	}
+> > +	pwmc =3D pwm_chip_to_gb_pwm_chip(chip);
+> >   	pwmc->connection =3D connection;
+> > +
+> >   	gb_connection_set_data(connection, pwmc);
+> > -	gb_gbphy_set_data(gbphy_dev, pwmc);
+> > +	gb_gbphy_set_data(gbphy_dev, chip);
+>=20
+> I'm pretty sure driver data should still be the Greybus
+> structure, otherwise you're really changing the way this
+> works (most likely in a way that's different from other
+> Greybus drivers.
+
+The problem is that you cannot easily get the chip from pwmc unless you
+add a pointer to struct gb_pwm_chip.
+
+Regarding your other feedback: You're right, this patch is more
+intrusive than it should be. I wonder what went wrong. I'll do some
+research and rework accordingly. Probably I squashed some things
+together that should be separate patches.
+
+thanks for your feedback
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--4p5vvjyq24h4p6cg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmWz5OoACgkQj4D7WH0S
+/k4KUQf6A/sgEifOotxBqJrMFHbcBLDZMvOpGfnsNRoeIX4hfmvwVlk7CJwLen3a
+hPGCRnc6Gd9YQ3mkZD09npNW/l96CyNrmWV0i0Rk1+InyOgkv2dGjy0hBmOujHoG
+FJQ8Pz2ZSSf214erEmsId9DMz+PlePGMSklbbGRifPLHQXRdXsa7261fkMj4iBhI
+TOuucEJK4giG3YooM9Dk6z6Z2g6ihIdBtiJ4B3j9bXJn16fFSQzbsX/iKpJbIcOH
+7biM2E/2Hz/01qoI9kQ5BUYJXGqoxhbh7zcxmUQJddhnfLvbFVjHsEpyl/apLGfE
+KOeinhjrzCD3Z1rSvLZ9iOkS07qEgw==
+=2yZJ
+-----END PGP SIGNATURE-----
+
+--4p5vvjyq24h4p6cg--
+
+--===============5877646291522416468==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-
-On 1/14/24 3:57 AM, Christophe JAILLET wrote:
-> ida_alloc() and ida_free() should be preferred to the deprecated
-> ida_simple_get() and ida_simple_remove().
-> 
-> Note that the upper limit of ida_simple_get() is exclusive, but the one of
-> ida_alloc_range()/ida_alloc_max() is inclusive. So a -1 has been added when
-> needed.
-
-Looks good.
-
-Reviewed-by: Alex Elder <elder@linaro.org>
-
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> ---
->   drivers/greybus/es2.c       |  8 ++++----
->   drivers/greybus/hd.c        | 16 ++++++++--------
->   drivers/greybus/interface.c |  9 ++++-----
->   3 files changed, 16 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/greybus/es2.c b/drivers/greybus/es2.c
-> index e89cca015095..1ee78d0d90b4 100644
-> --- a/drivers/greybus/es2.c
-> +++ b/drivers/greybus/es2.c
-> @@ -513,16 +513,16 @@ static int es2_cport_allocate(struct gb_host_device *hd, int cport_id,
->   
->   	if (cport_id < 0) {
->   		ida_start = 0;
-> -		ida_end = hd->num_cports;
-> +		ida_end = hd->num_cports - 1;
->   	} else if (cport_id < hd->num_cports) {
->   		ida_start = cport_id;
-> -		ida_end = cport_id + 1;
-> +		ida_end = cport_id;
->   	} else {
->   		dev_err(&hd->dev, "cport %d not available\n", cport_id);
->   		return -EINVAL;
->   	}
->   
-> -	return ida_simple_get(id_map, ida_start, ida_end, GFP_KERNEL);
-> +	return ida_alloc_range(id_map, ida_start, ida_end, GFP_KERNEL);
->   }
->   
->   static void es2_cport_release(struct gb_host_device *hd, u16 cport_id)
-> @@ -535,7 +535,7 @@ static void es2_cport_release(struct gb_host_device *hd, u16 cport_id)
->   		return;
->   	}
->   
-> -	ida_simple_remove(&hd->cport_id_map, cport_id);
-> +	ida_free(&hd->cport_id_map, cport_id);
->   }
->   
->   static int cport_enable(struct gb_host_device *hd, u16 cport_id,
-> diff --git a/drivers/greybus/hd.c b/drivers/greybus/hd.c
-> index 72b21bf2d7d3..bc5fd2f53d8b 100644
-> --- a/drivers/greybus/hd.c
-> +++ b/drivers/greybus/hd.c
-> @@ -50,7 +50,7 @@ int gb_hd_cport_reserve(struct gb_host_device *hd, u16 cport_id)
->   	struct ida *id_map = &hd->cport_id_map;
->   	int ret;
->   
-> -	ret = ida_simple_get(id_map, cport_id, cport_id + 1, GFP_KERNEL);
-> +	ret = ida_alloc_range(id_map, cport_id, cport_id, GFP_KERNEL);
->   	if (ret < 0) {
->   		dev_err(&hd->dev, "failed to reserve cport %u\n", cport_id);
->   		return ret;
-> @@ -64,7 +64,7 @@ void gb_hd_cport_release_reserved(struct gb_host_device *hd, u16 cport_id)
->   {
->   	struct ida *id_map = &hd->cport_id_map;
->   
-> -	ida_simple_remove(id_map, cport_id);
-> +	ida_free(id_map, cport_id);
->   }
->   EXPORT_SYMBOL_GPL(gb_hd_cport_release_reserved);
->   
-> @@ -80,16 +80,16 @@ int gb_hd_cport_allocate(struct gb_host_device *hd, int cport_id,
->   
->   	if (cport_id < 0) {
->   		ida_start = 0;
-> -		ida_end = hd->num_cports;
-> +		ida_end = hd->num_cports - 1;
->   	} else if (cport_id < hd->num_cports) {
->   		ida_start = cport_id;
-> -		ida_end = cport_id + 1;
-> +		ida_end = cport_id;
->   	} else {
->   		dev_err(&hd->dev, "cport %d not available\n", cport_id);
->   		return -EINVAL;
->   	}
->   
-> -	return ida_simple_get(id_map, ida_start, ida_end, GFP_KERNEL);
-> +	return ida_alloc_range(id_map, ida_start, ida_end, GFP_KERNEL);
->   }
->   
->   /* Locking: Caller guarantees serialisation */
-> @@ -100,7 +100,7 @@ void gb_hd_cport_release(struct gb_host_device *hd, u16 cport_id)
->   		return;
->   	}
->   
-> -	ida_simple_remove(&hd->cport_id_map, cport_id);
-> +	ida_free(&hd->cport_id_map, cport_id);
->   }
->   
->   static void gb_hd_release(struct device *dev)
-> @@ -111,7 +111,7 @@ static void gb_hd_release(struct device *dev)
->   
->   	if (hd->svc)
->   		gb_svc_put(hd->svc);
-> -	ida_simple_remove(&gb_hd_bus_id_map, hd->bus_id);
-> +	ida_free(&gb_hd_bus_id_map, hd->bus_id);
->   	ida_destroy(&hd->cport_id_map);
->   	kfree(hd);
->   }
-> @@ -162,7 +162,7 @@ struct gb_host_device *gb_hd_create(struct gb_hd_driver *driver,
->   	if (!hd)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	ret = ida_simple_get(&gb_hd_bus_id_map, 1, 0, GFP_KERNEL);
-> +	ret = ida_alloc_min(&gb_hd_bus_id_map, 1, GFP_KERNEL);
->   	if (ret < 0) {
->   		kfree(hd);
->   		return ERR_PTR(ret);
-> diff --git a/drivers/greybus/interface.c b/drivers/greybus/interface.c
-> index 9ec949a438ef..c3cfd62831ff 100644
-> --- a/drivers/greybus/interface.c
-> +++ b/drivers/greybus/interface.c
-> @@ -131,9 +131,8 @@ static int gb_interface_route_create(struct gb_interface *intf)
->   	int ret;
->   
->   	/* Allocate an interface device id. */
-> -	ret = ida_simple_get(&svc->device_id_map,
-> -			     GB_SVC_DEVICE_ID_MIN, GB_SVC_DEVICE_ID_MAX + 1,
-> -			     GFP_KERNEL);
-> +	ret = ida_alloc_range(&svc->device_id_map, GB_SVC_DEVICE_ID_MIN,
-> +			      GB_SVC_DEVICE_ID_MAX, GFP_KERNEL);
->   	if (ret < 0) {
->   		dev_err(&intf->dev, "failed to allocate device id: %d\n", ret);
->   		return ret;
-> @@ -165,7 +164,7 @@ static int gb_interface_route_create(struct gb_interface *intf)
->   	 * XXX anymore.
->   	 */
->   err_ida_remove:
-> -	ida_simple_remove(&svc->device_id_map, device_id);
-> +	ida_free(&svc->device_id_map, device_id);
->   
->   	return ret;
->   }
-> @@ -178,7 +177,7 @@ static void gb_interface_route_destroy(struct gb_interface *intf)
->   		return;
->   
->   	gb_svc_route_destroy(svc, svc->ap_intf_id, intf->interface_id);
-> -	ida_simple_remove(&svc->device_id_map, intf->device_id);
-> +	ida_free(&svc->device_id_map, intf->device_id);
->   	intf->device_id = GB_INTERFACE_DEVICE_ID_BAD;
->   }
->   
+Content-Disposition: inline
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+
+--===============5877646291522416468==--
