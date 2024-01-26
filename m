@@ -2,104 +2,99 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BB3783DD64
-	for <lists+greybus-dev@lfdr.de>; Fri, 26 Jan 2024 16:25:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 306D583DD74
+	for <lists+greybus-dev@lfdr.de>; Fri, 26 Jan 2024 16:27:25 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 6C1CE40075
-	for <lists+greybus-dev@lfdr.de>; Fri, 26 Jan 2024 15:25:10 +0000 (UTC)
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com [209.85.166.45])
-	by lists.linaro.org (Postfix) with ESMTPS id 01DD93F352
-	for <greybus-dev@lists.linaro.org>; Fri, 26 Jan 2024 15:25:05 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 41EDB40D34
+	for <lists+greybus-dev@lfdr.de>; Fri, 26 Jan 2024 15:27:24 +0000 (UTC)
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com [209.85.166.54])
+	by lists.linaro.org (Postfix) with ESMTPS id 6F80E3F372
+	for <greybus-dev@lists.linaro.org>; Fri, 26 Jan 2024 15:27:18 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=ieee.org header.s=google header.b=d2V9RQNM;
+	dkim=pass header.d=ieee.org header.s=google header.b="JNXnH/iL";
 	dmarc=pass (policy=quarantine) header.from=ieee.org;
-	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.166.45 as permitted sender) smtp.mailfrom=elder@ieee.org
-Received: by mail-io1-f45.google.com with SMTP id ca18e2360f4ac-7bef44df5c6so45841439f.0
-        for <greybus-dev@lists.linaro.org>; Fri, 26 Jan 2024 07:25:04 -0800 (PST)
+	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.166.54 as permitted sender) smtp.mailfrom=elder@ieee.org
+Received: by mail-io1-f54.google.com with SMTP id ca18e2360f4ac-7beefdfe71eso30776439f.0
+        for <greybus-dev@lists.linaro.org>; Fri, 26 Jan 2024 07:27:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1706282704; x=1706887504; darn=lists.linaro.org;
+        d=ieee.org; s=google; t=1706282838; x=1706887638; darn=lists.linaro.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=kEkmUv2LBLWanivlisRsYqbMgDJKJ+6PtBj6LwVdhTM=;
-        b=d2V9RQNMxJHd8BYMG6clcZ73I9PYm1S6eacyVOLZNA3MzPX14nO8yO2qHdreOuCC1D
-         w1Pv+F2f2e9iCvTN3Vh/DTqFHfVMT8wtKw4RkUH/v3kM+751/sCljaz4tBNvqkR7bWFH
-         wFXaPHVHi2NumgCIisggBgAcZQljJ/4Z8/VEE=
+        bh=a4YLTamt/dfCfCUlCRgJ4PI4VKPOTvevkMpm6aJpxeo=;
+        b=JNXnH/iLvp50hLpuJKHFQQiBHgyBIBSQ5zhgBOJuM9M1o4gmpf2t4ZiL4Bez3oeeUw
+         DZ3uiQb5qN/Yd6TLNg8sxPvFNGmFMaesa0R8j4noxn/BF42r1Z4wM4k4EO5WNPQNQG/r
+         ZljTnQfGSooRi2Q3qQ3hyF6jivFyNcZFpN58c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706282704; x=1706887504;
+        d=1e100.net; s=20230601; t=1706282838; x=1706887638;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kEkmUv2LBLWanivlisRsYqbMgDJKJ+6PtBj6LwVdhTM=;
-        b=JIi90sASME6r7CQkZigYrOhDfJOonk5h7fIqQV6rM/c23+aDRKEZ/fT5MQ+n+5Dji6
-         SpW0uh3pfye+ddNuybCqkWQ1JRGzBF6GTtu8xUAJXgsSHUYCQ4wdkrJ9bRqCgOd0SOAJ
-         LYdGs5yRBY0ULI9BsKn0wMVcD/sKYTnEm+v7hLAKxkZmi7pzgHcrsNp0/yZuyjGtwjvk
-         GeP45LEjh3IWd4T34RsnjO7BTaOyS4Azs0il3QVWMkeqIHir24dtAnNlW+RoPuHYEYo2
-         qHcTrgCie4jBHXRkzPeiib2Gv4PkdYbXAiQbWWMPF1PD/8hxjLH8vAgV45c8kgFWRD1+
-         AaJQ==
-X-Gm-Message-State: AOJu0YwNgMWiH9/nvW/jSv0ijwZsB8Fn9yZROaHxcAoVRrqhXIRue3UY
-	mGcnxeRKTlh+eHrJcGieST2EQi4FwMw4qZK2da6sbX9cpWHUzRTszrJjcnGkEg==
-X-Google-Smtp-Source: AGHT+IFrVkgBsPjX1Dr5Cja5KOAsFZ70SEzEpDyfmgzi8CVC22VmpwKQ9J2ZR2shglyLPQ2FjICvJw==
-X-Received: by 2002:a05:6e02:5ce:b0:360:73de:be5e with SMTP id l14-20020a056e0205ce00b0036073debe5emr1026139ils.14.1706282704233;
-        Fri, 26 Jan 2024 07:25:04 -0800 (PST)
+        bh=a4YLTamt/dfCfCUlCRgJ4PI4VKPOTvevkMpm6aJpxeo=;
+        b=u6Xv202mWKNeOkSohkeYZsR35TxljjZDw4CUE/GfQYffTNDaRqoFe6QdFYI+0wPEkK
+         GpORSkAKgZH6GwW6kV5CI6fLmHW3uDA+hs/h2SRA7zaOhHIBiMwZ8eNVwRm0sCOBDyCw
+         yceArfEofANNeaxXRvQ5pNih6D4JwLBXoEgeVEQ0qXPTwibg/FDPwXYaDwqYZwskec8c
+         8ea7rEnZqJIjUNSUHuL3r/JhjuypJwXwuZNUHlS3apiZWHt2nG0SLPGLBHtXJjhvr8O0
+         m07Y73xUpuN8fuatCs6XzrbHQt6Cy79OID5nE1g9v+fMDIIX+2JZJ1WXMhtqNzGgopIR
+         W9gg==
+X-Gm-Message-State: AOJu0YxsRKb/4oUsq0QF6eTDY5phj4DzK7u7RjSLr7uPB4iEvkwe3VAH
+	ChQMWDAKAiA1y5/8FCTcbm5i1OcH+SLBcjkCXZrOcs8iJ1/JArUJmFpeYyGlKQ==
+X-Google-Smtp-Source: AGHT+IH2+E2ZGiBvOqV5jJVhXW/UdB37L5HITTy5G70/vnCA1pyoTK6U/M9SXKioRh4tqGEiNYUhgw==
+X-Received: by 2002:a5e:dd01:0:b0:7bf:d258:6344 with SMTP id t1-20020a5edd01000000b007bfd2586344mr109800iop.0.1706282837817;
+        Fri, 26 Jan 2024 07:27:17 -0800 (PST)
 Received: from [172.22.22.28] (c-98-61-227-136.hsd1.mn.comcast.net. [98.61.227.136])
-        by smtp.googlemail.com with ESMTPSA id p5-20020a02b385000000b0046ebddc03fbsm321799jan.33.2024.01.26.07.25.03
+        by smtp.googlemail.com with ESMTPSA id d8-20020a056602184800b007bc102fb67asm412821ioi.10.2024.01.26.07.27.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 26 Jan 2024 07:25:03 -0800 (PST)
-Message-ID: <71634002-42b3-4341-b42b-a6356d358284@ieee.org>
-Date: Fri, 26 Jan 2024 09:25:02 -0600
+        Fri, 26 Jan 2024 07:27:17 -0800 (PST)
+Message-ID: <53dfea0f-6840-4a02-af9d-65a99a53f28a@ieee.org>
+Date: Fri, 26 Jan 2024 09:27:16 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Vaibhav Agarwal <vaibhav.sr@gmail.com>, Mark Greer <mgreer@animalcreek.com>,
  Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Viresh Kumar <vireshk@kernel.org>,
- Bryan O'Donoghue <pure.logic@nexus-software.ie>
-References: <2e7bbdaf8a495bb1273396395b5c779363287581.1705350141.git.christophe.jaillet@wanadoo.fr>
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <26425379d3eb9ba1b9af44468576ee20c77eb248.1705226208.git.christophe.jaillet@wanadoo.fr>
 From: Alex Elder <elder@ieee.org>
-In-Reply-To: <2e7bbdaf8a495bb1273396395b5c779363287581.1705350141.git.christophe.jaillet@wanadoo.fr>
+In-Reply-To: <26425379d3eb9ba1b9af44468576ee20c77eb248.1705226208.git.christophe.jaillet@wanadoo.fr>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 01DD93F352
-X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.49 / 15.00];
+X-Rspamd-Queue-Id: 6F80E3F372
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.99 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
 	MIME_GOOD(-0.10)[text/plain];
 	XM_UA_NO_VERSION(0.01)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.166.45:from];
-	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.166.54:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	FREEMAIL_TO(0.00)[wanadoo.fr,kernel.org,linuxfoundation.org];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_TLS_LAST(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[wanadoo.fr,gmail.com,animalcreek.com,kernel.org,linuxfoundation.org,nexus-software.ie];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	NEURAL_HAM(-0.00)[-1.000];
+	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_LAST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	DKIM_TRACE(0.00)[ieee.org:+]
-Message-ID-Hash: VWHZORWJMSAK5K5O6XP3FNRK5F7L63RC
-X-Message-ID-Hash: VWHZORWJMSAK5K5O6XP3FNRK5F7L63RC
+Message-ID-Hash: YLTEARCPZU4FT6O2NG5HIT4DJ56Q2WZA
+X-Message-ID-Hash: YLTEARCPZU4FT6O2NG5HIT4DJ56Q2WZA
 X-MailFrom: elder@ieee.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
+CC: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, greybus-dev@lists.linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: Remove usage of the deprecated ida_simple_xx() API
+Subject: [greybus-dev] Re: [PATCH] greybus: Remove usage of the deprecated ida_simple_xx() API
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/VWHZORWJMSAK5K5O6XP3FNRK5F7L63RC/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YLTEARCPZU4FT6O2NG5HIT4DJ56Q2WZA/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -109,345 +104,161 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"; format="flowed"
 Content-Transfer-Encoding: 7bit
 
-On 1/15/24 2:22 PM, Christophe JAILLET wrote:
+On 1/14/24 3:57 AM, Christophe JAILLET wrote:
 > ida_alloc() and ida_free() should be preferred to the deprecated
 > ida_simple_get() and ida_simple_remove().
 > 
-> Note that the upper limit of ida_simple_get() is exclusive, buInputt the one of
-
-Fix whatever it is you meant to say here.                     ^^^^^^^^
-
+> Note that the upper limit of ida_simple_get() is exclusive, but the one of
 > ida_alloc_range()/ida_alloc_max() is inclusive. So a -1 has been added when
 > needed.
 
-Otherwise this looks good.
+Looks good.
 
 Reviewed-by: Alex Elder <elder@linaro.org>
 
-> 
 > Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 > ---
->   drivers/staging/greybus/audio_manager.c  |  8 ++++----
->   drivers/staging/greybus/authentication.c |  6 +++---
->   drivers/staging/greybus/fw-download.c    |  7 +++----
->   drivers/staging/greybus/fw-management.c  | 20 +++++++++-----------
->   drivers/staging/greybus/gbphy.c          |  6 +++---
->   drivers/staging/greybus/loopback.c       |  6 +++---
->   drivers/staging/greybus/raw.c            |  6 +++---
->   drivers/staging/greybus/vibrator.c       |  6 +++---
->   8 files changed, 31 insertions(+), 34 deletions(-)
+>   drivers/greybus/es2.c       |  8 ++++----
+>   drivers/greybus/hd.c        | 16 ++++++++--------
+>   drivers/greybus/interface.c |  9 ++++-----
+>   3 files changed, 16 insertions(+), 17 deletions(-)
 > 
-> diff --git a/drivers/staging/greybus/audio_manager.c b/drivers/staging/greybus/audio_manager.c
-> index 9a3f7c034ab4..fa43d35bbcec 100644
-> --- a/drivers/staging/greybus/audio_manager.c
-> +++ b/drivers/staging/greybus/audio_manager.c
-> @@ -44,14 +44,14 @@ int gb_audio_manager_add(struct gb_audio_manager_module_descriptor *desc)
->   	int id;
->   	int err;
+> diff --git a/drivers/greybus/es2.c b/drivers/greybus/es2.c
+> index e89cca015095..1ee78d0d90b4 100644
+> --- a/drivers/greybus/es2.c
+> +++ b/drivers/greybus/es2.c
+> @@ -513,16 +513,16 @@ static int es2_cport_allocate(struct gb_host_device *hd, int cport_id,
 >   
-> -	id = ida_simple_get(&module_id, 0, 0, GFP_KERNEL);
-> +	id = ida_alloc(&module_id, GFP_KERNEL);
->   	if (id < 0)
->   		return id;
->   
->   	err = gb_audio_manager_module_create(&module, manager_kset,
->   					     id, desc);
->   	if (err) {
-> -		ida_simple_remove(&module_id, id);
-> +		ida_free(&module_id, id);
->   		return err;
+>   	if (cport_id < 0) {
+>   		ida_start = 0;
+> -		ida_end = hd->num_cports;
+> +		ida_end = hd->num_cports - 1;
+>   	} else if (cport_id < hd->num_cports) {
+>   		ida_start = cport_id;
+> -		ida_end = cport_id + 1;
+> +		ida_end = cport_id;
+>   	} else {
+>   		dev_err(&hd->dev, "cport %d not available\n", cport_id);
+>   		return -EINVAL;
 >   	}
 >   
-> @@ -78,7 +78,7 @@ int gb_audio_manager_remove(int id)
->   	list_del(&module->list);
->   	kobject_put(&module->kobj);
->   	up_write(&modules_rwsem);
-> -	ida_simple_remove(&module_id, id);
-> +	ida_free(&module_id, id);
->   	return 0;
+> -	return ida_simple_get(id_map, ida_start, ida_end, GFP_KERNEL);
+> +	return ida_alloc_range(id_map, ida_start, ida_end, GFP_KERNEL);
 >   }
->   EXPORT_SYMBOL_GPL(gb_audio_manager_remove);
-> @@ -92,7 +92,7 @@ void gb_audio_manager_remove_all(void)
 >   
->   	list_for_each_entry_safe(module, next, &modules_list, list) {
->   		list_del(&module->list);
-> -		ida_simple_remove(&module_id, module->id);
-> +		ida_free(&module_id, module->id);
->   		kobject_put(&module->kobj);
+>   static void es2_cport_release(struct gb_host_device *hd, u16 cport_id)
+> @@ -535,7 +535,7 @@ static void es2_cport_release(struct gb_host_device *hd, u16 cport_id)
+>   		return;
 >   	}
 >   
-> diff --git a/drivers/staging/greybus/authentication.c b/drivers/staging/greybus/authentication.c
-> index b67315641d18..d53e58f92e81 100644
-> --- a/drivers/staging/greybus/authentication.c
-> +++ b/drivers/staging/greybus/authentication.c
-> @@ -324,7 +324,7 @@ int gb_cap_connection_init(struct gb_connection *connection)
->   	if (ret)
->   		goto err_list_del;
->   
-> -	minor = ida_simple_get(&cap_minors_map, 0, NUM_MINORS, GFP_KERNEL);
-> +	minor = ida_alloc_max(&cap_minors_map, NUM_MINORS - 1, GFP_KERNEL);
->   	if (minor < 0) {
->   		ret = minor;
->   		goto err_connection_disable;
-> @@ -351,7 +351,7 @@ int gb_cap_connection_init(struct gb_connection *connection)
->   err_del_cdev:
->   	cdev_del(&cap->cdev);
->   err_remove_ida:
-> -	ida_simple_remove(&cap_minors_map, minor);
-> +	ida_free(&cap_minors_map, minor);
->   err_connection_disable:
->   	gb_connection_disable(connection);
->   err_list_del:
-> @@ -375,7 +375,7 @@ void gb_cap_connection_exit(struct gb_connection *connection)
->   
->   	device_destroy(&cap_class, cap->dev_num);
->   	cdev_del(&cap->cdev);
-> -	ida_simple_remove(&cap_minors_map, MINOR(cap->dev_num));
-> +	ida_free(&cap_minors_map, MINOR(cap->dev_num));
->   
->   	/*
->   	 * Disallow any new ioctl operations on the char device and wait for
-> diff --git a/drivers/staging/greybus/fw-download.c b/drivers/staging/greybus/fw-download.c
-> index 543692c567f9..2a5c6d1b049c 100644
-> --- a/drivers/staging/greybus/fw-download.c
-> +++ b/drivers/staging/greybus/fw-download.c
-> @@ -63,8 +63,7 @@ static void fw_req_release(struct kref *kref)
->   	 * just hope that it never happens.
->   	 */
->   	if (!fw_req->timedout)
-> -		ida_simple_remove(&fw_req->fw_download->id_map,
-> -				  fw_req->firmware_id);
-> +		ida_free(&fw_req->fw_download->id_map, fw_req->firmware_id);
->   
->   	kfree(fw_req);
+> -	ida_simple_remove(&hd->cport_id_map, cport_id);
+> +	ida_free(&hd->cport_id_map, cport_id);
 >   }
-> @@ -171,7 +170,7 @@ static struct fw_request *find_firmware(struct fw_download *fw_download,
->   		return ERR_PTR(-ENOMEM);
 >   
->   	/* Allocate ids from 1 to 255 (u8-max), 0 is an invalid id */
-> -	ret = ida_simple_get(&fw_download->id_map, 1, 256, GFP_KERNEL);
-> +	ret = ida_alloc_range(&fw_download->id_map, 1, 255, GFP_KERNEL);
+>   static int cport_enable(struct gb_host_device *hd, u16 cport_id,
+> diff --git a/drivers/greybus/hd.c b/drivers/greybus/hd.c
+> index 72b21bf2d7d3..bc5fd2f53d8b 100644
+> --- a/drivers/greybus/hd.c
+> +++ b/drivers/greybus/hd.c
+> @@ -50,7 +50,7 @@ int gb_hd_cport_reserve(struct gb_host_device *hd, u16 cport_id)
+>   	struct ida *id_map = &hd->cport_id_map;
+>   	int ret;
+>   
+> -	ret = ida_simple_get(id_map, cport_id, cport_id + 1, GFP_KERNEL);
+> +	ret = ida_alloc_range(id_map, cport_id, cport_id, GFP_KERNEL);
 >   	if (ret < 0) {
->   		dev_err(fw_download->parent,
->   			"failed to allocate firmware id (%d)\n", ret);
-> @@ -212,7 +211,7 @@ static struct fw_request *find_firmware(struct fw_download *fw_download,
->   	return fw_req;
->   
->   err_free_id:
-> -	ida_simple_remove(&fw_download->id_map, fw_req->firmware_id);
-> +	ida_free(&fw_download->id_map, fw_req->firmware_id);
->   err_free_req:
->   	kfree(fw_req);
->   
-> diff --git a/drivers/staging/greybus/fw-management.c b/drivers/staging/greybus/fw-management.c
-> index 93137a3c4907..3054f084d777 100644
-> --- a/drivers/staging/greybus/fw-management.c
-> +++ b/drivers/staging/greybus/fw-management.c
-> @@ -165,7 +165,7 @@ static int fw_mgmt_load_and_validate_operation(struct fw_mgmt *fw_mgmt,
->   	}
->   
->   	/* Allocate ids from 1 to 255 (u8-max), 0 is an invalid id */
-> -	ret = ida_simple_get(&fw_mgmt->id_map, 1, 256, GFP_KERNEL);
-> +	ret = ida_alloc_range(&fw_mgmt->id_map, 1, 255, GFP_KERNEL);
->   	if (ret < 0) {
->   		dev_err(fw_mgmt->parent, "failed to allocate request id (%d)\n",
->   			ret);
-> @@ -180,8 +180,7 @@ static int fw_mgmt_load_and_validate_operation(struct fw_mgmt *fw_mgmt,
->   				GB_FW_MGMT_TYPE_LOAD_AND_VALIDATE_FW, &request,
->   				sizeof(request), NULL, 0);
->   	if (ret) {
-> -		ida_simple_remove(&fw_mgmt->id_map,
-> -				  fw_mgmt->intf_fw_request_id);
-> +		ida_free(&fw_mgmt->id_map, fw_mgmt->intf_fw_request_id);
->   		fw_mgmt->intf_fw_request_id = 0;
->   		dev_err(fw_mgmt->parent,
->   			"load and validate firmware request failed (%d)\n",
-> @@ -220,7 +219,7 @@ static int fw_mgmt_interface_fw_loaded_operation(struct gb_operation *op)
->   		return -ENODEV;
->   	}
->   
-> -	ida_simple_remove(&fw_mgmt->id_map, fw_mgmt->intf_fw_request_id);
-> +	ida_free(&fw_mgmt->id_map, fw_mgmt->intf_fw_request_id);
->   	fw_mgmt->intf_fw_request_id = 0;
->   	fw_mgmt->intf_fw_status = request->status;
->   	fw_mgmt->intf_fw_major = le16_to_cpu(request->major);
-> @@ -316,7 +315,7 @@ static int fw_mgmt_backend_fw_update_operation(struct fw_mgmt *fw_mgmt,
->   	}
->   
->   	/* Allocate ids from 1 to 255 (u8-max), 0 is an invalid id */
-> -	ret = ida_simple_get(&fw_mgmt->id_map, 1, 256, GFP_KERNEL);
-> +	ret = ida_alloc_range(&fw_mgmt->id_map, 1, 255, GFP_KERNEL);
->   	if (ret < 0) {
->   		dev_err(fw_mgmt->parent, "failed to allocate request id (%d)\n",
->   			ret);
-> @@ -330,8 +329,7 @@ static int fw_mgmt_backend_fw_update_operation(struct fw_mgmt *fw_mgmt,
->   				GB_FW_MGMT_TYPE_BACKEND_FW_UPDATE, &request,
->   				sizeof(request), NULL, 0);
->   	if (ret) {
-> -		ida_simple_remove(&fw_mgmt->id_map,
-> -				  fw_mgmt->backend_fw_request_id);
-> +		ida_free(&fw_mgmt->id_map, fw_mgmt->backend_fw_request_id);
->   		fw_mgmt->backend_fw_request_id = 0;
->   		dev_err(fw_mgmt->parent,
->   			"backend %s firmware update request failed (%d)\n", tag,
-> @@ -369,7 +367,7 @@ static int fw_mgmt_backend_fw_updated_operation(struct gb_operation *op)
->   		return -ENODEV;
->   	}
->   
-> -	ida_simple_remove(&fw_mgmt->id_map, fw_mgmt->backend_fw_request_id);
-> +	ida_free(&fw_mgmt->id_map, fw_mgmt->backend_fw_request_id);
->   	fw_mgmt->backend_fw_request_id = 0;
->   	fw_mgmt->backend_fw_status = request->status;
->   
-> @@ -617,7 +615,7 @@ int gb_fw_mgmt_connection_init(struct gb_connection *connection)
->   	if (ret)
->   		goto err_list_del;
->   
-> -	minor = ida_simple_get(&fw_mgmt_minors_map, 0, NUM_MINORS, GFP_KERNEL);
-> +	minor = ida_alloc_max(&fw_mgmt_minors_map, NUM_MINORS - 1, GFP_KERNEL);
->   	if (minor < 0) {
->   		ret = minor;
->   		goto err_connection_disable;
-> @@ -645,7 +643,7 @@ int gb_fw_mgmt_connection_init(struct gb_connection *connection)
->   err_del_cdev:
->   	cdev_del(&fw_mgmt->cdev);
->   err_remove_ida:
-> -	ida_simple_remove(&fw_mgmt_minors_map, minor);
-> +	ida_free(&fw_mgmt_minors_map, minor);
->   err_connection_disable:
->   	gb_connection_disable(connection);
->   err_list_del:
-> @@ -669,7 +667,7 @@ void gb_fw_mgmt_connection_exit(struct gb_connection *connection)
->   
->   	device_destroy(&fw_mgmt_class, fw_mgmt->dev_num);
->   	cdev_del(&fw_mgmt->cdev);
-> -	ida_simple_remove(&fw_mgmt_minors_map, MINOR(fw_mgmt->dev_num));
-> +	ida_free(&fw_mgmt_minors_map, MINOR(fw_mgmt->dev_num));
->   
->   	/*
->   	 * Disallow any new ioctl operations on the char device and wait for
-> diff --git a/drivers/staging/greybus/gbphy.c b/drivers/staging/greybus/gbphy.c
-> index 6a7d8cf2a1eb..93b74a236ab1 100644
-> --- a/drivers/staging/greybus/gbphy.c
-> +++ b/drivers/staging/greybus/gbphy.c
-> @@ -46,7 +46,7 @@ static void gbphy_dev_release(struct device *dev)
+>   		dev_err(&hd->dev, "failed to reserve cport %u\n", cport_id);
+>   		return ret;
+> @@ -64,7 +64,7 @@ void gb_hd_cport_release_reserved(struct gb_host_device *hd, u16 cport_id)
 >   {
->   	struct gbphy_device *gbphy_dev = to_gbphy_dev(dev);
+>   	struct ida *id_map = &hd->cport_id_map;
 >   
-> -	ida_simple_remove(&gbphy_id, gbphy_dev->id);
-> +	ida_free(&gbphy_id, gbphy_dev->id);
->   	kfree(gbphy_dev);
+> -	ida_simple_remove(id_map, cport_id);
+> +	ida_free(id_map, cport_id);
 >   }
+>   EXPORT_SYMBOL_GPL(gb_hd_cport_release_reserved);
 >   
-> @@ -225,13 +225,13 @@ static struct gbphy_device *gb_gbphy_create_dev(struct gb_bundle *bundle,
->   	int retval;
->   	int id;
+> @@ -80,16 +80,16 @@ int gb_hd_cport_allocate(struct gb_host_device *hd, int cport_id,
 >   
-> -	id = ida_simple_get(&gbphy_id, 1, 0, GFP_KERNEL);
-> +	id = ida_alloc_min(&gbphy_id, 1, GFP_KERNEL);
->   	if (id < 0)
->   		return ERR_PTR(id);
->   
->   	gbphy_dev = kzalloc(sizeof(*gbphy_dev), GFP_KERNEL);
->   	if (!gbphy_dev) {
-> -		ida_simple_remove(&gbphy_id, id);
-> +		ida_free(&gbphy_id, id);
->   		return ERR_PTR(-ENOMEM);
+>   	if (cport_id < 0) {
+>   		ida_start = 0;
+> -		ida_end = hd->num_cports;
+> +		ida_end = hd->num_cports - 1;
+>   	} else if (cport_id < hd->num_cports) {
+>   		ida_start = cport_id;
+> -		ida_end = cport_id + 1;
+> +		ida_end = cport_id;
+>   	} else {
+>   		dev_err(&hd->dev, "cport %d not available\n", cport_id);
+>   		return -EINVAL;
 >   	}
 >   
-> diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
-> index d7b39f3bb652..bb33379b5297 100644
-> --- a/drivers/staging/greybus/loopback.c
-> +++ b/drivers/staging/greybus/loopback.c
-> @@ -1028,7 +1028,7 @@ static int gb_loopback_probe(struct gb_bundle *bundle,
->   	gb->file = debugfs_create_file(name, S_IFREG | 0444, gb_dev.root, gb,
->   				       &gb_loopback_dbgfs_latency_fops);
+> -	return ida_simple_get(id_map, ida_start, ida_end, GFP_KERNEL);
+> +	return ida_alloc_range(id_map, ida_start, ida_end, GFP_KERNEL);
+>   }
 >   
-> -	gb->id = ida_simple_get(&loopback_ida, 0, 0, GFP_KERNEL);
-> +	gb->id = ida_alloc(&loopback_ida, GFP_KERNEL);
->   	if (gb->id < 0) {
->   		retval = gb->id;
->   		goto out_debugfs_remove;
-> @@ -1079,7 +1079,7 @@ static int gb_loopback_probe(struct gb_bundle *bundle,
->   out_connection_disable:
->   	gb_connection_disable(connection);
->   out_ida_remove:
-> -	ida_simple_remove(&loopback_ida, gb->id);
-> +	ida_free(&loopback_ida, gb->id);
->   out_debugfs_remove:
->   	debugfs_remove(gb->file);
->   out_connection_destroy:
-> @@ -1121,7 +1121,7 @@ static void gb_loopback_disconnect(struct gb_bundle *bundle)
->   	spin_unlock_irqrestore(&gb_dev.lock, flags);
+>   /* Locking: Caller guarantees serialisation */
+> @@ -100,7 +100,7 @@ void gb_hd_cport_release(struct gb_host_device *hd, u16 cport_id)
+>   		return;
+>   	}
 >   
->   	device_unregister(gb->dev);
-> -	ida_simple_remove(&loopback_ida, gb->id);
-> +	ida_free(&loopback_ida, gb->id);
+> -	ida_simple_remove(&hd->cport_id_map, cport_id);
+> +	ida_free(&hd->cport_id_map, cport_id);
+>   }
 >   
->   	gb_connection_destroy(gb->connection);
->   	kfree(gb);
-> diff --git a/drivers/staging/greybus/raw.c b/drivers/staging/greybus/raw.c
-> index b9c6eff7cdc1..836d35e5fa85 100644
-> --- a/drivers/staging/greybus/raw.c
-> +++ b/drivers/staging/greybus/raw.c
-> @@ -181,7 +181,7 @@ static int gb_raw_probe(struct gb_bundle *bundle,
->   	raw->connection = connection;
->   	greybus_set_drvdata(bundle, raw);
+>   static void gb_hd_release(struct device *dev)
+> @@ -111,7 +111,7 @@ static void gb_hd_release(struct device *dev)
 >   
-> -	minor = ida_simple_get(&minors, 0, 0, GFP_KERNEL);
-> +	minor = ida_alloc(&minors, GFP_KERNEL);
->   	if (minor < 0) {
->   		retval = minor;
->   		goto error_connection_destroy;
-> @@ -214,7 +214,7 @@ static int gb_raw_probe(struct gb_bundle *bundle,
->   	gb_connection_disable(connection);
+>   	if (hd->svc)
+>   		gb_svc_put(hd->svc);
+> -	ida_simple_remove(&gb_hd_bus_id_map, hd->bus_id);
+> +	ida_free(&gb_hd_bus_id_map, hd->bus_id);
+>   	ida_destroy(&hd->cport_id_map);
+>   	kfree(hd);
+>   }
+> @@ -162,7 +162,7 @@ struct gb_host_device *gb_hd_create(struct gb_hd_driver *driver,
+>   	if (!hd)
+>   		return ERR_PTR(-ENOMEM);
 >   
->   error_remove_ida:
-> -	ida_simple_remove(&minors, minor);
-> +	ida_free(&minors, minor);
+> -	ret = ida_simple_get(&gb_hd_bus_id_map, 1, 0, GFP_KERNEL);
+> +	ret = ida_alloc_min(&gb_hd_bus_id_map, 1, GFP_KERNEL);
+>   	if (ret < 0) {
+>   		kfree(hd);
+>   		return ERR_PTR(ret);
+> diff --git a/drivers/greybus/interface.c b/drivers/greybus/interface.c
+> index 9ec949a438ef..c3cfd62831ff 100644
+> --- a/drivers/greybus/interface.c
+> +++ b/drivers/greybus/interface.c
+> @@ -131,9 +131,8 @@ static int gb_interface_route_create(struct gb_interface *intf)
+>   	int ret;
 >   
->   error_connection_destroy:
->   	gb_connection_destroy(connection);
-> @@ -235,7 +235,7 @@ static void gb_raw_disconnect(struct gb_bundle *bundle)
->   	device_destroy(&raw_class, raw->dev);
->   	cdev_del(&raw->cdev);
->   	gb_connection_disable(connection);
-> -	ida_simple_remove(&minors, MINOR(raw->dev));
-> +	ida_free(&minors, MINOR(raw->dev));
->   	gb_connection_destroy(connection);
->   
->   	mutex_lock(&raw->list_lock);
-> diff --git a/drivers/staging/greybus/vibrator.c b/drivers/staging/greybus/vibrator.c
-> index 227e18d92a95..89bef8045549 100644
-> --- a/drivers/staging/greybus/vibrator.c
-> +++ b/drivers/staging/greybus/vibrator.c
-> @@ -153,7 +153,7 @@ static int gb_vibrator_probe(struct gb_bundle *bundle,
->   	 * there is a "real" device somewhere in the kernel for this, but I
->   	 * can't find it at the moment...
+>   	/* Allocate an interface device id. */
+> -	ret = ida_simple_get(&svc->device_id_map,
+> -			     GB_SVC_DEVICE_ID_MIN, GB_SVC_DEVICE_ID_MAX + 1,
+> -			     GFP_KERNEL);
+> +	ret = ida_alloc_range(&svc->device_id_map, GB_SVC_DEVICE_ID_MIN,
+> +			      GB_SVC_DEVICE_ID_MAX, GFP_KERNEL);
+>   	if (ret < 0) {
+>   		dev_err(&intf->dev, "failed to allocate device id: %d\n", ret);
+>   		return ret;
+> @@ -165,7 +164,7 @@ static int gb_interface_route_create(struct gb_interface *intf)
+>   	 * XXX anymore.
 >   	 */
-> -	vib->minor = ida_simple_get(&minors, 0, 0, GFP_KERNEL);
-> +	vib->minor = ida_alloc(&minors, GFP_KERNEL);
->   	if (vib->minor < 0) {
->   		retval = vib->minor;
->   		goto err_connection_disable;
-> @@ -173,7 +173,7 @@ static int gb_vibrator_probe(struct gb_bundle *bundle,
->   	return 0;
->   
 >   err_ida_remove:
-> -	ida_simple_remove(&minors, vib->minor);
-> +	ida_free(&minors, vib->minor);
->   err_connection_disable:
->   	gb_connection_disable(connection);
->   err_connection_destroy:
-> @@ -197,7 +197,7 @@ static void gb_vibrator_disconnect(struct gb_bundle *bundle)
->   		turn_off(vib);
+> -	ida_simple_remove(&svc->device_id_map, device_id);
+> +	ida_free(&svc->device_id_map, device_id);
 >   
->   	device_unregister(vib->dev);
-> -	ida_simple_remove(&minors, vib->minor);
-> +	ida_free(&minors, vib->minor);
->   	gb_connection_disable(vib->connection);
->   	gb_connection_destroy(vib->connection);
->   	kfree(vib);
+>   	return ret;
+>   }
+> @@ -178,7 +177,7 @@ static void gb_interface_route_destroy(struct gb_interface *intf)
+>   		return;
+>   
+>   	gb_svc_route_destroy(svc, svc->ap_intf_id, intf->interface_id);
+> -	ida_simple_remove(&svc->device_id_map, intf->device_id);
+> +	ida_free(&svc->device_id_map, intf->device_id);
+>   	intf->device_id = GB_INTERFACE_DEVICE_ID_BAD;
+>   }
+>   
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
