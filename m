@@ -2,222 +2,238 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3B3D85EDF8
-	for <lists+greybus-dev@lfdr.de>; Thu, 22 Feb 2024 01:27:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C839B85EDF9
+	for <lists+greybus-dev@lfdr.de>; Thu, 22 Feb 2024 01:27:33 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id C047440B3E
-	for <lists+greybus-dev@lfdr.de>; Thu, 22 Feb 2024 00:27:27 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
-	by lists.linaro.org (Postfix) with ESMTPS id EB2B144306
-	for <greybus-dev@lists.linaro.org>; Thu, 15 Feb 2024 11:48:11 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id D9E2143D21
+	for <lists+greybus-dev@lfdr.de>; Thu, 22 Feb 2024 00:27:32 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+	by lists.linaro.org (Postfix) with ESMTPS id D410A3EB98
+	for <greybus-dev@lists.linaro.org>; Sat, 17 Feb 2024 15:48:29 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=none;
-	spf=pass (lists.linaro.org: domain of ukl@pengutronix.de designates 185.203.201.7 as permitted sender) smtp.mailfrom=ukl@pengutronix.de;
-	dmarc=none
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1raaCf-0007ES-Uk; Thu, 15 Feb 2024 12:46:57 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1raaCW-000sHg-HB; Thu, 15 Feb 2024 12:46:48 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1raaCW-005KD7-12;
-	Thu, 15 Feb 2024 12:46:48 +0100
-Date: Thu, 15 Feb 2024 12:46:48 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: linux-pwm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>, James Clark <james.clark@arm.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Mark Brown <broonie@kernel.org>,
-	Hector Martin <marcan@marcan.st>, Sven Peter <sven@svenpeter.dev>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Alexander Shiyan <shc_work@mail.ru>, Benson Leung <bleung@chromium.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, Paul Cercueil <paul@crapouillou.net>,
-	Vladimir Zapolskiy <vz@mleia.com>, Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
-	Hans de Goede <hdegoede@redhat.com>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>, Conor Dooley <conor.dooley@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>, Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
-	Heiko Stuebner <heiko@sntech.de>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <paul.walmsley@sifive.com>,
-	Michael Walle <mwalle@kernel.org>, Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@csie.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
-	Hammer Hsieh <hammerh0314@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>, Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
-	Sean Anderson <sean.anderson@seco.com>, Michal Simek <michal.simek@amd.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>, Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Pavel Machek <pavel@ucw.cz>,
-	Lee Jones <lee@kernel.org>, Anjelique Melendez <quic_amelende@quicinc.com>,
-	Bjorn Andersson <quic_bjorande@quicinc.com>, Kees Cook <keescook@chromium.org>, Rob Herring <robh@kernel.org>,
-	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <frrn4vofjuskb67rxrgnwqrsqioonglp7nidoueumgw2hemhxq@6hrsnivgobuw>
-References: <cover.1707900770.git.u.kleine-koenig@pengutronix.de>
+	dkim=pass header.d=gmx.com header.s=s31663417 header.b=dszkgOkz;
+	spf=pass (lists.linaro.org: domain of erick.archer@gmx.com designates 212.227.15.15 as permitted sender) smtp.mailfrom=erick.archer@gmx.com;
+	dmarc=pass (policy=quarantine) header.from=gmx.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.com;
+	s=s31663417; t=1708184894; x=1708789694; i=erick.archer@gmx.com;
+	bh=m3udH/oFmLVSoeOqFqni6TFUPl3SEoscIrls3SQZJH4=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+	b=dszkgOkzztj5lH3oYz6944dte02euVjveXo4MZ9FDg5dz8HvLqkRjyNpG4Ex8Ppy
+	 SJhCwXnh5ZBa6/0E76KoZjbc144eLfaXuWFplrA2SOA88vUr0cHAcernmzGc0YY4w
+	 3owKYjBwknRcpGQQcky1WhoXanM0uoMa/ck0Cz/XTx72xI/hmDWC4KMAeJ/d11SK8
+	 9MkRellUsbsksBVm4AGLl7oXMistAKYYjq8V2/fW2FG2lB/z/3cEmdj9E00KNmB4u
+	 sq59bbgqqO9fNa/v88/SpsymM2LC6H49/5u2bEUfEPOHXX3G6CDIXOxcbqamPJIIv
+	 wacxlccQexsA5f6nIw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from localhost.localdomain ([79.157.194.183]) by mail.gmx.net
+ (mrgmx005 [212.227.17.184]) with ESMTPSA (Nemesis) id
+ 1M6lpM-1rao9Q0aVC-008FTz; Sat, 17 Feb 2024 16:48:14 +0100
+From: Erick Archer <erick.archer@gmx.com>
+To: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
+	Mark Greer <mgreer@animalcreek.com>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Kees Cook <keescook@chromium.org>
+Date: Sat, 17 Feb 2024 16:47:58 +0100
+Message-Id: <20240217154758.7965-1-erick.archer@gmx.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <cover.1707900770.git.u.kleine-koenig@pengutronix.de>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: greybus-dev@lists.linaro.org
+X-Provags-ID: V03:K1:R9pjlY/RtF4tfJwPTBxlM53E3eR2D74Esd9b5+KGfGlq7gjlrnC
+ GClJFyz+OWZU61AhSXuDAt3OQm6ypcX+qclQR7lZRCACriik1Z+9De3rvK35AOnkK1XfjDw
+ 8FZvf9oSUtQIav+iEVyjilXRMAOWkSH8UNqYhvuq5biIQ9XDi2mgE8b0iY648I1X3v0eLoD
+ yIjt0dynq24NVVPDIJ/HQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:MDqSIMhlGG4=;SJX43bNMRrZoLSYrdDdk7Q7dp9i
+ EEIv3DLYOm0zuVwzs6cn7C+a4j1jIelgjhDl1p2jx0gUlUpqD1v8/NGY0Z4MwHJdXJtw2ZJxx
+ W+Gf5jAe0WLtWTjMJn8ocCK/cz4SIqgwrkoRbsLwskw7Ky5DuRptlwiaqVd7qgn0zcu5TSSc0
+ FP3rDOGSrTCaBomiuSamjBbMxv26+k5A8gUcY5xcZ+HIDNi5BiyJTzOJuQhElXpG9x5eg1AAF
+ m2bC4ua12ETEiLmMCu1uaLEyLrlFpFL0s5pY5UHe75unrwU2qOz2uIxF28FMzE34fRlmDSA8L
+ 8n/US90C82SzPOqCL8MZ7MUZgftjcfAV6VU/Czyw8cYDaX2xtrm/pwXmBcCbIQEPDlRdIEaTp
+ 4S/VuAm9406NlxeuZ8jHAfHmYxU5VcMHxsxJZh1brZA2WmEX3xC1LG7WkJp/taRIlvcGVEgwm
+ +WO+aAgm4Tir0duT95VQzuaaNu1Z7p9G81BpKlafpcSmmSZSHrDg5aZnVLvhyvOmnu4AzDBxJ
+ jWSHXAjtiXPbWDOTB9zAx/wgFg/XVZy0vrtBHUR+qmDkybfEX8FdGJVMU7V2vmS6MZBA+8GtF
+ 1eE9REv1apMls9L7Pq3CqOeArSzCFpq6FA4wxPdCWb4xXct2e9/O3nb4jKSFH397ebcrBcoy1
+ Q8V7L32UBW8gDx45N60zaXM0uE7gwkW9rMrVGCSm6jjoHblepb1TKEvL8r7YNZgM3wC+i5fIP
+ BFnb00D2LEzb7LfWRQBZFhrgP58T3qD0d41yCzLp2HlQet8qVFFvFrQIXG1S8AanPFOrbjjWh
+ fdWMCU4K7AjdOWgjTJ575IcmbtOGe03z/POI4q8Uqi2nA=
+X-Rspamd-Queue-Id: D410A3EB98
+X-Spamd-Bar: -
+X-Spamd-Result: default: False [-1.00 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmx.com,quarantine];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:mout.gmx.net];
+	R_DKIM_ALLOW(-0.20)[gmx.com:s=s31663417];
+	RWL_MAILSPIKE_GOOD(-0.10)[212.227.15.15:from];
+	MIME_GOOD(-0.10)[text/plain];
+	ONCE_RECEIVED(0.10)[];
+	FREEMAIL_TO(0.00)[gmail.com,animalcreek.com,kernel.org,linuxfoundation.org,chromium.org];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_FROM(0.00)[gmx.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FREEMAIL_ENVFROM(0.00)[gmx.com];
+	ASN(0.00)[asn:8560, ipnet:212.227.0.0/16, country:DE];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCVD_COUNT_ONE(0.00)[1];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[gmx.com:+];
+	FREEMAIL_CC(0.00)[gmx.com,lists.linaro.org,lists.linux.dev,vger.kernel.org];
+	FROM_HAS_DN(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: EB2B144306
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.10 / 15.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SIGNED_PGP(-2.00)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	FORGED_SENDER(0.30)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+mx];
-	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@pengutronix.de,ukl@pengutronix.de];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_TLS_LAST(0.00)[];
-	ASN(0.00)[asn:209379, ipnet:185.203.200.0/22, country:DE];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_CC(0.00)[chromium.org,vger.kernel.org,lists.freedesktop.org,ideasonboard.com,samsung.com,lists.infradead.org,gmail.com,st-md-mailman.stormreply.com,rosenzweig.io,baylibre.com,lists.linux.dev,broadcom.com,nxp.com,kwiboo.se,googlemail.com,lists.linaro.org,kernel.org,pengutronix.de];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[104];
-	FREEMAIL_TO(0.00)[vger.kernel.org,lwn.net,huawei.com,arm.com,linux.intel.com,kernel.org,marcan.st,svenpeter.dev,tuxon.dev,microchip.com,bootlin.com,broadcom.com,mail.ru,chromium.org,pengutronix.de,crapouillou.net,mleia.com,linaro.org,redhat.com,gmail.com,collabora.com,baylibre.com,gmx.net,sntech.de,dabbelt.com,sifive.com,linux.alibaba.com,foss.st.com,csie.org,sholland.org,nvidia.com,toshiba.co.jp,seco.com,amd.com,bgdev.pl,intel.com,suse.de,ffwll.ch,ucw.cz,quicinc.com,linuxfoundation.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	DMARC_NA(0.00)[pengutronix.de];
-	R_DKIM_NA(0.00)[]
-X-MailFrom: ukl@pengutronix.de
-X-Mailman-Rule-Hits: max-recipients
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-size; news-moderation; no-subject; digests; suspicious-header
-Message-ID-Hash: MZHE4GZAKLB4WO2ZXWYSZ3ATTZ7CBSHN
-X-Message-ID-Hash: MZHE4GZAKLB4WO2ZXWYSZ3ATTZ7CBSHN
-X-Mailman-Approved-At: Thu, 22 Feb 2024 00:27:17 +0000
-CC: Douglas Anderson <dianders@chromium.org>, linux-doc@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Alim Akhtar <alim.akhtar@samsung.com>, Guenter Roeck <groeck@chromium.org>, linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com, Alyssa Rosenzweig <alyssa@rosenzweig.io>, Jerome Brunet <jbrunet@baylibre.com>, chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org, linux-staging@lists.linux.dev, linux-rockchip@lists.infradead.org, Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, NXP Linux Team <linux-imx@nxp.com>, linux-leds@vger.kernel.org, linux-sunxi@lists.linux.dev, Jonas Karlman <jonas@kwiboo.se>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org, linux-
- amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, greybus-dev@lists.linaro.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-mips@vger.kernel.org, asahi@lists.linux.dev, kernel@pengutronix.de, linux-hardening@vger.kernel.org
+X-MailFrom: erick.archer@gmx.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: 5O7C623YN4U2HA322XN4IT2E5JSSLTFU
+X-Message-ID-Hash: 5O7C623YN4U2HA322XN4IT2E5JSSLTFU
+X-Mailman-Approved-At: Thu, 22 Feb 2024 00:27:18 +0000
+CC: Erick Archer <erick.archer@gmx.com>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v6 000/164] pwm: Improve lifetime tracking for pwm_chips
+Subject: [greybus-dev] [PATCH] greybus: audio: apbridgea: Remove flexible array from struct audio_apbridgea_hdr
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/MZHE4GZAKLB4WO2ZXWYSZ3ATTZ7CBSHN/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5O7C623YN4U2HA322XN4IT2E5JSSLTFU/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: multipart/mixed; boundary="===============7566505635582885517=="
-
-
---===============7566505635582885517==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t4o747itgdnx5oup"
-Content-Disposition: inline
-
-
---t4o747itgdnx5oup
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello,
-
-On Wed, Feb 14, 2024 at 10:30:47AM +0100, Uwe Kleine-K=F6nig wrote:
-> this is v6 of the series introducing better lifetime tracking for
-> pwmchips that addresses (for now theoretic) lifetime issues of pwm
-> chips. Addressing these is a necessary precondition to introduce chardev
-> support for PWMs.
->=20
-> Locking got more complicated due to non-sleeping chips, so I dropped
-> the character device patch because it got still more incomplete now.
-> Also I'm not yet entirely sure about patches #162 and #163 and I expect
-> them to change before they can go in. My plan for the next merge window
-> is to get the patches in up to #160. After that the addition of chardev
-> support (including correct locking) can continue without having to touch
-> the lowlevel driver. So the idea of this series is to get the driver
-> adaptions out of the way as this requires some cross-tree coordination.
->=20
-> The patches that touch files outside of drivers/pwm include:
->=20
->  - gpio: mvebu: Make use of devm_pwmchip_alloc() function
->    It already has an Ack by Linus Walleij.
->=20
->  - drm/bridge: ti-sn65dsi86: Make use of pwmchip_parent() accessor
->  - drm/bridge: ti-sn65dsi86: Make use of devm_pwmchip_alloc() function
->    The 2nd already has an Ack by Douglas Anderson which I tend to assume
->    good enough to merge this via my pwm tree, too. An Ack for the first
->    patch would be nice.
->=20
->  - leds: qcom-lpg: Make use of devm_pwmchip_alloc() function
->    Already has an Ack by Lee Jones.
->=20
->  - staging: greybus: pwm: Change prototype of helpers to prepare further =
-changes
->  - staging: greybus: pwm: Make use of pwmchip_parent() accessor
->  - staging: greybus: pwm: Rely on pwm framework to pass a valid hwpwm
->  - staging: greybus: pwm: Drop unused gb_connection_set_data()
->  - staging: greybus: pwm: Rework how the number of PWM lines is determined
->  - staging: greybus: pwm: Make use of devm_pwmchip_alloc() function
->    The greybus patches already got an Ack by Greg Kroah-Hartman in an
->    earlier series, but I dropped it as the patches changed considerably.
-
-After getting the needed acks, I pushed out this series in
-
-https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
-next
-
-up to patch #161.
-
-(But don't let you stop looking at the changes, reviews are still
-welcome.)
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---t4o747itgdnx5oup
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmXN+acACgkQj4D7WH0S
-/k6nrwf9Huw1P/RTRggrOHnHFRGpBXi+TWvCPbsOC65CPiHeI7iVxtq/vUtQ4A6L
-CNA0O2W96568TwCEnxxCI6Be+7t8/H/Xb+oTs0yb6hblYkDhxYrXz+wAtoCTWOM8
-MI6xhfufB/JvOhgeX0iVMIx/TOc7gDY0wnFCS7bE15PPxMTjb1yF9Uo3az97CIld
-AF8InyaA81p8dcTlhmHzMa59LEFqoPzmNoySKqTIII7UuHmQRXOqV1RuEmKxN9Ho
-yRvisZgaqoinb8K7tXdw6G8HErBcN1aHM4OQBkZWI0ufVRNzQ8gT1sfoaRlsilOv
-yc/xo9Wl8bLPEKrjcpb9Hv/C+LgzyQ==
-=hkRd
------END PGP SIGNATURE-----
-
---t4o747itgdnx5oup--
-
---===============7566505635582885517==
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+When a struct containing a flexible array is included in another struct,
+and there is a member after the struct-with-flex-array, there is a
+possibility of memory overlap. These cases must be audited [1]. See:
+
+struct inner {
+	...
+	int flex[];
+};
+
+struct outer {
+	...
+	struct inner header;
+	int overlap;
+	...
+};
+
+This is the scenario for the "struct audio_apbridgea_hdr" structure
+that is included in the following "struct audio_apbridgea_*_request"
+structures:
+
+struct audio_apbridgea_set_config_request
+struct audio_apbridgea_register_cport_request
+struct audio_apbridgea_unregister_cport_request
+struct audio_apbridgea_set_tx_data_size_request
+struct audio_apbridgea_prepare_tx_request
+struct audio_apbridgea_start_tx_request
+struct audio_apbridgea_stop_tx_request
+struct audio_apbridgea_shutdown_tx_request
+struct audio_apbridgea_set_rx_data_size_request
+struct audio_apbridgea_prepare_rx_request
+struct audio_apbridgea_start_rx_request
+struct audio_apbridgea_stop_rx_request
+struct audio_apbridgea_shutdown_rx_request
+
+The pattern is like the one shown below:
+
+struct audio_apbridgea_hdr {
+	...
+	__u8 data[];
+} __packed;
+
+struct audio_apbridgea_*_request {
+	struct audio_apbridgea_hdr hdr;
+	...
+} __packed;
+
+In this case, the trailing flexible array can be removed because it is
+never used.
+
+Link: https://github.com/KSPP/linux/issues/202 [1]
+Signed-off-by: Erick Archer <erick.archer@gmx.com>
+---
+Hi everyone,
+
+I'm not sure this patch is correct. My concerns are:
+
+The "struct audio_apbridgea_hdr" structure is used as a first member in
+all the "struct audio_apbridgea_*_request" structures. And these last
+structures are used in the "gb_audio_apbridgea_*(...)" functions. These
+functions fill the "request" structure and always use:
+
+	gb_hd_output(connection->hd, &req, sizeof(req),
+		     GB_APB_REQUEST_AUDIO_CONTROL, true);
+
+Then, the "gb_hd_output(struct gb_host_device *hd, ...)" function calls:
+
+	hd->driver->output(hd, req, size, cmd, async);
+
+The first parameter to this function is of type:
+
+	struct gb_host_device {
+		...
+		const struct gb_hd_driver *driver;
+		...
+	};
+
+And the "gb_hd_driver" structure is defined as:
+
+	struct gb_hd_driver {
+		...
+		int (*output)(struct gb_host_device *hd, void *req, u16 size, u8 cmd,
+			      bool async);
+	};
+
+Therefore, my question is:
+Where is the "output" function pointer set? I think I'm missing something.
+
+I have search for another greybus drivers and I have found that, for
+example, the "es2_ap_driver" (drivers/greybus/es2.c) sets the "output"
+member in:
+
+	static struct gb_hd_driver es2_driver = {
+		...
+		.output	= output,
+	};
+
+I think that the flexible array that I have removed should be used in
+the function assigned to the "output" function pointer. But I am not
+able to find this function.
+
+A bit of light on this would be greatly appreciated.
+
+Thanks,
+Erick
+---
+ drivers/staging/greybus/audio_apbridgea.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/staging/greybus/audio_apbridgea.h b/drivers/staging/greybus/audio_apbridgea.h
+index efec0f815efd..ab707d310129 100644
+--- a/drivers/staging/greybus/audio_apbridgea.h
++++ b/drivers/staging/greybus/audio_apbridgea.h
+@@ -65,7 +65,6 @@
+ struct audio_apbridgea_hdr {
+ 	__u8	type;
+ 	__le16	i2s_port;
+-	__u8	data[];
+ } __packed;
+
+ struct audio_apbridgea_set_config_request {
+--
+2.25.1
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
-
---===============7566505635582885517==--
