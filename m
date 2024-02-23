@@ -2,79 +2,96 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C6418629D0
-	for <lists+greybus-dev@lfdr.de>; Sun, 25 Feb 2024 09:56:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 260238678FB
+	for <lists+greybus-dev@lfdr.de>; Mon, 26 Feb 2024 15:48:42 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 53CF54425A
-	for <lists+greybus-dev@lfdr.de>; Sun, 25 Feb 2024 08:56:09 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id 450B83F087
-	for <greybus-dev@lists.linaro.org>; Sun, 25 Feb 2024 08:56:04 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 393BE40C96
+	for <lists+greybus-dev@lfdr.de>; Mon, 26 Feb 2024 14:48:41 +0000 (UTC)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	by lists.linaro.org (Postfix) with ESMTPS id F2B433EBF9
+	for <greybus-dev@lists.linaro.org>; Fri, 23 Feb 2024 18:14:59 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=K1IDhiv5;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id DC04F60C7F;
-	Sun, 25 Feb 2024 08:56:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC01AC433C7;
-	Sun, 25 Feb 2024 08:56:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1708851363;
-	bh=38kp4Bs+qLUhrrZmHZ4+Od2TQWEIG08zA9tTBFZcypY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=K1IDhiv5jvK/2H48lJqX+xJl5pEuRbA8n+pEIxesovoKIUTnnAbZWVPV9T5fIAa8M
-	 6kZGXjHW9VIJkLELBvQkdPK09ICmNXjzsgnyVTrjpxVLW8SruYRM9+SYXT7LtWPQnG
-	 8u6CnoZY/XxoCMoc6UPwdy5Vez8wxpMWcsWsmYIg=
-Date: Sun, 25 Feb 2024 09:56:01 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Dileep Sankhla <dileepsankhla.ds@gmail.com>
-Message-ID: <2024022538-buffoon-praising-f748@gregkh>
-References: <20240225084017.418773-1-dileepsankhla.ds@gmail.com>
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=mO8BWqYp;
+	spf=pass (lists.linaro.org: domain of dileepsankhla.ds@gmail.com designates 209.85.128.178 as permitted sender) smtp.mailfrom=dileepsankhla.ds@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-60853ad17f9so13176897b3.0
+        for <greybus-dev@lists.linaro.org>; Fri, 23 Feb 2024 10:14:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1708712099; x=1709316899; darn=lists.linaro.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Bej+JJ3v6fc7i4XxpJGQQXY0IntuLNtJu33fXgwRuYM=;
+        b=mO8BWqYpfgYp/HZ5/cdVskDauRBP4FL5mX2+3Vz+BVC3RdvTb3afOp0Jt5NzabBEnZ
+         664FBgqD6FzZP2g5gtvz8vjZLgYqMcEReGGULkp/Wdr5HORytUQLbNsxNoGW9kmKc/FA
+         2kHAuyrV+LlKNL1OqLEGyNmKkhBqOBwkT5IP71eZhhI8FXufGUyQB6PW0lKEBDYuxcK8
+         dnWDmur9LD/MVg9/FkD4lRZSdMZ7VwW/nVdsIqkTPSEmZxLmkNits3YlaAyQT3zTTNu7
+         Fj9oocJVOWqvUw3HBPqSzPG8zauJdk3xRwvrCr3rMG4qkfb2xiyS8qUwBAkwYm3l2WCw
+         9jgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708712099; x=1709316899;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Bej+JJ3v6fc7i4XxpJGQQXY0IntuLNtJu33fXgwRuYM=;
+        b=wZr/Vel8gKoUIvgEhhHErn/xjvldOcPbI/LmC2pKR39xk/OPoN2PXA/D9H/BJ8DEcm
+         a/uysuFC7VpQz2BoC5RhthfRAModRBwtQtqJ1UEziX6TqRdY1RDLr/S5rIL+ftkxcEHm
+         tSD6umR+dGChY1e//Zi1RivbCPpN/+QgIaogqupMAcQiP+bm7AZmho4ldIDSoqczt+Mr
+         eA9+09M1F2ksyrDOH88eZ0sP8CW/SOCy3U5y2fxyt9tQrYlIGUj9LGet1QEYzbSaDYIa
+         7U5mxHgDFz9V+JozchuXe7klREc8Cr7SMlm5QXy9PRm2FjfG8D4r34p0gHourhsdMD8y
+         18kg==
+X-Gm-Message-State: AOJu0YyCkBwP0EsARt5Wmx2YYz2Fx9UaluYHkWLt0cnNKxnLp7Yhd5nc
+	HI2VKHvFIegGvFGZszVkhLMMLal+FrJCn66GNeesx0810HXeEsME8Szd3U4ZdGvhkt0Rn1b5AlK
+	vJ7I5XsP9W+iqb8+G/O22/hh9vIUEujn6WF7w6PjI
+X-Google-Smtp-Source: AGHT+IFAqX1Alshv376ZhMNlyoqmfCK3CTIFfHANxWb6f1IQokRly5XNKajGW9/04laimT/onO6eb8D0SMawuA9Diqc=
+X-Received: by 2002:a05:690c:3508:b0:608:aaa4:8639 with SMTP id
+ fq8-20020a05690c350800b00608aaa48639mr660410ywb.3.1708712099277; Fri, 23 Feb
+ 2024 10:14:59 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240225084017.418773-1-dileepsankhla.ds@gmail.com>
+From: Dileep Sankhla <dileepsankhla.ds@gmail.com>
+Date: Fri, 23 Feb 2024 23:44:48 +0530
+Message-ID: <CAHxc4buV_UieeVVBhua3vmT2+2e6qf2B9uoxpSPAg6faGBa=Ww@mail.gmail.com>
+To: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+X-Rspamd-Queue-Id: F2B433EBF9
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.99 / 15.00];
+	BAYES_HAM(-2.99)[99.97%];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.178:from];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_ONE(0.00)[1];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	NEURAL_HAM(-0.00)[-1.000];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	TO_DN_NONE(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Spam-Level: **
-X-Rspamd-Queue-Id: 450B83F087
-X-Spamd-Bar: ++
-X-Spamd-Result: default: False [2.00 / 15.00];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
-	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
-	MIME_GOOD(-0.10)[text/plain];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[100.75.92.58:received,139.178.84.217:from];
-	DKIM_TRACE(0.00)[linuxfoundation.org:+]
-Message-ID-Hash: WHK7HHA7DYL75SIGFWEQ4WWPY2YZ3D35
-X-Message-ID-Hash: WHK7HHA7DYL75SIGFWEQ4WWPY2YZ3D35
-X-MailFrom: gregkh@linuxfoundation.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, johan@kernel.org, elder@kernel.org
+X-MailFrom: dileepsankhla.ds@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: VGNZ332KOWJG5HWOQDVTTJHJQTFWTTCM
+X-Message-ID-Hash: VGNZ332KOWJG5HWOQDVTTJHJQTFWTTCM
+X-Mailman-Approved-At: Mon, 26 Feb 2024 14:48:34 +0000
+CC: johan@kernel.org, elder@kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: put macro in a do - while loop
+Subject: [greybus-dev] tree for the greybus subsystem
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/WHK7HHA7DYL75SIGFWEQ4WWPY2YZ3D35/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/VGNZ332KOWJG5HWOQDVTTJHJQTFWTTCM/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -84,46 +101,24 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, Feb 25, 2024 at 02:10:17PM +0530, Dileep Sankhla wrote:
-> Enclose the macro gb_loopback_stats_attrs defined with multiple
-> replacement statements in a do - while loop. This avoids possible
-> if/else logic defects and clears a checkpatch error.
-> 
-> ERROR: Macros with multiple statements should be enclosed in a do -
-> while loop
-> 
-> Signed-off-by: Dileep Sankhla <dileepsankhla.ds@gmail.com>
-> ---
->  drivers/staging/greybus/loopback.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
-> index bb33379b5297..eb5a7a20f5a3 100644
-> --- a/drivers/staging/greybus/loopback.c
-> +++ b/drivers/staging/greybus/loopback.c
-> @@ -162,9 +162,11 @@ static ssize_t name##_avg_show(struct device *dev,		\
->  static DEVICE_ATTR_RO(name##_avg)
->  
->  #define gb_loopback_stats_attrs(field)				\
-> -	gb_loopback_ro_stats_attr(field, min, u);		\
-> -	gb_loopback_ro_stats_attr(field, max, u);		\
-> -	gb_loopback_ro_avg_attr(field)
-> +	do {							\
-> +		gb_loopback_ro_stats_attr(field, min, u);	\
-> +		gb_loopback_ro_stats_attr(field, max, u);	\
-> +		gb_loopback_ro_avg_attr(field);			\
-> +	} while (0)
+Hello,
 
-Did you test build this?
+I am fixing a coding style problem in the loopback bridge driver for
+the Greybus loopback module. The source code file (please see [0]) is
+located in the staging tree for the linux-next.
 
->  #define gb_loopback_attr(field, type)					\
->  static ssize_t field##_show(struct device *dev,				\
+In order to create the patch, I need to find the right development
+tree. I checked the MAINTAINERS file for the Greybus subsystem
+development tree but could not find one. I also searched [1] for
+"greybus", but without success.
 
-Why did you only change one if you thought this was a valid change?
+What is the development tree for the greybus subsystem?
 
-thanks,
+Regards,
+Dileep
 
-greg k-h
+[0]: drivers/staging/greybus/loopback.c
+[1]: https://git.kernel.org/pub/scm/linux/kernel/git/
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
