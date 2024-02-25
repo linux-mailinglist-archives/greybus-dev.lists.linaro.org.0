@@ -2,104 +2,106 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 155248678F5
-	for <lists+greybus-dev@lfdr.de>; Mon, 26 Feb 2024 15:48:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15A498678F6
+	for <lists+greybus-dev@lfdr.de>; Mon, 26 Feb 2024 15:48:28 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D6E9740E1F
-	for <lists+greybus-dev@lfdr.de>; Mon, 26 Feb 2024 14:48:22 +0000 (UTC)
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	by lists.linaro.org (Postfix) with ESMTPS id 71A4B3F3BD
-	for <greybus-dev@lists.linaro.org>; Sat, 24 Feb 2024 20:21:49 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 28DCF40E1F
+	for <lists+greybus-dev@lfdr.de>; Mon, 26 Feb 2024 14:48:27 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	by lists.linaro.org (Postfix) with ESMTPS id 5117A3F3B7
+	for <greybus-dev@lists.linaro.org>; Sun, 25 Feb 2024 08:41:59 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=marliere.net header.s=2024 header.b="bE2cP/h8";
-	spf=pass (lists.linaro.org: domain of rbmarliere@gmail.com designates 209.85.216.44 as permitted sender) smtp.mailfrom=rbmarliere@gmail.com;
-	dmarc=pass (policy=reject) header.from=marliere.net
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-299b92948a6so1385193a91.3
-        for <greybus-dev@lists.linaro.org>; Sat, 24 Feb 2024 12:21:49 -0800 (PST)
+	dkim=pass header.d=gmail.com header.s=20230601 header.b="Sy9dnj/y";
+	spf=pass (lists.linaro.org: domain of dileepsankhla.ds@gmail.com designates 209.85.214.182 as permitted sender) smtp.mailfrom=dileepsankhla.ds@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-1dc5d0162bcso17737675ad.0
+        for <greybus-dev@lists.linaro.org>; Sun, 25 Feb 2024 00:41:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1708850518; x=1709455318; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=iXcTHohQKUEWCG3AfRPALlxApVKdvPfbvuOAXc4fB5c=;
+        b=Sy9dnj/yg5AU9DYUI1FNhD5PeafsVu1chQSBqOk/EUFnGicpKJ6hmSPK+sFgcWwM8J
+         iqpDD/eBiikHEVPWqXug2Vbl+m7mqTv3be/dSeiCSKKAjhw5hi8kp17ZXmcSAuaopYtj
+         k9LgJBvRXA8dL5qo5ttnPJDHQLDG7VbOlfnc/hh44+KR2YzjrEKHmAFig/h+S4YtCs1B
+         5M7Y7zn7TDldEbvun+sGKY73HQP0+0pgKejuUg91yWCKAR9MHPY6kOHO7KnX8i/eh394
+         nH3t6LAz08wTZjqMK3nEAIiQffRtf7iZGh/eG7WCub7o3jqlLb8fhSm17s3m1lFQUGo4
+         QdEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708806108; x=1709410908;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:dkim-signature:date:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ipyqjxXJNlrJUdv0Iam1Q+/TnUziHOnI8o1nibDPQf0=;
-        b=seRisSalQXZc74tCizKRaNSDBsEfQ/7DoQdoEAhA4aaqKwYzFjpvYOA+MiZGL43+QP
-         Ar5P2j8hAD9y4tH/eXpa7FfEfCEOa0QZsdCVyarQ1Rp1vDQa6uer0lIL+rJisYGb50Ev
-         818gFpjL+NjGx3zSgCQ/Nh04TOYyxWZy6475ycUuYQBnwk7ns7Ld+fdniq9Pyz6peeNh
-         66xILqNJCjx2p7o8T9O+ZqkE8uJRbBXHxiRm78/HdS18ms14pzQhuHf7IUWFbFGIdnAb
-         bLrzupy+faPJidFhVewgAunRzsGb9kigxlGwbiGwLPYoUTL2jKuEoslKqAhSX7VrGmbz
-         2X7g==
-X-Forwarded-Encrypted: i=1; AJvYcCWFabB+yX7HuJdlvBjLG42pEWrU8TueTG21JAmbp9mpRWPWqF9X27zYo0AQUeR9CEqo74FxfNznKVmoMaJc+hzac9nmvfuN4Bp2KQfK
-X-Gm-Message-State: AOJu0YwPJMITrqE1qbGO8G0iJ0m73eMsRiQgEmmV+gDdH5cL3Te0JTd7
-	Dzrs9wYZXVWuB61apkcgW3+1YC+PPlwTkvcwosLMhR+x8KJwfeAiiAhGaJhfm71fdQ==
-X-Google-Smtp-Source: AGHT+IEB9ZAcUcWJxBZNiuJpwHkCTd/u8mb2e+ap9YQDA02JMHvrCMODH3NPu20hCv96rcjn9Tir+g==
-X-Received: by 2002:a17:902:9f8f:b0:1dc:2755:16d2 with SMTP id g15-20020a1709029f8f00b001dc275516d2mr2725428plq.18.1708806108528;
-        Sat, 24 Feb 2024 12:21:48 -0800 (PST)
-Received: from mail.marliere.net ([24.199.118.162])
-        by smtp.gmail.com with ESMTPSA id e8-20020a170902b78800b001db28ae5d81sm1346259pls.159.2024.02.24.12.21.47
+        d=1e100.net; s=20230601; t=1708850518; x=1709455318;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=iXcTHohQKUEWCG3AfRPALlxApVKdvPfbvuOAXc4fB5c=;
+        b=t9W172TcIORHJ5gRpgIGm1qsqPBtvOv+xwQOzJZ84qX8ZpweGelc5T8Z2I+PjXmX3c
+         N7d/WPw7FCkQXiuKlg9U4+q1nlz8Kn3Svt/JYAAPSCOmTja6nnEQmhveUrFYUrkaLajz
+         FL6ao/vRRpcfqrApnpcl6o2CpNQSGOfhybW/zR8W5tV1vR6jMUrDqd2Pp23GNr4Ho27g
+         /HsmmjZK4ZK96ktiWribMZoD0slub5RjeJ0j0t0xgA0IYAhbnXy9NeOXsnP/EDy1wTMb
+         I3XVYp4EmuJyi3+t7gLbMP0tOCSKXXODLemqluzYo0Oa6/7bMZfeVKxnjv6GGTd3VQ1O
+         8ffA==
+X-Gm-Message-State: AOJu0YzKfwP8C8QzQ2AVyXH6OQZzwN6vuBsT3ttvlF+NfSCKEzaaIo99
+	5veeoJPGWIKaeXBryPucfa5SADVea5FER1NzvsiEMqagYbzRB7QI74wHjtDaa/oZjg==
+X-Google-Smtp-Source: AGHT+IHaSPeFmSU8LbgQp6DtCzv3SLULosPQKgzi/lNKyeSLUsDjebl0vj2X4o7c4Gbq1Kxs7N69Ng==
+X-Received: by 2002:a17:902:db01:b0:1dc:6373:3cc with SMTP id m1-20020a170902db0100b001dc637303ccmr4354300plx.50.1708850518265;
+        Sun, 25 Feb 2024 00:41:58 -0800 (PST)
+Received: from dileep-HP-Pavilion-Laptop-15-eg2xxx.. ([2405:201:5c1b:782d:790a:81c5:9183:eca7])
+        by smtp.gmail.com with ESMTPSA id w5-20020a170902d3c500b001dc2d1bd4d6sm1968425plb.77.2024.02.25.00.41.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Feb 2024 12:21:48 -0800 (PST)
-Date: Sat, 24 Feb 2024 17:22:39 -0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
-	s=2024; t=1708806106;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ipyqjxXJNlrJUdv0Iam1Q+/TnUziHOnI8o1nibDPQf0=;
-	b=bE2cP/h8/p0/ZKYP3QQ19ChoJxBA33csYHusYKf39XINlAwisC3LvRFCgp2scPkbwuHqMC
-	61Eep3vtb8j5QTOdPFyfEBMdlPpIlaEOL8CC6CaJj1uyff7JB8jCevzVxTUetw+5jLkNZX
-	ibOG8H6nJiRalo4j6dcRtjT+m8KiBSZzRE/da4NrlAUDTBB2WYG/MYzzq4WEKUoFJpd67h
-	3nMj3SJdAhL+xhYBXRE9H2nOQz2f2V+AxAWx4OZcUk34mcvk8wtlgS8Q3fFk9sw5bamBW6
-	oN76eJW87IVn/DPZGKRTytYGMRHk+6E6O9SpZF28Qkd4PrVYd6aY/ed6u8e7qw==
-From: "Ricardo B. Marliere" <ricardo@marliere.net>
-To: Alex Elder <elder@ieee.org>
-Message-ID: <ids3525jm5zkwkgizt2xtg3do37kqqtfdy5gc2cptdduexoe7r@cr4yxh3tykkh>
-References: <20240219-device_cleanup-greybus-v1-1-babb3f65e8cc@marliere.net>
- <cf5b2696-d7ca-40fc-856a-52f352cd270c@ieee.org>
+        Sun, 25 Feb 2024 00:41:57 -0800 (PST)
+From: Dileep Sankhla <dileepsankhla.ds@gmail.com>
+To: greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Date: Sun, 25 Feb 2024 14:10:17 +0530
+Message-Id: <20240225084017.418773-1-dileepsankhla.ds@gmail.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cf5b2696-d7ca-40fc-856a-52f352cd270c@ieee.org>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 71A4B3F3BD
-X-Spamd-Bar: -------
-X-Spamd-Result: default: False [-7.30 / 15.00];
-	REPLY(-4.00)[];
+X-Rspamd-Queue-Id: 5117A3F3B7
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.10 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	DMARC_POLICY_ALLOW(-0.50)[marliere.net,reject];
-	MID_RHS_NOT_FQDN(0.50)[];
-	FORGED_SENDER(0.30)[ricardo@marliere.net,rbmarliere@gmail.com];
-	R_DKIM_ALLOW(-0.20)[marliere.net:s=2024];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.216.44:from];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.182:from];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	ARC_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_NEQ_ENVFROM(0.00)[ricardo@marliere.net,rbmarliere@gmail.com];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[nexus-software.ie,kernel.org,linuxfoundation.org,gmail.com];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[marliere.net:+]
-X-MailFrom: rbmarliere@gmail.com
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_IN_DNSWL_FAIL(0.00)[2405:201:5c1b:782d:790a:81c5:9183:eca7:server fail,209.85.214.182:server fail];
+	TAGGED_RCPT(0.00)[];
+	FROM_HAS_DN(0.00)[]
+X-MailFrom: dileepsankhla.ds@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: GN72WP523ABY5QOAVHHYMKUF5LXWNHZ5
-X-Message-ID-Hash: GN72WP523ABY5QOAVHHYMKUF5LXWNHZ5
-X-Mailman-Approved-At: Mon, 26 Feb 2024 14:48:17 +0000
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org
+Message-ID-Hash: YABLPA7ORDU2IKKP2CIY4S7DGRFCTK3T
+X-Message-ID-Hash: YABLPA7ORDU2IKKP2CIY4S7DGRFCTK3T
+X-Mailman-Approved-At: Mon, 26 Feb 2024 14:48:18 +0000
+CC: johan@kernel.org, elder@kernel.org, Dileep Sankhla <dileepsankhla.ds@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] greybus: constify the struct device_type usage
+Subject: [greybus-dev] [PATCH] staging: greybus: put macro in a do - while loop
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GN72WP523ABY5QOAVHHYMKUF5LXWNHZ5/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YABLPA7ORDU2IKKP2CIY4S7DGRFCTK3T/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -109,169 +111,40 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 24 Feb 09:43, Alex Elder wrote:
-> On 2/19/24 6:40 AM, Ricardo B. Marliere wrote:
-> > Since commit aed65af1cc2f ("drivers: make device_type const"), the driver
-> > core can properly handle constant struct device_type. Move the
-> > greybus_hd_type, greybus_module_type, greybus_interface_type,
-> > greybus_control_type, greybus_bundle_type and greybus_svc_type variables to
-> > be constant structures as well, placing it into read-only memory which can
-> > not be modified at runtime.
-> > 
-> > Signed-off-by: Ricardo B. Marliere <ricardo@marliere.net>
-> 
-> This looks good to me.  Assuming it compiles cleanly:
-> 
-> Reviewed-by: Alex Elder <elder@linaro.org>
+Enclose the macro gb_loopback_stats_attrs defined with multiple
+replacement statements in a do - while loop. This avoids possible
+if/else logic defects and clears a checkpatch error.
 
-Hi Alex!
+ERROR: Macros with multiple statements should be enclosed in a do -
+while loop
 
-Thanks for reviewing.
+Signed-off-by: Dileep Sankhla <dileepsankhla.ds@gmail.com>
+---
+ drivers/staging/greybus/loopback.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-> 
-> On another subject:
-> 
-> Johan might disagree, but I think it would be nice to make
-> the definitions of the Greybus device types as static (private)
-> and make the is_gb_host_device() etc. functions real functions
-> rather than static inlines in <linux/greybus.h>.
-> 
-> It turns out that all of the is_gb_*() functions are called only
-> from drivers/greybus/core.c; they could all be moved there rather
-> than advertising them in <linux/greybus.h>.
+diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+index bb33379b5297..eb5a7a20f5a3 100644
+--- a/drivers/staging/greybus/loopback.c
++++ b/drivers/staging/greybus/loopback.c
+@@ -162,9 +162,11 @@ static ssize_t name##_avg_show(struct device *dev,		\
+ static DEVICE_ATTR_RO(name##_avg)
+ 
+ #define gb_loopback_stats_attrs(field)				\
+-	gb_loopback_ro_stats_attr(field, min, u);		\
+-	gb_loopback_ro_stats_attr(field, max, u);		\
+-	gb_loopback_ro_avg_attr(field)
++	do {							\
++		gb_loopback_ro_stats_attr(field, min, u);	\
++		gb_loopback_ro_stats_attr(field, max, u);	\
++		gb_loopback_ro_avg_attr(field);			\
++	} while (0)
+ 
+ #define gb_loopback_attr(field, type)					\
+ static ssize_t field##_show(struct device *dev,				\
+-- 
+2.40.1
 
-I guess it depends whether they would be used somewhere else in the
-future. Perhaps it was left there with that intention when it was first
-being developed? I agree, though. Will happily send a patch with this if
-desired.
-
-Best regards,
--	Ricardo.
-
-
-
-> 
-> 					-Alex
-> 
-> 
-> > ---
-> >   drivers/greybus/bundle.c    |  2 +-
-> >   drivers/greybus/control.c   |  2 +-
-> >   drivers/greybus/hd.c        |  2 +-
-> >   drivers/greybus/interface.c |  2 +-
-> >   drivers/greybus/module.c    |  2 +-
-> >   drivers/greybus/svc.c       |  2 +-
-> >   include/linux/greybus.h     | 12 ++++++------
-> >   7 files changed, 12 insertions(+), 12 deletions(-)
-> > 
-> > diff --git a/drivers/greybus/bundle.c b/drivers/greybus/bundle.c
-> > index 84660729538b..a6e1cca06172 100644
-> > --- a/drivers/greybus/bundle.c
-> > +++ b/drivers/greybus/bundle.c
-> > @@ -166,7 +166,7 @@ static const struct dev_pm_ops gb_bundle_pm_ops = {
-> >   	SET_RUNTIME_PM_OPS(gb_bundle_suspend, gb_bundle_resume, gb_bundle_idle)
-> >   };
-> >   
-> > -struct device_type greybus_bundle_type = {
-> > +const struct device_type greybus_bundle_type = {
-> >   	.name =		"greybus_bundle",
-> >   	.release =	gb_bundle_release,
-> >   	.pm =		&gb_bundle_pm_ops,
-> > diff --git a/drivers/greybus/control.c b/drivers/greybus/control.c
-> > index 359a25841973..b5cf49d09df2 100644
-> > --- a/drivers/greybus/control.c
-> > +++ b/drivers/greybus/control.c
-> > @@ -436,7 +436,7 @@ static void gb_control_release(struct device *dev)
-> >   	kfree(control);
-> >   }
-> >   
-> > -struct device_type greybus_control_type = {
-> > +const struct device_type greybus_control_type = {
-> >   	.name =		"greybus_control",
-> >   	.release =	gb_control_release,
-> >   };
-> > diff --git a/drivers/greybus/hd.c b/drivers/greybus/hd.c
-> > index 72b21bf2d7d3..e2f3496bddc3 100644
-> > --- a/drivers/greybus/hd.c
-> > +++ b/drivers/greybus/hd.c
-> > @@ -116,7 +116,7 @@ static void gb_hd_release(struct device *dev)
-> >   	kfree(hd);
-> >   }
-> >   
-> > -struct device_type greybus_hd_type = {
-> > +const struct device_type greybus_hd_type = {
-> >   	.name		= "greybus_host_device",
-> >   	.release	= gb_hd_release,
-> >   };
-> > diff --git a/drivers/greybus/interface.c b/drivers/greybus/interface.c
-> > index 9ec949a438ef..a88dc701289c 100644
-> > --- a/drivers/greybus/interface.c
-> > +++ b/drivers/greybus/interface.c
-> > @@ -765,7 +765,7 @@ static const struct dev_pm_ops gb_interface_pm_ops = {
-> >   			   gb_interface_runtime_idle)
-> >   };
-> >   
-> > -struct device_type greybus_interface_type = {
-> > +const struct device_type greybus_interface_type = {
-> >   	.name =		"greybus_interface",
-> >   	.release =	gb_interface_release,
-> >   	.pm =		&gb_interface_pm_ops,
-> > diff --git a/drivers/greybus/module.c b/drivers/greybus/module.c
-> > index 36f77f9e1d74..7f7153a1dd60 100644
-> > --- a/drivers/greybus/module.c
-> > +++ b/drivers/greybus/module.c
-> > @@ -81,7 +81,7 @@ static void gb_module_release(struct device *dev)
-> >   	kfree(module);
-> >   }
-> >   
-> > -struct device_type greybus_module_type = {
-> > +const struct device_type greybus_module_type = {
-> >   	.name		= "greybus_module",
-> >   	.release	= gb_module_release,
-> >   };
-> > diff --git a/drivers/greybus/svc.c b/drivers/greybus/svc.c
-> > index 0d7e749174a4..4256467fcd35 100644
-> > --- a/drivers/greybus/svc.c
-> > +++ b/drivers/greybus/svc.c
-> > @@ -1305,7 +1305,7 @@ static void gb_svc_release(struct device *dev)
-> >   	kfree(svc);
-> >   }
-> >   
-> > -struct device_type greybus_svc_type = {
-> > +const struct device_type greybus_svc_type = {
-> >   	.name		= "greybus_svc",
-> >   	.release	= gb_svc_release,
-> >   };
-> > diff --git a/include/linux/greybus.h b/include/linux/greybus.h
-> > index 18c0fb958b74..5f9791fae3c0 100644
-> > --- a/include/linux/greybus.h
-> > +++ b/include/linux/greybus.h
-> > @@ -106,12 +106,12 @@ struct dentry *gb_debugfs_get(void);
-> >   
-> >   extern struct bus_type greybus_bus_type;
-> >   
-> > -extern struct device_type greybus_hd_type;
-> > -extern struct device_type greybus_module_type;
-> > -extern struct device_type greybus_interface_type;
-> > -extern struct device_type greybus_control_type;
-> > -extern struct device_type greybus_bundle_type;
-> > -extern struct device_type greybus_svc_type;
-> > +extern const struct device_type greybus_hd_type;
-> > +extern const struct device_type greybus_module_type;
-> > +extern const struct device_type greybus_interface_type;
-> > +extern const struct device_type greybus_control_type;
-> > +extern const struct device_type greybus_bundle_type;
-> > +extern const struct device_type greybus_svc_type;
-> >   
-> >   static inline int is_gb_host_device(const struct device *dev)
-> >   {
-> > 
-> > ---
-> > base-commit: b401b621758e46812da61fa58a67c3fd8d91de0d
-> > change-id: 20240219-device_cleanup-greybus-c97c1ef52458
-> > 
-> > Best regards,
-> 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
