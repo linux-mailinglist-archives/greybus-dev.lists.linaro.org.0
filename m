@@ -2,123 +2,167 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 877708678F8
-	for <lists+greybus-dev@lfdr.de>; Mon, 26 Feb 2024 15:48:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4171F8678F9
+	for <lists+greybus-dev@lfdr.de>; Mon, 26 Feb 2024 15:48:37 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 96DE440D80
-	for <lists+greybus-dev@lfdr.de>; Mon, 26 Feb 2024 14:48:31 +0000 (UTC)
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	by lists.linaro.org (Postfix) with ESMTPS id BFE933EEF1
-	for <greybus-dev@lists.linaro.org>; Sun, 25 Feb 2024 09:50:00 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 4EAAB40D80
+	for <lists+greybus-dev@lfdr.de>; Mon, 26 Feb 2024 14:48:36 +0000 (UTC)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	by lists.linaro.org (Postfix) with ESMTPS id 999023F087
+	for <greybus-dev@lists.linaro.org>; Sun, 25 Feb 2024 11:03:41 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=P1ZcRohV;
-	spf=pass (lists.linaro.org: domain of dileepsankhla.ds@gmail.com designates 209.85.128.175 as permitted sender) smtp.mailfrom=dileepsankhla.ds@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-60821136c5aso14821977b3.1
-        for <greybus-dev@lists.linaro.org>; Sun, 25 Feb 2024 01:50:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708854600; x=1709459400; darn=lists.linaro.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=E4MwmdceTTW6yTK6dn3O1uN2xQAdcjCnqlQIDQJMZQo=;
-        b=P1ZcRohVUkNSTDbm1xo/QQLLlmyEQ2gV7ZrtJHgk3jXZrAAw5/l+V2cBpwkgdHpaor
-         16U/iC1zhi0vAOzSqY006Q5bI4sey6+3rgOqb/xmK6tw1mc92jErwF/D4Fnw1AdsCNZF
-         2JwDz3TQs6C5M8Ct4gKsCk8VDoyrVz9pwU3YrISVT5eQy6D0Bo50Bue5pnYezLUMBxf5
-         l8ldszvdVgmmHeESKuWXb4zsXu1TERbwFLfQh8AOmzTXChwHaU8Rf+HKYZSCg90fmnaD
-         xKBHZ0MxhWYEXPY5eFX/Bj98rpdL1D53oR+3PMue6LVpgkpbDqsGAzVD8rVu5/bdOPpu
-         z+IQ==
+	dkim=pass header.d=marliere.net header.s=2024 header.b=ocdENja4;
+	spf=pass (lists.linaro.org: domain of rbmarliere@gmail.com designates 209.85.214.171 as permitted sender) smtp.mailfrom=rbmarliere@gmail.com;
+	dmarc=pass (policy=reject) header.from=marliere.net
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-1d94b222a3aso23076655ad.2
+        for <greybus-dev@lists.linaro.org>; Sun, 25 Feb 2024 03:03:41 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708854600; x=1709459400;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=E4MwmdceTTW6yTK6dn3O1uN2xQAdcjCnqlQIDQJMZQo=;
-        b=mdAPnTaZVwK7TPfsI3klasNVnO10Da+6zf3p+BP6woEgYdMGLnZnIVPKwqkIFfp742
-         L79A72Nmb8UlFqWbgAYJR3jfLpaL21P7N03tyfGWeEaLkzzFnEEPbAnDNl0PDhoLUVQF
-         zsBIkgahMqJ9V6hnq/4FV5tH5G6pjNWeryatsFyhoyRzxez1lk9ID50S5pYQPoNrCMxN
-         cmazy3qIob2fyD2X8CB8IN9LZrMPQz4ksXUiXoF8zN5Mm5vf4+PsfOWaJ79H2nWGmke+
-         6tqdYouV28FoZiu8NK9EBKZUfZjnZOV6XuIB66SpsJbpzrpjA/DtwaYbFHxFu3bYU/3s
-         aGHw==
-X-Gm-Message-State: AOJu0YykRRQWt7ve7M2IyC5GpJiZM4BQfFVb+9lmR6squKnln82TGSE9
-	ZNTF6//J54WcAdxgvbiCMUj1RHRZc6JabjvbtAY9mgLh9rtVEEb2NIYL93m0E5W8bImisF+VyyQ
-	+Q4azAPPk13LqESmx5eMD0U6PPvk=
-X-Google-Smtp-Source: AGHT+IGliUFzZzSMB8+3Z2QJ9rdqkRgFL0iBBELGWFni7I8zkucsPnyVtOLt5vCl0HnYHKO9ztyFFZNjBPCDyrJR8WM=
-X-Received: by 2002:a81:be0e:0:b0:607:87cd:9395 with SMTP id
- i14-20020a81be0e000000b0060787cd9395mr3610315ywn.17.1708854600306; Sun, 25
- Feb 2024 01:50:00 -0800 (PST)
+        d=1e100.net; s=20230601; t=1708859021; x=1709463821;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:dkim-signature:date:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=15Blst29HGQPopSfvgIrNbaX0gzGv9i907KA2hfl4tk=;
+        b=KGgyj/gS7LelgSrDs9gl4/7yIU09xezvFPnwKDHicLAxeXsbscIiyRmybl9w8p2NaJ
+         N548u0J6gopkAVQ28WDejP7vuRjskDOo/rgmrRdg5OvbGfREd3Tx1ruwQ2s9bZ1rRX1I
+         ut9yNqbfuL2fv2fVGLjmnJWgoIvwnKFpB8d8GahlI//5h4z+DSuz5ZyBF9cwTuE9zcln
+         jLuDqFSMMRqVlXDY12DiLM1WycVyURg0vqsBXR8EM+mN36NtL6thCJRACRvIW0qvyglK
+         sWAbehDu6YnlngnG93kLWetnCfaD/8gYzNYP2ehzntkoTdc3C6T1DMAZxdKRx9E5xFuR
+         GhXg==
+X-Forwarded-Encrypted: i=1; AJvYcCUQ6JgNnG+slrSCz0QsGhcqcRbjZSM3zRx8vXw/HlRF9qoCG3ijRkVMmyy1Jnl4z0EAdQF6ShmrC3Acxbw0xho6KdByJxqx4UygMEYg
+X-Gm-Message-State: AOJu0YyhxVWEP0TUymkoGsCx/gr6hSCK9YS7/AVxJDfCvPEvE68wt3NM
+	bZmtw68hITA3W/g2gqdVMbyPMt/Cm5JeA87GtMx/jiIulCcwaygA
+X-Google-Smtp-Source: AGHT+IELd7l6EyoDFaFNGZC5uZbM1lQMJV0IFeOzxE7P/kBORfB2Op/gCFMV0iEmD5oxOQZ9P/9M1A==
+X-Received: by 2002:a17:902:dac9:b0:1dc:623d:1c3f with SMTP id q9-20020a170902dac900b001dc623d1c3fmr6537152plx.6.1708859020584;
+        Sun, 25 Feb 2024 03:03:40 -0800 (PST)
+Received: from mail.marliere.net ([24.199.118.162])
+        by smtp.gmail.com with ESMTPSA id 21-20020a170902ee5500b001db337d53ddsm2096075plo.56.2024.02.25.03.03.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Feb 2024 03:03:40 -0800 (PST)
+Date: Sun, 25 Feb 2024 08:04:29 -0300
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
+	s=2024; t=1708859018;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=15Blst29HGQPopSfvgIrNbaX0gzGv9i907KA2hfl4tk=;
+	b=ocdENja46D86FdLm2EarmlZS4PgyoWsVIdnZ93d37/F21HD68dZ7RNKI3B7j1a5AxAzDJt
+	KOdQIv20ECLNa8GC7L62qFh6VCg84LtkGvbHCWZnDkRbSBaFvrXtAfoyMn7DSZay0G7TYn
+	CECcZEZgbEzLd5Xnd81953pSQeHA3k3PV8JxjHE3pzHK6gG3OC1ey/8s9b7GM519Gljetj
+	Fh3376sZrnEoB60Kn8UApdsXcT/6xp4UEERp4mX9CxxOJA+4C6dvQc3sQsPHw5hGlXL+Jk
+	galLyTs23wLBpGAmG0jJ6WNvC0TDgmkDchAn2EjZ1Eq1RDiL6YqmBeWrz8fWtA==
+From: "Ricardo B. Marliere" <ricardo@marliere.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <yru2ywkyqwhg3rpyuqkkx73fxkkgsfj3vcbttnzrjq662ctrov@boh65bhxjjgo>
+References: <20240219-device_cleanup-greybus-v1-1-babb3f65e8cc@marliere.net>
+ <cf5b2696-d7ca-40fc-856a-52f352cd270c@ieee.org>
+ <ids3525jm5zkwkgizt2xtg3do37kqqtfdy5gc2cptdduexoe7r@cr4yxh3tykkh>
+ <2024022553-deepness-sublevel-73de@gregkh>
 MIME-Version: 1.0
-References: <20240225084017.418773-1-dileepsankhla.ds@gmail.com> <2024022538-buffoon-praising-f748@gregkh>
-In-Reply-To: <2024022538-buffoon-praising-f748@gregkh>
-From: Dileep Sankhla <dileepsankhla.ds@gmail.com>
-Date: Sun, 25 Feb 2024 15:19:49 +0530
-Message-ID: <CAHxc4bsFj1=VFVDWbdwo3W3CmSyPG1585p2zBePpsD9qy6VKdA@mail.gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
+Content-Disposition: inline
+In-Reply-To: <2024022553-deepness-sublevel-73de@gregkh>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: BFE933EEF1
+X-Rspamd-Queue-Id: 999023F087
 X-Spamd-Bar: -------
-X-Spamd-Result: default: False [-8.00 / 15.00];
+X-Spamd-Result: default: False [-7.20 / 15.00];
 	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[99.99%];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	BAYES_HAM(-3.00)[100.00%];
+	DMARC_POLICY_ALLOW(-0.50)[marliere.net,reject];
+	MID_RHS_NOT_FQDN(0.50)[];
+	FORGED_SENDER(0.30)[ricardo@marliere.net,rbmarliere@gmail.com];
+	R_DKIM_ALLOW(-0.20)[marliere.net:s=2024];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	RCVD_COUNT_ONE(0.00)[1];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.175:from];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	NEURAL_HAM(-0.00)[-1.000];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[marliere.net:+];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_NEQ_ENVFROM(0.00)[ricardo@marliere.net,rbmarliere@gmail.com];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	DNSWL_BLOCKED(0.00)[209.85.214.171:from,24.199.118.162:received];
+	NEURAL_HAM(-0.00)[-1.000];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+]
-X-MailFrom: dileepsankhla.ds@gmail.com
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.214.171:from];
+	RCPT_COUNT_FIVE(0.00)[6]
+X-MailFrom: rbmarliere@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: DI4YLKQ2STONFW3BSGOMULYNUZKKHBKF
-X-Message-ID-Hash: DI4YLKQ2STONFW3BSGOMULYNUZKKHBKF
-X-Mailman-Approved-At: Mon, 26 Feb 2024 14:48:18 +0000
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, johan@kernel.org, elder@kernel.org
+Message-ID-Hash: XY7ATRYF3KRYKH3RO5YVON62EPYFDCQC
+X-Message-ID-Hash: XY7ATRYF3KRYKH3RO5YVON62EPYFDCQC
+X-Mailman-Approved-At: Mon, 26 Feb 2024 14:48:19 +0000
+CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: put macro in a do - while loop
+Subject: [greybus-dev] Re: [PATCH] greybus: constify the struct device_type usage
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/DI4YLKQ2STONFW3BSGOMULYNUZKKHBKF/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XY7ATRYF3KRYKH3RO5YVON62EPYFDCQC/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gU3VuLCBGZWIgMjUsIDIwMjQgYXQgMjoyNuKAr1BNIEdyZWcgS0ggPGdyZWdraEBsaW51eGZv
-dW5kYXRpb24ub3JnPiB3cm90ZToNCj4gRGlkIHlvdSB0ZXN0IGJ1aWxkIHRoaXM/DQoNCkhlbGxv
-IEdyZWcsDQoNClllcy4gTm8gbmV3IHdhcm5pbmcvZXJyb3Igd2FzIGVuY291bnRlcmVkIG9uIGJ1
-aWxkaW5nIHRoZSBrZXJuZWwuDQoNCj4gPiAgI2RlZmluZSBnYl9sb29wYmFja19hdHRyKGZpZWxk
-LCB0eXBlKSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQo+ID4gIHN0
-YXRpYyBzc2l6ZV90IGZpZWxkIyNfc2hvdyhzdHJ1Y3QgZGV2aWNlICpkZXYsICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgXA0KPg0KPiBXaHkgZGlkIHlvdSBvbmx5IGNoYW5nZSBvbmUgaWYg
-eW91IHRob3VnaHQgdGhpcyB3YXMgYSB2YWxpZCBjaGFuZ2U/DQoNCjEuIEFzIHBlciBteSBDIGJh
-Y2tncm91bmQsIEkgdGhpbmsgbm8gb3RoZXIgbWFjcm9zIGluIHRoZSBhYm92ZSBzb3VyY2UNCmNv
-ZGUgZmlsZSBuZWVkIHRvIGJlIGVuY2xvc2VkIGluIGEgZG8gLSB3aGlsZSBsb29wLg0KMi4gSSBh
-bSB3cml0aW5nIHRoZSBwYXRjaCBiZWNhdXNlIG9mIHRoZSBFdWR5cHR1bGEgQ2hhbGxlbmdlLCBh
-bmQgSQ0KaGF2ZSB0byBmaXggIm9uZSBjb2Rpbmcgc3R5bGUgcHJvYmxlbSIgaW4gYW55IG9mIHRo
-ZSBmaWxlcyBpbg0KZHJpdmVycy9zdGFnaW5nLy4gVGhlIGFib3ZlIG9uZSB3YXMgb25lIG9mIHRo
-ZW0uDQoNClJlZ2FyZHMsDQpEaWxlZXANCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdCAtLSBncmV5YnVzLWRldkBs
-aXN0cy5saW5hcm8ub3JnClRvIHVuc3Vic2NyaWJlIHNlbmQgYW4gZW1haWwgdG8gZ3JleWJ1cy1k
-ZXYtbGVhdmVAbGlzdHMubGluYXJvLm9yZwo=
+On 25 Feb 09:33, Greg Kroah-Hartman wrote:
+> On Sat, Feb 24, 2024 at 05:22:39PM -0300, Ricardo B. Marliere wrote:
+> > On 24 Feb 09:43, Alex Elder wrote:
+> > > On 2/19/24 6:40 AM, Ricardo B. Marliere wrote:
+> > > > Since commit aed65af1cc2f ("drivers: make device_type const"), the driver
+> > > > core can properly handle constant struct device_type. Move the
+> > > > greybus_hd_type, greybus_module_type, greybus_interface_type,
+> > > > greybus_control_type, greybus_bundle_type and greybus_svc_type variables to
+> > > > be constant structures as well, placing it into read-only memory which can
+> > > > not be modified at runtime.
+> > > > 
+> > > > Signed-off-by: Ricardo B. Marliere <ricardo@marliere.net>
+> > > 
+> > > This looks good to me.  Assuming it compiles cleanly:
+> > > 
+> > > Reviewed-by: Alex Elder <elder@linaro.org>
+> > 
+> > Hi Alex!
+> > 
+> > Thanks for reviewing.
+> > 
+> > > 
+> > > On another subject:
+> > > 
+> > > Johan might disagree, but I think it would be nice to make
+> > > the definitions of the Greybus device types as static (private)
+> > > and make the is_gb_host_device() etc. functions real functions
+> > > rather than static inlines in <linux/greybus.h>.
+> > > 
+> > > It turns out that all of the is_gb_*() functions are called only
+> > > from drivers/greybus/core.c; they could all be moved there rather
+> > > than advertising them in <linux/greybus.h>.
+> > 
+> > I guess it depends whether they would be used somewhere else in the
+> > future. Perhaps it was left there with that intention when it was first
+> > being developed? I agree, though. Will happily send a patch with this if
+> > desired.
+> 
+> Let's clean the code up for what we have today.  If it's needed in the
+> future, we can move the structures then.
+
+Sounds good to me, will send a v2 then!
+
+Thank you,
+-	Ricardo.
+
+
+> 
+> thanks,
+> 
+> greg k-h
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
