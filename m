@@ -2,117 +2,109 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57A1F869A49
-	for <lists+greybus-dev@lfdr.de>; Tue, 27 Feb 2024 16:25:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D32386CAD5
+	for <lists+greybus-dev@lfdr.de>; Thu, 29 Feb 2024 14:59:30 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 485EF40CEF
-	for <lists+greybus-dev@lfdr.de>; Tue, 27 Feb 2024 15:25:20 +0000 (UTC)
-Received: from fhigh7-smtp.messagingengine.com (fhigh7-smtp.messagingengine.com [103.168.172.158])
-	by lists.linaro.org (Postfix) with ESMTPS id 515CB3EB98
-	for <greybus-dev@lists.linaro.org>; Tue, 27 Feb 2024 15:25:14 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 8404544244
+	for <lists+greybus-dev@lfdr.de>; Thu, 29 Feb 2024 13:59:29 +0000 (UTC)
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	by lists.linaro.org (Postfix) with ESMTPS id 3C4AF43C8B
+	for <greybus-dev@lists.linaro.org>; Mon, 26 Feb 2024 20:20:48 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=animalcreek.com header.s=fm2 header.b="g /OAwn8";
-	dkim=pass header.d=messagingengine.com header.s=fm1 header.b=auIvCa4B;
-	spf=pass (lists.linaro.org: domain of mgreer@animalcreek.com designates 103.168.172.158 as permitted sender) smtp.mailfrom=mgreer@animalcreek.com;
-	dmarc=none
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
-	by mailfhigh.nyi.internal (Postfix) with ESMTP id EC67311400AB;
-	Tue, 27 Feb 2024 10:25:13 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute6.internal (MEProxy); Tue, 27 Feb 2024 10:25:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1709047513; x=
-	1709133913; bh=vk7zMywue6u8Ewys2yjE1YQdG3Ysi/Bjgx+fg8Jugd8=; b=g
-	/OAwn8Nnd5m2DeHCOg5TZK3ISBP+1I13sk4tur6CbpG6Zfo4jrTWcFTD287kNrM9
-	/ImIlcYeneF5cktE0bVwndusGl0UKNDbQkHL8D3580oIe5JkQ5er/jJyODDWNU4E
-	TJVzhKtyfxvhik86j2RGgD/RpPr661K4FfyXnFPs/jxrgLiRAv0deAGBAOPyz/TS
-	5EwPR/Sji/TG8uaQ8qzS2GB0NXLKPgh6mhK22n73uRUFy6HS9L8n5tBxoYvd+SIz
-	UPbj2DQMMn2LkK0vqJMSd0M5lkjb+LRfQlClFOdLJhQRurMPEkugnLuizbXXRbv6
-	UcyA5htnWMvFRUxmUEGUg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1709047513; x=1709133913; bh=vk7zMywue6u8Ewys2yjE1YQdG3Ys
-	i/Bjgx+fg8Jugd8=; b=auIvCa4Bew62NXoHyKzQ9QD86zcWg4W/ntUvHxa3VrLP
-	swYPAQgJDNxhX57rC6LdlOFs2V/dfZDgruU526I144YNsOm3N/TlVNFKS/OYYuem
-	De+QROOwIaN+UdDeyQXdAUQwM+A0ddkCs3c0lXBV5xRglUyJcAWl0uryg+03EcTS
-	SofGAOpjCVpQiT/SP+V7TxKLJHJFo0GWxIgq6udPpsW8ezVOY/Tb+vZsB3enf/TY
-	DPZCJu3eTjP+7HX0N+27ZL0mrFoJDRPT7EY6P6D+bXXrB+TDGopfp89LDDQDyQnN
-	m+mj0bzwf3iwaUOUusFyqzw8BA+al/TSKQUi7bLPAQ==
-X-ME-Sender: <xms:2f7dZUJAXZnYXvIvAF2-0j4e77H-W92fq7tchj4kgDUkR6qJmJFfkw>
-    <xme:2f7dZULEPdV4H-hUqMxH8HXOwzwmxLOl_Uh7YQLP4JL8cgSUXCxPbcRP0jIoAyMhE
-    aR0xqCNRDdKofdxzg>
-X-ME-Received: <xmr:2f7dZUs02GkQ4DkmUxSU6tAkvA6nns-mWYm_v2FmV61osXXOTXaX0T4WzuNGQtWxJfQ8X8gZkLN6iQkgdhNLUNdQTvG0GdZzJ95q3O8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrgeehgdehudcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjohesthdtredttddtvdenucfhrhhomhepofgrrhhk
-    ucfirhgvvghruceomhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhmqeenucggtf
-    frrghtthgvrhhnpeeugfejtefgteegieffjeejtedtveefvefffeegkefhtdehtdfgfeev
-    keegvedvgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
-    hmpehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomh
-X-ME-Proxy: <xmx:2f7dZRYSEdTKiw6R15rDIrPVYYebeNpstNURMPqaeJIp835TaHPDzA>
-    <xmx:2f7dZbY7EJ45ERcoMfNheIhetD0dCO0groHy2l0absyxjoqR0MAqAw>
-    <xmx:2f7dZdCMPUPcPY8MYFGAijD5ve1ergrRr_bjMufMdeqEoPOQ_2ZfYQ>
-    <xmx:2f7dZXrm061gXS4OrDsnJsGaqWnOESVkr1RdXkH9YjzHhh50JUKT-A>
-Feedback-ID: i9cc843c7:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Feb 2024 10:25:12 -0500 (EST)
-Received: by blue.animalcreek.com (Postfix, from userid 1000)
-	id 9CF18521078; Tue, 27 Feb 2024 08:25:11 -0700 (MST)
-Date: Tue, 27 Feb 2024 08:25:11 -0700
-From: Mark Greer <mgreer@animalcreek.com>
+	dkim=pass header.d=marliere.net header.s=2024 header.b=pEmQVxxq;
+	spf=pass (lists.linaro.org: domain of rbmarliere@gmail.com designates 209.85.210.170 as permitted sender) smtp.mailfrom=rbmarliere@gmail.com;
+	dmarc=pass (policy=reject) header.from=marliere.net
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-6e47a104c2eso1985151b3a.2
+        for <greybus-dev@lists.linaro.org>; Mon, 26 Feb 2024 12:20:48 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708978847; x=1709583647;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:dkim-signature:date:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ShDnaavgO9jOj5Fc4lvKVUeYKF5ykoCWTmxeShV2cgI=;
+        b=vijKG/cC6urIyjJHwWE0vKTWPNj5YvTWWiY81vun82yPov+anB6iLlItMPnhmBX97h
+         5hVsGJlb9o+NOGF8TBaSisOo1+jlFJSE8DoWXmvUNh/P+X0AOqRyxIVQHqIT+pgLYANj
+         4jK4NiRCqSD3+nK7QFAIhZtqhvXVGPOFS4cbQXc3wxbqwRs3nE3FPSdPuXvOUezac9ty
+         p4z8XMSjYZAA2cAndOYq+F2g4jmPi4w1jtWiHFvbQxhCDm06IR/nih4+pXTUQrJABvvV
+         ouB4tpWpeKGSVnCh4PzsJO4qjR6VW7WpB81G/vHZ1DoJb9/xuZ1BIj9+9Q8VfEYmAmjX
+         fRNA==
+X-Forwarded-Encrypted: i=1; AJvYcCW/qEnp2hI5nMsH9iU+5ve0eVfnXkmUwvCgolEe5PXxjqtV7ZOrbk31yhqhwdLY7BRdcVKgHw3CMXx1uXZMLqn0SkD57a8Z6Xsh+O75
+X-Gm-Message-State: AOJu0Yx7Ud5+jPYB/HY6yqYtjrEJtwuh6pOoat8y1AwHrc0zCYnXBG92
+	RcOjtZHFWpaRQ6P/wBI+l3rKDHQ8GW65YrlWgqy1zlLbjrhIAU5w
+X-Google-Smtp-Source: AGHT+IGkVTMzlozrOa/n8pAWspnUX1oUfLFxCwS4KJ2FptoKapNPY3SX+2TkHDBqaEqDzyYuAzu8tQ==
+X-Received: by 2002:a05:6a21:191:b0:1a0:c950:9eb6 with SMTP id le17-20020a056a21019100b001a0c9509eb6mr184560pzb.27.1708978847231;
+        Mon, 26 Feb 2024 12:20:47 -0800 (PST)
+Received: from mail.marliere.net ([24.199.118.162])
+        by smtp.gmail.com with ESMTPSA id g6-20020a1709026b4600b001dcada71593sm82108plt.273.2024.02.26.12.20.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Feb 2024 12:20:46 -0800 (PST)
+Date: Mon, 26 Feb 2024 17:21:37 -0300
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marliere.net;
+	s=2024; t=1708978845;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ShDnaavgO9jOj5Fc4lvKVUeYKF5ykoCWTmxeShV2cgI=;
+	b=pEmQVxxqoJhX4v8Z5ezIIwsj1cU+kk368ieeHNnvwJ4n5TKP5EKzSJvf+RIHhZNrsZpwoQ
+	GKHHeV3iZsOo2Ygd1mIQM4lBD3jNcLtTeMDEl8YO+0pndRENcGxM2CnLqRzdJUDmNWb2KR
+	fA8yz3dd2agtR+fDoLJf33Iho/aBJDaz2cnrlyN60ugDM0RKwIPdg7+9rutmIoP12nVoh8
+	d56++uTZiTShRKU8M4aXuJSSzwqevlt8zD0IOrg5vV20wwE9vE+xvz+f/VlPHzaqeoS4gr
+	oZXCwsl6EmtZ11kVOi50gkcPy/HmneK6zIkTznMZ+GKKQFvupmm4fMJbOcqbCw==
+From: "Ricardo B. Marliere" <ricardo@marliere.net>
 To: Alex Elder <elder@ieee.org>
-Message-ID: <Zd3+1xJnl7d22xIb@animalcreek.com>
-References: <20240217154758.7965-1-erick.archer@gmx.com>
- <02cf87a3-4e92-4f6d-98f6-dfc0e198d462@ieee.org>
+Message-ID: <xsotlft7byeu4iyyzty74dgzxtszmvyj4nuhga7qwuqc2tnubc@lp4ut22lc622>
+References: <20240219-device_cleanup-greybus-v1-1-babb3f65e8cc@marliere.net>
+ <cf5b2696-d7ca-40fc-856a-52f352cd270c@ieee.org>
+ <ids3525jm5zkwkgizt2xtg3do37kqqtfdy5gc2cptdduexoe7r@cr4yxh3tykkh>
+ <2024022553-deepness-sublevel-73de@gregkh>
+ <yru2ywkyqwhg3rpyuqkkx73fxkkgsfj3vcbttnzrjq662ctrov@boh65bhxjjgo>
+ <17e89261-d46b-4845-9fca-05dac3006a39@ieee.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <02cf87a3-4e92-4f6d-98f6-dfc0e198d462@ieee.org>
-Organization: Animal Creek Technologies, Inc.
+In-Reply-To: <17e89261-d46b-4845-9fca-05dac3006a39@ieee.org>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 515CB3EB98
-X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.00 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_ALLOW(-0.20)[animalcreek.com:s=fm2,messagingengine.com:s=fm1];
-	R_SPF_ALLOW(-0.20)[+ip4:103.168.172.128/27];
+X-Rspamd-Queue-Id: 3C4AF43C8B
+X-Spamd-Bar: -------
+X-Spamd-Result: default: False [-7.30 / 15.00];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[marliere.net,reject];
+	FORGED_SENDER(0.30)[ricardo@marliere.net,rbmarliere@gmail.com];
+	R_DKIM_ALLOW(-0.20)[marliere.net:s=2024];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:209242, ipnet:103.168.172.0/24, country:US];
-	MIME_TRACE(0.00)[0:+];
-	HAS_ORG_HEADER(0.00)[];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.170:from];
 	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	TAGGED_RCPT(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DMARC_NA(0.00)[animalcreek.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmx.com,gmail.com,animalcreek.com,kernel.org,linuxfoundation.org,chromium.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
-	MISSING_XM_UA(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
+	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[marliere.net:+];
+	MISSING_XM_UA(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	DKIM_TRACE(0.00)[animalcreek.com:+,messagingengine.com:+]
-Message-ID-Hash: ARBVPT5GJIDNSNZ3AIFKWKQ5DPE3STGF
-X-Message-ID-Hash: ARBVPT5GJIDNSNZ3AIFKWKQ5DPE3STGF
-X-MailFrom: mgreer@animalcreek.com
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Erick Archer <erick.archer@gmx.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, Kees Cook <keescook@chromium.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_NEQ_ENVFROM(0.00)[ricardo@marliere.net,rbmarliere@gmail.com];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	DNSWL_BLOCKED(0.00)[209.85.210.170:from,24.199.118.162:received];
+	NEURAL_HAM(-0.00)[-1.000];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6]
+X-MailFrom: rbmarliere@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: YUZQ4AHNKBD3XBHUZXXRUAN3KU5IRK65
+X-Message-ID-Hash: YUZQ4AHNKBD3XBHUZXXRUAN3KU5IRK65
+X-Mailman-Approved-At: Thu, 29 Feb 2024 13:59:21 +0000
+CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] greybus: audio: apbridgea: Remove flexible array from struct audio_apbridgea_hdr
+Subject: [greybus-dev] Re: [PATCH] greybus: constify the struct device_type usage
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ARBVPT5GJIDNSNZ3AIFKWKQ5DPE3STGF/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YUZQ4AHNKBD3XBHUZXXRUAN3KU5IRK65/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -122,71 +114,61 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Feb 17, 2024 at 03:18:59PM -0600, Alex Elder wrote:
-> On 2/17/24 9:47 AM, Erick Archer wrote:
-> > When a struct containing a flexible array is included in another struct,
-> > and there is a member after the struct-with-flex-array, there is a
-> > possibility of memory overlap. These cases must be audited [1]. See:
-> > 
-> > struct inner {
-> > 	...
-> > 	int flex[];
-> > };
-> > 
-> > struct outer {
-> > 	...
-> > 	struct inner header;
-> > 	int overlap;
-> > 	...
-> > };
-> > 
-> > This is the scenario for the "struct audio_apbridgea_hdr" structure
-> > that is included in the following "struct audio_apbridgea_*_request"
-> > structures:
+On 26 Feb 13:50, Alex Elder wrote:
+> On 2/25/24 5:04 AM, Ricardo B. Marliere wrote:
+> >>>> On another subject:
+> >>>>
+> >>>> Johan might disagree, but I think it would be nice to make
+> >>>> the definitions of the Greybus device types as static (private)
+> >>>> and make the is_gb_host_device() etc. functions real functions
+> >>>> rather than static inlines in <linux/greybus.h>.
+> >>>>
+> >>>> It turns out that all of the is_gb_*() functions are called only
+> >>>> from drivers/greybus/core.c; they could all be moved there rather
+> >>>> than advertising them in <linux/greybus.h>.
+> >>> I guess it depends whether they would be used somewhere else in the
+> >>> future. Perhaps it was left there with that intention when it was first
+> >>> being developed? I agree, though. Will happily send a patch with this if
+> >>> desired.
+> >> Let's clean the code up for what we have today.  If it's needed in the
+> >> future, we can move the structures then.
+> > Sounds good to me, will send a v2 then!
 > 
-> Yeah this was not a very good way to define these header
-> structures, but I'm glad to hear the flexible array at the
-> end was never used.  I don't know why it was there; maybe
-> it's an artifact from some other information that got removed.
+> I might be misinterpreting Greg's response; I *think* he
+> agrees with my suggestion.
+
+That's what I thought too.
+
 > 
-> If the code compiles with your change, it ought to be fine.
-> (It compiles for me.)
+> In any case, please do *not* send v2 with the purpose of
+> including my suggestion.
 > 
-> It would be good for Vaibhav or Mark to comment though, maybe
-> they can provide some context.
+> If you send a v2, keep it focused on this original patch.
+> You can then implement the other suggestion as a follow-on
+> patch (or series).
 
-Sorry for the delay guys.
+Indeed, this one is good as is but I thought of converting it into a
+series so that they can be taken with no dependency on this one. So it
+would look like:
 
-The way this was done comes from associated firmware that ran on the
-APBridge. This goes back a while but I think the packet headers may have
-been in flux at the time and this was a convenient way to change all of
-the packets if & when it changed.  Anyway, it doesn't seem so convenient
-now. :)
+Patch 1: move "is_gb_*()" into drivers/greybus/core.c
+Patch 2: move "device_type greybus_*" into drivers/greybus/core.c
+Patch 3: make "device_type greybus_*" const
 
-So, yeah, getting rid of it sounds like a good thing to do to me.
+But you're right. I could simply send 1 and 2 after this one has been
+applied. If I were to send them separately, how would I communicate that
+there's a dependency? Something like:
 
-> I'd like to hear from these others, but otherwise this change
-> looks good to me.
+---
+This series depends on [1].
+[1]: lore://link-to-this-patch 
+
+?
+
+Thanks and sorry for the noobishness
+
 > 
-> Reviewed-by: Alex Elder <elder@linaro.org>
-
-
-> > diff --git a/drivers/staging/greybus/audio_apbridgea.h b/drivers/staging/greybus/audio_apbridgea.h
-> > index efec0f815efd..ab707d310129 100644
-> > --- a/drivers/staging/greybus/audio_apbridgea.h
-> > +++ b/drivers/staging/greybus/audio_apbridgea.h
-> > @@ -65,7 +65,6 @@
-> >   struct audio_apbridgea_hdr {
-> >   	__u8	type;
-> >   	__le16	i2s_port;
-> > -	__u8	data[];
-> >   } __packed;
-> > 
-> >   struct audio_apbridgea_set_config_request {
-> > --
-> > 2.25.1
-
-Acked-by: Mark Greer <mgreer@animalcreek.com>
+> 					-Alex
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
