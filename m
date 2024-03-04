@@ -2,101 +2,98 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9499E870899
-	for <lists+greybus-dev@lfdr.de>; Mon,  4 Mar 2024 18:50:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABC358708B7
+	for <lists+greybus-dev@lfdr.de>; Mon,  4 Mar 2024 18:53:02 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A29814410A
-	for <lists+greybus-dev@lfdr.de>; Mon,  4 Mar 2024 17:50:02 +0000 (UTC)
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
-	by lists.linaro.org (Postfix) with ESMTPS id 00368400E5
-	for <greybus-dev@lists.linaro.org>; Mon,  4 Mar 2024 17:49:56 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B716D44030
+	for <lists+greybus-dev@lfdr.de>; Mon,  4 Mar 2024 17:53:01 +0000 (UTC)
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+	by lists.linaro.org (Postfix) with ESMTPS id 54CEC3F0A4
+	for <greybus-dev@lists.linaro.org>; Mon,  4 Mar 2024 17:52:54 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=ieee.org header.s=google header.b=RFIqYRLj;
-	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.217.41 as permitted sender) smtp.mailfrom=elder@ieee.org;
+	dkim=pass header.d=ieee.org header.s=google header.b=F+T78KGn;
+	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.167.175 as permitted sender) smtp.mailfrom=elder@ieee.org;
 	dmarc=pass (policy=quarantine) header.from=ieee.org
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-472d80cda16so69318137.0
-        for <greybus-dev@lists.linaro.org>; Mon, 04 Mar 2024 09:49:55 -0800 (PST)
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-3bbc649c275so3091925b6e.0
+        for <greybus-dev@lists.linaro.org>; Mon, 04 Mar 2024 09:52:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1709574595; x=1710179395; darn=lists.linaro.org;
+        d=ieee.org; s=google; t=1709574774; x=1710179574; darn=lists.linaro.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=9Pd2ZqD9+Nj0j4ec7ryunKzk1xgCPWEAoRbwQKMaYuE=;
-        b=RFIqYRLjLXDAEWpCaBn1r6YJU+KcckqoMnsXyiiyFoIo7RrUrAzOlGqVcUK5FN4Lyh
-         MHvJH13Gov1ez1IXxgoes0Yvajt6IOEDZhu5j72mBc7uH3dHFHNI71q9HUmYsyX1wG5l
-         H2E494U0v3L34cDf8YovP3VkFyN9EzxllnZWI=
+        bh=+OnqRcS2a1ooBnCy5mQV9aG9KxXx9irk+upPadR0EN0=;
+        b=F+T78KGn0vEq7Y9ZDhG8QuKyx5/LHpIxF7PLz+82Ktx8Y4+oesSdpINCDH9JCEYugZ
+         B/TO1Cytpk5jPwQBm27B4NOqdrrL954oi649smcBfWhwaxMfSLf4ANE4dieJbKwTj9wb
+         TBcyt9bBDHYyRT7/70nTeOF0U1gYO/V6Sxx+s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709574595; x=1710179395;
+        d=1e100.net; s=20230601; t=1709574774; x=1710179574;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9Pd2ZqD9+Nj0j4ec7ryunKzk1xgCPWEAoRbwQKMaYuE=;
-        b=hY1tRUuTk8xsTfJZLurghX9akGUrJC2BSP2q4kszgjgbHXHIAWzx7HR6AleWq2PlVo
-         Z70glhXOczL4sUZJEuyj0BNJqfZVLqhNjAK/2k+cigeiO0iwFMExzV6rmPJvxACrSA8C
-         ssZuZHcpNuYJCow696niFeJVbT3aXlONg7ami1Tme2jcql7avUTOEhvF8cmnmSbWeBZz
-         D+sJ228WSkQ0wQZQgHoH0Ee7GyIJ//s13/y+ItUm3HPVh9RStiBefvnPGZ5KFRPWkZMt
-         EKUYREFXZN1Fm6HV1/HZXy0VFAZ7AXiTrLurHrWleQnWqCTjeuBVHZbyIPMkIIyQTdNX
-         P1zA==
-X-Forwarded-Encrypted: i=1; AJvYcCV3PtTLtFk/hm/u/ujwsM08Jga64Cp0du5DDPaAdS3FXrk8Sg3o1WME/jT7UagUSZjjSS+UVBuo3CMDdGOrr7ifLztNs2BnofunD4Ah
-X-Gm-Message-State: AOJu0Yy4IFkvkg650ZiGlKoHCV02U7jMwo6N2R8Yaf3voBKDVme7JlHU
-	ZjD4cDQlvL4zL/MkSSCvI4g4pbs82nRnjXF3bvdfcqHrTa2ojzFtEls+49s+xA==
-X-Google-Smtp-Source: AGHT+IFKl0IbUfafOj5m9zaSe/S5V0PjhekyC8gN8/+VSm+peqpjggkhFvHZLy6t34sJp++enhU9+Q==
-X-Received: by 2002:a67:e34e:0:b0:472:6e92:dc9 with SMTP id s14-20020a67e34e000000b004726e920dc9mr6672607vsm.4.1709574595513;
-        Mon, 04 Mar 2024 09:49:55 -0800 (PST)
+        bh=+OnqRcS2a1ooBnCy5mQV9aG9KxXx9irk+upPadR0EN0=;
+        b=VZixnLwDflnAjp0bxjrqoUa9GWXWZWypa5PDND87uT7CoGawuvJ1NkHCdv5b388Oj7
+         ymX+puHq8eR7xO5qy5Yt7GJ3LXepzpfql4nQ6bzQ/+f3w/OhaxZ+hIyIJ3YwhBIJeMNo
+         YKqPFZsZuOBIBQ4/rtuUhq3ge7DG39KiCtTZ9RP29C65ErB1hhjzN6EdsgzkJjg0sGK+
+         ikZea7bfwojYWhRDmp6tS9ZF4CM7Qh/+5HiyWrExObyFrrrIUQ2J6qPByBrC5SthGWzi
+         TkINQ3McKjPM+orvd9+X+rFrX3X/mIrpg2GrPy6lQa8MxF7KzdvoDcB4OKkne5pj6cMR
+         7UGg==
+X-Gm-Message-State: AOJu0Ywc/FCxC37fDjTyOlDHIKCXM1n0svITSeg3RbEPRgpa563hs1eB
+	Z+4Ii8HmRwnpTiwWOYbn3DoVVm7H/xQVY0bVPCA77TQJ/cYhapggKKxgWd+Fuw==
+X-Google-Smtp-Source: AGHT+IFKmL3fB16A8TnnCK5B0H81r4wmRERTTWJIwx12JOjfjCiJ27Yt0CtC04p7ZNiTRMVCkdW1zg==
+X-Received: by 2002:a05:6358:6383:b0:17b:ee29:40a with SMTP id k3-20020a056358638300b0017bee29040amr6653835rwh.6.1709574773600;
+        Mon, 04 Mar 2024 09:52:53 -0800 (PST)
 Received: from [172.22.22.28] (c-73-228-159-35.hsd1.mn.comcast.net. [73.228.159.35])
-        by smtp.googlemail.com with ESMTPSA id kd3-20020a05622a268300b0042ef2740186sm1103686qtb.51.2024.03.04.09.49.54
+        by smtp.googlemail.com with ESMTPSA id lv8-20020a056214578800b0068f881d0d00sm5129116qvb.53.2024.03.04.09.52.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 Mar 2024 09:49:55 -0800 (PST)
-Message-ID: <1c77c0ef-c098-4962-909d-6bf53cdbde60@ieee.org>
-Date: Mon, 4 Mar 2024 11:49:53 -0600
+        Mon, 04 Mar 2024 09:52:53 -0800 (PST)
+Message-ID: <984ff1d6-b661-4fab-9943-44008d5ccf3c@ieee.org>
+Date: Mon, 4 Mar 2024 11:52:52 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Rui Miguel Silva <rmfrfs@gmail.com>,
- Dan Carpenter <dan.carpenter@linaro.org>
-References: <379c0cb4-39e0-4293-8a18-c7b1298e5420@moroto.mountain>
- <m3sf16tky7.fsf@gmail.com>
+To: "Ricardo B. Marliere" <ricardo@marliere.net>,
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20240226-device_cleanup-greybus2-v1-1-5f7d1161e684@marliere.net>
 From: Alex Elder <elder@ieee.org>
-In-Reply-To: <m3sf16tky7.fsf@gmail.com>
+In-Reply-To: <20240226-device_cleanup-greybus2-v1-1-5f7d1161e684@marliere.net>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 00368400E5
-X-Spamd-Bar: -------
-X-Spamd-Result: default: False [-7.99 / 15.00];
-	REPLY(-4.00)[];
+X-Rspamd-Queue-Id: 54CEC3F0A4
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.99 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
 	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
 	MIME_GOOD(-0.10)[text/plain];
 	XM_UA_NO_VERSION(0.01)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.217.41:from];
-	MID_RHS_MATCH_FROM(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	FREEMAIL_TO(0.00)[gmail.com,linaro.org];
-	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.167.175:from];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	DKIM_TRACE(0.00)[ieee.org:+]
-Message-ID-Hash: YCDFMLPWJI3VRRHTU3X6JJV3XKKQDKHV
-X-Message-ID-Hash: YCDFMLPWJI3VRRHTU3X6JJV3XKKQDKHV
+Message-ID-Hash: DDXCXNIXTMR3A6WDF66XSCN3D6YAU7KM
+X-Message-ID-Hash: DDXCXNIXTMR3A6WDF66XSCN3D6YAU7KM
 X-MailFrom: elder@ieee.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+CC: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: fix get_channel_from_mode() failure path
+Subject: [greybus-dev] Re: [PATCH] greybus: move is_gb_* functions out of greybus.h
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YCDFMLPWJI3VRRHTU3X6JJV3XKKQDKHV/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/DDXCXNIXTMR3A6WDF66XSCN3D6YAU7KM/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -106,62 +103,115 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"; format="flowed"
 Content-Transfer-Encoding: 7bit
 
-On 3/4/24 3:17 AM, Rui Miguel Silva wrote:
-> Hi Dan,
-> once again thanks for the patch.
+On 2/26/24 3:05 PM, Ricardo B. Marliere wrote:
+> The functions below are only used within the context of
+> drivers/greybus/core.c, so move them all into core and drop their 'inline'
+> specifiers:
 > 
-> Dan Carpenter <dan.carpenter@linaro.org> writes:
+> is_gb_host_device(), is_gb_module(), is_gb_interface(), is_gb_control(),
+> is_gb_bundle() and is_gb_svc().
 > 
->> The get_channel_from_mode() function is supposed to return the channel
->> which matches the mode.  But it has a bug where if it doesn't find a
->> matching channel then it returns the last channel.  It should return
->> NULL instead.
->>
->> Also remove an unnecessary NULL check on "channel".
->>
->> Fixes: 2870b52bae4c ("greybus: lights: add lights implementation")
->> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-> 
-> Reviewed-by: Rui Miguel Silva <rmfrfs@gmail.com>
+> Suggested-by: Alex Elder <elder@ieee.org>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Signed-off-by: Ricardo B. Marliere <ricardo@marliere.net>
 
-Looks good.
+Looks good to me.
 
 Reviewed-by: Alex Elder <elder@linaro.org>
 
+> ---
+>   drivers/greybus/core.c  | 30 ++++++++++++++++++++++++++++++
+>   include/linux/greybus.h | 30 ------------------------------
+>   2 files changed, 30 insertions(+), 30 deletions(-)
 > 
-> Cheers,
->    Rui
+> diff --git a/drivers/greybus/core.c b/drivers/greybus/core.c
+> index 5714be740470..f660b213233d 100644
+> --- a/drivers/greybus/core.c
+> +++ b/drivers/greybus/core.c
+> @@ -27,6 +27,36 @@ int greybus_disabled(void)
+>   }
+>   EXPORT_SYMBOL_GPL(greybus_disabled);
+>   
+> +static int is_gb_host_device(const struct device *dev)
+> +{
+> +	return dev->type == &greybus_hd_type;
+> +}
+> +
+> +static int is_gb_module(const struct device *dev)
+> +{
+> +	return dev->type == &greybus_module_type;
+> +}
+> +
+> +static int is_gb_interface(const struct device *dev)
+> +{
+> +	return dev->type == &greybus_interface_type;
+> +}
+> +
+> +static int is_gb_control(const struct device *dev)
+> +{
+> +	return dev->type == &greybus_control_type;
+> +}
+> +
+> +static int is_gb_bundle(const struct device *dev)
+> +{
+> +	return dev->type == &greybus_bundle_type;
+> +}
+> +
+> +static int is_gb_svc(const struct device *dev)
+> +{
+> +	return dev->type == &greybus_svc_type;
+> +}
+> +
+>   static bool greybus_match_one_id(struct gb_bundle *bundle,
+>   				 const struct greybus_bundle_id *id)
+>   {
+> diff --git a/include/linux/greybus.h b/include/linux/greybus.h
+> index 18c0fb958b74..38c45ec7d099 100644
+> --- a/include/linux/greybus.h
+> +++ b/include/linux/greybus.h
+> @@ -113,36 +113,6 @@ extern struct device_type greybus_control_type;
+>   extern struct device_type greybus_bundle_type;
+>   extern struct device_type greybus_svc_type;
+>   
+> -static inline int is_gb_host_device(const struct device *dev)
+> -{
+> -	return dev->type == &greybus_hd_type;
+> -}
+> -
+> -static inline int is_gb_module(const struct device *dev)
+> -{
+> -	return dev->type == &greybus_module_type;
+> -}
+> -
+> -static inline int is_gb_interface(const struct device *dev)
+> -{
+> -	return dev->type == &greybus_interface_type;
+> -}
+> -
+> -static inline int is_gb_control(const struct device *dev)
+> -{
+> -	return dev->type == &greybus_control_type;
+> -}
+> -
+> -static inline int is_gb_bundle(const struct device *dev)
+> -{
+> -	return dev->type == &greybus_bundle_type;
+> -}
+> -
+> -static inline int is_gb_svc(const struct device *dev)
+> -{
+> -	return dev->type == &greybus_svc_type;
+> -}
+> -
+>   static inline bool cport_id_valid(struct gb_host_device *hd, u16 cport_id)
+>   {
+>   	return cport_id != CPORT_ID_BAD && cport_id < hd->num_cports;
 > 
->> ---
->>   drivers/staging/greybus/light.c | 8 ++++----
->>   1 file changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
->> index d62f97249aca..a5c2fe963866 100644
->> --- a/drivers/staging/greybus/light.c
->> +++ b/drivers/staging/greybus/light.c
->> @@ -95,15 +95,15 @@ static struct led_classdev *get_channel_cdev(struct gb_channel *channel)
->>   static struct gb_channel *get_channel_from_mode(struct gb_light *light,
->>   						u32 mode)
->>   {
->> -	struct gb_channel *channel = NULL;
->> +	struct gb_channel *channel;
->>   	int i;
->>   
->>   	for (i = 0; i < light->channels_count; i++) {
->>   		channel = &light->channels[i];
->> -		if (channel && channel->mode == mode)
->> -			break;
->> +		if (channel->mode == mode)
->> +			return channel;
->>   	}
->> -	return channel;
->> +	return NULL;
->>   }
->>   
->>   static int __gb_lights_flash_intensity_set(struct gb_channel *channel,
->> -- 
->> 2.43.0
+> ---
+> base-commit: 70ff1fe626a166dcaadb5a81bfe75e22c91f5dbf
+> change-id: 20240226-device_cleanup-greybus2-b763f50221ab
+> 
+> Best regards,
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
