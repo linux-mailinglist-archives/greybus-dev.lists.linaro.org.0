@@ -2,138 +2,243 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AE6F8708E3
-	for <lists+greybus-dev@lfdr.de>; Mon,  4 Mar 2024 18:59:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D245870C46
+	for <lists+greybus-dev@lfdr.de>; Mon,  4 Mar 2024 22:19:56 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 201EB3F391
-	for <lists+greybus-dev@lfdr.de>; Mon,  4 Mar 2024 17:59:23 +0000 (UTC)
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	by lists.linaro.org (Postfix) with ESMTPS id 72E2E3F0A4
-	for <greybus-dev@lists.linaro.org>; Mon,  4 Mar 2024 17:59:15 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7E7CF44366
+	for <lists+greybus-dev@lfdr.de>; Mon,  4 Mar 2024 21:19:55 +0000 (UTC)
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	by lists.linaro.org (Postfix) with ESMTPS id 121B33F0A4
+	for <greybus-dev@lists.linaro.org>; Mon,  4 Mar 2024 21:19:50 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=ieee.org header.s=google header.b=Pza26nV4;
-	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.128.175 as permitted sender) smtp.mailfrom=elder@ieee.org;
-	dmarc=pass (policy=quarantine) header.from=ieee.org
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-608ceccb5f4so29234307b3.3
-        for <greybus-dev@lists.linaro.org>; Mon, 04 Mar 2024 09:59:15 -0800 (PST)
+	dkim=pass header.d=chromium.org header.s=google header.b="UZf02aY/";
+	spf=pass (lists.linaro.org: domain of keescook@chromium.org designates 209.85.210.169 as permitted sender) smtp.mailfrom=keescook@chromium.org;
+	dmarc=pass (policy=none) header.from=chromium.org
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-6e5dddd3b95so1976146b3a.1
+        for <greybus-dev@lists.linaro.org>; Mon, 04 Mar 2024 13:19:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1709575155; x=1710179955; darn=lists.linaro.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=thA/I2PqPVLK4SnspFOCxqgcMVG1ux25WaxY6rArXhk=;
-        b=Pza26nV4fnZvWr6kSQiV0icQGwFlB/jabtWbXlnfdznBpsEQBiF5xKnEJQ89JODpzv
-         U2TyyDUtpEJzU3S6nmDLOqYxayLEbSyAVNqyUgDZdtMM3i221ueWUtk844crSTVAH7xX
-         QtWmsDGlDjTp4tx7zQd2Qj90GXHkX+0dXB4Xs=
+        d=chromium.org; s=google; t=1709587189; x=1710191989; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kuwjsv4D6U5YXnr6LRJiA6f6hlMDXAPMBAB9PBj+oJs=;
+        b=UZf02aY/xu+glM5IizlTtTbLnABNM00r1Gyg6ZfsxuKsHYKAG8ajY3t4gSbvT+0bRZ
+         Klnp+TwXrtOpe/+dQSgqwiE9FYjgfXnV7zkFhmgjeMXJNmRpHcFtRZ8IBnutr90HQqG0
+         22s72ZkCTLf0zpuXv3Va1xan3zGNAJhGgFROk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709575155; x=1710179955;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=thA/I2PqPVLK4SnspFOCxqgcMVG1ux25WaxY6rArXhk=;
-        b=qi8ghN5wDxGqzjXG7rdvhv9EeJTgtCfJy0YrGLKUey90xAFq19yaLwvVAL2mUG6IYZ
-         SGnX3A/7fc5bfFfyzcNvJHRaUBTYEeWHjy3hRaKROP/xsuXyuRAUdYwf5A//dOBU764Q
-         lZmThNpodFKtgbq4+N7oaKr14qQlmLOgoZxMjPWDySsQIV2Z2m+Wbx3mPq+X9EjTCoda
-         xAJ+IHwTEkmyXyboePB3yD/zNe+7a4pqb4U49usHTVY4rmHQIhfxeKfUY8BSUPT4hPXC
-         FOZlDWwckmlRT0+LjwPja0V+lS6I5+4Duspq9vFLvtz0U3UcZp8z07Yb8Z6M6kKFWa9K
-         AqTA==
-X-Gm-Message-State: AOJu0YxaTP0V7kLY7PIQWqK5w69cKLWZyQeFy4DyDpMKfeuNGTJmMm8p
-	06FQSaPOmv+lHuRpilfa4heHRT9seQUu1hMZPz3ZLp2+tr+eBDijD67yJA9k4lHesC2BvhMn5vk
-	=
-X-Google-Smtp-Source: AGHT+IExfeM10ZB/js7EB+v7jDmQcldpolr3vewnoOnOzAtVxGnjlDaiuVf+mmkl78AiuvoB2YKsrA==
-X-Received: by 2002:a25:68d1:0:b0:dc6:3610:c344 with SMTP id d200-20020a2568d1000000b00dc63610c344mr6983088ybc.13.1709575155031;
-        Mon, 04 Mar 2024 09:59:15 -0800 (PST)
-Received: from [172.22.22.28] (c-73-228-159-35.hsd1.mn.comcast.net. [73.228.159.35])
-        by smtp.googlemail.com with ESMTPSA id t106-20020a25aaf3000000b00dcc7b9115fcsm2365520ybi.3.2024.03.04.09.59.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 Mar 2024 09:59:14 -0800 (PST)
-Message-ID: <b6cee7a2-d702-4248-977e-25a91c210c93@ieee.org>
-Date: Mon, 4 Mar 2024 11:59:13 -0600
+        d=1e100.net; s=20230601; t=1709587189; x=1710191989;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kuwjsv4D6U5YXnr6LRJiA6f6hlMDXAPMBAB9PBj+oJs=;
+        b=jkqVKxlmIIEh96n8tHxYxvASoO4DLpbkg8S6nkq+AfjDRvpVsUuD1tlUhosRzvDrvV
+         KqxhFcVmex26b0tgKjUT2o8ttQOFMyGdW/Hffc1J4mDBFtxrdsFs5LMhuxBvBv6MRzAt
+         x7Qolzsp5kZjp9fzceEF60LlyeAd9N8ZQM0aXSdUy5Uvkm2+TO3+DIF+JRGUKKklDE3H
+         f/um+mdf6rSKiainYMKj3mUUmbtQSqyHHANKYFbxg7m6cMqYUEHTmGnu7XAlLiV07+Li
+         V7gpi6X0+LJjUxaa+78RgSshf5DxRb5Tgk5zvDOWJ1MknvvGoB8khxrN++3gs6eySskp
+         C69Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUzUtToJ0JdLEyh0eD8Mo/rrmFj9tSDsDMwhXCV2yRt2clcRLfkGW9rdqkSXxh+0bKdRuCGCuvXZJokQPtXIxs3z6pBAWhcG1A7H6p7
+X-Gm-Message-State: AOJu0Yzgf/B51Z8gdnOSSWlZzjyDlRtk8eCOwgYdfQ2HSUpuOEHTBJXa
+	EmVXGh7PBE5zg1jEC9mXaC/nimHsb8GlSoKqNIJD1qUNAph2tKAXvJ05EqUckg==
+X-Google-Smtp-Source: AGHT+IFLxwTdMSiyaeqLoOgKMl1Ene20t6SG2k2rnn50xB6oOWu9hS/cIeVubtkEo9a2ceOAc//KiA==
+X-Received: by 2002:a05:6a00:3c8e:b0:6e4:c592:deaa with SMTP id lm14-20020a056a003c8e00b006e4c592deaamr854224pfb.11.1709587189198;
+        Mon, 04 Mar 2024 13:19:49 -0800 (PST)
+Received: from www.outflux.net ([198.0.35.241])
+        by smtp.gmail.com with ESMTPSA id t26-20020a62d15a000000b006e04c3b3b5asm8283288pfl.175.2024.03.04.13.19.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 04 Mar 2024 13:19:47 -0800 (PST)
+From: Kees Cook <keescook@chromium.org>
+To: Alex Elder <elder@kernel.org>
+Date: Mon,  4 Mar 2024 13:19:45 -0800
+Message-Id: <20240304211940.it.083-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Dileep Sankhla <dileepsankhla.ds@gmail.com>,
- Greg KH <gregkh@linuxfoundation.org>
-References: <20240225084017.418773-1-dileepsankhla.ds@gmail.com>
- <2024022538-buffoon-praising-f748@gregkh>
- <CAHxc4bsFj1=VFVDWbdwo3W3CmSyPG1585p2zBePpsD9qy6VKdA@mail.gmail.com>
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <CAHxc4bsFj1=VFVDWbdwo3W3CmSyPG1585p2zBePpsD9qy6VKdA@mail.gmail.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5072; i=keescook@chromium.org;
+ h=from:subject:message-id; bh=GzpZ/81jwqeQvoZLzsqYfc6Kb/FkPz/ssCrmMegdNyY=;
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBl5jrxN9hNacEYPFNk5QoT2iY8dnME3XUqQe4kW
+ 4SvJZfSbCCJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZeY68QAKCRCJcvTf3G3A
+ JjA/D/9ZZh0WdLrPuYsTqE5waxJVDv77dJ7ZtPPon1KGE7ZBUoDU2617qGC0iPW7EBH6V0zqmzM
+ zZwqpVFu/pGNwMEfVPMNXj+q0FPfqAxDDQXWcpH/KVpEYQ1d+y7j+4dENod3GgXzeJxqEk0hR4Y
+ lgDr8tKheYkl7kSH+a4r8mM5Kn8akoAA9nWpvg5bDzQIefT7dAoUULSbzrMqEkiz4OdQr2XrGZo
+ XPPKxbu09NtSJOLMXgkrQAXQJJue1JZwhQSzQ283Di6OjQXDZnwEDUM6ZubiIMztf5uRJ1e70NI
+ m3ca/eug+fjncW2K5aciaPRf7FfISVjaXM9dHvSrLPy9KbKlLelXFeOb252L5fi4zz0g2ce8aVR
+ k5QWe0rQRUjGAMfaf05h41sTbv8qppoIfNyysuPEx2tCdlX+ut7A9AV2wnIeoQU32JBgDIzHa5R
+ Ayd05DxHwPoze3qRRg8H1D1DkGCsOp6V9K1EgLs/J94xN4kOM+X1CYfiFV+tw5pIFPuwIrYcjY/
+ YMn9dLJ7lGZifd1eN6LmnKniG/o38iJhTJTL4bVsrsZHOfFHBE1O0E7X6gdjGYOkUOPV1Q1Eb+z
+ VCFyTofIZ3UVEye8ohwp1XI3YF8sGZXa5Jtv4yUpv+9EskUlTq7C2p1iUkgQwl2pl6ZKftEqQ1b
+ kGTKWup urpNnjpQ==
+X-Developer-Key: i=keescook@chromium.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 72E2E3F0A4
+X-Rspamd-Queue-Id: 121B33F0A4
 X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.49 / 15.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
+X-Spamd-Result: default: False [-2.60 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_RHS_MATCH_TO(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[chromium.org,none];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[chromium.org:s=google];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.169:from];
 	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.175:from];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_TLS_LAST(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,linuxfoundation.org];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[ieee.org:+]
-Message-ID-Hash: YL2QO7OQ5MMEZFQHKBWEFKOJU4NR2XXR
-X-Message-ID-Hash: YL2QO7OQ5MMEZFQHKBWEFKOJU4NR2XXR
-X-MailFrom: elder@ieee.org
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	DKIM_TRACE(0.00)[chromium.org:+]
+Message-ID-Hash: OC6NHZHECOGYZQNRBU6SJ7UKBW4UUGJN
+X-Message-ID-Hash: OC6NHZHECOGYZQNRBU6SJ7UKBW4UUGJN
+X-MailFrom: keescook@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, johan@kernel.org, elder@kernel.org
+CC: Kees Cook <keescook@chromium.org>, Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, "Gustavo A . R . Silva" <gustavo@embeddedor.com>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: put macro in a do - while loop
+Subject: [greybus-dev] [PATCH v2] greybus: Avoid fake flexible array for response data
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YL2QO7OQ5MMEZFQHKBWEFKOJU4NR2XXR/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OC6NHZHECOGYZQNRBU6SJ7UKBW4UUGJN/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gMi8yNS8yNCAzOjQ5IEFNLCBEaWxlZXAgU2Fua2hsYSB3cm90ZToNCj4gT24gU3VuLCBGZWIg
-MjUsIDIwMjQgYXQgMjoyNuKAr1BNIEdyZWcgS0ggPGdyZWdraEBsaW51eGZvdW5kYXRpb24ub3Jn
-PiB3cm90ZToNCj4+IERpZCB5b3UgdGVzdCBidWlsZCB0aGlzPw0KPiANCj4gSGVsbG8gR3JlZywN
-Cj4gDQo+IFllcy4gTm8gbmV3IHdhcm5pbmcvZXJyb3Igd2FzIGVuY291bnRlcmVkIG9uIGJ1aWxk
-aW5nIHRoZSBrZXJuZWwuDQoNClRoZW4geW91ciBidWlsZCBtdXN0IG5vdCBoYXZlIGJlZW4gY29t
-cGlsaW5nIHlvdXIgY2hhbmdlZA0KY29kZSwgYmVjYXVzZSB0aGUgcmVzdWx0IG9mIHlvdXIgY2hh
-bmdlIHByb2R1Y2VzIGNvZGUgdGhhdA0Kd2lsbCBub3QgY29tcGlsZSBzdWNjZXNzZnVsbHkuDQoN
-CklmIHlvdSBsb29rIGF0IHdoZXJlIGdiX2xvb3BiYWNrX3N0YXRzX2F0dHJzKCkgaXMgY2FsbGVk
-LCBpdCdzDQp1c2VkIG9ubHkgYXQgb3V0ZXIgc2NvcGUsIGluICJkcml2ZXJzL3N0YWdpbmcvZ3Jl
-eWJ1cy9sb29wYmFjay5jIi4NCg0KQWRkaW5nIGRvIHsgLi4uIH0gd2hpbGUoKSBhdCBvdXRlciBz
-Y29wZSBpcyBub25zZW5zaWNhbC4NCg0KPiANCj4+PiAgICNkZWZpbmUgZ2JfbG9vcGJhY2tfYXR0
-cihmaWVsZCwgdHlwZSkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0K
-Pj4+ICAgc3RhdGljIHNzaXplX3QgZmllbGQjI19zaG93KHN0cnVjdCBkZXZpY2UgKmRldiwgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBcDQo+Pg0KPj4gV2h5IGRpZCB5b3Ugb25seSBjaGFu
-Z2Ugb25lIGlmIHlvdSB0aG91Z2h0IHRoaXMgd2FzIGEgdmFsaWQgY2hhbmdlPw0KPiANCj4gMS4g
-QXMgcGVyIG15IEMgYmFja2dyb3VuZCwgSSB0aGluayBubyBvdGhlciBtYWNyb3MgaW4gdGhlIGFi
-b3ZlIHNvdXJjZQ0KPiBjb2RlIGZpbGUgbmVlZCB0byBiZSBlbmNsb3NlZCBpbiBhIGRvIC0gd2hp
-bGUgbG9vcC4NCg0KZ2JfbG9vcGJhY2tfc3RhdHNfYXR0cnMoKSBtdXN0ICpub3QqIGJlIGVuY2xv
-c2VkIGluIGEgZG8uLndoaWxlIGxvb3AuDQoNCj4gMi4gSSBhbSB3cml0aW5nIHRoZSBwYXRjaCBi
-ZWNhdXNlIG9mIHRoZSBFdWR5cHR1bGEgQ2hhbGxlbmdlLCBhbmQgSQ0KPiBoYXZlIHRvIGZpeCAi
-b25lIGNvZGluZyBzdHlsZSBwcm9ibGVtIiBpbiBhbnkgb2YgdGhlIGZpbGVzIGluDQo+IGRyaXZl
-cnMvc3RhZ2luZy8uIFRoZSBhYm92ZSBvbmUgd2FzIG9uZSBvZiB0aGVtLg0KDQpJIHN1cHBvcnQg
-dGhlIGNoYWxsZW5nZS4gIEJ1dCB5b3UgbmVlZCB0byBiZSBzdXJlIHlvdXIgZml4IGFjdHVhbGx5
-DQp3b3JrcywgYW5kIGluIHBhcnRpY3VsYXIgKGluIHRoaXMgY2FzZSkgdGhhdCBpdCBjb21waWxl
-cyBjb3JyZWN0bHkuDQoNCgkJCQkJLUFsZXgNCg0KPiANCj4gUmVnYXJkcywNCj4gRGlsZWVwDQoN
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMt
-ZGV2IG1haWxpbmcgbGlzdCAtLSBncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnClRvIHVuc3Vi
-c2NyaWJlIHNlbmQgYW4gZW1haWwgdG8gZ3JleWJ1cy1kZXYtbGVhdmVAbGlzdHMubGluYXJvLm9y
-Zwo=
+FORTIFY_SOURCE has been ignoring 0-sized destinations while the kernel
+code base has been converted to flexible arrays. In order to enforce
+the 0-sized destinations (e.g. with __counted_by), the remaining 0-sized
+destinations need to be handled. Instead of converting an empty struct
+into using a flexible array, just directly use a pointer without any
+additional indirection. Remove struct gb_bootrom_get_firmware_response
+and struct gb_fw_download_fetch_firmware_response.
+
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+Cc: Alex Elder <elder@kernel.org>
+Cc: Viresh Kumar <vireshk@kernel.org>
+Cc: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Gustavo A. R. Silva <gustavo@embeddedor.com>
+Cc: greybus-dev@lists.linaro.org
+Cc: linux-staging@lists.linux.dev
+ v2: add comments about removed structs
+ v1: https://patchwork.kernel.org/project/linux-hardening/patch/20240216232824.work.862-kees@kernel.org/
+---
+ drivers/staging/greybus/bootrom.c         | 8 ++++----
+ drivers/staging/greybus/fw-download.c     | 8 ++++----
+ include/linux/greybus/greybus_protocols.h | 8 ++------
+ 3 files changed, 10 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/staging/greybus/bootrom.c b/drivers/staging/greybus/bootrom.c
+index 79581457c4af..c0d338db6b52 100644
+--- a/drivers/staging/greybus/bootrom.c
++++ b/drivers/staging/greybus/bootrom.c
+@@ -243,10 +243,10 @@ static int gb_bootrom_get_firmware(struct gb_operation *op)
+ 	struct gb_bootrom *bootrom = gb_connection_get_data(op->connection);
+ 	const struct firmware *fw;
+ 	struct gb_bootrom_get_firmware_request *firmware_request;
+-	struct gb_bootrom_get_firmware_response *firmware_response;
+ 	struct device *dev = &op->connection->bundle->dev;
+ 	unsigned int offset, size;
+ 	enum next_request_type next_request;
++	u8 *firmware_response;
+ 	int ret = 0;
+ 
+ 	/* Disable timeouts */
+@@ -280,15 +280,15 @@ static int gb_bootrom_get_firmware(struct gb_operation *op)
+ 		goto unlock;
+ 	}
+ 
+-	if (!gb_operation_response_alloc(op, sizeof(*firmware_response) + size,
+-					 GFP_KERNEL)) {
++	/* gb_bootrom_get_firmware_response contains only a byte array */
++	if (!gb_operation_response_alloc(op, size, GFP_KERNEL)) {
+ 		dev_err(dev, "%s: error allocating response\n", __func__);
+ 		ret = -ENOMEM;
+ 		goto unlock;
+ 	}
+ 
+ 	firmware_response = op->response->payload;
+-	memcpy(firmware_response->data, fw->data + offset, size);
++	memcpy(firmware_response, fw->data + offset, size);
+ 
+ 	dev_dbg(dev, "responding with firmware (offs = %u, size = %u)\n",
+ 		offset, size);
+diff --git a/drivers/staging/greybus/fw-download.c b/drivers/staging/greybus/fw-download.c
+index 543692c567f9..a06065fb0c5e 100644
+--- a/drivers/staging/greybus/fw-download.c
++++ b/drivers/staging/greybus/fw-download.c
+@@ -271,11 +271,11 @@ static int fw_download_fetch_firmware(struct gb_operation *op)
+ 	struct gb_connection *connection = op->connection;
+ 	struct fw_download *fw_download = gb_connection_get_data(connection);
+ 	struct gb_fw_download_fetch_firmware_request *request;
+-	struct gb_fw_download_fetch_firmware_response *response;
+ 	struct fw_request *fw_req;
+ 	const struct firmware *fw;
+ 	unsigned int offset, size;
+ 	u8 firmware_id;
++	u8 *response;
+ 	int ret = 0;
+ 
+ 	if (op->request->payload_size != sizeof(*request)) {
+@@ -325,8 +325,8 @@ static int fw_download_fetch_firmware(struct gb_operation *op)
+ 		goto put_fw;
+ 	}
+ 
+-	if (!gb_operation_response_alloc(op, sizeof(*response) + size,
+-					 GFP_KERNEL)) {
++	/* gb_fw_download_fetch_firmware_response contains only a byte array */
++	if (!gb_operation_response_alloc(op, size, GFP_KERNEL)) {
+ 		dev_err(fw_download->parent,
+ 			"error allocating fetch firmware response\n");
+ 		ret = -ENOMEM;
+@@ -334,7 +334,7 @@ static int fw_download_fetch_firmware(struct gb_operation *op)
+ 	}
+ 
+ 	response = op->response->payload;
+-	memcpy(response->data, fw->data + offset, size);
++	memcpy(response, fw->data + offset, size);
+ 
+ 	dev_dbg(fw_download->parent,
+ 		"responding with firmware (offs = %u, size = %u)\n", offset,
+diff --git a/include/linux/greybus/greybus_protocols.h b/include/linux/greybus/greybus_protocols.h
+index aeb8f9243545..820134b0105c 100644
+--- a/include/linux/greybus/greybus_protocols.h
++++ b/include/linux/greybus/greybus_protocols.h
+@@ -232,9 +232,7 @@ struct gb_fw_download_fetch_firmware_request {
+ 	__le32			size;
+ } __packed;
+ 
+-struct gb_fw_download_fetch_firmware_response {
+-	__u8			data[0];
+-} __packed;
++/* gb_fw_download_fetch_firmware_response contains no other data */
+ 
+ /* firmware download release firmware request */
+ struct gb_fw_download_release_firmware_request {
+@@ -414,9 +412,7 @@ struct gb_bootrom_get_firmware_request {
+ 	__le32			size;
+ } __packed;
+ 
+-struct gb_bootrom_get_firmware_response {
+-	__u8			data[0];
+-} __packed;
++/* gb_bootrom_get_firmware_response contains no other data */
+ 
+ /* Bootrom protocol Ready to boot request */
+ struct gb_bootrom_ready_to_boot_request {
+-- 
+2.34.1
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
