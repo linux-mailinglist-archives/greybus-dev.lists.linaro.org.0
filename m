@@ -2,99 +2,93 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id C47D9873268
-	for <lists+greybus-dev@lfdr.de>; Wed,  6 Mar 2024 10:21:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C6938751CF
+	for <lists+greybus-dev@lfdr.de>; Thu,  7 Mar 2024 15:27:14 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id AD95643D30
-	for <lists+greybus-dev@lfdr.de>; Wed,  6 Mar 2024 09:21:47 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	by lists.linaro.org (Postfix) with ESMTPS id 41AA83F983
-	for <greybus-dev@lists.linaro.org>; Wed,  6 Mar 2024 09:21:42 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 67AD643F1D
+	for <lists+greybus-dev@lfdr.de>; Thu,  7 Mar 2024 14:27:13 +0000 (UTC)
+Received: from mail.rosalinux.ru (mail.rosalinux.ru [195.19.76.54])
+	by lists.linaro.org (Postfix) with ESMTPS id AC6D03EFE6
+	for <greybus-dev@lists.linaro.org>; Wed,  6 Mar 2024 15:29:20 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=SJI46+1F;
-	spf=pass (lists.linaro.org: domain of rmfrfs@gmail.com designates 209.85.128.44 as permitted sender) smtp.mailfrom=rmfrfs@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-412e1b52934so3636925e9.1
-        for <greybus-dev@lists.linaro.org>; Wed, 06 Mar 2024 01:21:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709716901; x=1710321701; darn=lists.linaro.org;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=DEbhInZlM3kJtT7xjjkbZehB8ROzUjJZQUZRHEJT3Fw=;
-        b=SJI46+1FUKB1fZGGnpyEaEIUpF9kKSoUSSXHP56F7ApwK/2RXoxTDzqvwtbW/Z0VXb
-         7dzQOmWeRiblMtf31suypzh2l3HVy0ma1WkhOrAtv0ne0MgsXqEN7PYh8uFwnvaCVwSu
-         3TVIuQlx4+oNsMi2zpjvN1Aed75ePH0UdPmpa3G+rfZyQckKQ32EWLpaNuJNV/ojgJo3
-         mNLOMc+196Zq9W+3aMvHT9GOchZFSdyxpKpNbXx7MQERbNkIi0U0BNDu4xKtVvb1Jgj0
-         i2Z8BCKxGOdKlfalU0MWVg4ZEj7r2rg4e0TNc8VpK52C3UHJRlWpoQM/Oh2Nm3uXe7md
-         jvrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709716901; x=1710321701;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DEbhInZlM3kJtT7xjjkbZehB8ROzUjJZQUZRHEJT3Fw=;
-        b=VFOJPTHl/jf5Jl32lSwpGpsbPN96JhLXzgYw45bV8KsUCt28CcrhQERrd4B/uwEX66
-         o9cq/ca42+U+7J3/UD30fI6mR5RGeNfM0K2HdnYaxckouOqQsWigFZ3eVYAuHXPRVTz7
-         I7I/Hei7GJZVEQX0uB9q/jcmdO5gOZWUTA7tqnpJ/zvo1t3tBHOWLT7yReyvtROpVb+4
-         Sb8Cx6aWSaXScdz2bEbMqm2vNjSIiSGQ93itcSefMP/+37bgqvW5w/euZxv1XXZ1dJ7k
-         wCGXnuAaVeMf9cMC2sDNahxwyIxUWJize/nwUP/vS27b71rxUVrEn5d324Co9Hfi6YUP
-         /h4Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUfm3056htIGFz481YiuXO97nt2zU4MWas7Ig87CqiPE4xKIpmXiWCUi49srrODWVo2bhNW+5DspJSaVB5zd2Hn0Y74EpBe7xETfXXf
-X-Gm-Message-State: AOJu0YxZa5eSENaL+tRbVpoXZqm4boxpEY6vbeIbAo62jr8eGQJoK0Vm
-	tz6uI/wMceaUmr/3MUL3WZtNZdb78oouCPzfUmqrhpzIN9qNUx4G
-X-Google-Smtp-Source: AGHT+IEFn3clUVe3HbSihlyMh7NH6uC2n7uWdal4zB80Ths400Ms6K94kq6wQTFqZ5PbecFVK2jH1g==
-X-Received: by 2002:a05:600c:4448:b0:412:ee6a:8826 with SMTP id v8-20020a05600c444800b00412ee6a8826mr3596962wmn.12.1709716900620;
-        Wed, 06 Mar 2024 01:21:40 -0800 (PST)
-Received: from localhost (a109-49-32-45.cpe.netcabo.pt. [109.49.32.45])
-        by smtp.gmail.com with ESMTPSA id v13-20020adfd04d000000b0033d202abf01sm16944420wrh.28.2024.03.06.01.21.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 Mar 2024 01:21:40 -0800 (PST)
-From: Rui Miguel Silva <rmfrfs@gmail.com>
-To: Mikhail Lobanov <m.lobanov@rosalinux.ru>
-In-Reply-To: <20240301190425.120605-1-m.lobanov@rosalinux.ru>
-References: <20240301190425.120605-1-m.lobanov@rosalinux.ru>
-Date: Wed, 06 Mar 2024 09:21:39 +0000
-Message-ID: <m38r2v67h8.fsf@gmail.com>
+	dkim=pass header.d=rosalinux.ru header.s=1D4BB666-A0F1-11EB-A1A2-F53579C7F503 header.b=UrWWlrbW;
+	spf=pass (lists.linaro.org: domain of m.lobanov@rosalinux.ru designates 195.19.76.54 as permitted sender) smtp.mailfrom=m.lobanov@rosalinux.ru;
+	dmarc=pass (policy=quarantine) header.from=rosalinux.ru
+Received: from localhost (localhost [127.0.0.1])
+	by mail.rosalinux.ru (Postfix) with ESMTP id C0B0DD9A062B0;
+	Wed,  6 Mar 2024 18:29:18 +0300 (MSK)
+Received: from mail.rosalinux.ru ([127.0.0.1])
+	by localhost (mail.rosalinux.ru [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id h34VE-gmfcRS; Wed,  6 Mar 2024 18:29:18 +0300 (MSK)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.rosalinux.ru (Postfix) with ESMTP id 8D6B2D9A062AE;
+	Wed,  6 Mar 2024 18:29:18 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rosalinux.ru 8D6B2D9A062AE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rosalinux.ru;
+	s=1D4BB666-A0F1-11EB-A1A2-F53579C7F503; t=1709738958;
+	bh=s2MDr7WOywlnh3ZAqvGnB0f57zkYihv9+BGZBbec/V0=;
+	h=Date:From:To:Message-ID:MIME-Version;
+	b=UrWWlrbWKlytDmLbBBNNhl+k6fSFAIvdRV2gP7OZCgpLaPjwXRM448CNRUpgvF+MG
+	 MEv+wD6NtY9q1zqEyFTKMiKATrPBH5mGxqSOLs3nZFLijUY119OGY0L4QG5sOWuBEg
+	 4qZpcoVVZAB7GkRh85KXFSYGY1nTb0hIEGTNjfqyDLujq6meOa8G8oMvSTDGYyuKv1
+	 OV32qZ/xX3UN9QICY/mASUt5m1PQXZHS6O9p9Tsyt3PDRG+lPZo017rm58UpOsWqU0
+	 9G3g788SDktPgsPLrY7cG+18Jkeq3YQxHJdO1NLbGu7yUQXyyuITTd5NPA1PV2KMMl
+	 tYkpJh4imxopQ==
+X-Virus-Scanned: amavisd-new at rosalinux.ru
+Received: from mail.rosalinux.ru ([127.0.0.1])
+	by localhost (mail.rosalinux.ru [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id SV61K1I6DtiF; Wed,  6 Mar 2024 18:29:18 +0300 (MSK)
+Received: from mail.rosalinux.ru (mail.rosalinux.ru [195.19.76.54])
+	by mail.rosalinux.ru (Postfix) with ESMTP id 577D8D9A062B0;
+	Wed,  6 Mar 2024 18:29:18 +0300 (MSK)
+Date: Wed, 6 Mar 2024 18:29:18 +0300 (MSK)
+From: =?utf-8?B?0JzQuNGF0LDQuNC7INCb0L7QsdCw0L3QvtCy?= <m.lobanov@rosalinux.ru>
+To: Rui Miguel Silva <rmfrfs@gmail.com>
+Message-ID: <263695481.5978842.1709738958259.JavaMail.zimbra@rosalinux.ru>
+In-Reply-To: <m38r2v67h8.fsf@gmail.com>
+References: <20240301190425.120605-1-m.lobanov@rosalinux.ru> <m38r2v67h8.fsf@gmail.com>
 MIME-Version: 1.0
+X-Mailer: Zimbra 8.8.12_GA_3803 (ZimbraWebClient - GC120 (Win)/8.8.12_GA_3794)
+Thread-Topic: greybus: Fix deref of NULL in __gb_lights_flash_brightness_set
+Thread-Index: aWEJxOWeV+AJ+gus/QAqbWALvD0cYw==
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 41AA83F983
-X-Spamd-Bar: ----
-X-Spamd-Result: default: False [-4.00 / 15.00];
+X-Rspamd-Queue-Id: AC6D03EFE6
+X-Spamd-Bar: --------
+X-Spamd-Result: default: False [-8.00 / 15.00];
+	REPLY(-4.00)[];
 	BAYES_HAM(-3.00)[100.00%];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	DMARC_POLICY_ALLOW(-0.50)[rosalinux.ru,quarantine];
+	R_SPF_ALLOW(-0.20)[+mx];
+	R_DKIM_ALLOW(-0.20)[rosalinux.ru:s=1D4BB666-A0F1-11EB-A1A2-F53579C7F503];
 	MIME_GOOD(-0.10)[text/plain];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	FREEMAIL_TO(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.44:from];
-	RCPT_COUNT_FIVE(0.00)[6];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	URIBL_BLOCKED(0.00)[mail-wm1-f44.google.com:rdns,mail-wm1-f44.google.com:helo,linuxtesting.org:url,rosalinux.ru:email];
-	FROM_HAS_DN(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_TLS_LAST(0.00)[];
+	ASN(0.00)[asn:47503, ipnet:195.19.76.0/24, country:RU];
+	TO_DN_SOME(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+]
-Message-ID-Hash: 6M7PUFYL63TWXHWZKXMWSTXH2VAKBIXZ
-X-Message-ID-Hash: 6M7PUFYL63TWXHWZKXMWSTXH2VAKBIXZ
-X-MailFrom: rmfrfs@gmail.com
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Mikhail Lobanov <m.lobanov@rosalinux.ru>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+	NEURAL_HAM(-0.00)[-1.000];
+	URIBL_BLOCKED(0.00)[rosalinux.ru:email,rosalinux.ru:dkim];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	RCVD_COUNT_FIVE(0.00)[5];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	DKIM_TRACE(0.00)[rosalinux.ru:+]
+X-MailFrom: m.lobanov@rosalinux.ru
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: QTI2OYOWMYD75J6N3YV4L6QZBGO3FJQL
+X-Message-ID-Hash: QTI2OYOWMYD75J6N3YV4L6QZBGO3FJQL
+X-Mailman-Approved-At: Thu, 07 Mar 2024 14:27:08 +0000
+CC: linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, greybus-dev@lists.linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH] greybus: Fix deref of NULL in __gb_lights_flash_brightness_set
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/6M7PUFYL63TWXHWZKXMWSTXH2VAKBIXZ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/QTI2OYOWMYD75J6N3YV4L6QZBGO3FJQL/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -104,23 +98,21 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Mikhail,
-Mikhail Lobanov <m.lobanov@rosalinux.ru> writes:
 
-> Dereference of null pointer in the __gb_lights_flash_brightness_set function.
-> Assigning the channel the result of executing the get_channel_from_mode function
-> without checking for NULL may result in an error.
+Hi Rui, if you can, please prepare a patch with my reported-by tag.
+Thanks!
+
+Yours sincerely, Mikhail!
+
+>Hi Mikhail,
+>Mikhail Lobanov <m.lobanov@rosalinux.ru> writes:
 >
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
 >
-> Fixes: 2870b52bae4c ("greybus: lights: add lights implementation")
-> Signed-off-by: Mikhail Lobanov <m.lobanov@rosalinux.ru>
-
-Are you sending a new version with the changes suggested in this thread?
-or do you want me to prepare something with your reported-by tag?
-
-Cheers,
-    Rui
+>Are you sending a new version with the changes suggested in this thread?
+>or do you want me to prepare something with your reported-by tag?
+>
+>Cheers,
+>    Rui
 
 > ---
 >  drivers/staging/greybus/light.c | 9 +++++++--
