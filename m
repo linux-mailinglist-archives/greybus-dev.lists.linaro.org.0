@@ -2,62 +2,62 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id C03F487EFB7
-	for <lists+greybus-dev@lfdr.de>; Mon, 18 Mar 2024 19:28:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C15D87D4D9
+	for <lists+greybus-dev@lfdr.de>; Fri, 15 Mar 2024 21:16:52 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id B1F9D43C35
-	for <lists+greybus-dev@lfdr.de>; Mon, 18 Mar 2024 18:28:58 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	by lists.linaro.org (Postfix) with ESMTPS id 0F7393F387
-	for <greybus-dev@lists.linaro.org>; Fri, 15 Mar 2024 20:14:35 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 298BA4434B
+	for <lists+greybus-dev@lfdr.de>; Fri, 15 Mar 2024 20:16:51 +0000 (UTC)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	by lists.linaro.org (Postfix) with ESMTPS id B5C1140A53
+	for <greybus-dev@lists.linaro.org>; Fri, 15 Mar 2024 20:16:45 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=iy5obGft;
-	spf=pass (lists.linaro.org: domain of krzysztof.kozlowski@linaro.org designates 209.85.218.47 as permitted sender) smtp.mailfrom=krzysztof.kozlowski@linaro.org;
+	dkim=pass header.d=linaro.org header.s=google header.b=Or9Mt83b;
+	spf=pass (lists.linaro.org: domain of krzysztof.kozlowski@linaro.org designates 209.85.167.52 as permitted sender) smtp.mailfrom=krzysztof.kozlowski@linaro.org;
 	dmarc=pass (policy=none) header.from=linaro.org
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-a4675aaa2e8so262488966b.0
-        for <greybus-dev@lists.linaro.org>; Fri, 15 Mar 2024 13:14:35 -0700 (PDT)
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-513dc9d6938so926259e87.2
+        for <greybus-dev@lists.linaro.org>; Fri, 15 Mar 2024 13:16:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1710533674; x=1711138474; darn=lists.linaro.org;
+        d=linaro.org; s=google; t=1710533804; x=1711138604; darn=lists.linaro.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=odLjH6pCRhbd6VY/8IpKN5+gXDMhrfAYCr6uel2M/zo=;
-        b=iy5obGft9fL80E6r00OoC8dETo4Ctw9H9MwVwtZxYILEcsd8y63hi4xq2qd5iCaDeK
-         CxOle2SNe39RPDXJaMZTmmI4fnGJ+cvka75HSmf2e3wmKErPzERJ1GRm9FUbBRvlYn5l
-         4RzP/jvxNqI22jOlLZG+Oxij+5lT9QagatdF8LXEFfSH6SuZFcklrwvP5e/1vtaJRHCf
-         yisWoWVycOGQB/qyxPpKtyaMpWQ3WVGpIh1E7qYDSIMvVj6FNQnaQ/qxYpAq1G1XAbD9
-         uGhCSKt5CHnwQwyJ41h9VOql0KWtCQbrluQu6mw+rVAvm93HZ/k10nfxXkjunWGfe0xw
-         0d7A==
+        bh=dBxlSXrDIUeEZ7iizn8awIR/ya/+nU5wVcONbsK/8zI=;
+        b=Or9Mt83b115QTF1LJs8q9OopaYz1HN920tpV6pbJvI6SQ9UMPRue5a/HR7cCncY7b2
+         6CoURdXTVx/XwNa3adsS0d3SbqB2ArSrhsmmfMvjhvLxcYghf/QprwWPZyWJrjoBhe0B
+         VYcQQ8NpfbR5Y9b9KglMObAGtOmcOFW7BnRWMoEdEMNJ/I+aB4Qmp5traT5GJt394/7y
+         Rp2TAqxr3D7Ev0Wqx+7jCll6MhWCBj9X12+xghWFYJivYnLAWhjsCUqun3DlE/9WbSKd
+         YZabEwdfqg2OSk8+Ipa4VrRNhQVfIt0nXR+G2H9IM9+UC8efcRPUbs8N0tKZBzCkrC5P
+         zu5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710533674; x=1711138474;
+        d=1e100.net; s=20230601; t=1710533804; x=1711138604;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=odLjH6pCRhbd6VY/8IpKN5+gXDMhrfAYCr6uel2M/zo=;
-        b=tdkAFgGlHQmGjlcBDAptj7jns7mxcNbpGi3HMIRTbEaVT/LLwVqKqq5ksSX1uCJSRj
-         zZtfInzfPcU0FQhYmlGCIJk/TRQCFdfMrXZ3f04w3tAqPUM7TCgB4H+6YPhkFN1uHfpo
-         5sLi3snSavtxK22/iACs7Xn7rjs8SESDhzoaGCpAUWN8Yl2KubbK37ckWUu5G9Q4FrTr
-         wSdKiCIOMkkae5F+Z/zlF2a3uw9xNC7XUTIpFlkRaCKaDTcLWMWcu2c9/KPa9vFKpvlW
-         A84Xk2gr/Kur+/wHy7nwS5h0UDZ+iQUqaMFR1zpL3pdXvoThBUIl8vU3K2T98is6qE9z
-         zG7A==
-X-Forwarded-Encrypted: i=1; AJvYcCUQcGKd3JnCwnOeePXfb/2tyHiRh4EvxRr7H6I7bhZigjDHRC5ubDS55x7l6CH2tF/Wt1+HQl849VEguWtNlmQnQh7j19mHC5D62FNo
-X-Gm-Message-State: AOJu0YxL3pJEj7TSDrFGmCqkoglxtc/isUBRyddbqcJGR5w3nRHG4uNb
-	mZfbnHhguyzesUB9Nl9VVIpJjn5gYQDopVtKEGUSp6WsvTyyo5DfFpBIcYR2+3zhsA==
-X-Google-Smtp-Source: AGHT+IEsS46iEcSasaXWquxv5k5qikS5zVamCo2J4zeZor8vCboZ/fxtqwqJns14sHIDjc/FiAzt+Q==
-X-Received: by 2002:a17:907:72d5:b0:a46:a23f:bc2c with SMTP id du21-20020a17090772d500b00a46a23fbc2cmr27440ejc.25.1710533673785;
-        Fri, 15 Mar 2024 13:14:33 -0700 (PDT)
+        bh=dBxlSXrDIUeEZ7iizn8awIR/ya/+nU5wVcONbsK/8zI=;
+        b=gIoO3rHaCa/n4ODravtMyZAZomnRJAezgM4NAM/vDdxpJJSpJbXrsSy+eM+ArHZats
+         MKHqVhTYC0pgCyUwmOlYBJdQR7R8HrVDFka+z+BeyhaBOa3ZzTkZdnU8iaMiAqhzJ3yS
+         vssp8hqnJVcDNFepB5mQpjjcEQxXM40adA/WpGTIEDlI2tmnWV2DD5vYDygUkSF8+CkG
+         r/yhmzzqZhYjwHn3hmf5M6H4mI90WeDUTIVcumcR7ohj73sWG9rwYgFCxq2nAIAO5NKq
+         6xmJic7Ar+Wz2c11KuzdOrI4t2fPO5fYLkJBJ8Cqbi/QLQWSUhSHSxIYM7P0sXHKK30b
+         V3pg==
+X-Forwarded-Encrypted: i=1; AJvYcCUeon02+dKO+MHAlRrw/EJ2wvZT2iO8hGWEVWgqFIsrMAzZQCdGmUQ6P2dcQ3Ab9JcMNAim0RjcRVBK2tJ+j4VLfnUz8BEG3xARBfZC
+X-Gm-Message-State: AOJu0Yw0+chKZLqoCVXx8LaOjxBUzDe6yGLFJCbEzbDQIEt8jjov7qhV
+	kyaxd16+PQMX/IHkHKpdxiG+Wc70rwXNdxIoVz6GiFTcDC5BcQPlTUmvk8hvXvhdKw==
+X-Google-Smtp-Source: AGHT+IGJVvNqj73VhU6LSycjUX1baoHaIGvPqGQeLn2j+8zYNxKplG8ui654YHm2M01GsWthY0n2dA==
+X-Received: by 2002:ac2:4c38:0:b0:513:8a02:9e1b with SMTP id u24-20020ac24c38000000b005138a029e1bmr3213172lfq.35.1710533804439;
+        Fri, 15 Mar 2024 13:16:44 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.222.97])
-        by smtp.gmail.com with ESMTPSA id hj11-20020a170906874b00b00a46a04d7daesm90052ejb.115.2024.03.15.13.14.31
+        by smtp.gmail.com with ESMTPSA id wr6-20020a170907700600b00a4623030893sm1976885ejb.126.2024.03.15.13.16.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 Mar 2024 13:14:33 -0700 (PDT)
-Message-ID: <b70ceddb-0f36-4ee3-bafe-01e4683cc72a@linaro.org>
-Date: Fri, 15 Mar 2024 21:14:31 +0100
+        Fri, 15 Mar 2024 13:16:43 -0700 (PDT)
+Message-ID: <105dd240-a9c5-4767-8f43-3a63be0b2a5a@linaro.org>
+Date: Fri, 15 Mar 2024 21:16:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: Ayush Singh <ayushdevel1325@gmail.com>, linux-kernel@vger.kernel.org
 References: <20240315184908.500352-1-ayushdevel1325@gmail.com>
- <20240315184908.500352-3-ayushdevel1325@gmail.com>
+ <20240315184908.500352-5-ayushdevel1325@gmail.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -103,23 +103,23 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240315184908.500352-3-ayushdevel1325@gmail.com>
+In-Reply-To: <20240315184908.500352-5-ayushdevel1325@gmail.com>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 0F7393F387
+X-Rspamd-Queue-Id: B5C1140A53
 X-Spamd-Bar: ------
 X-Spamd-Result: default: False [-6.49 / 15.00];
 	REPLY(-4.00)[];
 	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
 	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MIME_GOOD(-0.10)[text/plain];
 	XM_UA_NO_VERSION(0.01)[];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	URIBL_BLOCKED(0.00)[mail-ej1-f47.google.com:rdns,mail-ej1-f47.google.com:helo,beagleboard.org:email];
+	URIBL_BLOCKED(0.00)[linaro.org:dkim,beagleboard.org:email,mail-lf1-f52.google.com:rdns,mail-lf1-f52.google.com:helo];
 	FREEMAIL_TO(0.00)[gmail.com,vger.kernel.org];
 	FREEMAIL_CC(0.00)[beagleboard.org,kernel.org,linaro.org,ti.com,amd.com,arndb.de,linuxfoundation.org,gmail.com,vger.kernel.org,lists.infradead.org,lists.linaro.org];
 	RCVD_TLS_LAST(0.00)[];
@@ -135,20 +135,18 @@ X-Spamd-Result: default: False [-6.49 / 15.00];
 	TAGGED_RCPT(0.00)[dt];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.218.47:from];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.167.52:from];
 	TO_DN_SOME(0.00)[]
+Message-ID-Hash: VGJFQFNEJD4TWDJHUFBDIGRFMHBIXD62
+X-Message-ID-Hash: VGJFQFNEJD4TWDJHUFBDIGRFMHBIXD62
 X-MailFrom: krzysztof.kozlowski@linaro.org
-X-Mailman-Rule-Hits: administrivia
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-Message-ID-Hash: KGPNQMR5I7EERADKRQDJ5GKZKZTJNV5R
-X-Message-ID-Hash: KGPNQMR5I7EERADKRQDJ5GKZKZTJNV5R
-X-Mailman-Approved-At: Mon, 18 Mar 2024 18:28:56 +0000
-CC: robertcnelson@beagleboard.org, Vaishnav M A <vaishnav@beagleboard.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Derek Kiernan <derek.kiernan@amd.com>, Dragan Cvetic <dragan.cvetic@amd.com>, Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org, linux-serial@vger.kernel.org, greybus-dev@lists.linaro.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: Vaishnav M A <vaishnav@beagleboard.org>, robertcnelson@beagleboard.org, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Derek Kiernan <derek.kiernan@amd.com>, Dragan Cvetic <dragan.cvetic@amd.com>, Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org, linux-serial@vger.kernel.org, greybus-dev@lists.linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v3 2/8] w1: Add w1_find_master_device
+Subject: [greybus-dev] Re: [PATCH v3 4/8] serdev: add of_ helper to get serdev controller
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/KGPNQMR5I7EERADKRQDJ5GKZKZTJNV5R/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/VGJFQFNEJD4TWDJHUFBDIGRFMHBIXD62/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -159,64 +157,69 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 On 15/03/2024 19:49, Ayush Singh wrote:
-> Add helper to find w1_master from w1_bus_master, which is present in
-> drvdata of platform device.
+> From: Vaishnav M A <vaishnav@beagleboard.org>
+> 
+> add of_find_serdev_controller_by_node to obtain a
+> serdev_controller from the device_node, which
+> can help if the serdev_device is not described
+> over device tree and instantiation of the device
+> happens from a different driver, for the same purpose
+> an option to not delete an empty serdev controller
+> is added.
 
-Who needs this?
+Don't make it difficult for us to read your commit msgs.
+Please wrap commit message according to Linux coding style / submission
+process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
 
 > 
 > Signed-off-by: Vaishnav M A <vaishnav@beagleboard.org>
 > Signed-off-by: Ayush Singh <ayushdevel1325@gmail.com>
 > ---
->  drivers/w1/w1.c     |  6 +++---
->  drivers/w1/w1_int.c | 27 +++++++++++++++++++++++++++
->  include/linux/w1.h  |  1 +
->  3 files changed, 31 insertions(+), 3 deletions(-)
-
-Why is this in the patchset? What are the dependencies? Please clearly
-express dependencies between patches or merging needs in cover letter.
-Otherwise please do not combine unrelated patches from different
-subsystems together. It's make review and merging only difficult.
-
+>  drivers/tty/serdev/core.c | 19 +++++++++++++++++++
+>  include/linux/serdev.h    |  4 ++++
+>  2 files changed, 23 insertions(+)
 > 
-> diff --git a/drivers/w1/w1.c b/drivers/w1/w1.c
-> index afb1cc4606c5..ce8a3f93f2ef 100644
-> --- a/drivers/w1/w1.c
-> +++ b/drivers/w1/w1.c
-> @@ -673,9 +673,9 @@ static int __w1_attach_slave_device(struct w1_slave *sl)
->  	sl->dev.of_node = of_find_matching_node(sl->master->dev.of_node,
->  						sl->family->of_match_table);
->  
-> -	dev_set_name(&sl->dev, "%02x-%012llx",
-> -		 (unsigned int) sl->reg_num.family,
-> -		 (unsigned long long) sl->reg_num.id);
-> +	dev_set_name(&sl->dev, "%s-%02x-%012llx", sl->master->name,
-> +		     (unsigned int)sl->reg_num.family,
-> +		     (unsigned long long)sl->reg_num.id);
->  	snprintf(&sl->name[0], sizeof(sl->name),
-
-Why? How is this related to the goal "add a helper"? Where is the helper
-used? I don't see. Don't combine unrelated topics in one patch.
-
->  		 "%02x-%012llx",
->  		 (unsigned int) sl->reg_num.family,
-> diff --git a/drivers/w1/w1_int.c b/drivers/w1/w1_int.c
-> index 3a71c5eb2f83..2bfef8e67687 100644
-> --- a/drivers/w1/w1_int.c
-> +++ b/drivers/w1/w1_int.c
-> @@ -242,3 +242,30 @@ void w1_remove_master_device(struct w1_bus_master *bm)
->  	__w1_remove_master_device(found);
+> diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
+> index 613cb356b918..5b5b3f2b2e42 100644
+> --- a/drivers/tty/serdev/core.c
+> +++ b/drivers/tty/serdev/core.c
+> @@ -555,6 +555,19 @@ static int of_serdev_register_devices(struct serdev_controller *ctrl)
+>  	return 0;
 >  }
->  EXPORT_SYMBOL(w1_remove_master_device);
+>  
+> +#if defined(CONFIG_OF)
+> +struct serdev_controller *of_find_serdev_controller_by_node(struct device_node *node)
+> +{
+> +	struct device *dev = bus_find_device_by_of_node(&serdev_bus_type, node);
 > +
-> +/**
-> + * w1_find_master_device() - find a master device
-> + * @bm:	master bus device to search
-> + */
-> +struct w1_master *w1_find_master_device(struct w1_bus_master *bm)
+> +	if (!dev)
+> +		return NULL;
+> +
+> +	return (dev->type == &serdev_ctrl_type) ? to_serdev_controller(dev) : NULL;
+> +}
+> +EXPORT_SYMBOL_GPL(of_find_serdev_controller_by_node);
+> +#endif
+> +
+>  #ifdef CONFIG_ACPI
+>  
+>  #define SERDEV_ACPI_MAX_SCAN_DEPTH 32
+> @@ -785,6 +798,12 @@ int serdev_controller_add(struct serdev_controller *ctrl)
+>  
+>  	pm_runtime_enable(&ctrl->dev);
+>  
+> +	/* provide option to not delete a serdev controller without devices
+> +	 * if property is present
+> +	 */
+> +	if (device_property_present(&ctrl->dev, "force-empty-serdev-controller"))
 
-Why are you duplicating w1_search_master_id()? Without locking? Sorry,
-this looks like you did not look at all at existing code.
+How is this related to topic of adding helper? Why are you adding some
+undocumented properties?
+
+No, it's the same in other patches - you combine unrelated goals into
+one patch. Please read carefully submitting patches document how to
+organize your patchset.
+
 
 Best regards,
 Krzysztof
