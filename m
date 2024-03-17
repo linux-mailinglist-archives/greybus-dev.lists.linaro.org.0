@@ -2,63 +2,63 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACD5787DFB2
-	for <lists+greybus-dev@lfdr.de>; Sun, 17 Mar 2024 20:38:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 098A687DFB6
+	for <lists+greybus-dev@lfdr.de>; Sun, 17 Mar 2024 20:38:31 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id BA0D940C96
-	for <lists+greybus-dev@lfdr.de>; Sun, 17 Mar 2024 19:38:21 +0000 (UTC)
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	by lists.linaro.org (Postfix) with ESMTPS id 8001B3F387
-	for <greybus-dev@lists.linaro.org>; Sun, 17 Mar 2024 19:38:19 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 1ADC643D46
+	for <lists+greybus-dev@lfdr.de>; Sun, 17 Mar 2024 19:38:30 +0000 (UTC)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	by lists.linaro.org (Postfix) with ESMTPS id C85843F387
+	for <greybus-dev@lists.linaro.org>; Sun, 17 Mar 2024 19:38:27 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=Jo59fPrp;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=FFj4mxDf;
 	dmarc=pass (policy=none) header.from=gmail.com;
-	spf=pass (lists.linaro.org: domain of ayushdevel1325@gmail.com designates 209.85.215.174 as permitted sender) smtp.mailfrom=ayushdevel1325@gmail.com
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-5dbf7b74402so2597885a12.0
-        for <greybus-dev@lists.linaro.org>; Sun, 17 Mar 2024 12:38:19 -0700 (PDT)
+	spf=pass (lists.linaro.org: domain of ayushdevel1325@gmail.com designates 209.85.216.45 as permitted sender) smtp.mailfrom=ayushdevel1325@gmail.com
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-29f69710cbbso687274a91.1
+        for <greybus-dev@lists.linaro.org>; Sun, 17 Mar 2024 12:38:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1710704299; x=1711309099; darn=lists.linaro.org;
+        d=gmail.com; s=20230601; t=1710704307; x=1711309107; darn=lists.linaro.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UinOTZiM3YNMDKxNGnpGam2fV1kcoN0T5SiTjM6PDTw=;
-        b=Jo59fPrpk6CJNA41/ivxpt3LbTgtuTrAJHgTQcIA9Kdj6qZVDg4ACMJ9pc51FB0S8b
-         paYx8BiIk9wbI1SPNC9yJ9chQ8ycYuprdPmGfaCFdvxaN+6GD+xQTfLL4cYEyWux5mnS
-         2GEaq5HWZhfdZkEyygncRS1LTubaasWWzPRPozSywxmp/ut9kBj0UjOnIDoIExP44N1A
-         wmAv3EjSG3CE3P4CirJNUoF0SYZd7yXYuIZYjr0Gp9U7ciBx/rmetLy7iZ+YWDuffthi
-         7lq9C+4MnTBPmxmm0fGmHQSKU/VjO8IiMtNd559b6g3SdinlIYsSu3QDOFxaKdiktlOb
-         o/Bg==
+        bh=vO9G69iyqVQbbyIAUNqe8gLJ4ujwClNwkyBvzcpz7K4=;
+        b=FFj4mxDf5FoALFmkcPSgnWldxcZESwLyPdYzz73MFDaQ/0OdNF/23LE4Q7A4l9NDVc
+         rKprUlGB3vuXojeFSm5qXzv2VRjolj29/JtcgnMYuP5gUL4tWuuh5iN8wvCg3gI2QSYJ
+         QXQrAs3jAH8oWGRpGno2BBCxH185HdkTosSAKkS6HNYx5T6iQhlaLZzE37OxUVLKTQyM
+         m6EkL0pOCegFf40RQ9M+i7UkNrzNSCPcye/1lUmwfhV+NsSRO/HnJVAN5rIOQqXtphvY
+         8tg4KSOZnrelKx1UzeQ8vs1guukzF0M30jIV+1L61hhMJ1+6d1YejCkl9fwcZJqE9uWM
+         URjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710704299; x=1711309099;
+        d=1e100.net; s=20230601; t=1710704307; x=1711309107;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=UinOTZiM3YNMDKxNGnpGam2fV1kcoN0T5SiTjM6PDTw=;
-        b=vXpvbHvLNquNkz/HZ9x0M7KYA3wEb3I+rklH7ZBgXYm4ebPfmZ1PctoImxI+O6CQ8p
-         azRTYIX3Zp+U0TbkrDyO17bGaIQ4OrDWhG2pm7/0tlgXBfhr4vu3uwUxwtYHLMmd34k7
-         giS/Wec1GKgbKlD/CUf4KdwXbj7aFpkd51112X/ZUzzLAEKoZGOau4HcsIhbHlGveU8o
-         m2fAwRkEy92ERyKIZGGwcavDwooXjJkFMQJCfILSPgGLclUw8PK8bFhaa9uqd4rdZPnV
-         qPeBaq7UNzUp0i1jz4cim1h1wRGU5I3E4NRYkPl3KJjd/TFcZCHeOvQ3h4g15582mTpj
-         dplg==
-X-Forwarded-Encrypted: i=1; AJvYcCXdZdsKdrv5iPeqNlRpyhnwKIcoETT8Q59Ix8UBRVoJNt3xFuBAMcw4EpI7jwC3kQ67CoiWzOozu8OOBnYc97RWh9M6ct6gGNjY33l3
-X-Gm-Message-State: AOJu0Yz+lQqmoA7dugiPkWnpWB9Tj+vurlU+7dlJuYCFOa5add3CnvSp
-	rwF0T8t1FRlxPwRbB+i4+FbLGLdJmWAr3yKOtYgotsU6amDO+CxR
-X-Google-Smtp-Source: AGHT+IE8sZpYbXV9uhPR2rh6t5U9D1DtJZ3euRB90f52HReQDmvoMLV1WheMChqENzxjwSQDTpqS1A==
-X-Received: by 2002:a05:6a21:9202:b0:1a3:5090:7268 with SMTP id tl2-20020a056a21920200b001a350907268mr5531078pzb.47.1710704298563;
-        Sun, 17 Mar 2024 12:38:18 -0700 (PDT)
+        bh=vO9G69iyqVQbbyIAUNqe8gLJ4ujwClNwkyBvzcpz7K4=;
+        b=am/W/TOyT10JYiz7y/YtTGbYb7b9Y9kr7XPzhbNGAw7LW+W8chVws3/GglG+xn7f49
+         IGlaV8a4lwh/LH4tEH9GNACJFhkYgH3oWsBWPEPVaipOWv3gEm5OLiydxShaj3ZxxNtk
+         w2DBj66V7C4iHDTN9q0uVWhqnlD/l9lnfrwjNSiFR6AXbBmZj1eFnZS7TESO/Etd7yWV
+         3z5hRQcmFT2tYvg+AqtmsVOC12SbUtrHJ/yGBtDqLHwDpDWaS5WAXvmMaZeSseeca7oF
+         U6N+IsRHQSC7MFQrvPPJ0ivPIrH4vWTTFUyX/f3Ve1Pc/lt1DnsppubGRQ7MmDHUgsHB
+         bxnA==
+X-Forwarded-Encrypted: i=1; AJvYcCUf3UOMPKryYwS8IS0+NbeGab7XSJitqDWLP1/GkHcgi+cYEMcO03TR3D6lyXuhRsQvDVM9DQzJWESaLzNnyz8WuIEajabLnC3PftMk
+X-Gm-Message-State: AOJu0YyrXwqyjaEonXB4LLCwgtW4ROotfW//di1LWipJmeZK315JPxeC
+	TsYbiHomimNGLv9CLjtUMNhmARJpMURWqsXfyyR4OfjPk5BktxiV
+X-Google-Smtp-Source: AGHT+IHb5ZQG5AZs1yNwiaA+uHOH5JqdctbG/pUZFDyCNz6pl0xo2W10sE+uFQzu766SlSdKr8rJ2g==
+X-Received: by 2002:a17:90a:de93:b0:29d:fb99:7dcc with SMTP id n19-20020a17090ade9300b0029dfb997dccmr9795831pjv.18.1710704306906;
+        Sun, 17 Mar 2024 12:38:26 -0700 (PDT)
 Received: from toolbox.iitism.net ([103.15.228.94])
-        by smtp.gmail.com with ESMTPSA id st6-20020a17090b1fc600b0029bbdc920besm6125995pjb.44.2024.03.17.12.38.10
+        by smtp.gmail.com with ESMTPSA id st6-20020a17090b1fc600b0029bbdc920besm6125995pjb.44.2024.03.17.12.38.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 17 Mar 2024 12:38:18 -0700 (PDT)
+        Sun, 17 Mar 2024 12:38:26 -0700 (PDT)
 From: Ayush Singh <ayushdevel1325@gmail.com>
 To: linux-kernel@vger.kernel.org (open list)
-Date: Mon, 18 Mar 2024 01:07:10 +0530
-Message-ID: <20240317193714.403132-3-ayushdevel1325@gmail.com>
+Date: Mon, 18 Mar 2024 01:07:11 +0530
+Message-ID: <20240317193714.403132-4-ayushdevel1325@gmail.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240317193714.403132-1-ayushdevel1325@gmail.com>
 References: <20240317193714.403132-1-ayushdevel1325@gmail.com>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 8001B3F387
+X-Rspamd-Queue-Id: C85843F387
 X-Spamd-Bar: -----
 X-Spamd-Result: default: False [-5.10 / 15.00];
 	REPLY(-4.00)[];
@@ -69,12 +69,12 @@ X-Spamd-Result: default: False [-5.10 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.215.174:from];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.216.45:from];
 	MIME_GOOD(-0.10)[text/plain];
 	ARC_NA(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[23];
+	RCPT_COUNT_TWELVE(0.00)[24];
 	MIME_TRACE(0.00)[0:+];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	TAGGED_RCPT(0.00)[dt];
@@ -90,16 +90,16 @@ X-Spamd-Result: default: False [-5.10 / 15.00];
 	FROM_HAS_DN(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: 45ARGTLRYTZFOXUYATCX56CXNA2UC2QW
-X-Message-ID-Hash: 45ARGTLRYTZFOXUYATCX56CXNA2UC2QW
+Message-ID-Hash: AYTWV6Q5Z4YX3ZQKRLIGMNFMWY6NDO3H
+X-Message-ID-Hash: AYTWV6Q5Z4YX3ZQKRLIGMNFMWY6NDO3H
 X-MailFrom: ayushdevel1325@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Ayush Singh <ayushdevel1325@gmail.com>, robertcnelson@beagleboard.org, lorforlinux@beagleboard.org, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Derek Kiernan <derek.kiernan@amd.com>, Dragan Cvetic <dragan.cvetic@amd.com>, Arnd Bergmann <arnd@arndb.de>, Vaishnav M A <vaishnav.a@ti.com>, Mark Brown <broonie@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated list:ARM/TEXAS INSTRUMENTS K3 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>, "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>
+CC: Ayush Singh <ayushdevel1325@gmail.com>, robertcnelson@beagleboard.org, lorforlinux@beagleboard.org, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Derek Kiernan <derek.kiernan@amd.com>, Dragan Cvetic <dragan.cvetic@amd.com>, Arnd Bergmann <arnd@arndb.de>, Vaishnav M A <vaishnav.a@ti.com>, Mark Brown <broonie@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated list:ARM/TEXAS INSTRUMENTS K3 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>, "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>, Vaishnav M A <vaishnav@beagleboard.org>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v4 2/5] spi: Make of_find_spi_controller_by_node() available
+Subject: [greybus-dev] [PATCH v4 3/5] greybus: Add mikroBUS manifest types
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/45ARGTLRYTZFOXUYATCX56CXNA2UC2QW/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/AYTWV6Q5Z4YX3ZQKRLIGMNFMWY6NDO3H/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -111,276 +111,188 @@ Content-Transfer-Encoding: 7bit
 
 DONOTMERGE
 
-This externalizes and exports the symbol
-of_find_spi_controller_by_node() from the SPI core akin to how
-of_find_i2c_adapter_by_node() is already available. As we will
-need this also for non-dynamic OF setups, we move it under a
-CONFIG_OF check.
+mikroBUS addon boards allow using same mikroBUS connector for a wide
+range of peripherals. It is also possible for the addon board not to use
+all the pins in mikroBUS socket (marked by NC or Not Connected). This
+would require the need to create an almost new overlays for each
+permutation of the hardware.
 
+To overcome this, a manifest format based on Greybus manifest
+specification was created which allows describing mikroBUS addon boards.
+The reason for choosing greybus manifest for the identifier is that so far
+we discussed only about physical mikroBUS ports on the board, but we can
+also have mikroBUS ports on a remote microcontroller appearing on host
+over greybus and there a device tree overlay solution does not work as the
+standard identifier mechanism.
+
+The patch introduces 3 new greybus descriptor types:
+1. mikrobus-descriptor:
+   Is a fixed-length descriptor (12 bytes), and the manifest shall have
+   precisely one mikroBUS descriptor. Each byte describes a configuration
+   of the corresponding pin on the mikroBUS addon board in a clockwise
+   direction starting from the PWM pin omitting power (VCC and ground)
+   pins as same as the default state of the pin.
+   There are mikroBUS addon boards that use some dedicated SPI, UART, PWM,
+   and I2C pins as GPIO pins, so it is necessary to redefine the default
+   pin configuration of that pins on the host system. Also, sometimes it is
+   required the pull-up on the host pin for correct functionality
+2. property-descriptor:
+   Are used to pass named properties or named GPIOs to the host. The host
+   system uses this information to properly configure specific board
+   drivers by passing the properties and GPIO name. There can be multiple
+   instances of property descriptors per add-on board manifest.
+3. device-descriptor:
+   Describes a device on the mikroBUS port. The device descriptor is a
+   fixed-length descriptor, and there can be multiple instances of device
+   descriptors in an add-on board manifest in cases where the add-on board
+   presents more than one device to the host.
+
+New mikroBUS addon boards also sometimes contain a 1-wire EEPROM with
+the mikroBUS manifest, thus enabling plug and play support.
+
+I have also created PR to add mikrobus descriptors in Greybus spec and I
+think the old PR on manifesto by Vaishnav should also work. However,
+both of these repositories seem to be inactive. I am guessing the
+greybus mailing list can provide more information on how I should go
+about these.
+
+Here is a sample mikroBUS manifest:
+```
+;;
+; PRESSURE CLICK
+; https://www.mikroe.com/pressure-click
+; CONFIG_IIO_ST_PRESS
+;
+; Copyright 2020 BeagleBoard.org Foundation
+; Copyright 2020 Texas Instruments
+;
+
+[manifest-header]
+version-major = 0
+version-minor = 1
+
+[interface-descriptor]
+vendor-string-id = 1
+product-string-id = 2
+
+[string-descriptor 1]
+string = MIKROE
+
+[string-descriptor 2]
+string = Pressure
+
+[mikrobus-descriptor]
+pwm-state = 4
+int-state = 1
+rx-state = 7
+tx-state = 7
+scl-state = 6
+sda-state = 6
+mosi-state = 5
+miso-state = 5
+sck-state = 5
+cs-state = 5
+rst-state = 2
+an-state = 1
+
+[device-descriptor 1]
+driver-string-id = 3
+protocol = 0x3
+reg = 0x5d
+
+[string-descriptor 3]
+string = lps331ap
+```
+
+Link: https://www.mikroe.com/clickid ClickID
+Link:
+https://docs.beagleboard.org/latest/projects/beagleconnect/index.html
+beagleconnect
+Link: https://github.com/projectara/greybus-spec Greybus Spec
+Link: https://github.com/projectara/greybus-spec/pull/4 Greybus Spec PR
+Link: https://github.com/projectara/manifesto/pull/2 manifesto PR
+
+Co-developed-by: Vaishnav M A <vaishnav@beagleboard.org>
+Signed-off-by: Vaishnav M A <vaishnav@beagleboard.org>
 Signed-off-by: Ayush Singh <ayushdevel1325@gmail.com>
 ---
- drivers/spi/spi.c       | 206 ++++++++++++++++++++--------------------
- include/linux/spi/spi.h |   4 +
- 2 files changed, 108 insertions(+), 102 deletions(-)
+ include/linux/greybus/greybus_manifest.h | 49 ++++++++++++++++++++++++
+ 1 file changed, 49 insertions(+)
 
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index ba4d3fde2054..9ec507d92f80 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -2320,6 +2320,93 @@ void spi_flush_queue(struct spi_controller *ctlr)
+diff --git a/include/linux/greybus/greybus_manifest.h b/include/linux/greybus/greybus_manifest.h
+index bef9eb2093e9..83241e19d9b3 100644
+--- a/include/linux/greybus/greybus_manifest.h
++++ b/include/linux/greybus/greybus_manifest.h
+@@ -23,6 +23,9 @@ enum greybus_descriptor_type {
+ 	GREYBUS_TYPE_STRING		= 0x02,
+ 	GREYBUS_TYPE_BUNDLE		= 0x03,
+ 	GREYBUS_TYPE_CPORT		= 0x04,
++	GREYBUS_TYPE_MIKROBUS		= 0x05,
++	GREYBUS_TYPE_PROPERTY		= 0x06,
++	GREYBUS_TYPE_DEVICE		= 0x07,
+ };
  
- /*-------------------------------------------------------------------------*/
+ enum greybus_protocol {
+@@ -151,6 +154,49 @@ struct greybus_descriptor_cport {
+ 	__u8	protocol_id;	/* enum greybus_protocol */
+ } __packed;
  
-+static void spi_controller_release(struct device *dev)
-+{
-+	struct spi_controller *ctlr;
++/*
++ * A mikrobus descriptor is used to describe the details
++ * about the bus ocnfiguration for the add-on board
++ * connected to the mikrobus port.
++ */
++struct greybus_descriptor_mikrobus {
++	__u8 pin_state[12];
++} __packed;
 +
-+	ctlr = container_of(dev, struct spi_controller, dev);
-+	kfree(ctlr);
-+}
++/*
++ * A property descriptor is used to pass named properties
++ * to device drivers through the unified device properties
++ * interface under linux/property.h
++ */
++struct greybus_descriptor_property {
++	__u8 length;
++	__u8 id;
++	__u8 propname_stringid;
++	__u8 type;
++	__u8 value[];
++} __packed;
 +
-+static struct class spi_master_class = {
-+	.name		= "spi_master",
-+	.dev_release	= spi_controller_release,
-+	.dev_groups	= spi_master_groups,
-+};
++/*
++ * A device descriptor is used to describe the
++ * details required by a add-on board device
++ * driver.
++ */
++struct greybus_descriptor_device {
++	__u8 id;
++	__u8 driver_stringid;
++	__u8 protocol;
++	__u8 reg;
++	__le32 max_speed_hz;
++	__u8 irq;
++	__u8 irq_type;
++	__u8 mode;
++	__u8 prop_link;
++	__u8 gpio_link;
++	__u8 reg_link;
++	__u8 clock_link;
++	__u8 pad[1];
++} __packed;
 +
-+static ssize_t slave_show(struct device *dev, struct device_attribute *attr,
-+			  char *buf)
-+{
-+	struct spi_controller *ctlr = container_of(dev, struct spi_controller,
-+						   dev);
-+	struct device *child;
-+
-+	child = device_find_any_child(&ctlr->dev);
-+	return sysfs_emit(buf, "%s\n", child ? to_spi_device(child)->modalias : NULL);
-+}
-+
-+static ssize_t slave_store(struct device *dev, struct device_attribute *attr,
-+			   const char *buf, size_t count)
-+{
-+	struct spi_controller *ctlr = container_of(dev, struct spi_controller,
-+						   dev);
-+	struct spi_device *spi;
-+	struct device *child;
-+	char name[32];
-+	int rc;
-+
-+	rc = sscanf(buf, "%31s", name);
-+	if (rc != 1 || !name[0])
-+		return -EINVAL;
-+
-+	child = device_find_any_child(&ctlr->dev);
-+	if (child) {
-+		/* Remove registered slave */
-+		device_unregister(child);
-+		put_device(child);
-+	}
-+
-+	if (strcmp(name, "(null)")) {
-+		/* Register new slave */
-+		spi = spi_alloc_device(ctlr);
-+		if (!spi)
-+			return -ENOMEM;
-+
-+		strscpy(spi->modalias, name, sizeof(spi->modalias));
-+
-+		rc = spi_add_device(spi);
-+		if (rc) {
-+			spi_dev_put(spi);
-+			return rc;
-+		}
-+	}
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR_RW(slave);
-+
-+static struct attribute *spi_slave_attrs[] = {
-+	&dev_attr_slave.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group spi_slave_group = {
-+	.attrs = spi_slave_attrs,
-+};
-+
-+static const struct attribute_group *spi_slave_groups[] = {
-+	&spi_controller_statistics_group,
-+	&spi_slave_group,
-+	NULL,
-+};
-+
-+static struct class spi_slave_class = {
-+	.name		= "spi_slave",
-+	.dev_release	= spi_controller_release,
-+	.dev_groups	= spi_slave_groups,
-+};
-+
- #if defined(CONFIG_OF)
- static void of_spi_parse_dt_cs_delay(struct device_node *nc,
- 				     struct spi_delay *delay, const char *prop)
-@@ -2543,6 +2630,23 @@ static void of_register_spi_devices(struct spi_controller *ctlr)
- 		}
- 	}
- }
-+
-+/* The spi controllers are not using spi_bus, so we find it with another way */
-+struct spi_controller *of_find_spi_controller_by_node(struct device_node *node)
-+{
-+	struct device *dev;
-+
-+	dev = class_find_device_by_of_node(&spi_master_class, node);
-+	if (!dev && IS_ENABLED(CONFIG_SPI_SLAVE))
-+		dev = class_find_device_by_of_node(&spi_slave_class, node);
-+	if (!dev)
-+		return NULL;
-+
-+	/* Reference got in class_find_device */
-+	return container_of(dev, struct spi_controller, dev);
-+}
-+EXPORT_SYMBOL_GPL(of_find_spi_controller_by_node);
-+
- #else
- static void of_register_spi_devices(struct spi_controller *ctlr) { }
- #endif
-@@ -2942,20 +3046,6 @@ static void acpi_register_spi_devices(struct spi_controller *ctlr)
- static inline void acpi_register_spi_devices(struct spi_controller *ctlr) {}
- #endif /* CONFIG_ACPI */
+ struct greybus_descriptor_header {
+ 	__le16	size;
+ 	__u8	type;		/* enum greybus_descriptor_type */
+@@ -164,6 +210,9 @@ struct greybus_descriptor {
+ 		struct greybus_descriptor_interface	interface;
+ 		struct greybus_descriptor_bundle	bundle;
+ 		struct greybus_descriptor_cport		cport;
++		struct greybus_descriptor_mikrobus	mikrobus;
++		struct greybus_descriptor_property	property;
++		struct greybus_descriptor_device	device;
+ 	};
+ } __packed;
  
--static void spi_controller_release(struct device *dev)
--{
--	struct spi_controller *ctlr;
--
--	ctlr = container_of(dev, struct spi_controller, dev);
--	kfree(ctlr);
--}
--
--static struct class spi_master_class = {
--	.name		= "spi_master",
--	.dev_release	= spi_controller_release,
--	.dev_groups	= spi_master_groups,
--};
--
- #ifdef CONFIG_SPI_SLAVE
- /**
-  * spi_slave_abort - abort the ongoing transfer request on an SPI slave
-@@ -2983,79 +3073,6 @@ int spi_target_abort(struct spi_device *spi)
- 	return -ENOTSUPP;
- }
- EXPORT_SYMBOL_GPL(spi_target_abort);
--
--static ssize_t slave_show(struct device *dev, struct device_attribute *attr,
--			  char *buf)
--{
--	struct spi_controller *ctlr = container_of(dev, struct spi_controller,
--						   dev);
--	struct device *child;
--
--	child = device_find_any_child(&ctlr->dev);
--	return sysfs_emit(buf, "%s\n", child ? to_spi_device(child)->modalias : NULL);
--}
--
--static ssize_t slave_store(struct device *dev, struct device_attribute *attr,
--			   const char *buf, size_t count)
--{
--	struct spi_controller *ctlr = container_of(dev, struct spi_controller,
--						   dev);
--	struct spi_device *spi;
--	struct device *child;
--	char name[32];
--	int rc;
--
--	rc = sscanf(buf, "%31s", name);
--	if (rc != 1 || !name[0])
--		return -EINVAL;
--
--	child = device_find_any_child(&ctlr->dev);
--	if (child) {
--		/* Remove registered slave */
--		device_unregister(child);
--		put_device(child);
--	}
--
--	if (strcmp(name, "(null)")) {
--		/* Register new slave */
--		spi = spi_alloc_device(ctlr);
--		if (!spi)
--			return -ENOMEM;
--
--		strscpy(spi->modalias, name, sizeof(spi->modalias));
--
--		rc = spi_add_device(spi);
--		if (rc) {
--			spi_dev_put(spi);
--			return rc;
--		}
--	}
--
--	return count;
--}
--
--static DEVICE_ATTR_RW(slave);
--
--static struct attribute *spi_slave_attrs[] = {
--	&dev_attr_slave.attr,
--	NULL,
--};
--
--static const struct attribute_group spi_slave_group = {
--	.attrs = spi_slave_attrs,
--};
--
--static const struct attribute_group *spi_slave_groups[] = {
--	&spi_controller_statistics_group,
--	&spi_slave_group,
--	NULL,
--};
--
--static struct class spi_slave_class = {
--	.name		= "spi_slave",
--	.dev_release	= spi_controller_release,
--	.dev_groups	= spi_slave_groups,
--};
- #else
- extern struct class spi_slave_class;	/* dummy */
- #endif
-@@ -4749,21 +4766,6 @@ static struct spi_device *of_find_spi_device_by_node(struct device_node *node)
- 	return dev ? to_spi_device(dev) : NULL;
- }
- 
--/* The spi controllers are not using spi_bus, so we find it with another way */
--static struct spi_controller *of_find_spi_controller_by_node(struct device_node *node)
--{
--	struct device *dev;
--
--	dev = class_find_device_by_of_node(&spi_master_class, node);
--	if (!dev && IS_ENABLED(CONFIG_SPI_SLAVE))
--		dev = class_find_device_by_of_node(&spi_slave_class, node);
--	if (!dev)
--		return NULL;
--
--	/* Reference got in class_find_device */
--	return container_of(dev, struct spi_controller, dev);
--}
--
- static int of_spi_notify(struct notifier_block *nb, unsigned long action,
- 			 void *arg)
- {
-diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-index e400d454b3f0..f6fb7bad9a90 100644
---- a/include/linux/spi/spi.h
-+++ b/include/linux/spi/spi.h
-@@ -1684,4 +1684,8 @@ spi_transfer_is_last(struct spi_controller *ctlr, struct spi_transfer *xfer)
- 	return list_is_last(&xfer->transfer_list, &ctlr->cur_msg->transfers);
- }
- 
-+#if IS_ENABLED(CONFIG_OF)
-+struct spi_controller *of_find_spi_controller_by_node(struct device_node *node);
-+#endif
-+
- #endif /* __LINUX_SPI_H */
 -- 
 2.44.0
 
