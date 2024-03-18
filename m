@@ -2,35 +2,35 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6A1887EFB9
-	for <lists+greybus-dev@lfdr.de>; Mon, 18 Mar 2024 19:29:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7C5887EFBA
+	for <lists+greybus-dev@lfdr.de>; Mon, 18 Mar 2024 19:29:14 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id CB19E43C35
-	for <lists+greybus-dev@lfdr.de>; Mon, 18 Mar 2024 18:29:08 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.17.12])
-	by lists.linaro.org (Postfix) with ESMTPS id E7ED03F3C8
-	for <greybus-dev@lists.linaro.org>; Mon, 18 Mar 2024 17:35:35 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id CB8ED43C3B
+	for <lists+greybus-dev@lfdr.de>; Mon, 18 Mar 2024 18:29:13 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+	by lists.linaro.org (Postfix) with ESMTPS id 5A9773F3C8
+	for <greybus-dev@lists.linaro.org>; Mon, 18 Mar 2024 17:58:43 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=web.de header.s=s29768273 header.b=JogwiI17;
+	dkim=pass header.d=web.de header.s=s29768273 header.b=V0+kA6Ha;
 	dmarc=pass (policy=quarantine) header.from=web.de;
-	spf=pass (lists.linaro.org: domain of Markus.Elfring@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=Markus.Elfring@web.de
+	spf=pass (lists.linaro.org: domain of Markus.Elfring@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=Markus.Elfring@web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1710783296; x=1711388096; i=markus.elfring@web.de;
-	bh=zL2UFIO2avZuf4cHRjFFmzwc7ks5q6OVftTUkucV4BQ=;
+	s=s29768273; t=1710784692; x=1711389492; i=markus.elfring@web.de;
+	bh=EY0Hjw4+w2olzLszyx5nxJuGBBuLjuPZp0CFP/bSy4c=;
 	h=X-UI-Sender-Class:Date:To:Cc:References:Subject:From:
 	 In-Reply-To;
-	b=JogwiI17BOi49/yQuCytE7MPZ/qIpHhWfyoqhHAd1TiqdebvHZReeoEAEJSrIeEN
-	 DX3zIUxRV8l7Bx7gh0YwFqKSx1gKdlhHNX1961842Z2I6fbVA2Qk+6VDWB76T92n0
-	 F2v1Z+ULfkSf/50Zf0cCOiTaNmG7vzwMFcFjQhFGduQl6nnd9CocAGpnT/hY0pZgk
-	 mKBXG4pRtCuoMQPwCwy8UmhLKG29gzFTUJIQ77MJ3llLubG0VDuNz2d93DZMhyk8p
-	 keSdAdQ5byNbGHds15H2XdG5kOeOEfWCHr4jJu8WsJVf5XsQPOp8NM93EXwNwQj/Q
-	 vSNz9+PuUCu6RYyE1g==
+	b=V0+kA6HaGYAa/C6ly7UFSp2H0nnpDWqAKynSkm9PMW1zp4uwDho8xbcsfVta02IC
+	 TECMyfpHJAgb6tzjOatfb4qt4pKi5/jxsWJBWHFhKpSrdkp538aOPB6WOYHfVjOyy
+	 qIT67Jp8LptmP5kgPUS6JDfSSdeVkGMpSYzZbTdb55Vl0cj/BrGPqo+0CcqbnCpWU
+	 leM7PVYh0icWowhyZfGGQKJff78MCjMUTx/hmO4gqEvwGILyUlNBeeRIMZrDWYkB5
+	 pPUbMmuiGZk200j+p9N1ctRaN8P6SDZN3pBPF/GuNoCOzlmVtewNGA2UcpsHYo0zv
+	 eiW33T1QVzxs8Zhb5w==
 X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.90.95]) by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MzkSZ-1qrOwA3vX7-00vVE0; Mon, 18
- Mar 2024 18:34:56 +0100
-Message-ID: <7d834747-0004-4556-b260-c747074a5df6@web.de>
-Date: Mon, 18 Mar 2024 18:34:47 +0100
+Received: from [192.168.178.21] ([94.31.90.95]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MEUW8-1rXUSX3rQo-00GPBA; Mon, 18
+ Mar 2024 18:58:12 +0100
+Message-ID: <4fe6f68a-786c-4e3d-b97d-847d6965d1d3@web.de>
+Date: Mon, 18 Mar 2024 18:58:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ayush Singh <ayushdevel1325@gmail.com>,
@@ -42,36 +42,36 @@ References: <20240317193714.403132-5-ayushdevel1325@gmail.com>
 Content-Language: en-GB
 From: Markus Elfring <Markus.Elfring@web.de>
 In-Reply-To: <20240317193714.403132-5-ayushdevel1325@gmail.com>
-X-Provags-ID: V03:K1:rGQO4fDn0vNN389tBnKe7onogTvUErLvvTXduyGL6pWKFdmDEqy
- MCYn5pkmCHDACrPUJoNy2C7GvGm1hYCvBujMK+WsDmVllQ2MYfQf5+4qeUPkILbJYGTHjoy
- cMNmBfhajyMkcoBbxdstbnNIoU6tToHIwCqiARcUKBEdM5V/z5GbrKM5TGJjdtTWsSdEl7J
- mBvYGlMAiI8JvT71ryP2A==
+X-Provags-ID: V03:K1:r2F2bDMqhKgRohtQ/KunHakzfn6SdVEejCaMS6iHsj0TxlpYJDf
+ RrWyxna0jlyusRSuyumnI75ggM8jsvsRXuSkQ+/ETO/lUp0oSXC9pz2E4IlOZ9wQh6jBCds
+ bS85YDJhYeS6L89hUauyhAwrYwYEqHG2jr+keShniaDz4CFsK+CsnljCojrVTaPQA/g3eCA
+ Ml3JtrgsjHUHmOJ/28sfw==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:7zD/DEBSM+I=;jR8jlBRRX3dOz59O2ZMyBlQGtol
- u0BPn49w8vjSOeOdVkdxwlyYABexe3OvWICT6qmI9Apqsf9MKaxT8EIV5+CV04pIdjvwBE896
- 1ueen8J87DYHuiI3PzZnN+2NoQbCptvE68Jp6AymKTBzPe1vw2VjsReQIqjUJJiKlsQ2jAePP
- Yi/m9dWJ1XlzlQBGURVqOHxAn4n9S+bWzqs6W3pULZkbgnMH8BIU/XqkCnCxReW/TiGzEii/G
- EFpvohWYchriay7ZZv4oP+nPZ633qrUYakf2SIlL69r/Rrvi3Kzze5ppl5HJAmnYB5Wvy0IkZ
- 5SLUhpV/0DsR4+SLaUn4EEFq2rjOdWZWriQKIBXcw8/FhoEUQq8tHOeaaxy/AF+wsSUp+15q+
- k10dFxBhHnOfJ2jBWXmNfsIqj1iGGquEu8QzAV69obc26noD1e9qnKhVzWZm8mil9YyHiLYSl
- sDcXCAaccEogysA0PlBqbwcWC38hnHB2qAU89hV63umMfwr/VqD3P30E6/haT6MScpodO0tz0
- rTIaj1KNEQp2qe2SYILnp1syn1GTieirb/cnkJmoFoITI/Y66OX+CAVdyeHaJYDMStfLSljUE
- NnEzzX0PWIkut/Rkg3FOEcPeovfKjha0PoMGYm/x3QDpmDXnMkuunqrxn37M1Hxh5CkcozJzO
- wrXAIyT4AoPvF55AwkS19hbVqbV9J8V5cXn6l0OYdxyjXn+HZZKcaXedRBYmazomRlXQa7dX/
- jFczj4w8pDvlGGnOeRqD3awYga8yynVb2zhc9y2ELKVi6jiWv1GLaNSm87XUSpL2l6Nc/Rc3T
- kES1V8VyySJ69k0OKaP1TK1gG/zBpZ9dRvmKLmTiF3McI=
-X-Rspamd-Queue-Id: E7ED03F3C8
+UI-OutboundReport: notjunk:1;M01:P0:ghagHPhdV3o=;yuht04V33nbPduIWJm5LROvF4bF
+ /mLWU5oe42zYF7JLibuZkzWFb+gf+YmBIGHGdYu4UCfnOp1aiD+sRl3R7M76F3vkCAhgLNcOF
+ YjrgrL7+payvk4Wh2j/YXEAp39TNY52nowu6jOq3so6bt55wnnr5IqPCqWTUA6dhWuzeAwgBY
+ SCwBY2LDqW/iwYqiS+5uqWMvA47t+fIgy2ir9HyQBMjF/UUtv/cfjIft4uDta4ez6rPWaBBmh
+ qaUoej3dKW0eeEUNPLLWqqasPR+aYU6deVd+jKgXBCDFV8J8nofHQiO0aosdcgnILhANO1boy
+ jgUU6rkvVXubH6a6U7HQwbdKWNoi2Iy8gQ5PbyoQwlzWno8Yx4FJJKNv1saruY0/YAbamVukN
+ u/CSjXJfPAseIQrjvH49stmGF7mDfANdB7bAvwpkdB8wbzOn4t8zRWLRfbDYXDuf592Qpd5eo
+ 39pT6uzskfyulbIaJXoT/dGDq8ctIlTfqRSIGFfHYuCyxqA3HDTJVaY8s/cBK+RUqXcB5k+yW
+ MAJmdQt3fCxZkTVTfPkzdNdL+5UnmM2uilI9Fuf7Gz9fRmTe+xl4aD+xqrnEr9ZepO0VLu9vF
+ owmdMlWsWtxpofgSPasQq0DC3kgfG2amOqvHHIO0gFJYk7iXrJzp4RzkfWfhJIw/RglljeDdP
+ w9aSMI+WiY6LOREuBw7/GjP/jhF4xDv0Upy68hS4CyIAXctr0/7OysI0PRa1iiRayjj7DhR4z
+ 1HtmAUAxid+S57vX0IMxdlzb52Tfl0xs4rwm+MEh4WjqI8sQUReeKqpeAPExHAMVh831maXZV
+ Hik+fmwx5psU57Jpl6tquYdXEHmYGXV+ZW7IKksyULOdc=
+X-Rspamd-Queue-Id: 5A9773F3C8
 X-Spamd-Bar: ------
 X-Spamd-Result: default: False [-6.49 / 15.00];
 	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
+	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[web.de,quarantine];
 	R_DKIM_ALLOW(-0.20)[web.de:s=s29768273];
 	R_SPF_ALLOW(-0.20)[+a:mout.web.de];
 	ONCE_RECEIVED(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[212.227.17.12:from];
+	RWL_MAILSPIKE_GOOD(-0.10)[212.227.17.11:from];
 	XM_UA_NO_VERSION(0.01)[];
 	RCPT_COUNT_TWELVE(0.00)[25];
 	TO_DN_SOME(0.00)[];
@@ -95,15 +95,15 @@ X-Rspamd-Server: lists.linaro.org
 X-MailFrom: Markus.Elfring@web.de
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 6ZMKCQVGPAPO4D5DPXJWYPGZOZPAD4WZ
-X-Message-ID-Hash: 6ZMKCQVGPAPO4D5DPXJWYPGZOZPAD4WZ
+Message-ID-Hash: F5ZHFOVLPIMWPTBYEV2QLRJF6UP7H5SS
+X-Message-ID-Hash: F5ZHFOVLPIMWPTBYEV2QLRJF6UP7H5SS
 X-Mailman-Approved-At: Mon, 18 Mar 2024 18:28:57 +0000
 CC: LKML <linux-kernel@vger.kernel.org>, Alex Elder <elder@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Conor Dooley <conor+dt@kernel.org>, Derek Kiernan <derek.kiernan@amd.com>, Dragan Cvetic <dragan.cvetic@amd.com>, Johan Hovold <johan@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Mark Brown <broonie@kernel.org>, Nishanth Menon <nm@ti.com>, Rob Herring <robh@kernel.org>, Robert Nelson <robertcnelson@beagleboard.org>, Tero Kristo <kristo@kernel.org>, Vaishnav M A <vaishnav.a@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH v4 4/5] mikrobus: Add mikroBUS driver
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/6ZMKCQVGPAPO4D5DPXJWYPGZOZPAD4WZ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/F5ZHFOVLPIMWPTBYEV2QLRJF6UP7H5SS/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -114,18 +114,18 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 
 4oCmDQo+ICsrKyBiL2RyaXZlcnMvbWlzYy9taWtyb2J1cy9taWtyb2J1c19jb3JlLmMNCuKApg0K
-PiArc3RhdGljIGludCBtaWtyb2J1c19waW5jdHJsX3NlbGVjdChzdHJ1Y3QgbWlrcm9idXNfcG9y
-dCAqcG9ydCwNCj4gKwkJCQkgICBjb25zdCBjaGFyICpwaW5jdHJsX3NlbGVjdGVkKQ0KPiArew0K
-PiArCXN0cnVjdCBwaW5jdHJsX3N0YXRlICpzdGF0ZTsNCj4gKwlpbnQgcmV0Ow0KPiArDQo+ICsJ
-c3RhdGUgPSBwaW5jdHJsX2xvb2t1cF9zdGF0ZShwb3J0LT5waW5jdHJsLCBwaW5jdHJsX3NlbGVj
-dGVkKTsNCj4gKwlpZiAoSVNfRVJSKHN0YXRlKSkgew0KPiArCQlyZXR1cm4gZGV2X2Vycl9wcm9i
-ZSgmcG9ydC0+ZGV2LCBQVFJfRVJSKHN0YXRlKSwNCj4gKwkJCQkgICAgICJmYWlsZWQgdG8gZmlu
-ZCBzdGF0ZSAlcyIsDQo+ICsJCQkJICAgICBwaW5jdHJsX3NlbGVjdGVkKTsNCj4gKwl9DQrigKYN
-Cg0KSSBzdWdnZXN0IHRvIHJlY29uc2lkZXIgdGhlIG5lZWQgZm9yIGV4dHJhIGN1cmx5IGJyYWNr
-ZXRzIGhlcmUuDQoNClNlZSBhbHNvOg0KU2VjdGlvbiDigJwzKSBQbGFjaW5nIEJyYWNlcyBhbmQg
-U3BhY2Vz4oCdDQpodHRwczovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dp
-dC90b3J2YWxkcy9saW51eC5naXQvdHJlZS9Eb2N1bWVudGF0aW9uL3Byb2Nlc3MvY29kaW5nLXN0
-eWxlLnJzdD9oPXY2LjgjbjE5Nw0KDQoNClJlZ2FyZHMsDQpNYXJrdXMNCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcgbGlz
-dCAtLSBncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnClRvIHVuc3Vic2NyaWJlIHNlbmQgYW4g
-ZW1haWwgdG8gZ3JleWJ1cy1kZXYtbGVhdmVAbGlzdHMubGluYXJvLm9yZwo=
+PiArc3RhdGljIGludCBtaWtyb2J1c19waW5jdHJsX3NldHVwKHN0cnVjdCBtaWtyb2J1c19wb3J0
+ICpwb3J0LA0KPiArCQkJCSAgc3RydWN0IGFkZG9uX2JvYXJkX2luZm8gKmJvYXJkKQ0KPiArew0K
+PiArCWludCByZXQ7DQo+ICsNCj4gKwlpZiAoIWJvYXJkIHx8IGJvYXJkLT5waW5fc3RhdGVbTUlL
+Uk9CVVNfUElOX1BXTV0gPT0gTUlLUk9CVVNfU1RBVEVfUFdNKQ0KPiArCQlyZXQgPSBtaWtyb2J1
+c19waW5jdHJsX3NlbGVjdChwb3J0LCAicHdtX2RlZmF1bHQiKTsNCj4gKwllbHNlDQo+ICsJCXJl
+dCA9IG1pa3JvYnVzX3BpbmN0cmxfc2VsZWN0KHBvcnQsICJwd21fZ3BpbyIpOw0K4oCmDQoNCkhv
+dyBkbyB5b3UgdGhpbmsgYWJvdXQgdG8gYXZvaWQgdGhlIHNwZWNpZmljYXRpb24gb2YgYSBiaXQg
+b2YgZHVwbGljYXRlIHNvdXJjZSBjb2RlIGhlcmUNCmJ5IHVzaW5nIGNvbmRpdGlvbmFsIG9wZXJh
+dG9yIGV4cHJlc3Npb25zPw0KDQoJcmV0ID0gbWlrcm9idXNfcGluY3RybF9zZWxlY3QocG9ydCwN
+CgkJCQkgICAgICAoKCFib2FyZCB8fA0KCQkJCQlib2FyZC0+cGluX3N0YXRlW01JS1JPQlVTX1BJ
+Tl9QV01dID09IE1JS1JPQlVTX1NUQVRFX1BXTSkNCgkJCQkgICAgICA/ICJwd21fZGVmYXVsdCIN
+CgkJCQkgICAgICA6ICJwd21fZ3BpbyIpKTsNCg0KDQpSZWdhcmRzLA0KTWFya3VzDQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpncmV5YnVzLWRldiBtYWls
+aW5nIGxpc3QgLS0gZ3JleWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpUbyB1bnN1YnNjcmliZSBz
+ZW5kIGFuIGVtYWlsIHRvIGdyZXlidXMtZGV2LWxlYXZlQGxpc3RzLmxpbmFyby5vcmcK
