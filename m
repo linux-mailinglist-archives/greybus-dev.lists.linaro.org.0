@@ -2,65 +2,65 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF7DD880C0A
-	for <lists+greybus-dev@lfdr.de>; Wed, 20 Mar 2024 08:31:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B6A1880C19
+	for <lists+greybus-dev@lfdr.de>; Wed, 20 Mar 2024 08:33:38 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id B294740C65
-	for <lists+greybus-dev@lfdr.de>; Wed, 20 Mar 2024 07:31:17 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	by lists.linaro.org (Postfix) with ESMTPS id AF89040B68
-	for <greybus-dev@lists.linaro.org>; Wed, 20 Mar 2024 07:31:15 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 2D6CF40C65
+	for <lists+greybus-dev@lfdr.de>; Wed, 20 Mar 2024 07:33:37 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	by lists.linaro.org (Postfix) with ESMTPS id CC9FF40B68
+	for <greybus-dev@lists.linaro.org>; Wed, 20 Mar 2024 07:33:34 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=Jpp0bHkK;
+	dkim=pass header.d=linaro.org header.s=google header.b=WZy3L5vO;
 	dmarc=pass (policy=none) header.from=linaro.org;
-	spf=pass (lists.linaro.org: domain of krzysztof.kozlowski@linaro.org designates 209.85.218.46 as permitted sender) smtp.mailfrom=krzysztof.kozlowski@linaro.org
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-a46ba938de0so443348266b.3
-        for <greybus-dev@lists.linaro.org>; Wed, 20 Mar 2024 00:31:15 -0700 (PDT)
+	spf=pass (lists.linaro.org: domain of krzysztof.kozlowski@linaro.org designates 209.85.208.54 as permitted sender) smtp.mailfrom=krzysztof.kozlowski@linaro.org
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-5684db9147dso8184892a12.2
+        for <greybus-dev@lists.linaro.org>; Wed, 20 Mar 2024 00:33:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1710919874; x=1711524674; darn=lists.linaro.org;
+        d=linaro.org; s=google; t=1710920014; x=1711524814; darn=lists.linaro.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8xEIUTznrQVSL70C6oRjL1I5rh5o7wWPgx3F+xPmOKY=;
-        b=Jpp0bHkKjwfM8Mb9Dlxg68cBoSfZ0x2XtpFgliLxESVvixkaX08csDAeHMZV+k5G4P
-         fRvntt/vXQKT8Zrc1nJgBgre4sUormJHdC2z1Pzlm/FlCANUt58P4nVE5q3b+SCn7I2m
-         xomoNO90FZIdK9+j6qDlwPIMexKXg3TVWqQb9UiIAZuXWz+zrirFP+Yw1If+xc9vC8dz
-         MVlbno2skaDluY5pZRReUrZZnGCiSbzHOExJeTHEd6hmCNt+IQETFRaaqT2LUWYtLcw9
-         eWrE41clEDs0jCJANm7CW8CkwqqqxHAErr+06nyrBImPZn9dsR9G2FWGq+Hbi7B3iqNh
-         U91w==
+        bh=p5deiIMhYCfrkmCItarATpsEyhZm2ffcwU7JWYPBd+k=;
+        b=WZy3L5vO4wNFQ9f0ggxswYTeSfoOoC0HpfRoF9gb/7qqcZdOlG5Hd4OCjbVj2kAdNi
+         EB/v6PbdSgGZ1U0nTLsZZCaevJzTtV9kkJXypZBt/g++Ydidkd5qTB43Y78Gt6+T8x81
+         fdqd8qKsA1VwrLQjG5yGDrdygiI9dPK+Ieb5cSCopAt03jFwGAlirO61QmsviEQyQlEN
+         gUt4nSlV8oaovffRzQNMIi/LAS3KmI9NQE+NDQpnTrWKJNsu2qH7t71W3+AdqAq2KJoa
+         TyFsBNMN/Zif+rFZZRKJJgAQZi5EX4HLYEIqE5/cNjbcCqcklBX29zxT4sux+YD6wCT8
+         T03w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710919874; x=1711524674;
+        d=1e100.net; s=20230601; t=1710920014; x=1711524814;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8xEIUTznrQVSL70C6oRjL1I5rh5o7wWPgx3F+xPmOKY=;
-        b=Zbmenta9x8rBm27Fq0USC0Trd8Lgh5p5qyWIZPlPr71PpgRgEUqzX8OKbI/7ivAI9Y
-         wuibjpnao/6Fp26/2O5948KQNuEFqJXGahPeJ5o/J1nHNz9V3PcKbZcv2N/nug/UGaOd
-         FM5YWtHgkDUET4Zc7dXOuNhobf6MGFwF2Em7rLX2OpCWJn5dKBFoKZZbWCEnMcQlck9a
-         hIb5wj12me1uvyRyP2Pcb00Ryfi3ps8AmZrgLynvkLorw2HG95NUBoAhyX83Q/G2ZA3m
-         z7g8zZmjQWGo92yckXHOFTQlFiZ3cvxP4qioJiE+lmzcytqYX6B24lAspzMdFrQHLvVB
-         zelg==
-X-Forwarded-Encrypted: i=1; AJvYcCX9kBT8WbHROTpAdbC6ucE6ZVxndjTE17lNa8LqlUc3nEFPZ0JgiSb8q6fc7pWgTO5lOw4/jNv5LKVPP+eg4CS2Xcx0vC246NT/gvqI
-X-Gm-Message-State: AOJu0YyL4Cx5NXn55lTitM5vh1OISJj/fHaFf4LYASnh8W4clOsCCX6I
-	ZuqWgmUJHMDwKc4z14hm+UaCydvQQqaUS0Ozao/biAWL9VcHASpBfOsXickFMUYq+w==
-X-Google-Smtp-Source: AGHT+IF1j6M4tEq92+m+SqkomIgZHn/M+kPz7rRG4xKuSv1DpkrJ9WhLR7h3XwPVp1W7n7fFi5mRrw==
-X-Received: by 2002:a17:906:f884:b0:a46:be82:f478 with SMTP id lg4-20020a170906f88400b00a46be82f478mr5114732ejb.68.1710919874527;
-        Wed, 20 Mar 2024 00:31:14 -0700 (PDT)
+        bh=p5deiIMhYCfrkmCItarATpsEyhZm2ffcwU7JWYPBd+k=;
+        b=D/kgx7tB7xJndNRSxtcoEx9tamvc+4rJtOSNt3BMBM8DLXtSO9Qy5lvZ327zlohVQY
+         AUIPmLASwKszfQrE/nK0y9zGDeCYze6V463yNLE8pZEUTaHxaUwAE+mqY+WqdNXDJeEu
+         dhJb4Z/1nKBd7Kg7YyDt83wBTMKDpAid+a8sVc7F/62hpHEbI1IOsi9LM0e6pamE9axF
+         90JIY47/eVvigFLJhErnlIZ++r1okCX34nskFyvrFmFg2vAtDbyTlsEWm0pa9jMcVZ2k
+         u1FPEVMOfjMDjxD331QyODSeqvf1DxeOyIuiDedHq0joq7B5oq7eqnRwwubtyDifjPws
+         oe6w==
+X-Forwarded-Encrypted: i=1; AJvYcCVbGfWgIatk8XLaDV6DjuTOlBDCBKkleM9ArLtSCVObFqL74ZL9FUpXFyXJf7GebXSgOR9mQqs8YHYjNBCmz70zblM72YbwaTKxApgO
+X-Gm-Message-State: AOJu0YzKbzmNr3yvhNmnK9ut3K0f2kun9EkTWoozFcG1cGr6pIKeLvBu
+	gN7N/eWYrjGPcR0yqkMtdRW0eimvXvIfhGHLNu+TmluNHfTQLM7/KHaNlRLDBLyjVg==
+X-Google-Smtp-Source: AGHT+IG5PK316ydqUZrM+igAyTxLuf1UHhhNQNREpQwKusgWBDUQ5CKnQWx4fkq80uMKNNpToynGFQ==
+X-Received: by 2002:a05:6402:1586:b0:567:de59:e93e with SMTP id ij6-20020a056402158600b00567de59e93emr10687215edb.25.1710920013695;
+        Wed, 20 Mar 2024 00:33:33 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.222.97])
-        by smtp.gmail.com with ESMTPSA id e9-20020a170906c00900b00a46ce8f5e11sm2481648ejz.152.2024.03.20.00.31.12
+        by smtp.gmail.com with ESMTPSA id u11-20020a056402110b00b00568d60cfbccsm3475110edv.42.2024.03.20.00.33.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 20 Mar 2024 00:31:14 -0700 (PDT)
-Message-ID: <13ced390-71a0-4edf-b2f0-19195ec30c22@linaro.org>
-Date: Wed, 20 Mar 2024 08:31:11 +0100
+        Wed, 20 Mar 2024 00:33:33 -0700 (PDT)
+Message-ID: <9a029a22-93dc-452a-8746-e9b598d295cf@linaro.org>
+Date: Wed, 20 Mar 2024 08:33:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ayush Singh <ayushdevel1325@gmail.com>,
  open list <linux-kernel@vger.kernel.org>
 References: <20240317193714.403132-1-ayushdevel1325@gmail.com>
- <20240317193714.403132-6-ayushdevel1325@gmail.com>
- <889fb174-076c-44d1-9c6f-c3b967cd01ea@linaro.org>
- <3ed8c487-544b-4d72-b1e0-edb5baa8119b@gmail.com>
+ <20240317193714.403132-5-ayushdevel1325@gmail.com>
+ <06009676-6189-40b9-a6d6-66a112e4f387@linaro.org>
+ <89ec1649-5231-422e-9760-6e04b2a514fd@gmail.com>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -107,46 +107,47 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <3ed8c487-544b-4d72-b1e0-edb5baa8119b@gmail.com>
-X-Rspamd-Queue-Id: AF89040B68
+In-Reply-To: <89ec1649-5231-422e-9760-6e04b2a514fd@gmail.com>
+X-Rspamd-Queue-Id: CC9FF40B68
 X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.59 / 15.00];
+X-Spamd-Result: default: False [-2.49 / 15.00];
 	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17:c];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.218.46:from];
 	XM_UA_NO_VERSION(0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[24];
-	TAGGED_RCPT(0.00)[dt];
-	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[24];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.208.54:from];
+	MIME_TRACE(0.00)[0:+];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	TAGGED_RCPT(0.00)[dt];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com,vger.kernel.org];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[209.85.208.54:from];
 	RCVD_COUNT_TWO(0.00)[2];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	RCVD_TLS_LAST(0.00)[];
 	DKIM_TRACE(0.00)[linaro.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: R2NQH7SSMKPE46WMKVLZKCZYTB2G6VTU
-X-Message-ID-Hash: R2NQH7SSMKPE46WMKVLZKCZYTB2G6VTU
+Message-ID-Hash: EUE5SH6PJ7ACEALS23IVIRY52QAFTGH5
+X-Message-ID-Hash: EUE5SH6PJ7ACEALS23IVIRY52QAFTGH5
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: robertcnelson@beagleboard.org, lorforlinux@beagleboard.org, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Derek Kiernan <derek.kiernan@amd.com>, Dragan Cvetic <dragan.cvetic@amd.com>, Arnd Bergmann <arnd@arndb.de>, Vaishnav M A <vaishnav.a@ti.com>, Mark Brown <broonie@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated list:ARM/TEXAS INSTRUMENTS K3 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>, "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>, Vaishnav M A <vaishnav@beagleboard.org>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v4 5/5] dts: ti: k3-am625-beagleplay: Add mikroBUS
+Subject: [greybus-dev] Re: [PATCH v4 4/5] mikrobus: Add mikroBUS driver
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/R2NQH7SSMKPE46WMKVLZKCZYTB2G6VTU/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/EUE5SH6PJ7ACEALS23IVIRY52QAFTGH5/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -156,39 +157,39 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 19/03/2024 07:34, Ayush Singh wrote:
+On 19/03/2024 07:47, Ayush Singh wrote:
+> On 3/19/24 11:34, Krzysztof Kozlowski wrote:
 > 
-> On 3/19/24 11:29, Krzysztof Kozlowski wrote:
 >> On 17/03/2024 20:37, Ayush Singh wrote:
 >>> DONOTMERGE
->> Why? Explain then the purpose of this patch.
+>>>
+>>> this patch depends on Patch 1, 2, 3
+>> So none of your work should be reviewed? I don't understand this, but in
+>> such case I am not going to review it.
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> I am a bit lost here. It was mentioned in the patch v3 that I should 
+> specify the interdependence of patches in v3. And now you are saying I 
+> should not?
 > 
-> Well, it was suggested to have DONOTMERGE by Vaishnav in the patches 
-> until dt bindings have been approved, since this patch touches different 
-> subsystems. Here is the full context from v3:
+> Here is the rationale for the dependence:
 > 
->> The reasoning behind this is that these patches go in to separate  maintainer trees and without the bindings merged first the device tree changes cannot be validated, thus it is a usual practice to get the bindings and driver merged first and the device tree changes to go in the next cycle. Another alternative is you can point to your fork with  all the changes together.
-
-This is some odd style of work. Please don't follow such advise.
-
+> 1. Any changes to the property names in dt-bindings patch 1 will need an 
+> appropriate change here.
 > 
->>> this patch depends on patch 1
->> How? I don't see any dependency.
+> 2. This patch will fail to build without patch 2.
 > 
-> I think it is not allowed to have code in device tree unless a 
-> corresponding dt-binding exists for the device. And thus every time the 
+> 3. This patch will fail to build without patch 3.
 
-And you provided the binding.
+This is a natural ordering of patches... but the point is that it makes
+ZERO sense once applied to Git repo. Your commit *MUST* make sense in
+the Git. Now it does not.
 
-> dt-binding changes, this patch also needs to change.So I thought it is 
-> dependent on patch 1.
-
-But it is not a dependency. Dependency means something does not work
-without another. Or something must be applied in the same branch as
-another. None of the cases are here. Drop the statements.
-
-This is no different than all of our regular works. Do you see any of
-such comments ("dont merge", "dependency")? No.
+Explain in cover letter what is the merging strategy. You can also
+mention in patch changelog (---) that one patch must be applied
+toogether with another.
 
 Best regards,
 Krzysztof
