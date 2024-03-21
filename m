@@ -2,204 +2,232 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0643088589C
-	for <lists+greybus-dev@lfdr.de>; Thu, 21 Mar 2024 12:55:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A61FF885920
+	for <lists+greybus-dev@lfdr.de>; Thu, 21 Mar 2024 13:31:54 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D733340C68
-	for <lists+greybus-dev@lfdr.de>; Thu, 21 Mar 2024 11:55:54 +0000 (UTC)
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
-	by lists.linaro.org (Postfix) with ESMTPS id 54E0640B68
-	for <greybus-dev@lists.linaro.org>; Thu, 21 Mar 2024 11:55:53 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 92E3140C65
+	for <lists+greybus-dev@lfdr.de>; Thu, 21 Mar 2024 12:31:53 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by lists.linaro.org (Postfix) with ESMTPS id E010140B68
+	for <greybus-dev@lists.linaro.org>; Thu, 21 Mar 2024 12:31:50 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=ti.com header.s=ti-com-17Q1 header.b=wLyXcSx9;
-	dmarc=pass (policy=quarantine) header.from=ti.com;
-	spf=pass (lists.linaro.org: domain of vaishnav.a@ti.com designates 198.47.19.142 as permitted sender) smtp.mailfrom=vaishnav.a@ti.com
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
-	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 42LBtIum009191;
-	Thu, 21 Mar 2024 06:55:18 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1711022118;
-	bh=bfXSNgzfF39TmycWQT9ljrIkLfLOmINJWk7nXQyV6gU=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=wLyXcSx94ZSt8JqZDiY6Ry8Ubk8G1CwXaejforsyVW7LKcjbYEi9+6tIwpVDAS/yo
-	 agpOJCZdtJ8VLLYAnPSZSyK1kQ2nQYVxTjllp40J54ikcgBili0q9Zx4GdZsiei8kV
-	 Zkx9l6Yg/JahLyS2WsZYKN19Bc61AsbWYZEvknPY=
-Received: from DLEE110.ent.ti.com (dlee110.ent.ti.com [157.170.170.21])
-	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 42LBtIV2032767
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 21 Mar 2024 06:55:18 -0500
-Received: from DLEE112.ent.ti.com (157.170.170.23) by DLEE110.ent.ti.com
- (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Thu, 21
- Mar 2024 06:55:18 -0500
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE112.ent.ti.com
- (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Thu, 21 Mar 2024 06:55:18 -0500
-Received: from [10.24.69.142] ([10.24.69.142])
-	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 42LBtAWR111394;
-	Thu, 21 Mar 2024 06:55:10 -0500
-Message-ID: <ef6a1c28-70dc-4077-b644-2704ac3cf30f@ti.com>
-Date: Thu, 21 Mar 2024 17:25:09 +0530
+	dkim=pass header.d=lunn.ch header.s=20171124 header.b=6Z0m1mDP;
+	dmarc=pass (policy=none) header.from=lunn.ch;
+	spf=pass (lists.linaro.org: domain of andrew@lunn.ch designates 156.67.10.101 as permitted sender) smtp.mailfrom=andrew@lunn.ch
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=7eF1fjFD8b1hoXdzkySVAu3zItwsB5Bim4j2q9JOIDA=; b=6Z0m1mDPyyueTqLxdWS6gUk+ES
+	GTFeLVPKsY53YKsups+CmRMQakV68UDGufeLz0mUTEZe50FkEJN0bBfQFdnGqd79CeQ5qVeI4e2JA
+	5rTjemYUk8noCTKti5XyMyP3wqFbjolD/BeBExKlafFONOx9APw/WNQKzULor7NJvWpg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1rnHa1-00AsBh-67; Thu, 21 Mar 2024 13:31:33 +0100
+Date: Thu, 21 Mar 2024 13:31:33 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vaishnav Achath <vaishnav.a@ti.com>
+Message-ID: <c63257c4-39f0-49b5-b5b7-0204d3462579@lunn.ch>
+References: <5a9b1cd9-05ec-4606-92b6-eadbc7af6202@gmail.com>
+ <CZXPQZY8PUGE.QZM8XSOUNMT4@kernel.org>
+ <81ec4156-8758-406e-876b-5acf13951d09@gmail.com>
+ <CZXSKOLK6S1S.N86E2AZG2V90@kernel.org>
+ <2eec6437-dd11-408d-9bcb-92ba2bee4487@ti.com>
+ <28c995cb-1660-435f-9ee4-1195439231f0@gmail.com>
+ <f53cd006-5eb0-47f2-8f84-e7915154f12d@lunn.ch>
+ <c3223f90-6e7c-4fdc-905a-770c474445e2@gmail.com>
+ <c368ee3b-1b80-46b1-9aa7-b7fc0094e3a1@lunn.ch>
+ <9ea69bd3-977d-442e-aacc-3c819b1a5630@ti.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Michael Walle <mwalle@kernel.org>, Andrew Lunn <andrew@lunn.ch>
-References: <20240317193714.403132-1-ayushdevel1325@gmail.com>
- <20240317193714.403132-2-ayushdevel1325@gmail.com>
- <CZWVF90JJO98.2M7ARQ9WMGC94@kernel.org>
- <d4dc4d94-d323-4158-8c08-b7d37d8750d3@gmail.com>
- <b62915ca-c151-4e37-bb03-c92c569c84ff@lunn.ch>
- <4b319264-bff7-48e5-85e8-201ca0bafec6@ti.com>
- <4c299d42-84c7-46fc-952f-292cef1bb4b4@lunn.ch>
- <ded6c350-4c70-4a26-8b18-6605dcc6e084@ti.com>
- <CZZBT3ZMDCVI.40UX5MB6LY4I@kernel.org>
-From: Vaishnav Achath <vaishnav.a@ti.com>
-In-Reply-To: <CZZBT3ZMDCVI.40UX5MB6LY4I@kernel.org>
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Rspamd-Queue-Id: 54E0640B68
+Content-Disposition: inline
+In-Reply-To: <9ea69bd3-977d-442e-aacc-3c819b1a5630@ti.com>
+X-Rspamd-Queue-Id: E010140B68
 X-Spamd-Bar: ------
-X-Spamd-Result: default: False [-6.49 / 15.00];
+X-Spamd-Result: default: False [-6.40 / 15.00];
 	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[99.99%];
+	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[ti.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:198.47.19.0/24];
-	R_DKIM_ALLOW(-0.20)[ti.com:s=ti-com-17Q1];
+	DMARC_POLICY_ALLOW(-0.50)[lunn.ch,none];
+	R_SPF_ALLOW(-0.20)[+mx];
+	R_DKIM_ALLOW(-0.20)[lunn.ch:s=20171124];
 	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TAGGED_RCPT(0.00)[dt];
-	ARC_NA(0.00)[];
+	ONCE_RECEIVED(0.10)[];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:161, ipnet:198.47.19.0/24, country:US];
-	RCPT_COUNT_TWELVE(0.00)[26];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
+	ASN(0.00)[asn:58222, ipnet:156.67.8.0/22, country:CH];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[26];
+	RCVD_COUNT_ONE(0.00)[1];
+	MID_RHS_MATCH_FROM(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[armlinux.org.uk,gmail.com,vger.kernel.org,beagleboard.org,kernel.org,linaro.org,ti.com,amd.com,arndb.de,linuxfoundation.org,lists.infradead.org,lists.linaro.org];
-	NEURAL_HAM(-0.00)[-1.000];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,linaro.org,vger.kernel.org,beagleboard.org,ti.com,amd.com,arndb.de,linuxfoundation.org,lists.infradead.org,lists.linaro.org];
+	TAGGED_RCPT(0.00)[dt];
 	FROM_EQ_ENVFROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	DKIM_TRACE(0.00)[ti.com:+]
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	DKIM_TRACE(0.00)[lunn.ch:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: O2DDLIL6QRDQ7RQDULSSXVSUYTZBF4OD
-X-Message-ID-Hash: O2DDLIL6QRDQ7RQDULSSXVSUYTZBF4OD
-X-MailFrom: vaishnav.a@ti.com
+Message-ID-Hash: FLQHFQENP3GGP7UGFRURUDRYITMPC732
+X-Message-ID-Hash: FLQHFQENP3GGP7UGFRURUDRYITMPC732
+X-MailFrom: andrew@lunn.ch
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: "Russell King (Oracle)" <linux@armlinux.org.uk>, Ayush Singh <ayushdevel1325@gmail.com>, open list <linux-kernel@vger.kernel.org>, robertcnelson@beagleboard.org, lorforlinux@beagleboard.org, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Derek Kiernan <derek.kiernan@amd.com>, Dragan Cvetic <dragan.cvetic@amd.com>, Arnd Bergmann <arnd@arndb.de>, Mark Brown <broonie@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated list:ARM/TEXAS INSTRUMENTS K3 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>, "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>, Vaishnav M A <vaishnav@beagleboard.org>
+CC: Ayush Singh <ayushdevel1325@gmail.com>, Michael Walle <mwalle@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, open list <linux-kernel@vger.kernel.org>, robertcnelson@beagleboard.org, lorforlinux@beagleboard.org, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Derek Kiernan <derek.kiernan@amd.com>, Dragan Cvetic <dragan.cvetic@amd.com>, Arnd Bergmann <arnd@arndb.de>, Mark Brown <broonie@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated list:ARM/TEXAS INSTRUMENTS K3 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>, "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>, Vaishnav M A <vaishnav@be
+ agleboard.org>
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH v4 1/5] dt-bindings: misc: Add mikrobus-connector
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/O2DDLIL6QRDQ7RQDULSSXVSUYTZBF4OD/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FLQHFQENP3GGP7UGFRURUDRYITMPC732/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"; format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+On Thu, Mar 21, 2024 at 01:05:14PM +0530, Vaishnav Achath wrote:
+> Hi Andrew,
+> 
+> On 21/03/24 00:14, Andrew Lunn wrote:
+> > On Wed, Mar 20, 2024 at 10:09:05PM +0530, Ayush Singh wrote:
+> > > On 3/20/24 01:02, Andrew Lunn wrote:
+> > > 
+> > > > > Yes, after discussion with Vaishnav and trying to brainstorm some way to do
+> > > > > the same thing with dt overlays, it seems that trying to use dt overlays
+> > > > > will mean need to have completely separate implementation of mikroBUS for
+> > > > > local ports and mikroBUS over greybus.
+> > > > Could you explain why please?
+> > > > 
+> > > > Are greybus I2C bus masters different from physical I2C bus masters?
+> > > > Are greybus SPI bus masters different from physical SPI bus masters?
+> > > 
+> > > Well, they are virtual, so they are not declared in the device tree. I have
+> > > linked the greybus i2c implementation. It basically allocates an i2c_adpater
+> > > and then adds it using `i2c_add_adapter` method. This adapter can then be
+> > > passed to say mikroBUS driver where it can be used as a normal i2c_adapter,
+> > > and we can register the device to it.
+> > 
+> > Being virtual does not really stop it being added to the DT.
+> > 
+> > I'm making this all up, but i assume it will look something like this:
+> > 
+> > greybus@42 {
+> >          compatible = "acme,greybus";
+> >          reg = <0x42 0x100>;
+> > 
+> > This would represent the greybus host controller.
+> > 
+> > 	module@0 {
+> > 		 reg = <0>;
+> > 
+> > This would represent a module discovered on the bus. I assume there is
+> > some sort of addressing? The greybus core code dynamically creates the
+> > node in DT to describe the modules it has discovered. This is not too
+> > different to USB. You can already describe USB devices in DT, but the
+> > assumption is you know they exists, e.g. because they are hard wired,
+> > not hot-plugable. The USB core will associate the USB device with the
+> > node in DT. But actually creating a node in DT is not too big a jump.
+> > 
+> > 		interface@0 {
+> >       			compatible = "greybus,i2c";
+> > 			reg = <0>;
+> > 		}
+> > 		interface@1 {
+> >       			compatible = "greybus,spi";
+> > 			reg = <1>;
+> > 		}
+> > 		interface@10 {
+> >       			compatible = "greybus,gpio";
+> > 			reg = <10>;
+> > 		}
+> > 
+> > It can then enumerate the interfaces on the module, and create the I2C
+> > node, SPI bus node, the gpio controller etc. Again, the greybus core
+> > can add nodes to DT to described the discovered hardware, and
+> > associate them to the linux devices which are created.
+> > 
+> 
+> This proposal looks great and would be the ideal solution, but we met with
+> few challenges when initially trying to implement something like this and
+> had to drop and take the route with minimal development effort to just
+> instantiate mikroBUS devices.
+> 
+> From what we understand, you are recommending to change the manifest
+> description format used by greybus to device tree and also add of_bus
+> support for greybus - now this will not only solve instantiating mikrobus
+> devices on greybus but even complex devices on greybus making it a robust
+> solution and using standard tools and support DT offers.
 
+I would not discard the manifest. It exists, it appears to be used by
+a lot of devices. So use it. But consider it an 'intermediate
+representation'. Take it and transform it to DT.
 
-On 21/03/24 15:08, Michael Walle wrote:
-> Hi,
-> 
->>> Is that because the current software support is too limited? Are there
->>> manufactures who want to create more complex designed, but are limited
->>> by what can be described in the manifest?
->>>
->>
->> most mikroBUS add-on boards in production lies in the category of
->> sensors, displays, connectivity, mixed signal (ADC/DAC .etc) and if you
->> look at the existing bindings under bindings/iio/ , most devices need
->> only simple descriptions and the properties are mainly standard bus
->> properties (SPI/I2C properties), IRQ, named-gpios, named properties,
->> regulators, clocks the extension to manifest was made taking this into
->> account and the named property description interface just maps the
->> manifest entries to the unified device property interface under
->> include/linux/property.h
-> 
-> How will the ethernet boards ([1], [2]) work? Where do they get
-> their MAC address from, for example. The DT has some nice properties
-> for that, but I doubt that will be possible with the manifest files.
-> I've looked at the manifest file for the w5500 board [3] and to me
-> it looks like that board will come up with a random MAC address on
-> each start. Thus, even today, you have some boards which require
-> a more complex description.
-> 
+Looking at:
 
-Agreed, this is a limitation, unless the corresponding 
-drivers/subsystems use device_property_read_* helper to fetch 
-properties, it will not work and net/core/of_net.c only implements 
-of_get_* helpers even though the underlying functions can be implemented 
-with equivalent device_property_read_* equivalent as well.
+https://libstock.mikroe.com/projects/view/5435/clickid
 
-> Apart from the discussion whether the manifest is a suitable or
-> sufficient mechanism to describe the hardware, I think the main
-> problem with the proposed binding, is that it doesn't follow the
-> binding Rob was proposing for a socket. If I want to use DT
-> overlays, how would you describe an add-on board?
-> 
-> The proposal was that the base board has something like
-> 
-> mikrobus: socket {
-> 	compatible = "mikrobus-socket";
-> 	i2c-parent = <&i2c0>;
-> 	spi-parent = <&spi0>;
-> 
-> 	i2c {};
-> 	spi {};
-> };
-> 
-> an add-on board can then have a DT snippet/overlay like the
-> following:
-> 
-> &mikrobus {
-> 	i2c {
-> 		eeprom@52: {
-> 			reg = <52>;
-> 			compatible = <atmel,at24..>;
-> 		}
-> 	};
-> 
-> 	spi {
-> 		sensor@0: {
-> 			reg = <0>;
-> 			compatible = <foobar>;
-> 		};
-> 	};
-> };
-> 
-> That should be possible with a binding for the mikrobus, which
-> in fact it is just a pin header with a standard pinout. Also as
-> Russell pointed out in v3, the EEPROM/manifest is not part of the
-> mikrobus standard. So maybe that deserves an own compatible, like
-> 
->     compatible = "mikroe,click", "mikrobus-socket";
-> 
-> Or maybe click-eeprom? Although click seems to be the brand name of
-> MikroElektronika.
+there appears to be a name, and hardware revision in the
+manifest. Convert that to a string. Run a checksum over the rest of
+the manifest, and append that to the string. You can then look in
+/lib/firmware for a DT representation which matches.
 
-Agreed, there is nothing preventing us to convert the binding and update 
-the driver to follow the above proposed format and will be done in next 
-revision. Click is brand name of MikroElektronika and they don't allow 
-custom boards to use that branding, however clickid can be used in the 
-case where EEPROM is present/enable the socket to be probeable.
+> However we have a few doubts:
+> * For USB or PCIe, to add OF device tree support the parent devices are
+> physically present, for example USB device is a child node of USB controller
+> (physically description available in a SoC DT) and USB interfaces are child
+> of USB devices, how would that hierarchy look for greybus devices?
 
-Thanks and Regards,
-Vaishnav
+So DT support for USB, serial and PCIe devices already exists. When
+the core enumerates a PCIe or USB bus, it looks in the DT blob for the
+vendor:product ID, and associates any node it finds with the
+device. It is not used very often, but if you search the .dts files,
+you can find examples.
 
-> 
-> -michael
-> 
-> [1] https://www.mikroe.com/eth-3-click
-> [2] https://www.mikroe.com/eth-wiz-click
-> [3] https://github.com/MikroElektronika/click_id/blob/main/manifests/ETH-WIZ-CLICK.mnfs
+> Would it be
+> USB/UART/transport controller -> AP Bridge host controller -> Module ->
+> interface -> bundle -> CPort ?
+
+That is for you to decide. I don't know the architecture well enough.
+
+It is rather old, but:
+
+https://lwn.net/Articles/715955/
+
+There is a diagram of the sysfs tree, which looks pretty similar to
+what you say above. What is however missing from the diagram is the
+Linux devices themselves. Where do the I2C bus, the SPI bus, the GPIO
+controller etc appear in the tree?
+
+Maybe look at PCI and USB. Does the device tree representation include
+all the bridges and hubs etc. Or does it simply the representation?
+
+You need something to represent the controller. You need modules. Do
+you need the details of interface & bundle and cport? Could you
+represent them as an address tuple, and just have the devices under
+module?
+
+> When this mikrobus driver was initially implemented we could not think of
+> such an approach as the SVC and Control functionality were implemented in
+> userspace with gbridge ( https://github.com/anobli/gbridge ) with a netlink
+> interface to kernel greybus, but today there are references to do it
+> completely in kernel ( drivers/greybus/gb-beagleplay.c) and your proposal is
+> implementable.
+
+Does gb-beagleplay.c work together with the code in staging? It looks
+like the GPIO controller, I2C controller, SPI controller, etc are
+still in GregKH "Tree of crap". I don't think it is wise to build on
+top of something in staging. So you probably need to spend time to
+cleanup that code and moving it into the mainline proper. As you do
+that, you could add the code needed to dynamically add nodes to device
+tree.
+
+	Andrew
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
