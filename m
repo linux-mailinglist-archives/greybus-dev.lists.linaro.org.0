@@ -2,78 +2,86 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id C03C588735D
-	for <lists+greybus-dev@lfdr.de>; Fri, 22 Mar 2024 19:51:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0031A88A31F
+	for <lists+greybus-dev@lfdr.de>; Mon, 25 Mar 2024 14:52:43 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id BC98040B78
-	for <lists+greybus-dev@lfdr.de>; Fri, 22 Mar 2024 18:51:33 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	by lists.linaro.org (Postfix) with ESMTPS id 6E3A83F3D7
-	for <greybus-dev@lists.linaro.org>; Fri, 22 Mar 2024 18:51:31 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 0EE5140A05
+	for <lists+greybus-dev@lfdr.de>; Mon, 25 Mar 2024 13:52:43 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id C7E6740B42
+	for <greybus-dev@lists.linaro.org>; Mon, 25 Mar 2024 01:54:24 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=lunn.ch header.s=20171124 header.b=KA7PtXeT;
-	dmarc=pass (policy=none) header.from=lunn.ch;
-	spf=pass (lists.linaro.org: domain of andrew@lunn.ch designates 156.67.10.101 as permitted sender) smtp.mailfrom=andrew@lunn.ch
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=UiMuCZuCE+GDbraTFgLjnezZYv3h2ixZi1ZXPtQOspI=; b=KA7PtXeTDDxMMDvhwcNlopN79C
-	axGXt6HfyXpXMRQ6iSLvZBqBPY+Wgyzv70AlZ1kuUgGWwk1WcJcMhpilere+va8+jV+srPuBPtAIa
-	40v4LkmOPmrYyWcwnJvuiR9BkwJiCfRl0PI5M2K6PyaD3gsda2FUioXdxyG08MirHMI8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1rnjz6-00Ayph-VK; Fri, 22 Mar 2024 19:51:20 +0100
-Date: Fri, 22 Mar 2024 19:51:20 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Ayush Singh <ayushdevel1325@gmail.com>
-Message-ID: <362aace1-2e6a-4b50-acf8-6dccafd44973@lunn.ch>
-References: <20240317193714.403132-1-ayushdevel1325@gmail.com>
- <20240317193714.403132-2-ayushdevel1325@gmail.com>
- <711ff5ea-244d-4b64-a39c-3f2da63e30c0@gmail.com>
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b=UgoRuOdI;
+	dmarc=pass (policy=none) header.from=kernel.org;
+	spf=pass (lists.linaro.org: domain of patchwork-bot+chrome-platform@kernel.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=patchwork-bot+chrome-platform@kernel.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 4942460DEB;
+	Mon, 25 Mar 2024 01:54:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A08FAC4166A;
+	Mon, 25 Mar 2024 01:54:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1711331662;
+	bh=rcdcVMOwAqKdq7n5jkVq5QjE+E4mBd0LmLt5lwYal+k=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+	b=UgoRuOdIKc1atcNCSy+fGMyIxd2EIL85aFzdiUP5IhrVwfyLuX4y1UYA/UQBPsAMD
+	 3sCV/0MeXlbM7sefeRf+lmdvdlgZ0TKvCfmEeGYkPwifpZb/yub4hlREVfgCNhRtZz
+	 ZiY0yetiX2oMC1bHns3loNE8fmm9pIIDXR7KvrkZSK4WdOtTGUmUud3p6vcyL60zKX
+	 9BjSBTkapaueuWOl6AMlmsqrYlvbxlrUS29IKX7go0Y/Tq8wfA4UxOJ9FCpuAE+CY5
+	 CxMUxLEonlCV+T0zvdc8MGEzb5H247rE1FolcBQONxia7RxxTo1NzWXjR86IfgfIYv
+	 gVtR4ZEqxDVIw==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id 886E5D2D0E3;
+	Mon, 25 Mar 2024 01:54:22 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <711ff5ea-244d-4b64-a39c-3f2da63e30c0@gmail.com>
-X-Rspamd-Queue-Id: 6E3A83F3D7
-X-Spamd-Bar: ------
-X-Spamd-Result: default: False [-6.40 / 15.00];
-	REPLY(-4.00)[];
+From: patchwork-bot+chrome-platform@kernel.org
+Message-Id: 
+ <171133166255.9916.6727664409114778134.git-patchwork-notify@kernel.org>
+Date: Mon, 25 Mar 2024 01:54:22 +0000
+References: <cover.1707324793.git.u.kleine-koenig@pengutronix.de>
+In-Reply-To: <cover.1707324793.git.u.kleine-koenig@pengutronix.de>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=3Cu=2Ekleine-koenig=40pengutronix=2Ede=3E?=@ci.codeaurora.org
+X-Rspamd-Queue-Id: C7E6740B42
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.50 / 15.00];
 	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[lunn.ch,none];
-	R_DKIM_ALLOW(-0.20)[lunn.ch:s=20171124];
-	R_SPF_ALLOW(-0.20)[+mx];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,none];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217:c];
 	MIME_GOOD(-0.10)[text/plain];
-	ONCE_RECEIVED(0.10)[];
 	ARC_NA(0.00)[];
-	ASN(0.00)[asn:58222, ipnet:156.67.8.0/22, country:CH];
-	RCVD_COUNT_ONE(0.00)[1];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[25];
-	FROM_HAS_DN(0.00)[];
-	TAGGED_RCPT(0.00)[dt];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_TLS_LAST(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.956];
-	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
+	MIME_TRACE(0.00)[0:+];
+	FROM_NO_DN(0.00)[];
+	TAGGED_RCPT(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_TRACE(0.00)[lunn.ch:+]
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,pengutronix.de,intel.com,redhat.com,vger.kernel.org,gmail.com,datenfreihafen.org,bootlin.com,davemloft.net,google.com,metafoo.de,analog.com,huawei.com,linuxfoundation.org,linux.intel.com,linaro.org,digiteqautomotive.com,netup.ru,arndb.de,nod.at,ti.com,amd.com,alsa-project.org,lists.infradead.org,raritan.com,chromium.org,lists.linux.dev,collabora.com,suse.de,ravnborg.org,lists.freedesktop.org,lists.linaro.org,gmx.de,ziepe.ca,amarulasolutions.com,yandex.ru,lwn.net,arm.com];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[chrome-platform];
+	RCPT_COUNT_GT_50(0.00)[85];
+	DKIM_TRACE(0.00)[kernel.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: FUAUSCZ2OVEDSHHXRGZ6NQKLEQEC4SA7
-X-Message-ID-Hash: FUAUSCZ2OVEDSHHXRGZ6NQKLEQEC4SA7
-X-MailFrom: andrew@lunn.ch
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: open list <linux-kernel@vger.kernel.org>, robertcnelson@beagleboard.org, lorforlinux@beagleboard.org, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Derek Kiernan <derek.kiernan@amd.com>, Dragan Cvetic <dragan.cvetic@amd.com>, Arnd Bergmann <arnd@arndb.de>, Vaishnav M A <vaishnav.a@ti.com>, Mark Brown <broonie@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated list:ARM/TEXAS INSTRUMENTS K3 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>, "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>, Vaishnav M A <vaishnav@beagleboard.org>, Michael Walle <mwalle@kernel.org>
+X-MailFrom: patchwork-bot+chrome-platform@kernel.org
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: FL4T7BVQE3YF7NUVF6GVP6TVFBPGFUW3
+X-Message-ID-Hash: FL4T7BVQE3YF7NUVF6GVP6TVFBPGFUW3
+X-Mailman-Approved-At: Mon, 25 Mar 2024 13:52:36 +0000
+CC: broonie@kernel.org, kernel@pengutronix.de, mdf@kernel.org, hao.wu@intel.com, yilun.xu@intel.com, trix@redhat.com, linux-fpga@vger.kernel.org, linux-kernel@vger.kernel.org, alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, linux-wpan@vger.kernel.org, netdev@vger.kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com, jic23@kernel.org, linux-iio@vger.kernel.org, dmitry.torokhov@gmail.com, Jonathan.Cameron@huawei.com, linux-input@vger.kernel.org, andriy.shevchenko@linux.intel.com, ulf.hansson@linaro.org, martin.tuma@digiteqautomotive.com, mchehab@kernel.org, linux-media@vger.kernel.org, serjk@netup.ru, arnd@arndb.de, yangyingliang@huawei.com, linux-mmc@vger.kernel.org, richard@nod.at, vigneshr@ti.com, robh@kernel.org, amit.kumar-mahapatra@amd.com, alsa-devel@alsa-project.org, linux-mtd@lists.infradead.org, horms@kernel.org, ronald.wahl@raritan.com, bleung@chromium.org, tzungbi@
+ kernel.org, groeck@chromium.org, chrome-platform@lists.linux.dev, michal.simek@amd.com, jcmvbkbc@gmail.com, linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, andersson@kernel.org, konrad.dybcio@linaro.org, linux-arm-msm@vger.kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, linux-mediatek@lists.infradead.org, tzimmermann@suse.de, javierm@redhat.com, sam@ravnborg.org, dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev, vireshk@kernel.org, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, peterhuewe@gmx.de, jarkko@kernel.org, jgg@ziepe.ca, linux-integrity@vger.kernel.org, herve.codina@bootlin.com, krzysztof.kozlowski@linaro.org, linux-usb@vger.kernel.org, deller@gmx.de, dario.binacchi@amarulasolutions.com, kvalo@kernel.org, dmantipov@yandex.ru, libertas-dev@lists.infradead.org, linux-wireless@vger.kernel.org, corbet@lwn.net, bhelgaas@google.com, james.clark@arm.com, linux-doc@vger.kernel
+ .org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v4 1/5] dt-bindings: misc: Add mikrobus-connector
+Subject: [greybus-dev] Re: [PATCH v3 00/32] spi: get rid of some legacy macros
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FUAUSCZ2OVEDSHHXRGZ6NQKLEQEC4SA7/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ESB42B4POHKPR5TS664EU3EDAFSOR7J3/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -83,40 +91,35 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-> After going through all the discussions here, I have a few questions:
+Hello:
+
+This patch was applied to chrome-platform/linux.git (for-kernelci)
+by Mark Brown <broonie@kernel.org>:
+
+On Wed,  7 Feb 2024 19:40:14 +0100 you wrote:
+> Changes since v2
+> (https://lore.kernel.org/linux-spi/cover.1705944943.git.u.kleine-koenig@pengutronix.de):
 > 
-> 1. Is the old `*_register_device(controller, board_info)` style discouraged
-> in favor of using device tree, at least for drivers using multiple
-> fundamental buses (i2c, spi, etc)?
-
-Historically, they were used in board files, where you needed to write
-C code for every single board. That did not scale, which is why we
-swapped to DT.
-
-board_info is still useful, e.g. for platforms which don't have DT. I
-support a few amd64 boards where i need to use a platform driver to
-instantiate some I2C and MDIO devices. But in general DT is much
-easier to use.
-
-> 2. Is the preferred way to handle virtual devices (like those created by
-> greybus subsystem) now device tree? Is that one of the blockers for greybus
-> i2c, spi etc to still be in staging?
-
-I would not say they are virtual. They do exist. They are just not
-memory mapped like most devices, but in another address space, one
-which you access via RPCs.
-
+>  - Drop patch "mtd: rawnand: fsl_elbc: Let .probe retry if local bus is
+>    missing" which doesn't belong into this series.
+>  - Fix a build failure noticed by the kernel build bot in
+>    drivers/spi/spi-au1550.c. (I failed to catch this because this driver
+>    is mips only, but not enabled in a mips allmodconfig. That's a bit
+>    unfortunate, but not easily fixable.)
+>  - Add the Reviewed-by: and Acked-by: tags I received for v2.
 > 
-> 3. How are virtual devices created in device tree? If I register an i2c
-> adapter using `i2c_add_adapter`, is the device tree entry is dynamically
-> created, which can then be used by a device tree overlay?
+> [...]
 
-As far as i'm aware, there are no examples today. You are doing
-something different, something new. Adding these dynamic devices to DT
-is just a suggestion from me, as a good way to solve your problem. You
-will need to look into the DT core and figure out how to do it.
+Here is the summary with links:
+  - [v3,15/32] platform/chrome: cros_ec_spi: Follow renaming of SPI "master" to "controller"
+    https://git.kernel.org/chrome-platform/c/85ad0ec049a7
 
-     Andrew
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
