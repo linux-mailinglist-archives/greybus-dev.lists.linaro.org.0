@@ -2,315 +2,105 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 754318ABF99
-	for <lists+greybus-dev@lfdr.de>; Sun, 21 Apr 2024 16:29:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D82218B81A5
+	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2024 22:43:55 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 14E883F2F7
-	for <lists+greybus-dev@lfdr.de>; Sun, 21 Apr 2024 14:29:53 +0000 (UTC)
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
-	by lists.linaro.org (Postfix) with ESMTPS id 1FA553F2F7
-	for <greybus-dev@lists.linaro.org>; Sun, 21 Apr 2024 14:29:50 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 8360E3F4CA
+	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2024 20:43:54 +0000 (UTC)
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	by lists.linaro.org (Postfix) with ESMTPS id B55F63F074
+	for <greybus-dev@lists.linaro.org>; Mon, 22 Apr 2024 08:18:48 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=ieee.org header.s=google header.b=WevsMZwl;
-	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.219.47 as permitted sender) smtp.mailfrom=elder@ieee.org;
-	dmarc=pass (policy=quarantine) header.from=ieee.org
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-69b4043b7b3so22326676d6.1
-        for <greybus-dev@lists.linaro.org>; Sun, 21 Apr 2024 07:29:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1713709789; x=1714314589; darn=lists.linaro.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=a7LpaFZkm9Br//XCfOKkL+azQyEv5N/3dSKe15VqxQA=;
-        b=WevsMZwlsDcfh2VdeUlxuThcR4euBkbN3JND+1i6AmRXc+3gYYEN/Fv+A2EV7j2Z8J
-         2Jw1p182BoyPj4FJHHGMDRpKi240AXV+MXkS0U102NorJK7VBg1TJupQXAvnE9E1nlrn
-         Pgv+U8dE66sDIocelTgSA4GPQW+0I46D4QpnU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713709789; x=1714314589;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=a7LpaFZkm9Br//XCfOKkL+azQyEv5N/3dSKe15VqxQA=;
-        b=A1xmMJPh/2tLMq00pL9AxKUiY6nBOBD/NMw/ngenHDh7sqjHD6uAc+nSE/HBHqHwed
-         tQwCSrXBHcSD73UHeHRyD4W+4vAy9abkwMkWy5eknwZodbyJ5mtkiiZ30CCgx8Y1jwbV
-         1PYWE5vqByBCK5nwoWNlPgE2c+d0ceod/Jm0GWmb3MMdQm23G9btuaWv5YxxMJ3mpHXX
-         75QpVve5Uy0rPCmkGZvHgHlRBPHJDU7omngPUm5yj4HzIUggnMYhh5xaOb4Su9I5ejeW
-         5no+XbhEO/cmXlIChZjaFxmiyNPPbqhQk90Psk+vvtZHHG1bowovVQts1nQLkMbDcS9B
-         DGPg==
-X-Forwarded-Encrypted: i=1; AJvYcCVUA+LAO5ZeAfg0kqmrkJ5yjx02bywdXOLVDMoH7sdAWYE6G5M+UVidI1fx0LWXQ29Km3nFfab5sVbRM2tPL1fjgugBDWqUkS12A2wI
-X-Gm-Message-State: AOJu0YwQxriqbopOQw86o/LXr5uIMmWlPY7kvze+5KyInZDWbDS6iwO0
-	GbWlx0OOPbbX+9mhonZLD8Sexm86bkMOgAXLXFnfyTBBWmjypV4O7v7lPNo7Ig==
-X-Google-Smtp-Source: AGHT+IEmilFtFEm9HQytae3OkzVU9OlPlZM5Mw8kW3/pYBmDDShIjriimzBmd8hgLnud40PUVLIaZg==
-X-Received: by 2002:ad4:4bb3:0:b0:6a0:6545:2306 with SMTP id i19-20020ad44bb3000000b006a065452306mr7041605qvw.28.1713709789526;
-        Sun, 21 Apr 2024 07:29:49 -0700 (PDT)
-Received: from [10.211.55.3] (c-73-228-159-35.hsd1.mn.comcast.net. [73.228.159.35])
-        by smtp.googlemail.com with ESMTPSA id u5-20020a0c8dc5000000b0069b412e3716sm2330418qvb.80.2024.04.21.07.29.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 21 Apr 2024 07:29:48 -0700 (PDT)
-Message-ID: <9ba1665e-70b0-4aea-9cab-b62660953f6b@ieee.org>
-Date: Sun, 21 Apr 2024 09:29:47 -0500
+	dkim=none;
+	spf=pass (lists.linaro.org: domain of michael@ellerman.id.au designates 150.107.74.76 as permitted sender) smtp.mailfrom=michael@ellerman.id.au;
+	dmarc=none
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4VNJ6g0Nzdz4x1R;
+	Mon, 22 Apr 2024 18:18:35 +1000 (AEST)
+From: Michael Ellerman <patch-notifications@ellerman.id.au>
+To: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>
+In-Reply-To: <20240403080702.3509288-1-arnd@kernel.org>
+References: <20240403080702.3509288-1-arnd@kernel.org>
+Message-Id: <171377378377.1025456.1313405994816400451.b4-ty@ellerman.id.au>
+Date: Mon, 22 Apr 2024 18:16:23 +1000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Jackson Chui <jacksonchui.qwerty@gmail.com>
-References: <ZhRzWNiak1qOdJLL@jc-ubuntu-dev-korn-1>
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <ZhRzWNiak1qOdJLL@jc-ubuntu-dev-korn-1>
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 1FA553F2F7
-X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.49 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Queue-Id: B55F63F074
+X-Spamd-Bar: -
+X-Spamd-Result: default: False [-1.40 / 15.00];
+	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
+	FORGED_SENDER(0.30)[patch-notifications@ellerman.id.au,michael@ellerman.id.au];
+	R_SPF_ALLOW(-0.20)[+ip4:150.107.74.76];
+	ONCE_RECEIVED(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.219.47:from];
-	TAGGED_RCPT(0.00)[];
+	ASN(0.00)[asn:133159, ipnet:150.107.72.0/22, country:AU];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_ONE(0.00)[1];
 	ARC_NA(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
 	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	R_DKIM_NA(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	FREEMAIL_CC(0.00)[arndb.de,ellerman.id.au,csgroup.eu,kernel.org,linuxfoundation.org,acm.org,gmx.de,mev.co.uk,visionengravers.com,linux.intel.com,amd.com,gondor.apana.org.au,arm.com,redhat.com,analo g.com,axentia.se,metafoo.de,gmail.com,foss.st.com,os.amperecomputing.com,huawei.com,wp.pl,atomide.com,bootlin.com,hisilicon.com,oracle.com,linaro.org,sntech.de,kernel. org,nuvoton.com,lst.de,goodmis.org,linux-foundation.org,chromium.org,hammerspace.com,suse.com,lists.ozlabs.org,vger.kernel.org,lists.sourceforge.net,lists.freedesktop.org,st-md-mailman.stormr,lists.infradead.org,lists.linaro.org,lists.linux.dev,googlegroups.com,alsa-project.org];
+	MISSING_XM_UA(0.00)[];
+	DNSWL_BLOCKED(0.00)[150.107.74.76:from];
+	RCPT_COUNT_GT_50(0.00)[106];
+	FROM_NEQ_ENVFROM(0.00)[patch-notifications@ellerman.id.au,michael@ellerman.id.au];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[ieee.org:+]
+	DMARC_NA(0.00)[ellerman.id.au];
+	RCVD_TLS_ALL(0.00)[]
 X-Rspamd-Action: no action
-Message-ID-Hash: LQFFSSMIYAIBJWXDCXOSQDZO4OK3GVUX
-X-Message-ID-Hash: LQFFSSMIYAIBJWXDCXOSQDZO4OK3GVUX
-X-MailFrom: elder@ieee.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+X-MailFrom: michael@ellerman.id.au
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: WAWES5LOUSIV5NM53PZRZOPWHU7NQ322
+X-Message-ID-Hash: WAWES5LOUSIV5NM53PZRZOPWHU7NQ322
+X-Mailman-Approved-At: Tue, 30 Apr 2024 20:43:54 +0000
+CC: Arnd Bergmann <arnd@arndb.de>, Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <christophe.leroy@csgroup.eu>, Damien Le Moal <dlemoal@kernel.org>, Jiri Kosina <jikos@kernel.org>, Corey Minyard <minyard@acm.org>, Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Ian Abbott <abbotti@mev.co.uk>, H Hartley Sweeten <hsweeten@visionengravers.com>, Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Len Brown <lenb@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, John Allen <john.allen@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>, Vinod Koul <vkoul@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Moritz Fischer <mdf@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, Benjamin Tissoires <benjamin.tissoires@redhat.com>, Andi Shyti <andi.shyti@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, Peter Rosin <peda@axentia.se>, Lars-Peter
+  Clausen <lars@metafoo.de>, Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, Markuss Broks <markuss.broks@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, Lee Jones <lee@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Iyappan Subramanian <iyappan@os.amperecomputing.com>, Yisen Zhuang <yisen.zhuang@huawei.com>, Stanislaw Gruszka <stf_xl@wp.pl>, Kalle Valo <kvalo@kernel.org>, Sebastian Reichel <sre@kernel.org>, Tony Lindgren <tony@atomide.com>, Mark Brown <broonie@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, Xiang Chen <chenxiang66@hisilicon.com>, "Martin K. Petersen" <martin.petersen@oracle.com>, Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Alex Elder <elder@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Jacky Huang <ychuang3@nuvoton.com>, Helge D
+ eller <deller@gmx.de>, Christoph Hellwig <hch@lst.de>, Robin Murphy <robin.murphy@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Kees Cook <keescook@chromium.org>, Trond Myklebust <trond.myklebust@hammerspace.com>, Anna Schumaker <anna@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Takashi Iwai <tiwai@suse.com>, linuxppc-dev@lists.ozlabs.org, linux-ide@vger.kernel.org, openipmi-developer@lists.sourceforge.net, linux-integrity@vger.kernel.org, linux-omap@vger.kernel.org, linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org, linux-efi@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-fpga@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, linux-i2c@vger.kernel.org, linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, n
+ etdev@vger.kernel.org, linux-leds@vger.kernel.org, linux-wireless@vger.kernel.org, linux-rtc@vger.kernel.org, linux-scsi@vger.kernel.org, linux-spi@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-serial@vger.kernel.org, linux-usb@vger.kernel.org, linux-fbdev@vger.kernel.org, iommu@lists.linux.dev, linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-hardening@vger.kernel.org, linux-nfs@vger.kernel.org, linux-kbuild@vger.kernel.org, alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [Patch v2] staging: greybus: Replace gcam macros with direct dev log calls
+Subject: [greybus-dev] Re: (subset) [PATCH 00/34] address all -Wunused-const warnings
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/LQFFSSMIYAIBJWXDCXOSQDZO4OK3GVUX/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/WAWES5LOUSIV5NM53PZRZOPWHU7NQ322/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"; format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 4/8/24 5:44 PM, Jackson Chui wrote:
-> Reported by checkpatch:
+On Wed, 03 Apr 2024 10:06:18 +0200, Arnd Bergmann wrote:
+> Compilers traditionally warn for unused 'static' variables, but not
+> if they are constant. The reason here is a custom for C++ programmers
+> to define named constants as 'static const' variables in header files
+> instead of using macros or enums.
 > 
-> CHECK: Macro argument 'gcam' may be better as '(gcam)' to avoid
-> precedence issues
+> In W=1 builds, we get warnings only static const variables in C
+> files, but not in headers, which is a good compromise, but this still
+> produces warning output in at least 30 files. These warnings are
+> almost all harmless, but also trivial to fix, and there is no
+> good reason to warn only about the non-const variables being unused.
 > 
-> Inline standard calls to 'dev_*' kernel logging functions, in favor
-> of 'gcam_*' macros, to clear up gcam-related logging.
-> 
-> Signed-off-by: Jackson Chui <jacksonchui.qwerty@gmail.com>
+> [...]
 
-This looks good, thanks for doing this.
+Applied to powerpc/next.
 
-Nit: for the future, on a few of the dev_err() calls, the new first
-argument makes the line even wider than before.  Lines wider than
-80 columns are acceptable--especially when they contain formatted
-output--but you could have put the format string on a new line in
-a few of the cases.  I'm old-skool and prefer making things fit
-in 80 columns unless it gets too ugly.
+[01/34] powerpc/fsl-soc: hide unused const variable
+        https://git.kernel.org/powerpc/c/01acaf3aa75e1641442cc23d8fe0a7bb4226efb1
 
-Reviewed-by: Alex Elder <elder@linaro.org>
-
-
-> 
-> ---
-> Changes in v2:
->    - Inline 'dev_*' logging functions, over wrappers and macros
->      to just use the standard call.
->    - Remove 'gcam_*' macros, since they are no longer used.
-> ---
->   drivers/staging/greybus/camera.c | 58 +++++++++++++++-----------------
->   1 file changed, 27 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/camera.c
-> index a8173aa3a995..b8b2bdfa59e5 100644
-> --- a/drivers/staging/greybus/camera.c
-> +++ b/drivers/staging/greybus/camera.c
-> @@ -180,10 +180,6 @@ static const struct gb_camera_fmt_info *gb_camera_get_format_info(u16 gb_fmt)
->   
->   #define GB_CAMERA_MAX_SETTINGS_SIZE	8192
->   
-> -#define gcam_dbg(gcam, format...)	dev_dbg(&gcam->bundle->dev, format)
-> -#define gcam_info(gcam, format...)	dev_info(&gcam->bundle->dev, format)
-> -#define gcam_err(gcam, format...)	dev_err(&gcam->bundle->dev, format)
-> -
->   static int gb_camera_operation_sync_flags(struct gb_connection *connection,
->   					  int type, unsigned int flags,
->   					  void *request, size_t request_size,
-> @@ -232,8 +228,8 @@ static int gb_camera_get_max_pkt_size(struct gb_camera *gcam,
->   
->   		fmt_info = gb_camera_get_format_info(cfg->format);
->   		if (!fmt_info) {
-> -			gcam_err(gcam, "unsupported greybus image format: %d\n",
-> -				 cfg->format);
-> +			dev_err(&gcam->bundle->dev, "unsupported greybus image format: %d\n",
-> +				cfg->format);
->   			return -EIO;
->   		}
->   
-> @@ -241,18 +237,18 @@ static int gb_camera_get_max_pkt_size(struct gb_camera *gcam,
->   			pkt_size = le32_to_cpu(cfg->max_pkt_size);
->   
->   			if (pkt_size == 0) {
-> -				gcam_err(gcam,
-> -					 "Stream %u: invalid zero maximum packet size\n",
-> -					 i);
-> +				dev_err(&gcam->bundle->dev,
-> +					"Stream %u: invalid zero maximum packet size\n",
-> +					i);
->   				return -EIO;
->   			}
->   		} else {
->   			pkt_size = le16_to_cpu(cfg->width) * fmt_info->bpp / 8;
->   
->   			if (pkt_size != le32_to_cpu(cfg->max_pkt_size)) {
-> -				gcam_err(gcam,
-> -					 "Stream %u: maximum packet size mismatch (%u/%u)\n",
-> -					 i, pkt_size, cfg->max_pkt_size);
-> +				dev_err(&gcam->bundle->dev,
-> +					"Stream %u: maximum packet size mismatch (%u/%u)\n",
-> +					i, pkt_size, cfg->max_pkt_size);
->   				return -EIO;
->   			}
->   		}
-> @@ -275,13 +271,13 @@ static const int gb_camera_configure_streams_validate_response(struct gb_camera
->   
->   	/* Validate the returned response structure */
->   	if (resp->padding[0] || resp->padding[1]) {
-> -		gcam_err(gcam, "response padding != 0\n");
-> +		dev_err(&gcam->bundle->dev, "response padding != 0\n");
->   		return -EIO;
->   	}
->   
->   	if (resp->num_streams > nstreams) {
-> -		gcam_err(gcam, "got #streams %u > request %u\n",
-> -			 resp->num_streams, nstreams);
-> +		dev_err(&gcam->bundle->dev, "got #streams %u > request %u\n",
-> +			resp->num_streams, nstreams);
->   		return -EIO;
->   	}
->   
-> @@ -289,7 +285,7 @@ static const int gb_camera_configure_streams_validate_response(struct gb_camera
->   		struct gb_camera_stream_config_response *cfg = &resp->config[i];
->   
->   		if (cfg->padding) {
-> -			gcam_err(gcam, "stream #%u padding != 0\n", i);
-> +			dev_err(&gcam->bundle->dev, "stream #%u padding != 0\n", i);
->   			return -EIO;
->   		}
->   	}
-> @@ -340,16 +336,16 @@ static int gb_camera_set_power_mode(struct gb_camera *gcam, bool hs)
->   
->   	ret = gb_camera_set_intf_power_mode(gcam, intf->interface_id, hs);
->   	if (ret < 0) {
-> -		gcam_err(gcam, "failed to set module interface to %s (%d)\n",
-> -			 hs ? "HS" : "PWM", ret);
-> +		dev_err(&gcam->bundle->dev, "failed to set module interface to %s (%d)\n",
-> +			hs ? "HS" : "PWM", ret);
->   		return ret;
->   	}
->   
->   	ret = gb_camera_set_intf_power_mode(gcam, svc->ap_intf_id, hs);
->   	if (ret < 0) {
->   		gb_camera_set_intf_power_mode(gcam, intf->interface_id, !hs);
-> -		gcam_err(gcam, "failed to set AP interface to %s (%d)\n",
-> -			 hs ? "HS" : "PWM", ret);
-> +		dev_err(&gcam->bundle->dev, "failed to set AP interface to %s (%d)\n",
-> +			hs ? "HS" : "PWM", ret);
->   		return ret;
->   	}
->   
-> @@ -435,7 +431,7 @@ static int gb_camera_setup_data_connection(struct gb_camera *gcam,
->   			   sizeof(csi_cfg),
->   			   GB_APB_REQUEST_CSI_TX_CONTROL, false);
->   	if (ret < 0) {
-> -		gcam_err(gcam, "failed to start the CSI transmitter\n");
-> +		dev_err(&gcam->bundle->dev, "failed to start the CSI transmitter\n");
->   		goto error_power;
->   	}
->   
-> @@ -470,7 +466,7 @@ static void gb_camera_teardown_data_connection(struct gb_camera *gcam)
->   			   GB_APB_REQUEST_CSI_TX_CONTROL, false);
->   
->   	if (ret < 0)
-> -		gcam_err(gcam, "failed to stop the CSI transmitter\n");
-> +		dev_err(&gcam->bundle->dev, "failed to stop the CSI transmitter\n");
->   
->   	/* Set the UniPro link to low speed mode. */
->   	gb_camera_set_power_mode(gcam, false);
-> @@ -507,7 +503,7 @@ static int gb_camera_capabilities(struct gb_camera *gcam,
->   					     NULL, 0,
->   					     (void *)capabilities, size);
->   	if (ret)
-> -		gcam_err(gcam, "failed to retrieve capabilities: %d\n", ret);
-> +		dev_err(&gcam->bundle->dev, "failed to retrieve capabilities: %d\n", ret);
->   
->   done:
->   	mutex_unlock(&gcam->mutex);
-> @@ -723,22 +719,22 @@ static int gb_camera_request_handler(struct gb_operation *op)
->   	struct gb_message *request;
->   
->   	if (op->type != GB_CAMERA_TYPE_METADATA) {
-> -		gcam_err(gcam, "Unsupported unsolicited event: %u\n", op->type);
-> +		dev_err(&gcam->bundle->dev, "Unsupported unsolicited event: %u\n", op->type);
->   		return -EINVAL;
->   	}
->   
->   	request = op->request;
->   
->   	if (request->payload_size < sizeof(*payload)) {
-> -		gcam_err(gcam, "Wrong event size received (%zu < %zu)\n",
-> -			 request->payload_size, sizeof(*payload));
-> +		dev_err(&gcam->bundle->dev, "Wrong event size received (%zu < %zu)\n",
-> +			request->payload_size, sizeof(*payload));
->   		return -EINVAL;
->   	}
->   
->   	payload = request->payload;
->   
-> -	gcam_dbg(gcam, "received metadata for request %u, frame %u, stream %u\n",
-> -		 payload->request_id, payload->frame_number, payload->stream);
-> +	dev_dbg(&gcam->bundle->dev, "received metadata for request %u, frame %u, stream %u\n",
-> +		payload->request_id, payload->frame_number, payload->stream);
->   
->   	return 0;
->   }
-> @@ -1347,15 +1343,15 @@ static int gb_camera_resume(struct device *dev)
->   
->   	ret = gb_connection_enable(gcam->connection);
->   	if (ret) {
-> -		gcam_err(gcam, "failed to enable connection: %d\n", ret);
-> +		dev_err(&gcam->bundle->dev, "failed to enable connection: %d\n", ret);
->   		return ret;
->   	}
->   
->   	if (gcam->data_connection) {
->   		ret = gb_connection_enable(gcam->data_connection);
->   		if (ret) {
-> -			gcam_err(gcam,
-> -				 "failed to enable data connection: %d\n", ret);
-> +			dev_err(&gcam->bundle->dev,
-> +				"failed to enable data connection: %d\n", ret);
->   			return ret;
->   		}
->   	}
-
+cheers
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
