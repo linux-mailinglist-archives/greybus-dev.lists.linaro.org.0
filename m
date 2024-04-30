@@ -2,105 +2,201 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id D82218B81A5
-	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2024 22:43:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20CD18B8310
+	for <lists+greybus-dev@lfdr.de>; Wed,  1 May 2024 01:41:50 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8360E3F4CA
-	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2024 20:43:54 +0000 (UTC)
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	by lists.linaro.org (Postfix) with ESMTPS id B55F63F074
-	for <greybus-dev@lists.linaro.org>; Mon, 22 Apr 2024 08:18:48 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id A957C44342
+	for <lists+greybus-dev@lfdr.de>; Tue, 30 Apr 2024 23:41:48 +0000 (UTC)
+Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com [209.85.219.177])
+	by lists.linaro.org (Postfix) with ESMTPS id 06F0244342
+	for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2024 23:41:46 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=none;
-	spf=pass (lists.linaro.org: domain of michael@ellerman.id.au designates 150.107.74.76 as permitted sender) smtp.mailfrom=michael@ellerman.id.au;
-	dmarc=none
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4VNJ6g0Nzdz4x1R;
-	Mon, 22 Apr 2024 18:18:35 +1000 (AEST)
-From: Michael Ellerman <patch-notifications@ellerman.id.au>
-To: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>
-In-Reply-To: <20240403080702.3509288-1-arnd@kernel.org>
-References: <20240403080702.3509288-1-arnd@kernel.org>
-Message-Id: <171377378377.1025456.1313405994816400451.b4-ty@ellerman.id.au>
-Date: Mon, 22 Apr 2024 18:16:23 +1000
+	dkim=pass header.d=ieee.org header.s=google header.b=c80QkjF0;
+	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.219.177 as permitted sender) smtp.mailfrom=elder@ieee.org;
+	dmarc=pass (policy=quarantine) header.from=ieee.org
+Received: by mail-yb1-f177.google.com with SMTP id 3f1490d57ef6-dcc6fc978ddso346726276.0
+        for <greybus-dev@lists.linaro.org>; Tue, 30 Apr 2024 16:41:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ieee.org; s=google; t=1714520505; x=1715125305; darn=lists.linaro.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=HyNJHGFWuCMTbeFg405HlnRxBUxH//W5wiUSNddP8XU=;
+        b=c80QkjF0wfIcHqJNCJweBra698/hyXuQNsEzM/+k0pp2X96p5R9iqiiAU+n5k2q6de
+         MKb3db5FWcGEkp4uNtBwXWJsw2B4XcSaVjhDIdKCTdErziVCexBTAh4raFNrYro+6Y3O
+         /JTd1ZJzt9VwvJUfs1JNaR/ZajqTru6nrVqXA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714520505; x=1715125305;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HyNJHGFWuCMTbeFg405HlnRxBUxH//W5wiUSNddP8XU=;
+        b=HatX1udbCuJEH9aDk5O3A+NDdJ5//s/46EIvNRZBRJeOtGB9WVkjMREcvRZYoKJav6
+         ks9k+hle2nRZOxVa8hCIwfuyCMsolK0iPCRSVbtkj6P2fEyHoh6PwTBuVD3UJqK1Lo0h
+         GCHr29BI+yhYDDsvgLbX/a0kFBLwu0ggDII5ArefrpzMHftDOKj3zWMpr0xrVNBNWaO7
+         yU3jJAchGpJp2XwwX7TY1NQ7vO5rQvjAfTzi6Uo66qFV+y64L0ge1aRbWG+OaecunwjB
+         u8LPhblVZWjzOVbl/tzgIh822QwHZT0z3OU+wSaufJWHoBL0TqwD7bHnqiwrREavGSoL
+         DF9w==
+X-Forwarded-Encrypted: i=1; AJvYcCW6JXYVzOm3rLE+wUq/1ffvlyyZoH+Bn/RGlcPWkoiByoKDEJDj79+yBUSEhUWB7fhWrfm1QPXDxBDMaHZYKWFnEVeqVoqWIPUVRhnD
+X-Gm-Message-State: AOJu0Yyd6APUM0Lm8z0gNsC+pR71VKXlqVSxNF/kykTuS/jLMMK46FF8
+	KJXs7N6mw/Y8IpHhLEMZa3vis6cf2+sf1Edm2kjf3CyrSXhbfE1R3Sy/ycrKEg==
+X-Google-Smtp-Source: AGHT+IG9ARc9BS7K77ZQwk0ByPLtLEEQsTsSNZsRxRh92VKyfaBL924BS3RaIxHei9zkfWFIw/3oyg==
+X-Received: by 2002:a5b:b02:0:b0:dd1:6cad:8fd3 with SMTP id z2-20020a5b0b02000000b00dd16cad8fd3mr803465ybp.27.1714520505457;
+        Tue, 30 Apr 2024 16:41:45 -0700 (PDT)
+Received: from [172.22.22.28] (c-73-228-159-35.hsd1.mn.comcast.net. [73.228.159.35])
+        by smtp.googlemail.com with ESMTPSA id p81-20020a25d854000000b00de617955013sm493242ybg.45.2024.04.30.16.41.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Apr 2024 16:41:44 -0700 (PDT)
+Message-ID: <506f15e3-b40e-481a-9eac-772faf4feb6b@ieee.org>
+Date: Tue, 30 Apr 2024 18:41:42 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Arnd Bergmann <arnd@kernel.org>, linux-kernel@vger.kernel.org,
+ Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Johan Hovold
+ <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>
+References: <20240403080702.3509288-1-arnd@kernel.org>
+ <20240403080702.3509288-18-arnd@kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20240403080702.3509288-18-arnd@kernel.org>
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: B55F63F074
-X-Spamd-Bar: -
-X-Spamd-Result: default: False [-1.40 / 15.00];
-	BAYES_HAM(-3.00)[99.99%];
+X-Rspamd-Queue-Id: 06F0244342
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.49 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	FORGED_SENDER(0.30)[patch-notifications@ellerman.id.au,michael@ellerman.id.au];
-	R_SPF_ALLOW(-0.20)[+ip4:150.107.74.76];
-	ONCE_RECEIVED(0.10)[];
+	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:133159, ipnet:150.107.72.0/22, country:AU];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_ONE(0.00)[1];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	R_DKIM_NA(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	XM_UA_NO_VERSION(0.01)[];
+	DKIM_TRACE(0.00)[ieee.org:+];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[arndb.de,ellerman.id.au,csgroup.eu,kernel.org,linuxfoundation.org,acm.org,gmx.de,mev.co.uk,visionengravers.com,linux.intel.com,amd.com,gondor.apana.org.au,arm.com,redhat.com,analo g.com,axentia.se,metafoo.de,gmail.com,foss.st.com,os.amperecomputing.com,huawei.com,wp.pl,atomide.com,bootlin.com,hisilicon.com,oracle.com,linaro.org,sntech.de,kernel. org,nuvoton.com,lst.de,goodmis.org,linux-foundation.org,chromium.org,hammerspace.com,suse.com,lists.ozlabs.org,vger.kernel.org,lists.sourceforge.net,lists.freedesktop.org,st-md-mailman.stormr,lists.infradead.org,lists.linaro.org,lists.linux.dev,googlegroups.com,alsa-project.org];
-	MISSING_XM_UA(0.00)[];
-	DNSWL_BLOCKED(0.00)[150.107.74.76:from];
-	RCPT_COUNT_GT_50(0.00)[106];
-	FROM_NEQ_ENVFROM(0.00)[patch-notifications@ellerman.id.au,michael@ellerman.id.au];
+	FREEMAIL_TO(0.00)[kernel.org,vger.kernel.org,gmail.com,linuxfoundation.org,linaro.org];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.219.177:from];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[73.228.159.35:received,209.85.219.177:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	DMARC_NA(0.00)[ellerman.id.au];
-	RCVD_TLS_ALL(0.00)[]
+	TAGGED_RCPT(0.00)[];
+	DWL_DNSWL_BLOCKED(0.00)[ieee.org:dkim];
+	TO_DN_SOME(0.00)[]
 X-Rspamd-Action: no action
-X-MailFrom: michael@ellerman.id.au
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: WAWES5LOUSIV5NM53PZRZOPWHU7NQ322
-X-Message-ID-Hash: WAWES5LOUSIV5NM53PZRZOPWHU7NQ322
-X-Mailman-Approved-At: Tue, 30 Apr 2024 20:43:54 +0000
-CC: Arnd Bergmann <arnd@arndb.de>, Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <christophe.leroy@csgroup.eu>, Damien Le Moal <dlemoal@kernel.org>, Jiri Kosina <jikos@kernel.org>, Corey Minyard <minyard@acm.org>, Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Ian Abbott <abbotti@mev.co.uk>, H Hartley Sweeten <hsweeten@visionengravers.com>, Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Len Brown <lenb@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, John Allen <john.allen@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>, Vinod Koul <vkoul@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Moritz Fischer <mdf@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, Benjamin Tissoires <benjamin.tissoires@redhat.com>, Andi Shyti <andi.shyti@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, Peter Rosin <peda@axentia.se>, Lars-Peter
-  Clausen <lars@metafoo.de>, Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, Markuss Broks <markuss.broks@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, Lee Jones <lee@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Iyappan Subramanian <iyappan@os.amperecomputing.com>, Yisen Zhuang <yisen.zhuang@huawei.com>, Stanislaw Gruszka <stf_xl@wp.pl>, Kalle Valo <kvalo@kernel.org>, Sebastian Reichel <sre@kernel.org>, Tony Lindgren <tony@atomide.com>, Mark Brown <broonie@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, Xiang Chen <chenxiang66@hisilicon.com>, "Martin K. Petersen" <martin.petersen@oracle.com>, Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Alex Elder <elder@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Jacky Huang <ychuang3@nuvoton.com>, Helge D
- eller <deller@gmx.de>, Christoph Hellwig <hch@lst.de>, Robin Murphy <robin.murphy@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Kees Cook <keescook@chromium.org>, Trond Myklebust <trond.myklebust@hammerspace.com>, Anna Schumaker <anna@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Takashi Iwai <tiwai@suse.com>, linuxppc-dev@lists.ozlabs.org, linux-ide@vger.kernel.org, openipmi-developer@lists.sourceforge.net, linux-integrity@vger.kernel.org, linux-omap@vger.kernel.org, linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org, linux-efi@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-fpga@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, linux-i2c@vger.kernel.org, linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, n
- etdev@vger.kernel.org, linux-leds@vger.kernel.org, linux-wireless@vger.kernel.org, linux-rtc@vger.kernel.org, linux-scsi@vger.kernel.org, linux-spi@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-serial@vger.kernel.org, linux-usb@vger.kernel.org, linux-fbdev@vger.kernel.org, iommu@lists.linux.dev, linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-hardening@vger.kernel.org, linux-nfs@vger.kernel.org, linux-kbuild@vger.kernel.org, alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+Message-ID-Hash: E7EJXNTPYHCISAQVSWQI2WOESY2PXHXT
+X-Message-ID-Hash: E7EJXNTPYHCISAQVSWQI2WOESY2PXHXT
+X-MailFrom: elder@ieee.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: Arnd Bergmann <arnd@arndb.de>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: (subset) [PATCH 00/34] address all -Wunused-const warnings
+Subject: [greybus-dev] Re: [PATCH 17/34] greybus: arche-ctrl: move device table to its right location
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/WAWES5LOUSIV5NM53PZRZOPWHU7NQ322/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/E7EJXNTPYHCISAQVSWQI2WOESY2PXHXT/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="us-ascii"; format="flowed"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 03 Apr 2024 10:06:18 +0200, Arnd Bergmann wrote:
-> Compilers traditionally warn for unused 'static' variables, but not
-> if they are constant. The reason here is a custom for C++ programmers
-> to define named constants as 'static const' variables in header files
-> instead of using macros or enums.
+On 4/3/24 3:06 AM, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> In W=1 builds, we get warnings only static const variables in C
-> files, but not in headers, which is a good compromise, but this still
-> produces warning output in at least 30 files. These warnings are
-> almost all harmless, but also trivial to fix, and there is no
-> good reason to warn only about the non-const variables being unused.
+> The arche-ctrl has two platform drivers and three of_device_id tables,
+> but one table is only used for the the module loader, while the other
+> two seem to be associated with their drivers.
 > 
-> [...]
+> This leads to a W=1 warning when the driver is built-in:
+> 
+> drivers/staging/greybus/arche-platform.c:623:34: error: 'arche_combined_id' defined but not used [-Werror=unused-const-variable=]
+>    623 | static const struct of_device_id arche_combined_id[] = {
+> 
+> Drop the extra table and register both tables that are actually
+> used as the ones for the module loader instead.
 
-Applied to powerpc/next.
+So what I see is that this commit added arche_combined_id[]:
+   1e5dd1f8279a8 greybus: arche-platform: merge arche-apb-ctrl and 
+arche-platform
 
-[01/34] powerpc/fsl-soc: hide unused const variable
-        https://git.kernel.org/powerpc/c/01acaf3aa75e1641442cc23d8fe0a7bb4226efb1
+That moved the arche_apb_ctrl_device_driver struct and some other
+associated bits out of arche-apb-ctrl.c and into arche-platform.c.
+It *kept* arche_platform_of_match[] as the of_match_table for
+arche_platform_device_driver, but defined arche_combined_id[] and
+declared it for modalias to indicate both drivers were implemented
+in the single kernel module.
 
-cheers
+The later commit (the one you references in "Fixes") then moved
+the arche_apb_ctrl_device_driver etc. back to arche-apb-ctrl.c.
+That commit did *not* use MODULE_DEVICE_TABLE() to declare
+arche_apb_ctrl_of_match[] for modalias.  And it simply kept the
+(no longer correct) arche_combined_id[] table to be used by the
+arche_platform_device_driver.
+
+So your fix:
+- Declares for modalias that arche_apb_ctrl_of_match[] is the
+   of_match_table for arche_apb_ctrl_device_driver.
+- Declares for modalias that arche_platform_of_match[] is the
+   of_match_table for arche_platform_device_driver.
+- Gets rid of arche_combined_id[], which is no longer used.
+
+In short:  looks good to me.
+
+Reviewed-by: Alex Elder <elder@linaro.org>
+
+> 
+> Fixes: 7b62b61c752a ("greybus: arche-ctrl: Don't expose driver internals to arche-platform driver")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>   drivers/staging/greybus/arche-apb-ctrl.c | 1 +
+>   drivers/staging/greybus/arche-platform.c | 9 +--------
+>   2 files changed, 2 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/arche-apb-ctrl.c b/drivers/staging/greybus/arche-apb-ctrl.c
+> index 8541995008da..aa6f266b62a1 100644
+> --- a/drivers/staging/greybus/arche-apb-ctrl.c
+> +++ b/drivers/staging/greybus/arche-apb-ctrl.c
+> @@ -466,6 +466,7 @@ static const struct of_device_id arche_apb_ctrl_of_match[] = {
+>   	{ .compatible = "usbffff,2", },
+>   	{ },
+>   };
+> +MODULE_DEVICE_TABLE(of, arche_apb_ctrl_of_match);
+>   
+>   static struct platform_driver arche_apb_ctrl_device_driver = {
+>   	.probe		= arche_apb_ctrl_probe,
+> diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
+> index 891b75327d7f..b33977ccd527 100644
+> --- a/drivers/staging/greybus/arche-platform.c
+> +++ b/drivers/staging/greybus/arche-platform.c
+> @@ -619,14 +619,7 @@ static const struct of_device_id arche_platform_of_match[] = {
+>   	{ .compatible = "google,arche-platform", },
+>   	{ },
+>   };
+> -
+> -static const struct of_device_id arche_combined_id[] = {
+> -	/* Use PID/VID of SVC device */
+> -	{ .compatible = "google,arche-platform", },
+> -	{ .compatible = "usbffff,2", },
+> -	{ },
+> -};
+> -MODULE_DEVICE_TABLE(of, arche_combined_id);
+> +MODULE_DEVICE_TABLE(of, arche_platform_of_match);
+>   
+>   static struct platform_driver arche_platform_device_driver = {
+>   	.probe		= arche_platform_probe,
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
