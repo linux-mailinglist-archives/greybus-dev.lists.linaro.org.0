@@ -2,48 +2,48 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA0758FCB03
-	for <lists+greybus-dev@lfdr.de>; Wed,  5 Jun 2024 13:51:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C7FD8FCB15
+	for <lists+greybus-dev@lfdr.de>; Wed,  5 Jun 2024 13:53:15 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id BD61244881
-	for <lists+greybus-dev@lfdr.de>; Wed,  5 Jun 2024 11:51:54 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 58A0940D42
+	for <lists+greybus-dev@lfdr.de>; Wed,  5 Jun 2024 11:53:14 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	by lists.linaro.org (Postfix) with ESMTPS id 4EFD840D1A
-	for <greybus-dev@lists.linaro.org>; Wed,  5 Jun 2024 11:51:48 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id 059B4402C5
+	for <greybus-dev@lists.linaro.org>; Wed,  5 Jun 2024 11:53:08 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=kernel.org header.s=k20201202 header.b=Me5NHUIf;
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b=ubZtm4p8;
 	spf=pass (lists.linaro.org: domain of sashal@kernel.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=sashal@kernel.org;
 	dmarc=pass (policy=none) header.from=kernel.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id E2EA9617FE;
-	Wed,  5 Jun 2024 11:51:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B02C32786;
-	Wed,  5 Jun 2024 11:51:46 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 9FC66617DF;
+	Wed,  5 Jun 2024 11:53:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A276AC4AF07;
+	Wed,  5 Jun 2024 11:53:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717588307;
+	s=k20201202; t=1717588387;
 	bh=kiI/Lw2TK9Xytq4SD7omgBRD9aRnbSVuuUnrkQXDmf0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Me5NHUIfQst+Ef6hFd2Zl+G/fthdgB4APYeYEftUiz1vp7IU9lYybdN4njEtWAhxi
-	 gntB4pfQ08FbBrzgw9QHwDtGNR6Dq7+at88S/fb/RYrywej/qT9gSCNn3enNDSBP3d
-	 XNGcVEktVr3QX09QkWGcDxnxoIsBdTi4rbVjkiCSAGx7Av4kfnNIJXcZkeO/8IKXf0
-	 Vg0yeWpBL1FdezPKppepaA2ikpwi4s9Io7+0cBHhvilHK2pq4CtKX7EroWTcoMnfcC
-	 EEPN5vqICp3wQp2VDev9T9Wg00bjTj2RDia3VXHfBg7o7QFJwuGDt7+yoCm2D3IoeT
-	 wvOtxkcPMlSnQ==
+	b=ubZtm4p8c1PCKM6veZi9iLgDWg9WCuFRFNVdTQ7vnDy3yBnB+tC7jVYrbFxAffm46
+	 V6MfTFDbqVlu7fDx8n2RGQoqibYlNP9sv8yA/tMltngfMoYX0De+NkFeJ9ksdOCQNP
+	 xBfz/VfjQWGd8dH7miX/aSpD51ZMheZDSpWKa56EpBPw21Sgt5GpZdqJps7xqYE0e5
+	 NAHxdVOeV9ieVE2N26L6pAEyN+ub3jp9SZgr/LvcxjfI7ov3h+2o6QrX2C3Bwv28qN
+	 qfMJ+JRYo6Wa0CIDabM2puKQoPLoMLk7vdUD9WJ4b52S7vqLRR8ZChLXJaT1DaL/vj
+	 b8bFkK1Il86hg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed,  5 Jun 2024 07:50:28 -0400
-Message-ID: <20240605115101.2962372-18-sashal@kernel.org>
+Date: Wed,  5 Jun 2024 07:51:59 -0400
+Message-ID: <20240605115225.2963242-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240605115101.2962372-1-sashal@kernel.org>
-References: <20240605115101.2962372-1-sashal@kernel.org>
+In-Reply-To: <20240605115225.2963242-1-sashal@kernel.org>
+References: <20240605115225.2963242-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.8.12
+X-stable-base: Linux 6.6.32
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 4EFD840D1A
+X-Rspamd-Queue-Id: 059B4402C5
 X-Spamd-Bar: --
 X-Spamd-Result: default: False [-2.50 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
@@ -67,16 +67,16 @@ X-Spamd-Result: default: False [-2.50 / 15.00];
 	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:+]
-Message-ID-Hash: OX54PGLKA3FKKYFV2TVAUKJEKK7VPW2T
-X-Message-ID-Hash: OX54PGLKA3FKKYFV2TVAUKJEKK7VPW2T
+Message-ID-Hash: U634KKU4WJJ4PJGMUWFJ6XETBNKXC4GW
+X-Message-ID-Hash: U634KKU4WJJ4PJGMUWFJ6XETBNKXC4GW
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: Sicong Huang <congei42@163.com>, Sasha Levin <sashal@kernel.org>, johan@kernel.org, greybus-dev@lists.linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH AUTOSEL 6.8 18/24] greybus: Fix use-after-free bug in gb_interface_release due to race condition.
+Subject: [greybus-dev] [PATCH AUTOSEL 6.6 16/20] greybus: Fix use-after-free bug in gb_interface_release due to race condition.
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OX54PGLKA3FKKYFV2TVAUKJEKK7VPW2T/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/U634KKU4WJJ4PJGMUWFJ6XETBNKXC4GW/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
