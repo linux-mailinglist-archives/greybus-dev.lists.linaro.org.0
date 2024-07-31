@@ -2,58 +2,57 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1493E9435E1
-	for <lists+greybus-dev@lfdr.de>; Wed, 31 Jul 2024 20:53:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B989A9435DE
+	for <lists+greybus-dev@lfdr.de>; Wed, 31 Jul 2024 20:53:28 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 2973A4486E
-	for <lists+greybus-dev@lfdr.de>; Wed, 31 Jul 2024 18:53:35 +0000 (UTC)
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	by lists.linaro.org (Postfix) with ESMTPS id 686064486F
-	for <greybus-dev@lists.linaro.org>; Wed, 31 Jul 2024 18:53:27 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id CE5654486A
+	for <lists+greybus-dev@lfdr.de>; Wed, 31 Jul 2024 18:53:27 +0000 (UTC)
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	by lists.linaro.org (Postfix) with ESMTPS id 403004482F
+	for <greybus-dev@lists.linaro.org>; Wed, 31 Jul 2024 18:53:22 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=beagleboard-org.20230601.gappssmtp.com header.s=20230601 header.b=eFARmjrB;
-	spf=neutral (lists.linaro.org: 209.85.210.54 is neither permitted nor denied by domain of ayush@beagleboard.org) smtp.mailfrom=ayush@beagleboard.org;
+	dkim=pass header.d=beagleboard-org.20230601.gappssmtp.com header.s=20230601 header.b=O1667mpK;
+	spf=neutral (lists.linaro.org: 209.85.215.177 is neither permitted nor denied by domain of ayush@beagleboard.org) smtp.mailfrom=ayush@beagleboard.org;
 	dmarc=fail reason="No valid SPF, DKIM not aligned (relaxed)" header.from=beagleboard.org (policy=none)
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-70939a06e52so496533a34.1
-        for <greybus-dev@lists.linaro.org>; Wed, 31 Jul 2024 11:53:27 -0700 (PDT)
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-7ae8dd8724dso234205a12.2
+        for <greybus-dev@lists.linaro.org>; Wed, 31 Jul 2024 11:53:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard-org.20230601.gappssmtp.com; s=20230601; t=1722452007; x=1723056807; darn=lists.linaro.org;
+        d=beagleboard-org.20230601.gappssmtp.com; s=20230601; t=1722452001; x=1723056801; darn=lists.linaro.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ojT/JLCa93OROa435ly8/9yf/IKMKJjKV66nK3VNbzc=;
-        b=eFARmjrBauGVewnCJ6ss6pQpS1i6XaGklvbPslRRGk1v1qsOQCSHGxp2zCScqtyzPE
-         mruCh6M7j9yz4Sllp3CoTrDkiGXooCTl87OWSL1jJ8qTyIjUDct19siYnu5IAgWvAI+K
-         rM+fhpGZdrGrtN1ex7DD9x7noNTg4aCkKAmPKTwr1bAiirZEOvg8Ad84pwAXoUh3GDd5
-         BGRcJxrEu8ovFXSzg8htmn6vaQufTsKDmssULdt1oCW3DVJ9IyHBr5tMCR6411DC0FrN
-         ahA7juW7PGtitIzL+9s1gGkRzDqgd79BFCVVIwKhdi+2H5gqJc21U57lTvG2kPr8UIXi
-         KfXA==
+        bh=8Q/3E3b2eo/TFXOq6VQUHvlRBXDZ59E7fsnrItLmpMw=;
+        b=O1667mpK3RzbBfnxlmEUR2GRaK00+Jpf/RtZ0LHsV5DmidiVeyXnDoSyeOqDQHVqFE
+         s6NCsotC236+uvhTpDGjmNndvkoZJkUAOgcCvMNf3xz2Vje9BIk5nZeRyAVo690GW8vB
+         Wbpv5e+FvsgMeM5P1xFXdj0FJ6L3h8w4EatmuFa8zYBwqRbGeOMTbbE6YdJ8nxuZobOA
+         mkQbSO9mK1YgYNgdAvFeau0LRiSIiceVbMWAJg7EL4wOOFr1nWNn30tbcjlXmUXg4Kyw
+         BYRJ4tzka4ap52XJT8AQmHsTUeqLG2G1y3lD5JT2Fv9bFfPtRQ9HWEqF9rU7NyUe4nTk
+         rW2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722452007; x=1723056807;
+        d=1e100.net; s=20230601; t=1722452001; x=1723056801;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ojT/JLCa93OROa435ly8/9yf/IKMKJjKV66nK3VNbzc=;
-        b=OBmqxkRprumHFFjy2iUQpSr/RJO9Ygu0K15cxRDRTTs0eikThRYLLlZkn3G4/jdktc
-         7EWaL01C3FptyYA8mEaycpw0d0T5z+1FsH9E5eOt7vNU6Cvi/7j07o9W0I8DpqA17KOO
-         csFsDtUkZs5BUpmTBRg4IpypUOqz6q3Wrw8KbWY9nnm0dFvzo8gT3YlwOyXsxZAh1xgU
-         Et84AOpotTfVjFVgmzvY1TFinUmZMcNtaPyeeASxN7dheAzcyB6i4ZNi3QPYXL2wzmal
-         vcAEaO58gBjhaoHgKNjQlAPLbLNBM6qydDPRQDBcp6fDrvs2eCZj2DzYUXnBWIUCf2se
-         LJsA==
-X-Gm-Message-State: AOJu0YzZENdbe9rle/YCuCTkuxLc+Dx7OpiM55IXYiZagOTMDp5EZeiK
-	LqeGR784IBxg60IVhs2iTVzmzGGaS/MlvXJnYE9h78DP6AHo1YQQQpq7uAT02C9tOnXkMBmgFeA
-	=
-X-Google-Smtp-Source: AGHT+IHdD6Lu2yTxVi0/pR+KxWdAvB7471oytstPn7Ep06dyWyYC7FdxtYjBH0hrSEJ/lCHbOD3o+g==
-X-Received: by 2002:a17:902:d507:b0:1fc:5377:35ac with SMTP id d9443c01a7336-1ff4d27c1ccmr1480985ad.10.1722451995611;
-        Wed, 31 Jul 2024 11:53:15 -0700 (PDT)
+        bh=8Q/3E3b2eo/TFXOq6VQUHvlRBXDZ59E7fsnrItLmpMw=;
+        b=V08gSbYEK7IpzKRAcxGOuXckqJg0MAVdM4M9+14ubL0MGq3ifTRd9yDtaW8GtuN+Sl
+         6fY7z0GLpRA9JyG8AoN0oPfcypSY1R9H2veWIq47jHMRasN+NVJdAL+ndQLTHq3Stwzc
+         uYqTkkHcBuWcq/QOxEpnbRQOp1kQaOUnfOc0Fa2lIqNzEHV7mDZUu8nfSyDg3Zs8DZwE
+         uMU5HcEz8gDxD3UCW4SeYx4VRkOXjiZsjnomcjGEYi+meeSYRRA32rY4p8lnh0vieK+G
+         VL71p80le/S3I0PxYUi8mjLSuu9qU3Z9YJpKlAGAj7LR8cIRI6+a4t/DMd+cPorv0tqF
+         7v+g==
+X-Gm-Message-State: AOJu0YxRM6uR6fUQYAl80GcIS84RMs7SR8FqGJ7YGj3fStM/cA9HN59x
+	4RKOGZ0XMyUMm8pQCcbLs/qpZYU4vTV+0GGqycGMeiUi0u7Yo6MyORTTJJKQfA==
+X-Google-Smtp-Source: AGHT+IF9e5nH0+houYf35o7HSbuUJwbUbuVuAZal2IMrlR7X8KHx7hsAAxE0bVJaQ0L7OkSUFPL55w==
+X-Received: by 2002:a17:902:fa84:b0:1f7:1a37:d0b5 with SMTP id d9443c01a7336-1ff4d0f0395mr1556395ad.4.1722452001387;
+        Wed, 31 Jul 2024 11:53:21 -0700 (PDT)
 Received: from [172.16.118.4] ([103.15.228.94])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1fed7ff3d64sm123182825ad.299.2024.07.31.11.53.10
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1fed7ff3d64sm123182825ad.299.2024.07.31.11.53.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 31 Jul 2024 11:53:15 -0700 (PDT)
+        Wed, 31 Jul 2024 11:53:21 -0700 (PDT)
 From: Ayush Singh <ayush@beagleboard.org>
-Date: Thu, 01 Aug 2024 00:21:05 +0530
+Date: Thu, 01 Aug 2024 00:21:06 +0530
 MIME-Version: 1.0
-Message-Id: <20240801-beagleplay_fw_upgrade-v2-1-e36928b792db@beagleboard.org>
+Message-Id: <20240801-beagleplay_fw_upgrade-v2-2-e36928b792db@beagleboard.org>
 References: <20240801-beagleplay_fw_upgrade-v2-0-e36928b792db@beagleboard.org>
 In-Reply-To: <20240801-beagleplay_fw_upgrade-v2-0-e36928b792db@beagleboard.org>
 To: lorforlinux@beagleboard.org, jkridner@beagleboard.org,
@@ -66,24 +65,24 @@ To: lorforlinux@beagleboard.org, jkridner@beagleboard.org,
  Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1346; i=ayush@beagleboard.org;
- h=from:subject:message-id; bh=XHqJU4/T7F12L5POtvVe0Q4zmll9qWWprpMTXEoqi+k=;
- b=owEBbQKS/ZANAwAIAQXO9ceJ5Vp0AcsmYgBmqogPQ0J/TODCghlK+Gt4hhKjYxhh2Cr6l7ces
- FW/VbMBS8mJAjMEAAEIAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCZqqIDwAKCRAFzvXHieVa
- dDgoD/wLkKv4S7Es1rK82+/4QnDQYJc7qcpNhWECyHjCljbCMyaa4WnDa3OakUCJShWbwwy+Ael
- yC5w9+vVDuyWoYRBF7Q2t6Zk5wW5admxnuvGr+5iwrrmtewNxscAyiSdk+3z86dJ7ZT9ykh3jdX
- ubTwC5yWlPPB6sE8skPc8hx3h52CbTH/dyyqSmw5TQ8k1CcyA3zCFtm2BKcrqGfLgORI5iB/N2g
- wUYkccWg4APMnzXYFIbTwGSD+sTTo7QKTJ+PUf3kAgGfcKKcmDUY82p+MU+cnefFKLRXFocANtW
- uXrOeH+zufLwS84w8qtx7M+vw76ZQzA/uSUoLgdxcxXGkJln+6KnSc/WbST9hbX6/te5+KLnLeN
- zKJjmcbNjXY8UYeSGdmO4BeduMefXidaz4NTILD9YrY545m9incW7OgzOATss3A7GmXSGp6z6+0
- yHxsC3a4HZQy6v+FHJtTf1asuWeTefsQibTluZSS+FbNNzW0wvLpHXF63glW43LZ5cfXS8mf8OD
- hNf0i981p7jXn8VgXW3616o8r1Uw2q0MIqNRNcZ8p8kIJuApNxK3oHnmz5Tu7oXr8LcMmXnNZOX
- nthCn7gtjNrGjV8plupFsvE4+VCVK7TjPvDlYb0O+jcv4ccVuqKRp4Hbhq0SZwIrfJZTwm8pFuy
- MupaODO95S+NofQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=889; i=ayush@beagleboard.org;
+ h=from:subject:message-id; bh=kPfCx03ybr3MIpJmR8pHHfQuNtULEfQX762YDGBxnKs=;
+ b=owEBbQKS/ZANAwAIAQXO9ceJ5Vp0AcsmYgBmqogQIw+1kSBa5l0LPqEzMyulYyOyGwpLiDqAl
+ +XMMMoQrviJAjMEAAEIAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCZqqIEAAKCRAFzvXHieVa
+ dGsLEACnI9KpgROhjrZozoczEI/u+dRf5uh/LYSnTLW2PsdGjwsBfhmhQMq66oWyjLzpHwix1Fm
+ 0F6PQev4zZVxoCKwaPMSxVaQG5eXCqM6CQL9saBrCgxR7Loh1EdSKuvwh2LXqOsIoBzhSgbe+Rq
+ FYcxHFNfTel8mwZIMXKlL2KFWKyW16GzrCWdIQGJjc11ZgLI7Bj3OcnnjsnuFwBoXm5keHYI7+2
+ GB4/dHSbxr9NwzmYea3rnVUWKk1J32XaGvuCfVWgL65a5T638EIYLg/0dUZ8DhuJkWdVJizaWOU
+ tHFKvYmmC6LWOwRwHeKnDlpelKyMb9rfzcXXRSAh4oRW41LdXX2/eIEnaACTN0d8XOII6hztQdE
+ 1BtyqUdBF64RcCNae6VHtrEsq+11n5oClFLBQfeFPrJUGy8H0ORrROp2rZtZpOUFy+emJ6irmi8
+ CvUv9Z0mFVM6/LkNQYZ5dMbhJ/awOn0R7B9paKmAj1FZ/FMlXREUv9RjncR/e5o9PNZMN8uh/xF
+ xCVOQJOj0zExhhMB7+sQ+j/6vW25brLoN5+/bzG/v9ICNe5xgCjUS03udutATd17Y39cNdse9fQ
+ 4y6c3Sr6EzVe2Dg0fyaqQxNgN8p3BuWpUicmgbeArXp5ZbrNU7lEK3UZ7CdUlM73oQA5QXdSxRM
+ dpFIs3qKAAPNskw==
 X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
  fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 686064486F
+X-Rspamd-Queue-Id: 403004482F
 X-Spamd-Bar: -----
 X-Spamd-Result: default: False [-5.80 / 15.00];
 	REPLY(-4.00)[];
@@ -92,7 +91,7 @@ X-Spamd-Result: default: False [-5.80 / 15.00];
 	R_DKIM_ALLOW(-0.20)[beagleboard-org.20230601.gappssmtp.com:s=20230601];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[beagleboard.org : No valid SPF, DKIM not aligned (relaxed),none];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.54:from];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.215.177:from];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[22];
 	TAGGED_RCPT(0.00)[dt];
@@ -102,7 +101,7 @@ X-Spamd-Result: default: False [-5.80 / 15.00];
 	ARC_NA(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TO_DN_SOME(0.00)[];
-	URIBL_BLOCKED(0.00)[beagleboard.org:email,beagleboard.org:mid,beagleboard-org.20230601.gappssmtp.com:dkim,mail-ot1-f54.google.com:helo,mail-ot1-f54.google.com:rdns];
+	URIBL_BLOCKED(0.00)[beagleboard.org:email,beagleboard.org:mid,mail-pg1-f177.google.com:helo,mail-pg1-f177.google.com:rdns,beagleboard-org.20230601.gappssmtp.com:dkim];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -112,16 +111,16 @@ X-Spamd-Result: default: False [-5.80 / 15.00];
 	RCVD_COUNT_TWO(0.00)[2];
 	DKIM_TRACE(0.00)[beagleboard-org.20230601.gappssmtp.com:+]
 X-Rspamd-Action: no action
-Message-ID-Hash: G2Y4F2GCOKFKROG643X5UZK3EAFUBFGS
-X-Message-ID-Hash: G2Y4F2GCOKFKROG643X5UZK3EAFUBFGS
+Message-ID-Hash: LS6EJ2343YHLETNDWLFXN6I2RJDYUGLE
+X-Message-ID-Hash: LS6EJ2343YHLETNDWLFXN6I2RJDYUGLE
 X-MailFrom: ayush@beagleboard.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: greybus-dev@lists.linaro.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Ayush Singh <ayush@beagleboard.org>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 1/3] dt-bindings: net: ti,cc1352p7: Add bootloader-backdoor-gpios
+Subject: [greybus-dev] [PATCH v2 2/3] arm64: dts: ti: k3-am625-beagleplay: Add bootloader-backdoor-gpios to cc1352p7
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/G2Y4F2GCOKFKROG643X5UZK3EAFUBFGS/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/LS6EJ2343YHLETNDWLFXN6I2RJDYUGLE/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -131,44 +130,30 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-bootloader-backdoor-gpio (along with reset-gpio) is used to enable
-bootloader backdoor for flashing new firmware.
+Add bootloader-backdoor-gpios which is required for enabling bootloader
+backdoor for flashing firmware to cc1352p7.
 
-The pin and pin level to enable bootloader backdoor is configured using
-the following CCFG variables in cc1352p7:
-- SET_CCFG_BL_CONFIG_BL_PIN_NO
-- SET_CCFG_BL_CONFIG_BL_LEVEL
+Also fix the incorrect reset-gpio.
 
 Signed-off-by: Ayush Singh <ayush@beagleboard.org>
 ---
- Documentation/devicetree/bindings/net/ti,cc1352p7.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
+ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/net/ti,cc1352p7.yaml b/Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
-index 3dde10de4630..4f4253441547 100644
---- a/Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
-+++ b/Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
-@@ -29,6 +29,12 @@ properties:
-   reset-gpios:
-     maxItems: 1
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts b/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
+index 70de288d728e..a1cd47d7f5e3 100644
+--- a/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
++++ b/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
+@@ -888,7 +888,8 @@ &main_uart6 {
  
-+  bootloader-backdoor-gpios:
-+    maxItems: 1
-+    description: |
-+      gpios to enable bootloader backdoor in cc1352p7 bootloader to allow
-+      flashing new firmware.
-+
-   vdds-supply: true
- 
- required:
-@@ -46,6 +52,7 @@ examples:
-         clocks = <&sclk_hf 0>, <&sclk_lf 25>;
-         clock-names = "sclk_hf", "sclk_lf";
-         reset-gpios = <&pio 35 GPIO_ACTIVE_LOW>;
-+        bootloader-backdoor-gpios = <&pio 36 GPIO_ACTIVE_LOW>;
-         vdds-supply = <&vdds>;
-       };
-     };
+ 	mcu {
+ 		compatible = "ti,cc1352p7";
+-		reset-gpios = <&main_gpio0 72 GPIO_ACTIVE_LOW>;
++		bootloader-backdoor-gpios = <&main_gpio0 13 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&main_gpio0 14 GPIO_ACTIVE_HIGH>;
+ 		vdds-supply = <&vdd_3v3>;
+ 	};
+ };
 
 -- 
 2.45.2
