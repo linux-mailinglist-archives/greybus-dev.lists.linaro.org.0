@@ -2,199 +2,184 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id D922B993A40
-	for <lists+greybus-dev@lfdr.de>; Tue,  8 Oct 2024 00:35:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27B7E99566D
+	for <lists+greybus-dev@lfdr.de>; Tue,  8 Oct 2024 20:25:18 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id BF46543FE4
-	for <lists+greybus-dev@lfdr.de>; Mon,  7 Oct 2024 22:35:31 +0000 (UTC)
-Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com [209.85.219.170])
-	by lists.linaro.org (Postfix) with ESMTPS id DD5503F4E0
-	for <greybus-dev@lists.linaro.org>; Mon,  7 Oct 2024 22:35:26 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 3578144A06
+	for <lists+greybus-dev@lfdr.de>; Tue,  8 Oct 2024 18:25:17 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by lists.linaro.org (Postfix) with ESMTPS id 8EE343F4B4
+	for <greybus-dev@lists.linaro.org>; Tue,  8 Oct 2024 18:25:08 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=cbcl+G51;
-	dmarc=pass (policy=none) header.from=linaro.org;
-	spf=pass (lists.linaro.org: domain of ulf.hansson@linaro.org designates 209.85.219.170 as permitted sender) smtp.mailfrom=ulf.hansson@linaro.org
-Received: by mail-yb1-f170.google.com with SMTP id 3f1490d57ef6-e25cf3c7278so4378296276.3
-        for <greybus-dev@lists.linaro.org>; Mon, 07 Oct 2024 15:35:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1728340526; x=1728945326; darn=lists.linaro.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=gesjil9Y0RZgbcjmX5qHd/S97rHztDCcedkOm+1cl0k=;
-        b=cbcl+G51UcfF+XgH5m6XbTJUKOaymdSD114T4LgOf/U029+GWf4lGtTy+Am61CIGAH
-         Bn3fSeaeYJ/UEPeMUJ99+6jVYmkScVdRHPHlHVaYBBHmRvbB/zN6AVd2Vz9pR/WxpPJ/
-         Fk9d6U8qL37KVT2bzwwzUSN7v68jdfv4pv90TDx6/FTw4oQ2mZAcLALcCovvjWDtW+JA
-         cLukzplvSB9mqmUGXm6yMBl6Bnrkvfg/SBeLQJXe0KmXRleUXm9/Blke8k2EHBpddViv
-         81zEJHBofEEvYby5yFgc6DidP/t+1DQkzR/jzO78kAIwbV4ZmoZWmSQ0+bmPNfuVcGfY
-         BMlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728340526; x=1728945326;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gesjil9Y0RZgbcjmX5qHd/S97rHztDCcedkOm+1cl0k=;
-        b=ctFiVIO7szIhLWjtVsyNaOPjPYZY+ebjw7ADbE7yXXHdICebNkb1Gkdm0Eh6VU2dTy
-         R15Unh5kGVD9JhZUd0OCpa3QzrJ4QMdOuq6oo3dskA1nXjmjefYx1xpPHWsE/Ftgipep
-         Bvyc8c+3qzm9EKnWImmmC7NXDoYpzsPy2RrQRx+Q5jWQTZ1GoeQOF/0pJIyc6MeViXT/
-         8t1bPHdIwGiX1BJFdnk2e0VdpyXvAAdF75vbVSSxRychWmwjoPxGGiBymzv4uhKhKj/+
-         18U3rjhb6lRHdboABm1pdNeu4K6O6TgWUlpEy1ey6KN5AuDJqKufoFv8ndRTWh7G2O5i
-         /6sA==
-X-Forwarded-Encrypted: i=1; AJvYcCV2PSSlphw1Yq9HV4MZDEXXnrWI/bwt2IWpsOZQFGiNT/Q7duVYsd2eVCSRkcZCMEuHIsk9ivX4EuQxhw==@lists.linaro.org
-X-Gm-Message-State: AOJu0Ywm0FrsCno9c9EX6lnrTpCXDk5RwNl9wT7JHqN2BbUYkcEHDBbZ
-	X+pJmn71OJ1tPh6lQWqPeOoVXQvl5NAjq0VG9fN1bRmOCtQNnPf389QboFadMp56SS/H30sNZt9
-	TR0v1HRUG6Co67OYzvbMYgD3fGBf+fjmjig7jkMDG
-X-Google-Smtp-Source: AGHT+IGYLLRVc3CeXKReIUVnntYlZ+ULRb29gPUl3UTx4hoqAUGdx6q2aFDzdnacRWqcM/cOYseo4GoEdp7e3a8qLZE=
-X-Received: by 2002:a05:6902:2305:b0:e28:6ec7:4353 with SMTP id
- 3f1490d57ef6-e2893964043mr10612649276.54.1728340526338; Mon, 07 Oct 2024
- 15:35:26 -0700 (PDT)
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b=QWv3+c7h;
+	dmarc=pass (policy=quarantine) header.from=kernel.org;
+	spf=pass (lists.linaro.org: domain of rafael@kernel.org designates 147.75.193.91 as permitted sender) smtp.mailfrom=rafael@kernel.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 8A269A432F7
+	for <greybus-dev@lists.linaro.org>; Tue,  8 Oct 2024 18:24:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536D2C4CED4
+	for <greybus-dev@lists.linaro.org>; Tue,  8 Oct 2024 18:25:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1728411907;
+	bh=gbTLwyB5anW/NVNa27O4GYEgcT7Zt8zwGlDOBl4w9X4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=QWv3+c7hgheNar52dT93kuaRJqQGwrTlm+2qt+dJoGyQzAHIgU0jubrC8ThWhyZIZ
+	 RS8ECJijkXPnKWXZt/DHYo4oNlel2cdA7QmeMfgDuBLkCfLLpl6vQcl4DNTcV5EyFH
+	 5h8XYKukhwE21LUBMtMTij4WxRmO6XhWfjQaEwayPWgg9ncS5s6vbgtpgFKR2d4Ze1
+	 U8RaeSIFzvB8vNoypQgBEdP43kZiPZVbc5vt/+kjhif0hCbio5j23Z7Fbcd2MdU+Eu
+	 u4mqS8NwdiP912BRPYfCL4ckK1zD9U7UpC3cflIOLH9kTp0r9qM6ScGNZWHbmYuBvP
+	 5BPH6goJRp7XQ==
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-5e5568f1baaso3161334eaf.2
+        for <greybus-dev@lists.linaro.org>; Tue, 08 Oct 2024 11:25:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVmIY8/5M+sKS7Ho53K3Ryo4+r0LBu17VR/MN6+N5h6goVeow/RFdo+iBXp8hDtQedVFZQ8nqnadhC+YA==@lists.linaro.org
+X-Gm-Message-State: AOJu0YwCqtFdA5B1vJLLztq7RN6vZ2pSYo0NumwSpU4xlwr6lWFtt/qB
+	zSPzKqXIGuJX0+CC5XpZ+9d3gepbTL6My5dZDYeQOWdMfxD3Es/B1Pv6D19woDJ841fMwWTJ9dY
+	4UGX4z+P1S43CyFXUri0jbytjD7s=
+X-Google-Smtp-Source: AGHT+IE8/UzrmOfg0dgL+a7sFpnmZmTmVZlVfZVXeH9h9sR6Zbx0f+k3/XHDUWx/NQFfJo1odWsZ7gtN5j50xL2u+GA=
+X-Received: by 2002:a05:6820:228e:b0:5e1:d741:6f04 with SMTP id
+ 006d021491bc7-5e7cc079979mr12626737eaf.3.1728411906564; Tue, 08 Oct 2024
+ 11:25:06 -0700 (PDT)
 MIME-Version: 1.0
 References: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
  <CAPDyKFp0N6UJhnHS164Tdf=xkWB0jzq65L9TdvYazeBQ-6WjeQ@mail.gmail.com>
  <20241007184924.GH14766@pendragon.ideasonboard.com> <CAPDyKFpQVnF7eQv3dup8k-3EijnMjuveCG9sZ=Rpey1Y6MBJEg@mail.gmail.com>
- <20241007222502.GG30699@pendragon.ideasonboard.com>
-In-Reply-To: <20241007222502.GG30699@pendragon.ideasonboard.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 8 Oct 2024 00:34:49 +0200
-Message-ID: <CAPDyKFrGNwna6Y2pqSRaBbRYHKRaD2ayqQHLtoqLPOu9Et7qTg@mail.gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+ <20241007222502.GG30699@pendragon.ideasonboard.com> <CAPDyKFrGNwna6Y2pqSRaBbRYHKRaD2ayqQHLtoqLPOu9Et7qTg@mail.gmail.com>
+In-Reply-To: <CAPDyKFrGNwna6Y2pqSRaBbRYHKRaD2ayqQHLtoqLPOu9Et7qTg@mail.gmail.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Tue, 8 Oct 2024 20:24:55 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jvJyS7D5-wURi2kyWN-rmNa+YqupeQJ000pQRVd9VBcQ@mail.gmail.com>
+Message-ID: <CAJZ5v0jvJyS7D5-wURi2kyWN-rmNa+YqupeQJ000pQRVd9VBcQ@mail.gmail.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: DD5503F4E0
+X-Rspamd-Queue-Id: 8EE343F4B4
 X-Spamd-Bar: ------
 X-Spamd-Result: default: False [-6.50 / 15.00];
 	REPLY(-4.00)[];
 	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+ip4:147.75.193.91];
 	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_ONE(0.00)[1];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[39];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.219.170:from];
-	NEURAL_HAM(-0.00)[-1.000];
 	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,lists.freedesktop.org,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org,opensource.cirrus.com,lists.linux.dev,lists.linaro.org,kernel.org,gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[39];
+	ASN(0.00)[asn:54825, ipnet:147.75.192.0/21, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	TO_DN_SOME(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org,opensource.cirrus.com,lists.linux.dev,lists.linaro.org,gmail.com];
+	URIBL_BLOCKED(0.00)[linaro.org:email,mail.gmail.com:mid,nyc.source.kernel.org:helo,nyc.source.kernel.org:rdns];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+]
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[kernel.org:+]
 X-Rspamd-Action: no action
-Message-ID-Hash: G2SNB3GHSHBVRYFNNTGNDUCEUBJXRLJI
-X-Message-ID-Hash: G2SNB3GHSHBVRYFNNTGNDUCEUBJXRLJI
-X-MailFrom: ulf.hansson@linaro.org
+Message-ID-Hash: OTX7KGYM2X54QIDID3AIU2KDBV4CO2RJ
+X-Message-ID-Hash: OTX7KGYM2X54QIDID3AIU2KDBV4CO2RJ
+X-MailFrom: rafael@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Sakari Ailus <sakari.ailus@linux.intel.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org, amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, linux-i3c@lists.infradead.org, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, patches@opensource.cirrus.com, iommu@lists.linux.dev, imx@lists.linux.dev, linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org, linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org, netdev@vger.kernel.org, linux-wireless@vger.kernel.org, linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, linux-pwm@vger.kernel.org, linux-remoteproc@vger.kernel.org, linux-sound@vger.kernel.org, linux-spi@vger.kernel.org, linux-staging@lists.linux.dev, linux-usb@vger.kernel.org
- , linux-serial@vger.kernel.org, greybus-dev@lists.linaro.org, asahi@lists.linux.dev, rafael@kernel.org, Andy Shevchenko <andy.shevchenko@gmail.com>
+CC: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org, amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, linux-i3c@lists.infradead.org, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, patches@opensource.cirrus.com, iommu@lists.linux.dev, imx@lists.linux.dev, linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org, linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org, netdev@vger.kernel.org, linux-wireless@vger.kernel.org, linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, linux-pwm@vger.kernel.org, linux-remoteproc@vger.kernel.org, linux-sound@vger.kernel.org, linux-spi@vger.kernel.org, linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, linux-serial@vger.kernel.org, greybus-dev@l
+ ists.linaro.org, asahi@lists.linux.dev, Andy Shevchenko <andy.shevchenko@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH 00/51] treewide: Switch to __pm_runtime_put_autosuspend()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/G2SNB3GHSHBVRYFNNTGNDUCEUBJXRLJI/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OTX7KGYM2X54QIDID3AIU2KDBV4CO2RJ/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Tue, 8 Oct 2024 at 00:25, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> Hi Ulf,
->
-> On Tue, Oct 08, 2024 at 12:08:24AM +0200, Ulf Hansson wrote:
-> > On Mon, 7 Oct 2024 at 20:49, Laurent Pinchart wrote:
-> > > On Fri, Oct 04, 2024 at 04:38:36PM +0200, Ulf Hansson wrote:
-> > > > On Fri, 4 Oct 2024 at 11:41, Sakari Ailus wrote:
-> > > > >
-> > > > > Hello everyone,
-> > > > >
-> > > > > This set will switch the users of pm_runtime_put_autosuspend() to
-> > > > > __pm_runtime_put_autosuspend() while the former will soon be re-purposed
-> > > > > to include a call to pm_runtime_mark_last_busy(). The two are almost
-> > > > > always used together, apart from bugs which are likely common. Going
-> > > > > forward, most new users should be using pm_runtime_put_autosuspend().
-> > > > >
-> > > > > Once this conversion is done and pm_runtime_put_autosuspend() re-purposed,
-> > > > > I'll post another set to merge the calls to __pm_runtime_put_autosuspend()
-> > > > > and pm_runtime_mark_last_busy().
-> > > >
-> > > > That sounds like it could cause a lot of churns.
-> > > >
-> > > > Why not add a new helper function that does the
-> > > > pm_runtime_put_autosuspend() and the pm_runtime_mark_last_busy()
-> > > > things? Then we can start moving users over to this new interface,
-> > > > rather than having this intermediate step?
-> > >
-> > > I think the API would be nicer if we used the shortest and simplest
-> > > function names for the most common use cases. Following
-> > > pm_runtime_put_autosuspend() with pm_runtime_mark_last_busy() is that
-> > > most common use case. That's why I like Sakari's approach of repurposing
-> > > pm_runtime_put_autosuspend(), and introducing
-> > > __pm_runtime_put_autosuspend() for the odd cases where
-> > > pm_runtime_mark_last_busy() shouldn't be called.
-> >
-> > Okay, so the reason for this approach is because we couldn't find a
-> > short and descriptive name that could be used in favor of
-> > pm_runtime_put_autosuspend(). Let me throw some ideas at it and maybe
-> > you like it - or not. :-)
->
-> I like the idea at least :-)
->
-> > I don't know what options you guys discussed, but to me the entire
-> > "autosuspend"-suffix isn't really that necessary in my opinion. There
-> > are more ways than calling pm_runtime_put_autosuspend() that triggers
-> > us to use the RPM_AUTO flag for rpm_suspend(). For example, just
-> > calling pm_runtime_put() has the similar effect.
->
-> To be honest, I'm lost there. pm_runtime_put() calls
-> __pm_runtime_idle(RPM_GET_PUT | RPM_ASYNC), while
-> pm_runtime_put_autosuspend() calls __pm_runtime_suspend(RPM_GET_PUT |
-> RPM_ASYNC | RPM_AUTO).
-
-__pm_runtime_idle() ends up calling rpm_idle(), which may call
-rpm_suspend() - if it succeeds to idle the device. In that case, it
-tags on the RPM_AUTO flag in the call to rpm_suspend(). Quite similar
-to what is happening when calling pm_runtime_put_autosuspend().
-
->
-> >
-> > Moreover, it's similar for pm_runtime_mark_last_busy(), it's called
-> > during rpm_resume() too, for example. So why bother about having
-> > "mark_last_busy" in the new name too.
-> >
-> > That said, my suggestion is simply "pm_runtime_put_suspend".
->
-> Can we do even better, and make pm_runtime_put() to handle autosuspend
-> automatically when autosuspend is enabled ?
-
-As stated above, this is already the case.
-
->
-> > If you don't like it, I will certainly not object to your current
-> > approach, even if I think it leads to unnecessary churns.
-> >
-> > [...]
-> >
-> > Kind regards
-> > Uffe
->
-> --
-> Regards,
->
-> Laurent Pinchart
-
-Kind regards
-Uffe
-_______________________________________________
-greybus-dev mailing list -- greybus-dev@lists.linaro.org
-To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+T24gVHVlLCBPY3QgOCwgMjAyNCBhdCAxMjozNeKAr0FNIFVsZiBIYW5zc29uIDx1bGYuaGFuc3Nv
+bkBsaW5hcm8ub3JnPiB3cm90ZToNCj4NCj4gT24gVHVlLCA4IE9jdCAyMDI0IGF0IDAwOjI1LCBM
+YXVyZW50IFBpbmNoYXJ0DQo+IDxsYXVyZW50LnBpbmNoYXJ0QGlkZWFzb25ib2FyZC5jb20+IHdy
+b3RlOg0KPiA+DQo+ID4gSGkgVWxmLA0KPiA+DQo+ID4gT24gVHVlLCBPY3QgMDgsIDIwMjQgYXQg
+MTI6MDg6MjRBTSArMDIwMCwgVWxmIEhhbnNzb24gd3JvdGU6DQo+ID4gPiBPbiBNb24sIDcgT2N0
+IDIwMjQgYXQgMjA6NDksIExhdXJlbnQgUGluY2hhcnQgd3JvdGU6DQo+ID4gPiA+IE9uIEZyaSwg
+T2N0IDA0LCAyMDI0IGF0IDA0OjM4OjM2UE0gKzAyMDAsIFVsZiBIYW5zc29uIHdyb3RlOg0KPiA+
+ID4gPiA+IE9uIEZyaSwgNCBPY3QgMjAyNCBhdCAxMTo0MSwgU2FrYXJpIEFpbHVzIHdyb3RlOg0K
+PiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IEhlbGxvIGV2ZXJ5b25lLA0KPiA+ID4gPiA+ID4NCj4g
+PiA+ID4gPiA+IFRoaXMgc2V0IHdpbGwgc3dpdGNoIHRoZSB1c2VycyBvZiBwbV9ydW50aW1lX3B1
+dF9hdXRvc3VzcGVuZCgpIHRvDQo+ID4gPiA+ID4gPiBfX3BtX3J1bnRpbWVfcHV0X2F1dG9zdXNw
+ZW5kKCkgd2hpbGUgdGhlIGZvcm1lciB3aWxsIHNvb24gYmUgcmUtcHVycG9zZWQNCj4gPiA+ID4g
+PiA+IHRvIGluY2x1ZGUgYSBjYWxsIHRvIHBtX3J1bnRpbWVfbWFya19sYXN0X2J1c3koKS4gVGhl
+IHR3byBhcmUgYWxtb3N0DQo+ID4gPiA+ID4gPiBhbHdheXMgdXNlZCB0b2dldGhlciwgYXBhcnQg
+ZnJvbSBidWdzIHdoaWNoIGFyZSBsaWtlbHkgY29tbW9uLiBHb2luZw0KPiA+ID4gPiA+ID4gZm9y
+d2FyZCwgbW9zdCBuZXcgdXNlcnMgc2hvdWxkIGJlIHVzaW5nIHBtX3J1bnRpbWVfcHV0X2F1dG9z
+dXNwZW5kKCkuDQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gT25jZSB0aGlzIGNvbnZlcnNpb24g
+aXMgZG9uZSBhbmQgcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQoKSByZS1wdXJwb3NlZCwNCj4g
+PiA+ID4gPiA+IEknbGwgcG9zdCBhbm90aGVyIHNldCB0byBtZXJnZSB0aGUgY2FsbHMgdG8gX19w
+bV9ydW50aW1lX3B1dF9hdXRvc3VzcGVuZCgpDQo+ID4gPiA+ID4gPiBhbmQgcG1fcnVudGltZV9t
+YXJrX2xhc3RfYnVzeSgpLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gVGhhdCBzb3VuZHMgbGlrZSBp
+dCBjb3VsZCBjYXVzZSBhIGxvdCBvZiBjaHVybnMuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBXaHkg
+bm90IGFkZCBhIG5ldyBoZWxwZXIgZnVuY3Rpb24gdGhhdCBkb2VzIHRoZQ0KPiA+ID4gPiA+IHBt
+X3J1bnRpbWVfcHV0X2F1dG9zdXNwZW5kKCkgYW5kIHRoZSBwbV9ydW50aW1lX21hcmtfbGFzdF9i
+dXN5KCkNCj4gPiA+ID4gPiB0aGluZ3M/IFRoZW4gd2UgY2FuIHN0YXJ0IG1vdmluZyB1c2VycyBv
+dmVyIHRvIHRoaXMgbmV3IGludGVyZmFjZSwNCj4gPiA+ID4gPiByYXRoZXIgdGhhbiBoYXZpbmcg
+dGhpcyBpbnRlcm1lZGlhdGUgc3RlcD8NCj4gPiA+ID4NCj4gPiA+ID4gSSB0aGluayB0aGUgQVBJ
+IHdvdWxkIGJlIG5pY2VyIGlmIHdlIHVzZWQgdGhlIHNob3J0ZXN0IGFuZCBzaW1wbGVzdA0KPiA+
+ID4gPiBmdW5jdGlvbiBuYW1lcyBmb3IgdGhlIG1vc3QgY29tbW9uIHVzZSBjYXNlcy4gRm9sbG93
+aW5nDQo+ID4gPiA+IHBtX3J1bnRpbWVfcHV0X2F1dG9zdXNwZW5kKCkgd2l0aCBwbV9ydW50aW1l
+X21hcmtfbGFzdF9idXN5KCkgaXMgdGhhdA0KPiA+ID4gPiBtb3N0IGNvbW1vbiB1c2UgY2FzZS4g
+VGhhdCdzIHdoeSBJIGxpa2UgU2FrYXJpJ3MgYXBwcm9hY2ggb2YgcmVwdXJwb3NpbmcNCj4gPiA+
+ID4gcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQoKSwgYW5kIGludHJvZHVjaW5nDQo+ID4gPiA+
+IF9fcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQoKSBmb3IgdGhlIG9kZCBjYXNlcyB3aGVyZQ0K
+PiA+ID4gPiBwbV9ydW50aW1lX21hcmtfbGFzdF9idXN5KCkgc2hvdWxkbid0IGJlIGNhbGxlZC4N
+Cj4gPiA+DQo+ID4gPiBPa2F5LCBzbyB0aGUgcmVhc29uIGZvciB0aGlzIGFwcHJvYWNoIGlzIGJl
+Y2F1c2Ugd2UgY291bGRuJ3QgZmluZCBhDQo+ID4gPiBzaG9ydCBhbmQgZGVzY3JpcHRpdmUgbmFt
+ZSB0aGF0IGNvdWxkIGJlIHVzZWQgaW4gZmF2b3Igb2YNCj4gPiA+IHBtX3J1bnRpbWVfcHV0X2F1
+dG9zdXNwZW5kKCkuIExldCBtZSB0aHJvdyBzb21lIGlkZWFzIGF0IGl0IGFuZCBtYXliZQ0KPiA+
+ID4geW91IGxpa2UgaXQgLSBvciBub3QuIDotKQ0KPiA+DQo+ID4gSSBsaWtlIHRoZSBpZGVhIGF0
+IGxlYXN0IDotKQ0KPiA+DQo+ID4gPiBJIGRvbid0IGtub3cgd2hhdCBvcHRpb25zIHlvdSBndXlz
+IGRpc2N1c3NlZCwgYnV0IHRvIG1lIHRoZSBlbnRpcmUNCj4gPiA+ICJhdXRvc3VzcGVuZCItc3Vm
+Zml4IGlzbid0IHJlYWxseSB0aGF0IG5lY2Vzc2FyeSBpbiBteSBvcGluaW9uLiBUaGVyZQ0KPiA+
+ID4gYXJlIG1vcmUgd2F5cyB0aGFuIGNhbGxpbmcgcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQo
+KSB0aGF0IHRyaWdnZXJzDQo+ID4gPiB1cyB0byB1c2UgdGhlIFJQTV9BVVRPIGZsYWcgZm9yIHJw
+bV9zdXNwZW5kKCkuIEZvciBleGFtcGxlLCBqdXN0DQo+ID4gPiBjYWxsaW5nIHBtX3J1bnRpbWVf
+cHV0KCkgaGFzIHRoZSBzaW1pbGFyIGVmZmVjdC4NCj4gPg0KPiA+IFRvIGJlIGhvbmVzdCwgSSdt
+IGxvc3QgdGhlcmUuIHBtX3J1bnRpbWVfcHV0KCkgY2FsbHMNCj4gPiBfX3BtX3J1bnRpbWVfaWRs
+ZShSUE1fR0VUX1BVVCB8IFJQTV9BU1lOQyksIHdoaWxlDQo+ID4gcG1fcnVudGltZV9wdXRfYXV0
+b3N1c3BlbmQoKSBjYWxscyBfX3BtX3J1bnRpbWVfc3VzcGVuZChSUE1fR0VUX1BVVCB8DQo+ID4g
+UlBNX0FTWU5DIHwgUlBNX0FVVE8pLg0KPg0KPiBfX3BtX3J1bnRpbWVfaWRsZSgpIGVuZHMgdXAg
+Y2FsbGluZyBycG1faWRsZSgpLCB3aGljaCBtYXkgY2FsbA0KPiBycG1fc3VzcGVuZCgpIC0gaWYg
+aXQgc3VjY2VlZHMgdG8gaWRsZSB0aGUgZGV2aWNlLiBJbiB0aGF0IGNhc2UsIGl0DQo+IHRhZ3Mg
+b24gdGhlIFJQTV9BVVRPIGZsYWcgaW4gdGhlIGNhbGwgdG8gcnBtX3N1c3BlbmQoKS4gUXVpdGUg
+c2ltaWxhcg0KPiB0byB3aGF0IGlzIGhhcHBlbmluZyB3aGVuIGNhbGxpbmcgcG1fcnVudGltZV9w
+dXRfYXV0b3N1c3BlbmQoKS4NCg0KUmlnaHQuDQoNCkZvciBhbG1vc3QgZXZlcnlib2R5LCBleGNl
+cHQgZm9yIGEgc21hbGwgYnVuY2ggb2YgZHJpdmVycyB0aGF0DQphY3R1YWxseSBoYXZlIGEgLnJ1
+bnRpbWVfaWRsZSgpIGNhbGxiYWNrLCBwbV9ydW50aW1lX3B1dCgpIGlzDQpsaXRlcmFsbHkgZXF1
+aXZhbGVudCB0byBwbV9ydW50aW1lX3B1dF9hdXRvc3VzcGVuZCgpLg0KDQpTbyByZWFsbHkgdGhl
+IHF1ZXN0aW9uIGlzIHdoeSBhbnlvbmUgd2hvIGRvZXNuJ3QgcHJvdmlkZSBhDQoucnVudGltZV9p
+ZGxlKCkgY2FsbGJhY2sgYm90aGVycyB3aXRoIHVzaW5nIHRoaXMgc3BlY2lhbA0KcG1fcnVudGlt
+ZV9wdXRfYXV0b3N1c3BlbmQoKSB0aGluZywgd2hpY2ggcmVhbGx5IG1lYW5zICJkbyBhDQpydW50
+aW1lX3B1dCgpLCBidXQgc2tpcCBteSAucnVudGltZV9pZGxlKCkgY2FsbGJhY2siLg0KDQo+ID4N
+Cj4gPiA+DQo+ID4gPiBNb3Jlb3ZlciwgaXQncyBzaW1pbGFyIGZvciBwbV9ydW50aW1lX21hcmtf
+bGFzdF9idXN5KCksIGl0J3MgY2FsbGVkDQo+ID4gPiBkdXJpbmcgcnBtX3Jlc3VtZSgpIHRvbywg
+Zm9yIGV4YW1wbGUuIFNvIHdoeSBib3RoZXIgYWJvdXQgaGF2aW5nDQo+ID4gPiAibWFya19sYXN0
+X2J1c3kiIGluIHRoZSBuZXcgbmFtZSB0b28uDQo+ID4gPg0KPiA+ID4gVGhhdCBzYWlkLCBteSBz
+dWdnZXN0aW9uIGlzIHNpbXBseSAicG1fcnVudGltZV9wdXRfc3VzcGVuZCIuDQo+ID4NCj4gPiBD
+YW4gd2UgZG8gZXZlbiBiZXR0ZXIsIGFuZCBtYWtlIHBtX3J1bnRpbWVfcHV0KCkgdG8gaGFuZGxl
+IGF1dG9zdXNwZW5kDQo+ID4gYXV0b21hdGljYWxseSB3aGVuIGF1dG9zdXNwZW5kIGlzIGVuYWJs
+ZWQgPw0KPg0KPiBBcyBzdGF0ZWQgYWJvdmUsIHRoaXMgaXMgYWxyZWFkeSB0aGUgY2FzZS4NCg0K
+V2hhdCByZWFsbHkgaXMgbmVlZGVkIGFwcGVhcnMgdG8gYmUgYSBjb21iaW5hdGlvbiBvZg0KcG1f
+cnVudGltZV9tYXJrX2xhc3RfYnVzeSgpIHdpdGggcG1fcnVudGltZV9wdXQoKS4NCg0KR3JhbnRl
+ZCwgcG1fcnVudGltZV9wdXQoKSBjb3VsZCBkbyB0aGUgcG1fcnVudGltZV9tYXJrX2xhc3RfYnVz
+eSgpDQp0aGluZyBhdXRvbWF0aWNhbGx5IGlmIGF1dG9zdXNwZW5kIGlzIGVuYWJsZWQgYW5kIHRo
+ZSBvbmx5IGNvbnNlcXVlbmNlDQpvZiBpdCBtaWdodCBiZSBkZWxheWluZyBhIHN1c3BlbmQgb2Yg
+dGhlIGRldmljZSB1bnRpbCBpdHMgYXV0b3N1c3BlbmQNCnRpbWVyIGV4cGlyZXMsIHdoaWNoIHNo
+b3VsZCBub3QgYmUgYSBwcm9ibGVtIGluIHRoZSB2YXN0IG1ham9yaXR5IG9mDQpjYXNlcy4NCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2
+IG1haWxpbmcgbGlzdCAtLSBncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnClRvIHVuc3Vic2Ny
+aWJlIHNlbmQgYW4gZW1haWwgdG8gZ3JleWJ1cy1kZXYtbGVhdmVAbGlzdHMubGluYXJvLm9yZwo=
