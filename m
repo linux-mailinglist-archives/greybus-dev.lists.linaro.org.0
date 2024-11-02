@@ -2,107 +2,86 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 782E49B4E24
-	for <lists+greybus-dev@lfdr.de>; Tue, 29 Oct 2024 16:36:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABF1F9B9E86
+	for <lists+greybus-dev@lfdr.de>; Sat,  2 Nov 2024 11:03:56 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9A7D9445ED
-	for <lists+greybus-dev@lfdr.de>; Tue, 29 Oct 2024 15:36:18 +0000 (UTC)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	by lists.linaro.org (Postfix) with ESMTPS id 98D74445ED
-	for <greybus-dev@lists.linaro.org>; Tue, 29 Oct 2024 15:36:13 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 82CA941422
+	for <lists+greybus-dev@lfdr.de>; Sat,  2 Nov 2024 10:03:55 +0000 (UTC)
+Received: from msa.smtpout.orange.fr (out-66.smtpout.orange.fr [193.252.22.66])
+	by lists.linaro.org (Postfix) with ESMTPS id 4D6F73EBEA
+	for <greybus-dev@lists.linaro.org>; Sat,  2 Nov 2024 09:36:10 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=nqEfkut5;
-	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.218.50 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
-	dmarc=pass (policy=none) header.from=linaro.org
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-a9a2cdc6f0cso750728466b.2
-        for <greybus-dev@lists.linaro.org>; Tue, 29 Oct 2024 08:36:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1730216172; x=1730820972; darn=lists.linaro.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Az9Dk7+EEGUZ6gjbi4dbeDEuHWYkO2/rkcRJveCLeXI=;
-        b=nqEfkut5ZervY4xV8n3BwbKmFsoIMzmW1oG1LKr1W7l7XQFcpr2ZFwWy4bZCUhhhV0
-         Ev78P/sd2aDNqwqStC561dP87cysih+WP/c0IbszDNjZK+ekqe6mjprLPIMe1GEhmzQA
-         p/nSW13vvk/93NmpA0fSEe6N2yPWQ01iI4iFVAX3suZKGQ3EVZGp91LkUEYJ3bMt44uZ
-         0iAAREKYX3zV1NC0nxzHeCnWs4i3VZi8E+T/GtVfvnzos1iSbkGVvs7U7HaHqME49Mix
-         yEQ9i3vo201G5W5Ki091ie1tH18firlORAhS1m0LqtwsdUmsLgAUfCJlHPQakTFiwc8x
-         uZRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730216172; x=1730820972;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Az9Dk7+EEGUZ6gjbi4dbeDEuHWYkO2/rkcRJveCLeXI=;
-        b=BGEqphHxSdzfRDvwLV6ngiO1DuSLarhg62mRaLkXy5GYt+vV9Y8gmxmWkSG3G2hdHQ
-         FMSB6E3a06odZI2iHRS6pyg7Yal/83rqj16554RE+VzgvtI3ZKwgU1IWYtZQBBlS2oPX
-         vde+w7H7rKYaAxaXhUP50K2HCBHYDX1tpiqP/kONZ+8mPTzSTQ9BHgNsO030nSlnza61
-         CUb3R/kodYuddKhPVvTJlG3N/ezWhcLrDg9e7UBDa10x1QITNzetcDwAZCmpHK6ggU4a
-         T22136O4d0uhYbgrLrqjF7q1ekfw2e5uD8vGbR9d7RifxodaIov8/Zv1YftFj/9oyALD
-         OuKg==
-X-Forwarded-Encrypted: i=1; AJvYcCVv+AAmkXYk6Ww6+dOeGOd54iHUMxFlBavyT7oFffVCgQz3hk6P3XosmJ7J4gIcOtPxMR3YwvMIlsDc7w==@lists.linaro.org
-X-Gm-Message-State: AOJu0Ywc7yc/8kJ7/zdKTlp6edhK/8bwuGcZKmAwheMFqQ+P+McbZG80
-	W1owbUlIPhCJ8cFfSY22EthC1XHZq8RzBLEczSQckVXBrIx/nXH+NeogQ+9xo97XrQ==
-X-Google-Smtp-Source: AGHT+IEU1iH/F5CZkTb1Q0OIRBjgpNI0NSgp7znzkrHlLRcaq2cgt2DVKxL54s9Ap1AXt+Hg3XFGdQ==
-X-Received: by 2002:a17:906:dace:b0:a9a:38e6:2fdf with SMTP id a640c23a62f3a-a9de619bb45mr1212224866b.64.1730216172452;
-        Tue, 29 Oct 2024 08:36:12 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a9b1f298319sm477938866b.105.2024.10.29.08.36.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Oct 2024 08:36:12 -0700 (PDT)
-Date: Tue, 29 Oct 2024 18:36:08 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Alex Elder <elder@ieee.org>
-Message-ID: <90038430-3ead-405b-8a1c-69dce59004b8@stanley.mountain>
-References: <20241026081153.2649890-1-yiyang13@huawei.com>
- <9ada17f8-7b3a-4bf7-8fc8-f40bf67adb33@stanley.mountain>
- <a9cfb5e6-33f4-495c-b329-7e97f626d1a1@ieee.org>
- <541d16d3-ea2e-d956-5dd9-613ede430fe5@huawei.com>
- <01caa8c5-5d7e-449c-a00d-28c81f453e41@ieee.org>
+	dkim=pass header.d=wanadoo.fr header.s=t20230301 header.b=I9zQPgRb;
+	spf=pass (lists.linaro.org: domain of christophe.jaillet@wanadoo.fr designates 193.252.22.66 as permitted sender) smtp.mailfrom=christophe.jaillet@wanadoo.fr;
+	dmarc=pass (policy=quarantine) header.from=wanadoo.fr
+Received: from localhost.localdomain ([90.11.132.44])
+	by smtp.orange.fr with ESMTPA
+	id 7AYBtqJIgpBS87AYBtJqoH; Sat, 02 Nov 2024 10:36:09 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1730540169;
+	bh=NyhZO+p/ZIiZc1HaYQM5EPp9Jxx4qvXRWG7UB7JsmrM=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=I9zQPgRboy8/raEXy9Rjy2ghjxUtTxO7MuXDU5tJejgfRT2iwqcMiMnl+mz1EzNQx
+	 o6D5KLxv73nNjuD9WmqF1SdDX0hNu4CIEqf7wKRZ8Gfnn2W6+k4zR6O8AU8U5MjAEK
+	 AV+BCeg1h3xLK25WQBqoE7Sqfo4CkVj6BeMkNHlNHWicvLPCE+h/YokVrc3fVZQUw9
+	 ohZZlD7Iduj6NMRHJYA4RFdOyxpFYVOjBdCfe+bYXx9rn+9tnxoeU5VrtKMhPQW0vZ
+	 LSXKRiD3+8Wfhm2LjUhB8vPs6lz3imQ8lBDFjXkfCEx9fUcXucgKUZw7Yx7369/QvZ
+	 o5TJHcpoBWIgA==
+X-ME-Helo: localhost.localdomain
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sat, 02 Nov 2024 10:36:09 +0100
+X-ME-IP: 90.11.132.44
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Sat,  2 Nov 2024 10:35:56 +0100
+Message-ID: <aad9d19c20ea0463974b7652ba7f2f8d9fec1186.1730540152.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <01caa8c5-5d7e-449c-a00d-28c81f453e41@ieee.org>
-X-Spamd-Result: default: False [-6.19 / 15.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-2.59)[98.20%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.218.50:from];
+X-Spamd-Result: default: False [-2.50 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[wanadoo.fr,quarantine];
+	R_MISSING_CHARSET(0.50)[];
+	ONCE_RECEIVED(0.20)[];
+	R_DKIM_ALLOW(-0.20)[wanadoo.fr:s=t20230301];
+	RWL_MAILSPIKE_VERYGOOD(-0.20)[193.252.22.66:from];
+	R_SPF_ALLOW(-0.20)[+ip4:193.252.22.0/25];
 	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_CC(0.00)[huawei.com,gmail.com,animalcreek.com,kernel.org,linuxfoundation.org,projectara.com,lists.linaro.org,lists.linux.dev];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
+	FREEMAIL_FROM(0.00)[wanadoo.fr];
 	RCVD_TLS_LAST(0.00)[];
+	URIBL_BLOCKED(0.00)[msa.smtpout.orange.fr:helo];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	DKIM_TRACE(0.00)[wanadoo.fr:+];
+	FREEMAIL_ENVFROM(0.00)[wanadoo.fr];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,wanadoo.fr,lists.linaro.org];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	ASN(0.00)[asn:3215, ipnet:193.252.20.0/22, country:FR];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SENDERSCORE_REPUT_8(0.00)[209.85.218.50:from];
-	TO_DN_SOME(0.00)[]
+	RCVD_COUNT_ONE(0.00)[1];
+	FROM_HAS_DN(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 98D74445ED
-X-Spamd-Bar: ------
-Message-ID-Hash: DAZ6JYLBIUD2AGB77GU3LF4LJLRCJMFU
-X-Message-ID-Hash: DAZ6JYLBIUD2AGB77GU3LF4LJLRCJMFU
-X-MailFrom: dan.carpenter@linaro.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: "yiyang (D)" <yiyang13@huawei.com>, johan@kernel.org, elder@kernel.org, ankov_svetlin@projectara.com, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, wangweiyang2@huawei.com
+X-Rspamd-Queue-Id: 4D6F73EBEA
+X-Spamd-Bar: --
+X-MailFrom: christophe.jaillet@wanadoo.fr
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: OW6NMLVX5K5TEM6JCONOUECWRHAGIXL3
+X-Message-ID-Hash: OW6NMLVX5K5TEM6JCONOUECWRHAGIXL3
+X-Mailman-Approved-At: Sat, 02 Nov 2024 10:03:52 +0000
+CC: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, Christophe JAILLET <christophe.jaillet@wanadoo.fr>, greybus-dev@lists.linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: fix possible null-ptr-deref in gb_audio_manager_get_module()
+Subject: [greybus-dev] [PATCH] greybus: Fix a typo
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/DAZ6JYLBIUD2AGB77GU3LF4LJLRCJMFU/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OW6NMLVX5K5TEM6JCONOUECWRHAGIXL3/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -112,16 +91,30 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 29, 2024 at 10:31:14AM -0500, Alex Elder wrote:
-> If you can't find any callers, none exist.  It's fine to propose
-> removing the function.  And if the maintainer accepts it, it's a
-> good change.
+s/interfce/interface/
+A 'a' is missing. Add it.
 
-Plus in this case specifically Alex is the maintainer so you can already be
-pretty sure he'll accept it.  ;)
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ drivers/greybus/interface.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-regards,
-dan carpenter
+diff --git a/drivers/greybus/interface.c b/drivers/greybus/interface.c
+index d022bfb5e95d..a0f3e9422721 100644
+--- a/drivers/greybus/interface.c
++++ b/drivers/greybus/interface.c
+@@ -780,7 +780,7 @@ const struct device_type greybus_interface_type = {
+  * The position of interface within the Endo is encoded in "interface_id"
+  * argument.
+  *
+- * Returns a pointer to the new interfce or a null pointer if a
++ * Returns a pointer to the new interface or a null pointer if a
+  * failure occurs due to memory exhaustion.
+  */
+ struct gb_interface *gb_interface_create(struct gb_module *module,
+-- 
+2.47.0
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
