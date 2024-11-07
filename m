@@ -2,30 +2,30 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F77B9C000B
-	for <lists+greybus-dev@lfdr.de>; Thu,  7 Nov 2024 09:35:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 347979C0009
+	for <lists+greybus-dev@lfdr.de>; Thu,  7 Nov 2024 09:35:11 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 37C2A401C4
-	for <lists+greybus-dev@lfdr.de>; Thu,  7 Nov 2024 08:35:15 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
-	by lists.linaro.org (Postfix) with ESMTPS id 15E50442F6
-	for <greybus-dev@lists.linaro.org>; Thu,  7 Nov 2024 08:34:57 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 515F3401C4
+	for <lists+greybus-dev@lfdr.de>; Thu,  7 Nov 2024 08:35:10 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id EE5F2401C4
+	for <greybus-dev@lists.linaro.org>; Thu,  7 Nov 2024 08:34:55 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=b5+O+zck;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 147.75.193.91 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=Fi2zkr7f;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
 	dmarc=pass (policy=none) header.from=linuxfoundation.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 05108A4295E;
-	Thu,  7 Nov 2024 08:33:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ACB8C4CECC;
-	Thu,  7 Nov 2024 08:34:56 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id E26665C56B4;
+	Thu,  7 Nov 2024 08:34:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6FA6C4CECC;
+	Thu,  7 Nov 2024 08:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1730968496;
+	s=korg; t=1730968495;
 	bh=H1TzH86HG0FbCIerlbUTkX8qGUQsiEnVFyJfnigUSrc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=b5+O+zckGBQ7sVu+YNczqIWKY5xMv731nv0DfLq651dyspohSQ2C4o5HiLxe7bZFP
-	 HKo/z4C0zXdj+Q7GAe56jyktmLLk67SAZ7AUgKaQiZQPnhrZdOyPNx7iwtYOZ9nqpV
-	 V9xKiYOPTlZtREUT/AlhiGy0IWQhiYCFY4O1TWzs=
+	b=Fi2zkr7fo9w7nFJLY1W0taS+7wj12VRePIQU0wq8DYQrkkJ3Fq1jbSBWUKPDD9Uyy
+	 45Xsq6wfIhzzmcm7qTpEf1iYVyy4Z5DJUFLv7EWHo1oPakfg79H8bvqjSuTjoIg4/y
+	 MOoBxvxjUxCA39MK+THxzf4qjB9J3vUjbGXgKWT0=
 Date: Thu, 7 Nov 2024 09:29:18 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Qiu-ji Chen <chenqiuji666@gmail.com>
@@ -38,16 +38,16 @@ X-Spamd-Result: default: False [-4.19 / 15.00];
 	REPLY(-4.00)[];
 	MID_END_EQ_FROM_USER_PART(4.00)[];
 	BAYES_HAM(-2.69)[98.62%];
-	RBL_SENDERSCORE_REPUT_9(-1.00)[147.75.193.91:from];
+	RBL_SENDERSCORE_REPUT_9(-1.00)[139.178.84.217:from];
 	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
 	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:147.75.193.91];
+	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
 	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
 	MIME_GOOD(-0.10)[text/plain];
 	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:54825, ipnet:147.75.192.0/21, country:US];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
@@ -62,7 +62,7 @@ X-Spamd-Result: default: False [-4.19 / 15.00];
 	DKIM_TRACE(0.00)[linuxfoundation.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 15E50442F6
+X-Rspamd-Queue-Id: EE5F2401C4
 X-Spamd-Bar: ----
 Message-ID-Hash: NM26LGPFTWVINO63AGEAE74KL5A3DY4V
 X-Message-ID-Hash: NM26LGPFTWVINO63AGEAE74KL5A3DY4V
