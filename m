@@ -2,30 +2,30 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id E19E09C0006
-	for <lists+greybus-dev@lfdr.de>; Thu,  7 Nov 2024 09:35:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D92B59C0004
+	for <lists+greybus-dev@lfdr.de>; Thu,  7 Nov 2024 09:34:58 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 0C5D841241
-	for <lists+greybus-dev@lfdr.de>; Thu,  7 Nov 2024 08:35:05 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 9D63144342
+	for <lists+greybus-dev@lfdr.de>; Thu,  7 Nov 2024 08:34:57 +0000 (UTC)
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
-	by lists.linaro.org (Postfix) with ESMTPS id 20A02401C4
-	for <greybus-dev@lists.linaro.org>; Thu,  7 Nov 2024 08:34:54 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id B3001401C4
+	for <greybus-dev@lists.linaro.org>; Thu,  7 Nov 2024 08:34:52 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=BeT5t+YT;
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=BUsIgnM8;
 	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 147.75.193.91 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
 	dmarc=pass (policy=none) header.from=linuxfoundation.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 0F8E8A4295E;
-	Thu,  7 Nov 2024 08:32:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA17FC4CECC;
-	Thu,  7 Nov 2024 08:34:52 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id A01C7A4293F;
+	Thu,  7 Nov 2024 08:32:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA653C4CECC;
+	Thu,  7 Nov 2024 08:34:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1730968493;
+	s=korg; t=1730968492;
 	bh=zaSp5Zi/JERPJYX+Ul60OjcFfQieL/7nqYIMSUDALZs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BeT5t+YTDlFQPbLoZo0cUazDmigyYEovj7odtGCXTdeBmFcEgu69/QfvNbwl0YSg9
-	 acteQYIv8vYnHqPTA/tyojAOJJdL+qQ808oMCdjDoKIQo7bjmqgfZ3wwDBZ9SRoQg5
-	 4ZUsmX8T6ISm2hA01Eg6h2IbHsumrR9RoYsrvAmA=
+	b=BUsIgnM82rVj45U0NrV7UJDdsWLgoKuEOSZVeb+YvlyMTQ4T6cCUDKehbp4LZiEzI
+	 YJ+VyO3ZVL1Dm2Srm7qNyXkjKsauyfBOMWO/L6nMpJ4MTgYfgbT7s+2HVzq7wPURhk
+	 hIeRSAyVYMx8QyW/eoMsB+TBgpR0ARokK7p1xlAA=
 Date: Thu, 7 Nov 2024 09:29:05 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Qiu-ji Chen <chenqiuji666@gmail.com>
@@ -45,24 +45,24 @@ X-Spamd-Result: default: False [-4.50 / 15.00];
 	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
 	MIME_GOOD(-0.10)[text/plain];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	ASN(0.00)[asn:54825, ipnet:147.75.192.0/21, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
 	FREEMAIL_TO(0.00)[gmail.com];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCPT_COUNT_SEVEN(0.00)[8];
-	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[linuxfoundation.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 20A02401C4
+X-Rspamd-Queue-Id: B3001401C4
 X-Spamd-Bar: ----
 Message-ID-Hash: WFXE7IVB2JJAPYWXKAZI7DCDRVB5OASO
 X-Message-ID-Hash: WFXE7IVB2JJAPYWXKAZI7DCDRVB5OASO
