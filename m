@@ -2,108 +2,81 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B45DA06F4E
-	for <lists+greybus-dev@lfdr.de>; Thu,  9 Jan 2025 08:46:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9292A06F5D
+	for <lists+greybus-dev@lfdr.de>; Thu,  9 Jan 2025 08:51:33 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8CE1C465EF
-	for <lists+greybus-dev@lfdr.de>; Thu,  9 Jan 2025 07:46:00 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	by lists.linaro.org (Postfix) with ESMTPS id 8EB583F56D
-	for <greybus-dev@lists.linaro.org>; Thu,  9 Jan 2025 07:45:55 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id C483944B4D
+	for <lists+greybus-dev@lfdr.de>; Thu,  9 Jan 2025 07:51:32 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by lists.linaro.org (Postfix) with ESMTPS id 261BB3F44C
+	for <greybus-dev@lists.linaro.org>; Thu,  9 Jan 2025 07:51:25 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=gY28nvxa;
-	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.221.54 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
-	dmarc=pass (policy=none) header.from=linaro.org
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-38634c35129so427896f8f.3
-        for <greybus-dev@lists.linaro.org>; Wed, 08 Jan 2025 23:45:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1736408754; x=1737013554; darn=lists.linaro.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=wDPDfFPx9ymk/j+yrQwmFxxKqrVHqKkdkC69CbeqD5s=;
-        b=gY28nvxaWfQxhsbFg5czBmh8OCldaycnITteKymK9ioP2Vtgvr3FH1JdxeLCqK/Tb3
-         3infhyF9pY1lAjOGkg4ZFGy8G0KFBUvKlKMfR7rpRa2+Z8DYBaYGWnbecHgE2DNC+446
-         pncKLQ+mhcZg0ucQ7fxmSpwIDw3BWHYqpMnQcClY8pwCRmC1gLVnumvITLtw58TtuTm7
-         SHqF29+wMSHbgQCmRUm20mXi64Ii7yG9WebV2Zyzvy8ieaVStRNdda/HCbfpThort0E2
-         /6r9LtyMIuNnLFKUwB/zQzzu0NSnf2+KCFDP0sszLO0s4Oh0e0G83Mdy5mFTAarWu/M2
-         g7GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736408754; x=1737013554;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wDPDfFPx9ymk/j+yrQwmFxxKqrVHqKkdkC69CbeqD5s=;
-        b=MLN5Ii7My1ZvyXbx+iQTgCMABKswuyk9TS05JOJntKc3d6dj3bD8jT8lKn/aLsSHS3
-         A52FwfRNQnT4I+/dsUl/tHs0TtrvgBDzDlxbTxxfFTaNb83ijwLqVHnDcV1eqbYfXkqx
-         NX8weyfHJk5GZNqlvq5MvCeieG2j8NKOg1TEawegJ7RVaTiW3S/ozezu0KeVjDl7zpbX
-         tADQfKZgI4MvKme2DRZq1t19vIrnPM7ra7FIRQZYLGZHQy4q08tkdALH22vD+auE1BKJ
-         LfGjrmruIT/Z0EyTYV9nEPAnnZsE2dVeFsUD8r7ZTI+k76JOOSbTWa0wMaQ1TZ+wwmDn
-         PJzA==
-X-Forwarded-Encrypted: i=1; AJvYcCWtCtzbl+DV7XQfwxoxV2rZdq0Oae0BuLugOVNEpE5c72yt10MJt2+XFG1TV9/T8PeEqdhEXk6fAE9PMA==@lists.linaro.org
-X-Gm-Message-State: AOJu0YzAa4bNu2HxvZ7RfBqWr0RiNzt4g6eVh27Xw5sgpOdQkX+wQO1O
-	/pPtkZ8y0rEvKCWeW7tk92Tj2OZpKlySFAkJ9vEORSa7z9x6jKsqzhsS5KlCzeqSLw==
-X-Gm-Gg: ASbGnctsA/MbVFFDjIVQ4VPnqYX1lQqw0+BEQmXeAWtavDc0zHbv/hoi0iUMbY9yx2C
-	yHQ9gtbA5kmYgx29u03RU8rkqVN3cd9DmR34zp9VZ3YVC3ZX+TyYwUZ2in8h8maFIT3Da/MYrfa
-	stWnCQKTjXWXsXKpJegvCRraNS8DhwBBjRNNGcSPnacAzfzxUbZVWMN+XcIdykTspOa/a/dHk6+
-	iXzL8ptL01xCZuqlgmIFuq0Jmosu1k844R+AxWSjkg868v0fQ+bpHQS3rNIjg==
-X-Google-Smtp-Source: AGHT+IEo1TDze8qDTS+/8umRS35r51lCZq582badmEBI2lk5GEiWcjyQ1m1M0MbTn8XadxGeH7MivQ==
-X-Received: by 2002:a5d:5f82:0:b0:386:3262:28c6 with SMTP id ffacd0b85a97d-38a872fc0famr4878299f8f.5.1736408754580;
-        Wed, 08 Jan 2025 23:45:54 -0800 (PST)
-Received: from localhost ([196.207.164.177])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-38a8e4c1dc6sm1015700f8f.96.2025.01.08.23.45.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jan 2025 23:45:53 -0800 (PST)
-Date: Thu, 9 Jan 2025 10:45:50 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Alex Elder <elder@ieee.org>
-Message-ID: <dcf6ec9f-39f2-4729-9250-14eb4d8d2adb@stanley.mountain>
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=d1WERcU9;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 147.75.193.91 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
+	dmarc=pass (policy=none) header.from=linuxfoundation.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 3A098A413E0;
+	Thu,  9 Jan 2025 07:49:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC6AC4CEE6;
+	Thu,  9 Jan 2025 07:51:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1736409084;
+	bh=UlShvnJ7Q8ZrM0G1xT/2I0HRmWo28fwE3T9IQ2VJHV8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=d1WERcU9v272umJZcNJOmKab2QMk+PAEox8kGbUE/uDyWmVFh0zZ+ee/x5fBkwiLL
+	 Xnn7wnbAv5QzYczp0esETjzv11/soLzvpTD2S/oddSwb6NDEVdnstCE/2MU46ThH9E
+	 wuaqsUs8tOVcmWsZaZTro1/Q3aQCzpTIB/mXf4YM=
+Date: Thu, 9 Jan 2025 08:50:34 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Message-ID: <2025010932-rice-landed-2b96@gregkh>
 References: <20250109003624.37323-1-iron.will.walsh@gmail.com>
  <ed70a5d5-8e85-495b-9e56-eae472ba3046@ieee.org>
+ <dcf6ec9f-39f2-4729-9250-14eb4d8d2adb@stanley.mountain>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ed70a5d5-8e85-495b-9e56-eae472ba3046@ieee.org>
+In-Reply-To: <dcf6ec9f-39f2-4729-9250-14eb4d8d2adb@stanley.mountain>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 8EB583F56D
-X-Spamd-Bar: ------
-X-Spamd-Result: default: False [-6.35 / 15.00];
+X-Rspamd-Queue-Id: 261BB3F44C
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-3.00 / 15.00];
+	MID_END_EQ_FROM_USER_PART(4.00)[];
 	REPLY(-4.00)[];
-	BAYES_HAM(-2.85)[99.37%];
+	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	RBL_SENDERSCORE_REPUT_9(-1.00)[147.75.193.91:from];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
+	R_SPF_ALLOW(-0.20)[+ip4:147.75.193.91];
+	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
 	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_CC(0.00)[gmail.com,animalcreek.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
+	FREEMAIL_CC(0.00)[ieee.org,gmail.com,animalcreek.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
 	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
 	ARC_NA(0.00)[];
-	RBL_SENDERSCORE_REPUT_8(0.00)[209.85.221.54:from];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	DKIM_TRACE(0.00)[linuxfoundation.org:+];
+	ASN(0.00)[asn:54825, ipnet:147.75.192.0/21, country:US];
+	MIME_TRACE(0.00)[0:+];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	RCVD_COUNT_TWO(0.00)[2];
 	FROM_EQ_ENVFROM(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.221.54:from];
 	TO_DN_SOME(0.00)[]
-Message-ID-Hash: DQKIBC34LUYBLOW2TT5X3NSHYJXA5WJ2
-X-Message-ID-Hash: DQKIBC34LUYBLOW2TT5X3NSHYJXA5WJ2
-X-MailFrom: dan.carpenter@linaro.org
+Message-ID-Hash: T3UH7PJSRCDWLY47TTOL527JD2LRS5AH
+X-Message-ID-Hash: T3UH7PJSRCDWLY47TTOL527JD2LRS5AH
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Will Walsh <iron.will.walsh@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
+CC: Alex Elder <elder@ieee.org>, Will Walsh <iron.will.walsh@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH] staging: greybus: remove unnecessary parentheses
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/DQKIBC34LUYBLOW2TT5X3NSHYJXA5WJ2/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/T3UH7PJSRCDWLY47TTOL527JD2LRS5AH/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -113,23 +86,28 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jan 08, 2025 at 08:56:50PM -0600, Alex Elder wrote:
-> On 1/8/25 6:36 PM, Will Walsh wrote:
-> > Unnecessary parentheses in boolean comparisons make it harder to read.
+On Thu, Jan 09, 2025 at 10:45:50AM +0300, Dan Carpenter wrote:
+> On Wed, Jan 08, 2025 at 08:56:50PM -0600, Alex Elder wrote:
+> > On 1/8/25 6:36 PM, Will Walsh wrote:
+> > > Unnecessary parentheses in boolean comparisons make it harder to read.
+> > > 
+> > > Removed the extra parentheses on line 305 for code readability.
+> > > 
+> > > Signed-off-by: Will Walsh <iron.will.walsh@gmail.com>
 > > 
-> > Removed the extra parentheses on line 305 for code readability.
-> > 
-> > Signed-off-by: Will Walsh <iron.will.walsh@gmail.com>
+> > I'm not sure this makes a big difference in readability but I
+> > personally avoid extra parentheses unless adding them makes a
+> > compiler warning go away.
 > 
-> I'm not sure this makes a big difference in readability but I
-> personally avoid extra parentheses unless adding them makes a
-> compiler warning go away.
+> It's not a compiler warning, it checkpatch.
 
-It's not a compiler warning, it checkpatch.
+And it is a checkpatch warning that I HATE and keep rejecting, here's
+where I did so yesterday:
+	https://lore.kernel.org/r/2025010738-gong-rewind-2583@gregkh
 
-regards,
-dan carpenter
+Will, sorry, but I don't want to take this.
 
+greg k-h
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
