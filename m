@@ -2,134 +2,155 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 594D6A079D2
-	for <lists+greybus-dev@lfdr.de>; Thu,  9 Jan 2025 15:55:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6215A1D6D4
+	for <lists+greybus-dev@lfdr.de>; Mon, 27 Jan 2025 14:31:14 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 7C16144A2A
-	for <lists+greybus-dev@lfdr.de>; Thu,  9 Jan 2025 14:55:06 +0000 (UTC)
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
-	by lists.linaro.org (Postfix) with ESMTPS id 860193EC51
-	for <greybus-dev@lists.linaro.org>; Thu,  9 Jan 2025 14:54:36 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id A510E4491B
+	for <lists+greybus-dev@lfdr.de>; Mon, 27 Jan 2025 13:31:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	by lists.linaro.org (Postfix) with ESMTPS id 13D5443F17
+	for <greybus-dev@lists.linaro.org>; Mon, 27 Jan 2025 13:25:29 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=ieee.org header.s=google header.b=ahfKItKo;
-	spf=pass (lists.linaro.org: domain of elder@ieee.org designates 209.85.161.47 as permitted sender) smtp.mailfrom=elder@ieee.org;
-	dmarc=pass (policy=quarantine) header.from=ieee.org
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-5f4cc48ab37so333139eaf.1
-        for <greybus-dev@lists.linaro.org>; Thu, 09 Jan 2025 06:54:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1736434476; x=1737039276; darn=lists.linaro.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5VULE0UjHIqRlagW/OYJxPj5F0JvqA3RxB6BIakMShg=;
-        b=ahfKItKohtfj3O14JpOU98pMQbnk4fiWbQ21zDNDgh1PnvGHkiY/a/bwmTxXgtxcXD
-         YmblHGL00NHvqSQd3AxGv31cNTLnYWlAqNuHPVcvdgMKaeZYAefggXf4aHDV4KCITfEc
-         3i/pORY3GQhVjG8dJWVkwm+zHEmOyFeidsES0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736434476; x=1737039276;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5VULE0UjHIqRlagW/OYJxPj5F0JvqA3RxB6BIakMShg=;
-        b=buY0QoVST57BYNLcp8jhI6qeALRSy49G+QmtkDrpJBgde7Q77i2eIEXPoRJA1Hto+L
-         TVB60cYa89iw5V6kxpNdApX3XfgHFQhCfPcBf5ly+aZEqc9m7500YKA3St46ZMgxEovR
-         Tv679+gCRe+oTkWqdx5AvzJxx3C0G59Zw5R4iXSn1qceAJR/BlPoGrAwJyRx4osNu0AI
-         FITi5cG7cDMCpH7BsE15Fxp+zKYT2jBp4kP4NqEgstLgfmWdVhK3BKHNg3sSoc2Rb/KV
-         yDiJTJpjQmXOKDlfX1RRdH7qMklPlSzkHlECFFtukjuV5P1YcPmOtIFistPzvWYRmTfL
-         K7iA==
-X-Forwarded-Encrypted: i=1; AJvYcCW/L0+lAR6wtBViJB/u2wwstud8/aTz+VQCFfKnj3GHqT/meICTD5hkbY+MyMVR3nrSHpICS71dLE8NRw==@lists.linaro.org
-X-Gm-Message-State: AOJu0YxPjcskxLwdCgJFXh1u6GT0tEaSvAzGc+Y5zV3Hru4Oh3Zn8bKY
-	BBVT/ykoK5Vy+uAJBWNDrOV3fIfcpE0jRkwSLZTivUYgIJuuE8sGn6seb2idQg==
-X-Gm-Gg: ASbGncuhzCk/lpzVfbAHBqHwvw1zNErhXaufRbXVxVKtzAc1bqV+qPuJRD3W0WQVUiJ
-	iybIzwHdNAg/XKjwGM6FSEFlXQ1iFiYmp43iHwXP3TjCxMTcAIUH0UT4bK6mg9ZmU4+VfGaOcTg
-	+k2CCNh80bZfD6UH1xUtT4691K91kP/bqPiQIWsbJmz27BnaTeUMOq6hEFrX5CP09dnQA9IT99M
-	2IhGt5cbeJo8excygVzKTyjlesgw9vq5n6q7Ia68LWYGeIGPkD1u0YGkI3DvWYZQrK2ynX8XEn8
-	TKSPgVTVgo8R8wQ=
-X-Google-Smtp-Source: AGHT+IGX2grguxXy8gLo4Q2N5Rw0zTtUivQW6kIzq7+qZBHhu/OTKNSPcrnL7pgVNEyxcTF+JDsc/Q==
-X-Received: by 2002:a05:6870:b9c7:b0:29e:69d9:8834 with SMTP id 586e51a60fabf-2aa0609b208mr3769848fac.0.1736434474369;
-        Thu, 09 Jan 2025 06:54:34 -0800 (PST)
-Received: from [172.22.22.28] (c-73-228-159-35.hsd1.mn.comcast.net. [73.228.159.35])
-        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-2ad8059e39esm350832fac.31.2025.01.09.06.54.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jan 2025 06:54:33 -0800 (PST)
-Message-ID: <46653b18-42b1-4511-afad-4f5a15e2fceb@ieee.org>
-Date: Thu, 9 Jan 2025 08:54:30 -0600
+	dkim=pass header.d=intel.com header.s=Intel header.b=QSGUOvEZ;
+	dmarc=pass (policy=none) header.from=intel.com;
+	spf=pass (lists.linaro.org: domain of andriy.shevchenko@intel.com designates 198.175.65.15 as permitted sender) smtp.mailfrom=andriy.shevchenko@intel.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1737984330; x=1769520330;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RjFj+btLOrA1I0c/0XDEPot6dd9rNyckywxmgkJzq3o=;
+  b=QSGUOvEZzlCLg52m+Lkyf/+kcHVE68FvAFk33+V3UhwIx/K/THbEuyid
+   qJ438VnvterjDhGelKR5fP6BxrrxRkqifOI54cau6t1t8osjTRna9hBxM
+   No2vFYIs3XvcsO1WP4e5Biv+WmJTB68gdx3/u0mrAfgwMTVAD015W4iZ3
+   /IS6Kq3c9DS8MxtJuSPO9pAimIX5JPT9iSW8d4LmXW3YyQJxw6TCZ90TZ
+   /GjxSPzYFVZHfh4LDTMcdRhtiKIjHF1pelA8u+BGatnQUd04z2t7ouweY
+   lN5ljcLdmzwZ6ey8werqdArXQ+hfBfCOql1cBQHnUxfs2OPHqKl0LQjSz
+   w==;
+X-CSE-ConnectionGUID: BcZ6ZWxfSRWNg0IWbXK5SQ==
+X-CSE-MsgGUID: AuS7x/6IQwywPUll2BRmEw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11328"; a="42105382"
+X-IronPort-AV: E=Sophos;i="6.13,238,1732608000";
+   d="scan'208";a="42105382"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jan 2025 05:25:22 -0800
+X-CSE-ConnectionGUID: oOw//HyuRH2sXbDiVD3/cA==
+X-CSE-MsgGUID: F7vXYkyrSx2N1gt4t3xT9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600";
+   d="scan'208";a="131730368"
+Received: from smile.fi.intel.com ([10.237.72.58])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jan 2025 05:25:02 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.98)
+	(envelope-from <andriy.shevchenko@intel.com>)
+	id 1tcP6l-00000005jpm-3fIe;
+	Mon, 27 Jan 2025 15:24:55 +0200
+Date: Mon, 27 Jan 2025 15:24:55 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Message-ID: <Z5eJJ199QwL0HVJT@smile.fi.intel.com>
+References: <20240403080702.3509288-1-arnd@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Dan Carpenter <dan.carpenter@linaro.org>
-References: <20250109003624.37323-1-iron.will.walsh@gmail.com>
- <ed70a5d5-8e85-495b-9e56-eae472ba3046@ieee.org>
- <dcf6ec9f-39f2-4729-9250-14eb4d8d2adb@stanley.mountain>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <dcf6ec9f-39f2-4729-9250-14eb4d8d2adb@stanley.mountain>
+Content-Disposition: inline
+In-Reply-To: <20240403080702.3509288-1-arnd@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 860193EC51
-X-Spamd-Bar: -------
-X-Spamd-Result: default: False [-7.59 / 15.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-2.99)[99.95%];
+X-Rspamd-Queue-Id: 13D5443F17
+X-Spamd-Bar: /
+X-Spamd-Result: default: False [-1.00 / 15.00];
+	RSPAMD_URIBL(4.50)[arndb.de:email];
+	WHITELIST_SPF_DKIM(-3.00)[intel.com:d:+,intel.com:s:+];
+	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
-	RBL_SENDERSCORE_REPUT_9(-1.00)[209.85.161.47:from];
-	DMARC_POLICY_ALLOW(-0.50)[ieee.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[ieee.org:s=google];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.161.47:from];
+	RBL_SENDERSCORE_REPUT_9(-1.00)[198.175.65.15:from];
 	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_CC(0.00)[gmail.com,animalcreek.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
+	BAD_REP_POLICIES(0.10)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,arndb.de,ellerman.id.au,csgroup.eu,kernel.org,linuxfoundation.org,acm.org,gmx.de,mev.co.uk,visionengravers.com,linux.intel.com,amd.com,gondor.apana.org.au,arm.com,redhat.com,analog.com,axentia.se,metafoo.de,gmail.com,foss.st.com,os.amperecomputing.com,huawei.com,wp.pl,atomide.com,bootlin.com,hisilicon.com,oracle.com,linaro.org,sntech.de,nuvoton.com,lst.de,goodmis.org,linux-foundation.org,chromium.org,hammerspace.com,suse.com,lists.ozlabs.org,lists.sourceforge.net,lists.freedesktop.org,st-md-mailman.stormreply.com,lists.infradead.org,lists.linaro.org,lists.linux.dev,googlegroups.com,alsa-project.org];
 	RCVD_TLS_LAST(0.00)[];
+	R_DKIM_ALLOW(0.00)[intel.com:s=Intel];
+	RCVD_COUNT_THREE(0.00)[3];
+	DMARC_POLICY_ALLOW(0.00)[intel.com,none];
+	HAS_ORG_HEADER(0.00)[];
 	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[ieee.org:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	DKIM_TRACE(0.00)[intel.com:+];
 	FROM_HAS_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[106];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
 	FROM_EQ_ENVFROM(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:4983, ipnet:198.175.64.0/23, country:US];
+	R_SPF_ALLOW(0.00)[+ip4:198.175.65.0/26];
 	TO_DN_SOME(0.00)[]
-X-MailFrom: elder@ieee.org
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: ZMLTO3ZYLHSTM7C7ERDE6ERROJEIMVXU
-X-Message-ID-Hash: ZMLTO3ZYLHSTM7C7ERDE6ERROJEIMVXU
-X-Mailman-Approved-At: Thu, 09 Jan 2025 14:55:01 +0000
-CC: Will Walsh <iron.will.walsh@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
+X-MailFrom: andriy.shevchenko@intel.com
+X-Mailman-Rule-Hits: max-recipients
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-size; news-moderation; no-subject; digests; suspicious-header
+Message-ID-Hash: F3FO4R57FOYKNQI27EHI5FHNEPXI2OIX
+X-Message-ID-Hash: F3FO4R57FOYKNQI27EHI5FHNEPXI2OIX
+X-Mailman-Approved-At: Mon, 27 Jan 2025 13:31:10 +0000
+CC: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <christophe.leroy@csgroup.eu>, Damien Le Moal <dlemoal@kernel.org>, Jiri Kosina <jikos@kernel.org>, Corey Minyard <minyard@acm.org>, Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Ian Abbott <abbotti@mev.co.uk>, H Hartley Sweeten <hsweeten@visionengravers.com>, Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Len Brown <lenb@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, John Allen <john.allen@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>, Vinod Koul <vkoul@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Moritz Fischer <mdf@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, Benjamin Tissoires <benjamin.tissoires@redhat.com>, Andi Shyti <andi.shyti@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, Peter Rosin
+  <peda@axentia.se>, Lars-Peter Clausen <lars@metafoo.de>, Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, Markuss Broks <markuss.broks@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, Lee Jones <lee@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Iyappan Subramanian <iyappan@os.amperecomputing.com>, Yisen Zhuang <yisen.zhuang@huawei.com>, Stanislaw Gruszka <stf_xl@wp.pl>, Kalle Valo <kvalo@kernel.org>, Sebastian Reichel <sre@kernel.org>, Tony Lindgren <tony@atomide.com>, Mark Brown <broonie@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, Xiang Chen <chenxiang66@hisilicon.com>, "Martin K. Petersen" <martin.petersen@oracle.com>, Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Alex Elder <elder@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Jacky Huang <
+ ychuang3@nuvoton.com>, Helge Deller <deller@gmx.de>, Christoph Hellwig <hch@lst.de>, Robin Murphy <robin.murphy@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Kees Cook <keescook@chromium.org>, Trond Myklebust <trond.myklebust@hammerspace.com>, Anna Schumaker <anna@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Takashi Iwai <tiwai@suse.com>, linuxppc-dev@lists.ozlabs.org, linux-ide@vger.kernel.org, openipmi-developer@lists.sourceforge.net, linux-integrity@vger.kernel.org, linux-omap@vger.kernel.org, linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org, linux-efi@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-fpga@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, linux-i2c@vger.kernel.org, linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, linux-arm
+ -kernel@lists.infradead.org, netdev@vger.kernel.org, linux-leds@vger.kernel.org, linux-wireless@vger.kernel.org, linux-rtc@vger.kernel.org, linux-scsi@vger.kernel.org, linux-spi@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-serial@vger.kernel.org, linux-usb@vger.kernel.org, linux-fbdev@vger.kernel.org, iommu@lists.linux.dev, linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-hardening@vger.kernel.org, linux-nfs@vger.kernel.org, linux-kbuild@vger.kernel.org, alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: remove unnecessary parentheses
+Subject: [greybus-dev] Re: [PATCH 00/34] address all -Wunused-const warnings
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZMLTO3ZYLHSTM7C7ERDE6ERROJEIMVXU/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/F3FO4R57FOYKNQI27EHI5FHNEPXI2OIX/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gMS85LzI1IDE6NDUgQU0sIERhbiBDYXJwZW50ZXIgd3JvdGU6DQo+IE9uIFdlZCwgSmFuIDA4
-LCAyMDI1IGF0IDA4OjU2OjUwUE0gLTA2MDAsIEFsZXggRWxkZXIgd3JvdGU6DQo+PiBPbiAxLzgv
-MjUgNjozNiBQTSwgV2lsbCBXYWxzaCB3cm90ZToNCj4+PiBVbm5lY2Vzc2FyeSBwYXJlbnRoZXNl
-cyBpbiBib29sZWFuIGNvbXBhcmlzb25zIG1ha2UgaXQgaGFyZGVyIHRvIHJlYWQuDQo+Pj4NCj4+
-PiBSZW1vdmVkIHRoZSBleHRyYSBwYXJlbnRoZXNlcyBvbiBsaW5lIDMwNSBmb3IgY29kZSByZWFk
-YWJpbGl0eS4NCj4+Pg0KPj4+IFNpZ25lZC1vZmYtYnk6IFdpbGwgV2Fsc2ggPGlyb24ud2lsbC53
-YWxzaEBnbWFpbC5jb20+DQo+Pg0KPj4gSSdtIG5vdCBzdXJlIHRoaXMgbWFrZXMgYSBiaWcgZGlm
-ZmVyZW5jZSBpbiByZWFkYWJpbGl0eSBidXQgSQ0KPj4gcGVyc29uYWxseSBhdm9pZCBleHRyYSBw
-YXJlbnRoZXNlcyB1bmxlc3MgYWRkaW5nIHRoZW0gbWFrZXMgYQ0KPj4gY29tcGlsZXIgd2Fybmlu
-ZyBnbyBhd2F5Lg0KPiANCj4gSXQncyBub3QgYSBjb21waWxlciB3YXJuaW5nLCBpdCBjaGVja3Bh
-dGNoLg0KDQpJIG1lYW50IGNvbXBpbGVyICItV3BhcmVudGhlc2VzIiB3YXJuaW5ncywgbGlrZSAi
-c3VnZ2VzdA0KcGFyZW50aGVzZXMgYXJvdW5kIOKAmCvigJkgaW5zaWRlIOKAmDw84oCZIi4NCg0K
-QnV0IGFueXdheSwgSSBoYXZlIG5vIHByb2JsZW0gd2l0aCB0aGlzIGJlaW5nIHJlamVjdGVkLA0K
-aXQgZG9lc24ndCByZWFsbHkgYWRkIHZhbHVlLCBhbmQgdG8gc29tZSwgaXQgc3VidHJhY3RzLg0K
-DQoJCQkJCS1BbGV4DQoNCj4gDQo+IHJlZ2FyZHMsDQo+IGRhbiBjYXJwZW50ZXINCj4gDQoNCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2
-IG1haWxpbmcgbGlzdCAtLSBncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnClRvIHVuc3Vic2Ny
-aWJlIHNlbmQgYW4gZW1haWwgdG8gZ3JleWJ1cy1kZXYtbGVhdmVAbGlzdHMubGluYXJvLm9yZwo=
+On Wed, Apr 03, 2024 at 10:06:18AM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> Compilers traditionally warn for unused 'static' variables, but not
+> if they are constant. The reason here is a custom for C++ programmers
+> to define named constants as 'static const' variables in header files
+> instead of using macros or enums.
+> 
+> In W=1 builds, we get warnings only static const variables in C
+> files, but not in headers, which is a good compromise, but this still
+> produces warning output in at least 30 files. These warnings are
+> almost all harmless, but also trivial to fix, and there is no
+> good reason to warn only about the non-const variables being unused.
+> 
+> I've gone through all the files that I found using randconfig and
+> allmodconfig builds and created patches to avoid these warnings,
+> with the goal of retaining a clean build once the option is enabled
+> by default.
+> 
+> Unfortunately, there is one fairly large patch ("drivers: remove
+> incorrect of_match_ptr/ACPI_PTR annotations") that touches
+> 34 individual drivers that all need the same one-line change.
+> If necessary, I can split it up by driver or by subsystem,
+> but at least for reviewing I would keep it as one piece for
+> the moment.
+> 
+> Please merge the individual patches through subsystem trees.
+> I expect that some of these will have to go through multiple
+> revisions before they are picked up, so anything that gets
+> applied early saves me from resending.
+
+Arnd, can you refresh this one? It seems some misses still...
+I have got 3+ 0-day reports against one of the mux drivers.
+
+https://lore.kernel.org/all/?q=adg792a.c
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
