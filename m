@@ -2,82 +2,79 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5B93A3F42D
-	for <lists+greybus-dev@lfdr.de>; Fri, 21 Feb 2025 13:25:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1E50A63E3A
+	for <lists+greybus-dev@lfdr.de>; Mon, 17 Mar 2025 05:29:32 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 9AB6844A26
-	for <lists+greybus-dev@lfdr.de>; Fri, 21 Feb 2025 12:25:50 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	by lists.linaro.org (Postfix) with ESMTPS id 12B983F664
-	for <greybus-dev@lists.linaro.org>; Fri, 21 Feb 2025 12:25:45 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7C4D8424FF
+	for <lists+greybus-dev@lfdr.de>; Mon, 17 Mar 2025 04:29:31 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by lists.linaro.org (Postfix) with ESMTPS id 3A9313F51E
+	for <greybus-dev@lists.linaro.org>; Mon, 17 Mar 2025 04:29:27 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=kernel.org header.s=k20201202 header.b=ke4222DD;
-	dmarc=pass (policy=quarantine) header.from=kernel.org;
-	spf=pass (lists.linaro.org: domain of johan@kernel.org designates 172.105.4.254 as permitted sender) smtp.mailfrom=johan@kernel.org
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=Sa9fIDuK;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 147.75.193.91 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
+	dmarc=pass (policy=none) header.from=linuxfoundation.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 5816B61250;
-	Fri, 21 Feb 2025 12:25:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EC81C4CEE7;
-	Fri, 21 Feb 2025 12:25:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740140744;
-	bh=OFSEtxcK3zYlx7wBQWYTU3fDwOhj2h7jl/iYHctMRmU=;
+	by nyc.source.kernel.org (Postfix) with ESMTP id 4963AA48A45;
+	Mon, 17 Mar 2025 04:23:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286C1C4CEEC;
+	Mon, 17 Mar 2025 04:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1742185766;
+	bh=3jYGVUq7uZgiXolwju9jzN3CjqHhocS2Q0Jc6ljkDd8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ke4222DDHXnV0BAbawEdjTedKJ53iUBQi58weupuZmzWnCssmhDzQgg9Q0enJakXY
-	 HgD4I+pW236g5wFFCtm1hSAHBp9jRkAsbJxATshxB47DfW+nr3lkX2vP6oJ9ROT3yh
-	 +1YsaS7vHjHwvlGdqbzJ2nRWHTM7nm8rL9mqK2ZwZOwG3vQuAqVWCTlnuTRPEF9ZPi
-	 Db7/ybs1r4+JQZxQ22oYXEnkrTcJeIqo9EE6M7bCqFMqxMjgzQRXXZSoiWX/Qr/0KS
-	 9B11aksKwgNWpyz72jowA9XhJIgeGpUkghRHoQtfszbG8NfLynGOwPsjqgSVvBEl0K
-	 8faQp5KXhN0xQ==
-Received: from johan by xi.lan with local (Exim 4.97.1)
-	(envelope-from <johan@kernel.org>)
-	id 1tlS6M-000000007ms-3Dz0;
-	Fri, 21 Feb 2025 13:25:55 +0100
-Date: Fri, 21 Feb 2025 13:25:54 +0100
-From: Johan Hovold <johan@kernel.org>
+	b=Sa9fIDuKHudF1TNOPy+8ByAv+e0eagvO3VVecHk7x34dJWkSqXj1QzvO8J1Rc4a1X
+	 aysnDUQQy+axn/ruFMBWZCgb8eHiofju6EheMOQtoSNMbxOCkG3UWOysvF+qj0/oVi
+	 sw7WjB3LdvTTWSJ3deYfPyXCLV9f/9M5zxAElX1E=
+Date: Mon, 17 Mar 2025 05:28:07 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
 To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-Message-ID: <Z7hw0lO1bGEesy_d@hovoldconsulting.com>
+Message-ID: <2025031738-fabric-alright-6a32@gregkh>
 References: <20250220111606.138045-1-jirislaby@kernel.org>
- <20250220111606.138045-22-jirislaby@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250220111606.138045-22-jirislaby@kernel.org>
+In-Reply-To: <20250220111606.138045-1-jirislaby@kernel.org>
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 12B983F664
-X-Spamd-Bar: ----
-X-Spamd-Result: default: False [-4.90 / 15.00];
-	BAYES_HAM(-2.90)[99.58%];
-	RBL_SENDERSCORE_REPUT_9(-1.00)[172.105.4.254:from];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.4.254];
+X-Rspamd-Queue-Id: 3A9313F51E
+X-Spamd-Bar: +
+X-Spamd-Result: default: False [1.00 / 15.00];
+	MID_END_EQ_FROM_USER_PART(4.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	RBL_SENDERSCORE_REPUT_9(-1.00)[147.75.193.91:from];
+	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:147.75.193.91];
+	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ASN(0.00)[asn:63949, ipnet:172.105.0.0/19, country:SG];
+	ASN(0.00)[asn:54825, ipnet:147.75.192.0/21, country:US];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[netdev];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linuxfoundation.org,vger.kernel.org,gmail.com,kernel.org,lists.linaro.org,lists.linux.dev];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FROM_EQ_ENVFROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,lunn.ch,linux.intel.com,gmail.com,davemloft.net,google.com,lists.linaro.org,lists.linux.dev,redhat.com,linaro.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+]
+	DKIM_TRACE(0.00)[linuxfoundation.org:+]
+X-Spam-Level: *
 X-Rspamd-Action: no action
-Message-ID-Hash: OFPXEOM2P36YWD4UPA3BKODYMXJCTXFG
-X-Message-ID-Hash: OFPXEOM2P36YWD4UPA3BKODYMXJCTXFG
-X-MailFrom: johan@kernel.org
+Message-ID-Hash: 4UFKBM4QKJWGLFO5SFX4Y7GSVGEKEKE2
+X-Message-ID-Hash: 4UFKBM4QKJWGLFO5SFX4Y7GSVGEKEKE2
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, David Lin <dtwlin@gmail.com>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
+CC: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, David Lin <dtwlin@gmail.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, greybus-dev@lists.linaro.org, Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, linux-alpha@vger.kernel.org, linux-staging@lists.linux.dev, Matt Turner <mattst88@gmail.com>, netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, Richard Henderson <richard.henderson@linaro.org>, Rob Herring <robh@kernel.org>, sparclinux@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 21/29] tty: staging/greybus: pass tty_driver flags to tty_alloc_driver()
+Subject: [greybus-dev] Re: [PATCH 00/29] tty: cleanup no. 99
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OFPXEOM2P36YWD4UPA3BKODYMXJCTXFG/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/4UFKBM4QKJWGLFO5SFX4Y7GSVGEKEKE2/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -87,12 +84,29 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Feb 20, 2025 at 12:15:58PM +0100, Jiri Slaby wrote:
-> tty_alloc_driver() is supposed to receive tty driver flags.
+On Thu, Feb 20, 2025 at 12:15:37PM +0100, Jiri Slaby (SUSE) wrote:
+> Hi,
 > 
-> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+> this is (again) a series of cleanup in tty. I am trying to rework
+> tty+serial to avoid limitations of devices (so called NR_UART or
+> tty_alloc_driver()'s first parameter). And the below popped up while
+> crawling through the code. So this is only a prep cleanup.
+> 
+> * many tty flags are now enums
+> * many functions were improved for readability
+> * quite a few unused or old code dropped
+> 
+> In particular, the runtime behaviour of the kernel before and after the
+> changes is supposed to be bug to bug compatible (except moxa's ioctl
+> and ISA evils dropped). That is, noone should notice.
 
-Acked-by: Johan Hovold <johan@kernel.org>
+Were you going to do a new respin of this, or do you want me to take
+this as-is and you will send a follow-up ones for the commented-on
+changes?
+
+thanks,
+
+greg k-h
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
