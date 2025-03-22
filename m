@@ -2,112 +2,109 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD82BA6BD24
-	for <lists+greybus-dev@lfdr.de>; Fri, 21 Mar 2025 15:37:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97655A6CA65
+	for <lists+greybus-dev@lfdr.de>; Sat, 22 Mar 2025 14:46:00 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id CE76E45F4D
-	for <lists+greybus-dev@lfdr.de>; Fri, 21 Mar 2025 14:37:39 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	by lists.linaro.org (Postfix) with ESMTPS id 143284582B
-	for <greybus-dev@lists.linaro.org>; Fri, 21 Mar 2025 14:37:38 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 5A4EE44AB3
+	for <lists+greybus-dev@lfdr.de>; Sat, 22 Mar 2025 13:45:59 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	by lists.linaro.org (Postfix) with ESMTPS id 4937B3F954
+	for <greybus-dev@lists.linaro.org>; Sat, 22 Mar 2025 06:58:10 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=quicinc.com header.s=qcppdkim1 header.b=cfZoLcI6;
-	dmarc=pass (policy=none) header.from=quicinc.com;
-	spf=pass (lists.linaro.org: domain of quic_jjohnson@quicinc.com designates 205.220.168.131 as permitted sender) smtp.mailfrom=quic_jjohnson@quicinc.com
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52LATEER031803;
-	Fri, 21 Mar 2025 14:37:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lUAuubmhP/bAgXWQaiCREHxXWbMHCn3WKpV9q57SXdk=; b=cfZoLcI6hOuqbkYM
-	RJbQINSNj8Y0/DFE+IguY2WfAbFWf4skwfZTlrciWzr+M6zrVxrpYxHwPtxvxFKz
-	GupoPjJN4R5ggnfO2SO3hMFJKLcCGN236KCEv5r0phMve4WoMgAAkhJ7cB6rBEk1
-	SPk7Rnclqt/e8AcLmtAWFrVvJptrWcjkpO07OszwNdCMmcoCptKU/7KRias5bOGL
-	pAWjSiSCGICQMzJqPXvxgDGjsOT8Sr2pKPg4YnlUCGiodFefl8GlXWUO7dvzRXtG
-	VRSCK2M4ssTHDUNlwnHTK5RZxGyyG8RtfI9qnE+T0Q6A0LkHQ6SV8xlGsc4LdeEs
-	D3r4sA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45gt5kjfc2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 21 Mar 2025 14:37:32 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com [10.47.209.196])
-	by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 52LEbVTd032366
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 21 Mar 2025 14:37:31 GMT
-Received: from [10.111.179.44] (10.49.16.6) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 21 Mar
- 2025 07:37:30 -0700
-Message-ID: <acbe5688-9be4-489b-8a9c-4950dc3b8133@quicinc.com>
-Date: Fri, 21 Mar 2025 07:37:30 -0700
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=VmzEWBUU;
+	spf=pass (lists.linaro.org: domain of karanja99erick@gmail.com designates 209.85.128.46 as permitted sender) smtp.mailfrom=karanja99erick@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-43cfa7e7f54so16285225e9.1
+        for <greybus-dev@lists.linaro.org>; Fri, 21 Mar 2025 23:58:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1742626689; x=1743231489; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8emfl3/iA6hoYtuWERF3HJ4s5M5mU6RjMOHWHh7wDU0=;
+        b=VmzEWBUUFJrweDJyQ8c/roObEk25q9gMUzPlp6uSyu1iRZAwvGXao6yT1ZQ0VqWLCl
+         5B+vzUIE71nHjiSNT6n53cVQrq1zQTdR3ibfLoCCN7SOxx7z2KyVsAfpWewXYyhcShU2
+         DYYHN5b6O2AHUcGe+R4Imn7DsPuNsArBKxOn4+mcAqEnWPCAeKBHpJjw1MT3cwTHVSoY
+         mk1nSQAFvObebxCKFAlqFYaoRpjYaFt8cNIaPGIaKrGDksjazdNwm3z7iq+8r7mpnZa5
+         83TvOKOXw/SFBgiXpm+VRRXbHKnuJgd/EXKMHQMN0c7uyUWwRgoUimuHiHKevnRFSKdC
+         tt3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742626689; x=1743231489;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8emfl3/iA6hoYtuWERF3HJ4s5M5mU6RjMOHWHh7wDU0=;
+        b=d+DVY0zBdD2YCzKhApTVW12fDz1VgayQZsiR09bADCQG4Hl1z8aX+5rpc3vnAPI15j
+         s/NLCc6HyAhGWtbTWVQYjbbZouvdITJ0KfsUKgr2YKpDevqnrBJST1kJvMEQFmHdIB1L
+         xdEJfk63sdfvWJL90RCTKOOJI5o5gaeeqjUd8soRmbv3RdFU7eJ9+c7WiuQm//2k7Jfd
+         thzpr1MTDGQqDaEXXL/b9ut/TmtOINdgQenqtivxXvEl0KEKM88EmPZXt1z75Iz+SlFe
+         jawcflYt0g8f/rScpwtYxp/96+RUrJewht4dg5Xx9fkRPJbq5SCzctdoaIiQcd4dhWyz
+         aaiA==
+X-Gm-Message-State: AOJu0YxUv4fTIWiHO7IM5eJWEpdQMFCox5L9lB/K3MEaAcDKeqXQXQzL
+	jGqz/diA+Wv4M66dmpyIGUgzK3Z6nVsXQM3e2NJL1FSVTat9Qwwm6UUB7eMw4VE=
+X-Gm-Gg: ASbGncvFt5wXQQoFhhz/qm+itT0KLacCCguhuvnIicf02bzDevQZY/OXY4hCGy57i1E
+	1WDlRAMaxH4lQ7ocIc4/q//F+UPZc27Q+I0dIdMvTCrdOj6a4PwZDDDSWCB0uA/ueh8YpgqcjmD
+	VdPk1J/xg1K4G3WaRxWbFcWYqvrOdKYXUuGcEAuideJeUyWUEBWm36Fxnc4/xgGg9PSsA/2v1Gr
+	gcdy3btSVzNFKFIEnTr9r27LQcbXQ+HGjJI1R6K4h5IT4ZYMW4YHDUgl9Gn0UapPjXAws/OFZCH
+	GD603GQ8+X65UKZiSM820rwd20HtUzdimyG4UHM=
+X-Google-Smtp-Source: AGHT+IHNV8Bc+MdPoxMoHiudNZ/7s72orS1cZ4p20xYam3PMqwE8iNaxMoft8jHkRHlzJXMvlWH/Lg==
+X-Received: by 2002:a05:600c:4995:b0:43c:ed33:a500 with SMTP id 5b1f17b1804b1-43d491b7dc5mr81439075e9.10.1742626688799;
+        Fri, 21 Mar 2025 23:58:08 -0700 (PDT)
+Received: from pc.. ([41.206.42.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-43d4fd277c9sm49607825e9.22.2025.03.21.23.58.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 21 Mar 2025 23:58:08 -0700 (PDT)
+From: Erick Karanja <karanja99erick@gmail.com>
+To: outreachy@lists.linux.dev,
+	johan@kernel.org,
+	elder@kernel.org,
+	gregkh@linuxfoundation.org
+Date: Sat, 22 Mar 2025 09:58:00 +0300
+Message-ID: <20250322065800.21361-1-karanja99erick@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: ErickKaranja <karanja99erick@gmail.com>, <hvaibhav.linux@gmail.com>,
-        <johan@kernel.org>, <elder@kernel.org>, <gregkh@linuxfoundation.org>,
-        <outreachy@lists.linux.dev>
-References: <20250321115545.24468-1-karanja99erick@gmail.com>
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-Content-Language: en-US
-In-Reply-To: <20250321115545.24468-1-karanja99erick@gmail.com>
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-GUID: N3pmzDtsjdnERo5NIcyFkfj6JxdhvGaw
-X-Proofpoint-ORIG-GUID: N3pmzDtsjdnERo5NIcyFkfj6JxdhvGaw
-X-Authority-Analysis: v=2.4 cv=PsuTbxM3 c=1 sm=1 tr=0 ts=67dd79ac cx=c_pps a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17 a=3H110R4YSZwA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=UII2AE8if6k0RuonElUA:9
- a=QEXdDO2ut3YA:10 a=KpMAsf9diV4A:10 a=ftr0zfsHvHYA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-21_05,2025-03-20_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- phishscore=0 adultscore=0 spamscore=0 mlxscore=0 lowpriorityscore=0
- bulkscore=0 clxscore=1011 malwarescore=0 suspectscore=0 impostorscore=0
- mlxlogscore=999 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
- definitions=main-2503210106
-X-Rspamd-Action: no action
-X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 143284582B
-X-Spamd-Bar: -------
-X-Spamd-Result: default: False [-7.50 / 15.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	RBL_SENDERSCORE_REPUT_9(-1.00)[205.220.168.131:from];
-	DMARC_POLICY_ALLOW(-0.50)[quicinc.com,none];
-	R_DKIM_ALLOW(-0.20)[quicinc.com:s=qcppdkim1];
-	R_SPF_ALLOW(-0.20)[+ip4:205.220.168.131];
+X-Rspamd-Queue-Id: 4937B3F954
+X-Spamd-Bar: /
+X-Spamd-Result: default: False [-0.50 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	RBL_SENDERSCORE_REPUT_6(1.00)[209.85.128.46:from];
+	R_MISSING_CHARSET(0.50)[];
 	MIME_GOOD(-0.10)[text/plain];
-	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:26211, ipnet:205.220.168.0/24, country:US];
-	MIME_TRACE(0.00)[0:+];
+	BAD_REP_POLICIES(0.10)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	R_DKIM_ALLOW(0.00)[gmail.com:s=20230601];
+	RCVD_TLS_LAST(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,linuxfoundation.org,lists.linux.dev];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	HAS_XOIP(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_TRACE(0.00)[quicinc.com:+]
-Message-ID-Hash: DKIGNP77RNATO7LEEL7SZAXPVALKOKQV
-X-Message-ID-Hash: DKIGNP77RNATO7LEEL7SZAXPVALKOKQV
-X-MailFrom: quic_jjohnson@quicinc.com
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	FREEMAIL_CC(0.00)[lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.46:from];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	DMARC_POLICY_ALLOW(0.00)[gmail.com,none];
+	R_SPF_ALLOW(0.00)[+ip4:209.85.128.0/17];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	FROM_HAS_DN(0.00)[]
+X-Rspamd-Action: no action
+X-Rspamd-Server: lists.linaro.org
+X-MailFrom: karanja99erick@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: 66G373I7AUXXOOQ6AWJMSZZEH7SOAUIV
+X-Message-ID-Hash: 66G373I7AUXXOOQ6AWJMSZZEH7SOAUIV
+X-Mailman-Approved-At: Sat, 22 Mar 2025 13:45:57 +0000
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Erick Karanja <karanja99erick@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: fix line length issue
+Subject: [greybus-dev] [PATCH] staging: greybus: Alignment warning
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/DKIGNP77RNATO7LEEL7SZAXPVALKOKQV/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/66G373I7AUXXOOQ6AWJMSZZEH7SOAUIV/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -117,53 +114,35 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 3/21/2025 4:55 AM, ErickKaranja wrote:
-> Fix line length exceeding 100 columns in arche-platform.c. The code now
-> follows Linux kernel coding style guidelines by keeping lines under the
-> maximum allowed length of 100 characters.
-> 
-> Reported by checkpatch:
-> 
-> CHECK: line length of 101 exceeds 100 columns
-> 
-> Signed-off-by: ErickKaranja <karanja99erick@gmail.com>
-> ---
->  drivers/staging/greybus/arche-platform.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
-> index d48464390f58..1a82a7a3991c 100644
-> --- a/drivers/staging/greybus/arche-platform.c
-> +++ b/drivers/staging/greybus/arche-platform.c
-> @@ -179,8 +179,8 @@ static irqreturn_t arche_platform_wd_irq(int irq, void *devid)
->  				 */
->  				if (arche_pdata->wake_detect_state !=
->  						WD_STATE_COLDBOOT_START) {
-> -					arche_platform_set_wake_detect_state(arche_pdata,
-> -									     WD_STATE_COLDBOOT_TRIG);
-> +					arche_platform_set_wake_detect_state
-> +						(arche_pdata, WD_STATE_COLDBOOT_TRIG);
->  					spin_unlock_irqrestore(&arche_pdata->wake_lock,
->  							       flags);
->  					return IRQ_WAKE_THREAD;
+Correct the alignment of the parameters to match the open parenthesis.
 
-I see you already received some good feedback. However I think the most
-important feedback wasn't given, namely that checkpatch performs rigorous
-enforcement of Coding Style guidelines that themselves are not always rigorous.
+Reported by checkpatch:
 
-For line length the Coding Style still says the "preferred limit" is 80
-columns. But whether it is 80 or 100, the Coding Style has this very important
-caveat: Statements longer than [the limit] should be broken into sensible
-chunks, unless exceeding [the limit] significantly increases readability.
+    CHECK: Alignment should match open parenthesis
 
-<https://www.kernel.org/doc/html/latest/process/coding-style.html#breaking-long-lines-and-strings>
+Signed-off-by: Erick Karanja <karanja99erick@gmail.com>
+---
+ drivers/staging/greybus/camera.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Obviously this is subjective, but for me the original code is significantly
-more readable than the patched code.
+diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/camera.c
+index 5d80ace41d8e..ec9fddfc0b14 100644
+--- a/drivers/staging/greybus/camera.c
++++ b/drivers/staging/greybus/camera.c
+@@ -1165,8 +1165,8 @@ static int gb_camera_debugfs_init(struct gb_camera *gcam)
+ 		gcam->debugfs.buffers[i].length = 0;
+ 
+ 		debugfs_create_file_aux(entry->name, entry->mask,
+-				    gcam->debugfs.root, gcam, entry,
+-				    &gb_camera_debugfs_ops);
++					gcam->debugfs.root, gcam, entry,
++					&gb_camera_debugfs_ops);
+ 	}
+ 
+ 	return 0;
+-- 
+2.43.0
 
-So the takeaway is that not every checkpatch issue should be "fixed".
-
-/jeff
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
