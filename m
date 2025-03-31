@@ -2,169 +2,165 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B104A6FAE0
-	for <lists+greybus-dev@lfdr.de>; Tue, 25 Mar 2025 13:16:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A70DEA76D03
+	for <lists+greybus-dev@lfdr.de>; Mon, 31 Mar 2025 20:48:24 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 08CA8446CA
-	for <lists+greybus-dev@lfdr.de>; Tue, 25 Mar 2025 12:16:30 +0000 (UTC)
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	by lists.linaro.org (Postfix) with ESMTPS id 7AE1A3F328
-	for <greybus-dev@lists.linaro.org>; Tue, 25 Mar 2025 12:15:04 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7026645F91
+	for <lists+greybus-dev@lfdr.de>; Mon, 31 Mar 2025 18:48:23 +0000 (UTC)
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+	by lists.linaro.org (Postfix) with ESMTPS id CE2FD3F5D8
+	for <greybus-dev@lists.linaro.org>; Mon, 31 Mar 2025 18:41:05 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=riscstar-com.20230601.gappssmtp.com header.s=20230601 header.b=Y8SYqNGz;
-	spf=pass (lists.linaro.org: domain of elder@riscstar.com designates 209.85.210.54 as permitted sender) smtp.mailfrom=elder@riscstar.com;
-	dmarc=none
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-72c14235af3so2256497a34.3
-        for <greybus-dev@lists.linaro.org>; Tue, 25 Mar 2025 05:15:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20230601.gappssmtp.com; s=20230601; t=1742904904; x=1743509704; darn=lists.linaro.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wC3ijQaBf4K8OWU+SDgw4P+7cyUwlTWZLf3LU7lx7Xw=;
-        b=Y8SYqNGzXAAzkQQlNePP+InpIADcUD9BFHaPa6y8LZz8bRiUb6Gt7kS3TrcSeYCknW
-         Fy/iVzr7gOvrgAGfTaEMhM4/3bNU+GLftD3uDucrsp4nRDMGHG2LfMwnwQc7Ny6637HD
-         AXD+fnIzNQ8gssaEnr2/zWbDB2YYiZe7tahACcMtnbaM/wtq4FqQxd+JIG03xZPW9yP2
-         4ut0NHVFBibv80w+UN0gp0m5mchzxVgnCSkjVKYYidE+nKX3TUyM4vA0/ZnG/ophhGkw
-         C4Iy6WUvKN76iGqo3Ybt/3Tr1LVxKqT2ubmQDDcI6SrOpkCTy5u9xt8dv7rf1cLL+1lv
-         EP3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742904904; x=1743509704;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wC3ijQaBf4K8OWU+SDgw4P+7cyUwlTWZLf3LU7lx7Xw=;
-        b=wBMDeHm1XyEDSTP8/mz4mFd9VUWxwwmOWDh46YmP53wftvw9uEpUC3Mrkk+mS1XCND
-         gNZRtBOIiCOt+3iqvNaYl1857a1DpRcihBZNJyKAPUavu2u6l1LBSO4+kFqaQZT2kb8B
-         weqO3o/KGx87XUBz366vUDduWWSBhXxnlKjYfM3Qhz/DW0JCvv3OSyR1LACPxyenk40q
-         MAsGrSGOrS5e7xciR/7wkvVwNBpHsHdU6fox7TUrFmeU5uVyxiLPfmVJufneKe7eSuyK
-         7v8oXBydMSHpfmTTD6kJEG9RsBt8r/cumzgtyo65+ZywWZy/OGpWEa0qdqPFJfl0Pu6n
-         wwlQ==
-X-Gm-Message-State: AOJu0YyfB16eyZYKSfx2E9w1hUX404R/Kt/gmW64r+jdF2fThvTijKYR
-	kC3rRABhKBUA0nL/NppbWf6Q+1ra6Ctn2PHiYYt0B4FWMZwqWCsnLoydpqHNpIE=
-X-Gm-Gg: ASbGncvC/6XCuygu7w8MtT6TeRgjK+0Q7fczOlUYl/5nd5d9PRB0j4bUToSgzmnNBj0
-	dPM/OKYJ6CHLEwipfTYKFUK1zkrrTepWbnQcWOZoPPeJa2xd6vD/mBh4zKzq6d42D288SUXGzZL
-	9rhFCRCT/TWK1aL+dUH1LdOSOgYZY+icy6c5uZibixoVuAA4YuBQfg7kVYqJ9TFKpLYqUfbwnLp
-	2i1kUbnSjkDO3nYOx0TDs9VvZjq8YvGsFL2fuG5sZwmkcCJMFUrne309RKxx79gYHyfmitWJ8m6
-	L6xCHFud3jNZUtHUH9cDVV6UEhmEhCRyNHTiXxhwDI/u0J8LIxtnY8QuBMoMSkEsg9gW62QYb1q
-	/a6EHoVte
-X-Google-Smtp-Source: AGHT+IHZKE0q+q2yQSr22P7i6hKjZROug3Xpi7UzBNf6sOzdWBDPPxeLMvXTvddN7ZqquWTR4AKONQ==
-X-Received: by 2002:a05:6808:384e:b0:3f9:a187:1f2e with SMTP id 5614622812f47-3febf7382a8mr10579611b6e.18.1742904903718;
-        Tue, 25 Mar 2025 05:15:03 -0700 (PDT)
-Received: from [172.22.22.28] (c-73-228-159-35.hsd1.mn.comcast.net. [73.228.159.35])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-3febf7927d5sm1974378b6e.31.2025.03.25.05.15.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 25 Mar 2025 05:15:03 -0700 (PDT)
-Message-ID: <a5477192-ee6f-4273-b7b4-1d9dbd7e7b50@riscstar.com>
-Date: Tue, 25 Mar 2025 07:15:01 -0500
+	dkim=pass header.d=linux.dev header.s=key1 header.b=fzbi9CCm;
+	spf=pass (lists.linaro.org: domain of thorsten.blum@linux.dev designates 91.218.175.186 as permitted sender) smtp.mailfrom=thorsten.blum@linux.dev;
+	dmarc=pass (policy=none) header.from=linux.dev
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1743446464;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=HcZZ3xXi7jtAHyO9OCCUYW9yL683KSwMvch++4nggX8=;
+	b=fzbi9CCmDYaUwgI+RnGLhVwxdzpiZxoF2gVaRiBAXUmJCtpBMnTrsOAubmpf95G1oEQK8R
+	rXmIssbmvaIulHZrNflUKiZ01dVgLCKlysdULnl31i03z8B0Tmmd8jkobKmp51QAC93w5w
+	hIQ8gJObgUynMiN6vLDnV00xEaOzkMY=
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Viresh Kumar <vireshk@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Mon, 31 Mar 2025 20:39:35 +0200
+Message-ID: <20250331183935.1880097-2-thorsten.blum@linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Erick Karanja <karanja99erick@gmail.com>, outreachy@lists.linux.dev,
- johan@kernel.org, elder@kernel.org, gregkh@linuxfoundation.org
-References: <20250322065800.21361-1-karanja99erick@gmail.com>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20250322065800.21361-1-karanja99erick@gmail.com>
+X-Migadu-Flow: FLOW_OUT
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 7AE1A3F328
+X-Rspamd-Queue-Id: CE2FD3F5D8
 X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.60 / 15.00];
-	BAYES_HAM(-3.00)[99.99%];
-	R_DKIM_ALLOW(-0.20)[riscstar-com.20230601.gappssmtp.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+X-Spamd-Result: default: False [-3.40 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	RBL_SENDERSCORE_REPUT_9(-1.00)[91.218.175.186:from];
+	DMARC_POLICY_ALLOW(-0.50)[linux.dev,none];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[linux.dev:s=key1];
+	R_SPF_ALLOW(-0.20)[+ip4:91.218.175.0/24];
+	ONCE_RECEIVED(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.54:from];
-	URIBL_BLOCKED(0.00)[checkpatch.pl:url];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:202172, ipnet:91.218.175.0/24, country:CH];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	FREEMAIL_TO(0.00)[gmail.com,lists.linux.dev,kernel.org,linuxfoundation.org];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
 	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_ZERO(0.00)[0];
+	FROM_EQ_ENVFROM(0.00)[];
+	NEURAL_HAM(-0.00)[-0.997];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	DMARC_NA(0.00)[riscstar.com];
-	DKIM_TRACE(0.00)[riscstar-com.20230601.gappssmtp.com:+]
+	DKIM_TRACE(0.00)[linux.dev:+]
 X-Rspamd-Action: no action
-X-MailFrom: elder@riscstar.com
+X-MailFrom: thorsten.blum@linux.dev
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: T54F3T47GE4YU5KRQ2W3PJ3OUGBDQMXZ
-X-Message-ID-Hash: T54F3T47GE4YU5KRQ2W3PJ3OUGBDQMXZ
-X-Mailman-Approved-At: Tue, 25 Mar 2025 12:16:27 +0000
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-ID-Hash: QGESUTZG767JUMX74YODZ7ASYPKFNYIG
+X-Message-ID-Hash: QGESUTZG767JUMX74YODZ7ASYPKFNYIG
+X-Mailman-Approved-At: Mon, 31 Mar 2025 18:48:20 +0000
+CC: Thorsten Blum <thorsten.blum@linux.dev>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: Alignment warning
+Subject: [greybus-dev] [PATCH] staging: greybus: Remove unnecessary NUL-termination checks
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/T54F3T47GE4YU5KRQ2W3PJ3OUGBDQMXZ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/QGESUTZG767JUMX74YODZ7ASYPKFNYIG/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"; format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 3/22/25 1:58 AM, Erick Karanja wrote:
-> Correct the alignment of the parameters to match the open parenthesis.
-> 
-> Reported by checkpatch:
-> 
->      CHECK: Alignment should match open parenthesis
+Commit 18f44de63f88 ("staging: greybus: change strncpy() to
+strscpy_pad()") didn't remove the now unnecessary NUL-termination
+checks. Unlike strncpy(), strscpy_pad() guarantees that the destination
+buffer is NUL-terminated, making the checks obsolete. Remove them.
 
-I think this change is OK.  However you'll notice that checkpatch.pl
-has three categories of issues that get reported:  errors, warnings,
-and checks.  These are in decreasing order of severity.
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+---
+ drivers/staging/greybus/fw-management.c | 39 +------------------------
+ 1 file changed, 1 insertion(+), 38 deletions(-)
 
-Alignment issues like this are just "checks", which means they are
-minor nits that are often not considered a "real" problem.  In many
-cases, white space variances like this are done intentionally, to
-make the code more readable, or sometimes simply because the code
-that surrounds it used a different convention for alignment (some
-people simply align to an even number of tabs, for example).
-
-In this case, the change doesn't make the "look" of the code any
-worse, and doesn't reduce readability.  It furthermore gets rid
-of spaces after a tab that do *not* lead to the suggested alignment.
-It probably isn't a necessary change, but I think it's reasonable.
-
-I write all this to explain that these sorts of changes are in many
-cases rejected.
-
-I'll leave it to Greg to accept this, or offer a second opinion.
-
-Reviewed-by: Alex Elder <elder@riscstar.com>
-
-> 
-> Signed-off-by: Erick Karanja <karanja99erick@gmail.com>
-> ---
->   drivers/staging/greybus/camera.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/camera.c
-> index 5d80ace41d8e..ec9fddfc0b14 100644
-> --- a/drivers/staging/greybus/camera.c
-> +++ b/drivers/staging/greybus/camera.c
-> @@ -1165,8 +1165,8 @@ static int gb_camera_debugfs_init(struct gb_camera *gcam)
->   		gcam->debugfs.buffers[i].length = 0;
->   
->   		debugfs_create_file_aux(entry->name, entry->mask,
-> -				    gcam->debugfs.root, gcam, entry,
-> -				    &gb_camera_debugfs_ops);
-> +					gcam->debugfs.root, gcam, entry,
-> +					&gb_camera_debugfs_ops);
->   	}
->   
->   	return 0;
-
+diff --git a/drivers/staging/greybus/fw-management.c b/drivers/staging/greybus/fw-management.c
+index a47385175582..852c0830261f 100644
+--- a/drivers/staging/greybus/fw-management.c
++++ b/drivers/staging/greybus/fw-management.c
+@@ -125,16 +125,6 @@ static int fw_mgmt_interface_fw_version_operation(struct fw_mgmt *fw_mgmt,
+ 
+ 	strscpy_pad(fw_info->firmware_tag, response.firmware_tag);
+ 
+-	/*
+-	 * The firmware-tag should be NULL terminated, otherwise throw error but
+-	 * don't fail.
+-	 */
+-	if (fw_info->firmware_tag[GB_FIRMWARE_TAG_MAX_SIZE - 1] != '\0') {
+-		dev_err(fw_mgmt->parent,
+-			"fw-version: firmware-tag is not NULL terminated\n");
+-		fw_info->firmware_tag[GB_FIRMWARE_TAG_MAX_SIZE - 1] = '\0';
+-	}
+-
+ 	return 0;
+ }
+ 
+@@ -154,15 +144,6 @@ static int fw_mgmt_load_and_validate_operation(struct fw_mgmt *fw_mgmt,
+ 	request.load_method = load_method;
+ 	strscpy_pad(request.firmware_tag, tag);
+ 
+-	/*
+-	 * The firmware-tag should be NULL terminated, otherwise throw error and
+-	 * fail.
+-	 */
+-	if (request.firmware_tag[GB_FIRMWARE_TAG_MAX_SIZE - 1] != '\0') {
+-		dev_err(fw_mgmt->parent, "load-and-validate: firmware-tag is not NULL terminated\n");
+-		return -EINVAL;
+-	}
+-
+ 	/* Allocate ids from 1 to 255 (u8-max), 0 is an invalid id */
+ 	ret = ida_alloc_range(&fw_mgmt->id_map, 1, 255, GFP_KERNEL);
+ 	if (ret < 0) {
+@@ -250,15 +231,6 @@ static int fw_mgmt_backend_fw_version_operation(struct fw_mgmt *fw_mgmt,
+ 
+ 	strscpy_pad(request.firmware_tag, fw_info->firmware_tag);
+ 
+-	/*
+-	 * The firmware-tag should be NULL terminated, otherwise throw error and
+-	 * fail.
+-	 */
+-	if (request.firmware_tag[GB_FIRMWARE_TAG_MAX_SIZE - 1] != '\0') {
+-		dev_err(fw_mgmt->parent, "backend-version: firmware-tag is not NULL terminated\n");
+-		return -EINVAL;
+-	}
+-
+ 	ret = gb_operation_sync(connection,
+ 				GB_FW_MGMT_TYPE_BACKEND_FW_VERSION, &request,
+ 				sizeof(request), &response, sizeof(response));
+@@ -301,16 +273,7 @@ static int fw_mgmt_backend_fw_update_operation(struct fw_mgmt *fw_mgmt,
+ 	struct gb_fw_mgmt_backend_fw_update_request request;
+ 	int ret;
+ 
+-	ret = strscpy_pad(request.firmware_tag, tag);
+-
+-	/*
+-	 * The firmware-tag should be NULL terminated, otherwise throw error and
+-	 * fail.
+-	 */
+-	if (ret == -E2BIG) {
+-		dev_err(fw_mgmt->parent, "backend-update: firmware-tag is not NULL terminated\n");
+-		return -EINVAL;
+-	}
++	strscpy_pad(request.firmware_tag, tag);
+ 
+ 	/* Allocate ids from 1 to 255 (u8-max), 0 is an invalid id */
+ 	ret = ida_alloc_range(&fw_mgmt->id_map, 1, 255, GFP_KERNEL);
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
