@@ -2,70 +2,70 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54F52A87202
-	for <lists+greybus-dev@lfdr.de>; Sun, 13 Apr 2025 14:59:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E5CAA87203
+	for <lists+greybus-dev@lfdr.de>; Sun, 13 Apr 2025 14:59:36 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 6FA65454D8
-	for <lists+greybus-dev@lfdr.de>; Sun, 13 Apr 2025 12:59:31 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B63333F5FA
+	for <lists+greybus-dev@lfdr.de>; Sun, 13 Apr 2025 12:59:35 +0000 (UTC)
 Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com [209.85.160.195])
-	by lists.linaro.org (Postfix) with ESMTPS id B61164601A
-	for <greybus-dev@lists.linaro.org>; Sun, 13 Apr 2025 07:32:45 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id BB2A34601B
+	for <greybus-dev@lists.linaro.org>; Sun, 13 Apr 2025 07:32:48 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=mJaqeJhk;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b="GA5ch/Qq";
 	spf=pass (lists.linaro.org: domain of ganeshkpittala@gmail.com designates 209.85.160.195 as permitted sender) smtp.mailfrom=ganeshkpittala@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-qt1-f195.google.com with SMTP id d75a77b69052e-477296dce8dso33566401cf.3
-        for <greybus-dev@lists.linaro.org>; Sun, 13 Apr 2025 00:32:45 -0700 (PDT)
+Received: by mail-qt1-f195.google.com with SMTP id d75a77b69052e-476a304a8edso32748661cf.3
+        for <greybus-dev@lists.linaro.org>; Sun, 13 Apr 2025 00:32:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744529565; x=1745134365; darn=lists.linaro.org;
+        d=gmail.com; s=20230601; t=1744529568; x=1745134368; darn=lists.linaro.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=M4007EJtTTw4rTvfv0n1SalSLJtmVlRpzu0mtepvnyg=;
-        b=mJaqeJhk/1dg+NhjfiKE9m8bfYexMIeIRytPWNHbpNHZwixwSLKN9FM8BEiVLQx6h7
-         GOgvNMCPa5fJE7Iu2VVCagc2AlEMblrL1WJHY9+fMZBfAtUtmx4cdEJK5oFWhNuTT6r6
-         7AtGV4Q78Pn0ts4MyyF6gnxWFBzORGc5/c0J637TpZUxnXEqa5TOJa0RnTKJbGIdRdFW
-         1ZDs4F9o+BUGBG1l9W/zUVFIXV8Zuorqfd27yQEklAXxSJxQlTTDDuJLE6tfJ76d+bf1
-         W3axzylkf5VGEtDE8T8fPz5xYtA5AQOIauiMdUjb9itXu17sTgW93yNxDfj1iDFuG3fQ
-         ce2A==
+        bh=cjFyocYzTktppiP9pnTPpA+jTKDR4/yXZeC89Tb5gFw=;
+        b=GA5ch/QqFH1u8q2AQ+F5TOkCYZ/GKZYoyiPccpUgRqI/PNAr3H9yuEqV1OlPuS+O27
+         onymwS76KBfNG1q0aK2Ty/2GYuotX/nznuO3K9xrph7VgwrAJWG5p8ZJNqHE+KrWSpl9
+         hKRzjX3TUdxPtB2Wm8HWrwH3G/UkQOMPvjtu04UKdl9y9/mEYf5EnFth21i6JGIazDU1
+         ACO0yPC6uKOs8C7SelI32/wsGLSc7Z52vfIebvRO+R9YYE8jJiQgbVliBEP+gpVJCMPN
+         nu+JJwQiOFDSix3ZAIt0b9SXGLsr1+K1x9PgFUal9yMkKrLO55sZrU3TXMhagNUoRjJ1
+         ReSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744529565; x=1745134365;
+        d=1e100.net; s=20230601; t=1744529568; x=1745134368;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=M4007EJtTTw4rTvfv0n1SalSLJtmVlRpzu0mtepvnyg=;
-        b=FlIbjUXY5XbLGZhqESMesdLoT6R0eBim4Uhb9Wgkh39kSUX92nWji8hvwL08CJhM2T
-         gAqlsvGqwXN3pq1vlx036DIr39oCxHkvt9N9JudP4gWUP/3db8xrVAcavoltw89flYVk
-         MXwUJhKRx1/78RMtwoIxY+H0sDB/udtwXFJncgkhMXnmMj2tsndjZPMmKCxPLIaxH7Zr
-         Lsp/sNQzSUgXHoKXPZ1fh7LyYMRHF0ffMv/JEzEUWJppNGzERBVYKfuONRI5rIPVZSyE
-         1Z+5sNJ3R8tEks+gYuz+jo57u5av7wbBeva8DKBL6mhwZAD4O8RhLtHFkKcnkynEB2Lv
-         ALag==
-X-Gm-Message-State: AOJu0Yx46rDw1hMtSZ8QFsH3F3ARQ/hrS1fo6hZ22F07rw6hBU10sn33
-	NsdSYkR1wbuCHFw+M0wqKZ3bfxYlPuanQyaDlJwzWDR3GbsCPFtt
-X-Gm-Gg: ASbGncvoItCwevXmuFDdnwgyfv+h43G8mB1Sb0vrLS0nfYK4DyAqQubwgG0yLE+PqE6
-	Z+H/l40lk1iz2DrXMXvA6OAdH4b7LVVHVm87WPaUHpFH/7cByCg7XwB8Kji6iBQYhWTZft0QPOM
-	XYT5S7KFeu2ttWSWl+xoSOzHIleJrEV4PkgznyEzN+91WSSvDXF4vAJgeckwRFnwRwTRm1jXZER
-	qYKk4MZ1A0jWA0C61PhuYr63fv9K9eMjMucQZx4yQgS9cObYJ9VpfcRfeiaItrdOx0q9c3/HdP8
-	mNzGMBrTue1EqUU4lOtdBkRqs9SQtXpUOOvx7Y4xV9Me0JSLUeRDKkuTxGd+IerQm7ibIWnnxyP
-	OZN6khNjWaR3mVHzFoBNO2qTycvI3
-X-Google-Smtp-Source: AGHT+IFIabePYRIYtpcxXzaSMqqVPGq5rSARcMVUANBjoA+ZM+7MttbdYWxqjnd1rND1XEHRjhJRxQ==
-X-Received: by 2002:a05:622a:352:b0:476:8588:cead with SMTP id d75a77b69052e-47977551ea9mr100615211cf.17.1744529565199;
-        Sun, 13 Apr 2025 00:32:45 -0700 (PDT)
+        bh=cjFyocYzTktppiP9pnTPpA+jTKDR4/yXZeC89Tb5gFw=;
+        b=lW+giq9bE+1BxjT5gkJLS5WaXzN9ZtsCvTfmkNC2UwIZngX5+BUGXerJYP9sUaoAMr
+         IKiwO4+VDHrkrj7qhIAvDPnKUa/Yd/Fod+QmyjThZ4UJib8FhVt3sF9I1Hp6BVYnzYy6
+         i1H6t7TcnHExel0YwRYaJuXQ/fGZXgM+Al25HwkudqU2pKCdUhzUuvdhRVxu1wL25hCJ
+         ERJJRO2rywuDSOKXkZBu0ki5btX/HyylFSjuUvpi/HR8HTY9TsPApRgw8Ut7bl3xeNL1
+         ClxGgONL4pGWFo1fmcSxwDb4SrgN3qhPi5Auo7OrT64qMyPz2E2ItesedJfReM1zWYpP
+         v3NA==
+X-Gm-Message-State: AOJu0YwMHAsn9s7lc+D7do1Ye4Rs9FIZE+jzphW5e6Btlw46+ZyUtXlW
+	pdiCNbvoXqtjpKj628N6jdXBzc768cSBi48g3Lc9qkR16wqHjpmd
+X-Gm-Gg: ASbGncvbNgNPu6k8/M+R1i/JzPGAmI7yUjKtJqMPyF6Im9ITZ6yWAatKFMXttyAOI/f
+	M/XQkpZLSIuqAAQKsfxvrppvjaGBrMMCcsXw3841R7qbuyqRoZcJ0KxYWL6rzM2aWc0mVgijX2G
+	oWHHO5OoGpFThTCHlTcgle9arX7xEvYxDN5rqDW/p6LJvLoHhYrniMp/aYu4fw5u5+Ec2VQEqBv
+	wL0jxG/kSg4i/xoRPogxbOLMva2xS45u5uFKfL6NCEaATgMZ3/TpvBI5tznXj3rDYQJuvVdMMOP
+	a/Svca2Ue+lqALmZWZJV2dcQzhNfa//6Nf7D6LuGq24Pafupz2utbzr39IfWMoK2lbGCVxxCWJ7
+	t4CndCNEyC3kd9636Bg==
+X-Google-Smtp-Source: AGHT+IGpMWIVWiaLD+lZUi3FoY3HlefhbjuHhYs+GY72x7GKKVsUGlazfJiv8se0ZguiIp9mskaJEg==
+X-Received: by 2002:a05:622a:592:b0:474:fab0:6564 with SMTP id d75a77b69052e-479775d5f9bmr121885351cf.37.1744529568160;
+        Sun, 13 Apr 2025 00:32:48 -0700 (PDT)
 Received: from UbuntuDev.. (syn-074-067-077-020.res.spectrum.com. [74.67.77.20])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-4796eb0b58csm52142401cf.2.2025.04.13.00.32.44
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-4796eb0b58csm52142401cf.2.2025.04.13.00.32.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Apr 2025 00:32:44 -0700 (PDT)
+        Sun, 13 Apr 2025 00:32:47 -0700 (PDT)
 From: Ganesh Kumar Pittala <ganeshkpittala@gmail.com>
 To: johan@kernel.org,
 	elder@kernel.org,
 	gregkh@linuxfoundation.org
-Date: Sun, 13 Apr 2025 07:32:17 +0000
-Message-ID: <20250413073220.15931-2-ganeshkpittala@gmail.com>
+Date: Sun, 13 Apr 2025 07:32:18 +0000
+Message-ID: <20250413073220.15931-3-ganeshkpittala@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250413073220.15931-1-ganeshkpittala@gmail.com>
 References: <20250413073220.15931-1-ganeshkpittala@gmail.com>
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: B61164601A
+X-Rspamd-Queue-Id: BB2A34601B
 X-Spamd-Bar: +++
 X-Spamd-Result: default: False [3.40 / 15.00];
 	RBL_SENDERSCORE_REPUT_1(3.50)[209.85.160.195:from];
@@ -103,15 +103,15 @@ X-Rspamd-Server: lists.linaro.org
 X-MailFrom: ganeshkpittala@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: B3QE2KPOEG7ELQODOY6BEXZ2FCLWBMHY
-X-Message-ID-Hash: B3QE2KPOEG7ELQODOY6BEXZ2FCLWBMHY
-X-Mailman-Approved-At: Sun, 13 Apr 2025 12:59:21 +0000
+Message-ID-Hash: ACHBJGS4W6F5PLFSZOVXSO3XUM2CV6TO
+X-Message-ID-Hash: ACHBJGS4W6F5PLFSZOVXSO3XUM2CV6TO
+X-Mailman-Approved-At: Sun, 13 Apr 2025 12:59:22 +0000
 CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, hvaibhav.linux@gmail.com, pure.logic@nexus-software.ie, ganeshkpittala@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 1/4] staging: greybus: replace deprecated strncpy with strscpy in firmware.c
+Subject: [greybus-dev] [PATCH v2 2/4] staging: greybus: replace sprintf with sysfs_emit in sysfs show functions
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/B3QE2KPOEG7ELQODOY6BEXZ2FCLWBMHY/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ACHBJGS4W6F5PLFSZOVXSO3XUM2CV6TO/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -121,52 +121,284 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This patch replaces the use of the deprecated strncpy() function with
-strscpy() in drivers/staging/greybus/Documentation/firmware/firmware.c.
+This patch replaces deprecated uses of sprintf() with the safer
+sysfs_emit() helper in multiple sysfs show functions across the
+Greybus staging drivers.
 
-The strscpy() API is the recommended safer alternative that guarantees
-NUL-termination and avoids potential buffer overflows, making it more
-robust for handling string operations in kernel space.
+The sysfs_emit() API is designed specifically for sysfs usage and
+ensures proper formatting, length checks, and termination, aligning
+with current kernel best practices.
 
-This change improves code safety and aligns the driver with current
-kernel coding practices.
+Affected files:
+  - audio_manager_module.c
+  - loopback.c (sysfs-related only)
+  - arche-platform.c
+  - arche-apb-ctrl.c
+  - light.c
+  - gbphy.c
 
 Signed-off-by: Ganesh Kumar Pittala <ganeshkpittala@gmail.com>
 ---
- drivers/staging/greybus/Documentation/firmware/firmware.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/staging/greybus/arche-apb-ctrl.c       | 11 ++++++-----
+ drivers/staging/greybus/arche-platform.c       | 11 ++++++-----
+ drivers/staging/greybus/audio_manager_module.c | 13 +++++++------
+ drivers/staging/greybus/gbphy.c                |  3 ++-
+ drivers/staging/greybus/light.c                |  5 +++--
+ drivers/staging/greybus/loopback.c             | 15 ++++++++-------
+ 6 files changed, 32 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/staging/greybus/Documentation/firmware/firmware.c b/drivers/staging/greybus/Documentation/firmware/firmware.c
-index 765d69faa9cc..f37904b914d2 100644
---- a/drivers/staging/greybus/Documentation/firmware/firmware.c
-+++ b/drivers/staging/greybus/Documentation/firmware/firmware.c
-@@ -63,7 +63,7 @@ static int update_intf_firmware(int fd)
- 	intf_load.major = 0;
- 	intf_load.minor = 0;
+diff --git a/drivers/staging/greybus/arche-apb-ctrl.c b/drivers/staging/greybus/arche-apb-ctrl.c
+index 90ab32638d3f..9862188e8367 100644
+--- a/drivers/staging/greybus/arche-apb-ctrl.c
++++ b/drivers/staging/greybus/arche-apb-ctrl.c
+@@ -17,6 +17,7 @@
+ #include <linux/pm.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/spinlock.h>
++#include <linux/sysfs.h>
+ #include "arche_platform.h"
  
--	strncpy((char *)&intf_load.firmware_tag, firmware_tag,
-+	strscpy((char *)&intf_load.firmware_tag, firmware_tag,
- 		GB_FIRMWARE_U_TAG_MAX_SIZE);
+ static void apb_bootret_deassert(struct device *dev);
+@@ -299,16 +300,16 @@ static ssize_t state_show(struct device *dev,
  
- 	ret = ioctl(fd, FW_MGMT_IOC_INTF_LOAD_AND_VALIDATE, &intf_load);
-@@ -101,7 +101,7 @@ static int update_backend_firmware(int fd)
- 	/* Get Backend Firmware Version */
- 	printf("Getting Backend Firmware Version\n");
+ 	switch (apb->state) {
+ 	case ARCHE_PLATFORM_STATE_OFF:
+-		return sprintf(buf, "off%s\n",
++		return sysfs_emit(buf, "off%s\n",
+ 				apb->init_disabled ? ",disabled" : "");
+ 	case ARCHE_PLATFORM_STATE_ACTIVE:
+-		return sprintf(buf, "active\n");
++		return sysfs_emit(buf, "active\n");
+ 	case ARCHE_PLATFORM_STATE_STANDBY:
+-		return sprintf(buf, "standby\n");
++		return sysfs_emit(buf, "standby\n");
+ 	case ARCHE_PLATFORM_STATE_FW_FLASHING:
+-		return sprintf(buf, "fw_flashing\n");
++		return sysfs_emit(buf, "fw_flashing\n");
+ 	default:
+-		return sprintf(buf, "unknown state\n");
++		return sysfs_emit(buf, "unknown state\n");
+ 	}
+ }
  
--	strncpy((char *)&backend_fw_info.firmware_tag, firmware_tag,
-+	strscpy((char *)&backend_fw_info.firmware_tag, firmware_tag,
- 		GB_FIRMWARE_U_TAG_MAX_SIZE);
+diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
+index d48464390f58..2e706c1169d5 100644
+--- a/drivers/staging/greybus/arche-platform.c
++++ b/drivers/staging/greybus/arche-platform.c
+@@ -21,6 +21,7 @@
+ #include <linux/time.h>
+ #include <linux/greybus.h>
+ #include <linux/of.h>
++#include <linux/sysfs.h>
+ #include "arche_platform.h"
  
- retry_fw_version:
-@@ -129,7 +129,7 @@ static int update_backend_firmware(int fd)
- 	/* Try Backend Firmware Update over Unipro */
- 	printf("Updating Backend Firmware\n");
+ #if IS_ENABLED(CONFIG_USB_HSIC_USB3613)
+@@ -374,15 +375,15 @@ static ssize_t state_show(struct device *dev,
  
--	strncpy((char *)&backend_update.firmware_tag, firmware_tag,
-+	strscpy((char *)&backend_update.firmware_tag, firmware_tag,
- 		GB_FIRMWARE_U_TAG_MAX_SIZE);
+ 	switch (arche_pdata->state) {
+ 	case ARCHE_PLATFORM_STATE_OFF:
+-		return sprintf(buf, "off\n");
++		return sysfs_emit(buf, "off\n");
+ 	case ARCHE_PLATFORM_STATE_ACTIVE:
+-		return sprintf(buf, "active\n");
++		return sysfs_emit(buf, "active\n");
+ 	case ARCHE_PLATFORM_STATE_STANDBY:
+-		return sprintf(buf, "standby\n");
++		return sysfs_emit(buf, "standby\n");
+ 	case ARCHE_PLATFORM_STATE_FW_FLASHING:
+-		return sprintf(buf, "fw_flashing\n");
++		return sysfs_emit(buf, "fw_flashing\n");
+ 	default:
+-		return sprintf(buf, "unknown state\n");
++		return sysfs_emit(buf, "unknown state\n");
+ 	}
+ }
  
- retry_fw_update:
+diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
+index 4a4dfb42f50f..781144be4eec 100644
+--- a/drivers/staging/greybus/audio_manager_module.c
++++ b/drivers/staging/greybus/audio_manager_module.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <linux/slab.h>
++#include <linux/sysfs.h>
+ 
+ #include "audio_manager.h"
+ #include "audio_manager_private.h"
+@@ -76,7 +77,7 @@ static void gb_audio_module_release(struct kobject *kobj)
+ static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
+ 					 struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sprintf(buf, "%s", module->desc.name);
++	return sysfs_emit(buf, "%s\n", module->desc.name);
+ }
+ 
+ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+@@ -85,7 +86,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+ static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
+ 					struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sprintf(buf, "%d", module->desc.vid);
++	return sysfs_emit(buf, "%d\n", module->desc.vid);
+ }
+ 
+ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+@@ -94,7 +95,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+ static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
+ 					struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sprintf(buf, "%d", module->desc.pid);
++	return sysfs_emit(buf, "%d\n", module->desc.pid);
+ }
+ 
+ static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
+@@ -104,7 +105,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
+ 					    struct gb_audio_manager_module_attribute *attr,
+ 					    char *buf)
+ {
+-	return sprintf(buf, "%d", module->desc.intf_id);
++	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
+@@ -115,7 +116,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
+ 					       struct gb_audio_manager_module_attribute *attr,
+ 					       char *buf)
+ {
+-	return sprintf(buf, "0x%X", module->desc.ip_devices);
++	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
+@@ -126,7 +127,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
+ 					       struct gb_audio_manager_module_attribute *attr,
+ 					       char *buf)
+ {
+-	return sprintf(buf, "0x%X", module->desc.op_devices);
++	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
+diff --git a/drivers/staging/greybus/gbphy.c b/drivers/staging/greybus/gbphy.c
+index 6adcad286633..72d72aa7cb0f 100644
+--- a/drivers/staging/greybus/gbphy.c
++++ b/drivers/staging/greybus/gbphy.c
+@@ -14,6 +14,7 @@
+ #include <linux/slab.h>
+ #include <linux/device.h>
+ #include <linux/greybus.h>
++#include <linux/sysfs.h>
+ 
+ #include "gbphy.h"
+ 
+@@ -31,7 +32,7 @@ static ssize_t protocol_id_show(struct device *dev,
+ {
+ 	struct gbphy_device *gbphy_dev = to_gbphy_dev(dev);
+ 
+-	return sprintf(buf, "0x%02x\n", gbphy_dev->cport_desc->protocol_id);
++	return sysfs_emit(buf, "0x%02x\n", gbphy_dev->cport_desc->protocol_id);
+ }
+ static DEVICE_ATTR_RO(protocol_id);
+ 
+diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
+index e509fdc715db..db0e98faec08 100644
+--- a/drivers/staging/greybus/light.c
++++ b/drivers/staging/greybus/light.c
+@@ -12,6 +12,7 @@
+ #include <linux/module.h>
+ #include <linux/slab.h>
+ #include <linux/greybus.h>
++#include <linux/sysfs.h>
+ #include <media/v4l2-flash-led-class.h>
+ 
+ #define NAMES_MAX	32
+@@ -173,7 +174,7 @@ static ssize_t fade_##__dir##_show(struct device *dev,			\
+ 	struct led_classdev *cdev = dev_get_drvdata(dev);		\
+ 	struct gb_channel *channel = get_channel_from_cdev(cdev);	\
+ 									\
+-	return sprintf(buf, "%u\n", channel->fade_##__dir);		\
++	return sysfs_emit(buf, "%u\n", channel->fade_##__dir);		\
+ }									\
+ 									\
+ static ssize_t fade_##__dir##_store(struct device *dev,			\
+@@ -220,7 +221,7 @@ static ssize_t color_show(struct device *dev, struct device_attribute *attr,
+ 	struct led_classdev *cdev = dev_get_drvdata(dev);
+ 	struct gb_channel *channel = get_channel_from_cdev(cdev);
+ 
+-	return sprintf(buf, "0x%08x\n", channel->color);
++	return sysfs_emit(buf, "0x%08x\n", channel->color);
+ }
+ 
+ static ssize_t color_store(struct device *dev, struct device_attribute *attr,
+diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+index 1f19323b0e1a..c194afea941a 100644
+--- a/drivers/staging/greybus/loopback.c
++++ b/drivers/staging/greybus/loopback.c
+@@ -26,6 +26,7 @@
+ #include <linux/atomic.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/greybus.h>
++#include <linux/sysfs.h>
+ #include <asm/div64.h>
+ 
+ #define NSEC_PER_DAY 86400000000000ULL
+@@ -125,7 +126,7 @@ static ssize_t field##_show(struct device *dev,			\
+ 			    char *buf)					\
+ {									\
+ 	struct gb_loopback *gb = dev_get_drvdata(dev);			\
+-	return sprintf(buf, "%u\n", gb->field);			\
++	return sysfs_emit(buf, "%u\n", gb->field);			\
+ }									\
+ static DEVICE_ATTR_RO(field)
+ 
+@@ -137,8 +138,8 @@ static ssize_t name##_##field##_show(struct device *dev,	\
+ 	struct gb_loopback *gb = dev_get_drvdata(dev);			\
+ 	/* Report 0 for min and max if no transfer succeeded */		\
+ 	if (!gb->requests_completed)					\
+-		return sprintf(buf, "0\n");				\
+-	return sprintf(buf, "%" #type "\n", gb->name.field);		\
++		return sysfs_emit(buf, "0\n");				\
++	return sysfs_emit(buf, "%" #type "\n", gb->name.field);		\
+ }									\
+ static DEVICE_ATTR_RO(name##_##field)
+ 
+@@ -158,7 +159,7 @@ static ssize_t name##_avg_show(struct device *dev,		\
+ 	rem = do_div(avg, count);					\
+ 	rem *= 1000000;							\
+ 	do_div(rem, count);						\
+-	return sprintf(buf, "%llu.%06u\n", avg, (u32)rem);		\
++	return sysfs_emit(buf, "%llu.%06u\n", avg, (u32)rem);		\
+ }									\
+ static DEVICE_ATTR_RO(name##_avg)
+ 
+@@ -173,7 +174,7 @@ static ssize_t field##_show(struct device *dev,				\
+ 			    char *buf)					\
+ {									\
+ 	struct gb_loopback *gb = dev_get_drvdata(dev);			\
+-	return sprintf(buf, "%" #type "\n", gb->field);			\
++	return sysfs_emit(buf, "%" #type "\n", gb->field);			\
+ }									\
+ static ssize_t field##_store(struct device *dev,			\
+ 			    struct device_attribute *attr,		\
+@@ -199,7 +200,7 @@ static ssize_t field##_show(struct device *dev,		\
+ 			    char *buf)					\
+ {									\
+ 	struct gb_loopback *gb = dev_get_drvdata(dev);			\
+-	return sprintf(buf, "%u\n", gb->field);				\
++	return sysfs_emit(buf, "%u\n", gb->field);				\
+ }									\
+ static DEVICE_ATTR_RO(field)
+ 
+@@ -209,7 +210,7 @@ static ssize_t field##_show(struct device *dev,				\
+ 			    char *buf)					\
+ {									\
+ 	struct gb_loopback *gb = dev_get_drvdata(dev);			\
+-	return sprintf(buf, "%" #type "\n", gb->field);			\
++	return sysfs_emit(buf, "%" #type "\n", gb->field);			\
+ }									\
+ static ssize_t field##_store(struct device *dev,			\
+ 			    struct device_attribute *attr,		\
 -- 
 2.43.0
 
