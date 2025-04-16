@@ -2,228 +2,108 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FC88A904D8
-	for <lists+greybus-dev@lfdr.de>; Wed, 16 Apr 2025 15:51:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23835A904DC
+	for <lists+greybus-dev@lfdr.de>; Wed, 16 Apr 2025 15:51:27 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 7B02144B31
-	for <lists+greybus-dev@lfdr.de>; Wed, 16 Apr 2025 13:51:11 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	by lists.linaro.org (Postfix) with ESMTPS id 2800943D10
-	for <greybus-dev@lists.linaro.org>; Wed, 16 Apr 2025 13:51:08 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 4030C43D10
+	for <lists+greybus-dev@lfdr.de>; Wed, 16 Apr 2025 13:51:26 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by lists.linaro.org (Postfix) with ESMTPS id 5EC3743D10
+	for <greybus-dev@lists.linaro.org>; Wed, 16 Apr 2025 13:51:19 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=beagleboard-org.20230601.gappssmtp.com header.s=20230601 header.b=utwdZNaU;
-	spf=neutral (lists.linaro.org: 209.85.214.181 is neither permitted nor denied by domain of ayush@beagleboard.org) smtp.mailfrom=ayush@beagleboard.org;
-	dmarc=fail reason="No valid SPF, DKIM not aligned (relaxed)" header.from=beagleboard.org (policy=none)
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-22423adf751so63225265ad.2
-        for <greybus-dev@lists.linaro.org>; Wed, 16 Apr 2025 06:51:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard-org.20230601.gappssmtp.com; s=20230601; t=1744811467; x=1745416267; darn=lists.linaro.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=dlv/qOg8JejlAO0c4FSuHmbsXKhE7BmnkIp5SOPS//s=;
-        b=utwdZNaUcZ/oXgd91/61UWzOhVQ3rB0nWZxWxyswQ0WuJpUHsx/1XC1WsSrGo9/Kg0
-         umpdKpiqhekjZz75vEBZMqpL854OglOHvsmphWd9iC6fBFmbDeTkuBjoHDLEWxm3rOiL
-         DfDbIJE5gDD8z4vRKruMjzNJK/FuS485df/FsLX0Ir/SnaWqZjYIOdX1zuojvwigOe/k
-         oCcCIm6vwwJ8x83LB2bUYV/RfWrCnAZSgz6m9AM7hVgLQxE2g/3u4vbV8a34ubTVZasp
-         RleMaZn++iKyNfS4Va7q/hozVW4CIIlCOYafJWm1gmSUH94w4JL1GlY+A/nI2eT1IMx7
-         Yf2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744811467; x=1745416267;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dlv/qOg8JejlAO0c4FSuHmbsXKhE7BmnkIp5SOPS//s=;
-        b=TspezlKdhje7AkkurVHOrArx6SKHWqU79KQ3n7RLnG8l8wrZmZZk3KEm0LXh17L29N
-         cuObA/u2wRUvakUuFQPiuoG3Eu73K7PS/UzNXNg9m0PkhtJbThLPvD65oOoJ8g2tvK64
-         w7tYkQHwpsYqbCcCJEz2G0vjH57s8L8yRjH5T6yvqqpVWV5iTbuKiNopAiORGKmhJ3nx
-         pZYSGmgSQqj0xR4qLp6RtrCjIKJNnt1YotYY/ZzswoYHinAQD+KC3XqfZ2LFuZkqizCZ
-         YgSpAey3+6xkUbCzMhi7PAyO2lZ/lxH9/arXKLmrutVn4NXkzF2+j9J7YEQBwjLMPK3r
-         g2QQ==
-X-Gm-Message-State: AOJu0Yx/2Pm5dY1NDP+Mf9gKZifRI76+eR0AWSoLa417g1Z0GYauPQ/T
-	5XnSpToPm+4mTMyEUkTmKEJc7DeFBaZoqWxKKZmbPWcPL5HmdRtOAHvwp/6vg7mGeR0orNOVWNv
-	0vA==
-X-Gm-Gg: ASbGncun9L31TUY/Mu1g9H3A1SQCXcaJ9pqH6g5+m47M5zM/hxWYQ3XO8FZoF2LYjqV
-	bpfCsK5ztcxOWEArvmReS+kF9iZ3qeQ/qBLpGtuiLXtcVIkFBZ8sUmbKFzyam0qzLaPITvzExfi
-	N1ZRoeqeiJTbQmmxFUZ3xvFMMuqqhaCxwrG1F/uWJpuFB/dctGMPIH3UQZ1O+QxKPTXb+5zDNoF
-	O+QYBYYSNo+MBUJAoyeD0vkf+6nqJYe0g12SlDEDWkJjicTaH47i4q6OJvfgh3ZAp/fLCDMHXj7
-	Q6PL38DeU9p17rMY7n81zLMcvDwSvjTzgy1OQ9vOJgHUlN9xCokZKhNRTA==
-X-Google-Smtp-Source: AGHT+IGunPfiyVBTdHC64B2USKh4Nx/rEnbirfThO5tYNT95mYphg+shHVbZUzUTVFWHjefgUGc8UQ==
-X-Received: by 2002:a17:903:2305:b0:224:de2:7fd0 with SMTP id d9443c01a7336-22c35909355mr33046425ad.25.1744811466770;
-        Wed, 16 Apr 2025 06:51:06 -0700 (PDT)
-Received: from [172.16.116.85] ([103.15.228.94])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-22c33fa5d77sm13814465ad.150.2025.04.16.06.51.05
-        for <greybus-dev@lists.linaro.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Apr 2025 06:51:06 -0700 (PDT)
-Message-ID: <34567f13-5669-4fe9-9c3a-addfa7e0cb4b@beagleboard.org>
-Date: Wed, 16 Apr 2025 19:21:04 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: greybus-dev@lists.linaro.org
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b=MEl9mE9Q;
+	spf=pass (lists.linaro.org: domain of johan@kernel.org designates 147.75.193.91 as permitted sender) smtp.mailfrom=johan@kernel.org;
+	dmarc=pass (policy=quarantine) header.from=kernel.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id C61D0A49FA7;
+	Wed, 16 Apr 2025 13:45:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3115C4CEE2;
+	Wed, 16 Apr 2025 13:51:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1744811478;
+	bh=+wx2sC6I5mlk2PyZ3qWyksEMyQYV4JAGVPjVJfE7+BM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MEl9mE9Qz65zZEEe8CDmj9B6yMm90nyYxYB1fVvAbVMgHg0kDt3s6ZyDiANWHezbt
+	 QuNgb+QTfKC5QV2PWG7PDwuJVrBwxACR3GLyHs+c8R0H/gm+x0sRSqRmpzsdW15Zl+
+	 AsiYHsCZfVqMhrdlUYXlcF5H2GMvFlmQ2UvBl5oSKUCFhKs25BvSmTnQ7WlP3Myysd
+	 NU33Wj0GcjPVOLn7WI0VzeQFwnAs5wx7LL3HA3LASrBZ93J/MAWJGmKCtJ58Ux2Sbx
+	 3nykTBsgwSsXb2GJIpPbFlrim4T13lyKzAWQF6XQHfp86awEzmO8QEgkAujQqpSd7+
+	 zhnsyDOllKTFw==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+	(envelope-from <johan@kernel.org>)
+	id 1u53Ab-000000002BI-28Ur;
+	Wed, 16 Apr 2025 15:51:17 +0200
+Date: Wed, 16 Apr 2025 15:51:17 +0200
+From: Johan Hovold <johan@kernel.org>
+To: rujra <braker.noob.kernel@gmail.com>
+Message-ID: <Z_-11fvQJtiwAxaA@hovoldconsulting.com>
 References: <CAG+54DbvpWHyX8+ucEQpg2B6rNTJP11CRpYxcYVrKpKehzrK-A@mail.gmail.com>
- <490ab216-982e-4707-abe4-a5b8d0444458@gmail.com>
- <eec572fd-3074-8f2c-f978-94841edf7a6@inria.fr>
-Content-Language: en-US
-From: Ayush Singh <ayush@beagleboard.org>
-In-Reply-To: <eec572fd-3074-8f2c-f978-94841edf7a6@inria.fr>
-X-Rspamd-Queue-Id: 2800943D10
-X-Spamd-Bar: --
-X-Spamd-Result: default: False [-2.50 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
-	RBL_SENDERSCORE_REPUT_7(0.50)[209.85.214.181:from];
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAG+54DbvpWHyX8+ucEQpg2B6rNTJP11CRpYxcYVrKpKehzrK-A@mail.gmail.com>
+X-Rspamd-Queue-Id: 5EC3743D10
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.50 / 15.00];
+	BAYES_HAM(-3.00)[99.98%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	RBL_SENDERSCORE_REPUT_9(-1.00)[147.75.193.91:from];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+ip4:147.75.193.91];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.181:from];
-	BAD_REP_POLICIES(0.10)[];
-	DMARC_POLICY_SOFTFAIL(0.10)[beagleboard.org : No valid SPF, DKIM not aligned (relaxed),none];
-	FROM_HAS_DN(0.00)[];
-	R_SPF_NEUTRAL(0.00)[?all];
-	RCPT_COUNT_ONE(0.00)[1];
-	ARC_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:54825, ipnet:147.75.192.0/21, country:US];
+	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	TAGGED_RCPT(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	NEURAL_HAM(-0.00)[-1.000];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
+	FREEMAIL_TO(0.00)[gmail.com];
 	FROM_EQ_ENVFROM(0.00)[];
-	R_DKIM_ALLOW(0.00)[beagleboard-org.20230601.gappssmtp.com:s=20230601];
-	TO_DN_NONE(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[beagleboard-org.20230601.gappssmtp.com:+]
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[kernel.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: VPCF7ZOTYC2Y7LP3FSAFERUJGIUOKSYT
-X-Message-ID-Hash: VPCF7ZOTYC2Y7LP3FSAFERUJGIUOKSYT
-X-MailFrom: ayush@beagleboard.org
+Message-ID-Hash: TISMGDU3MU5UJ7UGKD5ZV4H4JVXKTWWS
+X-Message-ID-Hash: TISMGDU3MU5UJ7UGKD5ZV4H4JVXKTWWS
+X-MailFrom: johan@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: ayushdevel1325@gmail.com, elder@kernel.org, greybus-dev@lists.linaro.org, outreachy@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [FIRST-PATCH] staging : greybus : gb-beagleplay.c : fixing the checks as first-patch
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/VPCF7ZOTYC2Y7LP3FSAFERUJGIUOKSYT/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TISMGDU3MU5UJ7UGKD5ZV4H4JVXKTWWS/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"; format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 4/16/25 19:15, Julia Lawall wrote:
+On Wed, Apr 16, 2025 at 05:47:41PM +0530, rujra wrote:
+> added comments on spinlocks for producer-consumer model, rearranged the
+> lines on function calls where it should not end with "(" this bracket,
+> also removed white-spaces and aligned the arguments of function calls.
+> 
+> Signed-off-by: Rujra Bhatt <braker.noob.kernel@gmail.com>
 
->
-> On Wed, 16 Apr 2025, Ayush Singh wrote:
->
->> On 4/16/25 17:47, rujra wrote:
->>
->>> added comments on spinlocks for producer-consumer model, rearranged the
->>> lines on function calls where it should not end with "(" this bracket,
->>> also removed white-spaces and aligned the arguments of function calls.
->> Are these manual adjustments, or using clang-format?
->>
->> I do not care about formatting being "readable". As long as it can be done by
->> a tool like clang-format, that's fine with me.
->>
->> Of course if you are fixing some checkpatch error, that is okay, but if now,
->> please avoid formatting changes.
->>
->> The comments are fine. Although you probably want to add a space between `//`
->> and the sentence start.
-> I don't think the kernel commonly uses // for comments.
->
-> julia
+You're doing too many things in one patch, the patch is white space
+damaged, and the patch prefix is wrong since this driver does not live
+in staging.
 
-Ahh, right. `/* */` is for C comments. So that needs to be fixed as well.
+If you want to practise creating patches, please make sure to work in
+drivers/staging where changes like these may be accepted. 
 
->>
->>> Signed-off-by: Rujra Bhatt <braker.noob.kernel@gmail.com>
->>>
->>>> 8------------------------------------------------------8<
->>>    drivers/greybus/gb-beagleplay.c | 16 ++++++++--------
->>>    1 file changed, 8 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/drivers/greybus/gb-beagleplay.c
->>> b/drivers/greybus/gb-beagleplay.c
->>> index 473ac3f2d382..fa1c3a40dd0b 100644
->>> --- a/drivers/greybus/gb-beagleplay.c
->>> +++ b/drivers/greybus/gb-beagleplay.c
->>> @@ -73,7 +73,9 @@ struct gb_beagleplay {
->>>           struct gb_host_device *gb_hd;
->>>
->>>           struct work_struct tx_work;
->>> +       //used to ensure that only one producer can access the shared
->>> resource at a time.
->>>           spinlock_t tx_producer_lock;
->>> +       //used to ensure that only one consumer can access the shared
->>> resource at a time.
->>>           spinlock_t tx_consumer_lock;
->>>           struct circ_buf tx_circ_buf;
->>>           u16 tx_crc;
->>> @@ -642,8 +644,8 @@ static int cc1352_bootloader_wait_for_ack(struct
->>> gb_beagleplay *bg)
->>>    {
->>>           int ret;
->>>
->>> -       ret = wait_for_completion_timeout(
->>> -               &bg->fwl_ack_com,
->>> msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
->>> +       ret = wait_for_completion_timeout(&bg->fwl_ack_com,
->>> +
->>> msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
->>>           if (ret < 0)
->>>                   return dev_err_probe(&bg->sd->dev, ret,
->>>                                        "Failed to acquire ack semaphore");
->>> @@ -680,9 +682,8 @@ static int cc1352_bootloader_get_status(struct
->>> gb_beagleplay *bg)
->>>           if (ret < 0)
->>>                   return ret;
->>>
->>> -       ret = wait_for_completion_timeout(
->>> -               &bg->fwl_cmd_response_com,
->>> -               msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
->>> +       ret = wait_for_completion_timeout(&bg->fwl_cmd_response_com,
->>> +
->>> msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
->>>           if (ret < 0)
->>>                   return dev_err_probe(&bg->sd->dev, ret,
->>>                                        "Failed to acquire last status
->>> semaphore");
->>> @@ -765,9 +766,8 @@ static int cc1352_bootloader_crc32(struct
->>> gb_beagleplay *bg, u32 *crc32)
->>>           if (ret < 0)
->>>                   return ret;
->>>
->>> -       ret = wait_for_completion_timeout(
->>> -               &bg->fwl_cmd_response_com,
->>> -               msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
->>> +       ret = wait_for_completion_timeout(&bg->fwl_cmd_response_com,
->>> +
->>> msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
->>>           if (ret < 0)
->>>                   return dev_err_probe(&bg->sd->dev, ret,
->>>                                        "Failed to acquire last status
->>> semaphore");
->>> --
->>> 2.43.0
->>
->> Best Regards,
->>
->> Ayush Singh
->>
->>
->>
-
-Best Regards,
-
-Ayush Singh
-
-> _______________________________________________
-> greybus-dev mailing list -- greybus-dev@lists.linaro.org
-> To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+Johan
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
