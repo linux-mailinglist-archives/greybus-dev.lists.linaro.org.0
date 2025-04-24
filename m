@@ -2,82 +2,111 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E267A91751
-	for <lists+greybus-dev@lfdr.de>; Thu, 17 Apr 2025 11:09:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C32FFA9B55D
+	for <lists+greybus-dev@lfdr.de>; Thu, 24 Apr 2025 19:36:18 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id EDE7E475FD
-	for <lists+greybus-dev@lfdr.de>; Thu, 17 Apr 2025 09:09:50 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	by lists.linaro.org (Postfix) with ESMTPS id AAB5C475E2
-	for <greybus-dev@lists.linaro.org>; Thu, 17 Apr 2025 09:09:44 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id A4CC445973
+	for <lists+greybus-dev@lfdr.de>; Thu, 24 Apr 2025 17:36:17 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	by lists.linaro.org (Postfix) with ESMTPS id E86B945FF6
+	for <greybus-dev@lists.linaro.org>; Thu, 24 Apr 2025 16:46:56 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b="NxCs0+A/";
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.105.4.254 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 526B56842A;
-	Thu, 17 Apr 2025 09:09:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 102F3C4CEE4;
-	Thu, 17 Apr 2025 09:09:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1744880983;
-	bh=ft3blv+xedgR2GjguyCK+HIe9PLy7Z/DG7T7oPjuxhc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NxCs0+A/RqRfOW6jkO7V5w22jGjIKNQM2inSDo8ptkkV0w46XVtq4ruWvQka2yeNT
-	 jKoQnbF0INwy/nnKn3ijL8Zxuil1LFuQmkBJq5aRkROTHMlzrjFvUqBKKn/fmBnI1l
-	 dTMICvvfagSOM5i+3+o3YGCbWqlMSXp9fZNys1gs=
-Date: Thu, 17 Apr 2025 11:09:40 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Ganesh Kumar Pittala <ganeshkpittala@gmail.com>
-Message-ID: <2025041701-purgatory-thievish-3e79@gregkh>
-References: <20250413073220.15931-1-ganeshkpittala@gmail.com>
- <20250413073220.15931-4-ganeshkpittala@gmail.com>
+	dkim=pass header.d=gmail.com header.s=20230601 header.b="c/+JPhIC";
+	dmarc=pass (policy=none) header.from=gmail.com;
+	spf=pass (lists.linaro.org: domain of andi.kleinbichler@gmail.com designates 209.85.221.51 as permitted sender) smtp.mailfrom=andi.kleinbichler@gmail.com
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-3913b539aabso696963f8f.2
+        for <greybus-dev@lists.linaro.org>; Thu, 24 Apr 2025 09:46:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1745513216; x=1746118016; darn=lists.linaro.org;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=tX6BYTT8dOmFs+pdX/MFx3gTZUblYOPi9JW4PiTBaik=;
+        b=c/+JPhIC/WZjbBE6Ub7zp6/Y1WbAO3h25YLw0lLvPMNe+HcCsv4u7I3yEGe9RN8Ctv
+         uwRN1Upj0eFyIKcwtSNvHZ5SjThgi/UGre89iVPR8GPE9c4yMupOwZi8bGdKxiSxJkr1
+         Hbz3VJ1Od7DRSfbfqxNhwUkyhZrsMaxPLvnxz0pIsdMFCAbzzPiylI/YgsysnmRx+2Xg
+         c63UUQPp+i/CubALa7iHo6E3ySRQrDK/lGk82EUgZyEHENYxwXZPKgMJVR6uw3JOReS4
+         9fbYA05r+CE9S+8bIl4SGti9Dmwcrr4EraVxEmDS9gR4XN4S9mJsJNv2cp4E4QEmilO9
+         AKOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745513216; x=1746118016;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=tX6BYTT8dOmFs+pdX/MFx3gTZUblYOPi9JW4PiTBaik=;
+        b=HlOnHAdd6n36lJj4UWLtY8iRtu4X2qZ/Rjr/FNxCEV+xC0E1CNQ0gfXwpxPfrGMyNn
+         1AqUjsWGaJwmV0vcRnITuyYAPsPbcxYN94yZiQY9GbD02ANJdikPh1RnS4d+1a9BTtFO
+         yCwgxw5MjmB5WfH7L52y9mblEw56IEicBuDnQAV6fTfFXfihAV1x9NMf20ff8+a/rV9N
+         ilABOzT2fmYFapZid1IEb0+oJulgDrPDHGIDlLkEciQI1rNzInAGPsEVLxkP75AN54n7
+         8YUOBSYVvTv9WflFo1tRufXhBOMKwDqUapHhPb1lR5DKocElly+5uTechIY4cwiubHD8
+         mluw==
+X-Forwarded-Encrypted: i=1; AJvYcCUDAzpSy9NNF7WzwF2wio3LMS675qdyX8gI3XN8hV208om/PsgWSA5ITE/Vqv7SaO3l2wJHzLEIlJ5kZg==@lists.linaro.org
+X-Gm-Message-State: AOJu0YwmmgdH2VSvNwznrgSVB19JbbOyl+yBSDx3a8dXQVZhnXpECOdJ
+	gnLPeQY1HAgATvLDpTP5xGqDuGEKgWHQojedCVcbmHWbhZ/7svHp
+X-Gm-Gg: ASbGncv3qzIStoyJFMh399+NgNPVUPx2IIrfszAy6tBZ09dmMSlqelV66ZVHM/Ms7aC
+	f8mix4/VtygGOisiKyXhS41N51iUmw/16Ia/EbkmKfUKQ19psw60tQ2ANXdTJILA9kECuSjkk96
+	1jZyo3WPrOowrmdWinTw3YCxphmv6TDrHu2vO2ldw4jBhJdHKDu61GxYqdbzpmf+Ce4Ass+IYmu
+	mpAOzXBSvSNxow+HknHVOYfvnkbmIrnM11fR8p+QmaP4S4wUe9Dc26fcTvC96zfGMR4VIRv+Ru6
+	uBhlzLqONuXMVqPqqO5mNA1kXtShtW53taBW53JzdswN5maqQ7zKsaGTpvRR3QzLEuqtYgXPiyR
+	1aSvCsH3BAanU5KozUcrMxXqB
+X-Google-Smtp-Source: AGHT+IGbtUZ1epAFM71uoldTFr4VYxXQceNxeQpoJpuw+knCHDf5n5FvydE+by/rlcAYTosCU00hYw==
+X-Received: by 2002:a05:6000:184d:b0:39c:13fd:ea9c with SMTP id ffacd0b85a97d-3a072bb7529mr36617f8f.47.1745513215697;
+        Thu, 24 Apr 2025 09:46:55 -0700 (PDT)
+Received: from andreas-VirtualBox (089144201082.atnat0010.highway.a1.net. [89.144.201.82])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3a06d4a807bsm2633243f8f.20.2025.04.24.09.46.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Apr 2025 09:46:54 -0700 (PDT)
+Date: Thu, 24 Apr 2025 18:46:52 +0200
+From: Andreas Kleinbichler <andi.kleinbichler@gmail.com>
+To: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Message-ID: <aApq_JPIBhnGqfiR@andreas-VirtualBox>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250413073220.15931-4-ganeshkpittala@gmail.com>
-X-Rspamd-Queue-Id: AAB5C475E2
-X-Spamd-Bar: +
-X-Spamd-Result: default: False [1.00 / 15.00];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	RBL_SENDERSCORE_REPUT_9(-1.00)[172.105.4.254:from];
-	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
+X-Rspamd-Server: lists.linaro.org
+X-Rspamd-Queue-Id: E86B945FF6
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.50 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
 	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.4.254];
-	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_CC(0.00)[kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com,animalcreek.com,nexus-software.ie];
-	FROM_HAS_DN(0.00)[];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[linuxfoundation.org:+];
-	ASN(0.00)[asn:63949, ipnet:172.105.0.0/19, country:SG];
+	TO_DN_SOME(0.00)[];
+	RCVD_IN_DNSWL_NONE(0.00)[209.85.221.51:from];
 	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MISSING_XM_UA(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	RCVD_COUNT_TWO(0.00)[2];
 	FROM_EQ_ENVFROM(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DNSWL_BLOCKED(0.00)[100.75.92.58:received];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	NEURAL_HAM(-0.00)[-0.999];
+	RCPT_COUNT_FIVE(0.00)[6];
+	NEURAL_HAM(-0.00)[-1.000];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.221.51:from];
+	DWL_DNSWL_BLOCKED(0.00)[gmail.com:dkim];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	TO_DN_SOME(0.00)[]
+	RBL_SENDERSCORE_REPUT_BLOCKED(0.00)[209.85.221.51:from]
 X-Rspamd-Action: no action
-X-Spam-Level: *
-X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: DQ6MH42G7PQ5XBPLYQYRJBZ4CUYPOGA7
-X-Message-ID-Hash: DQ6MH42G7PQ5XBPLYQYRJBZ4CUYPOGA7
-X-MailFrom: gregkh@linuxfoundation.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, hvaibhav.linux@gmail.com, pure.logic@nexus-software.ie
+X-MailFrom: andi.kleinbichler@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: 3YBZYJQ42CSQL3KOT465MDAI63H2ZZD4
+X-Message-ID-Hash: 3YBZYJQ42CSQL3KOT465MDAI63H2ZZD4
+X-Mailman-Approved-At: Thu, 24 Apr 2025 17:36:13 +0000
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v2 3/4] staging: greybus: refactor gb_loopback_fn into smaller helper functions
+Subject: [greybus-dev] [PATCH] [Patch]: staging: greybus: camera: fix alignment should match open parentheses
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/DQ6MH42G7PQ5XBPLYQYRJBZ4CUYPOGA7/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/3YBZYJQ42CSQL3KOT465MDAI63H2ZZD4/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -87,152 +116,38 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, Apr 13, 2025 at 07:32:19AM +0000, Ganesh Kumar Pittala wrote:
-> This patch refactors the gb_loopback_fn() function in loopback.c by
-> splitting large blocks of logic into well-named static helpers to
-> improve clarity, readability, and maintainability.
-> 
-> The control flow remains unchanged. No functional modifications
-> are introduced.
-> 
-> This aligns with kernel coding style guidelines for long functions
-> and helps future contributors understand and modify loopback behavior
-> more easily.
-> 
-> Signed-off-by: Ganesh Kumar Pittala <ganeshkpittala@gmail.com>
-> ---
->  drivers/staging/greybus/loopback.c | 152 ++++++++++++++++-------------
->  1 file changed, 82 insertions(+), 70 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
-> index c194afea941a..1e3644ede1b6 100644
-> --- a/drivers/staging/greybus/loopback.c
-> +++ b/drivers/staging/greybus/loopback.c
-> @@ -832,105 +832,117 @@ static void gb_loopback_async_wait_to_send(struct gb_loopback *gb)
->  				  kthread_should_stop());
->  }
->  
-> -static int gb_loopback_fn(void *data)
-> +static bool gb_loopback_should_stop(struct gb_loopback *gb,
-> +				    struct gb_bundle *bundle)
-> +{
-> +	if (!gb->type) {
-> +		gb_pm_runtime_put_autosuspend(bundle);
-> +		wait_event_interruptible(gb->wq,
-> +					 gb->type || kthread_should_stop());
-> +		if (kthread_should_stop())
-> +			return true;
-> +		gb_pm_runtime_get_sync(bundle);
-> +	}
-> +	return kthread_should_stop();
-> +}
-> +
-> +static void gb_loopback_handle_completion(struct gb_loopback *gb,
-> +					  struct gb_bundle *bundle)
-> +{
-> +	gb_loopback_async_wait_all(gb);
-> +
-> +	mutex_lock(&gb->mutex);
-> +	if (gb->iteration_count == gb->iteration_max) {
-> +		gb->type = 0;
-> +		gb->send_count = 0;
-> +		sysfs_notify(&gb->dev->kobj, NULL, "iteration_count");
-> +		dev_dbg(&bundle->dev, "load test complete\n");
-> +	} else {
-> +		dev_dbg(&bundle->dev, "continuing on with new test set\n");
-> +	}
-> +	mutex_unlock(&gb->mutex);
-> +}
-> +
-> +static void gb_loopback_dispatch_operation(struct gb_loopback *gb, int type,
-> +					   u32 size)
->  {
->  	int error = 0;
-> -	int us_wait = 0;
-> -	int type;
-> -	int ret;
-> -	u32 size;
->  
-> +	if (gb->async) {
-> +		if (type == GB_LOOPBACK_TYPE_PING)
-> +			error = gb_loopback_async_ping(gb);
-> +		else if (type == GB_LOOPBACK_TYPE_TRANSFER)
-> +			error = gb_loopback_async_transfer(gb, size);
-> +		else if (type == GB_LOOPBACK_TYPE_SINK)
-> +			error = gb_loopback_async_sink(gb, size);
-> +
-> +		if (error) {
-> +			gb->error++;
-> +			gb->iteration_count++;
-> +		}
-> +	} else {
-> +		if (type == GB_LOOPBACK_TYPE_PING)
-> +			error = gb_loopback_sync_ping(gb);
-> +		else if (type == GB_LOOPBACK_TYPE_TRANSFER)
-> +			error = gb_loopback_sync_transfer(gb, size);
-> +		else if (type == GB_LOOPBACK_TYPE_SINK)
-> +			error = gb_loopback_sync_sink(gb, size);
-> +
-> +		if (error)
-> +			gb->error++;
-> +		gb->iteration_count++;
-> +		gb_loopback_calculate_stats(gb, !!error);
-> +	}
-> +}
-> +
-> +static void gb_loopback_delay_if_needed(int us_wait)
-> +{
-> +	if (us_wait) {
-> +		if (us_wait < 20000)
-> +			usleep_range(us_wait, us_wait + 100);
-> +		else
-> +			msleep(us_wait / 1000);
-> +	}
-> +}
-> +
-> +static int gb_loopback_fn(void *data)
-> +{
-> +	int us_wait = 0, type;
-> +	u32 size;
->  	struct gb_loopback *gb = data;
->  	struct gb_bundle *bundle = gb->connection->bundle;
->  
-> -	ret = gb_pm_runtime_get_sync(bundle);
-> -	if (ret)
-> -		return ret;
-> +	if (gb_pm_runtime_get_sync(bundle))
-> +		return -EIO;
->  
->  	while (1) {
-> -		if (!gb->type) {
-> -			gb_pm_runtime_put_autosuspend(bundle);
-> -			wait_event_interruptible(gb->wq, gb->type ||
-> -						 kthread_should_stop());
-> -			ret = gb_pm_runtime_get_sync(bundle);
-> -			if (ret)
-> -				return ret;
-> -		}
-> -
-> -		if (kthread_should_stop())
-> +		if (gb_loopback_should_stop(gb, bundle))
->  			break;
->  
-> -		/* Limit the maximum number of in-flight async operations */
+Correct the alignment of the parameters to match the open parenthesis.
 
-Why is it ok to remove this comment?
+Reported by checkpatch:
 
-And why was this function broken up?  Is it confusing such that it now
-needs subfunctions that are only called once?  Now you have to jump
-around to follow the logic of this big while(1) loop, making it harder
-to follow.
+        CHECK: Alignment should match open parenthesis
 
-Remember, we write code for people first, compilers second, and I think
-you just made it harder for people to manage this code over time as it
-now takes extra work to determine how it all fits together.
+Signed-off-by: Andreas Kleinbichler <andi.kleinbichler@gmail.com>
+---
+ drivers/staging/greybus/camera.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-thanks,
+diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/camera.c
+index ec9fddfc0b14..a1b76df39a8f 100644
+--- a/drivers/staging/greybus/camera.c
++++ b/drivers/staging/greybus/camera.c
+@@ -263,9 +263,10 @@ static int gb_camera_get_max_pkt_size(struct gb_camera *gcam,
+  * Validate the stream configuration response verifying padding is correctly
+  * set and the returned number of streams is supported
+  */
+-static const int gb_camera_configure_streams_validate_response(struct gb_camera *gcam,
+-		struct gb_camera_configure_streams_response *resp,
+-		unsigned int nstreams)
++static const int gb_camera_configure_streams_validate_response
++	(struct gb_camera *gcam,
++	 struct gb_camera_configure_streams_response *resp,
++	 unsigned int nstreams)
+ {
+ 	unsigned int i;
+ 
+-- 
+2.43.0
 
-greg k-h
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
