@@ -2,107 +2,79 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id A87C3A9F6E2
-	for <lists+greybus-dev@lfdr.de>; Mon, 28 Apr 2025 19:10:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6381A9F65C
+	for <lists+greybus-dev@lfdr.de>; Mon, 28 Apr 2025 18:59:40 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id C4B1B43F1F
-	for <lists+greybus-dev@lfdr.de>; Mon, 28 Apr 2025 17:10:20 +0000 (UTC)
-Received: from sonic311-21.consmr.mail.sg3.yahoo.com (sonic311-21.consmr.mail.sg3.yahoo.com [106.10.244.38])
-	by lists.linaro.org (Postfix) with ESMTPS id 91BB743F1F
-	for <greybus-dev@lists.linaro.org>; Mon, 28 Apr 2025 16:08:53 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id F12E545987
+	for <lists+greybus-dev@lfdr.de>; Mon, 28 Apr 2025 16:59:39 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by lists.linaro.org (Postfix) with ESMTPS id 69E2C453B5
+	for <greybus-dev@lists.linaro.org>; Mon, 28 Apr 2025 16:59:34 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=yahoo.com header.s=s2048 header.b=prEXNT1y;
-	dmarc=pass (policy=reject) header.from=yahoo.com;
-	spf=pass (lists.linaro.org: domain of sridhar.arra@yahoo.com designates 106.10.244.38 as permitted sender) smtp.mailfrom=sridhar.arra@yahoo.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1745856531; bh=VLcOt41PrL1t3Y+w2c4iRwS3H4eA69ks/2yDegArszY=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=prEXNT1ykNXrHzuQVGkcjaGsQv1+qTEphx53/ibjQ9XmlCE9ijblq1jXnhyPCeBjplKjN+utjyDL4+b5FEwawDoWzSoFVpj372zyIceAgFS/nTDdCFzRE/3tmPUCpwUMFCE5MG/KkW4eGhAYCbVS78DLrS46YMlquPW8wvYbTLrFdGmh7TAL/netxQ2XrdmMrWpG1hKh9pUWumPxjGajDxddOLUj1bhLeaeJbKRpClyQjAfSrSF48jeyErcTp3T5JpHlEJSx64/5cybZyJ4p7CY2GZEzomtR7Yxw3L8+RCRL7Vb1Ns2mBw8GLmls+QR6QAM01ufxUxHoSycSmbZraw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1745856531; bh=JSASTLT6G2Ln4xa2I4GI30CjpTfFSqfT0SjATlRRvWO=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=csimAA/uZRUFzltMmiHWVjZOYieVEqEpSLZkpX2VIBNYp/HY6KGuVLOt01+hQoGJyL11Gn9M8K7UnLOXaGL2J8LmdDFYHlBEeI3frLILf3pk976gdSF7sCdqMadfsoK18PcvqrtcYpmrFJLIwyX0hT6lRDnjbf6BSv+zlbAsosBU0NmBP+NcK5yBx2c9+IwP6j0LLeMf+lOjlHLG44K/pP2XqpOjYFcw3uXHKNXe1i1DhGtA8bPUw4FPBCbiiFGKKdeh9wI4BWHw2RlI7A3mSiKe8hukDK0IHr0/FJoo4wMLJbDKaWCEwSaEascUr0w02sHA4aWzkfjAy3ugHz68nQ==
-X-YMail-OSG: rPr3dOgVM1lzZp_coWwp3tcrJGdx4SUaaB618vcSGgFN6tg_Vv4bf1_uXEkVSXQ
- DNX2TUzHUIYlVYOa.m9YqDCHVPh6P81c.uIdtoPl2sVt_1FYQSVk2EaVoxC.wlzOlgF_3Y8qRb.R
- dnZuPAZJjWeofE0orP3RFV_vfydYhb3q8PbOJx5lMsInOWjnmlx1kT8oe3I9pUPnVOJo7e0BfTfS
- 7SPzfL9flurJ1Jg4EY4I9GZ0.FrIXgezSIxWpmb_PWbXxNhh9yGGfyRMaU8rdRGlrkJJ1RYYUL3Y
- dQMU2WQdxdr.y9Z_0NG.yUrcithXFzfawoYFm_lE9RDqJrhjOjQEKVDqcirrnTss_9W5UZy0c19u
- 7C_hl5zz6UwsRehIKMxxmzbtgMxkHlFN86yB21QjMl9PG4qdA5325tVO.glOISYuPgDl4e.s87tl
- 2R_HDiLycF2PaiOFzswbY88q2iHgSkQTJGqbqEK_Ivk_owUxgrK.cdd3MMS6d62nHRwVBi8PCS73
- xlha0LipEOcnHRNf7uOrVKluWKfT3PmfWRc1FmVXVof8BMH4M_G8HeU3t4Nq1SkyfVq8KDE85n2a
- KHi_PyHIOB_Xw.f739CFj5r65M1WvZc98qjGL985FnqkRvC71gx0y1cuo2_0UwBihxPRSgS1HuaA
- yQqLlKowQ_8Sxwb5qiiXOoSVQ6jP41FScTW9IQ5Dn_A05mPCyyTILHRc9wx57priVPRT5xmeVEL5
- lyVoSBULG9bwfLi91.UlTUoZ9YeZXO8t5C9uxR1XMT0KMifnVLO9LrU6wpGycvJGcTs1a1TGywug
- u.zUKN3gsZ2SAZc4gdWfhEojLC_7avlVMYuwXefkG1PBlUqZTxnFk6IgDr1_Au90Z9YobFS43CXI
- m7peKM8BhIAkXCoMHHk_F2aJVbVFrpv4wo8BGdraCCuiQPL1dbruSIN01Cg7EmqVy43glFPd0z0S
- NKEOsAfwAWm0m4OUmdjVFnJI.CsyEdSyTMEarsKcysDdr1rqyxnn7K2gl3R4SGU3MDr6hpBTnAXq
- ZbjFzr1izBJyHZUaj3fEokeepSLDan_IBfJQP1lG7ZKXapzNRQkt2ULync5pO_HP5E6nTPXwiLkL
- efCVzBYDKT7krl7yo4JJoS858eMPFZnOBlHc7oHMnLUIvKB9vKSUaE2z3IlNI06lOj50wXBtuEJH
- KIYZRfVybzqfc1VS3f7AmEX0G.lY_Y7D4nYCCnvamdcasikrAiguE0M6HJldysFokmcBGLaHKm.w
- sc52SwA8nt_aTqy2sJo1jHwoVQHzHayCgX2.glB2elT31xvrrm4p3FBHNBsHeSPt5IYzJw6_cOr1
- k7GzaWhpebE2h9sxrdrYvOIPCcnIG1ZnCoD0n0eGBgS5LiV2eoLXvmAukXVi3n0dHhX4CW6yxjaL
- ivdnJReJwdnu4Dx88GUtwKeyoIxWbHlnGmo0DAedsDmPEvs2Cf1XIy4YPPHJ_KSHnKPmMi7ZB1rb
- fWMQ79Pxl2mF65lc7ay5rlf5zD1QAqj2Pq3DttEqk.m_xm15BxqI5fTUeFkKkKn0cKiYX4newHHD
- L1_C_wikGt3kXoKfFQVJUv_7CWGWrCl4XFJSpZ9Ghcv37IXwNGrc25nOO94bVY1no.LWFzzDNGPG
- TvKWbQESFBZpEMpZJWL9O3IXPQISvWYU3rYGPvVUTqkq1e7T55JRvowwx4m0SflELJXQcARUhyua
- IWSmSToGEb2qREoWWlDoTDD5MyaJTC5om4U7sLBhUUn_PwIwPHEy.60RUzpyPOsuTMezUeAN4aBp
- xewXZpMKwRL2h1tWF8Ki3gQ_MfUZ2jdCDCWGIxh4mVfxw6jVIyy0AmFD00zotPGjnxIiRermV4pH
- WMRy3VmqA2oMmXOz9TsBQN4KxjeYh_qMKpQIsxIph7sTNPKxuKzAFTj2gAQcFJFfCicO1LwALa2p
- YSg.J0YtJxjhyfS1W64gBTIGUjQ1j4j73w4tlWs7gePIIcyaKbgR1umvVPv4gcMyTubl5Sn6B5rL
- Dl2g8oHzTFdYQM2hSBfNN_LyFcevxekl8iCzscbp9E.MkZ51v9L6yOK6yzuJTN3Ggre7tNRHTYsO
- bLcZjRYlTWdcZueK3GF2FAuS2F3UFsuRY89iwk8YRPcJ8I4DxEvkzo3ZpAteE11u.csO.2x4HEUO
- PeAD_5sll6hDUpv3yHh8G8zUknqgGWmGnjc.0Dp1yxQl686MCB7TAdM0iiO.xT05qdKVV34fL2pD
- jhr1fEFdD43YtWF5vs37nbUOP2fWdomD4XMVWqXA3YafAhXIfDFyxTueHXrg-
-X-Sonic-MF: <sridhar.arra@yahoo.com>
-X-Sonic-ID: 3e50eaa4-aed4-4bc8-8fee-61ed46524e8f
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic311.consmr.mail.sg3.yahoo.com with HTTP; Mon, 28 Apr 2025 16:08:51 +0000
-Received: by hermes--production-sg3-cdfd77c9c-5kclf (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 69441e8edc2b0b466e94cefa32871180;
-          Mon, 28 Apr 2025 16:08:47 +0000 (UTC)
-From: Sridhar Arra <sridhar.arra@yahoo.com>
-To: vireshk@kernel.org
-Date: Mon, 28 Apr 2025 21:38:37 +0530
-Message-ID: <20250428160837.664000-2-sridhar.arra@yahoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250428160837.664000-1-sridhar.arra@yahoo.com>
-References: <20250428160837.664000-1-sridhar.arra@yahoo.com>
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=PJMaom9K;
+	dmarc=pass (policy=none) header.from=linuxfoundation.org;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id C0B7E5C5A52;
+	Mon, 28 Apr 2025 16:57:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21811C4CEE4;
+	Mon, 28 Apr 2025 16:59:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1745859573;
+	bh=d8cyzXNFYXAQzduZRMl4KjypHV68mdn7yBogCCTQEZo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PJMaom9KFE2bw6RAamcAtXzeN+5GCNzgm6P+P7phVvQdCLdRptO5AONrhUcSU44FD
+	 tLShdqKa/wkfq/WceCCW5Q9nNZYd06wHiKilhMBE0fTPY+LsiMHNvBTv+lfrXn/Hox
+	 Ir2/xQQn/gNYPshwV6lFTM1+DH0Ujzi8vVLPVv9o=
+Date: Mon, 28 Apr 2025 18:59:30 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Sridhar Arra <sridhar.arra@yahoo.com>
+Message-ID: <2025042819-manlike-stratus-4c78@gregkh>
+References: <20250428160837.664000-1-sridhar.arra.ref@yahoo.com>
+ <20250428160837.664000-1-sridhar.arra@yahoo.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250428160837.664000-1-sridhar.arra@yahoo.com>
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 91BB743F1F
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.50 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	RBL_SENDERSCORE_REPUT_9(-1.00)[106.10.244.38:from];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[yahoo.com,reject];
-	R_DKIM_ALLOW(-0.20)[yahoo.com:s=s2048];
-	R_SPF_ALLOW(-0.20)[+ptr:yahoo.com];
+X-Rspamd-Queue-Id: 69E2C453B5
+X-Spamd-Bar: /
+X-Spamd-Result: default: False [-1.00 / 15.00];
+	MID_END_EQ_FROM_USER_PART(4.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
+	RCVD_IN_DNSWL_HI(-0.50)[139.178.84.217:from];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
+	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
+	R_SPF_ALLOW(-0.20)[+ip4:139.178.84.217];
 	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_FROM(0.00)[yahoo.com];
-	FREEMAIL_CC(0.00)[kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,yahoo.com];
 	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	ASN(0.00)[asn:56173, ipnet:106.10.224.0/19, country:SG];
-	FREEMAIL_ENVFROM(0.00)[yahoo.com];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_TRACE(0.00)[yahoo.com:+];
-	DNSWL_BLOCKED(0.00)[106.10.244.38:from];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[106.10.244.38:from];
-	FROM_HAS_DN(0.00)[]
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ASN(0.00)[asn:54825, ipnet:139.178.80.0/21, country:US];
+	ARC_NA(0.00)[];
+	DNSWL_BLOCKED(0.00)[100.75.92.58:received];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_TO(0.00)[yahoo.com];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	DKIM_TRACE(0.00)[linuxfoundation.org:+]
 X-Rspamd-Action: no action
-X-MailFrom: sridhar.arra@yahoo.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: EXZ2R7YONKLHPAU4Q2VTTWQSOGZT4TVA
-X-Message-ID-Hash: EXZ2R7YONKLHPAU4Q2VTTWQSOGZT4TVA
-X-Mailman-Approved-At: Mon, 28 Apr 2025 17:10:12 +0000
-CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Sridhar Arra <sridhar.arra@yahoo.com>
+Message-ID-Hash: HZNH5S7VWY4MKZLDB6FBYK6IYWLLBW54
+X-Message-ID-Hash: HZNH5S7VWY4MKZLDB6FBYK6IYWLLBW54
+X-MailFrom: gregkh@linuxfoundation.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: vireshk@kernel.org, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 2/2] [PATCH V2 2/2] staging: greybus: fix indentation in fw_mgmt_ioctl()
+Subject: [greybus-dev] Re: [PATCH v2 1/2] [PATCH v2 1/2] staging: greybus: fw-management: Add detailed mutex comment
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/EXZ2R7YONKLHPAU4Q2VTTWQSOGZT4TVA/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/HZNH5S7VWY4MKZLDB6FBYK6IYWLLBW54/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -112,30 +84,73 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Corrects indentation to comply with checkpatch guidelines.
+On Mon, Apr 28, 2025 at 09:38:36PM +0530, Sridhar Arra wrote:
+> Added a detailed comment explaining the role of the mutex
+> in serializing firmware management ioctl() operations.
+> The mutex prevents concurrent access to firmware operations
+> and protects the 'disabled' state flag during disconnection.
+> 
+> Signed-off-by: Sridhar Arra <sridhar.arra@yahoo.com>
+> ---
+>  drivers/staging/greybus/fw-management.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/staging/greybus/fw-management.c b/drivers/staging/greybus/fw-management.c
+> index a47385175582..56725b711a17 100644
+> --- a/drivers/staging/greybus/fw-management.c
+> +++ b/drivers/staging/greybus/fw-management.c
+> @@ -28,6 +28,19 @@ struct fw_mgmt {
+>  
+>  	/* Common id-map for interface and backend firmware requests */
+>  	struct ida		id_map;
+> +	/*
+> +	 * Mutex to serialize firmware management ioctl() operations and
+> +	 * protect against concurrent access.
+> +	 *
+> +	 * Ensures that user-space cannot perform multiple firmware
+> +	 * operations in parallel (e.g., updating interface firmware)
+> +	 * for the same Interface, avoiding race conditions and reducing
+> +	 * code complexity.
+> +	 *
+> +	 * Also protects the 'disabled' state flag, preventing new
+> +	 * operations from starting when the firmware management
+> +	 * connection is being disconnected.
+> +	 */
+>  	struct mutex		mutex;
+>  	struct completion	completion;
+>  	struct cdev		cdev;
+> -- 
+> 2.43.0
+> 
+> 
 
-Signed-off-by: Sridhar Arra <sridhar.arra@yahoo.com>
----
- drivers/staging/greybus/fw-management.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Hi,
 
-diff --git a/drivers/staging/greybus/fw-management.c b/drivers/staging/greybus/fw-management.c
-index 56725b711a17..413a4d4f4e40 100644
---- a/drivers/staging/greybus/fw-management.c
-+++ b/drivers/staging/greybus/fw-management.c
-@@ -461,7 +461,8 @@ static int fw_mgmt_ioctl(struct fw_mgmt *fw_mgmt, unsigned int cmd,
- 			return -EFAULT;
- 
- 		ret = fw_mgmt_load_and_validate_operation(fw_mgmt,
--				intf_load.load_method, intf_load.firmware_tag);
-+							  intf_load.load_method,
-+							  intf_load.firmware_tag);
- 		if (ret)
- 			return ret;
- 
--- 
-2.43.0
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
+You are receiving this message because of the following common error(s)
+as indicated below:
+
+- This looks like a new version of a previously submitted patch, but you
+  did not list below the --- line any changes from the previous version.
+  Please read the section entitled "The canonical patch format" in the
+  kernel file, Documentation/process/submitting-patches.rst for what
+  needs to be done here to properly describe this.
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
+
+thanks,
+
+greg k-h's patch email bot
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
