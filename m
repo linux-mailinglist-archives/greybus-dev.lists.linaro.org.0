@@ -2,106 +2,79 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B6E8AC45C8
-	for <lists+greybus-dev@lfdr.de>; Tue, 27 May 2025 02:59:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D10BAC46E5
+	for <lists+greybus-dev@lfdr.de>; Tue, 27 May 2025 05:36:10 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 44DFA45545
-	for <lists+greybus-dev@lfdr.de>; Tue, 27 May 2025 00:59:47 +0000 (UTC)
-Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com [209.85.215.195])
-	by lists.linaro.org (Postfix) with ESMTPS id 8BE5D4403B
-	for <greybus-dev@lists.linaro.org>; Mon, 26 May 2025 12:20:43 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 6323D44493
+	for <lists+greybus-dev@lfdr.de>; Tue, 27 May 2025 03:36:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by lists.linaro.org (Postfix) with ESMTPS id 90EAA44493
+	for <greybus-dev@lists.linaro.org>; Tue, 27 May 2025 03:36:06 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=We7eWRgW;
-	spf=pass (lists.linaro.org: domain of clf700383@gmail.com designates 209.85.215.195 as permitted sender) smtp.mailfrom=clf700383@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pg1-f195.google.com with SMTP id 41be03b00d2f7-b0b229639e3so247534a12.0
-        for <greybus-dev@lists.linaro.org>; Mon, 26 May 2025 05:20:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748262043; x=1748866843; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=p1qP9wbzveeHwW+y7xiOlc7El9gt/p09zHHNjg3axz8=;
-        b=We7eWRgWQHjE1XLVzeS/4LANCxsV0+awUSxzPMcH1MMaSJh6z6FPQp5inwvON//lpe
-         tPKDwabMRs4OnFN9VzGa2cdIFlBadzdfi+hS4oPH7m526w0eWnDGV9Ot9mcX4u8mc/r2
-         dZlHTXqeQyQv7Ng8MJgihJb50M09Fw7PMxdqkJgaU0tFx1NN7Bz4kthpi1OoD26mJ2zL
-         SZ9JjK9l5diwv65+JWWA2OyL3VyruyLGWe4DbmozsFMSSV1pqUs3moMtjNDgoJqWNDOU
-         O2CARno9YyOLC7etwENX7UREUy0aSFHatSWqOT9NeUZnOXpSOgHMHAHTgYQ+tT44aJMa
-         q2Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748262043; x=1748866843;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=p1qP9wbzveeHwW+y7xiOlc7El9gt/p09zHHNjg3axz8=;
-        b=bwzhmMQPO/LqFeEzYzItH1U0jthqDP75MOSwS4cTanNVXz7fQrpTuKDy6cXo2cOzNc
-         TAzrg02jypMg6bCJrQWRfVqUNUjQHi6bnGHdeN7ixIr4Mw0kU8J4KZZgYmYjg2PNX0xf
-         Nc4tp7fDHGPurpxg2KtNtZD3WL2T/3vRf++clHGQMiE0VaEbJKl+Af6DgkoIDBt1ep/l
-         zZKoZPrf22Nkg6LrjU14vApYKnNS6b/4s8NGfXB1t4r2R180OMR5uKCloyD/Dqrqc2NS
-         Jrpn4GTEPPt9ZeH65aN8XAACi/nQC94ytXcsugca75HAfF53e1L7w2vs3qgjbnnIXzJb
-         UQxA==
-X-Forwarded-Encrypted: i=1; AJvYcCWS3JEm/8UZWMDj+9iXTJTKR+rw4/zKWVR6wQSd0hLs9PSl7lcburfmOILHCXXKWGZgqViSyFqpshoj1w==@lists.linaro.org
-X-Gm-Message-State: AOJu0YxDaaRqCm1I7dLs/7s2DY0y96YXOi4nzLZz6JJ+cOqmpFZYocbv
-	yJHfd2h0EB+eeqTB5V3lSLzbmZqzs4mszFhnoWv9M3QmZSibBXbUTT6c
-X-Gm-Gg: ASbGncvxq/eDisCV2TQwOuKS8pL5A7Qg8JvDPujt5D8LBR+jXCqGnw17Wb5eKmykcfc
-	7yo8Beh6LMiA72LWfgB9/JhuBxfXmYwTu5lDTcnsdl2KdY2ANqcYEwEkgWYkaDtOODVhtJ25LNa
-	docyNR6kLX3nQ3+FaeDrdFKP1eXG+QJ/oawZpTCubFUCCabLGnYqhZvhTNkpGYRJjl+vqcaVceA
-	LU59BXsmJ7DuxPloE9z/pvMqJehi6T6JAtgPwxoj5nNHbRSesBlZLrn0NFFpO9z+n5I8mqFKK9/
-	+Ms2GCXvmKuS1C7/Xdz4lmf2Np8eOQ==
-X-Google-Smtp-Source: AGHT+IGHnpvu26eT+6ou5Q3RwYGL3X5EtbEET9L68jcWTK05SMksDFO6nuHOod4yPXX82d9uIKsstQ==
-X-Received: by 2002:a05:6a20:3951:b0:215:ea7a:6d2d with SMTP id adf61e73a8af0-2188c331bf2mr5819002637.6.1748262042356;
-        Mon, 26 May 2025 05:20:42 -0700 (PDT)
-Received: from user.. ([2001:da8:283:e049::9:6ed3])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-b26eb0a76f8sm16748805a12.68.2025.05.26.05.20.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 May 2025 05:20:41 -0700 (PDT)
-From: clingfei <clf700383@gmail.com>
-To: elder@kernel.org
-Date: Mon, 26 May 2025 20:20:20 +0800
-Message-Id: <20250526122020.3926640-1-clf700383@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b=mjigB9WT;
+	spf=pass (lists.linaro.org: domain of kees@kernel.org designates 172.105.4.254 as permitted sender) smtp.mailfrom=kees@kernel.org;
+	dmarc=pass (policy=quarantine) header.from=kernel.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id EA51D6115D;
+	Tue, 27 May 2025 03:36:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92DC3C4CEEA;
+	Tue, 27 May 2025 03:36:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1748316965;
+	bh=R6crNMTD7b76Ug/l5ZrajpcpFjKDO6xDU2hYOiw848w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mjigB9WTgVWz14jZCwIPJZoUHb07SpURvBPMkpFof/ykW9mnvaobNrnihlq8tmReB
+	 CjDVAt4/QWoxArU/fn6YKyPvYqc1RdF3YG43e7LZj1z9lFSEdEwXEvhr7+68w9pfOw
+	 fJdIRF0g5SY5Hd7U1d7x6/Q8wZCvs+Se1vVikJhmgUSMiXyJxDvDxQE0my5bCRZbho
+	 4Zydyn1x3+DNynX11j+JHF4SiAPDpEcAXJG8OZ2IOjLb/yWkAHMGdUNfJ3rfQ0KIND
+	 ZcsPmgdaRouDFFba/EezR365VeZ05Xa2pzSkXdkfIfIP0c9ZzqxI9fp0rln7HHuIt6
+	 Q0btl5+xQxgVw==
+Date: Mon, 26 May 2025 20:36:02 -0700
+From: Kees Cook <kees@kernel.org>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Message-ID: <202505262032.507AD8E0DC@keescook>
+References: <20250526110654.3916536-1-clf700383@gmail.com>
+ <aDRSaZ4Rq47hjMuY@stanley.mountain>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <aDRSaZ4Rq47hjMuY@stanley.mountain>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Spamd-Result: default: False [-2.60 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+X-Spamd-Result: default: False [-7.50 / 15.00];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+ip4:172.105.4.254];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.215.195:from];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.105.0.0/19, country:SG];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,linuxfoundation.org,lists.linaro.org,vger.kernel.org,gmail.com];
-	RCPT_COUNT_FIVE(0.00)[6];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	TO_DN_NONE(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	DKIM_TRACE(0.00)[gmail.com:+]
-X-Rspamd-Queue-Id: 8BE5D4403B
-X-Spamd-Bar: --
-X-MailFrom: clf700383@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 3SAAMOH647UDJIBE3IWOB7UD3NPPS6TC
-X-Message-ID-Hash: 3SAAMOH647UDJIBE3IWOB7UD3NPPS6TC
-X-Mailman-Approved-At: Tue, 27 May 2025 00:59:42 +0000
-CC: johan@kernel.org, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, clf700383@gmail.com
+	DKIM_TRACE(0.00)[kernel.org:+]
+X-Rspamd-Queue-Id: 90EAA44493
+X-Spamd-Bar: -------
+Message-ID-Hash: 2WFG65DV3DE52CXSYPCZZRXMDP4NRXA6
+X-Message-ID-Hash: 2WFG65DV3DE52CXSYPCZZRXMDP4NRXA6
+X-MailFrom: kees@kernel.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: clingfei <clf700383@gmail.com>, elder@kernel.org, johan@kernel.org, vireshk@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] greybus: Remove gb_control_get_manifest_response struct
+Subject: [greybus-dev] Re: [PATCH] greybus: Avoid fake flexible array for response data
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/3SAAMOH647UDJIBE3IWOB7UD3NPPS6TC/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/2WFG65DV3DE52CXSYPCZZRXMDP4NRXA6/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -111,33 +84,96 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The gb_control_get_manifest_response struct is not used.
-So we delete it in this commit.
+On Mon, May 26, 2025 at 02:37:13PM +0300, Dan Carpenter wrote:
+> On Mon, May 26, 2025 at 07:06:54PM +0800, clingfei wrote:
+> > As https://lore.kernel.org/all/20240304211940.it.083-kees@kernel.org/
+> 
+> I don't want to have to read a link to understand the commit message.
+> 
+> Does this change really affect anything in terms of "enforce the 0-sized
+> destinations" rule?  I don't think this is a destination.  I think Kees
+> enabled the checking he wanted.  You should probably CC him since we're
+> refering to his email.
 
-Signed-off-by: clingfei <clf700383@gmail.com>
----
- include/linux/greybus/greybus_protocols.h | 5 -----
- 1 file changed, 5 deletions(-)
+FWIW, the above patch became commit 7ba59ac7da2a ("greybus: Avoid fake
+flexible array for response data").
 
-diff --git a/include/linux/greybus/greybus_protocols.h b/include/linux/greybus/greybus_protocols.h
-index 820134b0105c..dd09dc691dda 100644
---- a/include/linux/greybus/greybus_protocols.h
-+++ b/include/linux/greybus/greybus_protocols.h
-@@ -110,11 +110,6 @@ struct gb_control_get_manifest_size_response {
- 	__le16			size;
- } __packed;
- 
--/* Control protocol manifest get request has no payload */
--struct gb_control_get_manifest_response {
--	__u8			data[0];
--} __packed;
--
- /* Control protocol [dis]connected request */
- struct gb_control_connected_request {
- 	__le16			cport_id;
+> > pointed out, to enforce the 0-sized destinations, the remaining 0-sized
+> > destinations need to be handled. Thus the struct
+> > gb_control_get_manifest_response and struct gb_i2c_transfer_response
+> > are removed.
+> 
+> Here is a better commit message;
+> 
+> "We want to get rid of zero size arrays and use flexible arrays instead.
+> However, in this case the struct is just one flexible array of u8 which
+> adds no value.  Just use a char pointer instead."
+> 
+> I would have ignored it, probably but actually the
+> gb_control_get_manifest_response struct is not used so put that in a
+> separate commit.  That's a simpler commit to review.
+> 
+> "The gb_control_get_manifest_response struct is not used.  Delete it."
+
+The patch content itself looks mechanically correct. I think Dan's style
+suggestions would be good to see. Can you send a v2?
+
+-Kees
+
+> 
+> > 
+> > Signed-off-by: clingfei <clf700383@gmail.com>
+> > ---
+> >  drivers/staging/greybus/i2c.c             | 9 ++++-----
+> >  include/linux/greybus/greybus_protocols.h | 9 ---------
+> >  2 files changed, 4 insertions(+), 14 deletions(-)
+> > 
+> > diff --git a/drivers/staging/greybus/i2c.c b/drivers/staging/greybus/i2c.c
+> > index 14f1ff6d448c..2857c2834206 100644
+> > --- a/drivers/staging/greybus/i2c.c
+> > +++ b/drivers/staging/greybus/i2c.c
+> > @@ -144,15 +144,14 @@ gb_i2c_operation_create(struct gb_connection *connection,
+> >  }
+> >  
+> >  static void gb_i2c_decode_response(struct i2c_msg *msgs, u32 msg_count,
+> > -				   struct gb_i2c_transfer_response *response)
+> > +				   u8 *data)
+> >  {
+> >  	struct i2c_msg *msg = msgs;
+> > -	u8 *data;
+> >  	u32 i;
+> >  
+> > -	if (!response)
+> > +	if (!data)
+> >  		return;
+> > -	data = response->data;
+> > +
+> >  	for (i = 0; i < msg_count; i++) {
+> >  		if (msg->flags & I2C_M_RD) {
+> >  			memcpy(msg->buf, data, msg->len);
+> > @@ -188,7 +187,7 @@ static int gb_i2c_transfer_operation(struct gb_i2c_device *gb_i2c_dev,
+> >  
+> >  	ret = gb_operation_request_send_sync(operation);
+> >  	if (!ret) {
+> > -		struct gb_i2c_transfer_response *response;
+> > +		u8 *response;
+> >  
+> >  		response = operation->response->payload;
+> >  		gb_i2c_decode_response(msgs, msg_count, response);
+> 
+> I like when parameters are called the same thing on both sides.  The
+> name "response" adds no value.  Instead get rid of that variable and
+> pass operation->response->payload directly.
+> 
+> 		gb_i2c_decode_response(msgs, msg_count,
+> 				       operation->response->payload);
+> 
+> regards,
+> dan carpenter
+> 
+
 -- 
-2.34.1
-
+Kees Cook
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
