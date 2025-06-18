@@ -2,109 +2,109 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6C22ADEA5E
-	for <lists+greybus-dev@lfdr.de>; Wed, 18 Jun 2025 13:38:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4EEDADF7E9
+	for <lists+greybus-dev@lfdr.de>; Wed, 18 Jun 2025 22:42:23 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 0285745557
-	for <lists+greybus-dev@lfdr.de>; Wed, 18 Jun 2025 11:38:50 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	by lists.linaro.org (Postfix) with ESMTPS id 2B3C144105
-	for <greybus-dev@lists.linaro.org>; Wed, 18 Jun 2025 08:21:27 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7A61344670
+	for <lists+greybus-dev@lfdr.de>; Wed, 18 Jun 2025 20:42:22 +0000 (UTC)
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	by lists.linaro.org (Postfix) with ESMTPS id ACC2E44037
+	for <greybus-dev@lists.linaro.org>; Wed, 18 Jun 2025 20:42:18 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=bgdev-pl.20230601.gappssmtp.com header.s=20230601 header.b=JYkmh+Ub;
-	spf=none (lists.linaro.org: domain of brgl@bgdev.pl has no SPF policy when checking 209.85.221.41) smtp.mailfrom=brgl@bgdev.pl;
-	dmarc=none
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-3a365a6804eso4911001f8f.3
-        for <greybus-dev@lists.linaro.org>; Wed, 18 Jun 2025 01:21:27 -0700 (PDT)
+	dkim=pass header.d=linaro.org header.s=google header.b="e9Ji/qtd";
+	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.210.46 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
+	dmarc=pass (policy=none) header.from=linaro.org
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-73a01a7bee7so42053a34.1
+        for <greybus-dev@lists.linaro.org>; Wed, 18 Jun 2025 13:42:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1750234886; x=1750839686; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IZ5scaCVp5KEqpX+ht0jMpyjJqTR7FlxiD0v3xWbRwM=;
-        b=JYkmh+UbYcaDBpgrOSjs7jqzxYZDzxmLoCz2W6wDyzEPKvocVSdxx2RfTFYE5lCU7J
-         59/3ym/GsNdDwnjdC5KAb3vO68YMoIiN0+QzdLjJWujPypgjUrMkcwv50RscNKTA6xP9
-         CDIHOhomdIv0LUIKY9e3rFrGWfQM5FqlfjaYnqjzRbdhO4RlIiFzTR3cvhy0hM/e4dDB
-         7d3BLo869cOYbtpA3MMyhdmlz6pwCqF+tKRZdJysvHrlM2fESfBbO5Lm462rr93WDusq
-         DbHGRmwpVUkAUQ1/Yo/TA0GDRBK9ulQJWzjcnGJ4LtYn0M8bvAqNbgMjJzlh/MDvwp4s
-         LHBA==
+        d=linaro.org; s=google; t=1750279338; x=1750884138; darn=lists.linaro.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=hYufF9gbGHCLXN7Cc7t3rq/6SWdHhk4SLqkzSCs6BiI=;
+        b=e9Ji/qtde37v30yT4TPpEhoW6Zvc6Ye5RE7n4QYsee0aOZfi9u5scbemjQEgnpiYwr
+         wa/JjRHkIDDWsd7r1BL3DdKUdEe2L0tQu7elL+41LuZftbRpW3yDSFyYYnP2j3Htp++r
+         OR6uNtIill30XdI+8jIA02+C2uD58b6z7+BzAJyNeCk/+IjVBcCkDmPy5a5cvB+ymdFL
+         JFucFJdHPiVJd4Lg3r1kWa/yMKUvxzf1pZEOXX52FmVEM9opzAcaeQpvzD1HKT0wjHR0
+         eFpmf1SEFawl90E0V2ifhmwEhEb7e3Jv6/88h7T6+gSt8vkgX4q/+rkvZSv2omqJU+VZ
+         70tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750234886; x=1750839686;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IZ5scaCVp5KEqpX+ht0jMpyjJqTR7FlxiD0v3xWbRwM=;
-        b=pgnUuyJFFv8FO38+QjK2zXMyc6hOnnhpHQrE1V0y4NcB6gqHDZMTLQJd9kNU8pIYcq
-         KMxTNE9O7I4Rruo3C0iKy0M8JFbhqG8fsZ1krtnUol7lAf8TNyqVR+PJc9CFqvoVdzgT
-         BlQhBqBLF+x3cedg/t6xiVx2UFzU4fJL+PTvsTw8PNVzyWVedM5LocNvDwN12PRQ0IZz
-         Vjn8/weNHz3e8K+NhyLT+SEYuLmvYDYUx5qSFvsp2S/xqi21dD7FqN3d17+CXse/d1qW
-         OYD31Tc6V5tqZbyjbxj3rf7G+svoOzBjpied3qogm4uo24WFsb00Pts+wD8gbhUNUXKI
-         MFpQ==
-X-Gm-Message-State: AOJu0YxcgS6XXm8qArRiAjNLbCgSl4FG/3A13G3rb/FkaoBSnahtHHWq
-	v8BUSvZZwXCcXQfpzvxeJm/zgpPOh886MyFpIXJZKDq7ncIAjq+QzhCvvo0/nPF3vsE=
-X-Gm-Gg: ASbGncuI/fraV/hPk5W22sOFJ2AxVMsFFOTMnb7U7Egk/PkpYQ7vkYIKRtOsxtxj2U/
-	Ru4tj8ntzFoPsUXJYJYNlQ3YrjpCS03eReOVMxQ6YiLd4rZHbIvBe8XUro/NGUiDQM9bEily+aH
-	zUzgEetBqiwi7alMltznBUsAn2w2U1qcXGQTpZUL6h5qES5F8chG5r650pDf/MPHAGx1mYqrakK
-	F+OC00my/R86jU1JDzs6757ShgiGaFO2mZzrOAUw6yyMLCUtNc9wZ7jtXJFD38/y0zx8LfFHQ8a
-	Q9oq2ALWrsL5LwAjL47Tqwta04reFCeN7iq/ex8aMgDNWkTpXQ2JsL1Dj7Fmbg==
-X-Google-Smtp-Source: AGHT+IFPk9BFd/vAWuocXcPkSq7/gvcXxQNi7IAayr4dvxQB0rDp+2lbpNZPuSLuXz9prs46BK1xLg==
-X-Received: by 2002:a05:6000:4025:b0:3a4:e844:745d with SMTP id ffacd0b85a97d-3a572e6a1e9mr12817093f8f.56.1750234886010;
-        Wed, 18 Jun 2025 01:21:26 -0700 (PDT)
-Received: from brgl-uxlite.home ([2a01:cb1d:dc:7e00:ad8:9ec2:efc8:7797])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3a568b08c7csm16437260f8f.50.2025.06.18.01.21.25
+        d=1e100.net; s=20230601; t=1750279338; x=1750884138;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hYufF9gbGHCLXN7Cc7t3rq/6SWdHhk4SLqkzSCs6BiI=;
+        b=C53PUaU2AMuii8snSySfS+rbS1OlCwSnvU0/R36A050CDY0Yco5QPcv1E02UPHkvcB
+         uMcPlyxLjQUzgrt6w3ImalXHaDrnTh8UvIz76194PiStHuvPW/M5T4Qw9MnWcwZqUewU
+         oJ2Ui6vHFh/2jFp38LwmjvCnHVMognuBFOZMkV4eOJqD4vtO9GxvH3w6ncx0PBD7K1TZ
+         AAAUefcu/v60SLRiMXxX08JNCShrpnfx9dBCFqFSROnScwOVPwP7tLe2q3ZyrJZwhbFi
+         X1FX+dcLmJ4XLYtgbf8cnUlZ0NJyA3W2RVzKY1uwTojWli+0dDKsFsV31CUGK15b6w+V
+         CPlQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUUycjWsmlCDXkI0h048XmqqVgAl/4NEQxp8iyc2m9KbuOma4QMvdjPfTZXdjdNpZP+FIbpQrARpiIDlw==@lists.linaro.org
+X-Gm-Message-State: AOJu0Yyh575LqqoAultEjnsxYG0GZxyqU3mL+QUiizButZcbHNDxWtzd
+	aMv6necicPr2r5sk1o7K7IlxMZJq61M3pv8LahITG5/FrAUvOqlH/iCBeIfPPX0UUg+cCQ==
+X-Gm-Gg: ASbGncuDx66BnRc9k1JeHFp3UQGBwAjoZca6vMZJLfzZ86uUod4XquBAAg4d1BF8mgA
+	v1A2PnYuLZtvVCAmLCm2ixbDNCtm44XWqP2sUD6QqEKlUhFbUXLw9AsaYdPdN3a3aXN5WE+ELHC
+	ri4+7PZGPQ/yZOiIz2MKeebh2D4wHCT7cirlfGX/YqCHOjgKNs1Tqsprkg0COIbtTxGF267X5R8
+	brYPAHZFzNwGd2hrLNcr03yKeqrkOzXAxAwrCKGt2PUOVupijeofrHE7oQhuiy81vwDbu6F9Kmn
+	nPjitp1++rQf4U9jdYyADRxWibzTIOxqvUPkqHbMEYV1C4Ip+ncx/Wke5/5yQfKDdUXJSA0OvEj
+	XrWtw
+X-Google-Smtp-Source: AGHT+IGzzeXqvvtMYEhgelf1zxaiR/pha/QAgFAlvhTzf3pfuLBytIh1fL2ehaLfaCgrcdK94vSXtA==
+X-Received: by 2002:a05:6830:8209:b0:72a:10ec:3542 with SMTP id 46e09a7af769-73a36318969mr11536449a34.13.1750279338012;
+        Wed, 18 Jun 2025 13:42:18 -0700 (PDT)
+Received: from localhost ([2603:8080:b800:f700:1b3b:c162:aefa:da1b])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-73a28403ed0sm2124977a34.26.2025.06.18.13.42.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Jun 2025 01:21:25 -0700 (PDT)
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-To: Ayush Singh <ayushdevel1325@gmail.com>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Wed, 18 Jun 2025 10:20:00 +0200
-Message-ID: <20250618082000.36039-1-brgl@bgdev.pl>
-X-Mailer: git-send-email 2.48.1
+        Wed, 18 Jun 2025 13:42:17 -0700 (PDT)
+Date: Wed, 18 Jun 2025 23:42:15 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Pranav Tyagi <pranav.tyagi03@gmail.com>
+Message-ID: <29717a11-8867-4a28-81a6-2d847b254042@suswa.mountain>
+References: <20250617125137.24503-1-pranav.tyagi03@gmail.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250617125137.24503-1-pranav.tyagi03@gmail.com>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Spamd-Result: default: False [-1.80 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[bgdev-pl.20230601.gappssmtp.com:s=20230601];
+X-Spamd-Result: default: False [-2.60 / 15.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,linuxfoundation.org];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	URIBL_BLOCKED(0.00)[linaro.org:email,bgdev.pl:mid,bgdev-pl.20230601.gappssmtp.com:dkim,mail-wr1-f41.google.com:rdns,mail-wr1-f41.google.com:helo];
-	DMARC_NA(0.00)[bgdev.pl: no valid DMARC record];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[bgdev-pl.20230601.gappssmtp.com:+];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.210.46:from];
 	FROM_HAS_DN(0.00)[];
-	RCVD_IN_DNSWL_NONE(0.00)[209.85.221.41:from];
-	DNSWL_BLOCKED(0.00)[2a01:cb1d:dc:7e00:ad8:9ec2:efc8:7797:received];
-	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	URIBL_BLOCKED(0.00)[suswa.mountain:mid,linaro.org:dkim,mail-ot1-f46.google.com:rdns,mail-ot1-f46.google.com:helo];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.221.41:from];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	R_SPF_NA(0.00)[no SPF record]
-X-Rspamd-Queue-Id: 2B3C144105
-X-Spamd-Bar: -
-X-MailFrom: brgl@bgdev.pl
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: T4SVRFNTOZG4CQV5JPDWKL23G27WAKSK
-X-Message-ID-Hash: T4SVRFNTOZG4CQV5JPDWKL23G27WAKSK
-X-Mailman-Approved-At: Wed, 18 Jun 2025 11:38:47 +0000
-CC: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	DWL_DNSWL_BLOCKED(0.00)[linaro.org:dkim];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: ACC2E44037
+X-Spamd-Bar: --
+Message-ID-Hash: 64IXBV4ZZJPYTLBTSQL2M2UKEUYBYKNR
+X-Message-ID-Hash: 64IXBV4ZZJPYTLBTSQL2M2UKEUYBYKNR
+X-MailFrom: dan.carpenter@linaro.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: johan@kernel.org, elder@kernel.org, vireshk@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, skhan@linuxfoundation.org, linux-kernel-mentees@lists.linux.dev
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] greybus: gb-beagleplay: remove unneeded calls to devm_gpiod_put()
+Subject: [greybus-dev] Re: [PATCH] greybus: firmware: use strscpy, fix tag size
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/T4SVRFNTOZG4CQV5JPDWKL23G27WAKSK/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/64IXBV4ZZJPYTLBTSQL2M2UKEUYBYKNR/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -114,66 +114,45 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+On Tue, Jun 17, 2025 at 06:21:37PM +0530, Pranav Tyagi wrote:
+> Increase the size of firmware_tag arrays in the following structs from
+> GB_FIRMWARE_U_TAG_MAX_SIZE to GB_FIRMWARE_U_TAG_MAX_SIZE + 1 to
+> accommodate null termination:
+> 	- fw_mgmt_ioc_intf_load_and_validate
+> 	- fw_mgmt_ioc_get_backend_version
+> 	- fw_mgmt_ioc_backend_fw_update
+> 	- fw_mgmt_ioc_get_intf_version
+> 
+> Replace strncpy() with strscpy() to ensure proper null termination as
+> firmware_tag is interpreted as a null-terminated string
+> and printed with %s.
+> 
+> Signed-off-by: Pranav Tyagi <pranav.tyagi03@gmail.com>
+> ---
+>  .../greybus/Documentation/firmware/firmware.c        | 12 ++++++------
+>  drivers/staging/greybus/greybus_firmware.h           |  8 ++++----
+>  2 files changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/Documentation/firmware/firmware.c b/drivers/staging/greybus/Documentation/firmware/firmware.c
+> index 765d69faa9cc..3b4061f4b34a 100644
+> --- a/drivers/staging/greybus/Documentation/firmware/firmware.c
+> +++ b/drivers/staging/greybus/Documentation/firmware/firmware.c
+> @@ -63,8 +63,8 @@ static int update_intf_firmware(int fd)
+>  	intf_load.major = 0;
+>  	intf_load.minor = 0;
+>  
+> -	strncpy((char *)&intf_load.firmware_tag, firmware_tag,
+> -		GB_FIRMWARE_U_TAG_MAX_SIZE);
+> +	strscpy((char *)&intf_load.firmware_tag, firmware_tag,
+> +		GB_FIRMWARE_U_TAG_MAX_SIZE + 1);
 
-gb_fw_init() is only called in this driver's probe() and we abort the
-probing if it fails. This means that calling devm_gpiod_put() in error
-path is not required as devres will already manage the releasing of the
-resources when the device is detached.
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
----
- drivers/greybus/gb-beagleplay.c | 21 ++++-----------------
- 1 file changed, 4 insertions(+), 17 deletions(-)
+This is in the Documentation/ directory.  It's sample userspace
+code.  Userspace code doesn't have strscpy() so this won't
+compile.
 
-diff --git a/drivers/greybus/gb-beagleplay.c b/drivers/greybus/gb-beagleplay.c
-index da31f1131afc..1ea48b71a030 100644
---- a/drivers/greybus/gb-beagleplay.c
-+++ b/drivers/greybus/gb-beagleplay.c
-@@ -1041,7 +1041,6 @@ static const struct fw_upload_ops cc1352_bootloader_ops = {
- 
- static int gb_fw_init(struct gb_beagleplay *bg)
- {
--	int ret;
- 	struct fw_upload *fwl;
- 	struct gpio_desc *desc;
- 
-@@ -1060,29 +1059,17 @@ static int gb_fw_init(struct gb_beagleplay *bg)
- 	bg->bootloader_backdoor_gpio = desc;
- 
- 	desc = devm_gpiod_get(&bg->sd->dev, "reset", GPIOD_IN);
--	if (IS_ERR(desc)) {
--		ret = PTR_ERR(desc);
--		goto free_boot;
--	}
-+	if (IS_ERR(desc))
-+		return PTR_ERR(desc);
- 	bg->rst_gpio = desc;
- 
- 	fwl = firmware_upload_register(THIS_MODULE, &bg->sd->dev, "cc1352p7",
- 				       &cc1352_bootloader_ops, bg);
--	if (IS_ERR(fwl)) {
--		ret = PTR_ERR(fwl);
--		goto free_reset;
--	}
-+	if (IS_ERR(fwl))
-+		return PTR_ERR(fwl);
- 	bg->fwl = fwl;
- 
- 	return 0;
--
--free_reset:
--	devm_gpiod_put(&bg->sd->dev, bg->rst_gpio);
--	bg->rst_gpio = NULL;
--free_boot:
--	devm_gpiod_put(&bg->sd->dev, bg->bootloader_backdoor_gpio);
--	bg->bootloader_backdoor_gpio = NULL;
--	return ret;
- }
- 
- static void gb_fw_deinit(struct gb_beagleplay *bg)
--- 
-2.48.1
+regards,
+dan carpenter
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
