@@ -2,145 +2,131 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4B05AEF56F
-	for <lists+greybus-dev@lfdr.de>; Tue,  1 Jul 2025 12:45:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20A2BAEF61A
+	for <lists+greybus-dev@lfdr.de>; Tue,  1 Jul 2025 13:06:29 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3CF36455C6
-	for <lists+greybus-dev@lfdr.de>; Tue,  1 Jul 2025 10:45:28 +0000 (UTC)
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
-	by lists.linaro.org (Postfix) with ESMTPS id D42C741479
-	for <greybus-dev@lists.linaro.org>; Tue,  1 Jul 2025 09:13:09 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 13C9F446DA
+	for <lists+greybus-dev@lfdr.de>; Tue,  1 Jul 2025 11:06:22 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by lists.linaro.org (Postfix) with ESMTPS id CF58E40F7F
+	for <greybus-dev@lists.linaro.org>; Tue,  1 Jul 2025 11:06:19 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=MUgzfRJa;
-	spf=pass (lists.linaro.org: domain of pranav.tyagi03@gmail.com designates 209.85.208.178 as permitted sender) smtp.mailfrom=pranav.tyagi03@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-32cd499007aso38517131fa.0
-        for <greybus-dev@lists.linaro.org>; Tue, 01 Jul 2025 02:13:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751361188; x=1751965988; darn=lists.linaro.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ROgPEw9PJSV4rDIb9YQpEctVvh6PzqhiH26Y+jXtSJo=;
-        b=MUgzfRJa0H86nlDBCcD/CMVfzhkYMjo0V1xLxOtDs5rxu+g39WGLvkdw6osjbVmk3Z
-         nX6NLjm55hH04zC+xpv/Sjw7Q3qnY5YqJjkj9+5dbTCcN8k5R1G4zPBuiWiOfHXlJIEg
-         6NxJS1ptAkfC8TfVuEN0cBCrWYCLjnCj6InSEdWRg7OqS+W5SbdqoTbu6KwXVrXhgOE4
-         Mk/cZkFcp2tAziXvi7K9Kw7mxJDaMhsSpugyxABp0QQksbGDJnlSwPHO10SVHAGGQMql
-         V057omrge+UDQnXzNo3lg4a4TkkZ3Tl6p5a9V76k5+2Ia9cLrZ5aUECd5ZyIu5B/cg6Z
-         AiIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751361188; x=1751965988;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ROgPEw9PJSV4rDIb9YQpEctVvh6PzqhiH26Y+jXtSJo=;
-        b=quHBNHsik78gDXv8AgSuxRPQWIM9W8sRTcQXO4HuHgaLjDF3NP2XtcKfzq1HFeLTl9
-         MUZlyBkaOQYYt6gN8JmRzkQuDNPfdF8l/IDiUF01LV1hKGUQ0oAXG6+KnHYhbIbq88NO
-         TKTvTGQkiFXdU9W6t2ifGiWn84UBEIkKMAAmlZmkoRx4jCzszBEKQ+xpFQbIuDugUWj8
-         O9r/DA2hEcimp7W2vQxVvyM9d/jywkWWVK8RhxbNzk74IZmiOyW1oiut6ciBOoRWjgag
-         barxroBKfbWOgS5kFbRr+0VZo3/IvZMGiZOUCgO4oAbzjprN66eqjHZhEf6kok7Brude
-         AmMQ==
-X-Gm-Message-State: AOJu0YzD2Vjt5xJPcTgazlhG8EgDHHxdJiDXZBz1yYOIiYEbigaX4OmI
-	IV4W2B6XZzrJoeJm6xmLsf9ctGAcwAMkJ7VueXwh8N1ChURg175k7olazj8RYZrIqMuUvnaJv/7
-	6F+nkThFQM1kE6EB/zcyCdKNizEsOFLw=
-X-Gm-Gg: ASbGnctWCE88uZ0K9Z6Nw1W7uLIdUJvQpLaOYrUdHbPKgGLd0lK8+4cECQ4l1au3DdB
-	2vkdqzHLfOew7u+fGJ8yP3w/0XVydQEZ07c+71YSQJI7YdP/QXkaS6MSs0YCsGPT/zbbzSr6Elc
-	f3D+LSjkr19cIgM3KQP+EY5LlznzRVzmL5A/j0t9bWwlazut/xX46m/trJVHAm2kTx9gS8YsScp
-	puBv/w7vxVwvTo=
-X-Google-Smtp-Source: AGHT+IFaRimBXwf+/UEtRyiC+KK+xadzvj9nmalX2Tk87W6sIlFV3Hdmxz/NSxN6EDVUMGJK6IRPijyU9g+dPjzrzUI=
-X-Received: by 2002:a05:651c:2205:b0:32b:7614:5745 with SMTP id
- 38308e7fff4ca-32cdc4efdf5mr57485841fa.20.1751361188252; Tue, 01 Jul 2025
- 02:13:08 -0700 (PDT)
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=FtnDwuQw;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 147.75.193.91 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
+	dmarc=pass (policy=none) header.from=linuxfoundation.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 87003A52F2B;
+	Tue,  1 Jul 2025 11:06:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B799CC4CEEE;
+	Tue,  1 Jul 2025 11:06:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1751367979;
+	bh=CWIRlpgPJRqEG5Un9ajpiNt3bGaNLmXXcKnSn4AJta4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=FtnDwuQwkMxAT9f1eJ/rE/Zdvsg+3Jr/kyuJ41TpUXVwCDoVvaVig0w+DrNvMWrJt
+	 3wVy99Gh7bdfBeNe3uZFBvynE0f1SjF1v86R67C9pBmHaV9gATcL4LG4m+Oj7OMm+p
+	 QJlxa6B58hMUyfiot6109412KaKn7qpkXDjluNyQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Date: Tue,  1 Jul 2025 13:06:16 +0200
+Message-ID: <2025070115-reoccupy-showy-e2ad@gregkh>
+X-Mailer: git-send-email 2.50.0
 MIME-Version: 1.0
-References: <20250628063121.362685-1-pranav.tyagi03@gmail.com> <2025062945-prologue-plutonium-870f@gregkh>
-In-Reply-To: <2025062945-prologue-plutonium-870f@gregkh>
-From: Pranav Tyagi <pranav.tyagi03@gmail.com>
-Date: Tue, 1 Jul 2025 14:42:57 +0530
-X-Gm-Features: Ac12FXwHc8lXS26tySAKuBhdyhXYJyZqD9JrvOV0o15Dkdc9IcQXg0PK4LpxJM4
-Message-ID: <CAH4c4j+yh99h3V0Ody5yx8DnC=Ee4J0kbEKL85k366FdTyXSdA@mail.gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
+Lines: 44
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1745; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=CWIRlpgPJRqEG5Un9ajpiNt3bGaNLmXXcKnSn4AJta4=; b=owGbwMvMwCRo6H6F97bub03G02pJDBnJB9Vfrck+sH3dpot/T2hazL8Vr8CbVVG/V82noZSnR 97PYZNBRywLgyATg6yYIsuXbTxH91ccUvQytD0NM4eVCWQIAxenAEzEx5xhfu3pzcpBjwXatbak 5gmkC1wyZnq/g2GuzOvAmA23z02+5FMUPFdxt3HORw0TAA==
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: D42C741479
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-4.00 / 15.00];
-	BAYES_HAM(-3.00)[99.99%];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+X-Rspamd-Queue-Id: CF58E40F7F
+X-Spamd-Bar: +
+X-Spamd-Result: default: False [1.00 / 15.00];
+	MID_END_EQ_FROM_USER_PART(4.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:147.75.193.91];
+	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
 	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	RCVD_COUNT_ONE(0.00)[1];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.208.178:from];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	URIBL_BLOCKED(0.00)[mail.gmail.com:mid,mail-lj1-f178.google.com:rdns,mail-lj1-f178.google.com:helo];
-	NEURAL_HAM(-0.00)[-1.000];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_FROM(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:54825, ipnet:147.75.192.0/21, country:US];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+]
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[100.75.92.58:received,147.75.193.91:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	NEURAL_HAM(-0.00)[-1.000];
+	DKIM_TRACE(0.00)[linuxfoundation.org:+]
 X-Rspamd-Action: no action
-X-MailFrom: pranav.tyagi03@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 4S4QZ4I2RXJQIYSKCTHUXXUUWATHABJ6
-X-Message-ID-Hash: 4S4QZ4I2RXJQIYSKCTHUXXUUWATHABJ6
-X-Mailman-Approved-At: Tue, 01 Jul 2025 10:45:25 +0000
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, pure.logic@nexus-software.ie, johan@kernel.org, elder@kernel.org, skhan@linuxfoundation.org, linux-kernel-mentees@lists.linux.dev
+X-Spam-Level: *
+Message-ID-Hash: BNVFGUF4QWH6BY2CGU24NKGKMCL6TUXM
+X-Message-ID-Hash: BNVFGUF4QWH6BY2CGU24NKGKMCL6TUXM
+X-MailFrom: gregkh@linuxfoundation.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] greybus: loopback: remove gb_loopback_async_wait_all()
+Subject: [greybus-dev] [PATCH v2] staging: greybus: gbphy: fix up const issue with the match callback
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/4S4QZ4I2RXJQIYSKCTHUXXUUWATHABJ6/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/BNVFGUF4QWH6BY2CGU24NKGKMCL6TUXM/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gU3VuLCBKdW4gMjksIDIwMjUgYXQgMzoxN+KAr1BNIEdyZWcgS0ggPGdyZWdraEBsaW51eGZv
-dW5kYXRpb24ub3JnPiB3cm90ZToNCj4NCj4gT24gU2F0LCBKdW4gMjgsIDIwMjUgYXQgMTI6MDE6
-MjFQTSArMDUzMCwgUHJhbmF2IFR5YWdpIHdyb3RlOg0KPiA+IFJlbW92ZSByZWR1bmRhbnQgZ2Jf
-bG9vcGJhY2tfYXN5bmNfd2FpdF9hbGwoKSBhcyBjb25uZWN0aW9uIGlzIGRpc2FibGVkDQo+ID4g
-YXQgdGhlIGJlZ2lubmluZyBhbmQgbm8gZnVydGhlciBpbmNvbWluZy9vdXRnb2luZyByZXF1ZXN0
-cyBhcmUgcG9zc2libGUuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBQcmFuYXYgVHlhZ2kgPHBy
-YW5hdi50eWFnaTAzQGdtYWlsLmNvbT4NCj4gPiAtLS0NCj4gPiAgZHJpdmVycy9zdGFnaW5nL2dy
-ZXlidXMvbG9vcGJhY2suYyB8IDcgLS0tLS0tLQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgNyBkZWxl
-dGlvbnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1cy9s
-b29wYmFjay5jIGIvZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvbG9vcGJhY2suYw0KPiA+IGluZGV4
-IDFmMTkzMjNiMGUxYS4uOWQwZDQzMDhhZDI1IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvc3Rh
-Z2luZy9ncmV5YnVzL2xvb3BiYWNrLmMNCj4gPiArKysgYi9kcml2ZXJzL3N0YWdpbmcvZ3JleWJ1
-cy9sb29wYmFjay5jDQo+ID4gQEAgLTExMTAsMTMgKzExMTAsNiBAQCBzdGF0aWMgdm9pZCBnYl9s
-b29wYmFja19kaXNjb25uZWN0KHN0cnVjdCBnYl9idW5kbGUgKmJ1bmRsZSkNCj4gPiAgICAgICBn
-Yl9jb25uZWN0aW9uX2xhdGVuY3lfdGFnX2Rpc2FibGUoZ2ItPmNvbm5lY3Rpb24pOw0KPiA+ICAg
-ICAgIGRlYnVnZnNfcmVtb3ZlKGdiLT5maWxlKTsNCj4gPg0KPiA+IC0gICAgIC8qDQo+ID4gLSAg
-ICAgICogRklYTUU6IGdiX2xvb3BiYWNrX2FzeW5jX3dhaXRfYWxsKCkgaXMgcmVkdW5kYW50IG5v
-dywgYXMgY29ubmVjdGlvbg0KPiA+IC0gICAgICAqIGlzIGRpc2FibGVkIGF0IHRoZSBiZWdpbm5p
-bmcgYW5kIHNvIHdlIGNhbid0IGhhdmUgYW55IG1vcmUNCj4gPiAtICAgICAgKiBpbmNvbWluZy9v
-dXRnb2luZyByZXF1ZXN0cy4NCj4gPiAtICAgICAgKi8NCj4gPiAtICAgICBnYl9sb29wYmFja19h
-c3luY193YWl0X2FsbChnYik7DQo+DQo+IEhvdyB3YXMgdGhpcyB0ZXN0ZWQ/ICBJdCBtaWdodCBi
-ZSByZWR1bmRhbnQgYnV0IEkgZG9uJ3QgdGhpbmsgeW91IGNhbg0KPiBkZWxldGUgdGhpcyBqdXN0
-IHlldCwgb3RoZXJ3aXNlIHdlIHdvdWxkIGhhdmUgZG9uZSBzbyBhIGxvbmcgdGltZSBhZ28uDQo+
-DQo+IEFuZCB5b3VyIGNoYW5nZWxvZyBqdXN0IHNheXMgdGhlIHNhbWUgdGhpbmcgYXMgdGhpcyBj
-b21tZW50LCBzaG91bGRuJ3QNCj4geW91IHdyaXRlIHNvbWV0aGluZyBkaWZmZXJlbnQ/DQo+DQo+
-IHRoYW5rcywNCj4NCj4gZ3JlZyBrLWgNCg0KSGksDQoNClRoYW5rcyBmb3IgdGhlIGZlZWRiYWNr
-LiBPbiBjaGVja2luZyB0aGUgY29udGV4dCwgSSBmb3VuZCB0aGUgRklYTUUgdG8NCmJlIHRyaXZp
-YWwgYW5kIGJ1aWxkLXRlc3QgdGhlIHBhdGNoLiBCdXQsIGl0IGRlZmluaXRlbHkgY2FuIG5vdCBn
-dWFyYW50ZWUNCnJ1bnRpbWUgY29ycmVjdG5lc3MuIEkgd2lsbCBhbHNvIHRyeSB0byB3cml0ZSBi
-ZXR0ZXIgY2hhbmdlbG9ncyBmb3IgZnV0dXJlDQpwYXRjaGVzLg0KDQpBcG9sb2dpZXMgZm9yIHRo
-ZSBub2lzZS4NCg0KUmVnYXJkcw0KUHJhbmF2IFR5YWdpDQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpncmV5YnVzLWRldiBtYWlsaW5nIGxpc3QgLS0gZ3Jl
-eWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpUbyB1bnN1YnNjcmliZSBzZW5kIGFuIGVtYWlsIHRv
-IGdyZXlidXMtZGV2LWxlYXZlQGxpc3RzLmxpbmFyby5vcmcK
+gbphy_dev_match_id() should be taking a const pointer, as the pointer
+passed to it from the container_of() call was const to start with (it
+was accidentally cast away with the call.)  Fix this all up by correctly
+marking the pointer types.
+
+Cc: Johan Hovold <johan@kernel.org>
+Cc: Alex Elder <elder@kernel.org>
+Cc: greybus-dev@lists.linaro.org
+Fixes: d69d80484598 ("driver core: have match() callback in struct bus_type take a const *")
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+v2: - add Fixes: line as pointed out by Johan
+    - don't make gbphy_dev const, it's not needed, as pointed out by
+      Johan
+
+ drivers/staging/greybus/gbphy.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/staging/greybus/gbphy.c b/drivers/staging/greybus/gbphy.c
+index 6adcad286633..60cf09a302a7 100644
+--- a/drivers/staging/greybus/gbphy.c
++++ b/drivers/staging/greybus/gbphy.c
+@@ -102,8 +102,8 @@ static int gbphy_dev_uevent(const struct device *dev, struct kobj_uevent_env *en
+ }
+ 
+ static const struct gbphy_device_id *
+-gbphy_dev_match_id(struct gbphy_device *gbphy_dev,
+-		   struct gbphy_driver *gbphy_drv)
++gbphy_dev_match_id(const struct gbphy_device *gbphy_dev,
++		   const struct gbphy_driver *gbphy_drv)
+ {
+ 	const struct gbphy_device_id *id = gbphy_drv->id_table;
+ 
+@@ -119,7 +119,7 @@ gbphy_dev_match_id(struct gbphy_device *gbphy_dev,
+ 
+ static int gbphy_dev_match(struct device *dev, const struct device_driver *drv)
+ {
+-	struct gbphy_driver *gbphy_drv = to_gbphy_driver(drv);
++	const struct gbphy_driver *gbphy_drv = to_gbphy_driver(drv);
+ 	struct gbphy_device *gbphy_dev = to_gbphy_dev(dev);
+ 	const struct gbphy_device_id *id;
+ 
+-- 
+2.50.0
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
