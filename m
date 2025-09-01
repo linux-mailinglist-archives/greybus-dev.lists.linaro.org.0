@@ -2,132 +2,171 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 105D5B3D64A
-	for <lists+greybus-dev@lfdr.de>; Mon,  1 Sep 2025 03:25:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09066B3E1A6
+	for <lists+greybus-dev@lfdr.de>; Mon,  1 Sep 2025 13:34:05 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 92F4645D3D
-	for <lists+greybus-dev@lfdr.de>; Mon,  1 Sep 2025 01:25:47 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	by lists.linaro.org (Postfix) with ESMTPS id 95CFA445F9
-	for <greybus-dev@lists.linaro.org>; Sun, 31 Aug 2025 16:22:26 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 8AAC44579A
+	for <lists+greybus-dev@lfdr.de>; Mon,  1 Sep 2025 11:34:03 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	by lists.linaro.org (Postfix) with ESMTPS id C7F2B4570E
+	for <greybus-dev@lists.linaro.org>; Mon,  1 Sep 2025 11:33:52 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=UCOSPHLJ;
-	spf=pass (lists.linaro.org: domain of nogunix@gmail.com designates 209.85.214.181 as permitted sender) smtp.mailfrom=nogunix@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-248cd112855so7698575ad.1
-        for <greybus-dev@lists.linaro.org>; Sun, 31 Aug 2025 09:22:26 -0700 (PDT)
+	dkim=pass header.d=linaro.org header.s=google header.b="t7lWzIi/";
+	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.128.51 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
+	dmarc=pass (policy=none) header.from=linaro.org
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-45a1b065d59so28743215e9.1
+        for <greybus-dev@lists.linaro.org>; Mon, 01 Sep 2025 04:33:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756657346; x=1757262146; darn=lists.linaro.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wC63tUmqrakMAHW3YCv62HQTQvLJEeNspgTwHV4SL+w=;
-        b=UCOSPHLJ1EM67LxrL8FCwfM/nCEl+qOqSH2OZe7fYbksQFXYcA+XcoPBB9PmeUDiWs
-         EWdQQ8CuYM5vv4QVjyX8ZJ+W+SH5M2AWVAiqba0od8X9pddtw0lSAv0F1mts3RXBEITI
-         dBBPozdeaEQ9cGVGtJqeU+QOPfs06+BmJGHRrmD3ho0+UFsdGJHB1TLVA5zLLHMxUK+P
-         Ya6fVLvWDqmVN67rWcljAAWzERoqoUGST7yrb7ENgz452ok8JWMPwK00pl5uTKGEhxIc
-         9hXFItF2EjIKi3gUh8/uHYzBElcmeaqNBfLUmQOqBqdQqvU3vdhgyFD5zntfy10ozMVe
-         HSHw==
+        d=linaro.org; s=google; t=1756726432; x=1757331232; darn=lists.linaro.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=EaGLia0ZyDDZwtKndRyXXNbGsxcdHRQLopkYwbNyjyQ=;
+        b=t7lWzIi/E5VCRNLDYVk0inKLMcVZf35aeCHGbnbVRs/PWGwCEPGFhRuNTALJ01pzRj
+         u+qaBkwdZLUaeRhIQX+F3UGVv5OGbB2bOjrTMOZbOicojQ+8cmnG1EmQvifSdYeeoo/I
+         nH2rpuxfsalirSJITkqQkmtxdtGtumqdSHL9knF8kMjwbbXXB9YUnh+8QzXtufiqQprT
+         dd6D351Gu55488XIZb7Bo+m0wwRakyU+Tvbyi2jvg9sVdaf8kdP4piC8HYssCN/cTi+f
+         uuUcIN4AOPsR6tKNEprhkqwkRnjYTEewkQuEiAp0hVqNAl3yWDCtljVnPRfHw8EyUmUd
+         bO1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756657346; x=1757262146;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wC63tUmqrakMAHW3YCv62HQTQvLJEeNspgTwHV4SL+w=;
-        b=FuumAcN2YW3osXta0/bI/rmR4MM8M7ARaMAksEeZvzqPJf46yGtqxPOKAjubamaPVL
-         xNbk0/GrZvpFpT9q/Q6LUgeRqywVt7QTbvlW4vXxZRsfyDRR9Ez7/o61rzLm6MdrET/W
-         gKdF+gr5E99/McOX2p2h6Fus5Nvd49sJC2Iu91dXO0PntDU9UtRNslDquOwaaNfxqbd8
-         dXlz7WtC90mImM3CQeLjXEvvlUqXUjldfjuFNIo0v8AXpb245wfn8CwV1bodcrP+NBjU
-         f80rxDqdLI+dXpZx5HYtF0WN0ShglDhp4w2GNFrpcFZKYE2WXhIVg9ZW4p4rIoiDF59X
-         sQtA==
-X-Gm-Message-State: AOJu0Yze+HUeF/lNXCrsHwbWVl2l1Ancs2JEffyyBDNf721Qpg+gKzUX
-	DMux2m0oWSb/oJOXAQdhf3hZJ7orbYqKTpbgKgbBwUu93fPfUNE6Gw/xFHICgg==
-X-Gm-Gg: ASbGncvVkLg06U4sMUaZ3o1UJ796wOH9N2kyDgrF4Klcvcj+oQmdHGaVocODRmetkiz
-	o3aXtip5IZ/hJGEkE0LYjDJVNEbQDRs5tM5puE+hC94hyykcVQveb1wciRZ8Yvn++DFCPhR3YUj
-	1W2rExB0KkN+PvDsjNCD0+xx6Pi9GixApx9LMlRKATSXDbQpDwAFx6ns4OLzk73JxLbR18sDeB8
-	g7/4nKy0j2k26+/n2ESe6ujofaaa33WAFXEKsdYDWkQWCuomi6K0LG134eUh5ERHLyTgTEjpRfN
-	t9UH5WQ5r8+flHyIDkaL7uDQ2D/X0lR7i6FPbA8++8qLP8E5I6eTXPf0A8K0W4uYyOrYkjrh/8T
-	27WsE7NTzGjzRC+qOQPX7eZbLVzxEZMy4Y645hQ==
-X-Google-Smtp-Source: AGHT+IEcWYbGKSNNM/TGyJ8I+Sp0Tp4/xpxmiOLyZwH/GI+fxJcNe+OqoeQcoKR8gU2kYJxqsaDEuw==
-X-Received: by 2002:a17:90b:4b4b:b0:324:e362:65be with SMTP id 98e67ed59e1d1-327f5b3ed52mr6064286a91.2.1756657345509;
-        Sun, 31 Aug 2025 09:22:25 -0700 (PDT)
-Received: from fedora ([2400:4050:d860:9700:8e8a:52de:86af:cfe3])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-b4cd3095df7sm7217697a12.36.2025.08.31.09.22.24
-        for <greybus-dev@lists.linaro.org>
+        d=1e100.net; s=20230601; t=1756726432; x=1757331232;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EaGLia0ZyDDZwtKndRyXXNbGsxcdHRQLopkYwbNyjyQ=;
+        b=PovysuLRgUgbihtf6NZs5T3UZ3RJQnQBKJMCg2pcyj40Kilk5ZngNefUtW700tLteN
+         dix3zulWpbx/eky6ipF+LxAT+QsOnjOzn6ftnTs9z2f3c2Zzem8mORFyIlcMZo/iKcIY
+         MAlrlPdnTV4w2JbDtCDBs4Mrl8k8MB8LoRHmkes3wyzTJxNmkKRQ/9f7J1E/df8UExKz
+         aFuQE7zOSSxM38+sQXcLfqMujUbntW5xd8w2Q6T5ln1PkzfbC4VzHg98cdPzPuyuoeBp
+         ZDihDpUBh+s9yiUGXtcO5nvoCYYuVTouuW6RWj9F2ExVFEWYfvqYZArVmSCxXdTZQgXX
+         B+3g==
+X-Forwarded-Encrypted: i=1; AJvYcCV+jGkNC1U7MJVNKrHILxdEgJbNnADSMaSseolnI+nKA1v3tt3DqxwBP+GCdsxcR40UmK8kq9BTKeEiPA==@lists.linaro.org
+X-Gm-Message-State: AOJu0Yylt9TdoFSueyC3VWTJPW+8eRBVIsW4CkRiRpx6DpCiJoiElJ7s
+	TCzL66StjfM0dPsIAooG8fkw0IR1+72dzYvoLf10gpgWSvcnWdx+LQcBxFL/dQGNVX3+Og==
+X-Gm-Gg: ASbGnctGMLo3ScKTIOvsHXeAIAgQPaP2x+wk0Yf7l/gOC6voIKBRNYxZOGZBt/Swhwg
+	SxPky5Dvy5RV5/PpKMVXEIQvaCOZqH+5IwVvd0Z9kjBnr7lNPBNB3QZAJl6BV2r4i8W/UZiSGXZ
+	8W0eRAY3RVPSLExKQdQCDB1qINMajvbDYE6NEnE64UelU4uhJJQdTlTqKlcCfN0ONtGXOAqCrq6
+	2Ee0FX59Qam9xROm0k3mC09977ZMUDumwtsY1g2Ni4byNWQYFk0wU7zjiWUxiCpdsItaGKCohsq
+	Ud4+Jnm4wCYz2Oy4HVIA4vjf3ei2ACAEvGr6ybsY1j0K3tWRL+LPmoppjexotGHqi7GZ3UD/gH8
+	yglo8FQNQFQa2YThY6npBLFeA0ML4RFH//av5cA==
+X-Google-Smtp-Source: AGHT+IHlZsFA6bO5PL525W9kRFa10Ed6TtJv6bjUkL/ZCgjzMq2fAWcbrEpWZ54ZlAQ/b0gIQUe8sg==
+X-Received: by 2002:a05:600c:a0a:b0:456:1824:4808 with SMTP id 5b1f17b1804b1-45b855aeb67mr56578155e9.32.1756726431637;
+        Mon, 01 Sep 2025 04:33:51 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-45b66f2041fsm141251905e9.5.2025.09.01.04.33.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 31 Aug 2025 09:22:24 -0700 (PDT)
-Date: Mon, 1 Sep 2025 01:22:20 +0900
-From: Masaharu Noguchi <nogunix@gmail.com>
-To: greybus-dev@lists.linaro.org
-Message-ID: <aLR2vNgotwwPw5On@fedora>
+        Mon, 01 Sep 2025 04:33:50 -0700 (PDT)
+Date: Mon, 1 Sep 2025 14:33:47 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Masaharu Noguchi <nogunix@gmail.com>
+Message-ID: <aLWEm2sQpmoNYLAC@stanley.mountain>
 References: <20250830173850.323897-1-nogunix@gmail.com>
- <20250830173850.323897-3-nogunix@gmail.com>
- <20250830212923.GB16364@pendragon.ideasonboard.com>
+ <20250830173850.323897-2-nogunix@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250830212923.GB16364@pendragon.ideasonboard.com>
+In-Reply-To: <20250830173850.323897-2-nogunix@gmail.com>
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 95CFA445F9
-X-Spamd-Bar: -
-X-Spamd-Result: default: False [-1.80 / 15.00];
-	BAYES_HAM(-1.20)[89.18%];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	MID_RHS_NOT_FQDN(0.50)[];
+X-Rspamd-Queue-Id: C7F2B4570E
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.50 / 15.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.181:from];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_ONE(0.00)[1];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_EQ_ENVFROM(0.00)[];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.51:from];
+	ARC_NA(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	RCPT_COUNT_TWELVE(0.00)[18];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[linuxfoundation.org,lists.linux.dev,gmail.com,animalcreek.com,kernel.org,lists.linaro.org,broadcom.com,raspberrypi.com,ideasonboard.com,lists.infradead.org,vger.kernel.org];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	DKIM_TRACE(0.00)[gmail.com:+]
-X-MailFrom: nogunix@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: G3UTPFDAQDP3JTON33TPVIFUOI3BEQYU
-X-Message-ID-Hash: G3UTPFDAQDP3JTON33TPVIFUOI3BEQYU
-X-Mailman-Approved-At: Mon, 01 Sep 2025 01:25:42 +0000
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[linaro.org:+]
+Message-ID-Hash: NF5O66RDNF5SJI5QKLKQ5SZVP34M3WU5
+X-Message-ID-Hash: NF5O66RDNF5SJI5QKLKQ5SZVP34M3WU5
+X-MailFrom: dan.carpenter@linaro.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: linux-staging@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, florian.fainelli@broadcom.com, rjui@broadcom.com, sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com, dave.stevenson@raspberrypi.com, laurent.pinchart@ideasonboard.com, hverkuil@kernel.org, linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 2/2] staging: vc04_services: bcm2835-camera: avoid -Wformat-truncation
+Subject: [greybus-dev] Re: [PATCH 1/2] staging: greybus: audio_topology: avoid -Wformat-truncation
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/G3UTPFDAQDP3JTON33TPVIFUOI3BEQYU/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/NF5O66RDNF5SJI5QKLKQ5SZVP34M3WU5/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-TGF1cmVudCBQaW5jaGFydCwNCg0KVGhhbmtzIGZvciB5b3VyIGZlZWRiYWNrLg0KDQpJIHNlZSB5
-b3VyIHBvaW50IHJlZ2FyZGluZyB0aGUgY29tcGxleGl0eSBvZiB0aGUgY3VycmVudCBjb25zdHJ1
-Y3QuDQpJ4oCZbGwgdGFrZSBzb21lIHRpbWUgdG8gY29uc2lkZXIgdGhlIGJlc3QgYXBwcm9hY2gg
-YW5kIGZvbGxvdyB1cCBvbmNlIEkgaGF2ZSBhIGNsZWFyZXIgcGljdHVyZS4NCg0KTWFzYWhhcnUg
-Tm9ndWNoaQ0KDQpPbiBTYXQsIEF1ZyAzMCwgMjAyNSBhdCAxMToyOToyM1BNICswMjAwLCBMYXVy
-ZW50IFBpbmNoYXJ0IHdyb3RlOg0KPg0KPiBUaGUgZmFjdCB0aGF0IHdlIG5lZWQgc3VjaCBhIGNv
-bXBsaWNhdGVkIGNvbnN0cnVjdCBpcyBhIHNpZ24gdGhhdA0KPiB0aGVyZSdzIHNvbWV0aGluZyB3
-cm9uZyBpbiBvdXIgQVBJcy4gVGhlIGFib3ZlIGNvZGUgaXMgdG9vIGNvbXBsaWNhdGVkDQo+IGZv
-ciB3aGF0IGl0IGRvZXMsIG1ha2luZyBpdCBsZXNzIHJlYWRhYmxlLCBtb3JlIGRpZmZpY3VsdCB0
-byBtYWludGFpbiwNCj4gYW5kIG1vcmUgYnVnLXByb25lLiBJIGRvbid0IGtub3cgaWYgd2UgbmVl
-ZCB5ZXQgYW5vdGhlciBzcHJpbnRmIHZhcmlhbnQNCj4gaW4gdGhlIGtlcm5lbCwgb3Igc29tZXRo
-aW5nIGVsc2UsIGJ1dCB0aGlzIGRvZW5zJ3Qgc2VlbSB0byBiZSB3aGF0IHdlDQo+IG5lZWQuDQo+
-DQo+ID4gIH0NCj4NCj4gLS0NCj4gUmVnYXJkcywNCj4NCj4gTGF1cmVudCBQaW5jaGFydA0KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1kZXYg
-bWFpbGluZyBsaXN0IC0tIGdyZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKVG8gdW5zdWJzY3Jp
-YmUgc2VuZCBhbiBlbWFpbCB0byBncmV5YnVzLWRldi1sZWF2ZUBsaXN0cy5saW5hcm8ub3JnCg==
+On Sun, Aug 31, 2025 at 02:38:49AM +0900, Masaharu Noguchi wrote:
+>     - Fix -Wformat-truncation when prefixing device id to widget/control
+>       names.
+>     - Write the prefix with scnprintf() and copy the remainder with
+>       strscpy().
+>     - This avoids potential truncation and satisfies W=1 builds in
+>       drivers/staging/greybus.
+> 
+> Signed-off-by: Masaharu Noguchi <nogunix@gmail.com>
+> ---
+>  drivers/staging/greybus/audio_topology.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/audio_topology.c b/drivers/staging/greybus/audio_topology.c
+> index 6ca938dca4fd..5bf8b5e29dd8 100644
+> --- a/drivers/staging/greybus/audio_topology.c
+> +++ b/drivers/staging/greybus/audio_topology.c
+> @@ -1013,7 +1013,7 @@ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
+>  				      struct snd_soc_dapm_widget *dw,
+>  				      struct gb_audio_widget *w, int *w_size)
+>  {
+> -	int i, ret, csize;
+> +	int i, ret, csize, n;
+>  	struct snd_kcontrol_new *widget_kctls;
+>  	struct gb_audio_control *curr;
+>  	struct gbaudio_control *control, *_control;
+> @@ -1087,7 +1087,8 @@ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
+>  
+>  	/* Prefix dev_id to widget control_name */
+>  	strscpy(temp_name, w->name, sizeof(temp_name));
+> -	snprintf(w->name, sizeof(w->name), "GB %d %s", module->dev_id, temp_name);
+> +	n = scnprintf(w->name, sizeof(w->name), "GB %d ", module->dev_id);
+> +	strscpy(w->name + n, temp_name, sizeof(w->name) - n);
+
+The strscpy() doesn't make sense.  If the string doesn't fit then you
+can't *force* it to fit with strscpy().  :P
+
+Here we're taking a buffer w->name and adding a prefix at the beginning
+of the exact same buffer.  Obviously the result is going to be larger.
+The W=1 warning doesn't add any new information...
+
+I feel like these W=1 warnings about string truncation are rarely useful.
+These limits are not normally thought out that deeply.  Poeople just say,
+"This is probably something like a company name.  Let's say that a
+company name is probably 48 characters long."  But really very few company
+names are that long.  It's just a rough estimate.
+
+And really it's not the worst thing if these strings are truncated.  Kernel
+messages are mostly error messages.  We'll still be able to debug the crash
+even if the last couple characters in a really long name are chopped off.
+
+regards,
+dan carpenter
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
