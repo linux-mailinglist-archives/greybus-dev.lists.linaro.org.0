@@ -2,109 +2,109 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32EFEC28907
-	for <lists+greybus-dev@lfdr.de>; Sun, 02 Nov 2025 02:20:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3D79C2890A
+	for <lists+greybus-dev@lfdr.de>; Sun, 02 Nov 2025 02:20:53 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 5092B3F820
-	for <lists+greybus-dev@lfdr.de>; Sun,  2 Nov 2025 01:20:49 +0000 (UTC)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
-	by lists.linaro.org (Postfix) with ESMTPS id 81FB33F7E8
-	for <greybus-dev@lists.linaro.org>; Sat,  1 Nov 2025 07:46:48 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id EBA533F824
+	for <lists+greybus-dev@lfdr.de>; Sun,  2 Nov 2025 01:20:52 +0000 (UTC)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+	by lists.linaro.org (Postfix) with ESMTPS id EC3233F7EC
+	for <greybus-dev@lists.linaro.org>; Sat,  1 Nov 2025 07:53:04 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=eRcuIcdX;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=Z1zbOLvE;
 	dmarc=pass (policy=none) header.from=gmail.com;
-	spf=pass (lists.linaro.org: domain of vacacax16@gmail.com designates 209.85.167.49 as permitted sender) smtp.mailfrom=vacacax16@gmail.com
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-591ea9ccfc2so4027300e87.1
-        for <greybus-dev@lists.linaro.org>; Sat, 01 Nov 2025 00:46:48 -0700 (PDT)
+	spf=pass (lists.linaro.org: domain of vacacax16@gmail.com designates 209.85.208.179 as permitted sender) smtp.mailfrom=vacacax16@gmail.com
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-378ddb31efaso33770431fa.3
+        for <greybus-dev@lists.linaro.org>; Sat, 01 Nov 2025 00:53:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1761983207; x=1762588007; darn=lists.linaro.org;
+        d=gmail.com; s=20230601; t=1761983584; x=1762588384; darn=lists.linaro.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
         bh=YV8ILjCLbAd6Rh+u+y5fp6wN9Ns1g2oLwKcbOPZD8ow=;
-        b=eRcuIcdXdJ7nlsUEiLEQIlaGBMNnPMe62xC+eARFLaa5K4Is4y00Uicvi1NmrkSBvm
-         5FjVoUGWbReRao61NiBPCt4/YdkkCu8AOvxwB4hu6TvgrrwrwtBBOKW64FezrQME8v0s
-         hqMle07oGDkdJxE1ubq+iSpgP/TyHGMimjcU/D9T/217g3k0GerYVfxqQ9QQSE5auGxO
-         pKs4o3xRDRbnGh/t/JhHO4sYt9HDVQ4Xi4MLVjqfr9gUa2nkD7BnsdkvoPAAX6gfpU38
-         z88I7YnRppm+At3Jt6Hpx6qUohcreznjtnnUkCsYsBLrqvuERsQlJ5wX8gEKWQ84T3r5
-         6MUQ==
+        b=Z1zbOLvEmFdq40hvnyxc6jr+E9V+arD/vezVQi82q4DlazcsdKFUwXbAgDRwEU2W7S
+         eZmJNNkBrqsLfflIAhfbd4XaCdD4CffiV9pZFsYy7WR/4x3QhXBW45B0tcGqRLsmDsmu
+         vLZn/eGffstzOXK3tZZQ+dFEJplwQCtJf51VK0qs5pNGzrEE4c8Tjh0xgkdcppEVUQ0t
+         UpjiiMFOnYr+zQEoMEiLMcBxQk35NwMA+MXOEswUt13cf6XsTFPOy7o2N9hgmipNtsFi
+         bwZhP5tw9f1yHkpS4BQGdNtFj0pU8WE2KudjUj0FjcVRlsUgMXUYwhFLic87hKqHn5LY
+         6JVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1761983207; x=1762588007;
+        d=1e100.net; s=20230601; t=1761983584; x=1762588384;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
         bh=YV8ILjCLbAd6Rh+u+y5fp6wN9Ns1g2oLwKcbOPZD8ow=;
-        b=Rlnl4NXQdtoM9Js4sPxV2L/iODUUrATfrgWGwQnTQLnMw5Nhu7SyysmFLmEJNYMNZN
-         g/rw4XpWen+gVKnqBsau3rugIU1Xcyv5qYiLzkt6ban3IMGszTSzfTRfeyfFSo3BgLFr
-         LIXboFIE9VK7dkoIiKBna/KhsBIjwIAXa4AxWcYMM7YN8+jN8vW/HFUc04ceyYNm22yr
-         FU6sGa4eAnACaqaPt1dwvr285PHWwCnX1JfCzLTsPoAvFblZV84leEBlAGNWkOtL1gWu
-         NvcqObfVeaKV/xv8DUMDBti3wiH3ZkiQ9IoWxKHwSJRvdTEPbL+ya5YD4qx3IcQBw7A0
-         WUQw==
-X-Gm-Message-State: AOJu0YwbT+yPwEd6NZtDacp9xpm2KlRI3xAZxDwpYrfX10zhswhd2DV+
-	w6JbTjIf18E0hqmLhdjEztYZrnfz7ORj3EEq+bHFHCFYGhnlZhs9isUd
-X-Gm-Gg: ASbGncuwRR7hBpovWDVdMj59dFxSLtuzNATuIDwoUTeJ2TKh+IlnRKFaODsJKY1wXHr
-	H9yznYtaSimLwoHk3eAeJNql9S4hpb+8MNNLthMR+Oo19mTefZkNUG6R+R61lgPnCzURWHGehoV
-	1eoQCD+5YIsYacnAKh7JXO6w/nxM1aoGaLC6K1p3S9kUCofH5NuqRYO80KlGpW2JZbn7QztfGbL
-	1l+lIPFkEbvULAZsQ4Qm6QWpzbmQc48l9ZlyNLnPo0YBbuPCNrynJfBJSHN53ZQ3padj7Pz0UiO
-	uUQkII7mUf48pcvqjGWbNRyWk1+2z+4bvI9IECC8KE4zxklxwwoxt17EwAjxVgXSVKtTYjMwyiL
-	ayyfWAsGiHOXSYL1IPzClHbGhJqI34SzlZZUCQKvoT1eF4RNaOnR3z15nQ567QydRlK2P4Lo0j5
-	Afzu5JmHDRYNE7zQ==
-X-Google-Smtp-Source: AGHT+IHymJOP85Ntx/hZkcSgPuiaTMncBc5HzJI10xt4SlURooyxsUYKP8HyGqOGX3S39upKyzjXcw==
-X-Received: by 2002:a05:6512:1149:b0:593:6b:520c with SMTP id 2adb3069b0e04-5941d36e428mr2100693e87.10.1761983206760;
-        Sat, 01 Nov 2025 00:46:46 -0700 (PDT)
+        b=tFnxzUGMTuChBjarwr9yWu/ScieAFa1u3nWh+6YyMrn3/F+EhX169kQbxXqU6or/l8
+         TyWzt6QwQpEvD35EsnVCm+rj/6RaUEVO/pyNJbTHwOhgFuPUPDTyx04vADYq7ILlZSlE
+         7XYGsMhOl4fUBTEGj9HSTUwkF8JGc27PuSY/srC5tAATT//QXrIw/DgDBRkYOWpBFxJP
+         UbSD1Dog3CEKyZGU6pwobZbWVxrcPHGw+R07uV6sCEit4H9/V4QOUBDcSVnKfNnrLoos
+         qId6W4uX93aOFuFShigp2eg+oP1a4JOr/vTRCu6yZnMRLpFlRIWSOTU33CtwaPLO+p33
+         BqFQ==
+X-Gm-Message-State: AOJu0Yyq0SyFPpQX/P+sDlKYhP6N3M9NFWskyhtgGsR8nCdCZU9sYe6A
+	1GlUlZNNO82FRxZ9g4/E7jaT24RgikfCsChlqJ8jhfsUVVGLl7LO9fMv
+X-Gm-Gg: ASbGnctW+7ZgkPpZwq9D/1/q+N9AKzmTwUaaoxl3cVSZ1rt0CCai8saXxsZUpaDI9fV
+	D2hQnhBSFtlqCRLmsT0y3eEWsjl9rd1lNrHOgxJvcKq8JJGcOPyd2d5sPCHLr9BAh68FMwIwX+m
+	ELmHwZyAGEOLXgbdmg5Tt9l4iFM9AB9xUhWiuBgT5pHilAyZZlCbgtoTtrHX611dh1LJhgoEc7x
+	6rIM8O2kcsHPk3WK5tigu9JmkjCbCXn7Xip9b33ypSuzsH+rPjxAWKLLTZOaavrIChBY1hGIU6i
+	4YwkexDc4pzZYyri+TPSrX4HWwr8rDMfpZJXApd7Dcx7EImQhvsB9o+Jek6TkiqRAQTmhcBCm+S
+	FgEk4RSYFCQ5+gAj1p6OX9jZHrrY+P6Fam1+mnE95BNOASkL6i2RhW0wv2Qhc7a5581F0yn9ory
+	LWSon/SHM9WL1JKQ==
+X-Google-Smtp-Source: AGHT+IE0HcnJGsxbaeCG4AVppHi/hzI1/ydTTSIq4i3fwtlEauPkj+HA5GKPmybObzIqOF+AZJU4Gw==
+X-Received: by 2002:a2e:bc19:0:b0:378:e08b:5590 with SMTP id 38308e7fff4ca-37a18d86953mr19329691fa.3.1761983583414;
+        Sat, 01 Nov 2025 00:53:03 -0700 (PDT)
 Received: from archlinux ([109.234.28.204])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5941f5c2782sm1027604e87.107.2025.11.01.00.46.43
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-37a1c0e9bb2sm9142051fa.51.2025.11.01.00.53.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Nov 2025 00:46:45 -0700 (PDT)
+        Sat, 01 Nov 2025 00:53:02 -0700 (PDT)
 From: zntsproj <vacacax16@gmail.com>
 X-Google-Original-From: zntsproj <vseokaktusah7@gmail.com>
 To: linux-kernel@vger.kernel.org
-Date: Sat,  1 Nov 2025 10:46:16 +0300
-Message-ID: <20251101074616.11211-1-vseokaktusah7@gmail.com>
+Date: Sat,  1 Nov 2025 10:52:47 +0300
+Message-ID: <20251101075247.11415-1-vseokaktusah7@gmail.com>
 X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 81FB33F7E8
+X-Rspamd-Queue-Id: EC3233F7EC
 X-Spamd-Bar: ---
 X-Spamd-Result: default: False [-3.50 / 15.00];
 	BAYES_HAM(-3.00)[99.99%];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MIME_GOOD(-0.10)[text/plain];
-	TO_DN_SOME(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
 	FREEMAIL_CC(0.00)[lists.linaro.org,gmail.com];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	URIBL_BLOCKED(0.00)[mail-lj1-f179.google.com:rdns,mail-lj1-f179.google.com:helo];
 	RCVD_TLS_LAST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[gmail.com:+];
 	RCPT_COUNT_THREE(0.00)[3];
 	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
 	FROM_EQ_ENVFROM(0.00)[];
 	FREEMAIL_ENVFROM(0.00)[gmail.com];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.991];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.167.49:from];
-	DWL_DNSWL_BLOCKED(0.00)[gmail.com:dkim];
+	NEURAL_HAM(-0.00)[-0.992];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.208.179:from];
 	FROM_HAS_DN(0.00)[]
 X-Rspamd-Action: no action
 X-MailFrom: vacacax16@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 5TAYRUR6O7QCTHGYYNMCP52UJMLLJWET
-X-Message-ID-Hash: 5TAYRUR6O7QCTHGYYNMCP52UJMLLJWET
+Message-ID-Hash: TESAGMCW5IFWBRZRDB6EZFMOTIOVKX4G
+X-Message-ID-Hash: TESAGMCW5IFWBRZRDB6EZFMOTIOVKX4G
 X-Mailman-Approved-At: Sun, 02 Nov 2025 01:20:39 +0000
 CC: greybus-dev@lists.linaro.org, zntsproj <vseokaktusah7@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] Fix tiny typo in firmware-management docs
+Subject: [greybus-dev] [PATCH v3] Fix tiny typo in firmware-management docs
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5TAYRUR6O7QCTHGYYNMCP52UJMLLJWET/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TESAGMCW5IFWBRZRDB6EZFMOTIOVKX4G/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
