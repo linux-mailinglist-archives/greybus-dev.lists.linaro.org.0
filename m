@@ -2,45 +2,47 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67B48C579E4
-	for <lists+greybus-dev@lfdr.de>; Thu, 13 Nov 2025 14:20:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A34A4C57C38
+	for <lists+greybus-dev@lfdr.de>; Thu, 13 Nov 2025 14:46:09 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 2C9C73F80C
-	for <lists+greybus-dev@lfdr.de>; Thu, 13 Nov 2025 13:20:13 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id BBD0C3F80C
+	for <lists+greybus-dev@lfdr.de>; Thu, 13 Nov 2025 13:46:08 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	by lists.linaro.org (Postfix) with ESMTPS id 2099F3F77A
-	for <greybus-dev@lists.linaro.org>; Thu, 13 Nov 2025 13:20:10 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id 1D9823F6C7
+	for <greybus-dev@lists.linaro.org>; Thu, 13 Nov 2025 13:46:05 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=QPpjVZ3k;
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=E89QRwJX;
 	dmarc=pass (policy=none) header.from=linuxfoundation.org;
 	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.105.4.254 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id A6B6C60210;
-	Thu, 13 Nov 2025 13:20:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351FAC4CEFB;
-	Thu, 13 Nov 2025 13:20:09 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id 940216026C;
+	Thu, 13 Nov 2025 13:46:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24FD7C4CEF1;
+	Thu, 13 Nov 2025 13:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1763040009;
-	bh=ekjGudGOri5L0SYWYsS/gxUuyFFk1MVNHVKXjFcCVeI=;
+	s=korg; t=1763041564;
+	bh=tbmShB58/A4V/gyp12BMzsTR5XfUTVWVtUcByvJPYIQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QPpjVZ3kFE4ilb4q6XM7C6ygRZnFpk9yWF0MwqG34xkFybxa5G0+3b9S/6Md+jcCC
-	 QVCorVSCoVJHKcofJJYjZKgh7aSpt0BEeZlnr4WFS5pvVfOw2LjNftEI0qaZvTiId7
-	 Mt1zMSehkiDL1kZBn7yH+s1v6e5u51+S/U5Mbrv8=
-Date: Thu, 13 Nov 2025 08:20:07 -0500
+	b=E89QRwJXX642yqpxb+10seEAGu8mLzKzLQs7ffB5/lxZguXdBHZcpMj4HFjXWbcsp
+	 XFFsTfbBKQUqNZd0qMYdBRSziFDWySHsS2qY1WTNYL4AOYeL22U5y2gLfxaGIHBaXd
+	 f+gwIj3iL/6tkHeGGYbg+Itmk6G0q+XaA3s7i2M0=
+Date: Thu, 13 Nov 2025 08:46:03 -0500
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Chang Junzheng <guagua210311@qq.com>
-Message-ID: <2025111341-attendee-ferment-262b@gregkh>
+To: cjz_VM <guagua210311@qq.com>
+Message-ID: <2025111307-deafness-uncrushed-ee56@gregkh>
 References: <tencent_7710B04B6BEE52903BA2F56376DB9D18A907@qq.com>
+ <2025111341-attendee-ferment-262b@gregkh>
+ <tencent_27A546C0D8ACEF4B7DEE94D65FD805769809@qq.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <tencent_7710B04B6BEE52903BA2F56376DB9D18A907@qq.com>
+In-Reply-To: <tencent_27A546C0D8ACEF4B7DEE94D65FD805769809@qq.com>
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 2099F3F77A
+X-Rspamd-Queue-Id: 1D9823F6C7
 X-Spamd-Bar: ++
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [2.00 / 15.00];
 	MID_END_EQ_FROM_USER_PART(4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
+	BAYES_HAM(-3.00)[99.99%];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
 	MID_RHS_NOT_FQDN(0.50)[];
@@ -49,14 +51,14 @@ X-Spamd-Result: default: False [2.00 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	ARC_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,animalcreek.com,kernel.org,lists.linaro.org,vger.kernel.org,outlook.com];
+	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,animalcreek.com,kernel.org,lists.linaro.org,vger.kernel.org];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:63949, ipnet:172.105.0.0/19, country:SG];
 	MIME_TRACE(0.00)[0:+];
 	TAGGED_RCPT(0.00)[];
 	FREEMAIL_TO(0.00)[qq.com];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_COUNT_TWO(0.00)[2];
 	FROM_HAS_DN(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
@@ -65,16 +67,16 @@ X-Spamd-Result: default: False [2.00 / 15.00];
 	NEURAL_HAM(-0.00)[-1.000];
 	DKIM_TRACE(0.00)[linuxfoundation.org:+]
 X-Spam-Level: **
-Message-ID-Hash: AHY5N6K4PRA52LMWF2BJVFCEKUSZJFYQ
-X-Message-ID-Hash: AHY5N6K4PRA52LMWF2BJVFCEKUSZJFYQ
+Message-ID-Hash: K6XBC2DVKVTLFCFNU6XNZTTV7BNAHZVP
+X-Message-ID-Hash: K6XBC2DVKVTLFCFNU6XNZTTV7BNAHZVP
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: outreachy@lists.linux.dev, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Chang Junzheng <guagua210311@outlook.com>
+CC: outreachy@lists.linux.dev, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH] staging: greybus: audio_manager_module: make envp array static const
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/AHY5N6K4PRA52LMWF2BJVFCEKUSZJFYQ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/K6XBC2DVKVTLFCFNU6XNZTTV7BNAHZVP/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -84,52 +86,24 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 13, 2025 at 09:01:46PM +0800, Chang Junzheng wrote:
-> From: Chang Junzheng <guagua210311@outlook.com>
+On Thu, Nov 13, 2025 at 09:39:54PM +0800, cjz_VM wrote:
+> Hi Greg,
 > 
-> The envp array in send_add_uevent() function is declared as a non-const
-> local array, which triggers the following checkpatch.pl warning:
+> Thanks for reviewing my patch!
 > 
-> WARNING: char * array declaration might be better as static const
-> 
-> Change the declaration to 'static const char * const' to improve code
-> safety by making the array read-only and allow for better compiler
-> optimization. This follows the kernel coding style recommendations.
-> 
-> Signed-off-by: Chang Junzheng <guagua210311@qq.com>
+> For sending twice: I apologize for the duplicate. After the first send, I realized I had missed some greybus-specific maintainers, so I resent to include them all.
 
-You sent this twice?
+Then that should have been a v2 patch :)
 
-> ---
->  drivers/staging/greybus/audio_manager_module.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
+> For the indentation: You're right to ask about it. When I changed the declaration from 'char *envp[]' to 'static const char * const envp[]', the opening bracket moved to the right due to the longer declaration. I added tabs to keep the array elements aligned with the opening bracket, following the kernel coding style rule that parameters should align with the opening parenthesis.
 > 
-> diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
-> index 4a4dfb42f50f..ca6a2cd0bc4f 100644
-> --- a/drivers/staging/greybus/audio_manager_module.c
-> +++ b/drivers/staging/greybus/audio_manager_module.c
-> @@ -159,14 +159,14 @@ static void send_add_uevent(struct gb_audio_manager_module *module)
->  	char ip_devices_string[64];
->  	char op_devices_string[64];
->  
-> -	char *envp[] = {
-> -		name_string,
-> -		vid_string,
-> -		pid_string,
-> -		intf_id_string,
-> -		ip_devices_string,
-> -		op_devices_string,
-> -		NULL
-> +	static const char * const envp[] = {
-> +						name_string,
-> +						vid_string,
-> +						pid_string,
-> +						intf_id_string,
-> +						ip_devices_string,
-> +						op_devices_string,
-> +						NULL
+> If this alignment approach is not preferred, I'm happy to adjust it to whatever style you recommend.
 
-Why did you indent this?
+You did not document your change, and it had nothing really to do with
+the const change, so I would not recommend doing this.
+
+Also, please do not top-post, and be sure to properly wrap your lines in
+your email client.
 
 thanks,
 
