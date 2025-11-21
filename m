@@ -2,116 +2,85 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADA77C70BB9
-	for <lists+greybus-dev@lfdr.de>; Wed, 19 Nov 2025 20:09:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB474C78983
+	for <lists+greybus-dev@lfdr.de>; Fri, 21 Nov 2025 12:00:17 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id C03B13F944
-	for <lists+greybus-dev@lfdr.de>; Wed, 19 Nov 2025 19:09:29 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	by lists.linaro.org (Postfix) with ESMTPS id 577763F8F7
-	for <greybus-dev@lists.linaro.org>; Wed, 19 Nov 2025 19:09:23 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id B2C3A3F9B4
+	for <lists+greybus-dev@lfdr.de>; Fri, 21 Nov 2025 11:00:16 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	by lists.linaro.org (Postfix) with ESMTPS id BD9D63F8FF
+	for <greybus-dev@lists.linaro.org>; Fri, 21 Nov 2025 06:45:51 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=quicinc.com header.s=qcppdkim1 header.b=P0h53sdH;
-	spf=pass (lists.linaro.org: domain of quic_jjohnson@quicinc.com designates 205.220.168.131 as permitted sender) smtp.mailfrom=quic_jjohnson@quicinc.com;
-	dmarc=pass (policy=none) header.from=quicinc.com
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 5AJFkCVP2188535;
-	Wed, 19 Nov 2025 19:09:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ASAZP+CpN0Km755eVCZowGzENqfCD1bECHnPKs/EgZs=; b=P0h53sdH3jsA+Hvr
-	0uxXGHBncEXEeCpd+pbKKQR+0/QYvgTYw89mUF8fCH7TWAS36Dlru51e/Dhfcvze
-	NqYqUDtyYtUTmvGVM0PCCjUDjJhxDsQ0hOn1eqS8YMGoqNJ86P7gV3vQvVkMEos+
-	r1iJAjbIpoTKCkpTsJSNgu8fzmA5Mh5TAhpQPay2e2th8I9B+cSjk30mwBfzLazj
-	/Svqw6NeMQVnYPeHVJ+NZaTwG7I5em981dlcU74JYQfSkFLmyqG5zMEzvJHbvKxF
-	e0hzvvemADICHIodK/AYohPCEflNQVED7ma4YjnHQQfckZX7HKe5tN2R1Pe8RE2i
-	KnWPFg==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ahdpr1957-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 19 Nov 2025 19:09:21 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com [10.47.209.196])
-	by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5AJJ9LTH018696
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 19 Nov 2025 19:09:21 GMT
-Received: from [10.227.110.203] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 19 Nov
- 2025 11:09:20 -0800
-Message-ID: <141fadc2-ac5e-4fec-aee5-bcfe48ac4ad8@quicinc.com>
-Date: Wed, 19 Nov 2025 11:08:32 -0800
+	dkim=none;
+	spf=pass (lists.linaro.org: domain of vulab@iscas.ac.cn designates 159.226.251.81 as permitted sender) smtp.mailfrom=vulab@iscas.ac.cn;
+	dmarc=none
+Received: from DESKTOP-L0HPE2S (unknown [124.16.141.245])
+	by APP-03 (Coremail) with SMTP id rQCowAAnudubCiBpQfGDAQ--.21029S2;
+	Fri, 21 Nov 2025 14:45:47 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Ayush Singh <ayushdevel1325@gmail.com>
+Date: Fri, 21 Nov 2025 14:40:27 +0800
+Message-ID: <20251121064027.571-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Dharanitharan R <dharanitharan725@gmail.com>,
-        <greybus-dev@lists.linaro.org>
-References: <20251119043005.7382-1-dharanitharan725@gmail.com>
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-Content-Language: en-US
-In-Reply-To: <20251119043005.7382-1-dharanitharan725@gmail.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Authority-Analysis: v=2.4 cv=Uq5u9uwB c=1 sm=1 tr=0 ts=691e15e1 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=bC-a23v3AAAA:8 a=LL8l9Ul7xDMtARhCP7EA:9
- a=QEXdDO2ut3YA:10 a=VxAk22fqlfwA:10 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE5MDE1MCBTYWx0ZWRfX2REzLkKw5Sgs
- V0p0uGKler1eaPAw8yn6yGJ77fiVl8VM+ElNWPIQKPahc7zuuwtZ7rsDbRBVm+K4EJWRnMamTIa
- oY/UX4Vfycgvw9ET9wk91KQ0zjs8GJ3N5Wqg/Y9z/Pb06epidIzHv+wAjTTehb3faV8bz1WSsVJ
- u2RKT4U7n0VgIIqOxjzqDjJWp8GvC6uT8RkC8dopMxBCgNmaitDtRMz0HwZilRxfiDKoIDR5Tu+
- iIsGX6FtQlxw51p5KbHzfrm+yV0F7rXs2XpGMhpKP9MPJt2XBM7xjHMdGsMxNe1roEPC4l19+i0
- o3iMkb4oZYGoMc9raloRODFA5QX09jaEneaPUUCpfK0Cm14DiJwLOn7L9ZPOp8Z4Wvo1GD6+xd9
- tuvYPOvPV+EVbwxxPhWw9sLGvgnnhQ==
-X-Proofpoint-ORIG-GUID: oqsbnw0izwkjq_Qx_UmbDj1MvcA4T1oh
-X-Proofpoint-GUID: oqsbnw0izwkjq_Qx_UmbDj1MvcA4T1oh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-11-19_05,2025-11-18_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1011
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511190150
+X-CM-TRANSID: rQCowAAnudubCiBpQfGDAQ--.21029S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr18GFW5uryDKr47tF17GFg_yoW8urWfpF
+	WDG345tF1kJ3Zaqrn5Xan8ua4Fyay8Jay7GFZ3X347AFWqqF1vyrWjyFyYvFWfGFZ3Jry3
+	XFW0qrykZa1UZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	AVWUtwCY02Avz4vE14v_GF1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjfU8E__UUUUU
+X-Originating-IP: [124.16.141.245]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYNA2kftcL9KQABsQ
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.84 / 15.00];
-	BAYES_HAM(-2.84)[99.33%];
-	DMARC_POLICY_ALLOW(-0.50)[quicinc.com,none];
-	R_DKIM_ALLOW(-0.20)[quicinc.com:s=qcppdkim1];
-	R_SPF_ALLOW(-0.20)[+ip4:205.220.168.131];
+X-Spamd-Result: default: False [-1.60 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:159.226.251.0/25];
+	ONCE_RECEIVED(0.20)[];
 	MIME_GOOD(-0.10)[text/plain];
 	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,lists.linaro.org];
-	TO_DN_SOME(0.00)[];
-	BLOCKLISTDE_FAIL(0.00)[205.220.168.131:server fail,129.46.96.20:server fail];
-	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:7497, ipnet:159.226.0.0/16, country:CN];
 	MIME_TRACE(0.00)[0:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	RCVD_COUNT_THREE(0.00)[4];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	RCVD_COUNT_ONE(0.00)[1];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	R_DKIM_NA(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DNSWL_BLOCKED(0.00)[205.220.168.131:from,129.46.96.20:received];
+	NEURAL_HAM(-0.00)[-0.989];
 	HAS_XOIP(0.00)[];
-	DKIM_TRACE(0.00)[quicinc.com:+]
+	DMARC_NA(0.00)[iscas.ac.cn];
+	FROM_HAS_DN(0.00)[]
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: 577763F8F7
-X-Spamd-Bar: ---
-Message-ID-Hash: XGCOZFUYZ7DX32CW7UU7A4DQCR4MDVJS
-X-Message-ID-Hash: XGCOZFUYZ7DX32CW7UU7A4DQCR4MDVJS
-X-MailFrom: quic_jjohnson@quicinc.com
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+X-Rspamd-Queue-Id: BD9D63F8FF
+X-Spamd-Bar: -
+X-MailFrom: vulab@iscas.ac.cn
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: 5NFI7VZG4YIFJV4M2KSLHSCVNKZHW4K6
+X-Message-ID-Hash: 5NFI7VZG4YIFJV4M2KSLHSCVNKZHW4K6
+X-Mailman-Approved-At: Fri, 21 Nov 2025 11:00:09 +0000
+CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, Haotian Zhang <vulab@iscas.ac.cn>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v3] staging: greybus: replace strncpy() with strlcpy() in firmware test tool
+Subject: [greybus-dev] [PATCH] greybus: gb-beagleplay: Fix timeout handling in bootloader functions
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XGCOZFUYZ7DX32CW7UU7A4DQCR4MDVJS/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5NFI7VZG4YIFJV4M2KSLHSCVNKZHW4K6/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -121,17 +90,59 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Why are there two v3 patches? if you make any changes to a patch, increment
-the version when you post again.
+wait_for_completion_timeout() returns the remaining jiffies
+(at least 1) on success or 0 on timeout, but never negative
+error codes. The current code incorrectly checks for negative
+values, causing timeouts to be ignored and treated as success.
 
-Also why did you drop the rationale for making the change that was present in
-the original patch?
+Check for a zero return value to correctly identify and
+handle timeout events.
 
-Most importantly, why did you ignore Dan's comment on your original patch?
-https://msgid.link/aRwiEnEx4gX90eVh@stanley.mountain
+Fixes: 0cf7befa3ea2 ("greybus: gb-beagleplay: Add firmware upload API")
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+---
+ drivers/greybus/gb-beagleplay.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-/jeff
-
+diff --git a/drivers/greybus/gb-beagleplay.c b/drivers/greybus/gb-beagleplay.c
+index 9610f878da1b..87186f891a6a 100644
+--- a/drivers/greybus/gb-beagleplay.c
++++ b/drivers/greybus/gb-beagleplay.c
+@@ -644,8 +644,8 @@ static int cc1352_bootloader_wait_for_ack(struct gb_beagleplay *bg)
+ 
+ 	ret = wait_for_completion_timeout(
+ 		&bg->fwl_ack_com, msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
+-	if (ret < 0)
+-		return dev_err_probe(&bg->sd->dev, ret,
++	if (!ret)
++		return dev_err_probe(&bg->sd->dev, -ETIMEDOUT,
+ 				     "Failed to acquire ack semaphore");
+ 
+ 	switch (READ_ONCE(bg->fwl_ack)) {
+@@ -683,8 +683,8 @@ static int cc1352_bootloader_get_status(struct gb_beagleplay *bg)
+ 	ret = wait_for_completion_timeout(
+ 		&bg->fwl_cmd_response_com,
+ 		msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
+-	if (ret < 0)
+-		return dev_err_probe(&bg->sd->dev, ret,
++	if (!ret)
++		return dev_err_probe(&bg->sd->dev, -ETIMEDOUT,
+ 				     "Failed to acquire last status semaphore");
+ 
+ 	switch (READ_ONCE(bg->fwl_cmd_response)) {
+@@ -768,8 +768,8 @@ static int cc1352_bootloader_crc32(struct gb_beagleplay *bg, u32 *crc32)
+ 	ret = wait_for_completion_timeout(
+ 		&bg->fwl_cmd_response_com,
+ 		msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
+-	if (ret < 0)
+-		return dev_err_probe(&bg->sd->dev, ret,
++	if (!ret)
++		return dev_err_probe(&bg->sd->dev, -ETIMEDOUT,
+ 				     "Failed to acquire last status semaphore");
+ 
+ 	*crc32 = READ_ONCE(bg->fwl_cmd_response);
+-- 
+2.50.1.windows.1
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
