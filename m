@@ -2,85 +2,111 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB474C78983
-	for <lists+greybus-dev@lfdr.de>; Fri, 21 Nov 2025 12:00:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 057A9C7D2BE
+	for <lists+greybus-dev@lfdr.de>; Sat, 22 Nov 2025 15:24:41 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id B2C3A3F9B4
-	for <lists+greybus-dev@lfdr.de>; Fri, 21 Nov 2025 11:00:16 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	by lists.linaro.org (Postfix) with ESMTPS id BD9D63F8FF
-	for <greybus-dev@lists.linaro.org>; Fri, 21 Nov 2025 06:45:51 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id BC71A3F8E7
+	for <lists+greybus-dev@lfdr.de>; Sat, 22 Nov 2025 14:24:39 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	by lists.linaro.org (Postfix) with ESMTPS id DCA1E3F7AE
+	for <greybus-dev@lists.linaro.org>; Sat, 22 Nov 2025 08:38:22 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=none;
-	spf=pass (lists.linaro.org: domain of vulab@iscas.ac.cn designates 159.226.251.81 as permitted sender) smtp.mailfrom=vulab@iscas.ac.cn;
-	dmarc=none
-Received: from DESKTOP-L0HPE2S (unknown [124.16.141.245])
-	by APP-03 (Coremail) with SMTP id rQCowAAnudubCiBpQfGDAQ--.21029S2;
-	Fri, 21 Nov 2025 14:45:47 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Ayush Singh <ayushdevel1325@gmail.com>
-Date: Fri, 21 Nov 2025 14:40:27 +0800
-Message-ID: <20251121064027.571-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=EUeQy5cG;
+	spf=pass (lists.linaro.org: domain of sameekshasankpal@gmail.com designates 209.85.214.182 as permitted sender) smtp.mailfrom=sameekshasankpal@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-297d4a56f97so40522205ad.1
+        for <greybus-dev@lists.linaro.org>; Sat, 22 Nov 2025 00:38:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1763800702; x=1764405502; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1VmZi+XsGyembJH8sEyfQBTag2EbSAHD6fF836jnsIc=;
+        b=EUeQy5cGg+3YERmryKcJjE0qA8VtWrsi2B2+3qfIEejy2nlT/9gqyuK5fGsrACnihp
+         aA+RIU5WLwVpnivwDscU9W8xYqIwaNfqhBrBrtvQy1ilg8YGgnEPC/F691+cEFjNKoHc
+         3vI5iEKvj5ddBjtCD0WgvxIgvFUs7lD+WtwzSZ6TRMi5hrdRDqV+egh0mgtW9DlcAlyB
+         593kArj6bSqnVfv9uhQDIQC1Ph/mUkTfdzAA+QTHwbDk2ncgDP1s6JL4AdJPBL6z907H
+         S1ld7maYKm59AzM++lIUu79JzZ6seMhJhBYPWQbydkSNORVyFJKB7hNIDT3pnwDD8YJo
+         MiwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763800702; x=1764405502;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1VmZi+XsGyembJH8sEyfQBTag2EbSAHD6fF836jnsIc=;
+        b=USUNErgqiIkbdvB0eu5KjeOtmDpxlISQlIfUSWrpURPLaNPJmMGH5aGIsw5NZGlgwI
+         d9QpTSvnPk+1jNxORTvof/njimt+0X5RuBlIJLIDoMfdCMFsYTUIXYDenD8+klgvqRY0
+         S4LKkLBUMm5nx/IwoSCJMxBOjbtXgggze4A9u7PwOeHdbJTQRgWTyLJ66idpMYyiyMuR
+         Y0e3au6ROcqNCYkdaPeHuNQyvfSTLYAfN8DH+2qb0/cRih8zn5dm83TXexoHTGQLcgft
+         ZtVkagtieT2XAjZSuPYvkq53lesY3mOgSUTJJgvrfN/SYqAl0zPk5xd/1/w2K8U0TqIq
+         6hfA==
+X-Forwarded-Encrypted: i=1; AJvYcCUkoy44fW41qQu4t80A+QpBKJp2fAHOVBF56R5YOmDsVwIlfJn+PTepwT7O4TSdoiGTJAXilWwa3Uy/yw==@lists.linaro.org
+X-Gm-Message-State: AOJu0YxxOATZw4XhPu7ZHzMXe8r6ePrFFoQSBY88yMJjeQJ0p8eIimQd
+	JNJufz5eFHXtsVQsSY1KwZJ6FKfaJkEqwzilIj1facOJrevfLtk/52A=
+X-Gm-Gg: ASbGncvC//8NCW1PcyW2OTlHLn0M5DpBoQ9FM5ShsT43+S4Gtuj0eAa92oCEKam3AQE
+	ZIMPHs90BQiNqB3IWFDsVdmCVoP5FNbghmxwvRuqTyuvF6dZXpwKZmQ7A5pqutGv+Tg/qb64osK
+	Q/aaCCHPM6Rvnbbt6kPOCC3wUHiDiZena7hlgVwE8r+OA46+VrN5DVBN1MGCpgZmXM0M8bvAOG9
+	C0/BdnGu8J2SiN5bYdy4S4zb30D6My93eIsiSXp0MTNhQULGdR8EC8z+3ZdQaZvrlgMKbQTjWN5
+	RMHu5q+NwhtpUB3i6ffO2EeBg70o7nnYdgULdGTn/NaaccnBPUEubWkeYlQoVuuT7O+Fb2cDRuh
+	/9yd2mWSDVELevbAc8U1UlllDCCssdVcKWHF2ZM2sgPovmcSLQZpyPUn9jn0pwXcC4X+8cJYME+
+	vwS5NhyPLF3dec422xBMQnGCT3+uxbEJcHiTbBysl/dyD0B+Q=
+X-Google-Smtp-Source: AGHT+IE6Bwt2XU0d7RVgrZTPP+UWNhOXbNNDhENa7OS6L/W5dtCZtXAohd7LmHb1i9/zYR+bLBwLnw==
+X-Received: by 2002:a17:903:1b43:b0:294:cc1d:e28d with SMTP id d9443c01a7336-29b6c50c704mr63285865ad.25.1763800701905;
+        Sat, 22 Nov 2025 00:38:21 -0800 (PST)
+Received: from samee-VMware-Virtual-Platform.. ([2402:e280:3d9e:537:8ccb:550c:e84d:a5b1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-29b5b2809b6sm78503565ad.76.2025.11.22.00.38.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 22 Nov 2025 00:38:21 -0800 (PST)
+From: Sameeksha Sankpal <sameekshasankpal@gmail.com>
+To: vaibhav.sr@gmail.com,
+	mgreer@animalcreek.com
+Date: Sat, 22 Nov 2025 14:08:13 +0530
+Message-ID: <20251122083814.49753-1-sameekshasankpal@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowAAnudubCiBpQfGDAQ--.21029S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr18GFW5uryDKr47tF17GFg_yoW8urWfpF
-	WDG345tF1kJ3Zaqrn5Xan8ua4Fyay8Jay7GFZ3X347AFWqqF1vyrWjyFyYvFWfGFZ3Jry3
-	XFW0qrykZa1UZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	AVWUtwCY02Avz4vE14v_GF1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjfU8E__UUUUU
-X-Originating-IP: [124.16.141.245]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYNA2kftcL9KQABsQ
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.60 / 15.00];
+X-Spamd-Result: default: False [-2.60 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+ip4:159.226.251.0/25];
-	ONCE_RECEIVED(0.20)[];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.214.182:from];
 	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	ASN(0.00)[asn:7497, ipnet:159.226.0.0/16, country:CN];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_ONE(0.00)[1];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	R_DKIM_NA(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.989];
-	HAS_XOIP(0.00)[];
-	DMARC_NA(0.00)[iscas.ac.cn];
+	URIBL_BLOCKED(0.00)[mail-pl1-f182.google.com:rdns,mail-pl1-f182.google.com:helo];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com,animalcreek.com];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FROM_HAS_DN(0.00)[]
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: BD9D63F8FF
-X-Spamd-Bar: -
-X-MailFrom: vulab@iscas.ac.cn
+X-Rspamd-Queue-Id: DCA1E3F7AE
+X-Spamd-Bar: --
+X-MailFrom: sameekshasankpal@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 5NFI7VZG4YIFJV4M2KSLHSCVNKZHW4K6
-X-Message-ID-Hash: 5NFI7VZG4YIFJV4M2KSLHSCVNKZHW4K6
-X-Mailman-Approved-At: Fri, 21 Nov 2025 11:00:09 +0000
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, Haotian Zhang <vulab@iscas.ac.cn>
+Message-ID-Hash: FQTJJNSTWVIXWC3CB6BE2PPLGAXXTXYH
+X-Message-ID-Hash: FQTJJNSTWVIXWC3CB6BE2PPLGAXXTXYH
+X-Mailman-Approved-At: Sat, 22 Nov 2025 14:24:34 +0000
+CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Sameeksha Sankpal <sameekshasankpal@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] greybus: gb-beagleplay: Fix timeout handling in bootloader functions
+Subject: [greybus-dev] [PATCH] staging: greybus: audio_manager: make envp[] static const
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5NFI7VZG4YIFJV4M2KSLHSCVNKZHW4K6/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FQTJJNSTWVIXWC3CB6BE2PPLGAXXTXYH/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -90,59 +116,33 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-wait_for_completion_timeout() returns the remaining jiffies
-(at least 1) on success or 0 on timeout, but never negative
-error codes. The current code incorrectly checks for negative
-values, causing timeouts to be ignored and treated as success.
+The envp[] array contains string literals and is never modified.
+Declare it as 'static const char * const' to place it in read-only
+memory and avoid unnecessary stack usage.
 
-Check for a zero return value to correctly identify and
-handle timeout events.
+This fixes a checkpatch warning:
+"char * array declaration might be better as static const"
 
-Fixes: 0cf7befa3ea2 ("greybus: gb-beagleplay: Add firmware upload API")
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+Signed-off-by: Sameeksha Sankpal <sameekshasankpal@gmail.com>
 ---
- drivers/greybus/gb-beagleplay.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/staging/greybus/audio_manager_module.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/greybus/gb-beagleplay.c b/drivers/greybus/gb-beagleplay.c
-index 9610f878da1b..87186f891a6a 100644
---- a/drivers/greybus/gb-beagleplay.c
-+++ b/drivers/greybus/gb-beagleplay.c
-@@ -644,8 +644,8 @@ static int cc1352_bootloader_wait_for_ack(struct gb_beagleplay *bg)
+diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
+index 4a4dfb42f50f..1b83c05f2434 100644
+--- a/drivers/staging/greybus/audio_manager_module.c
++++ b/drivers/staging/greybus/audio_manager_module.c
+@@ -159,7 +159,7 @@ static void send_add_uevent(struct gb_audio_manager_module *module)
+ 	char ip_devices_string[64];
+ 	char op_devices_string[64];
  
- 	ret = wait_for_completion_timeout(
- 		&bg->fwl_ack_com, msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
--	if (ret < 0)
--		return dev_err_probe(&bg->sd->dev, ret,
-+	if (!ret)
-+		return dev_err_probe(&bg->sd->dev, -ETIMEDOUT,
- 				     "Failed to acquire ack semaphore");
- 
- 	switch (READ_ONCE(bg->fwl_ack)) {
-@@ -683,8 +683,8 @@ static int cc1352_bootloader_get_status(struct gb_beagleplay *bg)
- 	ret = wait_for_completion_timeout(
- 		&bg->fwl_cmd_response_com,
- 		msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
--	if (ret < 0)
--		return dev_err_probe(&bg->sd->dev, ret,
-+	if (!ret)
-+		return dev_err_probe(&bg->sd->dev, -ETIMEDOUT,
- 				     "Failed to acquire last status semaphore");
- 
- 	switch (READ_ONCE(bg->fwl_cmd_response)) {
-@@ -768,8 +768,8 @@ static int cc1352_bootloader_crc32(struct gb_beagleplay *bg, u32 *crc32)
- 	ret = wait_for_completion_timeout(
- 		&bg->fwl_cmd_response_com,
- 		msecs_to_jiffies(CC1352_BOOTLOADER_TIMEOUT));
--	if (ret < 0)
--		return dev_err_probe(&bg->sd->dev, ret,
-+	if (!ret)
-+		return dev_err_probe(&bg->sd->dev, -ETIMEDOUT,
- 				     "Failed to acquire last status semaphore");
- 
- 	*crc32 = READ_ONCE(bg->fwl_cmd_response);
+-	char *envp[] = {
++	static const char * const envp[] = {
+ 		name_string,
+ 		vid_string,
+ 		pid_string,
 -- 
-2.50.1.windows.1
+2.43.0
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
