@@ -2,79 +2,112 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE1B7CE7B1C
-	for <lists+greybus-dev@lfdr.de>; Mon, 29 Dec 2025 17:52:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B99ECE85FE
+	for <lists+greybus-dev@lfdr.de>; Tue, 30 Dec 2025 01:05:01 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 087C83F80E
-	for <lists+greybus-dev@lfdr.de>; Mon, 29 Dec 2025 16:52:42 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	by lists.linaro.org (Postfix) with ESMTPS id F1A593F754
-	for <greybus-dev@lists.linaro.org>; Mon, 29 Dec 2025 16:52:37 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 2F7AF3F80E
+	for <lists+greybus-dev@lfdr.de>; Tue, 30 Dec 2025 00:05:00 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	by lists.linaro.org (Postfix) with ESMTPS id 10BAB3F7C2
+	for <greybus-dev@lists.linaro.org>; Mon, 29 Dec 2025 14:17:33 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=cgS4cJyi;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.234.252.31 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 71FF240999;
-	Mon, 29 Dec 2025 16:52:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4742C4CEF7;
-	Mon, 29 Dec 2025 16:52:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1767027157;
-	bh=SHLSEAVL1aZpGLSoxEotwI04ykQfGfsOtO/Ecx/xb+w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cgS4cJyiCZNw2JuP/KY2dB7wjX+u/0EVHA91S20Q8WNdfLejKuKkuq3t2kAAqd3D1
-	 EIg5ir8AX+UrRdRoH/Gl/tGJaZ9u9eQOKbZqaBU5e5lIuGW4E2F9phO2/X8AFrs/i9
-	 FeZTp7JCW7j9KRFVcj4zaqI7L8ejtShV25b2gOqc=
-Date: Mon, 29 Dec 2025 17:52:34 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=ZDu+ZO4w;
+	spf=pass (lists.linaro.org: domain of david.laight.linux@gmail.com designates 209.85.128.47 as permitted sender) smtp.mailfrom=david.laight.linux@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-47d3ffa6720so33636865e9.0
+        for <greybus-dev@lists.linaro.org>; Mon, 29 Dec 2025 06:17:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1767017852; x=1767622652; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OxmPqDzQ1eh73iQT4nuH91AB3I70CPbxlV27YCDsWcI=;
+        b=ZDu+ZO4wtSp4ejv0/5cH33Gp/7+hsU/GOQJsA5NBJRCgh/9sDpMbtM78yHDc8P/QS9
+         Fx9STHUl+zQUkOAHRe3RrlvSon9YWgyLgZkhIs7dZKrgHnGriCKf7da7YSnLW+wBWln1
+         RjN2IyyXyUc7JLSU28/CdWJkSej4PMk5c2IG/tPRtQfDbIUdhZVvGrATVHg0AK0tuHFK
+         /8BGDAavyY3/NPtKh+8lV0gbzdwOK5gMu5hIWtRtG1VliXfGnZ4EIRB68F6lyVA3Nnwm
+         tGIrywowxkK37/SDrTkS+DIG7ni9xx1YrCXh3xZJhm61TfVQ/H68DxMkTiESG74WBShl
+         K1MQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767017852; x=1767622652;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OxmPqDzQ1eh73iQT4nuH91AB3I70CPbxlV27YCDsWcI=;
+        b=LVR9uiDdaz3lIGCtD515bWh3uSVHa0P7UcSXCcX5ISu9QK6A5jqCEyRurx80ksGOt6
+         2ZwJG+bkKOfHHiHKrs6JUCAaAgexf7BJD3Ot6HFqSlMn3ROlNcW1tLH1e3NvsaNMWGAz
+         CyKPkBCaHNuR8sCr/8q8mwEz5dS+SV3YoFfJjIURTzBx6QWGxzfhDY+nwa0iyezCbdJn
+         +1VxeXPoNH62ea0FrNYEg6WLaMPaQr7ZfDmziVkdoBE7ThuF9a3uR4CnyOMINIEs7TTC
+         DGrc8MRvgFyxsqk2qKMVDMb3o4fUSg4yl4Zx4iieVjEIClM3ZgF9f4pWfjtVOvHFjWtt
+         lSkQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWYl8CsheSUuFZVbW8lOJKLNS8yoHGNbpjcIBODTzyqvf9cmNblBzUc4qQc+0NwxhLkWZ8br+8QQLz/Yg==@lists.linaro.org
+X-Gm-Message-State: AOJu0Yw2S5Cw96MldV6VpMA8nlRUHj5T6mvX15kDH2V85khxJ7BSAbq9
+	gcmS89ztuxk/xy7IAB6CfciuQdZPAHH70PJPbppErloD4tTi+YpXXXpV
+X-Gm-Gg: AY/fxX6z71f8mJc6I/17RkbU+GDopK904nH426R0IWL3YYm5E2q1pS4fPKp/5Q74o+J
+	8A18hxzSsVDbhQbzlNN4Cl4zeoS9DhXr0AfP0ej41HHCX/tw3eX2La8z1dnw91oua7dLI4ZfHVQ
+	VNDXsxKWA6l0z7NREqAy9VAEMdzoHkgDCWInucEpFkICPTs9mSqC15ixyDttXg2d+kD97l+xsoY
+	pjUA6DqvlC51udsZsWokDb8LCFHDXsFkNNlAWd0dQNjWMhnGuU/KUJjg2MEAAi8iR7USX26nu/l
+	LhkvrZtl1M+Y+hS0607+X3EE7I+DEFC4iUDScJopd5IZTOgmNwJSn3KfQznvWsi4LHKylZgFSaj
+	ou9yzn3Yuiv7J5k2DdL05ArXALERIRY7pK8OHspsFdmpdsCqWVYuHQruHcajoqxfct5r/QqvWPB
+	/SClksSrFmleiGtpH5WWqa8d2s8x2U1OoAEfwuhfN1A3R/N6SrFrS9
+X-Google-Smtp-Source: AGHT+IFqLIYpIhCE0+V2lfdDOxx33PVDlLSyI+RSX7t/Dwp3SJx49tBapNLAXp/LwZmAS6YB0rdsMQ==
+X-Received: by 2002:a05:600c:310e:b0:479:2a3c:f31a with SMTP id 5b1f17b1804b1-47d1956eb70mr359769615e9.1.1767017851748;
+        Mon, 29 Dec 2025 06:17:31 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-47d19352306sm531408705e9.5.2025.12.29.06.17.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Dec 2025 06:17:31 -0800 (PST)
+Date: Mon, 29 Dec 2025 14:17:30 +0000
+From: David Laight <david.laight.linux@gmail.com>
 To: Sun Jian <sun.jian.kdev@gmail.com>
-Message-ID: <2025122922-wrath-elevating-bd85@gregkh>
+Message-ID: <20251229141730.2b863ba9@pumpkin>
+In-Reply-To: <20251229112649.137391-1-sun.jian.kdev@gmail.com>
 References: <20251229112649.137391-1-sun.jian.kdev@gmail.com>
- <20251229161346.188805-1-sun.jian.kdev@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20251229161346.188805-1-sun.jian.kdev@gmail.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.50 / 15.00];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-3.50 / 15.00];
+	BAYES_HAM(-3.00)[99.99%];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
-	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.252.31];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	BLOCKLISTDE_FAIL(0.00)[100.75.92.58:server fail];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	URIBL_BLOCKED(0.00)[linuxfoundation.org:dkim,linuxfoundation.org:from_smtp,linuxfoundation.org:from_mime,gregkh:mid];
 	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,animalcreek.com,lists.linaro.org,lists.linux.dev,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_COUNT_TWO(0.00)[2];
 	RCVD_TLS_LAST(0.00)[];
+	URIBL_BLOCKED(0.00)[mail-wm1-f47.google.com:rdns,mail-wm1-f47.google.com:helo,pumpkin:mid];
+	FREEMAIL_CC(0.00)[gmail.com,animalcreek.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	NEURAL_HAM(-0.00)[-1.000];
-	DKIM_TRACE(0.00)[linuxfoundation.org:+]
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.47:from];
+	BLOCKLISTDE_FAIL(0.00)[209.85.128.47:server fail,82.69.66.36:server fail];
+	FREEMAIL_ENVFROM(0.00)[gmail.com]
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: F1A593F754
-X-Spamd-Bar: /
-Message-ID-Hash: H7F6F5422YS76JIUIN4Z5XTBJTNQJXXB
-X-Message-ID-Hash: H7F6F5422YS76JIUIN4Z5XTBJTNQJXXB
-X-MailFrom: gregkh@linuxfoundation.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, David Laight <david.laight.linux@gmail.com>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Rspamd-Queue-Id: 10BAB3F7C2
+X-Spamd-Bar: ---
+X-MailFrom: david.laight.linux@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: BURNY5CGAH7CVYNMAUKIF46UJ2FKZGIY
+X-Message-ID-Hash: BURNY5CGAH7CVYNMAUKIF46UJ2FKZGIY
+X-Mailman-Approved-At: Tue, 30 Dec 2025 00:04:57 +0000
+CC: Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: audio: avoid snprintf truncation warnings
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: audio: avoid snprintf truncation warnings
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/H7F6F5422YS76JIUIN4Z5XTBJTNQJXXB/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/BURNY5CGAH7CVYNMAUKIF46UJ2FKZGIY/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -84,11 +117,39 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Dec 30, 2025 at 12:13:46AM +0800, Sun Jian wrote:
-> W=1 reports possible truncation when formatting widget/control names
-> with snprintf() and a %s argument. Use a small helper and hide the %s
-> pointer from the compiler's truncation analysis via OPTIMIZER_HIDE_VAR(),
-> while keeping the existing snprintf() formatting.
+On Mon, 29 Dec 2025 19:26:49 +0800
+Sun Jian <sun.jian.kdev@gmail.com> wrote:
+
+> W=1 reports possible truncation when formatting widget and control names
+> using snprintf() with a %s argument and fixed-size buffers. Build the
+> prefixed names using scnprintf() plus strlcat() instead, so truncation,
+> if any, is handled by the string helpers rather than during printf
+> formatting.
+
+That is just brain dead - more so than the fact the the warning is pretty
+hard to ignore.
+Commonning up the code as:
+static void prefix_div_id(char *name, size_t name_len, unsigned int dev_id)
+{
+	char temp_name[32], *cp = temp_name;
+
+	strscpy(temp_name, name, sizeof temp_name);
+	OPTIMISER_HIDE_VAR(cp);
+	snprintf(name, name_len, "GB %d %s", dev_id, cp);
+}
+should be enough and is about the best you can do.
+Possibly worth a comment that name_len is expected to be 32.
+
+The way this code processes the tplg_data isn't nice at all.
+Convert the offsets to correctly typed pointers as soon as possible.
+You might want to verify that the separate arrays don't overlap.
+
+There is also the:
+	curr = (void *)curr + w_size;
+which AFIACT is just 'curr++';
+
+	David
+
 > 
 > No functional change intended.
 > 
@@ -122,38 +183,7 @@ On Tue, Dec 30, 2025 at 12:13:46AM +0800, Sun Jian wrote:
 >  		control->name = curr->name;
 >  		if (curr->info.type == GB_AUDIO_CTL_ELEM_TYPE_ENUMERATED) {
 >  			struct gb_audio_enumerated *gbenum =
-> -- 
-> 2.43.0
-> 
-> 
 
-Hi,
-
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- This looks like a new version of a previously submitted patch, but you
-  did not list below the --- line any changes from the previous version.
-  Please read the section entitled "The canonical patch format" in the
-  kernel file, Documentation/process/submitting-patches.rst for what
-  needs to be done here to properly describe this.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
