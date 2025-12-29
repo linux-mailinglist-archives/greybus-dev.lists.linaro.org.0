@@ -2,109 +2,112 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [3.208.193.21])
-	by mail.lfdr.de (Postfix) with ESMTPS id A15E0CE6DF9
-	for <lists+greybus-dev@lfdr.de>; Mon, 29 Dec 2025 14:23:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E376ECE751A
+	for <lists+greybus-dev@lfdr.de>; Mon, 29 Dec 2025 17:15:04 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4D16C3FDAE
-	for <lists+greybus-dev@lfdr.de>; Mon, 29 Dec 2025 13:23:46 +0000 (UTC)
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
-	by lists.linaro.org (Postfix) with ESMTPS id B4CA63F73E
-	for <greybus-dev@lists.linaro.org>; Mon, 29 Dec 2025 11:27:07 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id D160640146
+	for <lists+greybus-dev@lfdr.de>; Mon, 29 Dec 2025 16:15:03 +0000 (UTC)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	by lists.linaro.org (Postfix) with ESMTPS id AEF493F824
+	for <greybus-dev@lists.linaro.org>; Mon, 29 Dec 2025 16:15:01 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=aOLBdn2K;
-	spf=pass (lists.linaro.org: domain of sun.jian.kdev@gmail.com designates 74.125.224.46 as permitted sender) smtp.mailfrom=sun.jian.kdev@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=NAr5CSmH;
+	spf=pass (lists.linaro.org: domain of sun.jian.kdev@gmail.com designates 209.85.215.176 as permitted sender) smtp.mailfrom=sun.jian.kdev@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-640e065991dso7386232d50.3
-        for <greybus-dev@lists.linaro.org>; Mon, 29 Dec 2025 03:27:07 -0800 (PST)
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c227206e6dcso8215468a12.2
+        for <greybus-dev@lists.linaro.org>; Mon, 29 Dec 2025 08:15:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767007627; x=1767612427; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=XgScvzkqEdgsYl2Q1d0N1QNErj1Sjl56PoHvBkxeLx4=;
-        b=aOLBdn2Kt1WFBaGm8pbNauU670nWieYxxDn1xQ6qf7Ah9s9zbtiz29GIYUQDMqMLnM
-         V06QOXdkBtYmu0sZscho/zM7GmvfqcLfVwC76TKW9bxuEkc2IMvLewOKWNpP5lQ4gGYw
-         qLNIXQEZ6x0oQOY1AIh4PBLIf7uGP7ssMxxQ3Iv7A6aLt7nmvxNkwClcmV+kJO5OMynj
-         TC93swyrkTI3arSjvoZ0kZPVKzV9E7E+rPQ5I3qJrYV05ciImtJIDN3GVtj1B5naDcCD
-         +PeUZru0v7MmfMd3ZYrLWCaAIHBVZduH8FI6+xDg6NPS9S38VqBb33tnAfoikowAjENz
-         0/og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767007627; x=1767612427;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1767024901; x=1767629701; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XgScvzkqEdgsYl2Q1d0N1QNErj1Sjl56PoHvBkxeLx4=;
-        b=OGmshvsxIctfyF/sl2UFkI/BO+7clGNcqbN+RIcyCO33j5ogrju7m8AlvyhjJZ91Fo
-         UlCdPSJfkh7JLv/7HCm2aOdidXYwogrdTv9yAWFhncyUcc8MXt2LzSCuqTmzVQLoR/30
-         f31ZlJe/zoN5R3BwimxHxs+lC9RqCgKkuN1Qg4yi09XH5AAu5HnUzQif8En342UuTE9u
-         aoHCba43M5Fi1t16R3TwO59f7z3yD86Q3b0aWX+3kEff01q9TS59bNCeB2PPuHmWrYQM
-         pMVUHCSFO3MwTOEBLn2POsUu/RHb6ZHGbVarvUwfMR0IcvPbJk6zQeO3a6Cn7+DxB50Z
-         NcRQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUvLlCGPyqgKi99svDZuBOHp330O/zUTvcU7EGMLSz58EFtpvAkmsSGrz1OVGhCDEjMy5QvhcGpLoEL+g==@lists.linaro.org
-X-Gm-Message-State: AOJu0YzH2BM5XCWBnKVMXHFa3dFaIouGjFZuY+b2xb5YPmE2JktJAhe1
-	P0yzofNzR7aXxoO8aaE4Mdo2Gfd1EbnhoWXGRHHDF+2AeNFq/3Ryn9H9
-X-Gm-Gg: AY/fxX7wlEcrok79EWQZuabI1VH7pZzBnrwOdgwq3b0cGzU1uua1RmX2ThTpwNUwZbA
-	CNwt+h0LhMOQPU6AOlct3O5i8sj/BCyHANNSpNoxM0Ofh7q8aO9HpgDOrf2MTs7gjiIGdfSw3i1
-	HKhJeq7cmLAjCN8m8+CUasRglxfG1vEaFjdj9BHe3+0IHIc7r83SBHG1IBkLh1VsU/CqSv8awRS
-	HHQt8jwhspDoKakKkDSuLTdvhoE6LCpxNXnTpwRw5R/Cea69Nz18fNfeBUm9L1qve3FZu1Os7qi
-	bxGH4ZBKXdM7QilszsKqMiDn0m0SXUmobMNncAG7sOLTqzgFXK5Mo9cS2Iam8oyGbzLJ16g3VhF
-	sbTjjIpNW2RVIWBZpuYBskSG6XFSqDXwKcCBu9tJl3a2KQVVTxhMy7X3BDkHzjmOjwkd5XScCiC
-	ZWTiIldQzjhtaP/1AebSK7nUrY0sgFCxIramel9CA/3MEhxp6pkc6w1wV6SQS/egHGzWThwG2F4
-	JbleOo=
-X-Google-Smtp-Source: AGHT+IHh+KheJSeNBvKevAwul2oJFM2yzR09vpWgFyIeYNMQzMX5iyx602UjHQsOnBZYK+L3I/JZ+g==
-X-Received: by 2002:a53:bb06:0:b0:643:2169:d6c6 with SMTP id 956f58d0204a3-6466a8390b2mr20424590d50.11.1767007627207;
-        Mon, 29 Dec 2025 03:27:07 -0800 (PST)
+        bh=OzK+w+H8RvWc+LC4WYW+lek5HoRHUGRqhYzMXVSZBxk=;
+        b=NAr5CSmH0Crn+2RBDJziSU2jdWbCLTx5wW+3InPXSHs7vQCD/V1+yY8fWFa371fXk5
+         z4cM9iGLkRN5Dek/iWnv3cRWv8uykEX6QiiLatxo2J4ICLtn8jwVC/JNMqPuGJWysoIf
+         axA9hiftFq/TDMPKvUfIp5/hiw2K+4MhXvMDweWiprHb/Qg5J/xVq9gdTy2F/r/S+eQz
+         4TzrJcwOQ5+4/6pYTTzQSaTj+d+KFQmH5swUMMC8npDM9MjlSEwi8RHN/MrHqB7wOHQ+
+         oZC21XrDRPC962PE5VFTQNdk6siT1rDde2LIsNUvNnwTnyL7u3MKkTxLPEuck4ku3tiP
+         xPSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767024901; x=1767629701;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OzK+w+H8RvWc+LC4WYW+lek5HoRHUGRqhYzMXVSZBxk=;
+        b=Yjkcl8J9GRULPXsAdhGnhs9LAKzqjeWBHYZ5e84XVCeKHR45SiyDhggf0Dcxot7nLm
+         9eOj6/645Mf6K0YNzAN35mr0Zyu8uSJvKxXvRCdsnIns29cPg0Svf3qEcC2MMsyUtZLm
+         15BL9smmUikayXt1ZxwSYEXCge22muml6Dy4EDr8Dxd2kq8y0v4uOUYY4m4RnQLFS601
+         Fer+dv6SQt/TvM3iBfqdY+qI+kD1Q4f9qPb0920JNAJFkGHBI3H8w6p7g/ovoo17tN+O
+         sePTCFb3kYuNk1HHMxdAbQ9Zd0KN6vYR1dMBUB8fU2m4oYDDRyp1NhH3ocCNc6kpp0WP
+         a0iA==
+X-Forwarded-Encrypted: i=1; AJvYcCUix+YB95213s+iZjdWjITmeAwUyadWDDXYSIUJDwV/Ib/FcsjwrTvTnODa1nZ8IOPwShoqxMnyOsQj0Q==@lists.linaro.org
+X-Gm-Message-State: AOJu0YxiuyvQIHFukIofeKucvJ2AF0cl0K8BPau0yGRsYt32B33Yv2n0
+	wh/0SWGEump4Ql+jLXI7CEe1F8v1x/rfWPgVKXmeD1HaJD5oGuwAdYZO
+X-Gm-Gg: AY/fxX4VprLAbnidazZejd2aOVWnqIVlyurzuFUconZmJ5RZR3Nb7kCXAFYbHqPezpJ
+	twb8WvwtbyyReBqMJ8lBnFSa1F7J15Ws9ZhrIsfyN+X4np/gJfz+E9BJdAFJPTIEt417VAxvcSb
+	5/xmgxFCYQriShX+kshDsu/LqCJoMkES4+k8lm+VIrccFoTKVxX2zBh0uySK1xK3AxXdbd3GS6T
+	L3sOU9nZLm+WwncZPtmogcDSZU0Z4+3fERBbo6Q05uGut2muHynrYUqbHQC74y90PyxOIc9cV7y
+	DC0s32ZyBGGKUAWjI5caQmtOER90ogJHltnKQc2gbLIpOeesnak9B5L5ESgbtvi/sMVPPVcDtnS
+	kT08Hn8t2RWDxqynsOouUY+zhF3fLJl2c/SG12Vj/LqKsjDay7DuCD389NXMsoetA8HVo/Eiivh
+	C8z+sJJX+PBYbxfmxDZlxbcVsnDKqeXZKbniJmOOa96CeqfOtBilUE/7DxtLnPiIo62ygUAnFnd
+	lyBzJmUzgClDyKMOA==
+X-Google-Smtp-Source: AGHT+IFdPTpzC3arH+K4JHUQR9Zufuq2dWPr6gJab3paqws/ln11AQhFRO962HJKGZY2FlAYmtwbKA==
+X-Received: by 2002:a05:7300:101:b0:2ae:5468:5de2 with SMTP id 5a478bee46e88-2b05ea1805fmr22566640eec.0.1767024900523;
+        Mon, 29 Dec 2025 08:15:00 -0800 (PST)
 Received: from ubuntu-linux-2404.. (108-214-96-168.lightspeed.sntcca.sbcglobal.net. [108.214.96.168])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6466a92c602sm14634212d50.17.2025.12.29.03.27.01
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2b05ffd5f86sm65616647eec.5.2025.12.29.08.14.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Dec 2025 03:27:06 -0800 (PST)
+        Mon, 29 Dec 2025 08:15:00 -0800 (PST)
 From: Sun Jian <sun.jian.kdev@gmail.com>
-To: Vaibhav Agarwal <vaibhav.sr@gmail.com>
-Date: Mon, 29 Dec 2025 19:26:49 +0800
-Message-ID: <20251229112649.137391-1-sun.jian.kdev@gmail.com>
+To: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
+	Johan Hovold <johan@kernel.org>
+Date: Tue, 30 Dec 2025 00:13:46 +0800
+Message-ID: <20251229161346.188805-1-sun.jian.kdev@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20251229112649.137391-1-sun.jian.kdev@gmail.com>
+References: <20251229112649.137391-1-sun.jian.kdev@gmail.com>
 MIME-Version: 1.0
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-2.50 / 15.00];
-	BAYES_HAM(-3.00)[99.99%];
+	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+ip4:74.125.0.0/16];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_FROM(0.00)[gmail.com];
 	ARC_NA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	TO_DN_SOME(0.00)[];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[74.125.224.46:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	NEURAL_HAM(-0.00)[-1.000];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[animalcreek.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_COUNT_TWO(0.00)[2];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+]
+	FREEMAIL_CC(0.00)[animalcreek.com,kernel.org,linuxfoundation.org,gmail.com,lists.linaro.org,lists.linux.dev,vger.kernel.org];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	NEURAL_HAM(-0.00)[-1.000];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.215.176:from];
+	BLOCKLISTDE_FAIL(0.00)[108.214.96.168:server fail,209.85.215.176:server fail];
+	FROM_HAS_DN(0.00)[]
 X-Rspamd-Server: lists.linaro.org
-X-Rspamd-Queue-Id: B4CA63F73E
+X-Rspamd-Queue-Id: AEF493F824
 X-Spamd-Bar: --
+Message-ID-Hash: EOXGUI6UPKJTCHQXMEC5CROVNGOCI76S
+X-Message-ID-Hash: EOXGUI6UPKJTCHQXMEC5CROVNGOCI76S
 X-MailFrom: sun.jian.kdev@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 57YIPKTXEYIUMB2IPWAFCN7YIXD5N4EW
-X-Message-ID-Hash: 57YIPKTXEYIUMB2IPWAFCN7YIXD5N4EW
-X-Mailman-Approved-At: Mon, 29 Dec 2025 13:23:43 +0000
-CC: Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Sun Jian <sun.jian.kdev@gmail.com>
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: Alex Elder <elder@kernel.org>, David Laight <david.laight.linux@gmail.com>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Sun Jian <sun.jian.kdev@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: audio: avoid snprintf truncation warnings
+Subject: [greybus-dev] [PATCH v2] staging: greybus: audio: avoid snprintf truncation warnings
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/57YIPKTXEYIUMB2IPWAFCN7YIXD5N4EW/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/EOXGUI6UPKJTCHQXMEC5CROVNGOCI76S/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -114,11 +117,10 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-W=1 reports possible truncation when formatting widget and control names
-using snprintf() with a %s argument and fixed-size buffers. Build the
-prefixed names using scnprintf() plus strlcat() instead, so truncation,
-if any, is handled by the string helpers rather than during printf
-formatting.
+W=1 reports possible truncation when formatting widget/control names
+with snprintf() and a %s argument. Use a small helper and hide the %s
+pointer from the compiler's truncation analysis via OPTIMIZER_HIDE_VAR(),
+while keeping the existing snprintf() formatting.
 
 No functional change intended.
 
