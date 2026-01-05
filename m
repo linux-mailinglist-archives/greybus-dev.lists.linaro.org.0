@@ -2,136 +2,169 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ABCCCF4710
-	for <lists+greybus-dev@lfdr.de>; Mon, 05 Jan 2026 16:38:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F20EECF60A4
+	for <lists+greybus-dev@lfdr.de>; Tue, 06 Jan 2026 00:54:29 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D1A4B3F843
-	for <lists+greybus-dev@lfdr.de>; Mon,  5 Jan 2026 15:38:10 +0000 (UTC)
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	by lists.linaro.org (Postfix) with ESMTPS id 3EAEF3F713
-	for <greybus-dev@lists.linaro.org>; Mon,  5 Jan 2026 15:38:08 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id DB96640154
+	for <lists+greybus-dev@lfdr.de>; Mon,  5 Jan 2026 23:54:28 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	by lists.linaro.org (Postfix) with ESMTPS id CEB943F713
+	for <greybus-dev@lists.linaro.org>; Mon,  5 Jan 2026 23:54:24 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=fmPA2GbF;
-	spf=pass (lists.linaro.org: domain of sun.jian.kdev@gmail.com designates 209.85.128.171 as permitted sender) smtp.mailfrom=sun.jian.kdev@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-790884840baso1048767b3.0
-        for <greybus-dev@lists.linaro.org>; Mon, 05 Jan 2026 07:38:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767627488; x=1768232288; darn=lists.linaro.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q/gWPzgaa5LfKzS4YfDBDSuINDb+qBDf38olYVcxwSU=;
-        b=fmPA2GbFIqPoI3rlzFA5YtTJ0tMT0YIbQPpea9bh7l9lVTCLIXptQviRZjCEr7pArj
-         kZD+ePaEOinXcKhDcNy6uND5m7wDD8uOCkt8WSWsPwRljjHH546NEuISbaxV0XMzFTNR
-         UDFNPSYv8vkLlwthliHVatvBqEBdbSF/Wc/AfrE7HBO7Ru2YUHhWU7Hu+Jc7kZGB2r0X
-         YQ/PKOYD3zESyzRv4Vy9zN64zARvD0wg8zsxgIWeZmyM3daBUlNXvTG84c/FB4a5Vraf
-         zqhkXjxQn4zJQbHWF5jZeevtMCZg6rAfwDC6JKaNTThCOXG2CMd74w7JwLeL/Ofo5lhD
-         2TPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767627488; x=1768232288;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Q/gWPzgaa5LfKzS4YfDBDSuINDb+qBDf38olYVcxwSU=;
-        b=LinbrgTqnvCKZwN5rOl6eFgx7urYtyiEFVf2L7pAZ2+wDLAWGkWlW8IHGEsBMX9CpH
-         Tw86XNsV4jFS3ujigQy0pKxFNfOmuAqG57jPts8Ti8JU2ycNXGVnz+AuoSyrfHrsUuKK
-         CHcj2dYYVx3VMmlMKoZMVZR220UZhWQ6Um2wZmhKNkKfkZNr/gWCCz3/rHGaM8bCEeZ8
-         97VDf3JHW4wtifs5a0AxQ12KXcPTqnp4bJIB0t77MxcqABMjcwVlUjnFzO7GMkOVwhgz
-         HemeJEDBlk6STz2jkEwF5qC3Vil7BUSbqbaF5W+T3qumoWOyQLnFFWRdgduVpJjgcZ8A
-         /n+g==
-X-Forwarded-Encrypted: i=1; AJvYcCW6UHbgt4M0hPz2LWp/E5q1NvWCDA8TawaNuP9HswVvzGyQDWwbbCB7pPXolN15kEY7RkDzxeoUh9+hBw==@lists.linaro.org
-X-Gm-Message-State: AOJu0YwJfXmVhWQkpntjm/EVl/uJJV9uo2a0w+ll3Ldbvsi4YmbkwFjO
-	ZTqFZxiOY1j2IXek3JAFFDHRFSriGIU2PhKUt65fr9eT7DKHz/9vyTCXW51IV8xlZbXQnFoOpdS
-	eW4aRIHhKnTl42l6UH78XyOZfAz+ux9c=
-X-Gm-Gg: AY/fxX691Vc9+1HwU6VZjqJZxC5dDwSYn0V8+kSsK4EKqq1nKbGaWhpKAZ/oU89n+kY
-	nG58jgX8zsJU9UavRSaQyl+P7WRv3XZLzhJBVwEoB+zaRuB0nbIRFc+prxpxXa6zmHZRjwvaj2U
-	+mMSab3OITZDrPpudZV5ZHyIOtkl/RDzQYUBFJYWYlYAuTAIM5QALjz8aF0+Di7Ukj+dUZJysX9
-	8h5MaDfZR/jRQA76tlByZsQ7MN85ktixlxaCbCnX4acF9DPwsffDvtAxRx3fnvvufxn41OCMxCH
-X-Google-Smtp-Source: AGHT+IGl87GGPVMUN6FsjpAQJ4VKxCFefnCPMdgk+GP3o+7QVSulcegVZl3+LNvQ6jZg7L+xQKVP9NhHQ157u/7BtOo=
-X-Received: by 2002:a05:690e:b83:b0:63f:55de:63cc with SMTP id
- 956f58d0204a3-6466a86bfefmr38238597d50.31.1767627487533; Mon, 05 Jan 2026
- 07:38:07 -0800 (PST)
+	dkim=pass header.d=infradead.org header.s=bombadil.20210309 header.b=qaxmBLUN;
+	spf=none (lists.linaro.org: domain of rdunlap@infradead.org has no SPF policy when checking 198.137.202.133) smtp.mailfrom=rdunlap@infradead.org;
+	dmarc=pass (policy=none) header.from=infradead.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=y+RF3jt39iakpkTx/MszKZgnx5LSGitWRk86zl2as3g=; b=qaxmBLUNGCGDsv5yeFlbFxS7nZ
+	7IxsW9xE1x4rpLwrT3WeauSkKa/R6mRy5wpIxAIN90zy1sM6QhcrgBCdkn+gNgPh5sg5avGaT6jP7
+	EOq3tlsfNjCHpzRS3iGiLKJfnm4P7AwaJRIeGT5p/lURZPeRmW7Whi9V9V6i38+M86TBwmqUWJe5+
+	hY88NodLvqDAsbgvNniwPEFIxKgmTC3JdqXyoCmLQ0H87tqoMw/Fb4XvAhL5Od8WpP8uJwaPXkSQD
+	9IPSDsCY7pTPC+eINTo5skztfSdAQGHYuh21kLFv1y7ln4OvJ6ASz7UVopn+ebH6HAw0es9OdaSuq
+	pdX+fDHg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+	id 1vcuP0-0000000CFMg-0zzo;
+	Mon, 05 Jan 2026 23:54:22 +0000
+Message-ID: <745af80f-58df-46a2-8316-f52b0ea6d7ec@infradead.org>
+Date: Mon, 5 Jan 2026 15:54:21 -0800
 MIME-Version: 1.0
-References: <20251229112649.137391-1-sun.jian.kdev@gmail.com>
- <20251230012908.214959-1-sun.jian.kdev@gmail.com> <aVumucN_RFQwfgj9@stanley.mountain>
-In-Reply-To: <aVumucN_RFQwfgj9@stanley.mountain>
-From: sun jian <sun.jian.kdev@gmail.com>
-Date: Mon, 5 Jan 2026 23:37:55 +0800
-X-Gm-Features: AQt7F2p5VcvIirf6mh8dvM9J3boQMIoPyg3Rrs3N9TrU8ra2Ow6u9_l82iDGyCY
-Message-ID: <CABFUUZEhxz5n8Rf5UvxZiFRoXQ+DuZtpa9+iS46Rt4rpb8hD9A@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
 To: Dan Carpenter <dan.carpenter@linaro.org>
-X-Rspamd-Queue-Id: 3EAEF3F713
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-4.00 / 15.00];
-	BAYES_HAM(-3.00)[99.99%];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+References: <20251230062704.3339404-1-rdunlap@infradead.org>
+ <d81069b8-04fa-437c-8bbc-51360784952a@infradead.org>
+ <aVuNzWb3TEj74t2M@stanley.mountain> <aVuPidYUPZxCOdRp@stanley.mountain>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <aVuPidYUPZxCOdRp@stanley.mountain>
+X-Rspamd-Queue-Id: CEB943F713
+X-Spamd-Bar: ----
+X-Spamd-Result: default: False [-4.60 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	DWL_DNSWL_LOW(-1.00)[infradead.org:dkim];
+	DMARC_POLICY_ALLOW(-0.50)[infradead.org,none];
+	R_DKIM_ALLOW(-0.20)[infradead.org:s=bombadil.20210309];
+	ONCE_RECEIVED(0.20)[];
 	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
 	RCVD_COUNT_ONE(0.00)[1];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVFROM(0.00)[gmail.com];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.171:from];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	ASN(0.00)[asn:7247, ipnet:198.137.202.0/24, country:US];
 	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	URIBL_BLOCKED(0.00)[linaro.org:email];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,animalcreek.com,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
-	MISSING_XM_UA(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FROM_EQ_ENVFROM(0.00)[];
+	R_SPF_NA(0.00)[no SPF record];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	DWL_DNSWL_NONE(0.00)[gmail.com:dkim];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+]
+	URIBL_BLOCKED(0.00)[arndb.de:email,infradead.org:dkim,infradead.org:mid,infradead.org:from_smtp,infradead.org:from_mime,analog.com:email];
+	DKIM_TRACE(0.00)[infradead.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: AWE6NWVFXM6FD6BQOQCSJKG7UKYGWTHF
-X-Message-ID-Hash: AWE6NWVFXM6FD6BQOQCSJKG7UKYGWTHF
-X-MailFrom: sun.jian.kdev@gmail.com
+Message-ID-Hash: ZPYOKTIBO2LNGAKYDEFZIV7GFTTRXEZO
+X-Message-ID-Hash: ZPYOKTIBO2LNGAKYDEFZIV7GFTTRXEZO
+X-MailFrom: rdunlap@infradead.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, David Laight <david.laight.linux@gmail.com>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+CC: linux-kernel@vger.kernel.org, Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v3] staging: greybus: audio: avoid snprintf truncation warnings
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: arche: drop dangling Kconfig symbol
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/AWE6NWVFXM6FD6BQOQCSJKG7UKYGWTHF/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZPYOKTIBO2LNGAKYDEFZIV7GFTTRXEZO/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-SGkgRGFuLA0KDQpVbmRlcnN0b29kIOKAlCBJJ2xsIGRyb3AgdGhpcyBwYXRjaC4gVGhhbmtzLg0K
-DQpyZWdhcmRzLA0KU3VuIEppYW4NCg0KT24gTW9uLCBKYW4gNSwgMjAyNiBhdCA3OjU14oCvUE0g
-RGFuIENhcnBlbnRlciA8ZGFuLmNhcnBlbnRlckBsaW5hcm8ub3JnPiB3cm90ZToNCj4NCj4gVGhp
-cyBXPTEgc3RyaW5nIHRydW5jYXRpb24gd2FybmluZ3MgYWx3YXlzIHNlZW1zIGxpa2UgYSBwb2lu
-dGxlc3MgdGhpbmcuDQo+IGRtZXNnIG91dHB1dCBpcyByZWFsbHkgb25seSBpbnRlbmRlZCBmb3Ig
-ZGV2ZWxvcGVycy4gIEkgZG9uJ3QgZXZlbiBrbm93DQo+IGhvdyB0byBsb29rIGF0IHRoZSBkbWVz
-ZyBvbiBteSBwaG9uZSBvciBraW5kbGUuICBXaG8gY2FyZXMgaWYgdGhlIGxhc3QNCj4gY2hhcmFj
-dGVyIGluIGEgcmVhbGx5IGxvbmcgZGV2aWNlIG5hbWUgaXMgbWlzc2luZz8gIEkgaGF2ZSBsb29r
-ZWQgYXQgYQ0KPiBsb3Qgb2Ygc3RhY2sgdHJhY2VzIGFuZCBJIGhhdmUgbmV2ZXIgb25jZSBiZWVu
-IHN0eW1pZWQgYmVjYXVzZSBvbmUNCj4gY2hhcmFjdGVyIHdhcyBtaXNzaW5nIGluIGEgcmVhbGx5
-IGxvbmcgZGV2aWNlIG5hbWUuDQo+DQo+IEFuZCBhbHNvIHRoZXNlIGFyZSA5MCUgZmFsc2UgcG9z
-aXRpdmVzLiAgV2UganVzdCBhZGQgYm91bmRzIGNoZWNraW5nIGFsbA0KPiBvZiBvdXIgb3V0cHV0
-IHRvIHByZXZlbnQgbWVtb3J5IGNvcnJ1cHRpb24gYW5kIG5vdCBiZWNhdXNlIHdlIHRoaW5rIHRo
-YXQNCj4gd2UnbGwgYWN0dWFsbHkgaGl0IHRoZSBib3VuZGFyaWVzLiAgQW5kIHRoZSBHQ0MgaXMg
-bm90IGFibGUgdG8gYW5hbHl6ZQ0KPiB0aGVzZSBpbiBhIHNlbnNpYmxlIHdheSwgaXQncyBqdXN0
-IGdvaW5nIGJhc2VkIG9uIHRoZSB2YXJpYWJsZSB0eXBlcy4NCj4NCj4gVGhpcyBwYXRjaCBtYWtl
-cyB0aGUgY29kZSB3b3JzZSAobW9yZSBjb21wbGljYXRlZCkuDQo+DQo+IFRvIHJlY2FwOg0KPiAx
-OiBJdCdzIHdhcm5pbmcgYWJvdXQgYSBub24taXNzdWUuICBObyBvbmUgY2FyZXMgYWJvdXQgdHJ1
-bmNhdGVkIG91dHB1dC4NCj4gMjogVGhlIHdhcm5pbmcgaXMgaW1wbGVtZW50ZWQgcG9vcmx5LiAg
-SGlnaCBmYWxzZSBwb3NpdGl2ZSByYXRpby4NCj4gMzogVGhlIGZpeCBtYWtlcyB0aGUgY29kZSB3
-b3JzZQ0KPg0KPiBKdXN0IGZpeCB0aGUgdG9vbCBpbnN0ZWFkIG9mIG1ha2luZyB0aGUgY29kZSB3
-b3JzZSBmb3Igbm8gcmVhc29uLg0KPg0KPiByZWdhcmRzLA0KPiBkYW4gY2FycGVudGVyDQpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpncmV5YnVzLWRldiBt
-YWlsaW5nIGxpc3QgLS0gZ3JleWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZwpUbyB1bnN1YnNjcmli
-ZSBzZW5kIGFuIGVtYWlsIHRvIGdyZXlidXMtZGV2LWxlYXZlQGxpc3RzLmxpbmFyby5vcmcK
+Hi Dan,
+
+On 1/5/26 2:16 AM, Dan Carpenter wrote:
+> On Mon, Jan 05, 2026 at 01:09:17PM +0300, Dan Carpenter wrote:
+>> On Tue, Dec 30, 2025 at 10:23:40AM -0800, Randy Dunlap wrote:
+>>>
+>>>
+>>> On 12/29/25 10:27 PM, Randy Dunlap wrote:
+>>>> --- linux-next-20251219.orig/drivers/staging/greybus/Kconfig
+>>>> +++ linux-next-20251219/drivers/staging/greybus/Kconfig
+>>>> @@ -206,7 +206,6 @@ endif	# GREYBUS_BRIDGED_PHY
+>>>>  
+>>>>  config GREYBUS_ARCHE
+>>>>  	tristate "Greybus Arche Platform driver"
+>>>> -	depends on USB_HSIC_USB3613 || COMPILE_TEST
+>>>>  	help
+>>>>  	  Select this option if you have an Arche device.
+>>>
+>>> Perhaps I should have left COMPILE_TEST here, like:
+>>>
+>>> 	depends on COMPILE_TEST
+>>>
+>>> ?
+>>
+>> If we're going to do that, we should just delete it.  It's been
+>> impossible to build for eight years.
+>>
+
+I saw that. I just wanted some feedback on it first.
+I'll send v2.
+
+> 
+> I did a `git grep 'depends on COMPILE_TEST'` for other drivers which
+> are never used and only found this one which was disabled in 2018.
+
+Looks like it should go away also. Thanks.
+
+> regards,
+> dan carpenter
+> 
+> commit da2827a298f8a2159f31466759cbba2dd4f1b65f
+> Author: Arnd Bergmann <arnd@arndb.de>
+> Date:   Fri Mar 9 22:45:26 2018 +0100
+> 
+>     usb: isp1362: remove blackfin arch glue
+> 
+>     The blackfin architecture is getting removed, and this is the last
+>     remaining architecture specific setting, so the various hacks
+>     can be removed now.
+> 
+>     From all I can tell, there are no remaining in-tree users of the
+>     driver, but it could be used by out-of-tree platform ports.
+>     I've marked the driver as 'depends on COMPILE_TEST', short of
+>     removing it outright.
+> 
+>     It was originally written for some ARM PXA machines using the same
+>     chip, but that platform never really worked and the code has been
+>     removed a long time ago.
+> 
+>     Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>     Acked-by: Aaron Wu <aaron.wu@analog.com>
+>     Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> 
+> diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
+> index 4fcfb3084b36..b85822f0c874 100644
+> --- a/drivers/usb/host/Kconfig
+> +++ b/drivers/usb/host/Kconfig
+> @@ -360,6 +360,7 @@ config USB_ISP116X_HCD
+>  config USB_ISP1362_HCD
+>         tristate "ISP1362 HCD support"
+>         depends on HAS_IOMEM
+> +       depends on COMPILE_TEST # nothing uses this
+>         ---help---
+>           Supports the Philips ISP1362 chip as a host controller
+> 
+
+-- 
+~Randy
+
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
