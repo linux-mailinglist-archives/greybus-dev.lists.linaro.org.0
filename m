@@ -2,108 +2,109 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE7B8CF2F13
-	for <lists+greybus-dev@lfdr.de>; Mon, 05 Jan 2026 11:16:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04D51CF35E6
+	for <lists+greybus-dev@lfdr.de>; Mon, 05 Jan 2026 12:55:45 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id B3AC74014F
-	for <lists+greybus-dev@lfdr.de>; Mon,  5 Jan 2026 10:16:49 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	by lists.linaro.org (Postfix) with ESMTPS id F40983F836
-	for <greybus-dev@lists.linaro.org>; Mon,  5 Jan 2026 10:16:45 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id EE9E040154
+	for <lists+greybus-dev@lfdr.de>; Mon,  5 Jan 2026 11:55:43 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	by lists.linaro.org (Postfix) with ESMTPS id 1E9AE3F835
+	for <greybus-dev@lists.linaro.org>; Mon,  5 Jan 2026 11:55:42 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=s45qYQTW;
-	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.128.50 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
+	dkim=pass header.d=linaro.org header.s=google header.b=IAwB7iWH;
+	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.221.51 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
 	dmarc=pass (policy=none) header.from=linaro.org
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-477bf34f5f5so103782155e9.0
-        for <greybus-dev@lists.linaro.org>; Mon, 05 Jan 2026 02:16:45 -0800 (PST)
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4327555464cso4545072f8f.1
+        for <greybus-dev@lists.linaro.org>; Mon, 05 Jan 2026 03:55:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1767608205; x=1768213005; darn=lists.linaro.org;
+        d=linaro.org; s=google; t=1767614141; x=1768218941; darn=lists.linaro.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=iV+UDzommVY2aDcUuH+0k89DYiMteCt8ig5zrzxx51k=;
-        b=s45qYQTW5VzwFMWzD0psxh6fJMR2LtdFXGCuMNoIAebh0bSUTt36bM0a47Wos2e3c7
-         URfJMCpMwGMn2QT2Ayt9YX3/eMnvH12sJdsih1+y9TpgHqgDXocl1Fy+A8tAERZh8o20
-         jNQyxLJQf9RCvwvaokAngK/Oj+sjd9fhHy+wCdTdr+u6jxWfWj4aDTFXbyU5aeyDKo8X
-         jpqVrIE+Yx2/9R+PFG0NixXPhk9G97FAdN7YSDXlG/4fVsbH49/FXlgPYq2YOJR7+6iO
-         +mwptviwIz1jDOjLvXovsvzOMWPjY2j7+/iTUrm2GG1mD9eZ4pNgiyYfbpFUKc/CNamG
-         CP7A==
+        bh=vGx3PdQLTEGTA/+kl6GC7HNe3VAOwtg1+M0c6+I7tTc=;
+        b=IAwB7iWHrqstcmnuLjG8pb2jFhdgVAzjUga2EgqTRKpNty9Jyxu74scjn5BB+VBWUO
+         7ZoHKgR/NvlEQuEcgFCdGddpmhtkZ19ZxtHzEiaGZ3IxYfPin/J7o7BXe6EBUVG50ra/
+         lDOkqsA/3Nje94JOUwT5YDcW+Z5FsL0sm4lQ8M1H1f9S4uUsJEsZksO2/V4E5IwYc42Z
+         UsTxZ1qiUGrYhyjHARRnQLunriTHbYgV04i2zIzLGcJt8WV7G4W8pum0sw+lyuB8nt58
+         8zmUkDTrjJtNnAA9iqkx+bLw7i1jMlIL4ACEuG4w5xjhHqpbAU+DjgRCOYyM8a3f00AD
+         ADQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767608205; x=1768213005;
+        d=1e100.net; s=20230601; t=1767614141; x=1768218941;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=iV+UDzommVY2aDcUuH+0k89DYiMteCt8ig5zrzxx51k=;
-        b=ioDayafRUm/p2aEfpKGxtkhyEJA2HEeFiO0RyCqiDQRohzVeyP3TC6pkmCCAE2FHIe
-         sF+knslLR3nSMZ3xbNWE86dYQtR8mInV5kKbRNvC5eNewqU52AiBA55x49veZqWOMMTv
-         U5Zd+gd5/DeJuwJ+WIUR0WzugQHlaMjmLKupNvPEv259HkLiCiFnaVcfoHXUx8859Osj
-         Ak7EihiXqmFZ9aNoS0ysgolN9knU+UTmrZUFUUmAyA3w/3Srdk1A6Lfna5DR3q5unS3e
-         sb9a563vgNNOQ8lUF4f49PhaCcO2u9lkH/2xd1DAL0YmYiLwT2qz6tomYEhleONzaLPt
-         qktg==
-X-Forwarded-Encrypted: i=1; AJvYcCXFn3Q66gCbOvG+MYsP7/qQkfCp8ZDTsqr+0KQVi0gZT3bpcwxUQdhzMjj5cVoRLppXZYYuI+AEixP3Aw==@lists.linaro.org
-X-Gm-Message-State: AOJu0YystjmiV1Y4hkxxnbeyeXzcKI7NISAjmbvi24bc+Esietcjnec/
-	eOh/qBd7zKn+EHvG5Cgs00iHCCDJT4HC/dHueBH4avcoK78zXorsEwCa8TtZclB5jn16aQ==
-X-Gm-Gg: AY/fxX7TW8DsoGj4+Ur93QOEq+g6Xsf1OfB96WhSlXR/ywJE1Se4ZT2WXN5QQfZxCFP
-	Wy7yI+9g9iEtYc/5R47ML2R0S7PulVmvzEWmwOaerKS30hrRPZSPb/9ay0/x/KHuZj49oQf3MM9
-	zmW5lUqj4AtzAM9drwmEb1hpuLlcSD+GUYLqIMU/y8HZ66dhsRzO/jXBGH/idOdZxL2Pf+XC4u6
-	wuC9LkAD3SifvxHhsmTZjpu0/g1lH1gIwHden87RpZOLJFq9QBjpuivX+ZNbqhOsFZMjMpecX7B
-	K8wqrlRP9LlWxvTVTLCFtHofsYTseXSHmgx14afPAGnK1EZOTVmp20PXmRC2WmpNrmn6iHSJ9+0
-	VmJK24q3UejYhU2RlZ4KBsaHMZg5UXO2JMrzsPvbemGkybfKyr3WuM+ntYMIli/PUo4UYC6xMnP
-	+HSi9IQxdeiDsQU350
-X-Google-Smtp-Source: AGHT+IECuo5OdIdd8uBzJRpVSu3a+jGgOiKpMmMmsG02MDoyX754e87kGTbCK4yDQtoy9l/ScP/qiA==
-X-Received: by 2002:a05:600d:108:20b0:477:9986:5e6b with SMTP id 5b1f17b1804b1-47d1c038664mr424336255e9.28.1767608204857;
-        Mon, 05 Jan 2026 02:16:44 -0800 (PST)
+        bh=vGx3PdQLTEGTA/+kl6GC7HNe3VAOwtg1+M0c6+I7tTc=;
+        b=iy94+WDSkoU5wY1zfOOJmy12EcqRuZd0oTguCEhpLh5ThMdFxZXH3Qrcr9ipR5Dmtu
+         lYgDWFu21Llwj1xXesULFjCmtp8orQNdWoXxtX58odlopeum7TREtwiOUOJYj6/nPNOv
+         rC7FJnrqFTLC9KVkX8HXvz8NOPG6VUWZDNYeze7jTnS0bxcgi8vIi8u45Tczp/rLsLh5
+         Sg6FzqE3jbEmROYacSslX1W5bNMGijCuchLurp+nrVZaa0JvQOWtjRh4RSfcUs9UK3Ff
+         P4pXjQ6nQpetQNkyIdyH6RuyjEpBibc324CSTTdvTV6xtRrUSKTd4F9GB9/E+6ipSRso
+         Mt4Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUts+uNUnhuwzS20XyOmj0XuBlx6xlj04VV0iy3Je91d+mnSD8nQ+R3+TK/tJ2lm+NZdf13vEEIpsY5hA==@lists.linaro.org
+X-Gm-Message-State: AOJu0YzUjogKmS3CUgwn84/ZY1Efxsr+51gzBH5s+4G59tBcH+ES9m8y
+	+n4iFUlRarCZFG/rXTPQkzYWqqm3ZgVsi0Z8//DwbkMhxCyaxmpHhacrd7SV7yCWMZsSWA==
+X-Gm-Gg: AY/fxX5l40avNbDzVc4wtSPQtxyoUyptBcJrFYwXwND5C73JKaa/xGvaWdLs5PsjKSc
+	DjXc2CDh0D5srPBEq60ugIi8kIVTdDYW551/a2wqpDvDWfyUNhbwgGFmbr3QVFcgFIkTVCDeHJh
+	FYff1voLZNVD6UggCRcXvBlXKe/UB5ThM6DO7dYw7lpesWvVzS1plftiuB3x02oe1Rum/WaFFSl
+	I/yEsoC29FJbGdntIOwV0cphr7qqbWoPdP6CLMsewUwJF2/JE4Z4to9zkLtPeyAHLg/lifzutAu
+	yk6sZKbLz9t+nLSD/28R/TP2D7HH7b2sBAhxGP4CMWFVpA3+63FCEqFI4T5RGC45+CxjrXPzc1g
+	F2cYhxFhyWCH/cs7F5j8L9ez42agvdF4V46coj+o+HewBJE0pYdPLJ6Z6Zpp6ZDLXRS2ymxNezr
+	THBcfZjmKXleEylNWZ
+X-Google-Smtp-Source: AGHT+IGunfGijTnOFIiOYIQluYX+LWFj6c3mZY/ErVVGlm6oAL7B2TzSZFepMA4HDe8vleoKeXePyQ==
+X-Received: by 2002:a05:6000:230c:b0:430:fd9f:e705 with SMTP id ffacd0b85a97d-4324e4d3e9dmr71274562f8f.27.1767614141040;
+        Mon, 05 Jan 2026 03:55:41 -0800 (PST)
 Received: from localhost ([196.207.164.177])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4327778e27bsm66369075f8f.12.2026.01.05.02.16.44
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4324eaa08efsm100876495f8f.29.2026.01.05.03.55.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Jan 2026 02:16:44 -0800 (PST)
-Date: Mon, 5 Jan 2026 13:16:41 +0300
+        Mon, 05 Jan 2026 03:55:40 -0800 (PST)
+Date: Mon, 5 Jan 2026 14:55:37 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <aVuPidYUPZxCOdRp@stanley.mountain>
-References: <20251230062704.3339404-1-rdunlap@infradead.org>
- <d81069b8-04fa-437c-8bbc-51360784952a@infradead.org>
- <aVuNzWb3TEj74t2M@stanley.mountain>
+To: Sun Jian <sun.jian.kdev@gmail.com>
+Message-ID: <aVumucN_RFQwfgj9@stanley.mountain>
+References: <20251229112649.137391-1-sun.jian.kdev@gmail.com>
+ <20251230012908.214959-1-sun.jian.kdev@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aVuNzWb3TEj74t2M@stanley.mountain>
-X-Rspamd-Queue-Id: F40983F836
-X-Spamd-Bar: ----
+In-Reply-To: <20251230012908.214959-1-sun.jian.kdev@gmail.com>
+X-Rspamd-Queue-Id: 1E9AE3F835
+X-Spamd-Bar: ---
 X-Spamd-Result: default: False [-4.00 / 15.00];
-	BAYES_HAM(-3.00)[100.00%];
+	BAYES_HAM(-3.00)[99.98%];
 	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.50:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	FREEMAIL_TO(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.221.51:from];
 	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	URIBL_BLOCKED(0.00)[linuxfoundation.org:email,arndb.de:email];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	URIBL_BLOCKED(0.00)[linaro.org:dkim,linaro.org:from_smtp,linaro.org:from_mime,stanley.mountain:mid,mail-wr1-f51.google.com:helo,mail-wr1-f51.google.com:rdns];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,animalcreek.com,linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
 	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	DNSWL_BLOCKED(0.00)[209.85.221.51:from];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
 	DKIM_TRACE(0.00)[linaro.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: BYTP2PKUDJUTI2GBHY3C6LM5P6KU3JPV
-X-Message-ID-Hash: BYTP2PKUDJUTI2GBHY3C6LM5P6KU3JPV
+Message-ID-Hash: XRI6G2IQ2LETCZGHYXNQC7DLTZ2XJ6V3
+X-Message-ID-Hash: XRI6G2IQ2LETCZGHYXNQC7DLTZ2XJ6V3
 X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
+CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, David Laight <david.laight.linux@gmail.com>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: arche: drop dangling Kconfig symbol
+Subject: [greybus-dev] Re: [PATCH v3] staging: greybus: audio: avoid snprintf truncation warnings
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/BYTP2PKUDJUTI2GBHY3C6LM5P6KU3JPV/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XRI6G2IQ2LETCZGHYXNQC7DLTZ2XJ6V3/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -113,72 +114,29 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Jan 05, 2026 at 01:09:17PM +0300, Dan Carpenter wrote:
-> On Tue, Dec 30, 2025 at 10:23:40AM -0800, Randy Dunlap wrote:
-> > 
-> > 
-> > On 12/29/25 10:27 PM, Randy Dunlap wrote:
-> > > --- linux-next-20251219.orig/drivers/staging/greybus/Kconfig
-> > > +++ linux-next-20251219/drivers/staging/greybus/Kconfig
-> > > @@ -206,7 +206,6 @@ endif	# GREYBUS_BRIDGED_PHY
-> > >  
-> > >  config GREYBUS_ARCHE
-> > >  	tristate "Greybus Arche Platform driver"
-> > > -	depends on USB_HSIC_USB3613 || COMPILE_TEST
-> > >  	help
-> > >  	  Select this option if you have an Arche device.
-> > 
-> > Perhaps I should have left COMPILE_TEST here, like:
-> > 
-> > 	depends on COMPILE_TEST
-> > 
-> > ?
-> 
-> If we're going to do that, we should just delete it.  It's been
-> impossible to build for eight years.
-> 
+This W=1 string truncation warnings always seems like a pointless thing.
+dmesg output is really only intended for developers.  I don't even know
+how to look at the dmesg on my phone or kindle.  Who cares if the last
+character in a really long device name is missing?  I have looked at a
+lot of stack traces and I have never once been stymied because one
+character was missing in a really long device name.
 
-I did a `git grep 'depends on COMPILE_TEST'` for other drivers which
-are never used and only found this one which was disabled in 2018.
+And also these are 90% false positives.  We just add bounds checking all
+of our output to prevent memory corruption and not because we think that
+we'll actually hit the boundaries.  And the GCC is not able to analyze
+these in a sensible way, it's just going based on the variable types.
+
+This patch makes the code worse (more complicated).
+
+To recap:
+1: It's warning about a non-issue.  No one cares about truncated output.
+2: The warning is implemented poorly.  High false positive ratio.
+3: The fix makes the code worse
+
+Just fix the tool instead of making the code worse for no reason.
 
 regards,
 dan carpenter
-
-commit da2827a298f8a2159f31466759cbba2dd4f1b65f
-Author: Arnd Bergmann <arnd@arndb.de>
-Date:   Fri Mar 9 22:45:26 2018 +0100
-
-    usb: isp1362: remove blackfin arch glue
-
-    The blackfin architecture is getting removed, and this is the last
-    remaining architecture specific setting, so the various hacks
-    can be removed now.
-
-    From all I can tell, there are no remaining in-tree users of the
-    driver, but it could be used by out-of-tree platform ports.
-    I've marked the driver as 'depends on COMPILE_TEST', short of
-    removing it outright.
-
-    It was originally written for some ARM PXA machines using the same
-    chip, but that platform never really worked and the code has been
-    removed a long time ago.
-
-    Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-    Acked-by: Aaron Wu <aaron.wu@analog.com>
-    Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
-index 4fcfb3084b36..b85822f0c874 100644
---- a/drivers/usb/host/Kconfig
-+++ b/drivers/usb/host/Kconfig
-@@ -360,6 +360,7 @@ config USB_ISP116X_HCD
- config USB_ISP1362_HCD
-        tristate "ISP1362 HCD support"
-        depends on HAS_IOMEM
-+       depends on COMPILE_TEST # nothing uses this
-        ---help---
-          Supports the Philips ISP1362 chip as a host controller
-
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
