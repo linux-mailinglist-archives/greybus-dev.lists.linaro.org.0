@@ -2,78 +2,111 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5FED02442
-	for <lists+greybus-dev@lfdr.de>; Thu, 08 Jan 2026 12:02:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA705D024AB
+	for <lists+greybus-dev@lfdr.de>; Thu, 08 Jan 2026 12:05:15 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id C3D8A40149
-	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jan 2026 11:02:01 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	by lists.linaro.org (Postfix) with ESMTPS id 26CFE3F776
-	for <greybus-dev@lists.linaro.org>; Thu,  8 Jan 2026 11:01:59 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id E91FA40164
+	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jan 2026 11:05:14 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	by lists.linaro.org (Postfix) with ESMTPS id 590B43F8EC
+	for <greybus-dev@lists.linaro.org>; Thu,  8 Jan 2026 11:05:13 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=XD+I3PMF;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.234.252.31 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 8AC5A43719;
-	Thu,  8 Jan 2026 11:01:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA006C116C6;
-	Thu,  8 Jan 2026 11:01:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1767870118;
-	bh=98AybA5x735gNEPlDPJLZLJcyS7t3JthzWn2wlLk7wo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XD+I3PMFWGNu3dPGQ77m9PZUOzR+zvbRproCO38zGfdJJ3qE6aabe/xhG3pM27hOT
-	 5DSNKFZagZSOmLMP7rcLZH2qwd2ZZ46JCkxL45znlVqpXoyq8kQseibEqj4bjWzIL2
-	 KiwhWTBCnbfB92HWb1C0dsG0QrQjCZN9r6i21b18=
-Date: Thu, 8 Jan 2026 12:01:55 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Chaitanya Mishra <chaitanyamishra.ai@gmail.com>
-Message-ID: <2026010842-disown-reminder-752d@gregkh>
+	dkim=pass header.d=linaro.org header.s=google header.b=QpFU3wH8;
+	spf=pass (lists.linaro.org: domain of rui.silva@linaro.org designates 209.85.128.46 as permitted sender) smtp.mailfrom=rui.silva@linaro.org;
+	dmarc=pass (policy=none) header.from=linaro.org
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-47795f6f5c0so18984585e9.1
+        for <greybus-dev@lists.linaro.org>; Thu, 08 Jan 2026 03:05:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1767870312; x=1768475112; darn=lists.linaro.org;
+        h=in-reply-to:references:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7wi0cLxVYTkjjMZXxZy4zeQFvgVDMeogFnmSnZc8m8I=;
+        b=QpFU3wH8OldYGwQ+XqlYC+7ACjmA1552yXg4qrgHAGLXmfhUmDsAtHd3RKjbfZJOWn
+         u60s9m6m0nVdUrW9iWZkOrl37EB1Gn9PmUKr9pn8ie4rgjerqNYDZo1Wek2ctKIrxcNJ
+         ZGL+oH/VkSGClOyPcDURJbM7hkXRPXxb4zE7v95v7fM5ZFd0pRftNNehJhlDBs3rPHEY
+         g6rgjBBiL0n/mahCHg6FMxddsPriz45mQM9Z3H0v2DF/D7ZWE+Iv1l62KMuqiOJe4uRb
+         jvtnZDFbhOgEt6Fee/M+e6EPJxxxOGprNtCpIDaCz3HaQ/HF8DcztDClRbEPR/MOnCN8
+         tGuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767870312; x=1768475112;
+        h=in-reply-to:references:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=7wi0cLxVYTkjjMZXxZy4zeQFvgVDMeogFnmSnZc8m8I=;
+        b=eUEQuPqzGglO6m9/IcTDyi2QTT6M2FFNvJwE+YLdmff5QcfVWr6ZENhsYXTWUAyzJ+
+         tWNWBZfKUurkNvoE/nv9ltxqCirD5drML8zcO08SH5WzP5KazyZcM7gDgfYUfFgcvalX
+         H9shBsjz5yl8hqpINYLDBOV4qAnKBst6ncVIKFIbQA7Gt0hLAWXYXc4ql9RY1eUPaljD
+         iOignJSc8G6k532t+iSb6NMPg9OrBDFLEK0g+rGjdT8Uy2hQZsVZfrXJ/GBLdeo1jdO4
+         wxz4D6bzjXf4OpcYuUvJa/hb2Gb5LxkW0GtL7NnzwxSv0zYoqD9vP+CWyKlVTsHXLi7f
+         3KXQ==
+X-Gm-Message-State: AOJu0YxmaAvFNFCzpXzs8XkA8NxGzSu+9giLWAv95f3HKvWKt7FR2kqC
+	JTQ7gVW3jWIialJ4RBJPT4qbSa57gVSP//JnGlsMVvoaBBwXSGLTZ6xeED/56AL9AZ+y5Q==
+X-Gm-Gg: AY/fxX4jwvm0uVNOyKGtxFuRCrMv0EfNE9PtmCBuxNkOQaablq7BgfsdEp3vkX+y0fS
+	aTGiHsvcHNiEi2SvZ1yt0keo8ym84or6xbOSkebAd8PEOMT9SzIweRz6+TfFMiR+GkyXoGOHfRS
+	Z5El5lZJ08qfqXwcPG2ZCRNtdEss2icdzRFvj+Ts9EKR9t0NFdqHWEltbk2lRcNYmeIkMeTLhnf
+	/9h6IUkOABMnA6Cp4rTabbK2BkDhAcCGVyrRqtdq4AnV9mhvzmFjNmzxVqec3WNlo7mp90H9GUR
+	AAlXIayJbt/GQpsDhygeVS7OyFh1h27qRzCVk5DBe4+l7NsqKuxfWRbKku0AEJx3n555kBFzUpR
+	0AzAq6RY/46mF8mJBqwDItIfqYdLFdQD+zxCQUwC5FJtyCagdW7cUjz6WZBujZtts0KkIsgIwiS
+	AUuBprwolWpAABgruJ0EIOQjPFXjc4zMLXOr/lN6DxQBcAUGTYS+R2
+X-Google-Smtp-Source: AGHT+IHv7g9k/MI4TfuXMCEZW93m6zGf7qxNLrOVEx9WLQYfZAR+01N633qUWhbfiDUgojUqOvYRPg==
+X-Received: by 2002:a05:600c:46cb:b0:47a:810f:1d06 with SMTP id 5b1f17b1804b1-47d84b26da4mr67559795e9.4.1767870312264;
+        Thu, 08 Jan 2026 03:05:12 -0800 (PST)
+Received: from localhost (a109-48-201-233.cpe.netcabo.pt. [109.48.201.233])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-47d8636cb0dsm41520205e9.0.2026.01.08.03.05.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Jan 2026 03:05:12 -0800 (PST)
+From: Rui Miguel Silva <rui.silva@linaro.org>
+X-Google-Original-From: "Rui Miguel Silva" <rui.silva@linaro.com>
+Mime-Version: 1.0
+Date: Thu, 08 Jan 2026 11:05:09 +0000
+Message-Id: <DFJ5Q0E4QQ0F.1A6G2J04HJNH1@linaro.com>
+To: "Chaitanya Mishra" <chaitanyamishra.ai@gmail.com>, <rmfrfs@gmail.com>,
+ <johan@kernel.org>, <elder@kernel.org>, <gregkh@linuxfoundation.org>
 References: <20260108103700.15384-1-chaitanyamishra.ai@gmail.com>
  <20260108104947.23767-1-chaitanyamishra.ai@gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <20260108104947.23767-1-chaitanyamishra.ai@gmail.com>
-X-Rspamd-Queue-Id: 26CFE3F776
-X-Spamd-Bar: /
-X-Spamd-Result: default: False [0.50 / 15.00];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linuxfoundation.org,none];
-	R_DKIM_ALLOW(-0.20)[linuxfoundation.org:s=korg];
-	R_SPF_ALLOW(-0.20)[+ip4:172.234.252.31];
+X-Rspamd-Queue-Id: 590B43F8EC
+X-Spamd-Bar: ---
+X-Spamd-Result: default: False [-3.50 / 15.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MV_CASE(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	NEURAL_HAM(-0.00)[-1.000];
-	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
-	URIBL_BLOCKED(0.00)[conf.name:url,gregkh:mid,sea.source.kernel.org:helo,sea.source.kernel.org:rdns,linuxfoundation.org:dkim,linuxfoundation.org:from_smtp,linuxfoundation.org:from_mime];
-	FROM_EQ_ENVFROM(0.00)[];
+	URIBL_BLOCKED(0.00)[conf.name:url,linaro.org:dkim,linaro.org:from_smtp,linaro.org:email,linaro.org:from_mime,linaro.com:mid,mail-wm1-f46.google.com:helo,mail-wm1-f46.google.com:rdns];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,linuxfoundation.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[linuxfoundation.org:+]
+	FROM_EQ_ENVFROM(0.00)[];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	DNSWL_BLOCKED(0.00)[209.85.128.46:from,109.48.201.233:received];
+	NEURAL_HAM(-0.00)[-1.000];
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.46:from];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	TO_DN_SOME(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: XP24U646VG65ZMAQMQAH634NXMMDNOXW
-X-Message-ID-Hash: XP24U646VG65ZMAQMQAH634NXMMDNOXW
-X-MailFrom: gregkh@linuxfoundation.org
+Message-ID-Hash: PLQH32PRN4HSWRXTKXVF4KW2BX3BJS5Y
+X-Message-ID-Hash: PLQH32PRN4HSWRXTKXVF4KW2BX3BJS5Y
+X-MailFrom: rui.silva@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: lights: avoid NULL deref
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XP24U646VG65ZMAQMQAH634NXMMDNOXW/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/PLQH32PRN4HSWRXTKXVF4KW2BX3BJS5Y/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -83,20 +116,34 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 08, 2026 at 04:19:47PM +0530, Chaitanya Mishra wrote:
+Hey Chaitanya,
+Thanks for the patch.
+
+On Thu Jan 8, 2026 at 10:49 AM WET, Chaitanya Mishra wrote:
+
 > gb_lights_light_config() stores channel_count before allocating the
 > channels array. If kcalloc() fails, gb_lights_release() iterates the
 > non-zero count and dereferences light->channels, which is NULL.
-> 
+>
 > Allocate channels first and only then publish channels_count so the
 > cleanup path can't walk a NULL pointer.
-> 
+
+Good catch, going through the error path, does looks this fix the issue.
+
+But you need to add the changes between versions bellow --  and maybe a
+link to the first version.
+
+Reviewed-by: Rui Miguel Silva <rui.silva@linaro.org>
+
+Cheers,
+    Rui
+>
 > Fixes: 2870b52bae4c ("greybus: lights: add lights implementation")
 > Signed-off-by: Chaitanya Mishra <chaitanyamishra.ai@gmail.com>
 > ---
 >  drivers/staging/greybus/light.c | 8 ++++++--
 >  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
+>
 > diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
 > index e509fdc715db..38c233a706c4 100644
 > --- a/drivers/staging/greybus/light.c
@@ -124,35 +171,9 @@ On Thu, Jan 08, 2026 at 04:19:47PM +0530, Chaitanya Mishra wrote:
 >  	for (i = 0; i < light->channels_count; i++) {
 > -- 
 > 2.50.1 (Apple Git-155)
-> 
 
-Hi,
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
 
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- This looks like a new version of a previously submitted patch, but you
-  did not list below the --- line any changes from the previous version.
-  Please read the section entitled "The canonical patch format" in the
-  kernel file, Documentation/process/submitting-patches.rst for what
-  needs to be done here to properly describe this.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
