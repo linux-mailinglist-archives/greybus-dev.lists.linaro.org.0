@@ -2,39 +2,40 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9FCD022FC
-	for <lists+greybus-dev@lfdr.de>; Thu, 08 Jan 2026 11:46:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC5FED02442
+	for <lists+greybus-dev@lfdr.de>; Thu, 08 Jan 2026 12:02:02 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 608E240149
-	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jan 2026 10:46:33 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id C3D8A40149
+	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jan 2026 11:02:01 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	by lists.linaro.org (Postfix) with ESMTPS id F13FD3F779
-	for <greybus-dev@lists.linaro.org>; Thu,  8 Jan 2026 10:46:29 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id 26CFE3F776
+	for <greybus-dev@lists.linaro.org>; Thu,  8 Jan 2026 11:01:59 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=1U9pnynJ;
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=XD+I3PMF;
 	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.234.252.31 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
 	dmarc=pass (policy=none) header.from=linuxfoundation.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 59A6344397;
-	Thu,  8 Jan 2026 10:46:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0AC9C116C6;
-	Thu,  8 Jan 2026 10:46:28 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 8AC5A43719;
+	Thu,  8 Jan 2026 11:01:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA006C116C6;
+	Thu,  8 Jan 2026 11:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1767869189;
-	bh=ffL7OckPnkAqROe4W0fLxVBdeQh1mt1C5mLWdRdw/js=;
+	s=korg; t=1767870118;
+	bh=98AybA5x735gNEPlDPJLZLJcyS7t3JthzWn2wlLk7wo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=1U9pnynJC9/un5w03XZGq7nj7/Fstw+xP4W5hoQqMBhVkvM2g6Q+rBRFj/EaaO+lP
-	 MlRrAaLpf9nMbO79QGsh/k73UjUPlfRbrK86dT7ApNgCRAnAWZjTlqejXbmbyelHFZ
-	 V5CQN+XNROkCFbJAaYZcijMtu19PCXvfxNhSvGY4=
-Date: Thu, 8 Jan 2026 11:46:26 +0100
+	b=XD+I3PMFWGNu3dPGQ77m9PZUOzR+zvbRproCO38zGfdJJ3qE6aabe/xhG3pM27hOT
+	 5DSNKFZagZSOmLMP7rcLZH2qwd2ZZ46JCkxL45znlVqpXoyq8kQseibEqj4bjWzIL2
+	 KiwhWTBCnbfB92HWb1C0dsG0QrQjCZN9r6i21b18=
+Date: Thu, 8 Jan 2026 12:01:55 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Chaitanya Mishra <chaitanyamishra.ai@gmail.com>
-Message-ID: <2026010814-displease-jawed-688e@gregkh>
+Message-ID: <2026010842-disown-reminder-752d@gregkh>
 References: <20260108103700.15384-1-chaitanyamishra.ai@gmail.com>
+ <20260108104947.23767-1-chaitanyamishra.ai@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260108103700.15384-1-chaitanyamishra.ai@gmail.com>
-X-Rspamd-Queue-Id: F13FD3F779
+In-Reply-To: <20260108104947.23767-1-chaitanyamishra.ai@gmail.com>
+X-Rspamd-Queue-Id: 26CFE3F776
 X-Spamd-Bar: /
 X-Spamd-Result: default: False [0.50 / 15.00];
 	MID_END_EQ_FROM_USER_PART(4.00)[];
@@ -51,29 +52,28 @@ X-Spamd-Result: default: False [0.50 / 15.00];
 	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[7];
-	DNSWL_BLOCKED(0.00)[172.234.252.31:from,100.75.92.58:received];
+	NEURAL_HAM(-0.00)[-1.000];
 	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
-	DWL_DNSWL_BLOCKED(0.00)[linuxfoundation.org:dkim];
+	URIBL_BLOCKED(0.00)[conf.name:url,gregkh:mid,sea.source.kernel.org:helo,sea.source.kernel.org:rdns,linuxfoundation.org:dkim,linuxfoundation.org:from_smtp,linuxfoundation.org:from_mime];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
 	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	DKIM_TRACE(0.00)[linuxfoundation.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: XZWZ362EUZ4YVXT4BN7LML7KOBWJ6YC2
-X-Message-ID-Hash: XZWZ362EUZ4YVXT4BN7LML7KOBWJ6YC2
+Message-ID-Hash: XP24U646VG65ZMAQMQAH634NXMMDNOXW
+X-Message-ID-Hash: XP24U646VG65ZMAQMQAH634NXMMDNOXW
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: lights: avoid NULL deref
+Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: lights: avoid NULL deref
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XZWZ362EUZ4YVXT4BN7LML7KOBWJ6YC2/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XP24U646VG65ZMAQMQAH634NXMMDNOXW/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -83,29 +83,25 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 08, 2026 at 04:07:00PM +0530, Chaitanya Mishra wrote:
+On Thu, Jan 08, 2026 at 04:19:47PM +0530, Chaitanya Mishra wrote:
 > gb_lights_light_config() stores channel_count before allocating the
 > channels array. If kcalloc() fails, gb_lights_release() iterates the
 > non-zero count and dereferences light->channels, which is NULL.
 > 
 > Allocate channels first and only then publish channels_count so the
 > cleanup path can't walk a NULL pointer.
-
-How was this issue found?  How was the fix generated?  How was it
-tested?
-
 > 
 > Fixes: 2870b52bae4c ("greybus: lights: add lights implementation")
 > Signed-off-by: Chaitanya Mishra <chaitanyamishra.ai@gmail.com>
 > ---
->  drivers/staging/greybus/light.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/staging/greybus/light.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
-> index e509fdc715db..4c9ad9ea8827 100644
+> index e509fdc715db..38c233a706c4 100644
 > --- a/drivers/staging/greybus/light.c
 > +++ b/drivers/staging/greybus/light.c
-> @@ -1008,14 +1008,14 @@ static int gb_lights_light_config(struct gb_lights *glights, u8 id)
+> @@ -1008,14 +1008,18 @@ static int gb_lights_light_config(struct gb_lights *glights, u8 id)
 >  	if (!strlen(conf.name))
 >  		return -EINVAL;
 >  
@@ -118,14 +114,45 @@ tested?
 >  				  sizeof(struct gb_channel), GFP_KERNEL);
 >  	if (!light->channels)
 >  		return -ENOMEM;
+> +	/*
+> +	 * Publish channels_count only after channels allocation so cleanup
+> +	 * doesn't walk a NULL channels pointer on allocation failure.
+> +	 */
 > +	light->channels_count = conf.channel_count;
+>  
+>  	/* First we collect all the configurations for all channels */
+>  	for (i = 0; i < light->channels_count; i++) {
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
 
-This is "tricky", perhaps add a comment here as to why you are only
-assigning this now and not before?
+Hi,
+
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
+
+You are receiving this message because of the following common error(s)
+as indicated below:
+
+- This looks like a new version of a previously submitted patch, but you
+  did not list below the --- line any changes from the previous version.
+  Please read the section entitled "The canonical patch format" in the
+  kernel file, Documentation/process/submitting-patches.rst for what
+  needs to be done here to properly describe this.
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
 thanks,
 
-greg k-h
+greg k-h's patch email bot
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
