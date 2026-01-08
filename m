@@ -2,111 +2,113 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA705D024AB
-	for <lists+greybus-dev@lfdr.de>; Thu, 08 Jan 2026 12:05:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F822D02C79
+	for <lists+greybus-dev@lfdr.de>; Thu, 08 Jan 2026 13:57:37 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id E91FA40164
-	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jan 2026 11:05:14 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	by lists.linaro.org (Postfix) with ESMTPS id 590B43F8EC
-	for <greybus-dev@lists.linaro.org>; Thu,  8 Jan 2026 11:05:13 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7D0113F776
+	for <lists+greybus-dev@lfdr.de>; Thu,  8 Jan 2026 12:57:36 +0000 (UTC)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	by lists.linaro.org (Postfix) with ESMTPS id 6B3FE3F779
+	for <greybus-dev@lists.linaro.org>; Thu,  8 Jan 2026 10:37:16 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=QpFU3wH8;
-	spf=pass (lists.linaro.org: domain of rui.silva@linaro.org designates 209.85.128.46 as permitted sender) smtp.mailfrom=rui.silva@linaro.org;
-	dmarc=pass (policy=none) header.from=linaro.org
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-47795f6f5c0so18984585e9.1
-        for <greybus-dev@lists.linaro.org>; Thu, 08 Jan 2026 03:05:13 -0800 (PST)
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=LwDTlnx0;
+	spf=pass (lists.linaro.org: domain of chaitanyamishra.ai@gmail.com designates 209.85.216.41 as permitted sender) smtp.mailfrom=chaitanyamishra.ai@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-34f2a0c4574so2426365a91.1
+        for <greybus-dev@lists.linaro.org>; Thu, 08 Jan 2026 02:37:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1767870312; x=1768475112; darn=lists.linaro.org;
-        h=in-reply-to:references:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7wi0cLxVYTkjjMZXxZy4zeQFvgVDMeogFnmSnZc8m8I=;
-        b=QpFU3wH8OldYGwQ+XqlYC+7ACjmA1552yXg4qrgHAGLXmfhUmDsAtHd3RKjbfZJOWn
-         u60s9m6m0nVdUrW9iWZkOrl37EB1Gn9PmUKr9pn8ie4rgjerqNYDZo1Wek2ctKIrxcNJ
-         ZGL+oH/VkSGClOyPcDURJbM7hkXRPXxb4zE7v95v7fM5ZFd0pRftNNehJhlDBs3rPHEY
-         g6rgjBBiL0n/mahCHg6FMxddsPriz45mQM9Z3H0v2DF/D7ZWE+Iv1l62KMuqiOJe4uRb
-         jvtnZDFbhOgEt6Fee/M+e6EPJxxxOGprNtCpIDaCz3HaQ/HF8DcztDClRbEPR/MOnCN8
-         tGuQ==
+        d=gmail.com; s=20230601; t=1767868635; x=1768473435; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1U5zRO+SPCwAl2mrA9Yp8CsA/asNYhp8z8hd3Fhm+uM=;
+        b=LwDTlnx0BbLt9PwMC569tv1KSoHTtzQ8MszLkJwD4LOViPFAmzJJXSbKrrtnsQ5AWl
+         /uKLpXICTsY/qYGezKRrNtNDYU0pwjyFAU248eboIq25REeaIuDdLpGarNNXKPSnImQB
+         +a7PctYw3GZThd5Zl3cp05GISr2arQahnhAlt0aF+4yvJEO1EC4HslW37lqmG16GgTCT
+         YbhEH8tSKH1gX/tI3CRTZnSPDqjdIsL81kg7RKCtjeF5Bx5Wyg5nDZZUzhLNWmBOkl18
+         2lXipg5mJXdGE1szvFEK1/I58rXIfCtC/M4I01gAx62kIcrV3BNPo1fs0PirslEbMq2o
+         /QmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767870312; x=1768475112;
-        h=in-reply-to:references:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7wi0cLxVYTkjjMZXxZy4zeQFvgVDMeogFnmSnZc8m8I=;
-        b=eUEQuPqzGglO6m9/IcTDyi2QTT6M2FFNvJwE+YLdmff5QcfVWr6ZENhsYXTWUAyzJ+
-         tWNWBZfKUurkNvoE/nv9ltxqCirD5drML8zcO08SH5WzP5KazyZcM7gDgfYUfFgcvalX
-         H9shBsjz5yl8hqpINYLDBOV4qAnKBst6ncVIKFIbQA7Gt0hLAWXYXc4ql9RY1eUPaljD
-         iOignJSc8G6k532t+iSb6NMPg9OrBDFLEK0g+rGjdT8Uy2hQZsVZfrXJ/GBLdeo1jdO4
-         wxz4D6bzjXf4OpcYuUvJa/hb2Gb5LxkW0GtL7NnzwxSv0zYoqD9vP+CWyKlVTsHXLi7f
-         3KXQ==
-X-Gm-Message-State: AOJu0YxmaAvFNFCzpXzs8XkA8NxGzSu+9giLWAv95f3HKvWKt7FR2kqC
-	JTQ7gVW3jWIialJ4RBJPT4qbSa57gVSP//JnGlsMVvoaBBwXSGLTZ6xeED/56AL9AZ+y5Q==
-X-Gm-Gg: AY/fxX4jwvm0uVNOyKGtxFuRCrMv0EfNE9PtmCBuxNkOQaablq7BgfsdEp3vkX+y0fS
-	aTGiHsvcHNiEi2SvZ1yt0keo8ym84or6xbOSkebAd8PEOMT9SzIweRz6+TfFMiR+GkyXoGOHfRS
-	Z5El5lZJ08qfqXwcPG2ZCRNtdEss2icdzRFvj+Ts9EKR9t0NFdqHWEltbk2lRcNYmeIkMeTLhnf
-	/9h6IUkOABMnA6Cp4rTabbK2BkDhAcCGVyrRqtdq4AnV9mhvzmFjNmzxVqec3WNlo7mp90H9GUR
-	AAlXIayJbt/GQpsDhygeVS7OyFh1h27qRzCVk5DBe4+l7NsqKuxfWRbKku0AEJx3n555kBFzUpR
-	0AzAq6RY/46mF8mJBqwDItIfqYdLFdQD+zxCQUwC5FJtyCagdW7cUjz6WZBujZtts0KkIsgIwiS
-	AUuBprwolWpAABgruJ0EIOQjPFXjc4zMLXOr/lN6DxQBcAUGTYS+R2
-X-Google-Smtp-Source: AGHT+IHv7g9k/MI4TfuXMCEZW93m6zGf7qxNLrOVEx9WLQYfZAR+01N633qUWhbfiDUgojUqOvYRPg==
-X-Received: by 2002:a05:600c:46cb:b0:47a:810f:1d06 with SMTP id 5b1f17b1804b1-47d84b26da4mr67559795e9.4.1767870312264;
-        Thu, 08 Jan 2026 03:05:12 -0800 (PST)
-Received: from localhost (a109-48-201-233.cpe.netcabo.pt. [109.48.201.233])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-47d8636cb0dsm41520205e9.0.2026.01.08.03.05.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Jan 2026 03:05:12 -0800 (PST)
-From: Rui Miguel Silva <rui.silva@linaro.org>
-X-Google-Original-From: "Rui Miguel Silva" <rui.silva@linaro.com>
-Mime-Version: 1.0
-Date: Thu, 08 Jan 2026 11:05:09 +0000
-Message-Id: <DFJ5Q0E4QQ0F.1A6G2J04HJNH1@linaro.com>
-To: "Chaitanya Mishra" <chaitanyamishra.ai@gmail.com>, <rmfrfs@gmail.com>,
- <johan@kernel.org>, <elder@kernel.org>, <gregkh@linuxfoundation.org>
-References: <20260108103700.15384-1-chaitanyamishra.ai@gmail.com>
- <20260108104947.23767-1-chaitanyamishra.ai@gmail.com>
-In-Reply-To: <20260108104947.23767-1-chaitanyamishra.ai@gmail.com>
-X-Rspamd-Queue-Id: 590B43F8EC
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.50 / 15.00];
+        d=1e100.net; s=20230601; t=1767868635; x=1768473435;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1U5zRO+SPCwAl2mrA9Yp8CsA/asNYhp8z8hd3Fhm+uM=;
+        b=LyYEYoqOQd8eOVMQ3ydZvgfwQrhDQbU9auFQI2AFbN+MiK0oHxqlMIZid37gBOe+Ir
+         juug92BNBzNwPn6eiF6rAxPINB0bIxCffyaz6TB7Fiwu6bGvniXsdv9aebGmzRvwRs1a
+         H3MdXXhiEPNYrgo5UGD6iFZRT4ss3dZUP00rUK1ba1F/rmw3NPClYkJObxo4IF8HMd0j
+         E9JUfOGJVGVz510ELOXuya4FkkeZv6Mj86ByoNj83DH0CdhyHo1V2gbcE9cy/09FTBAn
+         //JSP85zfisaXorLaZVShTY4e8eMQ2ipF3eeWdL89IM/+JsufT2UBTw6olLOCckW/X2p
+         xYlA==
+X-Gm-Message-State: AOJu0Yx3BqkswgnKa06xGnwL+stFybwTaUj4DeKi6+xZBjHkalQne71V
+	m5C8XF8HpXInJmw/2b5PkMcOdtVUdMEusjCL/JJSU6wy2iONaJ8jdr+Y
+X-Gm-Gg: AY/fxX6EMx/wo9cMkLrh3SLlZKrLAUkOB9qJzfGiOzRM0osICjMvjbYANPSOuXA1mN8
+	6rOwFPerK4aSoggSdFeqMZ7L3lM2TGGPg01p4BJBsH2tQ3fM3zpKW8ZrGyzKoknMGylibRcic5A
+	3XFi/V8re46uOFRjg2Ktnjvj3Hvd5OafSrWI+kQQ54QSMQtEROLB07a8hMmCgwTYCFhqCOQ9BBy
+	OqgcnLEfLgrkcU8tU0deP6k7soh1KEOQbI0HAvG9e7dVZj1WknfAiD2JOOY6GJbOtysrNz+SETM
+	kZM1RK0nkx4QfutK97UQKlD92+mvzC+nequMJblfUZ0D5fdJJQP0HcbscGsBS8nNr+vPWcRGeGg
+	S4kV4XE9lBqoYwHdiPD8iqXSmBahfqFHvmb/653sGVQZN1uvMlt0HFytFh9DKgUnbq7KoXC5YSv
+	0VB8/UOwtVJ8uiRQ0m8R3IozK4F2T3PJSBmw6awQqCuNcZns05H5RPH87Hzgg=
+X-Google-Smtp-Source: AGHT+IENIC3sjHqbdW2Eie4AgrjdVb6lo91WKNEjcp3xXk4I2aUvrWqa1grnwsWHVXwR65QMhFLxZg==
+X-Received: by 2002:a17:90b:1c87:b0:34c:9cf7:60ab with SMTP id 98e67ed59e1d1-34f68c62b63mr4446553a91.32.1767868635449;
+        Thu, 08 Jan 2026 02:37:15 -0800 (PST)
+Received: from localhost.localdomain ([2409:40e3:44:c9c0:8d34:cc3d:a8c9:1a48])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2a3e3cc8dd2sm74838715ad.82.2026.01.08.02.37.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Jan 2026 02:37:15 -0800 (PST)
+From: Chaitanya Mishra <chaitanyamishra.ai@gmail.com>
+To: rmfrfs@gmail.com,
+	johan@kernel.org,
+	elder@kernel.org,
+	gregkh@linuxfoundation.org
+Date: Thu,  8 Jan 2026 16:07:00 +0530
+Message-ID: <20260108103700.15384-1-chaitanyamishra.ai@gmail.com>
+X-Mailer: git-send-email 2.50.1
+MIME-Version: 1.0
+X-Rspamd-Queue-Id: 6B3FE3F779
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.60 / 15.00];
 	BAYES_HAM(-3.00)[100.00%];
-	MV_CASE(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_MISSING_CHARSET(0.50)[];
 	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	URIBL_BLOCKED(0.00)[conf.name:url,linaro.org:dkim,linaro.org:from_smtp,linaro.org:email,linaro.org:from_mime,linaro.com:mid,mail-wm1-f46.google.com:helo,mail-wm1-f46.google.com:rdns];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
+	RWL_MAILSPIKE_GOOD(-0.10)[209.85.216.41:from];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
 	FREEMAIL_TO(0.00)[gmail.com,kernel.org,linuxfoundation.org];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_NONE(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
 	FROM_EQ_ENVFROM(0.00)[];
-	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
-	DNSWL_BLOCKED(0.00)[209.85.128.46:from,109.48.201.233:received];
-	NEURAL_HAM(-0.00)[-1.000];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
 	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
-	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.128.46:from];
+	NEURAL_HAM(-0.00)[-1.000];
+	DNSWL_BLOCKED(0.00)[2409:40e3:44:c9c0:8d34:cc3d:a8c9:1a48:received,209.85.216.41:from];
 	RCPT_COUNT_SEVEN(0.00)[8];
-	TO_DN_SOME(0.00)[]
+	DWL_DNSWL_BLOCKED(0.00)[gmail.com:dkim];
+	FROM_HAS_DN(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: PLQH32PRN4HSWRXTKXVF4KW2BX3BJS5Y
-X-Message-ID-Hash: PLQH32PRN4HSWRXTKXVF4KW2BX3BJS5Y
-X-MailFrom: rui.silva@linaro.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+X-MailFrom: chaitanyamishra.ai@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: SHBIEA2KNUQBX2YG5B6WWH77QMVBY4FS
+X-Message-ID-Hash: SHBIEA2KNUQBX2YG5B6WWH77QMVBY4FS
+X-Mailman-Approved-At: Thu, 08 Jan 2026 12:57:34 +0000
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, chaitanyamishra.ai@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: lights: avoid NULL deref
+Subject: [greybus-dev] [PATCH] staging: greybus: lights: avoid NULL deref
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/PLQH32PRN4HSWRXTKXVF4KW2BX3BJS5Y/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/SHBIEA2KNUQBX2YG5B6WWH77QMVBY4FS/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -116,63 +118,42 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hey Chaitanya,
-Thanks for the patch.
+gb_lights_light_config() stores channel_count before allocating the
+channels array. If kcalloc() fails, gb_lights_release() iterates the
+non-zero count and dereferences light->channels, which is NULL.
 
-On Thu Jan 8, 2026 at 10:49 AM WET, Chaitanya Mishra wrote:
+Allocate channels first and only then publish channels_count so the
+cleanup path can't walk a NULL pointer.
 
-> gb_lights_light_config() stores channel_count before allocating the
-> channels array. If kcalloc() fails, gb_lights_release() iterates the
-> non-zero count and dereferences light->channels, which is NULL.
->
-> Allocate channels first and only then publish channels_count so the
-> cleanup path can't walk a NULL pointer.
+Fixes: 2870b52bae4c ("greybus: lights: add lights implementation")
+Signed-off-by: Chaitanya Mishra <chaitanyamishra.ai@gmail.com>
+---
+ drivers/staging/greybus/light.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Good catch, going through the error path, does looks this fix the issue.
-
-But you need to add the changes between versions bellow --  and maybe a
-link to the first version.
-
-Reviewed-by: Rui Miguel Silva <rui.silva@linaro.org>
-
-Cheers,
-    Rui
->
-> Fixes: 2870b52bae4c ("greybus: lights: add lights implementation")
-> Signed-off-by: Chaitanya Mishra <chaitanyamishra.ai@gmail.com>
-> ---
->  drivers/staging/greybus/light.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
-> index e509fdc715db..38c233a706c4 100644
-> --- a/drivers/staging/greybus/light.c
-> +++ b/drivers/staging/greybus/light.c
-> @@ -1008,14 +1008,18 @@ static int gb_lights_light_config(struct gb_lights *glights, u8 id)
->  	if (!strlen(conf.name))
->  		return -EINVAL;
->  
-> -	light->channels_count = conf.channel_count;
->  	light->name = kstrndup(conf.name, NAMES_MAX, GFP_KERNEL);
->  	if (!light->name)
->  		return -ENOMEM;
-> -	light->channels = kcalloc(light->channels_count,
-> +	light->channels = kcalloc(conf.channel_count,
->  				  sizeof(struct gb_channel), GFP_KERNEL);
->  	if (!light->channels)
->  		return -ENOMEM;
-> +	/*
-> +	 * Publish channels_count only after channels allocation so cleanup
-> +	 * doesn't walk a NULL channels pointer on allocation failure.
-> +	 */
-> +	light->channels_count = conf.channel_count;
->  
->  	/* First we collect all the configurations for all channels */
->  	for (i = 0; i < light->channels_count; i++) {
-> -- 
-> 2.50.1 (Apple Git-155)
-
-
+diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
+index e509fdc715db..4c9ad9ea8827 100644
+--- a/drivers/staging/greybus/light.c
++++ b/drivers/staging/greybus/light.c
+@@ -1008,14 +1008,14 @@ static int gb_lights_light_config(struct gb_lights *glights, u8 id)
+ 	if (!strlen(conf.name))
+ 		return -EINVAL;
+ 
+-	light->channels_count = conf.channel_count;
+ 	light->name = kstrndup(conf.name, NAMES_MAX, GFP_KERNEL);
+ 	if (!light->name)
+ 		return -ENOMEM;
+-	light->channels = kcalloc(light->channels_count,
++	light->channels = kcalloc(conf.channel_count,
+ 				  sizeof(struct gb_channel), GFP_KERNEL);
+ 	if (!light->channels)
+ 		return -ENOMEM;
++	light->channels_count = conf.channel_count;
+ 
+ 	/* First we collect all the configurations for all channels */
+ 	for (i = 0; i < light->channels_count; i++) {
+-- 
+2.50.1 (Apple Git-155)
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
