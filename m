@@ -2,39 +2,40 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B1D3D33112
-	for <lists+greybus-dev@lfdr.de>; Fri, 16 Jan 2026 16:09:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86A7BD3314D
+	for <lists+greybus-dev@lfdr.de>; Fri, 16 Jan 2026 16:11:30 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8243C401B2
-	for <lists+greybus-dev@lfdr.de>; Fri, 16 Jan 2026 15:09:28 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id D8A73401B2
+	for <lists+greybus-dev@lfdr.de>; Fri, 16 Jan 2026 15:11:28 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	by lists.linaro.org (Postfix) with ESMTPS id 164393F6DD
-	for <greybus-dev@lists.linaro.org>; Fri, 16 Jan 2026 15:09:24 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id C827A3F6DD
+	for <greybus-dev@lists.linaro.org>; Fri, 16 Jan 2026 15:11:25 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=M3ibkHnq;
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=a9U27txV;
 	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.234.252.31 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
 	dmarc=pass (policy=none) header.from=linuxfoundation.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 7540E4352E;
-	Fri, 16 Jan 2026 15:09:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9E01C116C6;
-	Fri, 16 Jan 2026 15:09:22 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 16B72440A6;
+	Fri, 16 Jan 2026 15:11:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0B8C116C6;
+	Fri, 16 Jan 2026 15:11:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1768576163;
-	bh=oNE2dKlFJ63ad7ginHJHCdoW6/HCrltr5Mq2vPCToqw=;
+	s=korg; t=1768576285;
+	bh=FEYjuM8i1NFEkihMu32S8TQoBYIUYsQIt52CZXdmSCc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=M3ibkHnqqkwbo4xLmmVrjULUYNlR+JeQDH0neDzX97ssE8vCAnDjaaGJKQLPXIQD+
-	 k67ds9UMqlL7wAAttHu2e4w09CztZM+/3pYEGeAnvUukLl3VTBctbVq66dm7ljIVQy
-	 mfQEY/z4hu0ilDx//rQ12dnPuOzGxS7xqCETgdWM=
-Date: Fri, 16 Jan 2026 16:09:20 +0100
+	b=a9U27txVmMJHIbEcVPwCWn8fmZnwASrk260XJ6gyu8vHbgrPPCnL/niP0/N6iKiA5
+	 zgccbB/wXL68iWhSRoOIeFHqgnZGdBeNB5Sl1X4JT3uJkiGiPtL+J00yWgJM8l0dwB
+	 8PbajcO9maG9iplZdoQ2DIrtrmtJkilHlA48dp1o=
+Date: Fri, 16 Jan 2026 16:11:22 +0100
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Damien =?iso-8859-1?Q?Ri=E9gel?= <damien.riegel@silabs.com>
-Message-ID: <2026011606-qualified-dental-bef0@gregkh>
-References: <20251223183142.31897-1-damien.riegel@silabs.com>
+Message-ID: <2026011639-prewar-drilling-9bc9@gregkh>
+References: <20260115155808.36102-1-damien.riegel@silabs.com>
+ <20260115155808.36102-2-damien.riegel@silabs.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20251223183142.31897-1-damien.riegel@silabs.com>
-X-Rspamd-Queue-Id: 164393F6DD
+In-Reply-To: <20260115155808.36102-2-damien.riegel@silabs.com>
+X-Rspamd-Queue-Id: C827A3F6DD
 X-Spamd-Bar: /
 X-Spamd-Result: default: False [0.50 / 15.00];
 	MID_END_EQ_FROM_USER_PART(4.00)[];
@@ -54,23 +55,23 @@ X-Spamd-Result: default: False [0.50 / 15.00];
 	RCPT_COUNT_FIVE(0.00)[6];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	URIBL_BLOCKED(0.00)[gregkh:mid,linuxfoundation.org:dkim,linuxfoundation.org:from_smtp,linuxfoundation.org:from_mime];
+	URIBL_BLOCKED(0.00)[linuxfoundation.org:dkim,linuxfoundation.org:from_smtp,linuxfoundation.org:from_mime,gregkh:mid];
 	RCVD_COUNT_TWO(0.00)[2];
 	RCVD_TLS_LAST(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
 	DKIM_TRACE(0.00)[linuxfoundation.org:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: AWQXJ55UQPB6DB7SFKBCVGHZD4F3CEXL
-X-Message-ID-Hash: AWQXJ55UQPB6DB7SFKBCVGHZD4F3CEXL
+Message-ID-Hash: X42LKSPBLN6L5OV6XVXNFLI5KY2D4TIU
+X-Message-ID-Hash: X42LKSPBLN6L5OV6XVXNFLI5KY2D4TIU
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, linux-devel@silabs.com
+CC: greybus-dev@lists.linaro.org, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, linux-kernel@vger.kernel.org, Silicon Labs Kernel Team <linux-devel@silabs.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 0/8] greybus: support point-to-point topology
+Subject: [greybus-dev] Re: [PATCH v2 01/14] greybus: cpc: add minimal CPC Host Device infrastructure
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/AWQXJ55UQPB6DB7SFKBCVGHZD4F3CEXL/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/X42LKSPBLN6L5OV6XVXNFLI5KY2D4TIU/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -80,88 +81,22 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Dec 23, 2025 at 01:31:34PM -0500, Damien Ri=E9gel wrote:
-> In a classic Greybus topology, there is an application processor, an
-> SVC, and one or more modules, all connected to a UniPro bus. Most of the
-> time, as the application processor doesn't have a UniPro interface, it
-> is actually connected to a device acting as a bridge with the bus, and
-> this bridge also acts as the SVC.
->=20
-> Sometimes, there is no UniPro bus at all, like for the BeaglePlay, which
-> has the following topology:
->=20
->     +----+                +------------+                    +--------+
->     | AP | <--- UART ---> | SVC/Bridge | <--- 802.15.4 ---> | Module |
->     +----+                +------------+                    +--------+
->                                 |
->                                 |                           +--------+
->                                 `------------ 802.15.4 ---> | Module |
->                                                             +--------+
->=20
-> There are two main interesting aspects with Greybus:
->   - the SVC protocol to monitor and configure the bus
->   - other protocols, to expose module peripherals to the host
->=20
-> When the bus has a single module connected directly to the AP, then this
-> module must also implement the SVC protocol:
->=20
->                  +----+               +------------+
->                  | AP | <--- bus ---> | SVC/Module |
->                  +----+               +------------+
->=20
-> The SVC doesn' really serve a purpose here, as there is no bus to
-> manage, and adding its support only increase the complexity and the code
-> size needed on memory-constrained devices.
+On Thu, Jan 15, 2026 at 10:57:54AM -0500, Damien Ri=E9gel wrote:
+> As the first step for adding CPC support with Greybus, add a very
+> minimal module for CPC Host Devices. For now, this module only proxies
+> calls to the Greybus Host Device API and does nothing useful, but
+> further commits will use this base to add features.
 
-Exactly how much memory does a "single point" SVC driver take, vs.
-adding new P2P functionality everywhere in the code like you just did?
-Finding that out would be good first before worrying about adding
-another type of "bus" here please.
+What is "CPC"?  I don't see a description of that anywhere here, sorry.
 
-> The goal of this patchset is to let a single module expose some Greybus
-> protocols without requiring the module to also implement SVC protocol.
-> We call this mode "Point-To-Point". There are three main notable facts
-> with the implementation of this patchset:
->=20
->   - most of the time, what this patchet does is just skipping calls that
->     issue commands to the SVC, as they are not applicable without an SVC
+> +config GREYBUS_CPC
+> +	tristate "Greybus CPC driver"
+> +	help
+> +	  Select this option if you have a Silicon Labs device that acts as a
+> +	  Greybus SVC.
 
-Great, make a SVC that just ignores them :)
-
->   - CPort ID allocation is a bit different as there is no SVC/Bridge to
->     do translation between AP address space and interface address space,
->     so the patchset forces allocation of AP CPort IDs that matches the
->     ones found in interface's manifest
-
-Again, a simple SCV would make this not needed.
-
->   - enumeration of a module is normally started by a "Module Inserted"
->     event issued by the SVC. As the SVC is absent, the host device
->     driver must manually call a function to start the enumeration
-
-I'd prefer again, to have that in the SVC you are using.
-
-> We tested this patchset with the gb-beagleplay driver, slightly tweaked
-> to only keep the HLDC over UART part of the driver, connected over UART
-> to an EFR32MG24 running BeagleBoard's implementation of Greybus-Zephyr [1=
-].
->=20
-> In the discussion to integrate this module into Zephyr [2] (it's
-> currently as separate module not part of the main Zephyr code base),
-> there seems to be interest in being able to have a single-node
-> device on the bus without SVC [3]. If some features that were
-> implemented by the SVC are missing, we can consider adding more
-> callbacks to the gb_hd_driver structure at a later time, and let drivers
-> decide how they want to support these features.
-
-I can understand if you want to be a greybus host running zephyr that
-this might make sense, as it lets you not even have to write any SVC
-logic, but for Linux here, I think the simplicity makes more sense (i.e.
-everything goes through the same data paths, no multiple test paths that
-need to always be exercised.)
-
-So I'd prefer not to do this, just try to make a simple svc module and
-see if that works instead.
+What type of device is that?  And again, what is "CPC"?  Specifics are
+good to add here.
 
 thanks,
 
