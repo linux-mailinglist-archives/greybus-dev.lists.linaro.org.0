@@ -2,81 +2,110 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 X-Original-To: lists+greybus-dev@lfdr.de
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D5ABD38CB8
-	for <lists+greybus-dev@lfdr.de>; Sat, 17 Jan 2026 06:40:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DC6FD39752
+	for <lists+greybus-dev@lfdr.de>; Sun, 18 Jan 2026 16:01:23 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 21949401BA
-	for <lists+greybus-dev@lfdr.de>; Sat, 17 Jan 2026 05:40:58 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	by lists.linaro.org (Postfix) with ESMTPS id 5CDD33F83E
-	for <greybus-dev@lists.linaro.org>; Sat, 17 Jan 2026 05:40:54 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 4D6373F9A7
+	for <lists+greybus-dev@lfdr.de>; Sun, 18 Jan 2026 15:01:22 +0000 (UTC)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	by lists.linaro.org (Postfix) with ESMTPS id 66A043F961
+	for <greybus-dev@lists.linaro.org>; Sun, 18 Jan 2026 06:06:00 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=infradead.org header.s=bombadil.20210309 header.b="Dif9rO3/";
-	spf=none (lists.linaro.org: domain of rdunlap@infradead.org has no SPF policy when checking 198.137.202.133) smtp.mailfrom=rdunlap@infradead.org;
-	dmarc=pass (policy=none) header.from=infradead.org
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=HgW9C7zIs1FTgkiK/aV9D8CBW+qT2NeQ39NuD35ARV8=; b=Dif9rO3/6r28DnpwpRS7hezSNQ
-	fW/hojBbRu7QL4+75qtsYcTaVAGXOnZ/Kq3cpZt3p8PIHGnADQsN2gnjjhrz/Ivm0tF6e4hnESRHn
-	icZ+qsdf7/66MspyTeR9GOKcJZCH1Xvskp+MmCmCGtvmGhD+Cu318ZvbMKrbvB0++F5cdjnMiOwWI
-	kF1KxXnvYO13hk6QTk98S4JoSwMke1vTwndMh3izZ/4QMJpDUmJ8Z81id4QngW3U8ho009h/rTq3w
-	+CRP6l4m+pTZD/afCo2TrgmN4HAYd+u3dBfnjvw2DBsa9NqzOYAlicKM4bi5gEd4zkeOW/dQmfNP3
-	emJo1FOw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
-	id 1vgz3L-0000000FIqA-49UB;
-	Sat, 17 Jan 2026 05:40:52 +0000
-Message-ID: <26b4abdb-ab04-4637-a5df-262eed1d9629@infradead.org>
-Date: Fri, 16 Jan 2026 21:40:51 -0800
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=ZEqQWbUZ;
+	spf=pass (lists.linaro.org: domain of architanant5@gmail.com designates 209.85.214.176 as permitted sender) smtp.mailfrom=architanant5@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-29f2676bb21so33473505ad.0
+        for <greybus-dev@lists.linaro.org>; Sat, 17 Jan 2026 22:06:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1768716359; x=1769321159; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=6FzxRFLeOKaSIAzZCWUzvAinLwuzb0B6VsJ0iN19ZkQ=;
+        b=ZEqQWbUZFHXlU0DBmI2t3VDUX7xTlCeQIQpqajqJE9LjAjCz01H8EjL7tsOh4xBB2V
+         kFffBBIEZLdGbxyUufuURtf2kbCpFPGr1DuzDFqqDC7tjdtW4exGBC1WkbQYYgXfVwzC
+         6nK2MbEvPteDrlAEx8TBBZc5rEQ95QMFLmNLEJ4777BVsWhEi8zFS+BWf/jR4xCXNdte
+         GNMcN9uAt4JfkNtzeKIy6KM6OoVPpFV52ygHyoTtxky7RY74sQoP8aDbpgrHh8Qw+gJD
+         fop57mB1GXRB5YQCyJsLZ4XXGYbNQLcP5vwT3rpxP8kiFHlnko5vALxUmt1XCyDmevqI
+         +TeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768716359; x=1769321159;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6FzxRFLeOKaSIAzZCWUzvAinLwuzb0B6VsJ0iN19ZkQ=;
+        b=KWxv1wY3q58STjBBPWW8gxbawmtZ9gZMvFIPYyuB/TYc7WJq4irFKBGo4wFDlKtFjv
+         IMVoPOnGFztOxOEc6+ZIlY+1EHwvjG/I5+U8DVqwwojLw1BXZpiIAP7Csi9y5IRarQdt
+         8fg8WRfxIGFoVwDPrFUVkm61uwZwsp7bmQe+9iJk76Brtt611SCyk2ZNEvbHanEZrFbO
+         btmVMh2cR9EZP9HLTNxzvKBYkM+DTpLg4e1lP3H03Tg7jgpy87EqtODt4h5fsTtcB4H2
+         Ny07FnGbOwjypkmav5+nINs14xOXxYAjP60GFeTfvDal+q2ghG6Xgvzig3nHn3eaVZDU
+         Q+zg==
+X-Forwarded-Encrypted: i=1; AJvYcCUJQ5zXLztN1uen7rpeIWNBkAr5iibya4WoHZ0IYHwc2wSxXDjzcfQaDtxhrDR5/FwN6HjijPbnAmL25A==@lists.linaro.org
+X-Gm-Message-State: AOJu0YzGOmn+Ub4UaHqVr7Ti6yz1aDHVfrsD9a4Pee9JAUfLLk17HVID
+	FU28dRW8nj+W05B+6pnCryLAaj61oi4L7irHOpcEWw6T/5CKX/RqFSGR
+X-Gm-Gg: AY/fxX7TkajZ+/GHqgk67NgtZYFDkpUUGIYLjHlsPlaMtryAZ2OB69wc4xLrBNy1XYE
+	GbV2TswVkM/Xk0XxKD/hRJeip6jy8Ni303JCSB3fFpwWDA4joqoB7uSupx6BN3jsUWBGSD3wDu3
+	bIf1oNvBTS1GWoXAZH1Dx23bW3tnHG8u/4PzH2nvX3vqpliM3HiZHXF/rwzSkfr0vfX+BeKg8a6
+	qpLg2PDayD3c5u5ROxnFwefNhT6nSGk6ze9d+0m+csPzg4Zlq5cffPOZcw6pyBOhViYcuktq/IH
+	B/6Idjlqlyny79IIfGrcI61XfBTOVnI0BgkxV9qWaw+Go6Ylgb0QFKujL6wPSZaWNaRdi6mX1ry
+	+oQ+Bzg9pJ5DrSak57fHir78pV7bqkU7dEwqiptL69d7JPJXqrUMwBjhZsM85RlBtRzJF8D3CKR
+	3ZaVjeHUI7ixO53Pg+9dRXXGL1aeMAlnudAlAwiKpF
+X-Received: by 2002:a17:902:d48c:b0:295:425a:350e with SMTP id d9443c01a7336-2a718858410mr58956395ad.8.1768716359312;
+        Sat, 17 Jan 2026 22:05:59 -0800 (PST)
+Received: from debian.ari ([152.56.157.226])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3527305490fsm5730026a91.1.2026.01.17.22.05.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Jan 2026 22:05:58 -0800 (PST)
+From: Archit Anant <architanant5@gmail.com>
+To: vireshk@kernel.org,
+	johan@kernel.org,
+	elder@kernel.org
+Date: Sun, 18 Jan 2026 11:35:47 +0530
+Message-Id: <20260118060548.24548-1-architanant5@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Johan Hovold <johan@kernel.org>
-References: <20251230062704.3339404-1-rdunlap@infradead.org>
- <aWdgCblk91iJE4T2@hovoldconsulting.com>
- <f51a80c9-bc87-442e-b2e5-0e688a4cedd1@infradead.org>
- <aWoXbQYqVeahIxc8@hovoldconsulting.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <aWoXbQYqVeahIxc8@hovoldconsulting.com>
-X-Rspamd-Queue-Id: 5CDD33F83E
-X-Spamd-Bar: ---
-X-Spamd-Result: default: False [-3.60 / 15.00];
+X-Rspamd-Queue-Id: 66A043F961
+X-Spamd-Bar: --
+X-Spamd-Result: default: False [-2.50 / 15.00];
 	BAYES_HAM(-3.00)[99.99%];
-	DMARC_POLICY_ALLOW(-0.50)[infradead.org,none];
-	ONCE_RECEIVED(0.20)[];
-	R_DKIM_ALLOW(-0.20)[infradead.org:s=bombadil.20210309];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:209.85.128.0/17];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[linuxfoundation.org,lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
 	ARC_NA(0.00)[];
-	ASN(0.00)[asn:7247, ipnet:198.137.202.0/24, country:US];
-	DWL_DNSWL_BLOCKED(0.00)[infradead.org:dkim];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_ONE(0.00)[1];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,kernel.org,linuxfoundation.org,lists.linaro.org,lists.linux.dev];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FROM_EQ_ENVFROM(0.00)[];
-	R_SPF_NA(0.00)[no SPF record];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:15169, ipnet:209.85.128.0/17, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_ENVFROM(0.00)[gmail.com];
+	DNSWL_BLOCKED(0.00)[209.85.214.176:from];
 	NEURAL_HAM(-0.00)[-1.000];
-	DKIM_TRACE(0.00)[infradead.org:+]
+	PREVIOUSLY_DELIVERED(0.00)[greybus-dev@lists.linaro.org];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[209.85.214.176:from];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FROM_HAS_DN(0.00)[]
 X-Rspamd-Action: no action
 X-Rspamd-Server: lists.linaro.org
-Message-ID-Hash: AEODJLCZ5HPKVRZT3Z7L4QXKHWUGYPOA
-X-Message-ID-Hash: AEODJLCZ5HPKVRZT3Z7L4QXKHWUGYPOA
-X-MailFrom: rdunlap@infradead.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
+X-MailFrom: architanant5@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: 5LT6S3UJ7WB6DG63FBQPZTDGDZR6DYEX
+X-Message-ID-Hash: 5LT6S3UJ7WB6DG63FBQPZTDGDZR6DYEX
+X-Mailman-Approved-At: Sun, 18 Jan 2026 15:01:19 +0000
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Archit Anant <architanant5@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: arche: drop dangling Kconfig symbol
+Subject: [greybus-dev] [PATCH 0/1] staging: greybus: fw-core: use %pe for error printing
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/AEODJLCZ5HPKVRZT3Z7L4QXKHWUGYPOA/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5LT6S3UJ7WB6DG63FBQPZTDGDZR6DYEX/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -86,101 +115,20 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+This patch modernizes error printing in the Greybus firmware core driver.
 
+It replaces the old 'PTR_ERR' + '%ld' pattern with the newer '%pe'
+format specifier, which prints error names instead of numbers, 
+making it easy for debuging.
 
-On 1/16/26 2:48 AM, Johan Hovold wrote:
-> On Wed, Jan 14, 2026 at 04:28:33PM -0800, Randy Dunlap wrote:
->> On 1/14/26 1:21 AM, Johan Hovold wrote:
->>> On Mon, Dec 29, 2025 at 10:27:04PM -0800, Randy Dunlap wrote:
->>>> The Kconfig symbol USB_HSIC_USB3613 is not defined in the kernel source
->>>> tree. Drop it since it unused.
->>>>
->>>> Fixes: 2eccd4aa19fc ("staging: greybus: enable compile testing of arche driver")
->>>
->>> As the commit message of that commit says this was done on purpose to
->>> allow the driver to be compile tested without the out-of-tree driver
->>> that never went upstream.
->>>
->>> These days we have a USB hub driver that should probably be used
->>> instead, but yeah, someone would need to do the rework.
->>
->> We?
->> Do you mean drivers/usb/core/hub.c?
-> 
-> I meant the on-board hub driver (now renamed to "on-board dev") which
-> did not exist when this greybus driver was written and merged to
-> staging:
-> 
-> 	drivers/usb/misc/onboard_usb_dev_pdevs.c
-> 
->>>> -#if IS_ENABLED(CONFIG_USB_HSIC_USB3613)
->>>> -#include <linux/usb/usb3613.h>
->>>> -#else
->>>>  static inline int usb3613_hub_mode_ctrl(bool unused)
->>>>  {
->>>>  	return 0;
->>>>  }
->>>> -#endif
->>>>  
->>>>  #define WD_COLDBOOT_PULSE_WIDTH_MS	30
->>>>  
->>>> --- linux-next-20251219.orig/drivers/staging/greybus/Kconfig
->>>> +++ linux-next-20251219/drivers/staging/greybus/Kconfig
->>>> @@ -206,7 +206,6 @@ endif	# GREYBUS_BRIDGED_PHY
->>>>  
->>>>  config GREYBUS_ARCHE
->>>>  	tristate "Greybus Arche Platform driver"
->>>> -	depends on USB_HSIC_USB3613 || COMPILE_TEST
->>>>  	help
->>>>  	  Select this option if you have an Arche device.
->>>
->>> The above just seems to hide the fact that the driver currently cannot
->>> be used.
->>>
->>> Can you please at least add some kind of TODO comment to indicate that
->>> the driver should be reworked to drop the dependency on the OOT driver?
->>
->> Sure, I can add that, but I think it needs more info. Reworked how?
->> What should the usb3613_hub_mode_ctrl() function do?
-> 
-> IIRC, this driver exists since we needed to power on the on-board USB
-> hub so that the controller could be enumerated. Since there was no
-> support for doing such things at the time in mainline, we have this
-> custom interface for calling into the out-of-tree hub driver.
-> 
-> I'd need to spend more time looking at this to say exactly how this
-> should be reworked.
-> 
->>> And it's probably best to keep the depends on COMPILE_TEST until that
->>
->> ack
->>
->>> has been resolved. Perhaps also wrap usb3613_hub_mode_ctrl() in
->>>
->>> 	#ifdef CONFIG_COMPILE_TEST
->>> 	...
->>> 	#endif
->>
->> Don't think so. The driver calls usb3613_hub_mod_ctrl() in 4 places,
->> so it needs to be there.
-> 
-> Not if the driver can only be enabled for compile testing.
-> 
-> Perhaps replacing USB_HSIC_USB3613 with
-> 
-> 	depends on BROKEN || COMPILE_TEST
-> 
-> and adding a comment above the ifdeffed usb3613_hub_mode_ctrl() helper
-> would make the state of things more clear.
-> 
-> Or just keep the dependency on the non-existing hub driver symbol. 
+Archit Anant (1):
+  staging: greybus: fw-core: use %pe for error printing
 
-Yeah, it's such a mess that I'll just leave it as is.
-
-Perhaps you or someone who cares about it can do something about it.
+ drivers/staging/greybus/fw-core.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 -- 
-~Randy
+2.39.5
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
