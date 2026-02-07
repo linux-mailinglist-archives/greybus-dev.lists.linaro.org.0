@@ -2,54 +2,54 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CIHtLkFAh2nVVQQAu9opvQ
+	id 0H15LnNAh2nVVQQAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Sat, 07 Feb 2026 14:38:09 +0100
+	for <lists+greybus-dev@lfdr.de>; Sat, 07 Feb 2026 14:38:59 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E28710601D
-	for <lists+greybus-dev@lfdr.de>; Sat, 07 Feb 2026 14:38:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5541D106035
+	for <lists+greybus-dev@lfdr.de>; Sat, 07 Feb 2026 14:38:59 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 33C743F6EB
-	for <lists+greybus-dev@lfdr.de>; Sat,  7 Feb 2026 13:38:08 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	by lists.linaro.org (Postfix) with ESMTPS id 08CD93F6EB
-	for <greybus-dev@lists.linaro.org>; Sat,  7 Feb 2026 13:38:04 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 563703F78E
+	for <lists+greybus-dev@lfdr.de>; Sat,  7 Feb 2026 13:38:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by lists.linaro.org (Postfix) with ESMTPS id 6705D3F78E
+	for <greybus-dev@lists.linaro.org>; Sat,  7 Feb 2026 13:38:55 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=c09O6O4Y;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.234.252.31 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=otFV0YEa;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.105.4.254 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
 	dmarc=pass (policy=none) header.from=linuxfoundation.org
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 7B27243D61;
-	Sat,  7 Feb 2026 13:38:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24FFC116D0;
-	Sat,  7 Feb 2026 13:38:02 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id 0C4E96001A;
+	Sat,  7 Feb 2026 13:38:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7121C116D0;
+	Sat,  7 Feb 2026 13:38:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1770471483;
-	bh=aw0TVI+xH/GV339fB0TrLFlr9AbbXm4/JArjue//HwQ=;
+	s=korg; t=1770471534;
+	bh=c3BrW7RvTCIAb6OImzo6XVdZAO4auXYrJs2bvJYsUlk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=c09O6O4YJG06YTJp7IQ8IoFmMnIo4F7Jz9dd3vTRuWpudR5izoETsvGNmXI+WTdfg
-	 /DMxxpq6JqL9dIXclloJvkyUjHf1VC+qFDJslu7T1IFXH9tpW/e59hNBnVH045DMoi
-	 KYDfXJ1IqM8dQ+zauTaOnNBbZg+YWpXZ0Gaay+9I=
-Date: Sat, 7 Feb 2026 14:37:59 +0100
+	b=otFV0YEaIS8m/BJ2sZJX+YSnGK5urIr9+H3FKEhD0gBiRUAeSlyASLvYiWJNF8+Dn
+	 k7HCm7f5wo/xo3B+HI/l31BBRo5r/tA9vEcbr+EVZ3xmwID/htMyZf8n06vNN3fp0L
+	 CaE1QnF5diei1Eb42fK5tKNg17RYQ01pitxMSbsE=
+Date: Sat, 7 Feb 2026 14:38:50 +0100
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Rachit Dhar <rchtdhr@gmail.com>
-Message-ID: <2026020714-tightness-atonable-8a17@gregkh>
-References: <20260204183033.182747-1-rchtdhr@gmail.com>
+Message-ID: <2026020704-velocity-palpitate-afd2@gregkh>
+References: <20260204183003.182728-1-rchtdhr@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260204183033.182747-1-rchtdhr@gmail.com>
+In-Reply-To: <20260204183003.182728-1-rchtdhr@gmail.com>
 X-Spamd-Bar: /
-Message-ID-Hash: GC7BWP3MTJ6QQVYHYICQK2PUSJ4QWGJQ
-X-Message-ID-Hash: GC7BWP3MTJ6QQVYHYICQK2PUSJ4QWGJQ
+Message-ID-Hash: PRIDV24LOZRQY5ROTAAQUUKEMEOULCJB
+X-Message-ID-Hash: PRIDV24LOZRQY5ROTAAQUUKEMEOULCJB
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v3 2/4] staging: greybus: fixed styling issue in fw-management.c
+Subject: [greybus-dev] Re: [PATCH v3 1/4] staging: greybus: added comment to mutex declaration in fw-management.c
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GC7BWP3MTJ6QQVYHYICQK2PUSJ4QWGJQ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/PRIDV24LOZRQY5ROTAAQUUKEMEOULCJB/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -64,7 +64,7 @@ X-Spamd-Result: default: False [5.09 / 15.00];
 	R_DKIM_REJECT(1.00)[linuxfoundation.org:s=korg];
 	MID_RHS_NOT_FQDN(0.50)[];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx:c];
+	R_SPF_ALLOW(-0.20)[+mx];
 	DMARC_POLICY_SOFTFAIL(0.10)[linuxfoundation.org : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -80,26 +80,42 @@ X-Spamd-Result: default: False [5.09 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[7];
-	NEURAL_HAM(-0.00)[-0.999];
+	NEURAL_HAM(-0.00)[-1.000];
 	FROM_NEQ_ENVFROM(0.00)[gregkh@linuxfoundation.org,greybus-dev-bounces@lists.linaro.org];
 	DKIM_TRACE(0.00)[linuxfoundation.org:-];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
-X-Rspamd-Queue-Id: 3E28710601D
+	DBL_BLOCKED_OPENRESOLVER(0.00)[checkpatch.pl:url,linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
+X-Rspamd-Queue-Id: 5541D106035
 X-Rspamd-Action: no action
 
-On Wed, Feb 04, 2026 at 06:30:33PM +0000, Rachit Dhar wrote:
-> Fixed a styling issue highlighted by checkpatch.pl.
+On Wed, Feb 04, 2026 at 06:30:03PM +0000, Rachit Dhar wrote:
+> Added comment to mutex declaration, to resolve a checkpatch.pl check.
+> 
+> Signed-off-by: Rachit Dhar <rchtdhr@gmail.com>
+> ---
+>  drivers/staging/greybus/fw-management.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/staging/greybus/fw-management.c b/drivers/staging/greybus/fw-management.c
+> index 152949c23d65..07a0e6b63cf3 100644
+> --- a/drivers/staging/greybus/fw-management.c
+> +++ b/drivers/staging/greybus/fw-management.c
+> @@ -28,7 +28,7 @@ struct fw_mgmt {
+>  
+>  	/* Common id-map for interface and backend firmware requests */
+>  	struct ida		id_map;
+> -	struct mutex		mutex;
+> +	struct mutex		mutex; /* protects fw_mgmt->disabled, and serializes ioctl */
 
-What specific style issue was fixed?  Please be specific.
+How do you "know" that this is what it is for?
 
-Also, your patches were not correctly linked together.  Please use
-something like 'git send-email' to send them all at once.  Otherwise
-they get lost and out-of-order as you can see in the email archives on
-lore.kernel.org.
+Fixing this type of checkpatch warning is hard, and requires lots of
+documentation and checking.  If you didn't write the code originally, I
+wouldn't worry about this type of issue at all, it's best for new code,
+not existing code.
 
 thanks,
 
