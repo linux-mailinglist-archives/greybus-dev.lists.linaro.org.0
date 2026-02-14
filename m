@@ -2,152 +2,121 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EKRRMSaej2nbRwEAu9opvQ
+	id 068MN4zDkGlscwEAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Fri, 13 Feb 2026 22:56:54 +0100
+	for <lists+greybus-dev@lfdr.de>; Sat, 14 Feb 2026 19:48:44 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22931139B05
-	for <lists+greybus-dev@lfdr.de>; Fri, 13 Feb 2026 22:56:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6615213CF54
+	for <lists+greybus-dev@lfdr.de>; Sat, 14 Feb 2026 19:48:44 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A20463F9D9
-	for <lists+greybus-dev@lfdr.de>; Fri, 13 Feb 2026 21:56:52 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	by lists.linaro.org (Postfix) with ESMTPS id D78553F90C
-	for <greybus-dev@lists.linaro.org>; Fri, 13 Feb 2026 21:56:49 +0000 (UTC)
-Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=intel.com header.s=Intel header.b=b94YRlyC;
-	spf=pass (lists.linaro.org: domain of lkp@intel.com designates 192.198.163.7 as permitted sender) smtp.mailfrom=lkp@intel.com;
-	dmarc=pass (policy=none) header.from=intel.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1771019810; x=1802555810;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DaxEy4iyjk0jfiJmRq1yvRj20q5NJhlOW4ZnyL7kN9U=;
-  b=b94YRlyCKKuEf/PiwLJVAjKCjMfPW7C6FmLJMOOh46esWjkC8t1JQxBF
-   0yAvIk/OBFLjKPwBKOEx5dKKT/x91s78hyEIYb4ipWnJoDGjv2z7Eycy1
-   lK0Q1BaMb9jgNwTfyyilxbJQuMIvgDLWTr2wnZKJQgEzykVBMaPAo9W28
-   rd72bABrNdatIgLvAmbGn5WPD0/GrGmeYtJykYJTO9+FonxUp8IzoNjqp
-   YaBjRIRkFUzEONROdioeeBsE735Jcg1rG/vnueF3/mGDzQNv33ORTD5DY
-   urGxTFnq5Qxuv+T/c/i50Iox5BabfvbHrOXXW43xQe3Vk6jNb6eJ7xJFM
-   g==;
-X-CSE-ConnectionGUID: yX+BB1EZTNOSI1WiHjHeDA==
-X-CSE-MsgGUID: uZm6Tb/vSl6zGxT3HuZUEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11700"; a="97669745"
-X-IronPort-AV: E=Sophos;i="6.21,289,1763452800";
-   d="scan'208";a="97669745"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Feb 2026 13:56:49 -0800
-X-CSE-ConnectionGUID: p7TBokh2SOSbaUTcGYdRqw==
-X-CSE-MsgGUID: FqhAyRx1TR+BKKqJrK4RAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,289,1763452800";
-   d="scan'208";a="236016007"
-Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 13 Feb 2026 13:56:47 -0800
-Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1vr19Y-00000000vqm-472T;
-	Fri, 13 Feb 2026 21:56:44 +0000
-Date: Sat, 14 Feb 2026 05:56:35 +0800
-From: kernel test robot <lkp@intel.com>
-To: Damien =?iso-8859-1?Q?Ri=E9gel?= <damien.riegel@silabs.com>,
-	greybus-dev@lists.linaro.org, Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org
-Message-ID: <202602140508.Xj7ai7J1-lkp@intel.com>
-References: <20260212144352.93043-12-damien.riegel@silabs.com>
+	by lists.linaro.org (Postfix) with ESMTP id C3EC23F7EA
+	for <lists+greybus-dev@lfdr.de>; Sat, 14 Feb 2026 18:38:49 +0000 (UTC)
+Received: from lists.linaro.org (localhost [127.0.0.1])
+	by lists.linaro.org (Postfix) with ESMTP id C9CBA3F9A6
+	for <greybus-dev@lists.linaro.org>; Sat, 14 Feb 2026 18:38:46 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260212144352.93043-12-damien.riegel@silabs.com>
-X-Spamd-Bar: ------
-Message-ID-Hash: PYLP3HBAFOJG4ZGKC6YHJ2XGG2HZMDEJ
-X-Message-ID-Hash: PYLP3HBAFOJG4ZGKC6YHJ2XGG2HZMDEJ
-X-MailFrom: lkp@intel.com
+From: brouwerspatrick81@gmail.com
+To: greybus-dev@lists.linaro.org
+Date: Sat, 14 Feb 2026 18:38:46 -0000
+Message-ID: <177109432682.1372075.5910134632255481651@lists.linaro.org>
+User-Agent: HyperKitty on http://lists.linaro.org/
+Message-ID-Hash: 55KB7GLG3MTODYFVYAVKLNGQ6E4ULIP6
+X-Message-ID-Hash: 55KB7GLG3MTODYFVYAVKLNGQ6E4ULIP6
+X-MailFrom: brouwerspatrick81@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: oe-kbuild-all@lists.linux.dev, Silicon Labs Kernel Team <linux-devel@silabs.com>, Damien =?iso-8859-1?Q?Ri=E9gel?= <damien.riegel@silabs.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v3 11/14] greybus: cpc: honour remote's RX window
+Subject: [greybus-dev] How To Recover From Fake Cryptocurrency / Usdt Investment Scam Digital Light Solution
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/PYLP3HBAFOJG4ZGKC6YHJ2XGG2HZMDEJ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/55KB7GLG3MTODYFVYAVKLNGQ6E4ULIP6/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.59 / 15.00];
-	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [7.49 / 15.00];
+	DBL_SPAM(6.50)[digitallightsolution.com:url,digitallightsolution.com:email];
+	MID_RHS_MATCH_TO(1.00)[];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx];
-	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
+	BAD_REP_POLICIES(0.10)[];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,intel.com:mid,intel.com:email,01.org:url,git-scm.com:url];
-	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,greybus-dev-bounces@lists.linaro.org];
-	FROM_HAS_DN(0.00)[];
-	TAGGED_RCPT(0.00)[greybus-dev];
-	RCVD_COUNT_FIVE(0.00)[5];
 	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	GREYLIST(0.00)[pass,body];
+	RCPT_COUNT_ONE(0.00)[1];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	DKIM_TRACE(0.00)[intel.com:-]
-X-Rspamd-Queue-Id: 22931139B05
-X-Rspamd-Action: no action
+	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_NEQ_ENVFROM(0.00)[brouwerspatrick81@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	R_DKIM_NA(0.00)[];
+	R_SPF_ALLOW(0.00)[+mx];
+	TAGGED_RCPT(0.00)[greybus-dev];
+	FROM_NO_DN(0.00)[];
+	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[wa.link:url,linaro.org:email,lists.linaro.org:rdns,lists.linaro.org:helo,lists.linaro.org:mid]
+X-Rspamd-Queue-Id: 6615213CF54
+X-Rspamd-Action: add header
+X-Spam: Yes
 
-Hi Damien,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on linus/master]
-[also build test ERROR on v6.19 next-20260213]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Damien-Ri-gel/greybus-cpc-add-minimal-CPC-Host-Device-infrastructure/20260212-232259
-base:   linus/master
-patch link:    https://lore.kernel.org/r/20260212144352.93043-12-damien.riegel%40silabs.com
-patch subject: [PATCH v3 11/14] greybus: cpc: honour remote's RX window
-config: arm-randconfig-r133-20260213 (https://download.01.org/0day-ci/archive/20260214/202602140508.Xj7ai7J1-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 13.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260214/202602140508.Xj7ai7J1-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202602140508.Xj7ai7J1-lkp@intel.com/
-
-All errors (new ones prefixed by >>, old ones prefixed by <<):
-
-ERROR: modpost: "skb_put" [drivers/greybus/cpc/gb-cpc.ko] undefined!
-ERROR: modpost: "skb_dequeue" [drivers/greybus/cpc/gb-cpc.ko] undefined!
-ERROR: modpost: "skb_queue_purge_reason" [drivers/greybus/cpc/gb-cpc.ko] undefined!
-ERROR: modpost: "__alloc_skb" [drivers/greybus/cpc/gb-cpc.ko] undefined!
-ERROR: modpost: "skb_queue_tail" [drivers/greybus/cpc/gb-cpc.ko] undefined!
-ERROR: modpost: "skb_pull" [drivers/greybus/cpc/gb-cpc.ko] undefined!
-ERROR: modpost: "sk_skb_reason_drop" [drivers/greybus/cpc/gb-cpc.ko] undefined!
-ERROR: modpost: "skb_push" [drivers/greybus/cpc/gb-cpc.ko] undefined!
-ERROR: modpost: "skb_unlink" [drivers/greybus/cpc/gb-cpc.ko] undefined!
->> ERROR: modpost: "skb_clone" [drivers/greybus/cpc/gb-cpc.ko] undefined!
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-_______________________________________________
-greybus-dev mailing list -- greybus-dev@lists.linaro.org
-To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+SeKAmXZlIGFsd2F5cyBiZWxpZXZlZCB0aGF0IHN1c3RhaW5hYmlsaXR5IGJlZ2lucyBhdCBob21l
+4oCUbm90IGp1c3QgaW4gaG93IHdlIHJlY3ljbGUgb3IgY29uc2VydmUgZW5lcmd5LCBidXQgaW4g
+dGhlIHZlcnkgc3RydWN0dXJlcyB3ZSBsaXZlIGluLiBGb3IgeWVhcnMsIEkgZHJlYW1lZCBvZiBi
+dWlsZGluZyBhIHplcm8td2FzdGUgbmVpZ2hib3Job29kIHdoZXJlIGV2ZXJ5IGhvdXNlIGZ1bmN0
+aW9ucyBsaWtlIGEgbGl2aW5nIGVjb3N5c3RlbTogc29sYXItcG93ZXJlZCwgd2F0ZXItd2lzZSwg
+YW5kIGNyb3duZWQgd2l0aCByb29mdG9wIGdyZWVuaG91c2VzIHRoYXQgZmVlZCBmYW1pbGllcyBh
+bmQgZmlsdGVyIGFpci4gSXQgd2FzbuKAmXQganVzdCBhcmNoaXRlY3R1cmXigJRpdCB3YXMgbXkg
+dmlzaW9uIGZvciBhIHF1aWV0ZXIsIGNsZWFuZXIgZnV0dXJlLiBUbyBtYWtlIGl0IHJlYWwsIEkg
+dHVybmVkIHRvIEJpdGNvaW4uIE5vdCBhcyBhIHNwZWN1bGF0aXZlIGJldCwgYnV0IGFzIGEgbG9u
+Zy10ZXJtIHN0b3JlIG9mIHZhbHVlIGFsaWduZWQgd2l0aCBteSB2YWx1ZXPigJRkZWNlbnRyYWxp
+emVkLCB0cmFuc3BhcmVudCwgYW5kIGluZGVwZW5kZW50IG9mIGJyb2tlbiBzeXN0ZW1zLiBPdmVy
+IHNldmVuIHllYXJzLCBJIHBvdXJlZCBzYXZpbmdzLCBzaWRlIGluY29tZSwgYW5kIHJlbGVudGxl
+c3MgZGlzY2lwbGluZSBpbnRvIGJ1aWxkaW5nIGEgJDY4MCwwMDAgY3J5cHRvIHBvcnRmb2xpby4g
+RXZlcnkgY29pbiBoYWQgYSBwdXJwb3NlOiBwZXJtaXRzLCBtYXRlcmlhbHMsIGFuZCBjb21tdW5p
+dHkgcGFydG5lcnNoaXBzLiBNeSBkcmVhbSBoYWQgYSBiYWxhbmNlIHNoZWV0LiBUaGVuLCBpbiBv
+bmUgZXhoYXVzdGVkLCBkaXN0cmFjdGVkIG1vbWVudCwgaXQgYWxsIGNvbGxhcHNlZC4gSXQgd2Fz
+IE5vdmVtYmVyIDIwMjUuIEkgd2FzIGp1Z2dsaW5nIGNvbnRyYWN0b3IgZGVsYXlzLCBjaXR5IGlu
+c3BlY3Rpb25zLCBhbmQgZW5kbGVzcyBkZXNpZ24gcmV2aXNpb25zLiBNeSBuZXJ2ZXMgd2VyZSBm
+cmF5ZWQsIG15IGNvZmZlZSBwb3QgbmV2ZXIgZW1wdHkuIFdoZW4gYSDigJxMZWRnZXIgTGl2ZSBV
+cGRhdGXigJ0gbm90aWZpY2F0aW9uIHBvcHBlZCB1cCwgSSBkaWRu4oCZdCB0aGluayB0d2ljZS4g
+VGhlIGludGVyZmFjZSBsb29rZWQgaWRlbnRpY2Fs4oCUc2FtZSBsb2dvLCBzYW1lIGxheW91dC4g
+SSBlbnRlcmVkIG15IGNyZWRlbnRpYWxz4oCmIGFuZCB3aXRoaW4gc2Vjb25kcywgdGhlIGFwcCBk
+aXNhcHBlYXJlZC4gTXkgd2FsbGV0IGJhbGFuY2UgZHJvcHBlZCB0byB6ZXJvLiBJIHNhdCBmcm96
+ZW4uIE15IHN0b21hY2ggZHJvcHBlZC4gQWxsIHRoYXQgd29ya+KAlHllYXJzIG9mIHNhY3JpZmlj
+ZeKAlGdvbmUgaW4gYSBibGluay4gVGhlIGRheXMgdGhhdCBmb2xsb3dlZCB3ZXJlIGRhcmsuIEkg
+c2NvdXJlZCBmb3J1bXMsIGZpbGVkIHJlcG9ydHMsIGFuZCByZXBsYXllZCBteSBtaXN0YWtlIG9u
+IGxvb3AuIEd1aWx0IGF0ZSBhdCBtZS4gSG93IGNvdWxkIEkgaGF2ZSBiZWVuIHNvIGNhcmVsZXNz
+PyBNeSBncmVlbmhvdXNlIHJlbmRlcmluZ3Mgc2F0IHVudG91Y2hlZC4gTXkgZHJlYW0gZmVsdCBs
+aWtlIGEgY3J1ZWwgam9rZS4gSnVzdCB3aGVuIEkgd2FzIHJlYWR5IHRvIHdhbGsgYXdheSwgSSBz
+dHVtYmxlZCB1cG9uIGEgbmV3c2xldHRlciBhYm91dCBncmVlbiBpbm5vdmF0aW9uLiBUdWNrZWQg
+YmV0d2VlbiBhcnRpY2xlcyBvbiBjYXJib24tbmV1dHJhbCBjaXRpZXMgYW5kIG5leHQtZ2VuIHNv
+bGFyIHBhbmVscyB3YXMgYSBzaG9ydCBmZWF0dXJlIG9uICpEaWdpdGFsIExpZ2h0IFNvbHV0aW9u
+KuKAlGEgc3BlY2lhbGl6ZWQgdGVhbSB0aGF0IGhlbHBzIHZpY3RpbXMgb2YgY3J5cHRvIHRoZWZ0
+IHJlY292ZXIgc3RvbGVuIGFzc2V0cy4gU2tlcHRpY2FsIGJ1dCBkZXNwZXJhdGUsIEkgcmVhY2hl
+ZCBvdXQuIFdoYXQgZm9sbG93ZWQgd2FzbuKAmXQgbWFnaWPigJRidXQgaXQgd2FzIGNsb3NlIHRv
+IGl0LiBUaGVpciB0ZWFtIHRyZWF0ZWQgbXkgY2FzZSB3aXRoIHVyZ2VuY3kgYW5kIGNvbXBhc3Np
+b24uIFRoZXkgdHJhY2VkIHRoZSB0cmFuc2FjdGlvbiB0cmFpbCwgaWRlbnRpZmllZCB0aGUgbGF1
+bmRlcmluZyBwYXRoLCBhbmQgd29ya2VkIHdpdGggZXhjaGFuZ2VzIHRvIGZyZWV6ZSB3aGF0IHRo
+ZXkgY291bGQuIFdpdGhpbiB3ZWVrcywgdGhleeKAmWQgcmVjb3ZlcmVkIGEgc2lnbmlmaWNhbnQg
+cG9ydGlvbiBvZiBteSBmdW5kc+KAlGVub3VnaCB0byByZXN0YXJ0LiBUb2RheSwgSeKAmW0gbm90
+IGp1c3QgcmVidWlsZGluZyBteSBwb3J0Zm9saW/igJRJ4oCZbSBicmVha2luZyBncm91bmQgb24g
+bXkgcHJvdG90eXBlIGdyZWVuaG91c2UuIEFuZCBldmVyeSBiZWFtLCBldmVyeSBwYW5lIG9mIGds
+YXNzLCBjYXJyaWVzIHRoZSBsZXNzb24gSSBsZWFybmVkOiB0aGF0IGV2ZW4gaW4gb3VyIG1vc3Qg
+dnVsbmVyYWJsZSBtb21lbnRzLCB0aGVyZeKAmXMgc3RpbGwgbGlnaHQgdG8gYmUgZm91bmQuDQpF
+bWFpbDpzdXBwb3J0QGRpZ2l0YWxsaWdodHNvbHV0aW9uLmNvbQ0KVGVsZWdyYW0g4oCU4oCUZGln
+aXRhbGxpZ2h0c29sdXRpb24NCndlYnNpdGUgaHR0cHM6Ly9kaWdpdGFsbGlnaHRzb2x1dGlvbi5j
+b20vDQpXaGF0c0FwcMKgIGh0dHBzOi8vd2EubGluay85ODl2bGYNCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxpbmcgbGlzdCAt
+LSBncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnClRvIHVuc3Vic2NyaWJlIHNlbmQgYW4gZW1h
+aWwgdG8gZ3JleWJ1cy1kZXYtbGVhdmVAbGlzdHMubGluYXJvLm9yZwo=
