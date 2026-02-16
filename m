@@ -2,35 +2,35 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eN1AADpok2mR4QEAu9opvQ
+	id sFV4OyRpk2m64QEAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Mon, 16 Feb 2026 19:55:54 +0100
+	for <lists+greybus-dev@lfdr.de>; Mon, 16 Feb 2026 19:59:48 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7029C147226
-	for <lists+greybus-dev@lfdr.de>; Mon, 16 Feb 2026 19:55:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DECA14725E
+	for <lists+greybus-dev@lfdr.de>; Mon, 16 Feb 2026 19:59:48 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4A10E401F0
-	for <lists+greybus-dev@lfdr.de>; Mon, 16 Feb 2026 18:55:52 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 513DB401F8
+	for <lists+greybus-dev@lfdr.de>; Mon, 16 Feb 2026 18:59:47 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id CCC8F3F787
-	for <greybus-dev@lists.linaro.org>; Mon, 16 Feb 2026 18:55:32 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id DEBDB401B2
+	for <greybus-dev@lists.linaro.org>; Mon, 16 Feb 2026 18:59:27 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 From: masoncaleb2a@gmail.com
 To: greybus-dev@lists.linaro.org
-Date: Mon, 16 Feb 2026 18:55:32 -0000
-Message-ID: <177126813283.359649.8948646218140182004@lists.linaro.org>
+Date: Mon, 16 Feb 2026 18:59:27 -0000
+Message-ID: <177126836791.363158.4175540151028425819@lists.linaro.org>
 User-Agent: HyperKitty on http://lists.linaro.org/
-Message-ID-Hash: 3BYFCBIVJB6EJPGWFDJWNORK4HUEHTNT
-X-Message-ID-Hash: 3BYFCBIVJB6EJPGWFDJWNORK4HUEHTNT
+Message-ID-Hash: WTVV46TTIAMKSS277LNLQMVODNL4Z4BL
+X-Message-ID-Hash: WTVV46TTIAMKSS277LNLQMVODNL4Z4BL
 X-MailFrom: masoncaleb2a@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Which expert agency is best for cryptocurrency recovery services and fund restitution
+Subject: [greybus-dev] How To Recover Cryptocurrency Lost Through NFT Marketplace Fraud Scams
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/3BYFCBIVJB6EJPGWFDJWNORK4HUEHTNT/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/WTVV46TTIAMKSS277LNLQMVODNL4Z4BL/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -41,29 +41,29 @@ Content-Transfer-Encoding: base64
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.69 / 15.00];
 	MID_RHS_MATCH_TO(1.00)[];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed), No valid DKIM,none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_NO_DN(0.00)[];
 	RCPT_COUNT_ONE(0.00)[1];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
+	FROM_NO_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FROM_NEQ_ENVFROM(0.00)[masoncaleb2a@gmail.com,greybus-dev-bounces@lists.linaro.org];
 	TAGGED_RCPT(0.00)[greybus-dev];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_NONE(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	R_DKIM_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[autopsymainnetsolutions.com:url,autopsymainnetsolutions.com:email,linaro.org:email,autospyrec.site:url,lists.linaro.org:rdns,lists.linaro.org:helo,lists.linaro.org:mid,co.site:email]
-X-Rspamd-Queue-Id: 7029C147226
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[autopsymainnetsolutions.com:url,autopsymainnetsolutions.com:email,autospyrec.site:url,co.site:email,lists.linaro.org:rdns,lists.linaro.org:helo,lists.linaro.org:mid,linaro.org:email]
+X-Rspamd-Queue-Id: 6DECA14725E
 X-Rspamd-Action: no action
 
 QXMgY3J5cHRvY3VycmVuY2llcyBjb250aW51ZSB0byByZXNoYXBlIGZpbmFuY2UgaW4gMjAyNiwg
