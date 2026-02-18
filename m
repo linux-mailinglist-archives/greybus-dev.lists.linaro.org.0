@@ -2,35 +2,35 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KCoGJb3ylWlTWwIAu9opvQ
+	id SNjCA8PylWlTWwIAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 18:11:25 +0100
+	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 18:11:31 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75296158221
-	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 18:11:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0EB0158228
+	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 18:11:30 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8C92F401E3
-	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 17:11:24 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id BD856401E3
+	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 17:11:29 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4C41E402D1
-	for <greybus-dev@lists.linaro.org>; Wed, 18 Feb 2026 17:10:31 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 4D0B4402DE
+	for <greybus-dev@lists.linaro.org>; Wed, 18 Feb 2026 17:10:34 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-From: "ezra Jack" <jackezra585@gmail.com>
+From: "Theodore Henry" <theodorehenry1a@gmail.com>
 To: greybus-dev@lists.linaro.org
-Date: Wed, 18 Feb 2026 17:10:31 -0000
-Message-ID: <177143463131.2531455.12769609811091749805@lists.linaro.org>
+Date: Wed, 18 Feb 2026 17:10:34 -0000
+Message-ID: <177143463431.2532484.15699323033542304788@lists.linaro.org>
 User-Agent: HyperKitty on http://lists.linaro.org/
-Message-ID-Hash: 22QR323XRCR76ZXEBKIVPACH733TVOE5
-X-Message-ID-Hash: 22QR323XRCR76ZXEBKIVPACH733TVOE5
-X-MailFrom: jackezra585@gmail.com
+Message-ID-Hash: PJVTPAJ6DIL6UMCFVPBILUDT3U7KGQPK
+X-Message-ID-Hash: PJVTPAJ6DIL6UMCFVPBILUDT3U7KGQPK
+X-MailFrom: theodorehenry1a@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] TOP 8 BEST GOOD CRYPTOCURRENCY RECOVERY SPECIALIST FOR LEGITIMATE CRYPTO RECOVERY IN 2026
+Subject: [greybus-dev] TOP 9 BEST GOOD CRYPTOCURRENCY RECOVERY SPECIALIST FOR LEGITIMATE CRYPTO RECOVERY IN 2026
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/22QR323XRCR76ZXEBKIVPACH733TVOE5/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/PJVTPAJ6DIL6UMCFVPBILUDT3U7KGQPK/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -57,14 +57,14 @@ X-Spamd-Result: default: False [0.69 / 15.00];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	RCPT_COUNT_ONE(0.00)[1];
 	RCVD_COUNT_TWO(0.00)[2];
-	FROM_NEQ_ENVFROM(0.00)[jackezra585@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	FROM_NEQ_ENVFROM(0.00)[theodorehenry1a@gmail.com,greybus-dev-bounces@lists.linaro.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_NONE(0.00)[];
 	R_DKIM_NA(0.00)[];
 	NEURAL_HAM(-0.00)[-0.963];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:rdns,lists.linaro.org:helo,lists.linaro.org:mid,linaro.org:email,autospyrec.site:url,autopsymainnetsolutions.com:url,autopsymainnetsolutions.com:email]
-X-Rspamd-Queue-Id: 75296158221
+X-Rspamd-Queue-Id: A0EB0158228
 X-Rspamd-Action: no action
 
 SW4gMjAyNiwgY3J5cHRvY3VycmVuY3kgdGhlZnQsIHNjYW1zLCBhbmQgYWNjaWRlbnRhbCBsb3Nz
