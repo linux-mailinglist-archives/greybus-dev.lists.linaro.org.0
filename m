@@ -2,35 +2,35 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uLEBFxLulWlTWwIAu9opvQ
+	id YINbDBjulWlTWwIAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 17:51:30 +0100
+	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 17:51:36 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 210B2157E46
-	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 17:51:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA6B1157E6B
+	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 17:51:35 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3C705401E1
-	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 16:51:29 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id D4E76401CF
+	for <lists+greybus-dev@lfdr.de>; Wed, 18 Feb 2026 16:51:34 +0000 (UTC)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 65E09401D8
-	for <greybus-dev@lists.linaro.org>; Wed, 18 Feb 2026 16:51:12 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 76777402B1
+	for <greybus-dev@lists.linaro.org>; Wed, 18 Feb 2026 16:51:16 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-From: "ezra Jack" <jackezra585@gmail.com>
+From: "Theodore Henry" <theodorehenry1a@gmail.com>
 To: greybus-dev@lists.linaro.org
-Date: Wed, 18 Feb 2026 16:51:12 -0000
-Message-ID: <177143347241.2509701.8397004934877653781@lists.linaro.org>
+Date: Wed, 18 Feb 2026 16:51:16 -0000
+Message-ID: <177143347648.2509701.3159078002510946854@lists.linaro.org>
 User-Agent: HyperKitty on http://lists.linaro.org/
-Message-ID-Hash: VZ5D32GRBENXTVJWF5EBPCMNBIHTFEEC
-X-Message-ID-Hash: VZ5D32GRBENXTVJWF5EBPCMNBIHTFEEC
-X-MailFrom: jackezra585@gmail.com
+Message-ID-Hash: V5Y4BTEWD556MXZMNFDJINEJGJZAJ64X
+X-Message-ID-Hash: V5Y4BTEWD556MXZMNFDJINEJGJZAJ64X
+X-MailFrom: theodorehenry1a@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] TOP 8 BEST GOOD CRYPTOCURRENCY RECOVERY COMPANY FOR LEGITIMATE CRYPTO RECOVERY IN 2026
+Subject: [greybus-dev] TOP 9 BEST GOOD CRYPTOCURRENCY RECOVERY COMPANY FOR LEGITIMATE CRYPTO RECOVERY IN 2026
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/VZ5D32GRBENXTVJWF5EBPCMNBIHTFEEC/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/V5Y4BTEWD556MXZMNFDJINEJGJZAJ64X/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -56,14 +56,14 @@ X-Spamd-Result: default: False [0.69 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	FROM_NEQ_ENVFROM(0.00)[jackezra585@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	FROM_NEQ_ENVFROM(0.00)[theodorehenry1a@gmail.com,greybus-dev-bounces@lists.linaro.org];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	TO_DN_NONE(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	R_DKIM_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[autospyrec.site:url,autopsymainnetsolutions.com:url,autopsymainnetsolutions.com:email,lists.linaro.org:rdns,lists.linaro.org:helo,lists.linaro.org:mid,linaro.org:email]
-X-Rspamd-Queue-Id: 210B2157E46
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:rdns,lists.linaro.org:helo,lists.linaro.org:mid,autopsymainnetsolutions.com:url,autopsymainnetsolutions.com:email,autospyrec.site:url,linaro.org:email]
+X-Rspamd-Queue-Id: BA6B1157E6B
 X-Rspamd-Action: no action
 
 SW4gMjAyNiwgY3J5cHRvY3VycmVuY3kgYXNzZXQgcmVjb3ZlcnkgaGFzIGJlY29tZSBhIGhpZ2hs
