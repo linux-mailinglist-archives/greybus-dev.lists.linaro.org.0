@@ -2,84 +2,84 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kHUDBm8VmGlR/wIAu9opvQ
+	id MHG/A4cWmGki/wIAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Fri, 20 Feb 2026 09:03:59 +0100
+	for <lists+greybus-dev@lfdr.de>; Fri, 20 Feb 2026 09:08:39 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 794E11657B3
-	for <lists+greybus-dev@lfdr.de>; Fri, 20 Feb 2026 09:03:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71E0116585F
+	for <lists+greybus-dev@lfdr.de>; Fri, 20 Feb 2026 09:08:38 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 56063401F8
-	for <lists+greybus-dev@lfdr.de>; Fri, 20 Feb 2026 08:03:57 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	by lists.linaro.org (Postfix) with ESMTPS id 56B043F797
-	for <greybus-dev@lists.linaro.org>; Fri, 20 Feb 2026 08:03:55 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 5E7E4401F8
+	for <lists+greybus-dev@lfdr.de>; Fri, 20 Feb 2026 08:08:37 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	by lists.linaro.org (Postfix) with ESMTPS id AF4573F7F2
+	for <greybus-dev@lists.linaro.org>; Fri, 20 Feb 2026 08:08:34 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=bucevUhi;
-	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.221.41 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
+	dkim=pass header.d=linaro.org header.s=google header.b=nFDd2Zhy;
+	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.128.45 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
 	dmarc=pass (policy=none) header.from=linaro.org
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-43767807cf3so1311632f8f.1
-        for <greybus-dev@lists.linaro.org>; Fri, 20 Feb 2026 00:03:55 -0800 (PST)
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4833115090dso16664825e9.3
+        for <greybus-dev@lists.linaro.org>; Fri, 20 Feb 2026 00:08:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1771574634; x=1772179434; darn=lists.linaro.org;
+        d=linaro.org; s=google; t=1771574914; x=1772179714; darn=lists.linaro.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=1eHENbQgxiG8g4Iw6sBHR/5X6KByktzSsOmA3jGT73U=;
-        b=bucevUhiM0diF8etRq8HSlOqo2OUondQadOsQG7qLDS0Onvi6YvBL1PIlTP++k0E5H
-         RooJFkEQ8iGpY9ohpHglhItT1+OdjjnsXiaYclWMEdG+91rOtTaVJ4RJRJbko/QgbBZh
-         qRlwLgjFUXoKCMCVDzcgoKrvizymAeR8JBfuol4X4x3mxXY7OZpuyf0wrxeGdg9HTG+0
-         wiR3Ye0mQCXjopYTN5toZg9fBu7Go7iW6Md8+daUF1nZLfiYPDzAFB6+DAil6wICPWz/
-         M+e+Iwlrg9UGd12OZPW0OTMf56eKs4zEfvvEzqtftV+RI7kR/tWliGtTWKgHofOlvRD1
-         HkNA==
+        bh=PW5/Tx2f7vm6B1RaJRWVO1XGu49Vd/tH4yy2gBO2bc0=;
+        b=nFDd2Zhy4bABwlzTpXvtIhrdFtUA79GHFrkg09bekmNLXWptqU2jx3cvVr7ECqyMfn
+         Bm62G0eZh1UZw/RczhYnPbHRkRYZcgA389SsTG2OI0rlWSZ4FUB7/WOAWyEH+mujBqWf
+         Fvqrg+Axx25RZEfd0CEcNv5MSFJ9O8IakLZ+NuHNFVrork1OiXw9cL0PzxBpljPWszap
+         cAk0JrG6GMs1Iw67Mj/gMHJv7wSaPQJW0jyo/BKOZdKQCNHU+1RSixlAMci3VtqT273d
+         h24sAuXw/kCdVU+aGPbqdTeyPul1o9gzgn6TQf0UWqJ/IoRMpUeiUglPFnYidUKbJkOS
+         LW+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771574634; x=1772179434;
+        d=1e100.net; s=20230601; t=1771574914; x=1772179714;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=1eHENbQgxiG8g4Iw6sBHR/5X6KByktzSsOmA3jGT73U=;
-        b=qEgYCzyTfCy1+U6atxOqeYzKuGGukZvgqrYY/RuzLiWWGRjYVhJNCqk0z6b1/1hSxV
-         wjnpc6HZE0uKF1CnysBWzZxsYI6bWjCWJezv0SfrN5sggIoU+FMVyea3O6j8tB8i0Gyc
-         lN1pxzXNLdMumwMr+IZB6ELPWtidKKgEQ1PPTjCgsRlcUnHOOwrY77l95AmfapP5AQT8
-         xpitZgPpItYcvvKOWB3Jzb/5lpjlvK2Cjzqo3Pva/ZCRi67T3pUUnwOPvb/OTeZ9qDNG
-         x4skfA2hqVYZNNykhy8RVpkLOzkSdRhwRXxfepw/33HLIst7Zpo5tboK1Rz6m2Xd3y3A
-         iZFA==
-X-Forwarded-Encrypted: i=1; AJvYcCW4Ba8YOb6S8YCxyD310RuaAhqex+4wce4K4i9PV+UTkuo1Cp9OOeChPZAuaIHz0C6RM2an1tUQwDI1+g==@lists.linaro.org
-X-Gm-Message-State: AOJu0YwD/32K/Ckxx5u1SBGJccfU9UsyKMPQJeqaueB/02bpcU1JNXfB
-	s8pxgGnbUZzsXNRr0w2ij3+Q38RYvxNMPDIpL98pjcr+hcQBMWHyCQAl6N1wfw+L00zASw==
-X-Gm-Gg: AZuq6aJbrotZ4AMK9/CP+zQqKYUjPRtIQjjH4FRNnyYAbQ9uz1aOm7AKEfWXJxINc0b
-	597Ft4z/GthNpyEXeZ1AxWBjNBT4o+CvHSA9V5i74wW6p+ciAEEB+KVFQ2anIybFdJKAtazlKO8
-	v8ZqnaQ8vE4jIz1c9VxOdrHSO6Im6ffv2YeMcGGCzFwahzp44Y2wiEhp0nmbRA4pcRw0m09UGoG
-	c1ODQCN4z9GHrUo6Z0s9t2yAgn/M69eT+zHHVIqTZcDrE8jJ2V719vpYSQBV5G2PoV6V2wsFaMw
-	7t8TxMhTJ+BfOpUzQYBH0lSFeLiGzJf+6xNfcFTg11k6XZq4iBfAuVQAFuEUMkAcSqTdQv45NVj
-	dNQpCi7FmD6Ou1TwiN8DOoXg9dMiifHswi8MfFSijIG7VJtHVjkii2/jtaMTQOOyGDcBi9dmxYK
-	MhYfuDZXRsqsSYIjNXLA4QK9ylnNqD
-X-Received: by 2002:a05:6000:438a:b0:437:6aca:d1cc with SMTP id ffacd0b85a97d-4379db372f1mr36014949f8f.23.1771574634151;
-        Fri, 20 Feb 2026 00:03:54 -0800 (PST)
+        bh=PW5/Tx2f7vm6B1RaJRWVO1XGu49Vd/tH4yy2gBO2bc0=;
+        b=D8XhCuOb5GgQRa/3Zkv6qtCU1A87AxGyCuBNKGK4W9b5YwZMPHz/GN2bSgcHfrBtg5
+         YZczNeUsPTYnhHMKvgvZ55kGaju+W3tq+Y8dCuCzPV9VEn61Ze5knx20H0GgSnsG0ewW
+         txqjNP1AIUxdsOrsRDVe+aMYah4J719T2Zk0Ip+DBKCpO9a+tiTZS4oWp7Ms8Ha6Me12
+         9+5unyJ7E9meSjimPOHBwv95hTiXohYNybK8lUWSWQD9ZkXOPkXX3txQ2Rb6XDfPoV7x
+         recOn0tfpLT6RdS32/j6WRCGmBs1rvDUedmhecyjH9wA5IEWUo6uNE1QXqhYueLX2EbY
+         IpYA==
+X-Forwarded-Encrypted: i=1; AJvYcCVXm+7DK5si3mRSIEmXAgq5sjKOG6dgUIRaFj08KuQ5S58h/XehqwlgsKYseBVoqdQWsy9djcjOATvqGQ==@lists.linaro.org
+X-Gm-Message-State: AOJu0YyxkcrrR2bkfgaHceO8fzLeSqGoobzA5uSp8v5t1B2oLcMzGjla
+	xVblWyQoyekl33qsZzq96+OJLt8/n9Zr5wzKuSPyReI70+IZdoMwlTBCmvZ3/ZrUxuee2A==
+X-Gm-Gg: AZuq6aKgC5/nCjEFRNNwMDS39hfC8nIC2GmZGrR2wSkasWI0EIHPpBXxagu3kv6QIPD
+	e3/Vg0Q4CHxwJXSbDyTiYnKxdW8Wzx/rdcdGkfKLuKWfFN/CEd9lY+i0UGshp5jL6hBCIWc9e5e
+	Z8X1thg9qrFTYcBxlx5+iMvGpmtMOqhtypCF88ufdKeeD3Nzht9BuoCLbfpEWPEax/JuhJjXvJc
+	JD9z0Qjb26d69mj+B/idUIjYBszIEk/VjnzUbBTxPNgQ6loHW8EApSowldcJH0Fcb+oHb+2kAhp
+	xja3T0S5p1ILmwYoq+XkV0icGnT4gHN8zdQjwM1ZEsdq8LVf6oHxyc4uFNKAruViUKblKl0kr3L
+	f4BF9IxYb8v4vMx4VWfkRv1a7SyjHESQ9N6HdeiLNfI65h0fOt2ELi4xJHcOvcxoBstgF7pysFS
+	/WwiHo2IeBNuQGlpnpcXWRpBSZqUcv
+X-Received: by 2002:a05:600c:1c20:b0:480:7162:fa48 with SMTP id 5b1f17b1804b1-48398a549ccmr139543985e9.13.1771574913565;
+        Fri, 20 Feb 2026 00:08:33 -0800 (PST)
 Received: from localhost ([196.207.164.177])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43796ac8075sm51473944f8f.29.2026.02.20.00.03.53
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-483a31c048bsm59429125e9.7.2026.02.20.00.08.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Feb 2026 00:03:53 -0800 (PST)
-Date: Fri, 20 Feb 2026 11:03:50 +0300
+        Fri, 20 Feb 2026 00:08:33 -0800 (PST)
+Date: Fri, 20 Feb 2026 11:08:29 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
 To: Hardik Phalet <hardik.phalet@pm.me>
-Message-ID: <aZgVZj2WkSNaFjcp@stanley.mountain>
-References: <DGJJRT1BJV4H.1JGMNMC4SGKT7@pm.me>
- <DGJJTPL4YY7N.1JMN32YIUCHB8@pm.me>
+Message-ID: <aZgWffV8wwa3MDW1@stanley.mountain>
+References: <20260220062741.399677-1-hardik.phalet@pm.me>
+ <20260220062741.399677-2-hardik.phalet@pm.me>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <DGJJTPL4YY7N.1JMN32YIUCHB8@pm.me>
+In-Reply-To: <20260220062741.399677-2-hardik.phalet@pm.me>
 X-Spamd-Bar: ---
-Message-ID-Hash: NGB2G5EDULD6773SK4KYK76N44EJFRSB
-X-Message-ID-Hash: NGB2G5EDULD6773SK4KYK76N44EJFRSB
+Message-ID-Hash: ZQ6IHGIYBGTNWU224MWCFRGMHXSBVHIY
+X-Message-ID-Hash: ZQ6IHGIYBGTNWU224MWCFRGMHXSBVHIY
 X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-staging@lists.linux.dev, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org
+CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v1 1/2] staging: greybus: audio: fix NULL dereference in gb_audio_manager_get_module()
+Subject: [greybus-dev] Re: [PATCH v2 1/2] staging: greybus: audio: fix NULL dereference in gb_audio_manager_get_module()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/NGB2G5EDULD6773SK4KYK76N44EJFRSB/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZQ6IHGIYBGTNWU224MWCFRGMHXSBVHIY/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -92,7 +92,7 @@ X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.01 / 15.00];
 	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
@@ -104,7 +104,7 @@ X-Spamd-Result: default: False [-1.01 / 15.00];
 	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	NEURAL_SPAM(0.00)[0.216];
+	NEURAL_SPAM(0.00)[0.245];
 	DKIM_TRACE(0.00)[linaro.org:-];
 	DMARC_POLICY_ALLOW(0.00)[linaro.org,none];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -115,19 +115,11 @@ X-Spamd-Result: default: False [-1.01 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[6];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[pm.me:email,lists.linaro.org:helo,lists.linaro.org:rdns]
-X-Rspamd-Queue-Id: 794E11657B3
+	DBL_BLOCKED_OPENRESOLVER(0.00)[pm.me:email,lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email,stanley.mountain:mid]
+X-Rspamd-Queue-Id: 71E0116585F
 X-Rspamd-Action: no action
 
-On Fri, Feb 20, 2026 at 05:44:19AM +0000, Hardik Phalet wrote:
-> Empty Message
-
-> From 3b496a0daa8cbbbe50a7a09e6daf7bb4d8e6e9e5 Mon Sep 17 00:00:00 2001
-> From: Hardik Phalet <hardik.phalet@pm.me>
-> Date: Fri, 20 Feb 2026 10:41:49 +0530
-> Subject: [PATCH v1 1/2] staging: greybus: audio: fix NULL dereference in
->  gb_audio_manager_get_module()
-> 
+On Fri, Feb 20, 2026 at 06:30:10AM +0000, Hardik Phalet wrote:
 > gb_audio_manager_get_module() calls gb_audio_manager_get_locked(), which
 > can return NULL when the requested id does not exist. The returned
 > pointer is dereferenced unconditionally via kobject_get(), leading to a
@@ -146,9 +138,8 @@ On Fri, Feb 20, 2026 at 05:44:19AM +0000, Hardik Phalet wrote:
 > +++ b/drivers/staging/greybus/audio_manager.c
 > @@ -111,7 +111,8 @@ struct gb_audio_manager_module *gb_audio_manager_get_module(int id)
 
-I don't think the gb_audio_manager_get_module() function is ever called.
-
-Otherwise probably this would need a Fixes tag.
+I don't think this gb_audio_manager_get_module() function is ever
+called.  If it is then we need a Fixes tag.
 
 regards,
 dan carpenter
