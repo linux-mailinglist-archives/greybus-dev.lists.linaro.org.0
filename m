@@ -2,57 +2,57 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mG6uJ3Q8nmkrUQQAu9opvQ
+	id SB6lDXk8nmkrUQQAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 01:04:04 +0100
+	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 01:04:09 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7601C18E417
-	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 01:04:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F032518E41E
+	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 01:04:08 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8C3A8404A3
-	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 00:04:03 +0000 (UTC)
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
-	by lists.linaro.org (Postfix) with ESMTPS id 2FA724048B
-	for <greybus-dev@lists.linaro.org>; Tue, 24 Feb 2026 18:55:06 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 1AC92404A7
+	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 00:04:08 +0000 (UTC)
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	by lists.linaro.org (Postfix) with ESMTPS id 2C50C4048B
+	for <greybus-dev@lists.linaro.org>; Tue, 24 Feb 2026 18:55:12 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=pm.me header.s=protonmail3 header.b=dkujm8ee;
-	spf=pass (lists.linaro.org: domain of hardik.phalet@pm.me designates 109.224.244.121 as permitted sender) smtp.mailfrom=hardik.phalet@pm.me;
+	dkim=pass header.d=pm.me header.s=protonmail3 header.b=dWuZ2AfK;
+	spf=pass (lists.linaro.org: domain of hardik.phalet@pm.me designates 79.135.106.121 as permitted sender) smtp.mailfrom=hardik.phalet@pm.me;
 	dmarc=pass (policy=quarantine) header.from=pm.me
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1771959304; x=1772218504;
-	bh=kxiMSX85FR0vHxuxYmk5tZWATlOkxSIi5aOd5/WnLM0=;
+	s=protonmail3; t=1771959310; x=1772218510;
+	bh=Kl8cL99lfSpUtDgg6mYNf0ILtuKuuEtwDU8t89wUAlk=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=dkujm8ee7Ata9gtdli/pM7KahdJMlCGjYPVi06KCxD6nx3OrmIuEGmmrBFdp2HhHk
-	 ZL1WQzRSqRr3zdHii9Tr6+bz19/qGZM3N9kMBAJX6Yd5eSKYItkyvk6AMHC1qHw3zN
-	 XqTKXGoz3XUFSMVMbK6bTEJcGUHCILDl+PBzRAEjQryC4mRAOjepC9n8Bd0t65ROQs
-	 87neun0NLkqF0Ir1wrzamYmXKYfVt31362MIyp11X0MbUXQYIc6b4suRE3nkCevziy
-	 Grmo3RkAhtp6yGepo11f8kEDY/Yw+g7w8Zz3d4h7QvOIELhj6lHLn2d/O0FVWEY27v
-	 AnDMkq4fTpeFA==
-Date: Tue, 24 Feb 2026 18:54:59 +0000
+	b=dWuZ2AfKQmaXikae5oESe0j40qUqHOPM2CvUb01cHe+o5ofU9HmJqGxaansJDVTJE
+	 Oia6dJUttjuuMuvHXyNvwVTTfN/xqsXAldwnLTrBTw4pGXYKp8iy1jEN++VWsFtsI6
+	 JZ7mSrk3Tqrn8m23xbOUI8YfdlxmHavT44Wq48PTUMMr2gT2twimmQ9jBNDiGhN0Mg
+	 VTPYtymUHCHOVZg8X904zWQS5oOH1djI9N4fdXtjIkwNrA7RyjTjDTMN3RRUbN3IB3
+	 dutewSYsAcA9J6Q8XyBKeMpU0dwOUlVkxQTkrmRdGzPUnydhpaintxKbwrCn8as7dn
+	 wh6alJJW2WFuA==
+Date: Tue, 24 Feb 2026 18:55:07 +0000
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Vaibhav Agarwal <vaibhav.sr@gmail.com>
 From: Hardik Phalet <hardik.phalet@pm.me>
-Message-ID: <20260224185421.824210-2-hardik.phalet@pm.me>
+Message-ID: <20260224185421.824210-3-hardik.phalet@pm.me>
 In-Reply-To: <20260224185421.824210-1-hardik.phalet@pm.me>
 References: <20260224185421.824210-1-hardik.phalet@pm.me>
 Feedback-ID: 166659585:user:proton
-X-Pm-Message-ID: 8bc6976a10a119dab266dad39635e92155bcfb25
+X-Pm-Message-ID: 3bceb23eaaa3ac5046980882608cdb28ad275398
 MIME-Version: 1.0
 X-Spamd-Bar: ---
 X-MailFrom: hardik.phalet@pm.me
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: N23ZBZFF4ZSQZ4X2Z7FI672CQ76QB6JX
-X-Message-ID-Hash: N23ZBZFF4ZSQZ4X2Z7FI672CQ76QB6JX
+Message-ID-Hash: TUCEDVZS6USIAMGAZAYUBQ7CHDGR5GSB
+X-Message-ID-Hash: TUCEDVZS6USIAMGAZAYUBQ7CHDGR5GSB
 X-Mailman-Approved-At: Wed, 25 Feb 2026 00:03:52 +0000
 CC: Dan Carpenter <dan.carpenter@linaro.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Hardik Phalet <hardik.phalet@pm.me>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v3 1/2] staging: greybus: audio: remove unused gb_audio_manager_get_module()
+Subject: [greybus-dev] [PATCH v3 2/2] staging: greybus: audio: drop stale TODO comment
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/N23ZBZFF4ZSQZ4X2Z7FI672CQ76QB6JX/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TUCEDVZS6USIAMGAZAYUBQ7CHDGR5GSB/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -81,7 +81,7 @@ X-Spamd-Result: default: False [4.49 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.975];
+	NEURAL_HAM(-0.00)[-0.976];
 	RCVD_COUNT_TWO(0.00)[2];
 	FROM_NEQ_ENVFROM(0.00)[hardik.phalet@pm.me,greybus-dev-bounces@lists.linaro.org];
 	DKIM_TRACE(0.00)[pm.me:-];
@@ -89,62 +89,31 @@ X-Spamd-Result: default: False [4.49 / 15.00];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email]
-X-Rspamd-Queue-Id: 7601C18E417
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
+X-Rspamd-Queue-Id: F032518E41E
 X-Rspamd-Action: no action
 
-gb_audio_manager_get_module() has no in-tree callers. The previously
-reported NULL dereference is therefore unreachable.
-
-Remove the unused function to avoid carrying dead code.
+Modules are removed from modules_list in gb_audio_manager_remove() and
+gb_audio_manager_remove_all() before kobject_put(). The TODO suggesting
+list deletion in the kobject release callback is stale and misleading.
 
 Signed-off-by: Hardik Phalet <hardik.phalet@pm.me>
 ---
- drivers/staging/greybus/audio_manager.c | 12 ------------
- drivers/staging/greybus/audio_manager.h |  7 -------
- 2 files changed, 19 deletions(-)
+ drivers/staging/greybus/audio_manager_module.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/staging/greybus/audio_manager.c b/drivers/staging/greybus/audio_manager.c
-index 27ca5f796c5f..118ada9b909b 100644
---- a/drivers/staging/greybus/audio_manager.c
-+++ b/drivers/staging/greybus/audio_manager.c
-@@ -105,18 +105,6 @@ void gb_audio_manager_remove_all(void)
+diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
+index e87b82ca6d8a..97d67989b181 100644
+--- a/drivers/staging/greybus/audio_manager_module.c
++++ b/drivers/staging/greybus/audio_manager_module.c
+@@ -69,7 +69,6 @@ static void gb_audio_module_release(struct kobject *kobj)
+ 	struct gb_audio_manager_module *module = to_gb_audio_module(kobj);
+ 
+ 	pr_info("Destroying audio module #%d\n", module->id);
+-	/* TODO -> delete from list */
+ 	kfree(module);
  }
- EXPORT_SYMBOL_GPL(gb_audio_manager_remove_all);
  
--struct gb_audio_manager_module *gb_audio_manager_get_module(int id)
--{
--	struct gb_audio_manager_module *module;
--
--	down_read(&modules_rwsem);
--	module = gb_audio_manager_get_locked(id);
--	kobject_get(&module->kobj);
--	up_read(&modules_rwsem);
--	return module;
--}
--EXPORT_SYMBOL_GPL(gb_audio_manager_get_module);
--
- void gb_audio_manager_put_module(struct gb_audio_manager_module *module)
- {
- 	kobject_put(&module->kobj);
-diff --git a/drivers/staging/greybus/audio_manager.h b/drivers/staging/greybus/audio_manager.h
-index be605485a8ce..c3ef62ee22c8 100644
---- a/drivers/staging/greybus/audio_manager.h
-+++ b/drivers/staging/greybus/audio_manager.h
-@@ -54,13 +54,6 @@ int gb_audio_manager_remove(int id);
-  */
- void gb_audio_manager_remove_all(void);
- 
--/*
-- * Retrieves a gb_audio_manager_module_descriptor for the specified id.
-- * Returns the gb_audio_manager_module_descriptor structure,
-- * or NULL if there is no module with the specified ID.
-- */
--struct gb_audio_manager_module *gb_audio_manager_get_module(int id);
--
- /*
-  * Decreases the refcount of the module, obtained by the get function.
-  * Modules are removed via gb_audio_manager_remove
 -- 
 2.53.0
 
