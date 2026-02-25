@@ -2,86 +2,84 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gMWFLxnynmnoXwQAu9opvQ
+	id QHE+JB7ynmnoXwQAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 13:59:05 +0100
+	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 13:59:10 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F390197B52
-	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 13:59:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5856A197B60
+	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 13:59:10 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 13CBC404AA
-	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 12:59:04 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	by lists.linaro.org (Postfix) with ESMTPS id 8CA1340144
-	for <greybus-dev@lists.linaro.org>; Wed, 25 Feb 2026 10:16:58 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 71169404AC
+	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 12:59:09 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	by lists.linaro.org (Postfix) with ESMTPS id 72F5B40144
+	for <greybus-dev@lists.linaro.org>; Wed, 25 Feb 2026 10:30:47 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=WhNKtKLE;
-	spf=pass (lists.linaro.org: domain of azpijr@gmail.com designates 209.85.221.50 as permitted sender) smtp.mailfrom=azpijr@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b="CAg589/b";
+	spf=pass (lists.linaro.org: domain of oborotovmatvey@gmail.com designates 209.85.167.53 as permitted sender) smtp.mailfrom=oborotovmatvey@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4362197d174so4176112f8f.3
-        for <greybus-dev@lists.linaro.org>; Wed, 25 Feb 2026 02:16:58 -0800 (PST)
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-59e60b3ccdfso8388243e87.0
+        for <greybus-dev@lists.linaro.org>; Wed, 25 Feb 2026 02:30:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1772014617; x=1772619417; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IS64MH+VyK+IEX0Wf5aJPipY3Lzti3TSwXWFwzFeNiw=;
-        b=WhNKtKLEgGdxmDAiujIe+nb2C/JOeWQEDu21tPcHwV7pMWCoS6Ky9EU2NMgXvvkvk7
-         8SPVCspjWJZIFTK7Ef8Pz2Dq5wPdQ+vuNkn/lQASM1vlYNTZZPoTy2cX7RkJ99LXhdV7
-         prCezToSIe9B76iTLnkuEhCdJe2gXDu+V8m3fqjXDJ/8xbGT9l728I+pP+ESCHU42hyA
-         WMotFrwkq8pkzpZq8iGW0Sc6Yll5hGg+ezt4KzIrOCmXPwP9QLx8jRM1WYUN+BTbpX7J
-         EIROaO+ZgGjB9nQc82pNMKh8yUEJUtEEFdPaee3QQ9YQzv/L63kiuHLpVRjW2kU4c9ZY
-         STPA==
+        d=gmail.com; s=20230601; t=1772015446; x=1772620246; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qOO5wQwrSmDwfOumxY9P5EzZBIqL1pQdH7RIRo8a33c=;
+        b=CAg589/bXOE2rYcUUzQYngcstemP1T68CJouCNzeS5cj4yZ82eOhBJaLORqFo7jDsW
+         CoAx3eUy8RteWhnNet7sfg2hNsJ1KThKQ5vfOFG8XEka5pkOaIQZS+WpQKWkRSidEtAG
+         /inVugSR3EwMyiCmRPV/fK6aIJ33YjqdScpmavfozVjtM56AqLRFZDGPRs3X3s1LHB1y
+         DgGmHuFaNx9kom1gaY7pDcJqMyUA6310y1p8R8CS0Y+Y/6tlBcFwD42h+kB+fpfKTBWw
+         LdnueSry/1FkC9Knd1bL1U8lVKlEIAb+I5/afEMeoTKnbxqC/gfQSOuU3ninTxxHFGdV
+         9ISQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772014617; x=1772619417;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=IS64MH+VyK+IEX0Wf5aJPipY3Lzti3TSwXWFwzFeNiw=;
-        b=ax3oUPsuNkJ98GHCpKL2q+DcfLVPTwwKhtAKqiaVLFzBGFDPGTKDmmJ5D0ClhpZdtm
-         Ptz4WJbEcfyAazej74nLRQuoq6HJl3cu4FEV0hMJYGggub+utrvCg+g0ocmXhlWUQAHY
-         gaqvP8vXz3ro/kGZAH+ME4pCdFqRt3YqE5jMPv5/6hmub1ac7MpzBqFwbFHU47+i7tec
-         kbt6PJFzIhhHWprP+xQkKXcZv2OPCxXZbM7CSFQUG4KIff/hV2tKR1UdLdybYhYMKY5u
-         CcQMi0WTwFd3DPGIjRNtO2z+PhbyQNzWq5vklvD8i2FR9cmKWai9jUAtCJgeC1uP8Ow2
-         waGQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXVGUbMZRuxyCxPNsBDurrdvX5GzwXHEGgCyHDiBHz3LZZOq0tNBYqDS/F7Se7hU1naz+SOaeJTmnvgJA==@lists.linaro.org
-X-Gm-Message-State: AOJu0YwPjuUezz0Ef7uG/xT/BNBdUhmWKuEyjDv+9jQ7lFPGy6KNccnU
-	Y2M8gg5JEiJKC83zY9EpFW+3jq4kA2/oShiKFolpfmJmllUCkn+dv/TA
-X-Gm-Gg: ATEYQzyPjMigxKoPxTX0cXj1EBMRUxTebXRhcauV/sbirargyWqoMfjRzaVfysN3MEv
-	l+rat1nNVb7H046xsZefSpDc9DVb5P/onPhX/t4QjLaARBEB2w/FGMT6SJVaMjhua38Cr4cIaOE
-	L8ZmmZ2dEOKtFYcCe+E8X9CNyOMosK4oFl3qw0rjZQKb9mTUA/TRM/pupfaK1OGIewUfwtJCnE2
-	nsFjrIRlkL7TLGOPofEHwPk5A7+CWaQVJakSbeVwPn/HuF8zNPLUyVQKVX1K+Rpm4PJux1miheI
-	/jPMnuZPoGJTfDj3Jav6BP6GFyLE0KfxhhHQxNJsBaEV+ZUtCJEDH9svF85uGaNucVXlM8aMeyk
-	hRH/0FueHyGWeZ/z/0jEfUO3SQ/YMgQmxdypf5OoE6h07MwuoGiDHsPFfFuwRLr+GampG8A+spW
-	oIUlpnPkVdPPHPLCMYb4+g0pG8CU3lidx/tPkHLXs=
-X-Received: by 2002:adf:ff89:0:b0:439:8e2f:689e with SMTP id ffacd0b85a97d-4398e2f6900mr3720558f8f.43.1772014617250;
-        Wed, 25 Feb 2026 02:16:57 -0800 (PST)
-Received: from localhost.localdomain ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43970d4c95dsm36287441f8f.33.2026.02.25.02.16.55
+        d=1e100.net; s=20230601; t=1772015446; x=1772620246;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qOO5wQwrSmDwfOumxY9P5EzZBIqL1pQdH7RIRo8a33c=;
+        b=i+LkxSMjzU6AjcxtkQjgvZpCrZbsHTEw7PjKRkLFwfd8huFUuPB35ZnmisepYh1y8s
+         Kxv21TJlGNppfp1OfHwKiO45hNtRQ927Zr2yrwgwwom3Ir2Iu47b1edB7PAkrbGXEPD+
+         TKE7IpwTpXGaLqLoksTwqtBk5i46UV1h7YCuLToox9Q9bOJ5zrGGR809P7NRZgg+pAq0
+         H1tEcxuxp/OeyysC5dJ1BO1MybLQHxoP4SZDMAVsPQCQYp/7Yi0RCBB7MFTad7c/ekmX
+         JKFLyPNosaUK8WwslK/zkydCGg6OeMs1qPQ4k4gJzAjkDnk32z9EUWwff2H5mOX9FdAp
+         u4YA==
+X-Gm-Message-State: AOJu0YyR8csC0KOL2zjHDU0u6NjABt91+dS9Y3s19JFGXYGIytVUwXP0
+	LzgmneO0qYkyYqQXea4hp4ZE6oM7ra2S5lfj4WkWTkiCrS0qpUKe7jcA
+X-Gm-Gg: ATEYQzwpGUqcZRE+ScX+ukhC5mz1SVgc7rXOLq1Uqntg4jN1l7T5QIV8QrmS5otq8qp
+	QYlHDNonfyj4RtbHjRKg4IxPA/ZTMPvKyAaBp6GE2ncRb5usaP5xLOdCiEoCscWN46nHpN+9U2Z
+	OsRsrD2ljAzrJwBHSMZrvCkSw1OuNtzgi6soWe/5nru30XTkofQ6N+SsGwe5rRfLsOGuVKcSDzc
+	JNrNnODFL/TD67yjMo0187Fh6SGHqoDmVEJ1u6YmJGMX0RafB/CQoRcov3NdENzlWJSOD4dtBUP
+	cEREHG8Cd8wq/A7gRuYw43l2V2NhdAxFFuLrK4yCazDlp7tC1hLDrG6Bn7+hwX3OJJoAdt1YX5p
+	pt2AF0V0cP1stsmOd1+aLol51BxQ8E7pheCZDE8RUOzsogVUJMUSqojdn3MUnQz70IsrIpz/XQF
+	GSDqjU928Rw//5QBEFRm9EKVt76ZgOdNUcCM1LO12OjA==
+X-Received: by 2002:a05:6512:2346:b0:5a0:ff38:2531 with SMTP id 2adb3069b0e04-5a1026b9fe9mr701334e87.14.1772015445884;
+        Wed, 25 Feb 2026 02:30:45 -0800 (PST)
+Received: from overpm-TM1701 ([176.124.85.73])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a0eeb4c530sm2872999e87.83.2026.02.25.02.30.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Feb 2026 02:16:56 -0800 (PST)
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: gregkh@linuxfoundation.org
-Date: Wed, 25 Feb 2026 11:16:28 +0100
-Message-ID: <20260225101630.99302-1-azpijr@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026022448-sprain-engaged-3f7a@gregkh>
-References: <2026022448-sprain-engaged-3f7a@gregkh>
+        Wed, 25 Feb 2026 02:30:44 -0800 (PST)
+From: Matvey Oborotov <oborotovmatvey@gmail.com>
+To: Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Wed, 25 Feb 2026 15:30:06 +0500
+Message-ID: <20260225103006.295553-1-oborotovmatvey@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-Spamd-Bar: /
-X-MailFrom: azpijr@gmail.com
+X-Spamd-Bar: --
+X-MailFrom: oborotovmatvey@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: QPNTIGHTZXZS3CZHTCYPFCSN7TLR33RG
-X-Message-ID-Hash: QPNTIGHTZXZS3CZHTCYPFCSN7TLR33RG
-X-Mailman-Approved-At: Wed, 25 Feb 2026 12:59:01 +0000
-CC: azpijr@gmail.com, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev
+Message-ID-Hash: YP24QSFUAWICZW37GFXP5P4SD4HBNAIA
+X-Message-ID-Hash: YP24QSFUAWICZW37GFXP5P4SD4HBNAIA
+X-Mailman-Approved-At: Wed, 25 Feb 2026 12:59:02 +0000
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Matvey Oborotov <oborotovmatvey@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: move topology allocation to codec probe
+Subject: [greybus-dev] [PATCH] staging: greybus: Use guard(mutex) in receive_data()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/QPNTIGHTZXZS3CZHTCYPFCSN7TLR33RG/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YP24QSFUAWICZW37GFXP5P4SD4HBNAIA/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -92,49 +90,91 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.59 / 15.00];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	MID_CONTAINS_FROM(1.00)[];
-	R_SPF_ALLOW(-0.20)[+mx];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
 	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[gmail.com,lists.linaro.org,lists.linux.dev];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
 	DKIM_TRACE(0.00)[gmail.com:-];
-	RCPT_COUNT_THREE(0.00)[4];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[azpijr@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.995];
+	FROM_NEQ_ENVFROM(0.00)[oborotovmatvey@gmail.com,greybus-dev-bounces@lists.linaro.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.993];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email]
-X-Rspamd-Queue-Id: 1F390197B52
+X-Rspamd-Queue-Id: 5856A197B60
 X-Rspamd-Action: no action
 
-Hi Greg,
+Replace manual mutex_lock/unlock with guard(mutex) in raw.c
+receive_data(). This automates lock release on function exit, ensures
+that lock is released on early returns, and makes the code cleaner.
 
-Thank you for the feedback and the guidance.
+Signed-off-by: Matvey Oborotov <oborotovmatvey@gmail.com>
+---
+ drivers/staging/greybus/raw.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
-You're absolutely right. I am new to kernel development, and in my
-attempt to satisfy an old FIXME, I created a clunkier API and added
-unnecessary complexity. The original implementation is much cleaner and
-more efficient than the change I proposed.
+diff --git a/drivers/staging/greybus/raw.c b/drivers/staging/greybus/raw.c
+index 3027a2c25bcd..6c31bae0d8ea 100644
+--- a/drivers/staging/greybus/raw.c
++++ b/drivers/staging/greybus/raw.c
+@@ -59,34 +59,28 @@ static int receive_data(struct gb_raw *raw, u32 len, u8 *data)
+ {
+ 	struct raw_data *raw_data;
+ 	struct device *dev = &raw->connection->bundle->dev;
+-	int retval = 0;
+ 
+ 	if (len > MAX_PACKET_SIZE) {
+ 		dev_err(dev, "Too big of a data packet, rejected\n");
+ 		return -EINVAL;
+ 	}
+ 
+-	mutex_lock(&raw->list_lock);
++	guard(mutex)(&raw->list_lock);
+ 	if ((raw->list_data + len) > MAX_DATA_SIZE) {
+ 		dev_err(dev, "Too much data in receive buffer, now dropping packets\n");
+-		retval = -EINVAL;
+-		goto exit;
++		return -EINVAL;
+ 	}
+ 
+ 	raw_data = kmalloc_flex(*raw_data, data, len);
+-	if (!raw_data) {
+-		retval = -ENOMEM;
+-		goto exit;
+-	}
++	if (!raw_data)
++		return -ENOMEM;
+ 
+ 	raw->list_data += len;
+ 	raw_data->len = len;
+ 	memcpy(&raw_data->data[0], data, len);
+ 
+ 	list_add_tail(&raw_data->entry, &raw->list);
+-exit:
+-	mutex_unlock(&raw->list_lock);
+-	return retval;
++	return 0;
+ }
+ 
+ static int gb_raw_request_handler(struct gb_operation *op)
+-- 
+2.43.0
 
-I am withdrawing this patch. I'm sorry for the noise, and I appreciate
-you taking the time to lead me in the right direction. I'll focus on
-finding more meaningful improvements where the logic is sound.
-
-Best regards, Jose
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
