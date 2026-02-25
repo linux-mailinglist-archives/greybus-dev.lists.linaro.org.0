@@ -2,88 +2,54 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uF+FJkNFn2m5ZgQAu9opvQ
+	id eMSgCc1Cn2laZgQAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 19:53:55 +0100
+	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 19:43:25 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3857719C794
-	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 19:53:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8C5519C646
+	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 19:43:24 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4A80C402B2
-	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 18:53:54 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	by lists.linaro.org (Postfix) with ESMTPS id E08C13ED23
-	for <greybus-dev@lists.linaro.org>; Wed, 25 Feb 2026 18:40:46 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 9DE7E402AB
+	for <lists+greybus-dev@lfdr.de>; Wed, 25 Feb 2026 18:43:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by lists.linaro.org (Postfix) with ESMTPS id F34ED400F4
+	for <greybus-dev@lists.linaro.org>; Wed, 25 Feb 2026 18:43:20 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=b0PhUCK7;
-	spf=pass (lists.linaro.org: domain of chakrabortyshubham66@gmail.com designates 209.85.210.178 as permitted sender) smtp.mailfrom=chakrabortyshubham66@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8249aca0affso30172b3a.3
-        for <greybus-dev@lists.linaro.org>; Wed, 25 Feb 2026 10:40:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1772044846; x=1772649646; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wKtDVfmPVgPIEBZ9rN4VgM/NHjO9Hae2x87Y+mFQu+Q=;
-        b=b0PhUCK79U5MDWnU/SbJemCWfm/jO52YCFZ+us8wIvCLxZKLDy8jFoD5U4qsOVBmvF
-         BjQWv0x/aCDZ/P5lL2h9Z8l69BHMZ43FlLepqytfZhSQxgiWYlJft15K1XTMIZPartMh
-         hdpmV8sB5SRe+TZEoH/wSOPbPWQRNxiqV1AQyx+vaXyrxLa6juc8KFvJwH2ekHvOBRCI
-         +2UEaMFlAh5KhYB7nGAv6skzDoLfHP5BuX/S3KLcnKHi+pvK1sejGkqTxcyifBhHhpw9
-         DGlbnvNFCvk9aQJA7O1nY3TAaU2mWBCyROB6SHcMyaIpqXz0zVEN2tadd1u5L21bo8cp
-         GBMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772044846; x=1772649646;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wKtDVfmPVgPIEBZ9rN4VgM/NHjO9Hae2x87Y+mFQu+Q=;
-        b=SjLs55dL3k2JasJdC18XfaGxeSL851Rm+rqu1iJF3e+ni5wMGNj072A8I0KjhgY+NH
-         onfIh6j87CbDHsjgqBmVWAi+LqGyVQSi8vvmhHM1M3pJ+5SCZHiyXT+hGCBcfyzWjdmx
-         Abn6BFQgT5P5zzPOTxky2jp71LPGLreukVR+JO4HxfX3cviqSE0l5dBJiD0brD/Njr5m
-         riy/HSgknE/1nQZBr0wJ6wGXa1Q2dtP+t0ggArKPUhUz+mpAzi7TBchzsSLWlyTktudP
-         ThwpKwiydpUWoLVu8WHpTMXtpTMgDYO56EttxEYP05iwmB9IaOsqN0F8wiLlzgqvXM3C
-         47vQ==
-X-Gm-Message-State: AOJu0Yxtn3zbF8cE2OtDGPMfjIJvUgsogwZ+NL2OUW8cvZV7oz4gJrhS
-	D4XRg9/ekp/n/aX6YMwo621PAkRwQOjYC6a+wb/nExa762fmHsnWot1G
-X-Gm-Gg: ATEYQzx0s6L6u2nSsdfRKRSkmimRWYsN9UniieG1zJz6zNO6IG9f7YFt6lHitxpaX37
-	GiZ7Fia7f3InaIyHgEDSLQyrA/K0xrH5SgnNLX2eN+bMfnPLLenPOF+/B1b4W6oVEyTOqSit/Tc
-	muUfwmopOlGyGFGc35SqCaYbTlDZ49miY8SlTpfs0oyzfKmDhVtYGxVIToygEw7a44sKoVw/R+3
-	udrFWfCMZ+xIE0Ac49UPEwnYXngX3jPNpsjo3VMsTo7+3GXqtYvchQb3kfMcmUxbAu3zem0XqXu
-	r251aSxKCzVbYenKGX/5CHP69TruW0dTlz5AsGEVNoJEwx+/MJAr1Gc4yWTLcqHDXR4Dsb6TZlM
-	e7zL1ugBNElm7ERW0ywoGx/Y4DoSMOoiC2yTrbUwz8MSZMhk/8QpbRwhkgsBH+HoEf0TtxPJNe3
-	hmo6xwx1wt0wQw3Q1MBrgbSEqZUZLyPFb0T0s=
-X-Received: by 2002:a05:6a21:610c:b0:395:151c:4ed5 with SMTP id adf61e73a8af0-395ad1ad008mr1109867637.37.1772044845950;
-        Wed, 25 Feb 2026 10:40:45 -0800 (PST)
-Received: from fedora ([2409:40e5:105a:d068:a95a:8654:94eb:1089])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c70b724321esm14010380a12.16.2026.02.25.10.40.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Feb 2026 10:40:45 -0800 (PST)
-From: Shubham Chakraborty <chakrabortyshubham66@gmail.com>
-To: David Lin <dtwlin@gmail.com>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Thu, 26 Feb 2026 00:08:36 +0530
-Message-ID: <20260225183836.20434-2-chakrabortyshubham66@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260225183836.20434-1-chakrabortyshubham66@gmail.com>
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=VgYr52uY;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.234.252.31 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org;
+	dmarc=pass (policy=none) header.from=linuxfoundation.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 63B0640BC4;
+	Wed, 25 Feb 2026 18:43:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17441C116D0;
+	Wed, 25 Feb 2026 18:43:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1772045000;
+	bh=x3Y5ky6w6cm6G4P76BH63UhEp+MPovbDdAkNNr1ukpM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VgYr52uYeJzSMyvaaGx0TSV6m8dEugb9Xfj0hLa4ZAwkL5MuxBYp2qj3gBTSbsl9Q
+	 n/uRXkCQXzUgs5jw//ou6RQDiH/S9ZTBI99tvh0AgdVJWE+53O5jxPqEhlx64bSvnh
+	 nswr5Vlggk07f3d2QgUocGAAJSWDV9I7MzZfdz4A=
+Date: Wed, 25 Feb 2026 10:43:12 -0800
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Shubham Chakraborty <chakrabortyshubham66@gmail.com>
+Message-ID: <2026022552-overbuilt-concert-4506@gregkh>
 References: <20260225183836.20434-1-chakrabortyshubham66@gmail.com>
 MIME-Version: 1.0
-X-Spamd-Bar: --
-X-MailFrom: chakrabortyshubham66@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: GJCEJLB3XWZHBVYDRQG4JIPLAPLR7QZB
-X-Message-ID-Hash: GJCEJLB3XWZHBVYDRQG4JIPLAPLR7QZB
-X-Mailman-Approved-At: Wed, 25 Feb 2026 18:53:38 +0000
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Shubham Chakraborty <chakrabortyshubham66@gmail.com>
+Content-Disposition: inline
+In-Reply-To: <20260225183836.20434-1-chakrabortyshubham66@gmail.com>
+X-Spamd-Bar: /
+Message-ID-Hash: LIMDAY5LDWRW6R2OEDK4ZUO3IJV5KAYY
+X-Message-ID-Hash: LIMDAY5LDWRW6R2OEDK4ZUO3IJV5KAYY
+X-MailFrom: gregkh@linuxfoundation.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: David Lin <dtwlin@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH 2/2] staging: greybus: uart: convert to XArray
+Subject: [greybus-dev] Re: [PATCH 1/2] staging: greybus: uart: fix style issues
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GJCEJLB3XWZHBVYDRQG4JIPLAPLR7QZB/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/LIMDAY5LDWRW6R2OEDK4ZUO3IJV5KAYY/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -93,111 +59,115 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.59 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+mx:c];
+X-Spamd-Result: default: False [5.09 / 15.00];
+	MID_END_EQ_FROM_USER_PART(4.00)[];
+	R_DKIM_REJECT(1.00)[linuxfoundation.org:s=korg];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+mx];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[linuxfoundation.org : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,linuxfoundation.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	NEURAL_HAM(-0.00)[-0.998];
-	FROM_NEQ_ENVFROM(0.00)[chakrabortyshubham66@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	DKIM_TRACE(0.00)[linuxfoundation.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	NEURAL_HAM(-0.00)[-0.765];
+	FROM_NEQ_ENVFROM(0.00)[gregkh@linuxfoundation.org,greybus-dev-bounces@lists.linaro.org];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
-X-Rspamd-Queue-Id: 3857719C794
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[checkpatch.pl:url,linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
+X-Rspamd-Queue-Id: A8C5519C646
 X-Rspamd-Action: no action
 
-Replace the deprecated IDR API with the more modern XArray API.
-This simplifies the code and improves efficiency.
+On Thu, Feb 26, 2026 at 12:08:35AM +0530, Shubham Chakraborty wrote:
+> Fix checkpatch.pl warnings by adding comments to mutex and spinlocks,
+> and fixing alignment to match open parenthesis.
+> 
+> Signed-off-by: Shubham Chakraborty <chakrabortyshubham66@gmail.com>
+> ---
+>  drivers/staging/greybus/uart.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+> index 7d060b4cd33d..1d2c4ef70865 100644
+> --- a/drivers/staging/greybus/uart.c
+> +++ b/drivers/staging/greybus/uart.c
+> @@ -50,12 +50,12 @@ struct gb_tty {
+>  	unsigned int minor;
+>  	unsigned char clocal;
+>  	bool disconnected;
+> -	spinlock_t read_lock;
+> -	spinlock_t write_lock;
+> +	spinlock_t read_lock;		/* protects read operations */
+> +	spinlock_t write_lock;		/* protects write operations */
+>  	struct async_icount iocount;
+>  	struct async_icount oldcount;
+>  	wait_queue_head_t wioctl;
+> -	struct mutex mutex;
+> +	struct mutex mutex;		/* serializes port operations */
+>  	u8 ctrlin;	/* input control lines */
+>  	u8 ctrlout;	/* output control lines */
+>  	struct gb_uart_set_line_coding_request line_coding;
+> @@ -318,7 +318,7 @@ static int gb_uart_wait_for_all_credits(struct gb_tty *gb_tty)
+>  		return 0;
+>  
+>  	ret = wait_for_completion_timeout(&gb_tty->credits_complete,
+> -			msecs_to_jiffies(GB_UART_CREDIT_WAIT_TIMEOUT_MSEC));
+> +					  msecs_to_jiffies(GB_UART_CREDIT_WAIT_TIMEOUT_MSEC));
+>  	if (!ret) {
+>  		dev_err(&gb_tty->gbphy_dev->dev,
+>  			"time out waiting for credits\n");
+> -- 
+> 2.53.0
+> 
 
-Signed-off-by: Shubham Chakraborty <chakrabortyshubham66@gmail.com>
----
- drivers/staging/greybus/uart.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+Hi,
 
-diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
-index 1d2c4ef70865..fe554eba555a 100644
---- a/drivers/staging/greybus/uart.c
-+++ b/drivers/staging/greybus/uart.c
-@@ -67,7 +67,7 @@ struct gb_tty {
- };
- 
- static struct tty_driver *gb_tty_driver;
--static DEFINE_IDR(tty_minors);
-+static DEFINE_XARRAY(tty_minors);
- static DEFINE_MUTEX(table_lock);
- 
- static int gb_uart_receive_data_handler(struct gb_operation *op)
-@@ -342,7 +342,7 @@ static struct gb_tty *get_gb_by_minor(unsigned int minor)
- 	struct gb_tty *gb_tty;
- 
- 	mutex_lock(&table_lock);
--	gb_tty = idr_find(&tty_minors, minor);
-+	gb_tty = xa_load(&tty_minors, minor);
- 	if (gb_tty) {
- 		mutex_lock(&gb_tty->mutex);
- 		if (gb_tty->disconnected) {
-@@ -359,14 +359,18 @@ static struct gb_tty *get_gb_by_minor(unsigned int minor)
- 
- static int alloc_minor(struct gb_tty *gb_tty)
- {
--	int minor;
-+	u32 minor;
-+	int ret;
- 
- 	mutex_lock(&table_lock);
--	minor = idr_alloc(&tty_minors, gb_tty, 0, GB_NUM_MINORS, GFP_KERNEL);
-+	ret = xa_alloc(&tty_minors, &minor, gb_tty,
-+		       XA_LIMIT(0, GB_NUM_MINORS - 1), GFP_KERNEL);
- 	mutex_unlock(&table_lock);
--	if (minor >= 0)
-+	if (ret >= 0) {
- 		gb_tty->minor = minor;
--	return minor;
-+		return minor;
-+	}
-+	return ret;
- }
- 
- static void release_minor(struct gb_tty *gb_tty)
-@@ -375,7 +379,7 @@ static void release_minor(struct gb_tty *gb_tty)
- 
- 	gb_tty->minor = 0;	/* Maybe should use an invalid value instead */
- 	mutex_lock(&table_lock);
--	idr_remove(&tty_minors, minor);
-+	xa_erase(&tty_minors, minor);
- 	mutex_unlock(&table_lock);
- }
- 
-@@ -984,7 +988,7 @@ static void gb_tty_exit(void)
- {
- 	tty_unregister_driver(gb_tty_driver);
- 	tty_driver_kref_put(gb_tty_driver);
--	idr_destroy(&tty_minors);
-+	xa_destroy(&tty_minors);
- }
- 
- static const struct gbphy_device_id gb_uart_id_table[] = {
--- 
-2.53.0
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
+You are receiving this message because of the following common error(s)
+as indicated below:
+
+- Your patch did many different things all at once, making it difficult
+  to review.  All Linux kernel patches need to only do one thing at a
+  time.  If you need to do multiple things (such as clean up all coding
+  style issues in a file/driver), do it in a sequence of patches, each
+  one doing only one thing.  This will make it easier to review the
+  patches to ensure that they are correct, and to help alleviate any
+  merge issues that larger patches can cause.
+
+- You sent a patch that has been sent multiple times in the past few
+  days, and is identical to ones that has been recently rejected.
+  Please always look at the mailing list traffic to determine if you are
+  duplicating other people's work.
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
+
+thanks,
+
+greg k-h's patch email bot
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
