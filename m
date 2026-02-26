@@ -2,153 +2,149 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aLaGHquCoGkDkgQAu9opvQ
+	id eNZUKq+CoGkDkgQAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Thu, 26 Feb 2026 18:28:11 +0100
+	for <lists+greybus-dev@lfdr.de>; Thu, 26 Feb 2026 18:28:15 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1CBE1AC640
-	for <lists+greybus-dev@lfdr.de>; Thu, 26 Feb 2026 18:28:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68A7B1AC661
+	for <lists+greybus-dev@lfdr.de>; Thu, 26 Feb 2026 18:28:15 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A1F023F9B5
-	for <lists+greybus-dev@lfdr.de>; Thu, 26 Feb 2026 17:28:09 +0000 (UTC)
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazolkn19012048.outbound.protection.outlook.com [52.103.66.48])
-	by lists.linaro.org (Postfix) with ESMTPS id 8C76D3F7E6
-	for <greybus-dev@lists.linaro.org>; Thu, 26 Feb 2026 11:45:40 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 78CDF3F990
+	for <lists+greybus-dev@lfdr.de>; Thu, 26 Feb 2026 17:28:14 +0000 (UTC)
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazolkn19012052.outbound.protection.outlook.com [52.103.66.52])
+	by lists.linaro.org (Postfix) with ESMTPS id 137673F7E6
+	for <greybus-dev@lists.linaro.org>; Thu, 26 Feb 2026 12:05:02 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=outlook.com header.s=selector1 header.b="PfL/X785";
-	spf=pass (lists.linaro.org: domain of kunalkmr9717@outlook.com designates 52.103.66.48 as permitted sender) smtp.mailfrom=kunalkmr9717@outlook.com;
+	dkim=pass header.d=outlook.com header.s=selector1 header.b=D9j4rd46;
+	spf=pass (lists.linaro.org: domain of kunalkmr9717@outlook.com designates 52.103.66.52 as permitted sender) smtp.mailfrom=kunalkmr9717@outlook.com;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1");
 	dmarc=pass (policy=none) header.from=outlook.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q/nsq94UmPY+oYLDauBS9Kq7R35ZRRF9ItT4eTlOSo1pZB1lOjgeb+FCdsFvZpMHqU7V67g2z+z/4vr2nSKHWTBOlNJtq+hBk8+clMt3x9vd+9MUqWiSmM0pbcnC+im6SRRVo17xwTRXcENjGvwpl/Ji9LJP3fo/m2X4uwYWH7cr8jGJaGi/HD/IVV1f2TJPqZj45BkDlZQwxoPIw2JYegHAOqeAobQv0TjIeeSOwyG4EbbZEl9TXdWHbRKOGN4G2fxY2DxR9Jy2YVcqexiEHUabxVWY0h0Mv877mlisdDBUjLQqnPUH8L+5n+cHLTUKzpv659VCVXL8Lt1gCMrAfg==
+ b=fA/1SQssd4wI7I4zXaARlMLtRpFPX8uwfGNTi3Jj7P0X+L2URo3IwaZBKFjIqRs24sgO4Az3mEgrB/ggFDwj/6eIKBkJLu0qsdqIvmNASqnYDIc92qBZCTuTVnIjTbmIhdYbIb3qcFqDZQ9HjST4orRLeQSNmFa/wetUoqeFTeLf9HUdyoDGYYqnqoTeeUn9tgrlSak9ix660ekEyFKt8DeFx+EcnbRiej4v2QNP7qXWNbZ+xykK0mWjk/VYz6lTqz5EfDis0bxJMId6UDoVP6gaBLTNQ22nPq/tCrw94hvc7dmLx2mBYzr4cv5FKxqf3mliGMU0BDHyTAz56P6iBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kTY6e7pWD+PZy1zjaXA5IQw6jEzYNSVH28NL0Aw4Z1A=;
- b=cjF4Q2wQx/bm4kCoEt3zrozeUXzeUVMPZO8ofDEDfQ2rRcnLAHFI3NdumL6E63yvHX9VtfEGDmtfFbY+b/9iuS8v/hyJkQ5kv4ZeNwFAMMZuTSQb1qSzWMlxB+5M/pHNhc0Gkmy5urGNEOMpdxwooC8+tI8RcrCEfmKpAn9pq0vuXK8m7RHY3G2pVwEiqCrT8kZIAULjxAJ45OvxnK55leTMJ2KGFlZR2bTBaHX72OXlKBGz+Hdd9eEVaAYZ/2utdDDEYEcEP5S8b5Ey9AMXOQ7JaIPejKheseIagHVhxZ4IullMNff/bimowiuS1tThDACOzYc1BqGHXuQcaJCQ8Q==
+ bh=BTt8FtZtKsdypW1frt12WBDhdQbYhHdNfFfsd5dSJxA=;
+ b=c/XJn1FStHpuNH6ccXJuzwg07rghBFNRiuRjk7R6iuLjVwfJQ4rD8iAzTNPFEpkogoKKp4yOlWjUlzos8I8STUNpJ+xp+Sj1C+lMSCUe3zxzK20Ys+hUZ/gJMdKQ0InawoQIhX3PbHLM6UK1qxWGywDzmt5HLDK9Y39ycR841eivBqxk0BDCd2vaJ//cJrTAM6R+Z52nlRNTbpRiKeVT1JwFLYwE/tSzmNJq96TAc0nZx6nnJjwAh7EZ3+/ChPvKvzqspGUBxkKpZ8fBBtXSQaLUvz6yhMp6TGKTd4Lqs3/DujDxb51GsXoNhWaziQ3MRJOdd9NCgyIvmRk5m+Cyyg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kTY6e7pWD+PZy1zjaXA5IQw6jEzYNSVH28NL0Aw4Z1A=;
- b=PfL/X785kP8MBT58CTOieweV+y12NLoEP5hT9NVfGBVLhv9wNkwAASGLNVrHy8gHNhkMSaReRjJkBfo2EBfmYF66atNz1RJvdEhVLYJUDwycZC7gNZuOlNCH9kGIcjuYfJ96sQwohfsNrM8K6d5yK3vOp/JvE4RTXRG6EKp4NlusyxtLGFexdTl8WF0aJrQNJzKH3NFveCnUbNANYxEOu2F8hx9BKN3SXVQvh+WOkERMXOU23PHqyeV61XcG+685MRJ3u/NWq7MpHTPEsvlH+i0vyJ0Qh4sICanvl+8zCW5IhIZWn4Ak+IZ8YW2E901l9Rvh2PDNEjzJYN1z8lSpHA==
+ bh=BTt8FtZtKsdypW1frt12WBDhdQbYhHdNfFfsd5dSJxA=;
+ b=D9j4rd46MQ9iYiAHBNblaES15oHKOjV0mzjUvhDSwoMnWFemmMdqq2yulnEZdCqkHlHq2/9AlJvlh9AtTXVHqBWCSrSDeUZeUOlDO0c3Ha/PBQ1vajS79Oo7OM1rHf+h2BUvXEcA/fRs3rze21HR0TjaRQ9D/KWWQRpx38gydOGx29CPd077yuqcvyStSocBXcvFYONxqE1FQrkZ8H7e0LBbmtofGzBOcJFBfvVSjwbsEZLiLZ8bVKVTi3W8DTi7Sd6EaWOAPU+KePQfwJCHFIp4jWQ/dzrYVF35zAjtUniE5GzhUNnNyum5a5WoJvyf06Aa/MWB5tqxV5d8TKAkJg==
 Received: from KL1PR0401MB6563.apcprd04.prod.outlook.com (2603:1096:820:b2::6)
- by SEZPR04MB7674.apcprd04.prod.outlook.com (2603:1096:101:1f2::5) with
+ by JH0PR04MB8154.apcprd04.prod.outlook.com (2603:1096:990:a1::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.13; Thu, 26 Feb
- 2026 11:45:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.15; Thu, 26 Feb
+ 2026 12:04:57 +0000
 Received: from KL1PR0401MB6563.apcprd04.prod.outlook.com
  ([fe80::6edc:a0f0:e62:2e66]) by KL1PR0401MB6563.apcprd04.prod.outlook.com
  ([fe80::6edc:a0f0:e62:2e66%6]) with mapi id 15.20.9632.017; Thu, 26 Feb 2026
- 11:45:35 +0000
+ 12:04:57 +0000
 From: kunal km <kunalkmr9717@outlook.com>
 To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
 Thread-Topic: [PATCH] staging: greybus: audio_manager_module: make envp array
  const
-Thread-Index: AQHcpxTfTDV4JEn3KEeQe0tQqdSeWQ==
-Date: Thu, 26 Feb 2026 11:45:35 +0000
+Thread-Index: AQHcpxeOVVgrs4rF1UySFwllV0K6TA==
+Date: Thu, 26 Feb 2026 12:04:57 +0000
 Message-ID: 
- <KL1PR0401MB6563219414B87B4EE2C2CC77DD72A@KL1PR0401MB6563.apcprd04.prod.outlook.com>
+ <KL1PR0401MB6563B7A14C6EA1E9ACF3356ADD72A@KL1PR0401MB6563.apcprd04.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: 
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KL1PR0401MB6563:EE_|SEZPR04MB7674:EE_
-x-ms-office365-filtering-correlation-id: a94f5667-c3b3-46c0-03f5-08de752c8e09
-x-ms-exchange-slblob-mailprops: 
- WaIXnCbdHrPy8Gg0T1tV+ubdyTLMpos/6j5iMMp8S8ObMlpJI2jZcIP1b+62vHpy7P15X85mtrmPwsQaxxcx0JOcEqTIqhfHekhakS9TdPEVWtjZvLnX7IgI6EGweJyVgiZ1IVH5RsnZnaGh7uWCUunAUtRyEYTEtU3uOQf/i0LY75udxhec763Qr08gE/1TYBuRYzyks1czAiq8GTGyE3IGPWwGjpBUfML0RCtdFsnh3R4/pIeCS4GQcb8stYSVAsD7R6l4jQsYM2tNpPFr7ilSWlgSzNX8m7ozhDfz/4sT2Bq02B6l2/zW5pSx+9iXe7JgEGF/4vNzYxdnADPW3j5OxjRsXtH5WLpDHTLIhtdPyrHGQwphJn2PhuhC8D6oxKN6FOrTZa4LArF8bx3hdj0dTr52l02V+zuu1LkrfHp8WTjpjAmwfG9+Nm9c6PjuY63bvbQtXuWVIc70fNMZuR2vvbIVw5Ry5Ul9uBjM1ke7tHJ1bjBCU/kBWX3ELPEQkHDaG2BFrT3W37AppF5GJWNqS5592sQjj/XaySDtNwQ8yjoSDkm6/G+oRoQJ+ZQMBTBNE+Rat/yK7wCaMGpTPYIHaOVdVcSEuNsT+jeR2O53FcxxgKtlJIOROLf1MEUrsN58+AxZsPd36W2sl8gYN0d43/FvnQl8jchJU0FrUVIje7G4Id+z0VwE37i8KZpeG7keZyb6EMJHkbPqiKse2bU9FgBIQkX9sR0YNV5bpMJJ2DXIiuAWXNuFAlp16qwuVn6BjD56pFI=
+x-ms-traffictypediagnostic: KL1PR0401MB6563:EE_|JH0PR04MB8154:EE_
+x-ms-office365-filtering-correlation-id: 9ee270a1-0b8b-4c96-c229-08de752f42a3
 x-microsoft-antispam: 
- BCL:0;ARA:14566002|8060799015|8062599012|31061999003|461199028|7071999006|5062599005|20031999003|55001999003|19110799012|15080799012|39105399006|15030799006|3412199025|440099028|26104999006|102099032|40105399003;
+ BCL:0;ARA:14566002|51005399006|461199028|31061999003|15030799006|19110799012|8062599012|8060799015|5062599005|15080799012|40105399003|440099028|3412199025|102099032|26104999006;
 x-microsoft-antispam-message-info: 
- =?iso-8859-1?Q?i0bDdbbv8tPfhdZBhkmyLi8y0yNLRzoekRiqKUS6Vu/6dFEsz5LUYWVDhB?=
- =?iso-8859-1?Q?Xd8bF0RQymRvWuLcoFBYwilQU1hXmD+8gBss8qMFwVtk2kWgguubBUvyXf?=
- =?iso-8859-1?Q?eW+4hQOZ4Lfs03lNb8j6kVsSLPNnUVknDsAtxjggtngHEb6Qohjym4C4N4?=
- =?iso-8859-1?Q?ghs++Mgxhddwsg5VHufJLiwYlux6y4pCCQmzpUTBcMGQeFIDS/KXXgR4ZJ?=
- =?iso-8859-1?Q?SpExl0WWZyYWfarruqRo+C0V0ZcXZT7/jPnnKS7PnXFEGUiNo+Qugf19JF?=
- =?iso-8859-1?Q?Toa/mbzbikmIBhmYctQsi0ShjZm0kSt9eNTO1+O74c/fjWp4St8wxO+RMy?=
- =?iso-8859-1?Q?Xct/xXmaYj6riJc3TR9SdNRE3M46Xh3yi1+Dd9iJHQFEH8oyi907oVovwa?=
- =?iso-8859-1?Q?0uEdSWZ6YiSv0MEpLKZozEo/o/EOOxIJgbyEVTqDwribr+c+xPPR1ctLV4?=
- =?iso-8859-1?Q?x2mgde3EbQhPfeYeXhpMB9O4/hNwGwQ9Dh7siIj7JdLc+GvtxN3fafc4fQ?=
- =?iso-8859-1?Q?gdJoSdHNoiT62WS2NmO9L0bUro5TPxLY/77b27r0eFZzhazGcYo4/LABnt?=
- =?iso-8859-1?Q?zNPnQXJrcaSAmujkbSR5LIYB+nEumC9ct1RDr0tVIYDQtvvkFmF5QVXZAa?=
- =?iso-8859-1?Q?bsMQicS5FQv5dPZsWqZdAwLD9VPHzm7qtJytsCqoxGmotzipCGzrjCkbN0?=
- =?iso-8859-1?Q?7hx0kC2nsTu5LA0kYiO4OcLYLzf/XB+Z4pxwSc3nUbyNnXyofaCyHlYfi4?=
- =?iso-8859-1?Q?KQ6uXBOHZSCGkKXuKVq6cQG2BRWlh8Z6pCrXwmiYK8pigQYt079gkQtqTi?=
- =?iso-8859-1?Q?k85T+NKtnQ7iVzC3Guc1GUQnHtEU6Wq3lOUz2HqKFtANJtH2LH7qaJFZnF?=
- =?iso-8859-1?Q?f9N1q414Rms65hEZMJ3r7BGWMImovH5UPkcFOV6YZ6MTl96ljNzJZD4ER4?=
- =?iso-8859-1?Q?EBLNC/GD6N7tfNShDnJUtfqOHA6O376qOn9ArcaGZ3ZXwFeRu0xbbANIXI?=
- =?iso-8859-1?Q?4xTu58Hf6vY63xT9kKO4rP+S2CAsqsV0lCpgmsLEJOf7Vc891C6I4LVmqi?=
- =?iso-8859-1?Q?MvhvUQ9NHUzbHN+ZQoMRygIQYe4jpDO2TuwwrbLBEkeabBwfUojkMoWU3z?=
- =?iso-8859-1?Q?oOP01+SA=3D=3D?=
+ =?iso-8859-1?Q?/BlhCzY8Z5eFp1iuweInJdHx6pjuESyU+ZlSFYiYCfWlpNz/rV/Ztim3nD?=
+ =?iso-8859-1?Q?Hr4cD55y1gTRLXO8VkjplQ4xIYoF6Obb5IY+o1g0N4KajrB47Vj471w6rc?=
+ =?iso-8859-1?Q?rynjz7cXdZEDcZTsErWzcNGAFCkvHoBngq3YLd9DT6LjrBa7DPdSPcx7r+?=
+ =?iso-8859-1?Q?gIeH8kaZYxXgLZehpR7T6lCdMW7dFq7lGOwI27fzPMuef+EdyjN25/kl0+?=
+ =?iso-8859-1?Q?NcocA9CBBDaeWdq3J4e8PNkqc2DTFL3Mx6gmdThf8nZWPVGMlaTsjBCYVS?=
+ =?iso-8859-1?Q?rxoKTx31mm0NtoP+A+DHOK/yUwECyfxFgcB10ENgw2O/LBppDyp6LkO3z4?=
+ =?iso-8859-1?Q?RlrhRUpZqNwEtj9HNbxson9DabHSIVwa1bwe3mzLo2KA34dnp3XjHxBsky?=
+ =?iso-8859-1?Q?f02ORWucNuj+PWt2BSYfA7tzuN9PcKAaH0P+cnHYjCQc2SfOB3Q+cHv0yb?=
+ =?iso-8859-1?Q?fgm4K1UMdg3Hf3F58ctj/KAje8CPdfmrQKLbgcE/YuDfvtMgdNr8MrmvdR?=
+ =?iso-8859-1?Q?Km8GM96dTEL0DvHNuWsdTV3SINEgHfttU+wcQJtm/F8J9QLfqz/ZAb65e/?=
+ =?iso-8859-1?Q?JnzfY5CbxrNHN0HoalSES1vG4SN0uhSR2X9EUD3SAwd8Vg9t5QPB4WBZCl?=
+ =?iso-8859-1?Q?SYBJ/eYebqXcZO/szsFRB3bEMhJDlAHAFaTzPOyFq8r9FH94hLp03TZy1U?=
+ =?iso-8859-1?Q?IXlT4hHXmSQK3yCpMc+IKOtyitx6BUt8ewSaC8jxBAucSbiJjtFBxV/PE7?=
+ =?iso-8859-1?Q?vCGiFHkMb/hgrChHmgVZvWeJHp8pD94M9yp1yjSOig/+IMhUAoF5sZYiql?=
+ =?iso-8859-1?Q?Tx4c2OvhCrsCy1C0swkNjz8rhqjMaEbs3W73SChLNYCwY5q32aOkWmELcp?=
+ =?iso-8859-1?Q?RmZqYiw4tUYVu+mxHq6wDXA03JDEa8DYnAnPyVOSCwGfsDySisR40ORl0A?=
+ =?iso-8859-1?Q?IKorkcWRPswTTZgjXNJeFTWF4OSONvxJdccLFww/Zk4KFIw9LRq0G5c/tt?=
+ =?iso-8859-1?Q?dhQHYSQzzyjAkK5ooelzQptoNENXtb7MsGpZie?=
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?yMDO5uKO1yMp3OdKARh7CoaiSRLsvyi+uC/vSbx4fH8S+3yazT85AKRmv/?=
- =?iso-8859-1?Q?miWQrfRDoQnjTmISqY8hAbbk7jhYHvg/W1aCJSHN+pWtzoT6nhFHBAXQsG?=
- =?iso-8859-1?Q?Qhu24M7dB7VAxpP0VTRAuG4U9YTU1il3sCwU3G6XzaNWzAWx4aV3Dk0/+j?=
- =?iso-8859-1?Q?jNSEbmFjKxJksV9mUdlx5TQj8OFsOYoNRa/EbIbCoOS+gZDADr5EkrvEI/?=
- =?iso-8859-1?Q?aInYDh+3qEqzj0JlhjviDZfbnwJEyPKn3Eboz5xckyJ1FokzUJXo9Rc6P5?=
- =?iso-8859-1?Q?0KoId0o4OMgeQY8Sb/ymkG6mreaD9YzhHRX3Ga3HMekfMrQhPtoyw0rCbo?=
- =?iso-8859-1?Q?7HQv/HcVLPkUvIkZ2ZJcrX/YUoHtoEaLXjW6SlqK5uNDrIFT5ofApp+RPV?=
- =?iso-8859-1?Q?h6s9mF5keLj5V7frZQaGIMuS2fH7a8ZtTJNRXxveJY+QyAgrLtgXq9sbt1?=
- =?iso-8859-1?Q?HwXN3jEgbZmvXjMevUICUGat1VZV4OCKKKVguyuvA/S75D5kdy3E8Xz4A0?=
- =?iso-8859-1?Q?19k+c6zk7/jPVyR1ylh5evm1ccSbtPNMi0vdDH65Q07PXsenKClf9fGGop?=
- =?iso-8859-1?Q?A8WzOFlxTk9/UsZH22s7lnauWZUtrR/mFeEgbtS3J9dMmEchrri/wXa/7s?=
- =?iso-8859-1?Q?i0GbPDEG5NQOe6nfqtot9rkYYy1XWLVBT+KYRB6sCCrZzlqe0Y8ssDCUqh?=
- =?iso-8859-1?Q?1sIY426UIEDZPR0J8KNla8mrtKGnCuNqPMmPYk5K5eSTfzx7mTCVyoqvnN?=
- =?iso-8859-1?Q?Kgc4OJ7I6cIOKvX13QOwSt33Mjbg73eM25OucNDZSIQI8p2pwlBgs8pDI6?=
- =?iso-8859-1?Q?G8PAyU/TmAdq3KeUIYZzfpZj58wK/2anc2QPeBMAmTN/wUV+7thxmow8Yg?=
- =?iso-8859-1?Q?6rr/LPp6r9feEP0zRlcA/vtJEp8entNNnMCLdAYXadd5cZcKvQyggU6/Kl?=
- =?iso-8859-1?Q?NVQ6zZRe+fAnfg1P8WdhgJroB0GRAVjcEjTzy7AsIZmai64+amAjpa9hdr?=
- =?iso-8859-1?Q?XnGLdGr9r/zGntjDj/om+LSCGVAF9BHVbL+1msXsEBr3jm79Vtj7Z+iiPM?=
- =?iso-8859-1?Q?1dRzXGPoD6B5GPblZ9Uh1DDFhvRW1kOUV46MHys20qo+S/db1sHLSaNilk?=
- =?iso-8859-1?Q?gvYH+m7QWe0iruKIKV1nvTxD6z04Zaz0YCyvgvsnQFV3j3nj8ko0ZukaMX?=
- =?iso-8859-1?Q?FVZ+Y3OmFisLZSFwVYDHhh9INL9ObGjNrLK+XyREC2is1VAx5SODF/g9gT?=
- =?iso-8859-1?Q?J043GmRzBsDys0fn2s66zPG9oe7GfRrPtNQfIQskGJA8qf4zPioPwroCmt?=
- =?iso-8859-1?Q?WncnlSqDta6p/8emwLoDznscMONojR1Fr/tMhzlR4T8kXgNlaYhJAFYbJo?=
- =?iso-8859-1?Q?e5+2s5Jv1na33d+Ra2lP7OTxH1fM29bl3kCXquPsMqQ18nTsnAOLmukNFK?=
- =?iso-8859-1?Q?BnQBmxvGw5fWM08p?=
+ =?iso-8859-1?Q?pUdNkHw//cPS6hkb6T+EnqMRkFX8uiqMVG1EFkVahBMNp5M/FrSZ5odIGL?=
+ =?iso-8859-1?Q?gy2ZXjX4vV2Ek6Cr126I/KyL8nzE6xYWusipyrscthk4eWKTAzQqxmaM/a?=
+ =?iso-8859-1?Q?l+nLZpR8dJoK0g/m1sm3UM95kD1Sk3sFfXPlSLiUByecagTMcKiA1lBxEg?=
+ =?iso-8859-1?Q?TfyaKuwV6zxn9g29MMKG7NLdvE3FBuQ2JeEWGZ6XnJVsmHhNo1Q/7Ekkpf?=
+ =?iso-8859-1?Q?OPBaoCnHZCjtrCZhg0KwmannxdYVv7Z1Zl1kUrFvIbeHl3bNnm6NKWpYmH?=
+ =?iso-8859-1?Q?pFsV4E1EqZMtzjYJtihWdWUpjyExJkj1US6GzwSWm0Gb4VN9Bj/6HrQ3tk?=
+ =?iso-8859-1?Q?4fxH061VaAOt6rzhZKb6ypgBq9NKZLHTnzONkzc/Mo0Cb31dS8wX4uqoyL?=
+ =?iso-8859-1?Q?sqq3DIKeB5h5WLczPx+58wcuKWGrI6coVSh+f5SJrCE7HPBGMZjzk8D1tG?=
+ =?iso-8859-1?Q?/sANA6prf/wcEIf1nQvyr+fCSEpZozjyvyHXwUuVseK+QT0Q54IBepM35s?=
+ =?iso-8859-1?Q?696U4VuVxtP2f8aZTQlh3j6a+Q1fJP/ILoQGFmTCu8hcbKQDRta5ob1QV1?=
+ =?iso-8859-1?Q?dwGBWOiStITXdmL0Wu5HCEZ5o0EAEiua8dClrfqlwUOo6bgiKQ1jRfQ6AA?=
+ =?iso-8859-1?Q?Ujb/CSicsUtYz9o2oyT7tE2GyBWnb7csi1UZbUKsSswyMRYPCHoApKOfFl?=
+ =?iso-8859-1?Q?WadAPm1+1an2W+uHUBG4vh2WMoN1wN3F+HmFv99tbeKdxdTB9apLOC3Wrj?=
+ =?iso-8859-1?Q?wXFigevYHQx6OilsONKWQiC8rm2vusDNMqgHNnXPCPJ7zls/T7GiXnz3v9?=
+ =?iso-8859-1?Q?xn3G0sJdtR2MVV/scWkC6B+jDCY/3IgsP/7Ie2UG0ic54idv9ziYGtC1q4?=
+ =?iso-8859-1?Q?qwZrbjP+CUDJsan/GbeBHSy4VGizi0FqXRA554tgwl/Mh+FoCH/P3kJQoZ?=
+ =?iso-8859-1?Q?eCo8QUhWCRxVOfSCzjbOGhfIp2oDIJxKDISydJ55FUMVk2jY1UQhFfk3Qf?=
+ =?iso-8859-1?Q?7iih5qagsBrNwgspPBV90zPK6WtXqJcwnMG4ssv0CL/JuRi0UZ8z2XQi5V?=
+ =?iso-8859-1?Q?b1YAzJ7u7x6Hi8TC0KE2SsdlfCGJExl/Z4T433eOH0DviFW1c9Ce8AVANU?=
+ =?iso-8859-1?Q?cyCrru2HPXGO68e0prXrV6RxMgA44PDxYTfCW3RUB/9DBY7/obn0ptq298?=
+ =?iso-8859-1?Q?P6KhbDxbgZeinGMHju0As4fFhOuphZYDOSFfEQKdU6mIeDmUwaBOtHAjwJ?=
+ =?iso-8859-1?Q?Xlt5G9WrXMX8KPVuHxqw5krei/wsDieBCrxGPAzFKOXLUUQ4Rl/Jt60Kkh?=
+ =?iso-8859-1?Q?35itckqM5ILv6ylV+OZR/xXBR1F4d2EsaXu5uoQR0V3jPR1uk8i4PKVmr3?=
+ =?iso-8859-1?Q?5oLp8I9scyMHRIL7pIHelfoW2RBnjzotVuXmbDmFbPtHpVcybTYZ8+52n1?=
+ =?iso-8859-1?Q?7pIBUZ+k5Wnw8Mer?=
 MIME-Version: 1.0
 X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: KL1PR0401MB6563.apcprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: a94f5667-c3b3-46c0-03f5-08de752c8e09
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Feb 2026 11:45:35.5062
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ee270a1-0b8b-4c96-c229-08de752f42a3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Feb 2026 12:04:57.4502
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR04MB7674
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR04MB8154
 X-Spamd-Bar: ----
 X-MailFrom: kunalkmr9717@outlook.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: HYSTSNKMICOGJZ3WW2OU3XHWBMJAZZUS
-X-Message-ID-Hash: HYSTSNKMICOGJZ3WW2OU3XHWBMJAZZUS
+Message-ID-Hash: KUFEPFKB5TNYA5FQTIF3CNPW7TGMEA3L
+X-Message-ID-Hash: KUFEPFKB5TNYA5FQTIF3CNPW7TGMEA3L
 X-Mailman-Approved-At: Thu, 26 Feb 2026 17:28:08 +0000
 CC: "johan@kernel.org" <johan@kernel.org>, "elder@kernel.org" <elder@kernel.org>, "greybus-dev@lists.linaro.org" <greybus-dev@lists.linaro.org>, "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] [PATCH] staging: greybus: audio_manager_module: make envp array const
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YSUREBYAVYTXVXS3M2R5YNZHJU2IQYO3/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5YT43IAVGIE4L2OQCYL7573DBF25A4VY/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: multipart/mixed; boundary="===============2980202893904007901=="
+Content-Type: multipart/mixed; boundary="===============7318114640065856613=="
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.59 / 15.00];
 	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	R_DKIM_REJECT(1.00)[outlook.com:s=selector1];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	DMARC_POLICY_SOFTFAIL(0.10)[outlook.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[multipart/mixed,multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -169,16 +165,16 @@ X-Spamd-Result: default: False [1.59 / 15.00];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[outlook.com:email,lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email,KL1PR0401MB6563.apcprd04.prod.outlook.com:mid]
-X-Rspamd-Queue-Id: E1CBE1AC640
+	DBL_BLOCKED_OPENRESOLVER(0.00)[KL1PR0401MB6563.apcprd04.prod.outlook.com:mid,linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns,outlook.com:email]
+X-Rspamd-Queue-Id: 68A7B1AC661
 X-Rspamd-Action: no action
 
---===============2980202893904007901==
+--===============7318114640065856613==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_KL1PR0401MB6563219414B87B4EE2C2CC77DD72AKL1PR0401MB6563_"
+	boundary="_000_KL1PR0401MB6563B7A14C6EA1E9ACF3356ADD72AKL1PR0401MB6563_"
 
---_000_KL1PR0401MB6563219414B87B4EE2C2CC77DD72AKL1PR0401MB6563_
+--_000_KL1PR0401MB6563B7A14C6EA1E9ACF3356ADD72AKL1PR0401MB6563_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -208,7 +204,7 @@ ule *module)
 --
 2.43.0
 
---_000_KL1PR0401MB6563219414B87B4EE2C2CC77DD72AKL1PR0401MB6563_
+--_000_KL1PR0401MB6563B7A14C6EA1E9ACF3356ADD72AKL1PR0401MB6563_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -223,117 +219,100 @@ ttom:0;} </style>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">From 630a0c3367818fa30032b85df71fbb03eaefb1b=
-4 Mon Sep 17 00:00:00 2001</span></div>
+From 630a0c3367818fa30032b85df71fbb03eaefb1b4 Mon Sep 17 00:00:00 2001</div=
+>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">From: Kunal &lt;kunalkmr9717@outlook.com&gt;=
-</span></div>
+From: Kunal &lt;kunalkmr9717@outlook.com&gt;</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">Date: Thu, 26 Feb 2026 11:31:47 +0000</span>=
-</div>
+Date: Thu, 26 Feb 2026 11:31:47 +0000</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">Subject: [PATCH] staging: greybus: audio_man=
-ager_module: make envp array const</span></div>
+Subject: [PATCH] staging: greybus: audio_manager_module: make envp array co=
+nst</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">Signed-off-by: Kunal &lt;kunalkmr9717@outloo=
-k.com&gt;</span></div>
+Signed-off-by: Kunal &lt;kunalkmr9717@outlook.com&gt;</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">---</span></div>
+---</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">&nbsp;drivers/staging/greybus/audio_manager_=
-module.c | 2 +-</span></div>
+&nbsp;drivers/staging/greybus/audio_manager_module.c | 2 +-</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">&nbsp;1 file changed, 1 insertion(+), 1 dele=
-tion(-)</span></div>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">diff --git a/drivers/staging/greybus/audio_m=
-anager_module.c b/drivers/staging/greybus/audio_manager_module.c</span></di=
-v>
+diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/stagi=
+ng/greybus/audio_manager_module.c</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">index e87b82ca6d8a..7a25af3421d8 100644</spa=
-n></div>
+index e87b82ca6d8a..7a25af3421d8 100644</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">--- a/drivers/staging/greybus/audio_manager_=
-module.c</span></div>
+--- a/drivers/staging/greybus/audio_manager_module.c</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">+++ b/drivers/staging/greybus/audio_manager_=
-module.c</span></div>
++++ b/drivers/staging/greybus/audio_manager_module.c</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">@@ -159,7 +159,7 @@ static void send_add_uev=
-ent(struct gb_audio_manager_module *module)</span></div>
+@@ -159,7 +159,7 @@ static void send_add_uevent(struct gb_audio_manager_mod=
+ule *module)</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">&nbsp; &nbsp; &nbsp; &nbsp; char ip_devices_=
-string[64];</span></div>
+&nbsp; &nbsp; &nbsp; &nbsp; char ip_devices_string[64];</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">&nbsp; &nbsp; &nbsp; &nbsp; char op_devices_=
-string[64];</span></div>
+&nbsp; &nbsp; &nbsp; &nbsp; char op_devices_string[64];</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">- &nbsp; &nbsp; &nbsp; char *envp[] =3D {</s=
-pan></div>
+- &nbsp; &nbsp; &nbsp; char *envp[] =3D {</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">+ &nbsp; &nbsp; &nbsp; char * const envp[] =
-=3D {</span></div>
++ &nbsp; &nbsp; &nbsp; char * const envp[] =3D {</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; name_string,</span></div>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; name_string,</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; vid_string,</span></div>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vid_string,</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; pid_string,</span></div>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pid_string,</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
 Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
 s=3D"elementToProof">
-<span class=3D"elementToProof">--</span></div>
+--</div>
 <div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<span class=3D"elementToProof">2.43.0</span></div>
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+2.43.0</div>
 </body>
 </html>
 
---_000_KL1PR0401MB6563219414B87B4EE2C2CC77DD72AKL1PR0401MB6563_--
+--_000_KL1PR0401MB6563B7A14C6EA1E9ACF3356ADD72AKL1PR0401MB6563_--
 
---===============2980202893904007901==
+--===============7318114640065856613==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -343,4 +322,4 @@ _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
 
---===============2980202893904007901==--
+--===============7318114640065856613==--
