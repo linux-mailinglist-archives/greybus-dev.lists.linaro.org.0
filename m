@@ -2,86 +2,86 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id COT3NE1boWmDsQQAu9opvQ
+	id aKY7JFJboWmDsQQAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Fri, 27 Feb 2026 09:52:29 +0100
+	for <lists+greybus-dev@lfdr.de>; Fri, 27 Feb 2026 09:52:34 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C5FC1B4B8F
-	for <lists+greybus-dev@lfdr.de>; Fri, 27 Feb 2026 09:52:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 267541B4B96
+	for <lists+greybus-dev@lfdr.de>; Fri, 27 Feb 2026 09:52:34 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 29EED3FDB1
-	for <lists+greybus-dev@lfdr.de>; Fri, 27 Feb 2026 08:52:28 +0000 (UTC)
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	by lists.linaro.org (Postfix) with ESMTPS id 6139E3F902
-	for <greybus-dev@lists.linaro.org>; Thu, 26 Feb 2026 18:26:07 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 408D8400F5
+	for <lists+greybus-dev@lfdr.de>; Fri, 27 Feb 2026 08:52:33 +0000 (UTC)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	by lists.linaro.org (Postfix) with ESMTPS id 592E83F962
+	for <greybus-dev@lists.linaro.org>; Fri, 27 Feb 2026 06:52:38 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=SsWYGrfv;
-	spf=pass (lists.linaro.org: domain of chakrabortyshubham66@gmail.com designates 209.85.210.172 as permitted sender) smtp.mailfrom=chakrabortyshubham66@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b="G5QR/xML";
+	spf=pass (lists.linaro.org: domain of chakrabortyshubham66@gmail.com designates 209.85.216.42 as permitted sender) smtp.mailfrom=chakrabortyshubham66@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-824484dba4dso1274320b3a.0
-        for <greybus-dev@lists.linaro.org>; Thu, 26 Feb 2026 10:26:07 -0800 (PST)
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3594623766eso1146959a91.1
+        for <greybus-dev@lists.linaro.org>; Thu, 26 Feb 2026 22:52:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1772130366; x=1772735166; darn=lists.linaro.org;
+        d=gmail.com; s=20230601; t=1772175157; x=1772779957; darn=lists.linaro.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YSL7gDcnf5c43asbFbv4ZgcRJ5XQVgjSTUff9bWl7Rk=;
-        b=SsWYGrfvxmTXhpGNlxQKmYkx1fxw2R6NEXAdhLpff3lY4oaPNeZ5KM/kr6EeP1ekBF
-         3g+XBW+OBE176AeodHoDUCFFiIuQncPxr9ftydpu8UBv9cborWUUMZcN6Mz/Xju4Kynb
-         dt0eJ6L18lQphIKCxscMt2NOPbP18K4mBttgl9ODDQpgPjrcXW/7Ht6mPNZwEgUtP/Zi
-         JJTnfiY52CWQuGn//0EBDbOnLHeRIY1+cQfZKzmo7Bi18Db4mVV4s/GXITfFCDRO2NlY
-         chpaVKFZ/yLLkAefgJzUXK04PxEL+UGkHgORR2udjJ7m0Ty3ojmeQfmoKNZlo4A5DXkM
-         iabw==
+        bh=/me4FJ+d1aVpAIXm0mJoiSYOgYUY6c5yW2UB1Oq5vLw=;
+        b=G5QR/xMLwKTP7ZUQoe5OPbRPQM86rclIcVGDRuIAsYZ34+Qfdlbd7qxrN18Ay4ItjL
+         Ape5aalvOphI4pGaAMu8HNesWWFiynhzmeHp7FXGFcfSsu9vCpUzt/nH3W1SHi3YAYnx
+         YJBOtEilo90VxzNBdHLkHvZ+7qcPEu/V/gAWoY+lekqMelqw5uwloK9KTGfdDkQZjgQ3
+         LoWI46LgIBArIb5P61RiV59bPt+DkXk4YpX4O/eRXrlY2AvWbgIhrJ407xmCuLH2T7w2
+         tFMbO5xd4TKBsehdF6/cy2WjC4HECT+hwwtCAiD4EmDLBjZk0HnT5HI6UbgfGyGnFVbP
+         uBPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772130366; x=1772735166;
+        d=1e100.net; s=20230601; t=1772175157; x=1772779957;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=YSL7gDcnf5c43asbFbv4ZgcRJ5XQVgjSTUff9bWl7Rk=;
-        b=IL6O1OfLS5xpD5/RxZOd6jSx/H5Lo4xmLVSy79mr/DLYdJcsGaLcqmBrrBf37RYZ/l
-         V8SsIEOmvwypflsWErugzRwgs4eKr6gxoZUPROhcjP16v6zUxaVeE26Uc3lClifTrNrX
-         6wYSW3e+cYxPlhXbjQnkljEyYazmP1joBKtxA3LyoDiAzYJfPHshp/asJ0LKoKKsLZtd
-         GSxU/SjYncdt8Ccy7vpWmJa2WoTLw4QzzWK88IhJV+NpjWEGazJPI/+rrSg1KdPyXngk
-         lQdIJmdGI+qRNQHu31B1UBfRMcQs8PIOudi0HrK/1BIHMhL9oZ0akTI/r16FWAvSKoRF
-         2Faw==
-X-Forwarded-Encrypted: i=1; AJvYcCUMhfxMqWBA8IPUg5wA6Urd3KL6ULoSWbmikReSi+9WJY1cNokt9xF8l29/IA6qOSbe2g4wHhMGNOUqwg==@lists.linaro.org
-X-Gm-Message-State: AOJu0YyCehnAEy2PYfJsCcASlmHlWCg/bnHbX+a4+Esy4OA4Cne3Kh62
-	AByTgh99J2i08luyDsH2xhetOqdXtDR3f8bCIvhrhdhYuaIOtno3aP3aiwG74esc8i0=
-X-Gm-Gg: ATEYQzyvWx0irjOdV7mLeAWMM8+jI/9x2/E5OdT7VQaA9OusmNByHV2ZIm+BVgopvKI
-	NbH+7GMUelyMxn7SAnjVWmxdRlhINLjyid0Y8eMv/2C/FVufYla3jRe/El47spa1RIxeWlSd648
-	g0/zHiNarvO65JmXxjkDC+XOIizqvGyDS5SYn3kqYlvpi8arOx3mXsWEpsGo2ZPr90Gq3g46fbE
-	GExKXFDrZXpFNTwKhEJgDkc854Eg4NRlmD9H2RbkYOz4hMjYFlXEO/AvBVFwn4VNd7of3WGPZcb
-	rCYZ2+kQfTU2YacCOFZIjhNAtvN4wf3J1bbTvX0wNSdhHc/M40zFmy0n0n4v95/u06V+C667yAg
-	DhrmHP9dFRBsHj4S6UjPk8GolYJH3XJ4oRxDNm8YdzWamp6ZUyzoHP5X+x3BcSCAkgS9AWIgFWp
-	Q395mkyWopCFLoAp0TOOWbzpbvk94VgPHSgQ==
-X-Received: by 2002:a05:6a00:c8d:b0:81e:af19:34bc with SMTP id d2e1a72fcca58-8274d9f4011mr33669b3a.36.1772130366275;
-        Thu, 26 Feb 2026 10:26:06 -0800 (PST)
-Received: from fedora ([2409:40e5:1160:7851:d9ac:d756:7e02:e043])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82739ff372fsm3053585b3a.31.2026.02.26.10.25.59
+        bh=/me4FJ+d1aVpAIXm0mJoiSYOgYUY6c5yW2UB1Oq5vLw=;
+        b=o/i2dOZc5e9w1iS7ItULMzKUjugLz/qg4JWDUBm0MNlF892wZJWl0kz4RvcgmD4bs3
+         erh96Iecyh/OkXbci8TbHghOTjHHa7qYTrLdcbnOjDJzqDMGh1wfZGouZP0TzvD0vazD
+         lgfCYfF+fnEEMYSK4Rih/TPmOefTJmPO6QjGKwPcearUB03zFInnh0uiEsbLSZl1tj7L
+         I6pvBu3F9zIj7+w+9RE0wNXH3hwWtsPT17e3xrz4TA+bThAyy9b5Y/A/XYzVcMprFEXR
+         fFCxErffv2seamldOme03CRjHhkVapoxozKM9FePNqd4n2mI+hReV9kHnJ2lkvFV7FFN
+         8L4A==
+X-Forwarded-Encrypted: i=1; AJvYcCUwNW0+UbCXXoOymFaFVfpYdbdaTeE7BOXqh8KWvXowSZplQ5D9YoHbx2w4Kw8swNY0lelNM4G2f2ibmg==@lists.linaro.org
+X-Gm-Message-State: AOJu0YxXhUBmgGyNbIgCtpq7D5IGoD64uet/+h+DLxsZf5CrfWuZ+fQ7
+	zbLNK8pjwJVu0c3E79c1/5XwMPhOJRSzuWfmMCWN3C8RWHsEuyFkuiEL
+X-Gm-Gg: ATEYQzwiScI9MCjGz9LONE+TTF77Cwy5mGBschqKDLHuf8LAU/V3dn+ftQOT5LIwdyK
+	8IKDdiKBmJy3nAxfQNpumg4qenZblxaVATGGqVLnZ6VD0jm0GHYrT1p/xD79sZVNCQiX+Fi4W+h
+	VmLBuxnFaB3fvfDhpTu8f5Po3O381yObfY1dFfNMEaeZOENCFVJ0ZhBsRSR5qdHHAeT+BMDIQWb
+	ha9GqZuislDId10CEcgsXXC54XyZD5A8TedCrMAHsJaXW6yK6om5MvWmCx/vyUeZZttuEE9Gkvy
+	6bSJNGgLYupmbXSPycuUMxGhzsPnV53XsUV1ZSRj5suWBJhM84B/teeigXnfcwFCztH7Q4TxmIy
+	GVoG+Ox0CYnfK7X8t39evNuvMd7bGedznjX1gXvkW1uZVjjaIW8fRzBZTHc8bhWfTliEIq6vcwM
+	woZLPOVQxALtuG0/oXnFZIogjdWyC+O8h+ynUbiYAX24Loig==
+X-Received: by 2002:a17:90b:4b49:b0:359:7eb:d91d with SMTP id 98e67ed59e1d1-35965ceb5d7mr1683755a91.26.1772175157281;
+        Thu, 26 Feb 2026 22:52:37 -0800 (PST)
+Received: from fedora ([2409:40e5:11f9:3821:4f9f:ee0b:d955:3519])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3593dcad6ddsm4149788a91.1.2026.02.26.22.52.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Feb 2026 10:26:05 -0800 (PST)
+        Thu, 26 Feb 2026 22:52:36 -0800 (PST)
 From: Shubham Chakraborty <chakrabortyshubham66@gmail.com>
 To: gregkh@linuxfoundation.org
-Date: Thu, 26 Feb 2026 23:55:43 +0530
-Message-ID: <20260226182543.19246-1-chakrabortyshubham66@gmail.com>
+Date: Fri, 27 Feb 2026 12:22:20 +0530
+Message-ID: <20260227065220.8039-1-chakrabortyshubham66@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026022506-untouched-scone-e6bb@gregkh>
-References: <2026022506-untouched-scone-e6bb@gregkh>
+In-Reply-To: <aZ_9V7cldGzWNDrb@stanley.mountain>
+References: <aZ_9V7cldGzWNDrb@stanley.mountain>
 MIME-Version: 1.0
 X-Spamd-Bar: --
 X-MailFrom: chakrabortyshubham66@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: JJFRZSAZ2WO2P4DENYWYRNGUYNVZI6DB
-X-Message-ID-Hash: JJFRZSAZ2WO2P4DENYWYRNGUYNVZI6DB
-X-Mailman-Approved-At: Fri, 27 Feb 2026 08:52:26 +0000
-CC: chakrabortyshubham66@gmail.com, dtwlin@gmail.com, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-ID-Hash: 6MXEMCJC3HOLGOYLX7C53XBGMV7ELEWG
+X-Message-ID-Hash: 6MXEMCJC3HOLGOYLX7C53XBGMV7ELEWG
+X-Mailman-Approved-At: Fri, 27 Feb 2026 08:52:27 +0000
+CC: dan.carpenter@linaro.org, dtwlin@gmail.com, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Shubham Chakraborty <chakrabortyshubham66@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 2/2] staging: greybus: uart: convert to XArray
+Subject: [greybus-dev] [PATCH v2] staging: greybus: uart: add descriptive lock comments
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/JJFRZSAZ2WO2P4DENYWYRNGUYNVZI6DB/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/6MXEMCJC3HOLGOYLX7C53XBGMV7ELEWG/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -95,36 +95,66 @@ X-Spamd-Result: default: False [1.59 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[chakrabortyshubham66@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[linaro.org,gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
 	DKIM_TRACE(0.00)[gmail.com:-];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.994];
+	FROM_NEQ_ENVFROM(0.00)[chakrabortyshubham66@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email]
-X-Rspamd-Queue-Id: 4C5FC1B4B8F
+X-Rspamd-Queue-Id: 267541B4B96
 X-Rspamd-Action: no action
 
-Understood, I'll drop this patch. Thanks for the review.
+Replace vague lock comments with specific descriptions of
+what data each lock protects:
+- read_lock: protects iocount and oldcount
+- write_lock: protects write_fifo and credits
+- mutex: protects disconnected state
 
-Regards,
-Shubham Chakraborty
+Signed-off-by: Shubham Chakraborty <chakrabortyshubham66@gmail.com>
+---
+ drivers/staging/greybus/uart.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index fe554eba555a..1e51818e34a8 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -50,12 +50,12 @@ struct gb_tty {
+ 	unsigned int minor;
+ 	unsigned char clocal;
+ 	bool disconnected;
+-	spinlock_t read_lock;		/* protects read operations */
+-	spinlock_t write_lock;		/* protects write operations */
++	spinlock_t read_lock;		/* protects iocount and oldcount */
++	spinlock_t write_lock;		/* protects write_fifo and credits */
+ 	struct async_icount iocount;
+ 	struct async_icount oldcount;
+ 	wait_queue_head_t wioctl;
+-	struct mutex mutex;		/* serializes port operations */
++	struct mutex mutex;		/* protects disconnected state */
+ 	u8 ctrlin;	/* input control lines */
+ 	u8 ctrlout;	/* output control lines */
+ 	struct gb_uart_set_line_coding_request line_coding;
+-- 
+2.53.0
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
