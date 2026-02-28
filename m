@@ -2,198 +2,196 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UFnDGtZdoWmksQQAu9opvQ
+	id UAteLf/xomky8QQAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Fri, 27 Feb 2026 10:03:18 +0100
+	for <lists+greybus-dev@lfdr.de>; Sat, 28 Feb 2026 14:47:43 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id A72E11B4E00
-	for <lists+greybus-dev@lfdr.de>; Fri, 27 Feb 2026 10:03:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37BE91C34F4
+	for <lists+greybus-dev@lfdr.de>; Sat, 28 Feb 2026 14:47:43 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 953383F9BF
-	for <lists+greybus-dev@lfdr.de>; Fri, 27 Feb 2026 09:03:10 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	by lists.linaro.org (Postfix) with ESMTPS id DD0B33F6F0
-	for <greybus-dev@lists.linaro.org>; Fri, 27 Feb 2026 09:03:07 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id DCE3744786
+	for <lists+greybus-dev@lfdr.de>; Sat, 28 Feb 2026 13:47:41 +0000 (UTC)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	by lists.linaro.org (Postfix) with ESMTPS id ABE8C401B2
+	for <greybus-dev@lists.linaro.org>; Sat, 28 Feb 2026 13:47:39 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=TgffXNlB;
-	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.128.42 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
-	dmarc=pass (policy=none) header.from=linaro.org
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4806cc07ce7so19732655e9.1
-        for <greybus-dev@lists.linaro.org>; Fri, 27 Feb 2026 01:03:07 -0800 (PST)
+	dkim=pass header.d=beagleboard-org.20230601.gappssmtp.com header.s=20230601 header.b=F+XBYFdv;
+	spf=neutral (lists.linaro.org: 209.85.214.169 is neither permitted nor denied by domain of ayush@beagleboard.org) smtp.mailfrom=ayush@beagleboard.org;
+	dmarc=fail reason="No valid SPF, DKIM not aligned (relaxed)" header.from=beagleboard.org (policy=none)
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2aaed195901so15077645ad.0
+        for <greybus-dev@lists.linaro.org>; Sat, 28 Feb 2026 05:47:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1772182987; x=1772787787; darn=lists.linaro.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=LK3kLvJU/BNP7pb7k7IBNvzbVws1LlhpsC95zzr3Y4E=;
-        b=TgffXNlBj7wJYTpIUC7gQuJbSNJ9s2e21grkumOZNbLgnJFcfwA5u97qn76xgizrw3
-         Tyk/tybXu45FhEhUcU9ZlQYNZwhhetOKrSRK4zYz/7qOCI1qqZGxS7GtsyY8V1inN9+N
-         C1koOlVmkq5wlbyhmpwVA6mDG7O4/hIKA1WQsPVtPoetqk8dHbkyK2vm13Vef1KDQxdn
-         kMcZe6oHHGfwZz/BDtE+uQs3sZOxZiHvpke2hXGf6FvGf/Xto/lbwUdSTFouIkkMoUfc
-         QnoEXBs9aIDLnw7ieTrdIB8FCiaaIQAjdNZv7ta75jlWbTLd3w/xj39zG1VSeI+0PiO5
-         Q6Xg==
+        d=beagleboard-org.20230601.gappssmtp.com; s=20230601; t=1772286459; x=1772891259; darn=lists.linaro.org;
+        h=content-transfer-encoding:subject:from:to:content-language
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Y+Yis15s/y6ACMzRa532TWtng35Hri3uK4UVjGLrFck=;
+        b=F+XBYFdvbx/gD/gLF35UyCoeK0GYjvRJcBMv0X1f7nNjCuFDFozrCQ2JcpiMBEcjb1
+         bw1oZ4xoKooXvE4wsFerRS+ifwdeMc3cIu9VztrgMn666hCgOsrnNQNj0m7CNNIpG9oR
+         wdujFDktWijqzF/d5px26c27RhfdoGSR3mPc1Z7SE3/7ytZXdCkX3TwbvM+xGdreziLD
+         8Tli6iN1BFJ3o3LqwQghiv4oSGp2EfKJb4QwEfsMoJHb5KyUILwAQRCeNVzONLT/SsmB
+         8f33RnLqNvUalPeYNXxxBlDIlb7Ofam8/74LYb6KoA3K2oUEznU+A+kw1MF0s4cAlf1S
+         T1zA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772182987; x=1772787787;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=LK3kLvJU/BNP7pb7k7IBNvzbVws1LlhpsC95zzr3Y4E=;
-        b=W9T7yC7vQ3vNjyQjBA4fCkcOx/XFLfuPyPoRfZh7yT7PVNJRnjK6BkB053nsq55mE5
-         EZU7JDdosGxw7DFjqug7/EdykV8XivdHJlXU2WYmkLR7PcJhI16787GR+BaHOm5hfoWR
-         1QCBWPPBHoDIZjA9unoscgBcxD0HK2vDNIpgiTO5Ck3pO8TAT6iRzvGnVL1pRerODXI0
-         3ELkK0atLuCmb3bcKwtLsVZI6aofqB4gUwzHfd0F4UMkoIigCoZKs1wWx1kWlnV5FJvG
-         G6EoScPYXqAQ3wZ/M97YVh77eTzaBNcDZ2xQCNZ5BSfye2fLSqPdaCa/G/XsTAi1g1TK
-         sogA==
-X-Forwarded-Encrypted: i=1; AJvYcCXg68KdvMu3V4SO2oBaI7uDEFHECBdvohr8N++AfA4TuI5LnYcK/MWssUzSa/X5T+qqPBucB80ekLsamw==@lists.linaro.org
-X-Gm-Message-State: AOJu0Yw/GJoMtNpU5AkUjWeLxTiYygYhZfgqBTILQq9VTZ9BjnJWE0ig
-	2xmw0Os35t9UmMf6wDK6xT2NKbJ7Sl6f13LiqRFCyBfrU86C4g3FMefjIaehIO7h7x/6dQ==
-X-Gm-Gg: ATEYQzzeBZ1UQhR95sT3p1SVuXJAb/fVw0oUX/xT/l7JRf9MGvlGScHE6uSO+sJ7fyO
-	KfhP/f9rlrwS2kSDYvz9qgNvPvegKv0JsVf1sdms69xle9+Va2mdU3mL61Ob/12di8nfK+tKAw+
-	izbdCDl2lmk9fbTtuF7iVQVSkR0ghXe5FEEGmSOWADO5tZdjcjzv5YC8HwKLXPFfXgZb4WSMcRX
-	cKFCxzKHRZ4CBYLd9rJxHL/kJzQkkVZPGQNmVuIYypq9qtZyYZNbiKArQJqDIxqr196P62v0y1k
-	Ykwwd9o1ep58Xq5HaPtdOUvaBV4IhDZiK7G98s/ecTs4MtPQbo7qmN+6onkqCwM30bDq8JYFCPY
-	9y+Wpet65KcZ88jDH3ipoLRROsPor8gaOxvpsdtzQzgFSm5xcwQuSPe1LrJ9brCmHPs9WRlzBDJ
-	Q+JhVga2BZxjOx6RHtYD9NS8ljduAa
-X-Received: by 2002:a05:600c:3512:b0:480:7162:fa48 with SMTP id 5b1f17b1804b1-483c9bb1fcfmr29700645e9.13.1772182986616;
-        Fri, 27 Feb 2026 01:03:06 -0800 (PST)
-Received: from localhost ([196.207.164.177])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-483c3b3d24dsm80363625e9.5.2026.02.27.01.03.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Feb 2026 01:03:06 -0800 (PST)
-Date: Fri, 27 Feb 2026 12:03:02 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Shubham Chakraborty <chakrabortyshubham66@gmail.com>
-Message-ID: <aaFdxqxEUzZFVIqQ@stanley.mountain>
-References: <aZ_9V7cldGzWNDrb@stanley.mountain>
- <20260227065220.8039-1-chakrabortyshubham66@gmail.com>
+        d=1e100.net; s=20230601; t=1772286459; x=1772891259;
+        h=content-transfer-encoding:subject:from:to:content-language
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Y+Yis15s/y6ACMzRa532TWtng35Hri3uK4UVjGLrFck=;
+        b=CN0Ognp0chIQsA0BdA/wMgDwrHQ/mGpRCnmbLaqRvFAfiv8MrAryc9yKdhosn3K8Ru
+         4nPbnfiwbGodfiPBCQSDiFL1RYtPMqG4dp9LCMZ2WiTteG8fdfaEJd1gTNko4fLu1+s9
+         yXGX3Fj5BD9+BPbok0pgKRznDqWMlGYfiatnzHAsh827Emdj0+Rh3jWPi5lBrWBD4lot
+         7YH3vasm5q4/wh2S3D7GFZL8nbQcae5Va5o6XRtMR7gjEVzcZNW4pJQnneqOIXogYkih
+         ck+ifv5T59SCuRkoJTkMrZqSCs86ey2y2x/HmLYr3YQflMjIR9DwIJ9GiJyDeKDfmj6w
+         sxKQ==
+X-Gm-Message-State: AOJu0YxqAVOYxZE19jQdjUmy/bL+ELJ0apvIWJwKA1CGr/bzb4g4DDBY
+	LPiaekB0mbhNCxdoV9jMOPBg4g5QXp7Q2NuF2TrTfIQ+Xq7ANvRYXPoPuznYz6JSdL1OgcnfsNA
+	S7E8=
+X-Gm-Gg: ATEYQzw6CKF89A02znOIf+su3llUN8+8LRgVRwXt/H9r+/k/VCpgFJEcyxWj6IL+cK6
+	fq1pzVmJ3QZvT6zriE3L2Vk4x1knwzftsp3urisgEkvUBAmqnkJjOgQBCP+o88Mzdd36oBEeJBx
+	7aZJ09nKHq6/6kbtN06AN/UZKq6g79fVa2S7keavbAPZmdIPFimRhNSghEdUCJo48psxUj6fI3k
+	4sC8uSHULl/jfCWpH+lziC1r3GdLK57EqkrBBz7Q5jeZuPciBGrETRShfnvvErLxoT0Itc/SP0v
+	QkPQ7uKNKynS0JZo+s/PKMITpZ5tV+1r3bO+PJS41XoGP3OZj/ej5+KAYR+tvqE5McDj/2o8mcK
+	0GVVyzZ8LZZMPTfnVHxVWn2TbQ9K2ukBZuT3m31RJm5PgLg002YZtSOI6R545/A4jFa2kKrceON
+	rNmN5HUMQYuSeCpbnhXe06rNPeZsZFBskcgNphEECSn64xPBS1snKoHsss4R5Qgmh+qorAqIto4
+	Fl4
+X-Received: by 2002:a17:903:240a:b0:2ad:a315:286e with SMTP id d9443c01a7336-2ae2e4d0acdmr64248225ad.43.1772286458597;
+        Sat, 28 Feb 2026 05:47:38 -0800 (PST)
+Received: from ?IPV6:2401:4900:8fef:5983:4a73:2ed6:99d3:f043? ([2401:4900:8fef:5983:4a73:2ed6:99d3:f043])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ae3d1b2c5esm18109575ad.6.2026.02.28.05.47.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 28 Feb 2026 05:47:38 -0800 (PST)
+Message-ID: <ecca8eb2-8e5a-4770-bcf6-3fb49773088b@beagleboard.org>
+Date: Sat, 28 Feb 2026 19:17:34 +0530
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260227065220.8039-1-chakrabortyshubham66@gmail.com>
-X-Spamd-Bar: ---
-Message-ID-Hash: U6EZU56UPX6DTTDDAKNNONOCSVXNKIUU
-X-Message-ID-Hash: U6EZU56UPX6DTTDDAKNNONOCSVXNKIUU
-X-MailFrom: dan.carpenter@linaro.org
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>,
+ open list <linux-kernel@vger.kernel.org>, Johan Hovold <johan@kernel.org>,
+ Alex Elder <elder@kernel.org>, linux-devel@silabs.com,
+ Jason Kridner <jkridner@beagleboard.org>,
+ Deepak Khatri <lorforlinux@beagleboard.org>
+From: Ayush Singh <ayush@beagleboard.org>
+X-Spamd-Bar: /
+Message-ID-Hash: 5BHWUET6X5HPXDH2U2OYEDBMVN6CHBWJ
+X-Message-ID-Hash: 5BHWUET6X5HPXDH2U2OYEDBMVN6CHBWJ
+X-MailFrom: ayush@beagleboard.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: dtwlin@gmail.com, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: uart: add descriptive lock comments
+Subject: [greybus-dev] [RFC] greybus: support combined Host + SVC
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/U6EZU56UPX6DTTDDAKNNONOCSVXNKIUU/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5BHWUET6X5HPXDH2U2OYEDBMVN6CHBWJ/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.01 / 15.00];
-	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	R_SPF_ALLOW(-0.20)[+mx];
+X-Spamd-Result: default: False [0.69 / 15.00];
+	R_DKIM_REJECT(1.00)[beagleboard-org.20230601.gappssmtp.com:s=20230601];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+mx];
+	DMARC_POLICY_SOFTFAIL(0.10)[beagleboard.org : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FROM_HAS_DN(0.00)[];
-	NEURAL_SPAM(0.00)[0.995];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	R_DKIM_REJECT(0.00)[linaro.org:s=google];
-	DKIM_TRACE(0.00)[linaro.org:-];
-	DMARC_POLICY_ALLOW(0.00)[linaro.org,none];
-	TAGGED_RCPT(0.00)[greybus-dev];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FROM_NEQ_ENVFROM(0.00)[dan.carpenter@linaro.org,greybus-dev-bounces@lists.linaro.org];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
-X-Rspamd-Queue-Id: A72E11B4E00
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
+	FROM_NEQ_ENVFROM(0.00)[ayush@beagleboard.org,greybus-dev-bounces@lists.linaro.org];
+	DKIM_TRACE(0.00)[beagleboard-org.20230601.gappssmtp.com:-];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[greybus-dev];
+	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,sparkfun.com:url]
+X-Rspamd-Queue-Id: 37BE91C34F4
 X-Rspamd-Action: no action
 
-On Fri, Feb 27, 2026 at 12:22:20PM +0530, Shubham Chakraborty wrote:
-> Replace vague lock comments with specific descriptions of
-> what data each lock protects:
-> - read_lock: protects iocount and oldcount
-> - write_lock: protects write_fifo and credits
-> - mutex: protects disconnected state
-> 
-> Signed-off-by: Shubham Chakraborty <chakrabortyshubham66@gmail.com>
-> ---
-
-When you're writing a v2 patch, you should first start from a fresh
-kernel tree.  This v2 assumes that we applied the v1 patch.
-
-https://staticthinking.wordpress.com/2022/07/27/how-to-send-a-v2-patch/
-
->  drivers/staging/greybus/uart.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
-> index fe554eba555a..1e51818e34a8 100644
-> --- a/drivers/staging/greybus/uart.c
-> +++ b/drivers/staging/greybus/uart.c
-> @@ -50,12 +50,12 @@ struct gb_tty {
->  	unsigned int minor;
->  	unsigned char clocal;
->  	bool disconnected;
-> -	spinlock_t read_lock;		/* protects read operations */
-> -	spinlock_t write_lock;		/* protects write operations */
-> +	spinlock_t read_lock;		/* protects iocount and oldcount */
-> +	spinlock_t write_lock;		/* protects write_fifo and credits */
->  	struct async_icount iocount;
->  	struct async_icount oldcount;
->  	wait_queue_head_t wioctl;
-> -	struct mutex mutex;		/* serializes port operations */
-> +	struct mutex mutex;		/* protects disconnected state */
->  	u8 ctrlin;	/* input control lines */
-
-
-To be honest, I'm likely never going to be happy with a four word
-explanation of what these locks do...  Probably a paragraph would be
-better.
-
-Don't just think about it so narrowly...  For example, does the name
-read_lock make sense?  What does the word "read" have anything to do
-with "iocount and oldcount"?
-
-Why do we need two separate locks for read and write?  I understand
-how write means write_fifo but why do "write_fifo and credits" go
-together?  If write_lock protects credits, then why are there several
-places where we access gb_tty->credits without taking the lock?
-
-Then as you go along, you're going to notice weird things.  For
-example, in set_serial_info() it allows non-admin uses to set the
-close_delay and closing_wait to the existing values.  What is the
-point of that?  Do other .set_serial() functions allow that?  I
-haven't looked, so maybe there is a good reason!  But when you
-look at this code with an open mind then you'll find all kinds of
-questions like that.
-
-What does protect really mean?  What would happen if we removed
-the locking?  Is the locking even correct?  If read_lock "protects
-iocount" then why do we not take it in gb_tty_get_icount()?
-
-The locking around disconnect probably is meant to prevent a use after
-free.  What are all the variables we allocate and how do we free them?
-Does the disconnect process work?  Go through the probe make a list
-of allocations.  When is the earliest we can call disconnect?  What
-if we set ->disconnected = true but we haven't called
-gb_connection_disable_rx() so we're still receiving packets?  I haven't
-looked at it so I don't know!
-
-regards,
-dan carpenter
-_______________________________________________
-greybus-dev mailing list -- greybus-dev@lists.linaro.org
-To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+SGVsbG8gZXZlcnlvbmUsDQoNCknigJl2ZSByZWNlbnRseSBiZWVuIGV4cGVyaW1lbnRpbmcgd2l0
+aCBjaGFpbmluZyBtdWx0aXBsZSBHcmV5YnVzIG5vZGVzIHRvIA0KYSBzaW5nbGUgaG9zdCBvdmVy
+IEnCskMgKFFXSUlDIHBvcnQgWzBdKS4gVGhpcyBnZW5lcmFsIGlkZWEgaXMgbm90IG5ldyANCihz
+ZWUgTWljcm9Nb2QgUXdpaWMgUHJvIEtpdCBbMV0pLCBhbHRob3VnaCB0aG9zZSBzZXR1cHMgZG8g
+bm90IHVzZSBHcmV5YnVzLg0KDQpTaW5jZSBJwrJDIGRvZXMgbm90IGFsbG93IGEgc2xhdmUgdG8g
+aW5pdGlhdGUgdHJhbnNmZXJzLCBpdCBpcyBub3Qgd2VsbCANCnN1aXRlZCBmb3Igbm9kZS1pbml0
+aWF0ZWQgZXZlbnRzIChlLmcuIGludGVycnVwdHMsIFNWQy1pbml0aWF0ZWQgDQpjb250cm9sKS4g
+SG93ZXZlciwgZm9yIG15IGN1cnJlbnQgdXNlIGNhc2UgSSBhbSBwcmltYXJpbHkgaW50ZXJlc3Rl
+ZCBpbiANCnBvbGxpbmctYmFzZWQgZnVuY3Rpb25hbGl0eSwgc28gdGhpcyBsaW1pdGF0aW9uIGlz
+IGFjY2VwdGFibGUuDQoNCkluIGEgdHlwaWNhbCBHcmV5YnVzIHRvcG9sb2d5LCBhbiBBcHBsaWNh
+dGlvbiBQcm9jZXNzb3IgKEFQKSwgYW4gU1ZDLCANCmFuZCBvbmUgb3IgbW9yZSBtb2R1bGVzIGFy
+ZSBjb25uZWN0ZWQgdmlhIFVuaVByby4gSW4gcHJhY3RpY2UsIGJlY2F1c2UgDQptb3N0IGFwcGxp
+Y2F0aW9uIHByb2Nlc3NvcnMgbGFjayBhIG5hdGl2ZSBVbmlQcm8gaW50ZXJmYWNlLCB0aGV5IGNv
+bm5lY3QgDQp0aHJvdWdoIGEgYnJpZGdlIGRldmljZSB0aGF0IGFsc28gaW1wbGVtZW50cyB0aGUg
+U1ZDLg0KDQpGb3IgdGhlIEnCskMtYmFzZWQgc2V0dXAgZGVzY3JpYmVkIGFib3ZlLCBJIGhhdmUg
+Y29uc2lkZXJlZCB0aGUgZm9sbG93aW5nIA0KdG9wb2xvZ2llczoNCg0KMS4gU2VwYXJhdGUgY28t
+cHJvY2Vzc29yIChTVkMvQnJpZGdlKQ0KDQogwqAgwqBUaGlzIGFwcHJvYWNoIGlzIHJlYXNvbmFi
+bGUgb24gU29DcyBzdWNoIGFzIFRJIEFNNjI1NCwgd2hpY2ggaW5jbHVkZSANCmFuIE00RiBjb3Jl
+IHRoYXQgY2FuIHNlcnZlIGFzIHRoZSBTVkMvYnJpZGdlIGFuZCBjb250cm9sIHRoZSBJwrJDIGJ1
+cy4gDQpIb3dldmVyLCBvbiBkZXZpY2VzIGxpa2UgVEkgQU02MkwsIHdoaWNoIGxhY2sgc3VjaCBh
+IGNvcmUsIGludHJvZHVjaW5nIA0KYW4gYWRkaXRpb25hbCBwcm9jZXNzb3Igc29sZWx5IGZvciBH
+cmV5YnVzIGRvZXMgbm90IHNlZW0ganVzdGlmaWVkLiANCkFsc28sIHRoaXMgd291bGQgbWFrZSB0
+aGUgYWJvdmUgbXVjaCBsZXNzIHBvcnRhYmxlLCBzaW5jZSBpdCBleHBlY3RzIGEgDQpoYXJkd2Fy
+ZSBjb21wb25lbnQsIG5vdCBhbGwgQmVhZ2xlQm9hcmQub3JnIGJvYXJkcyBoYXZlLg0KDQogwqAg
+wqBgYGANCiDCoCDCoCDCoCDCoCstLS0tK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgICstLS0t
+LS0tLS0tLS0tLS0rICstLS0tLS0tLS0tKw0KIMKgIMKgIMKgIMKgfCBBUCB8IDwtLS0gYnVzIC0t
+LS0+wqAgwqB8IFNWQyAvIEJyaWRnZcKgIHwgPC0tLSBJMkMgLS0tLT7CoCDCoHwgDQpNb2R1bGXC
+oCDCoHwNCiDCoCDCoCDCoCDCoCstLS0tK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgICstLS0t
+LS0tLS0tLS0tLS0rICstLS0tLS0tLS0tKw0KIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHwNCiDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB8ICstLS0tLS0tLS0tKw0KIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIGAtLS0tLS0t
+LS0tLSBJMkMgLS0tLT4gwqB8IE1vZHVsZcKgIMKgfA0KIMKgKy0tLS0tLS0tLS0rDQogwqAgwqBg
+YGANCg0KMi4gU1ZDIHBlciBub2RlDQoNCiDCoCDCoEVhY2ggbm9kZSBpbXBsZW1lbnRzIGl0cyBv
+d24gU1ZDLiBTaW5jZSBhbiBJwrJDIHNsYXZlIGNhbm5vdCBpbml0aWF0ZSANCmNvbW11bmljYXRp
+b24sIHRoZSBBUCBtdXN0IGFscmVhZHkga25vdyB0aGUgYWRkcmVzcyBvZiBlYWNoIFNWQy9tb2R1
+bGUuIA0KVGhpcyBhbHNvIHNlZW1zIGluZWZmaWNpZW50IHdoZW4gY2hhaW5pbmcgbXVsdGlwbGUg
+bm9kZXMuDQoNCiDCoCDCoGBgYA0KIMKgIMKgIMKgIMKgKy0tLS0rwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgKy0tLS0tLS0tLS0tLS0tLS0rDQogwqAgwqAgwqAgwqB8IEFQIHwgPC0tLSBJMkMgLS0t
+PsKgIHwgU1ZDIC8gTW9kdWxlwqAgwqB8DQogwqAgwqAgwqAgwqArLS0tLSvCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCArLS0tLS0tLS0tLS0tLS0tLSsNCiDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHwNCiDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHwgwqArLS0tLS0tLS0tLS0tLS0tLSsNCiDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGAtLS0tIEky
+QyAtLS0tPsKgIMKgfCBTVkMgLyBNb2R1bGXCoCDCoHwNCiDCoCstLS0tLS0tLS0tLS0tLS0tKw0K
+IMKgIMKgYGBgDQoNCjMuIFNWQy9CcmlkZ2UgZnVuY3Rpb25hbGl0eSBpbnNpZGUgdGhlIEFQDQoN
+CiDCoCDCoEZvciB0aGlzIHVzZSBjYXNlLCB0aGlzIHNlZW1zIHRvIGJlIHRoZSBtb3N0IHByYWN0
+aWNhbCBvcHRpb24uDQoNCiDCoCDCoFRvIGNsYXJpZnksIEkgYW0gbm90IHByb3Bvc2luZyBhbnkg
+bmV3IGRhdGEgcGF0aHMgaW4gdGhlIEdyZXlidXMgDQpwaXBlbGluZS4gVGhlIGlkZWEgaXMgdG8g
+aGF2ZSBhIHJldXNhYmxlIGFuIFNWQy9icmlkZ2UgaW1wbGVtZW50YXRpb24gDQpzaW1pbGFyIHRv
+IHdoYXQgZXhpc3RzIGluIGdyZXlidXMtemVwaHlyIFsyXVszXSwgYnV0IGhvc3RlZCB3aXRoaW4g
+dGhlIEFQLg0KDQogwqAgwqBgYGANCiDCoCDCoCDCoCDCoCstLS0tLS0tLS0tLS0tK8KgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgICstLS0tLS0tLS0tLSsNCiDCoCDCoCDCoCDCoHwgQVAgLyBTVkPCoCDC
+oCB8IDwtLS0gSTJDIC0tLT7CoCB8IE1vZHVsZcKgIMKgIHwNCiDCoCDCoCDCoCDCoCstLS0tLS0t
+LS0tLS0tK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgICstLS0tLS0tLS0tLSsNCiDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHwNCiDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHzC
+oCDCoCDCoCDCoCDCoCDCoCDCoCstLS0tLS0tLS0tKw0KIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgYC0tIEkyQyAtLS0+wqAgfCBNb2R1
+bGUgwqB8DQogwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqArLS0tLS0tLS0tLSsNCiDCoCDCoGBgYA0K
+DQpCZWZvcmUgcHJvY2VlZGluZyBmdXJ0aGVyLCBJIHdvdWxkIGFwcHJlY2lhdGUgZmVlZGJhY2sg
+b24gdGhpcyANCmFwcHJvYWNo4oCUcGFydGljdWxhcmx5IHdoZXRoZXIgdGhlcmUgYXJlIGNvbmNl
+cm5zIHdpdGggb3B0aW9uIDMsIG9yIGlmIA0KdGhlcmUgYXJlIGFsdGVybmF0aXZlIGRlc2lnbnMg
+SSBzaG91bGQgY29uc2lkZXIuDQoNCkJlc3QgcmVnYXJkcywNCkF5dXNoIFNpbmdoDQoNClswXTog
+aHR0cHM6Ly93d3cuc3BhcmtmdW4uY29tL3F3aWljDQpbMV06IA0KaHR0cHM6Ly93d3cuZGlnaWtl
+eS5pbi9lbi9tYWtlci9wcm9qZWN0cy9taWNyb21vZC1xd2lpYy1wcm8ta2l0LXByb2plY3QtZ3Vp
+ZGUvYTNkN2ZhMWEwNjNmNDJlY2IyYzJiM2MzMzcyNDliZGQNClsyXTogDQpodHRwczovL2dpdGh1
+Yi5jb20vYmVhZ2xlYm9hcmQvZ3JleWJ1cy16ZXBoeXIvYmxvYi9tYWluL3N1YnN5cy9ncmV5YnVz
+L3N2Yy5jI0w4MQ0KWzNdOiANCmh0dHBzOi8vZ2l0aHViLmNvbS9iZWFnbGVib2FyZC9ncmV5YnVz
+LXplcGh5ci9ibG9iL21haW4vc3Vic3lzL2dyZXlidXMvYXBicmlkZ2UuYyNMNDIgDQoNCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1h
+aWxpbmcgbGlzdCAtLSBncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnClRvIHVuc3Vic2NyaWJl
+IHNlbmQgYW4gZW1haWwgdG8gZ3JleWJ1cy1kZXYtbGVhdmVAbGlzdHMubGluYXJvLm9yZwo=
