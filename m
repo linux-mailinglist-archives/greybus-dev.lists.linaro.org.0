@@ -2,65 +2,65 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4BQ5E3aYsGkukgIAu9opvQ
+	id EAUbNHqYsGkukgIAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Tue, 10 Mar 2026 23:17:26 +0100
+	for <lists+greybus-dev@lfdr.de>; Tue, 10 Mar 2026 23:17:30 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23490258D0A
-	for <lists+greybus-dev@lfdr.de>; Tue, 10 Mar 2026 23:17:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E69D258D19
+	for <lists+greybus-dev@lfdr.de>; Tue, 10 Mar 2026 23:17:30 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4A6BA401C5
-	for <lists+greybus-dev@lfdr.de>; Tue, 10 Mar 2026 22:17:25 +0000 (UTC)
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	by lists.linaro.org (Postfix) with ESMTPS id 344043FDB1
-	for <greybus-dev@lists.linaro.org>; Tue, 10 Mar 2026 20:05:52 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id BC933401E8
+	for <lists+greybus-dev@lfdr.de>; Tue, 10 Mar 2026 22:17:29 +0000 (UTC)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	by lists.linaro.org (Postfix) with ESMTPS id BD84F3FDB1
+	for <greybus-dev@lists.linaro.org>; Tue, 10 Mar 2026 20:06:03 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b="QB/wcCAF";
-	spf=pass (lists.linaro.org: domain of sanjayembeddedse@gmail.com designates 209.85.210.170 as permitted sender) smtp.mailfrom=sanjayembeddedse@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=icWiObue;
+	spf=pass (lists.linaro.org: domain of sanjayembeddedse@gmail.com designates 209.85.210.178 as permitted sender) smtp.mailfrom=sanjayembeddedse@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-82985f42664so3335942b3a.0
-        for <greybus-dev@lists.linaro.org>; Tue, 10 Mar 2026 13:05:52 -0700 (PDT)
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-829b2018c94so2370724b3a.0
+        for <greybus-dev@lists.linaro.org>; Tue, 10 Mar 2026 13:06:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773173151; x=1773777951; darn=lists.linaro.org;
+        d=gmail.com; s=20230601; t=1773173163; x=1773777963; darn=lists.linaro.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BrH4PALLy5kRg8WwPkdWNLB7To1Zs5EdGhx79dnqSRo=;
-        b=QB/wcCAF/St+aoR+INiPhLu0HAEc72o7V0RwLbha9evZ1MtadJBCJ6X+w65Vmfs1MD
-         yJJBw7pFEy4/rit4SGuU/BIKtdU+vm1z6kseW4Xkav/nF44lJZmRIV4uaauDyoQw+EOO
-         gDQxrjePTrz97LRk8sfkd0PM0aeoVV0mAq9z/RZiw9CNu2nK38sPziEW7pZ3WTPfRl1W
-         V/qTp/kictDWz028omLJDn/2AmZP9JkTRsOWF08IKxC3EHjbq37js2gp/dWLSeElwhR2
-         1o31XRbsMnHaPWBbt/FkVeZ/aFfVJXeyCJCpPYbepTh/u4cu+KbMP5xwVwIGxhLJgvXx
-         KgTw==
+        bh=zN04QOyvuNYqHR2KOr7qmaUFc0qRULIxaBq4auralkg=;
+        b=icWiObueeqnAhBqpH1vyx6sOn6seoSptNLGOYmzxVzkJyxrqma0atCfiv+UU5E2EtI
+         f+rNpjWQVSFWrKI4dT8tsi4xLrvPMp/TmnmsQLz1uonoYoIQvuyc2hliCsMhJoFVNkWY
+         3F0U+Ps7gKnT19rIJcVI805agPGzFVosrSuinHw5KZv/TKj8ZSre8nMypy41Edfm5X9B
+         2OvRjKimHHxpaCyT7vwmrX6U/tSd4pE+pblhubDgyEOSGFX4STV3oqCQzY+7IXmHk0dd
+         aLFlgyEWIeQaZe1HF0awbH2ph2vByUU/mPCMprA9Y+ferTZIK02wRnTGcDc5lammxn0g
+         +BvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773173151; x=1773777951;
+        d=1e100.net; s=20230601; t=1773173163; x=1773777963;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=BrH4PALLy5kRg8WwPkdWNLB7To1Zs5EdGhx79dnqSRo=;
-        b=XdBufSq3WVfjfUv53Qk1y0RokYsbnHcGLkYze6jvosQXgnqWDrq5D2r9davjeG69vq
-         /D8If7cxQDDhvGFKw1TTV53d/CX2gPXrzr7UliFc6x2KWTA26hIQah2nb8uskonGL38c
-         u2WG5aSAcpP40rnbZ6rxtBkbT9iQblXOi7jQWZAkZsqRSQ9/uYHHC1X8coqT/z5Kewi7
-         W9qHBMdENnZujN59XWe5dVZMgCIQ2nqBKT4vNkcDWbDCOM+nKUwQDL5WGQnKB4kKFjUD
-         QpiajujYDzWT2ZnIKmF+QdJbcC04CTcOS9YlV01dpYBxwp/o9xZavUzLpcIYiN5o73pv
-         IcvQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUpuDDtWPmkSFzAS6a7iZInfXRDmLkfit/weEJBm+n4nGyDScr9lPX0yd2qTAzLf+o+KZenbCj8mVSdHw==@lists.linaro.org
-X-Gm-Message-State: AOJu0YyYh5B6Hd+ORk7GOBQpsOq60wNDnSkB64tEx8Mbfm3rrkmWRPIX
-	Swy+5+k1FwCjdY3FXueEQ3rGBnk2raRfiueZzVZ0kjRa8yeL5lPDN8tA
-X-Gm-Gg: ATEYQzy8oqqj6pADjRk0vR4Y9WQB9MQq8CIwU4kjBp5YPzLSQ8ryl/47cbZkfPjNn8Y
-	uwnBm336uL3ppfQ5fwCib2sBmupX37TPR+KSN4xSOGDdp4zUln2noCMiYCpMWiZjZr3QITh2cOG
-	6a772/hH2+WDvf6SO2IDv9zJu75GYjLjgsNtvCbhqe/Iern+rNlTlHYUKkqwYfpeqSh/jeFJNtZ
-	9Zfc4+Mp/UWokLASSD6wXDAR8wFVWYMxonE5l+7gL0U1VuLGzO3NNwEWq34z4ucRnxIe8/gV3NL
-	GF+m3O/aNP10raoBpilEZUpCK+zVZnXi+zUbJhm+++CrMwNreCwAkx8UYO3AEs+rJPTl3R4a97d
-	YuKO2nt38sb5KNNC8KH9wbL3MIgMoRpKbmsC8b/j3t05yei7eWw7DXxSZnV7Uq918PCUGSIDiAp
-	oh6ycXcFIF4bdehTadGsOrUYH/K/t5FHq8YZ2M5XMlYYNdNrmf7zJ0a0cr98I=
-X-Received: by 2002:a05:6a00:1c9e:b0:829:88e7:c89e with SMTP id d2e1a72fcca58-829f6ee65abmr156570b3a.9.1773173151308;
-        Tue, 10 Mar 2026 13:05:51 -0700 (PDT)
+        bh=zN04QOyvuNYqHR2KOr7qmaUFc0qRULIxaBq4auralkg=;
+        b=wG4hwZSBxyBnignWxyVj7r7/OTe8n08GUzc8b7BFV0xce0wQ4H0R/zk+VtS9p601F1
+         ZVf3V21Nj5C9Ghwsser7i4Xi/DI7WGcDuuYYKItLS8b03bg/j/ToFhNRSyb2TbimaO/R
+         U5aEGS6m+qgzkWls0AHYG4tuWep6G6rP3pvMugmab8g0QcjRYgW4kBDCk+KVDklq/iZN
+         nwpMFC0wEdml6iTxfZpnFtQMcVo+8/zkwW42ztwtLEStOTw4l8b5QuJACfIISBJPVVC2
+         Tbl+HaGXGC8twv5q3pxkB5MV0xnt4VPrxa3q6Qie6BbpZMiBiGZmyFE4fYHyYtaykDhC
+         0ZdA==
+X-Forwarded-Encrypted: i=1; AJvYcCWGZT8+IA0Loqlv5LggY0nv7+H3wVkI38F+/4sMIZWRko4B6vHJK7d+Ge50aLXVLxv52Mk8ISi97ZLG3w==@lists.linaro.org
+X-Gm-Message-State: AOJu0Yzxu13XoBQtCye2CKaUfeYQly6Mu6rH3qr9VZ2ktke8qs9FOAPN
+	RcQgODbeKOkf5QkdkfdVpt89JBsXINkj1o6qO7FIR4KbVOGduFiCPgQC
+X-Gm-Gg: ATEYQzy2buoJ9oKtqWUb1DO8rLwgqfBZGeEx+o65VVb2gc7heDN+gbtmq6WR7k53pgz
+	qLFtRL+rVj6ClLpzRkkdLWpvwVh0FBw5ykOwe9HhlDxJXk/+7J6jLr18N5mjXN6quyZ6Vy+XX1s
+	i97kIEsjPYrNMD9MH0uKeI5kIoHg1YjeIn8BTnEoHdtdjpmsmwEQ5rECmiDBpR/lWgDiymkl/gq
+	dkUYjHcgX3weuQHU042amhjS+y416kCx63KFtR13xz1tSCzVpy/arndpMG6R3RbrQ4fb1MNVe+l
+	WM/Zoq9CrG5SmQMdYm6Kg6ensYnz/09OZEGKEVPhwys2Gip39CpFK37wcxNQvxnpswBFrFw4OUx
+	Vr8QhyrtMdeoVpK9XYnOq92TFitmr0+V5/H9Hnm4Ndfc4hNXPKh6bUfMwdMmpH8Jz6b60wg6uR9
+	ycjtrNoAxk8S5y4JyXYkNL+oTVO9Bqk3yKkF+WVdwaCKq0dzC0
+X-Received: by 2002:a05:6a00:3696:b0:81f:4a06:6f5 with SMTP id d2e1a72fcca58-829f6e71c7bmr133338b3a.4.1773173162881;
+        Tue, 10 Mar 2026 13:06:02 -0700 (PDT)
 Received: from hu-ckantibh-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-829f6dc2d0asm101660b3a.13.2026.03.10.13.05.40
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-829f6dc2d0asm101660b3a.13.2026.03.10.13.05.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Mar 2026 13:05:50 -0700 (PDT)
+        Tue, 10 Mar 2026 13:06:02 -0700 (PDT)
 From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 X-Google-Original-From: Sanjay Chitroda <sanjayembedded@gmail.com>
 To: jic23@kernel.org,
@@ -76,8 +76,8 @@ To: jic23@kernel.org,
 	elder@kernel.org,
 	gregkh@linuxfoundation.org,
 	pure.logic@nexus-software.ie
-Date: Wed, 11 Mar 2026 01:35:08 +0530
-Message-Id: <20260310200513.2162018-3-sanjayembedded@gmail.com>
+Date: Wed, 11 Mar 2026 01:35:09 +0530
+Message-Id: <20260310200513.2162018-4-sanjayembedded@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260310200513.2162018-1-sanjayembedded@gmail.com>
 References: <20260310200513.2162018-1-sanjayembedded@gmail.com>
@@ -86,15 +86,15 @@ X-Spamd-Bar: ---
 X-MailFrom: sanjayembeddedse@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: UFUJKPB57FKWIPB2XFIC3AQOVNXSZ5YW
-X-Message-ID-Hash: UFUJKPB57FKWIPB2XFIC3AQOVNXSZ5YW
+Message-ID-Hash: U2F6VHGOMX5EGYDZ7CP5I3KHK4JFCNWL
+X-Message-ID-Hash: U2F6VHGOMX5EGYDZ7CP5I3KHK4JFCNWL
 X-Mailman-Approved-At: Tue, 10 Mar 2026 22:17:15 +0000
 CC: dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, kernel@pengutronix.de, kees@kernel.org, nabijaczleweli@nabijaczleweli.xyz, marcelo.schmitt1@gmail.com, maudspierings@gocontroll.com, hverkuil+cisco@kernel.org, ribalda@chromium.org, straube.linux@gmail.com, dan.carpenter@linaro.org, lukagejak5@gmail.com, ethantidmore06@gmail.com, samasth.norway.ananda@oracle.com, karanja99erick@gmail.com, s9430939@naver.com, tglx@kernel.org, mingo@kernel.org, sun.jian.kdev@gmail.com, weibu@redadmin.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, sanjayembeddedse@gmail.com, skhan@linuxfoundation.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH 2/7] iio: ssp_sensors: simplify cleanup using __free
+Subject: [greybus-dev] [PATCH 3/7] iio: st_sensors: simplify cleanup using __free
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/UFUJKPB57FKWIPB2XFIC3AQOVNXSZ5YW/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/U2F6VHGOMX5EGYDZ7CP5I3KHK4JFCNWL/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -103,7 +103,7 @@ List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 23490258D0A
+X-Rspamd-Queue-Id: 9E69D258D19
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [2.09 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -124,7 +124,7 @@ X-Spamd-Result: default: False [2.09 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.303];
+	NEURAL_HAM(-0.00)[-0.300];
 	TO_DN_NONE(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[sanjayembeddedse@gmail.com,greybus-dev-bounces@lists.linaro.org];
 	FREEMAIL_CC(0.00)[baylibre.com,analog.com,kernel.org,pengutronix.de,nabijaczleweli.xyz,gmail.com,gocontroll.com,chromium.org,linaro.org,oracle.com,naver.com,redadmin.org,vger.kernel.org,lists.infradead.org,lists.linaro.org,lists.linux.dev,linuxfoundation.org];
@@ -145,61 +145,40 @@ No functional change intended for kmalloc().
 
 Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 ---
- drivers/iio/common/ssp_sensors/ssp_spi.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+ drivers/iio/common/st_sensors/st_sensors_core.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iio/common/ssp_sensors/ssp_spi.c b/drivers/iio/common/ssp_sensors/ssp_spi.c
-index 6c81c0385fb5..e76ef39c6b7c 100644
---- a/drivers/iio/common/ssp_sensors/ssp_spi.c
-+++ b/drivers/iio/common/ssp_sensors/ssp_spi.c
-@@ -331,7 +331,6 @@ static int ssp_parse_dataframe(struct ssp_data *data, char *dataframe, int len)
- /* threaded irq */
- int ssp_irq_msg(struct ssp_data *data)
- {
--	char *buffer;
- 	u8 msg_type;
- 	int ret;
- 	u16 length, msg_options;
-@@ -375,7 +374,7 @@ int ssp_irq_msg(struct ssp_data *data)
- 			 * but the slave should not send such ones - it is to
- 			 * check but let's handle this
- 			 */
--			buffer = kmalloc(length, GFP_KERNEL | GFP_DMA);
-+			char *buffer __free(kfree) = kmalloc(length, GFP_KERNEL | GFP_DMA);
- 			if (!buffer) {
- 				ret = -ENOMEM;
- 				goto _unlock;
-@@ -386,8 +385,6 @@ int ssp_irq_msg(struct ssp_data *data)
- 			if (ret >= 0)
- 				ret = -EPROTO;
+diff --git a/drivers/iio/common/st_sensors/st_sensors_core.c b/drivers/iio/common/st_sensors/st_sensors_core.c
+index dac593be5695..f641b62e692b 100644
+--- a/drivers/iio/common/st_sensors/st_sensors_core.c
++++ b/drivers/iio/common/st_sensors/st_sensors_core.c
+@@ -501,14 +501,14 @@ static int st_sensors_read_axis_data(struct iio_dev *indio_dev,
  
--			kfree(buffer);
+ 	byte_for_channel = DIV_ROUND_UP(ch->scan_type.realbits +
+ 					ch->scan_type.shift, 8);
+-	outdata = kmalloc(byte_for_channel, GFP_DMA | GFP_KERNEL);
++	u8 *outdata __free(kfree) = kmalloc(byte_for_channel, GFP_DMA | GFP_KERNEL);
+ 	if (!outdata)
+ 		return -ENOMEM;
+ 
+ 	err = regmap_bulk_read(sdata->regmap, ch->address,
+ 			       outdata, byte_for_channel);
+ 	if (err < 0)
+-		goto st_sensors_free_memory;
++		return err;
+ 
+ 	if (byte_for_channel == 1)
+ 		*data = (s8)*outdata;
+@@ -517,9 +517,6 @@ static int st_sensors_read_axis_data(struct iio_dev *indio_dev,
+ 	else if (byte_for_channel == 3)
+ 		*data = (s32)sign_extend32(get_unaligned_le24(outdata), 23);
+ 
+-st_sensors_free_memory:
+-	kfree(outdata);
 -
- 			dev_err(SSP_DEV, "No match error %x\n",
- 				msg_options);
+ 	return err;
+ }
  
-@@ -420,20 +417,18 @@ int ssp_irq_msg(struct ssp_data *data)
- 		mutex_unlock(&data->pending_lock);
- 		break;
- 	case SSP_HUB2AP_WRITE:
--		buffer = kzalloc(length, GFP_KERNEL | GFP_DMA);
-+		char *buffer __free(kfree) = kzalloc(length, GFP_KERNEL | GFP_DMA);
- 		if (!buffer)
- 			return -ENOMEM;
- 
- 		ret = spi_read(data->spi, buffer, length);
- 		if (ret < 0) {
- 			dev_err(SSP_DEV, "spi read fail\n");
--			kfree(buffer);
- 			break;
- 		}
- 
- 		ret = ssp_parse_dataframe(data, buffer, length);
- 
--		kfree(buffer);
- 		break;
- 
- 	default:
 -- 
 2.34.1
 
