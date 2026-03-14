@@ -2,144 +2,143 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id o+teAVuAtWm21AAAu9opvQ
+	id sGsRFF6AtWm21AAAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Sat, 14 Mar 2026 16:35:55 +0100
+	for <lists+greybus-dev@lfdr.de>; Sat, 14 Mar 2026 16:35:58 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 806D728DB56
-	for <lists+greybus-dev@lfdr.de>; Sat, 14 Mar 2026 16:35:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F0A428DB5E
+	for <lists+greybus-dev@lfdr.de>; Sat, 14 Mar 2026 16:35:58 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 11D4440448
-	for <lists+greybus-dev@lfdr.de>; Sat, 14 Mar 2026 15:35:53 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.17.11])
-	by lists.linaro.org (Postfix) with ESMTPS id 772AE3F72C
-	for <greybus-dev@lists.linaro.org>; Sat, 14 Mar 2026 14:41:09 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 4247B40446
+	for <lists+greybus-dev@lfdr.de>; Sat, 14 Mar 2026 15:35:57 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+	by lists.linaro.org (Postfix) with ESMTPS id BCE443F719
+	for <greybus-dev@lists.linaro.org>; Sat, 14 Mar 2026 15:05:51 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=web.de header.s=s29768273 header.b=NTETp2OY;
-	spf=pass (lists.linaro.org: domain of Markus.Elfring@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=Markus.Elfring@web.de;
+	dkim=pass header.d=web.de header.s=s29768273 header.b=mlVAK7Q7;
+	spf=pass (lists.linaro.org: domain of Markus.Elfring@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=Markus.Elfring@web.de;
 	dmarc=pass (policy=quarantine) header.from=web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1773499253; x=1774104053; i=markus.elfring@web.de;
-	bh=TUz360hSZrUu54zKcPDS6dTf/PZvtYhWjAtRM+8YPJ8=;
+	s=s29768273; t=1773500728; x=1774105528; i=markus.elfring@web.de;
+	bh=nLgecqG5wv0gkv1vhTXN+YmDs9SaUsIerAOSxJe263A=;
 	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
 	 Subject:Content-Type:Content-Transfer-Encoding:cc:
 	 content-transfer-encoding:content-type:date:from:message-id:
 	 mime-version:reply-to:subject:to;
-	b=NTETp2OYd7EIJ3+YQ7z+sN7AktQ1j/QbTd7cRgokiEgvdD+lQghEstwx2cCw9aqQ
-	 EA/iM6y7i9NMQdP6MjwMNrQSYvwFaPS2jxKTIPDFvOjaiPeQzypmDlUgP8lrEF26F
-	 Z38Sv2co6nBCzRYFSJcPv67Hfb9jIMCg/7d2ddRU8yMT4CRbAFlrRtUV4EH1dkujX
-	 ZV69UKka5hWM0SRjs1V/xn+U2ShQs16bQPfZNVNcqhHN1puMjQyPd1G1qpMMzM1sm
-	 2NWYotDYmbrH1eY952v0QkTJ7oFUysfpRjcwD/8sf8dWlOcNnlu32IOlfmoEZb5sF
-	 VVc0HzAcMGIwU4gSSg==
+	b=mlVAK7Q7mslxmW6b2XvOQZWuqbU7PRhciTKhkenZoqHkgryTXgIL7/KNhdU9FsEG
+	 vxryIOj7866PSp4CCt0wc15qOlgEJl2TKjUPSymB41BVTQtZe5lx485cRAmFvpdEW
+	 yrlhGDNzDkd3hM0zqp/vkP1zAAtQKLtonzJ8wOUzgDErbYtFPGTX7TzhC2548hrCx
+	 GmBKCNhyZZF4uBq31x3+VaFjavavo5+vhIVOkjdoUrrBajgOBEHeA/FxIpmCbpBO6
+	 q0CSX1WAAXBay8l4JJtbyLfI0FPQd5ORaUrc+dDxvekfGwtNhXJWK0583BK7lSMfN
+	 RJpc3d2sjBziLHKvkw==
 X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
 Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MCGSW-1vt8Qo498k-00DhnF; Sat, 14
- Mar 2026 15:40:53 +0100
-Message-ID: <ad901a22-7c48-41c4-a69a-2fae9ace6664@web.de>
-Date: Sat, 14 Mar 2026 15:40:50 +0100
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MZjIb-1w4t4C3QD1-00ReCq; Sat, 14
+ Mar 2026 16:05:27 +0100
+Message-ID: <03573ebb-54af-4bd0-9730-5f55d24ae0c9@web.de>
+Date: Sat, 14 Mar 2026 16:05:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: linux-staging@lists.linux.dev, greybus-dev@lists.linaro.org,
- Alex Elder <elder@kernel.org>,
+To: greybus-dev@lists.linaro.org, Alex Elder <elder@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Johan Hovold <johan@kernel.org>
 Content-Language: en-GB, de-DE
 From: Markus Elfring <Markus.Elfring@web.de>
-X-Provags-ID: V03:K1:C1aVNNoTLgxKlb3mo3g+q2ghN53soTuv3AeCY5cDoxIkOqQJzig
- UgDqkld2Jj6nND9Qzn5+h3yi7OBLtOl9Hn4FmdyCEsddlQzI4A3eFC7S1bMggv7r+0wrUyh
- 7jNcG1eCbPXt6KPCrcZWFMH+LrOQ5onAdlFow2R8R7TAPNM7ixWbahT/brENc9syDQaKfZO
- HA2APJwNNa4A/aFCVf9+g==
+X-Provags-ID: V03:K1:0j5tmQUR66W6XrpmtNSF+oxhGanndf1TzOEIeOjb/q7uN8gxJeR
+ /lIXL7ssWR9MuWrvHSJUY/CefHbsXjh3/SBQg+UvLRiCIUUhmftSdyggUhpMqKUC5pdtg5M
+ IMa/TlUbDMsZ6WjekZDBXESdP7+acGI3p4mCnLh6cP+3TvRHP3aa+LhSsfw2NIWy6cpuHiO
+ B+0wszlsCv6XoH2NPJWDg==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:bVNS2M8gnFQ=;C9NqzFmjRdInn/7RKP3RyK3FhJe
- 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
- YWOmI4Ed+JzGTSbo2O8iK3E/uel23aU/w==
-X-Spamd-Bar: ---
+UI-OutboundReport: notjunk:1;M01:P0:uVJRMV+t8Ug=;PtkvDjU9W3v1MrF3ZV5elZZUGFG
+ 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
+ Dqy25ETc0rE
+X-Spamd-Bar: ----
 X-MailFrom: Markus.Elfring@web.de
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: XXFPA2PC4WZKKPNSIARC56SMZI2KOILH
-X-Message-ID-Hash: XXFPA2PC4WZKKPNSIARC56SMZI2KOILH
+Message-ID-Hash: YIIJV5GCAHHAEFBEV4PJIIIEHD4YCHOV
+X-Message-ID-Hash: YIIJV5GCAHHAEFBEV4PJIIIEHD4YCHOV
 X-Mailman-Approved-At: Sat, 14 Mar 2026 15:35:52 +0000
 CC: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org, Felix Gu <ustc.gu@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: gbphy: Omit a redundant pm_runtime_mark_last_busy() call in gb_gbphy_idle()
+Subject: [greybus-dev] [PATCH] greybus: Omit a redundant pm_runtime_mark_last_busy() call in two functions()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/XXFPA2PC4WZKKPNSIARC56SMZI2KOILH/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YIIJV5GCAHHAEFBEV4PJIIIEHD4YCHOV/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -152,7 +151,7 @@ X-Spamd-Result: default: False [3.49 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[web.de : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	R_DKIM_REJECT(1.00)[web.de:s=s29768273];
-	R_SPF_ALLOW(-0.20)[+mx];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -167,47 +166,60 @@ X-Spamd-Result: default: False [3.49 / 15.00];
 	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,ideasonboard.com,intel.com,linux.intel.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[Markus.Elfring@web.de,greybus-dev-bounces@lists.linaro.org];
 	DKIM_TRACE(0.00)[web.de:-];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_SPAM(0.00)[0.349];
+	NEURAL_SPAM(0.00)[0.322];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:helo,lists.linaro.org:rdns]
-X-Rspamd-Queue-Id: 806D728DB56
+X-Rspamd-Queue-Id: 2F0A428DB5E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Sat, 14 Mar 2026 15:35:09 +0100
+Date: Sat, 14 Mar 2026 16:00:20 +0100
 
 The device's last busy timestamp was set in a wrapper function since
 the commit 18c1fe53d186867243f4cf17f4eef60737a16c4c ("PM: runtime:
 Mark last busy stamp in pm_request_autosuspend()").
 Thus delete a pm_runtime_mark_last_busy() call before
-a pm_request_autosuspend() call.
+two pm_request_autosuspend() calls.
 
 The source code was transformed by using the Coccinelle software.
 
 Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 ---
- drivers/staging/greybus/gbphy.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/greybus/bundle.c    | 1 -
+ drivers/greybus/interface.c | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/drivers/staging/greybus/gbphy.c b/drivers/staging/greybus/gbphy.c
-index bdb0f5164a6f..949656e75e8b 100644
---- a/drivers/staging/greybus/gbphy.c
-+++ b/drivers/staging/greybus/gbphy.c
-@@ -53,7 +53,6 @@ static void gbphy_dev_release(struct device *dev)
- #ifdef CONFIG_PM
- static int gb_gbphy_idle(struct device *dev)
+diff --git a/drivers/greybus/bundle.c b/drivers/greybus/bundle.c
+index d1831d0986e9..d8d8e9ba7869 100644
+--- a/drivers/greybus/bundle.c
++++ b/drivers/greybus/bundle.c
+@@ -155,7 +155,6 @@ static int gb_bundle_resume(struct device *dev)
+ 
+ static int gb_bundle_idle(struct device *dev)
  {
 -	pm_runtime_mark_last_busy(dev);
  	pm_request_autosuspend(dev);
+ 
  	return 0;
- }
+diff --git a/drivers/greybus/interface.c b/drivers/greybus/interface.c
+index 4ee4bda4a267..ed56f90369d1 100644
+--- a/drivers/greybus/interface.c
++++ b/drivers/greybus/interface.c
+@@ -753,7 +753,6 @@ static int gb_interface_resume(struct device *dev)
+ 
+ static int gb_interface_runtime_idle(struct device *dev)
+ {
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_request_autosuspend(dev);
+ 
+ 	return 0;
 -- 
 2.53.0
 
