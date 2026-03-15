@@ -2,143 +2,95 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sGsRFF6AtWm21AAAu9opvQ
+	id 4EtEIRXjtmmkKAEAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Sat, 14 Mar 2026 16:35:58 +0100
+	for <lists+greybus-dev@lfdr.de>; Sun, 15 Mar 2026 17:49:25 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F0A428DB5E
-	for <lists+greybus-dev@lfdr.de>; Sat, 14 Mar 2026 16:35:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8BF9291882
+	for <lists+greybus-dev@lfdr.de>; Sun, 15 Mar 2026 17:49:24 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 4247B40446
-	for <lists+greybus-dev@lfdr.de>; Sat, 14 Mar 2026 15:35:57 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.17.12])
-	by lists.linaro.org (Postfix) with ESMTPS id BCE443F719
-	for <greybus-dev@lists.linaro.org>; Sat, 14 Mar 2026 15:05:51 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 7FFE83F79F
+	for <lists+greybus-dev@lfdr.de>; Sun, 15 Mar 2026 16:49:23 +0000 (UTC)
+Received: from sonic312-25.consmr.mail.ir2.yahoo.com (sonic312-25.consmr.mail.ir2.yahoo.com [77.238.178.96])
+	by lists.linaro.org (Postfix) with ESMTPS id F18EF3F70C
+	for <greybus-dev@lists.linaro.org>; Sun, 15 Mar 2026 08:40:54 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=web.de header.s=s29768273 header.b=mlVAK7Q7;
-	spf=pass (lists.linaro.org: domain of Markus.Elfring@web.de designates 212.227.17.12 as permitted sender) smtp.mailfrom=Markus.Elfring@web.de;
-	dmarc=pass (policy=quarantine) header.from=web.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1773500728; x=1774105528; i=markus.elfring@web.de;
-	bh=nLgecqG5wv0gkv1vhTXN+YmDs9SaUsIerAOSxJe263A=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
-	 Subject:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=mlVAK7Q7mslxmW6b2XvOQZWuqbU7PRhciTKhkenZoqHkgryTXgIL7/KNhdU9FsEG
-	 vxryIOj7866PSp4CCt0wc15qOlgEJl2TKjUPSymB41BVTQtZe5lx485cRAmFvpdEW
-	 yrlhGDNzDkd3hM0zqp/vkP1zAAtQKLtonzJ8wOUzgDErbYtFPGTX7TzhC2548hrCx
-	 GmBKCNhyZZF4uBq31x3+VaFjavavo5+vhIVOkjdoUrrBajgOBEHeA/FxIpmCbpBO6
-	 q0CSX1WAAXBay8l4JJtbyLfI0FPQd5ORaUrc+dDxvekfGwtNhXJWK0583BK7lSMfN
-	 RJpc3d2sjBziLHKvkw==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MZjIb-1w4t4C3QD1-00ReCq; Sat, 14
- Mar 2026 16:05:27 +0100
-Message-ID: <03573ebb-54af-4bd0-9730-5f55d24ae0c9@web.de>
-Date: Sat, 14 Mar 2026 16:05:23 +0100
+	dkim=pass header.d=yahoo.pl header.s=s2048 header.b=pVOgCq0C;
+	spf=pass (lists.linaro.org: domain of tomasz.unger@yahoo.pl designates 77.238.178.96 as permitted sender) smtp.mailfrom=tomasz.unger@yahoo.pl;
+	dmarc=pass (policy=reject) header.from=yahoo.pl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1773564054; bh=p/M00+GdOANlk08aXMwS5N3HoG10K14ld95jenex9hI=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=pVOgCq0CJfCiWigTc5av/HZoZjKtvad88YclcxmOHjIp80qfxQYvxdudQmGsXzDp6ReQJgL62MFaJSoYAe5tuX7tovtdy9VQ4oeGl4u8BhdqYg3l/FPJSDT0rdFVshsEA2piorE3TTuu643peFh60uoWE9MA4Jb2ZKjFLnQ4h8xaZ17alz+I8wpBQ1ke5qe/icQhYmmLJsJJ7wmTzbJIzc/A9iqGocKBXCoxR9z/8P3G8X+YKpoLzGJG5xnJtcz4eDZY6hAjZuaLh8Unfx89Qv+BRG9cmqA6IF4oslqkIcf7i1Pna4AG2XMc+mseWad8JFshWj+zbCPnm+l829kghA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1773564054; bh=pKyByAgpzZU5x/zynWaOzkJtYkJLlYj3km1uT8dBxwF=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=GO9WYxI2BHh9pg+dQ4KZRib4ghr85iu2KL7X3CssORXGL3wud5wmdhd4OrrLxYnuU63SkP/8/kqVwe1vpzgmRgWZ9Kn869y6pFI24gqM1ayeyBIgLIfIJ3fRE2UI81P4CZnXLrWClyI2Jx+UcBkqMk/QJHphJUveCw4wp0ptC67MEHS2iw2y+KMvye2Em8zX3bWMYXGLZXIS9fw64tg1Y3HcOGuz2CosehwLZw8ipeIgrdpioDnYaekB+n6Ud5j3pD8JM/uZOzOKo6nY+bwHKBzgalEV3HJiKLbrjPHRsZGyoWOx6fQuqsnsLPvSP5qXHaB+L4qrQE9/3laLioa+Ww==
+X-YMail-OSG: BE.j3cIVM1m7wsJO2ufEXkXqDpWNhUIb_Y5O58LnDhbav8JOI458vcguBxouxfM
+ eHqFIlPZQOxf.eAXUZKkQVmnPSbdmiL2ZNMOcIidKZXdLpPWrLNEFbeSfEXNR2sIR_nDqPecx4Jh
+ PwDa36GD18fYplDZFdrS1LwF_6fvn0YmwxBR_bf189HmwDUAb4Ov_bOliJ9pC5.6fHypMhba6bCY
+ _8cTQgsP.9wYarPDAh5E6Zuz1OHWwfHJ3Pbi3fF876s3aylYQ_s3_sIu1qMa_Z3PqG23hr87_ha1
+ 7Rw1f7F89VXbWNRJyN_3bdUm26sdqAd40074Y.NGNtAs1FQoXaZV8ux.mCz.Ce4jDtzoCdfQZ8Ve
+ M06qgu9JfrrUL3NLxAtuXSbAeZnU__5PdhuSSppQm22Mg.BFGG8TgtPVV_dsrRbi3kxKmkVYH9Ph
+ pOP2pxQdOZsGbVwt4SlnWDzyqYl4nq0DRSo6.GrUc6HuKR1CDa9LKJ_Ymb2GkISaHuA74KLMzKk_
+ n7_uCrXjdyf80ZLlqiDhbfFiqHiXE6XUJTlwdm1YJz5wcXtkULkUau6_o0hEvRhkcl7vkB3veMys
+ joHWz_b9ytPpIltOzVrBB2icPYM6348ymfXjduOajKFvjiL7N_fOi3_AaXQdY_RKhQ1OJ91Pkb_7
+ tickRrlI2mpjYcTNRBlRdzCJRIpfSo0OLkByR3gb9pUyF8j6JWCYWAD.mJv5UJYH.cyiHIf1GKsU
+ E_zcEctt87Go4_FrriOCY8Sq0WleQR74j20nhv.7ruzVyzPEsCmwOiwPWKIJyqPK3BrAinpQgNNr
+ fIvFeiRWf.e4UVl7tx9ZtplKdFIJiamt63WsGvBpT3UxzfTg0.A7uCjxqdqZT_gTzbamXTkCXwLb
+ .Q1ajYf.ouutDRpIIRhItKv._hba7diybv1Yf6GhcHD6L7SfVSk8j80eq49SE9NUAKCmJ9ifYW9r
+ b1h6cfOmpp1aCnfWlFtC7GEx3HEh3N5ssT12G2e9eTjFr2RFB1U2sy9megWLmPI6dn91tSDqwgL8
+ wuB0Wji2d6vu1TT3CCxDdbHM8Zwf1mAsZu0ID3TjrvYe0FCYyEw8zu.luGwJIUsL6GfB7fAwRNYJ
+ IyIp7oat8PNN5C.QJ_Z7eZC9VnYZSHDMVurEKOjW2hcYQFoslLybcMO0iv3PCCKk23PZSGlqTeUS
+ X2OEdAXNuB_6L2uGq9Bu8O9Awld2qBruuJoyS0CU.yvjPgls8ZvnTJjk5GWrIcstQEdqZAwZ9_8k
+ BwvkzenYf5pxAZIhTuz5cZc3MlWzl.BI50xTny3FbMaa7kBB7VzqdxBE2YOhmgleOQzBFi9TRYFC
+ DYwJpJIc4lK_XqoiK07hMehWcG7QvI4LTCrdu3jhKXwo37xWvB68x5HkdqpxVMTcBsZcNoroCfsm
+ 2kD1GZJYHrVx9ov7_PM68.qMQ5.7TS6vJMvDNY8TAGiHNjyaxRSSE0Xqo8tJZ2SnOiB9wWZdJdUl
+ zJZHTUzOK4GMyg88mgl3J3QtBItHXUeDr9Vb3.rBse_xdd5T3bu2Sm4udWHnoolWUZ2QTZzP.vX8
+ gyj6TGidccN13skah5T.jKicOQasMWMtB9uLBlo1bZVCIfYK.Y0Wrnl9qrM2jWtEHRDACFWLw1Jy
+ OaKI3VyNekHbuJI8EdTLn7KeSjtyCuE7rcq.1C80X_vs90ahD_9Q8MnyNOlSipnH760ZYSAGb1r1
+ i86to7p5NTe9Utq6fajkM7ayZ_MXPE57mnMecVsS.g4UoqTOqnCAsetsAED93RdpzCJJ.vlEgsdf
+ 5HVT8M18vObZDvCFvyaF3vbLtee3FZxEkulioGW_KHvghdDp.KwsQAnaJs_ajQuU6jRnFrUkHGaC
+ f_DJ5OER1q5x5NlxR0SAf4_FqHrUDcMN6SePQWL7x4X69j35IryrIPsJ5Q7HrB9MQSO9M8.dZGQc
+ PeVrBseKnkhbP3TTgVKY0YiYbhZ_VovDOJoKkYfAh5TudZAHjU1npi1O3DDVgkTmqqlyDExQL2Fw
+ 8k6g2c73bAO2iAD0gNYdWPURkMYMPiABkBfh5XgdpJb4GIQ9bAn9pnJuUo648JcRZY3ySmWPju2_
+ lANCJtgUbhwSQG_qKSOyF7kfk2F6khe0zDmWe656Q591CjJlYun1Y6JL9eyFRNqH01paB_xniDen
+ MwjwpZa.xrN4gSv0cXFR89DoFhTg.oXMiaPiqTOhWOJpYAp3Bde1.wteiKfpUoy3aZsqE4M9xVpC
+ B3LfGusaiWv1_ayV5.U.G2GX_8suv5_SbWpC8onMGI.yobbhP5ljtHLs0S7iWpmkjFXdWSyYObzy
+ aXjlpneJMp28LtwXezVHqEISm2bkzPeitIn7s
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: 6e995da7-dd1a-42c0-a9a9-3d09e3b48693
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.ir2.yahoo.com with HTTP; Sun, 15 Mar 2026 08:40:54 +0000
+Received: by hermes--production-ir2-bbcfb4457-k8sgb (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 25fb6989d9d1f1fc9da53d8daf963e14;
+          Sun, 15 Mar 2026 08:40:50 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Sun, 15 Mar 2026 09:40:48 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: greybus-dev@lists.linaro.org, Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Johan Hovold <johan@kernel.org>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-X-Provags-ID: V03:K1:0j5tmQUR66W6XrpmtNSF+oxhGanndf1TzOEIeOjb/q7uN8gxJeR
- /lIXL7ssWR9MuWrvHSJUY/CefHbsXjh3/SBQg+UvLRiCIUUhmftSdyggUhpMqKUC5pdtg5M
- IMa/TlUbDMsZ6WjekZDBXESdP7+acGI3p4mCnLh6cP+3TvRHP3aa+LhSsfw2NIWy6cpuHiO
- B+0wszlsCv6XoH2NPJWDg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:uVJRMV+t8Ug=;PtkvDjU9W3v1MrF3ZV5elZZUGFG
- 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
- Dqy25ETc0rE
-X-Spamd-Bar: ----
-X-MailFrom: Markus.Elfring@web.de
+Message-Id: <20260315-greybus-pe-format-v1-1-d923fbed3097@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDY0MT3fSi1Mqk0mLdglTdtPyi3MQSXQtTS0tjcwPT1FQjIyWgvoKi1LT
+ MCrCZ0bG1tQCVsnjyYwAAAA==
+X-Change-ID: 20260314-greybus-pe-format-85993705ee22
+To: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
+ Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773564049; l=2233;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=77brsUdALMVqk5W/8ZvPjHDSWi23UUeVVSRviNwO9Ew=;
+ b=nm0Gj6Q9kVjbrTVaIDWieh0cTuIimPbCN9Sms9AVOKh2Pf7Ksn14YaPJEUGUbCVlMEQjc5x2C
+ sg7kkDvBIzgD+opRSQxEgL9CE2S6Q8L5YP5vs0pemkQ3tZjwyutqMlN
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20260315-greybus-pe-format-v1-1-d923fbed3097.ref@yahoo.pl>
+X-Spamd-Bar: ---
+X-MailFrom: tomasz.unger@yahoo.pl
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: YIIJV5GCAHHAEFBEV4PJIIIEHD4YCHOV
-X-Message-ID-Hash: YIIJV5GCAHHAEFBEV4PJIIIEHD4YCHOV
-X-Mailman-Approved-At: Sat, 14 Mar 2026 15:35:52 +0000
-CC: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org, Felix Gu <ustc.gu@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Message-ID-Hash: 63AMSTVLGGDUC35MRFHCWVPZZDQN7DOR
+X-Message-ID-Hash: 63AMSTVLGGDUC35MRFHCWVPZZDQN7DOR
+X-Mailman-Approved-At: Sun, 15 Mar 2026 16:49:21 +0000
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] greybus: Omit a redundant pm_runtime_mark_last_busy() call in two functions()
+Subject: [greybus-dev] [PATCH] staging: greybus: use %pe to print PTR_ERR in fw-core.c
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/YIIJV5GCAHHAEFBEV4PJIIIEHD4YCHOV/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/63AMSTVLGGDUC35MRFHCWVPZZDQN7DOR/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -147,81 +99,95 @@ List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [3.49 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[web.de : SPF not aligned (relaxed),quarantine];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[web.de:s=s29768273];
-	R_SPF_ALLOW(-0.20)[+mx:c];
+X-Spamd-Result: default: False [2.49 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[yahoo.pl : SPF not aligned (relaxed),reject];
+	R_DKIM_REJECT(1.00)[yahoo.pl:s=s2048];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+mx];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_FROM(0.00)[web.de];
+	FREEMAIL_CC(0.00)[lists.linaro.org,lists.linux.dev,vger.kernel.org,yahoo.pl];
+	FREEMAIL_FROM(0.00)[yahoo.pl];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,ideasonboard.com,intel.com,linux.intel.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[yahoo.pl:-];
+	NEURAL_SPAM(0.00)[0.952];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[Markus.Elfring@web.de,greybus-dev-bounces@lists.linaro.org];
-	DKIM_TRACE(0.00)[web.de:-];
+	FROM_NEQ_ENVFROM(0.00)[tomasz.unger@yahoo.pl,greybus-dev-bounces@lists.linaro.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_SPAM(0.00)[0.322];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:helo,lists.linaro.org:rdns]
-X-Rspamd-Queue-Id: 2F0A428DB5E
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,yahoo.pl:email,yahoo.pl:mid]
+X-Rspamd-Queue-Id: C8BF9291882
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Sat, 14 Mar 2026 16:00:20 +0100
+Replace PTR_ERR() with %pe format specifier which directly prints
+the error pointer in a human readable way, making the code cleaner
+and more idiomatic.
 
-The device's last busy timestamp was set in a wrapper function since
-the commit 18c1fe53d186867243f4cf17f4eef60737a16c4c ("PM: runtime:
-Mark last busy stamp in pm_request_autosuspend()").
-Thus delete a pm_runtime_mark_last_busy() call before
-two pm_request_autosuspend() calls.
-
-The source code was transformed by using the Coccinelle software.
-
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
 ---
- drivers/greybus/bundle.c    | 1 -
- drivers/greybus/interface.c | 1 -
- 2 files changed, 2 deletions(-)
+Verified with checkpatch.pl - no errors or warnings.
+Compiled the gb-firmware module successfully.
+Module compiles and loads in a QEMU environment.
+---
+ drivers/staging/greybus/fw-core.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/greybus/bundle.c b/drivers/greybus/bundle.c
-index d1831d0986e9..d8d8e9ba7869 100644
---- a/drivers/greybus/bundle.c
-+++ b/drivers/greybus/bundle.c
-@@ -155,7 +155,6 @@ static int gb_bundle_resume(struct device *dev)
- 
- static int gb_bundle_idle(struct device *dev)
- {
--	pm_runtime_mark_last_busy(dev);
- 	pm_request_autosuspend(dev);
- 
- 	return 0;
-diff --git a/drivers/greybus/interface.c b/drivers/greybus/interface.c
-index 4ee4bda4a267..ed56f90369d1 100644
---- a/drivers/greybus/interface.c
-+++ b/drivers/greybus/interface.c
-@@ -753,7 +753,6 @@ static int gb_interface_resume(struct device *dev)
- 
- static int gb_interface_runtime_idle(struct device *dev)
- {
--	pm_runtime_mark_last_busy(dev);
- 	pm_request_autosuspend(dev);
- 
- 	return 0;
+diff --git a/drivers/staging/greybus/fw-core.c b/drivers/staging/greybus/fw-core.c
+index 2016a74f137f..7053afa9ab3e 100644
+--- a/drivers/staging/greybus/fw-core.c
++++ b/drivers/staging/greybus/fw-core.c
+@@ -112,8 +112,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+ 			connection = gb_connection_create(bundle, cport_id,
+ 							  gb_fw_download_request_handler);
+ 			if (IS_ERR(connection)) {
+-				dev_err(&bundle->dev, "failed to create download connection (%ld)\n",
+-					PTR_ERR(connection));
++				dev_err(&bundle->dev, "failed to create download connection (%pe)\n",
++					connection);
+ 			} else {
+ 				fw_core->download_connection = connection;
+ 			}
+@@ -131,8 +131,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+ 			connection = gb_connection_create(bundle, cport_id,
+ 							  NULL);
+ 			if (IS_ERR(connection)) {
+-				dev_err(&bundle->dev, "failed to create SPI connection (%ld)\n",
+-					PTR_ERR(connection));
++				dev_err(&bundle->dev, "failed to create SPI connection (%pe)\n",
++					connection);
+ 			} else {
+ 				fw_core->spi_connection = connection;
+ 			}
+@@ -149,8 +149,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+ 			connection = gb_connection_create(bundle, cport_id,
+ 							  NULL);
+ 			if (IS_ERR(connection)) {
+-				dev_err(&bundle->dev, "failed to create Authentication connection (%ld)\n",
+-					PTR_ERR(connection));
++				dev_err(&bundle->dev, "failed to create Authentication connection (%pe)\n",
++					connection);
+ 			} else {
+ 				fw_core->cap_connection = connection;
+ 			}
+
+---
+base-commit: ad6bb64332bb4297110950769ad5af52791e33a2
+change-id: 20260314-greybus-pe-format-85993705ee22
+
+Best regards,
 -- 
-2.53.0
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
