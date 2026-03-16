@@ -2,86 +2,83 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mASoJDbpt2mzWwEAu9opvQ
+	id 6CihNEivt2l3UQEAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 12:27:50 +0100
+	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 08:20:40 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FDAD298A86
-	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 12:27:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BF88295881
+	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 08:20:40 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 19AF63F8E8
-	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 11:27:49 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	by lists.linaro.org (Postfix) with ESMTPS id 506A43F70C
-	for <greybus-dev@lists.linaro.org>; Sun, 15 Mar 2026 23:20:03 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id DD5EA3F742
+	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 07:20:38 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	by lists.linaro.org (Postfix) with ESMTPS id 425DF3F6F0
+	for <greybus-dev@lists.linaro.org>; Mon, 16 Mar 2026 07:20:36 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=kR8UZ73y;
-	spf=pass (lists.linaro.org: domain of oaroraetimis@gmail.com designates 209.85.128.48 as permitted sender) smtp.mailfrom=oaroraetimis@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4852fdb36a8so47563585e9.2
-        for <greybus-dev@lists.linaro.org>; Sun, 15 Mar 2026 16:20:03 -0700 (PDT)
+	dkim=pass header.d=linaro.org header.s=google header.b=cn4eDPgl;
+	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.128.43 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
+	dmarc=pass (policy=none) header.from=linaro.org
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4853c1ca73aso34344825e9.2
+        for <greybus-dev@lists.linaro.org>; Mon, 16 Mar 2026 00:20:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773616802; x=1774221602; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Df2cbTHSLjGNi97ps33ixIYcO5hgiRbvTnx5Ikk0MHE=;
-        b=kR8UZ73yMqPKTArZvvTtxYdwyfdBFfylKUPX0ygxQi0xUhbFMP3+hcNskeMJCKMaEj
-         fdxw6Ynx7iVT5/JrnqUeqmgK5YBp1mAjFZyopqxxJtF9bNedSWUeBjuKS9f9g/3jUsxA
-         ma9SfqrtuJ2NsOeW/qavc2JRg+Wh+qakdTgfxixRybfFpupse8yhPehraXLx3tNAx0lj
-         4eaNKp7yaCnNKH/39zjRxYthe1KD9edi/+AkRcpUGkMPOVmd01lku4ypllxP8l3K+hPj
-         cU7Q0rc64KD8vRG+RYAAaffdR7Qz3GukSaGvLFyF4O+zA51w6kA2PUNgWaLEPmUdXNth
-         HU3Q==
+        d=linaro.org; s=google; t=1773645635; x=1774250435; darn=lists.linaro.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=nZdKQYO2ewxJmQV8sx3HmKzvzT1vlMa/R+ZGVJq9Oks=;
+        b=cn4eDPglr+GRpjFGaiuSS2bfyfYhK4hx5d7UbMmVqChW7A/ScX/RYr6SW2t6CrBphv
+         nozL5UBvP2AYN96LrpYMzlUdRAjGABn8y/ncZFULqpGyVDAG6dYI4koR0Oiz0mOgP/3M
+         Jp76NcoB/40Yat1CiDxxI44IHI61LGHkJPHl6Q//JXTjmssIRCT+KblLO74LbFYtyBO1
+         WxuRPET3jO9fDeqSsiE6gj4BmAlC/0MOZlhY8pucMmenVr2GsGk3A+DoUrZ6u7gmhDnp
+         ARFJQvMdUomaWIcGqm4QZ5ICb9m2WUP4mA38LkVRVhbDc+LyhK2kR7cReAs44VAnjPAO
+         q+lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773616802; x=1774221602;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Df2cbTHSLjGNi97ps33ixIYcO5hgiRbvTnx5Ikk0MHE=;
-        b=p+JJTkNYe8HQ3Iix1qVPPkMBYHxdPa5GHdwUbU+fjlIWo9ZbFPSEHaQrKbLw40+boF
-         oUUT9Kc+atdL7VUmUh639osmZHsIqw9xfxQMhK+ejupIcx1rRPrw5KaQBfY0uGYGPKxw
-         i9MZzlU38QvmQfOSQIODPnZDOioe/392L0do5jIp69IX+VMij7LkT+MlpfmJwhc/l3wv
-         KSjL7/Q44ijfpNmn2HftZ+vH0Yu8OUNYs2biPwfjOpSZFOqLu7Ed9RR3c/k18mUaqEk1
-         P9KKnCPmdjzdR1vXO1vloYEUkOgfbkOWZhhs/3kT27If2jtJkv+GN8cGxCnX3E9eQD0U
-         pljg==
-X-Gm-Message-State: AOJu0YwTGFFrEZpZwYeYjMDn63urwtkQF5TpunsSnbWNicBcX4+PDAXb
-	4iITXK4y0Y80bya+qqylFqVgFm1T1+nS+oTNLIvvktfcw9i3tkGOiobK
-X-Gm-Gg: ATEYQzzI5Js8F1IPU1sQhKdA8MOGyzqEfkxhAnjd7EtTwCEjYJ2g65bogPTCuf94qSm
-	JCqMkWDrjvVWZS9a/5Ob/9D5XESnNiL6gai5zMm5hIN+w4Yuxmmb3UuHwHNaC8mAkJ/6Lxiab9F
-	zJKdTbfTVcgDHvhMfFLyVRSixoiIZJPBE8Ykem0PJW6g7R8/22y6AtLbG4C9c6oKCej7cW0X/9x
-	eNA6dlMRmfc1gZApIq6ri4EEXI9e2JIwKlyJ5q+toNPzgvABVu76QkYMxXR95RZqhRs8w35VfoJ
-	uqbsuWf0DeUrZlKxrOgDzLTczzbOfr6lse5hlR8EN8SbMETnVUaa5ohf2lQESjkNunzwBHkE3KA
-	xJaAGabeGX5QTZWg7nKAO7NocXF7dZ0Dg8Wlx8F3eSjfRoBDQ6bnwK+s4rgy3YubHdX5FIUK8ic
-	F7fiWoFLDdGA4XNR2GOFXjif/1gNxXDUaAwYVuMX8rQDkTt/KL0AjabqfM3m7AE08=
-X-Received: by 2002:a05:600c:8488:b0:480:1d0b:2d32 with SMTP id 5b1f17b1804b1-485566d6fd7mr153183055e9.12.1773616802090;
-        Sun, 15 Mar 2026 16:20:02 -0700 (PDT)
-Received: from OaroraEtimis.tail60902c.ts.net ([95.179.249.152])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-439fe22529csm37662624f8f.31.2026.03.15.16.19.57
+        d=1e100.net; s=20251104; t=1773645635; x=1774250435;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nZdKQYO2ewxJmQV8sx3HmKzvzT1vlMa/R+ZGVJq9Oks=;
+        b=Q8uObUycKG6blDyca2hvGRKpo+qyB4/Y2sJ3Cw5DBDwchRUvfj25XOL0AL7oGJHW/5
+         4gEsZvj7ub3aOT9fwquCFerxWwxFSac8+Swh3zOCKDYghs7l3NmoUYCgc3akwcQs+FxS
+         pV5PNatWr3hyqyZm47/0wEMmMgrcrk/gn0QMJO65qV7UnkRwJKkiVPKo4xLtZHEU4NLa
+         S+nykA832cnnbuxn295wIqlQ7/TNm380pVjjZ1T+UEZmbSo9M1/75RTWaOVm9zsVgFBS
+         xQGyuzsS4eWMWj1KCuMQFICLx95yvEOFxqBTkbBc8p/Ir9R9E3MzjTrHzfA08wM3OVD5
+         adtQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUBxk+xGQ0FHImhLND5VocTGc9DwAkA2IKZpyLPeCV7ONFsCHAoBEWVzDV9yPRhChIy7Gy6e01QMRR5CA==@lists.linaro.org
+X-Gm-Message-State: AOJu0Yx3kXC5VKfsfJASwk6t4YJZZ7ogVZixwk8zaNXgrt4rzEItrXI7
+	5BIfCFoNuyV9AYBsM57uV5YEgQlc6P/6Im74LzWvwhSyx1fKFDTzY9m6MPpN8nFMZ8RQcA==
+X-Gm-Gg: ATEYQzwZFSQ9g51y1wtmN60r0KeQnwKyHFP7Fw3Vfp2y/HpwxpapA3ImKdoGDa07AMs
+	cH8VfGcr2SPP4yCfoCnPtXb9TLyXk9pkfxCyMFSsa9kZYSLxNYwHlYIe56huq7qQMdBfPSDpntO
+	qjwFn2w6cHZTBzx8wUNcALUOCANMMU09y2kxXLRShfXe3noCW/bkI1FWzD8ZOvFhncjfer+k5kT
+	IADraTDwWIVAAZw5Q+rWkhhFFH0S6ILZWQzIV9qRDC4Jhr8EVSuniHDnsAtqaegI1qL2wKyc6cE
+	qITIkY6VN1p8X5+zR+NF6wOQOUl6XOt3WyrV46N/pDEOu9RyEtfcQBQ+9LiTindzSazuz6DMSTI
+	T/BF7xcJri5q2gMzAJGqsxmtenR1nIOzSrfYc+/tXh5CGG9aJ3Umiv5WjhqsEghi2gw593zJ+BK
+	JusWlM9yBsHAWuvUOiH+i6bMs5Q7Bi
+X-Received: by 2002:a05:600c:3104:b0:477:7ab8:aba with SMTP id 5b1f17b1804b1-485566e316dmr178619855e9.1.1773645635166;
+        Mon, 16 Mar 2026 00:20:35 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48557784c18sm187652855e9.4.2026.03.16.00.20.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Mar 2026 16:20:00 -0700 (PDT)
-From: Oarora Etimis <oaroraetimis@gmail.com>
-X-Google-Original-From: Oarora Etimis <OaroraEtimis@gmail.com>
-To: vireshk@kernel.org,
-	johan@kernel.org,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org
-Date: Mon, 16 Mar 2026 07:19:49 +0800
-Message-ID: <20260315231949.231320-1-OaroraEtimis@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        Mon, 16 Mar 2026 00:20:34 -0700 (PDT)
+Date: Mon, 16 Mar 2026 10:20:31 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Rahul Joshi <rj5547884@gmail.com>
+Message-ID: <abevP7wQGicCe9nZ@stanley.mountain>
+References: <20260311184104.499201-1-rj5547884@gmail.com>
 MIME-Version: 1.0
-X-Spamd-Bar: --
-X-MailFrom: oaroraetimis@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: C5UOSB6BUSLF6OT4723O27FGVE7C7ASJ
-X-Message-ID-Hash: C5UOSB6BUSLF6OT4723O27FGVE7C7ASJ
-X-Mailman-Approved-At: Mon, 16 Mar 2026 11:27:47 +0000
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Oarora Etimis <OaroraEtimis@gmail.com>
+Content-Disposition: inline
+In-Reply-To: <20260311184104.499201-1-rj5547884@gmail.com>
+X-Spamd-Bar: ----
+Message-ID-Hash: PEZ5TQB5PJOM4IEWEJF352C22U32LLIJ
+X-Message-ID-Hash: PEZ5TQB5PJOM4IEWEJF352C22U32LLIJ
+X-MailFrom: dan.carpenter@linaro.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: dtwlin@gmail.com, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 2/2] staging: greybus: bootrom: fix potential null pointer dereference
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: uart: add comments to locks and fix alignment
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/C5UOSB6BUSLF6OT4723O27FGVE7C7ASJ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/PEZ5TQB5PJOM4IEWEJF352C22U32LLIJ/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -90,69 +87,73 @@ List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [1.59 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
-	MAILLIST(-0.20)[mailman];
+X-Spamd-Result: default: False [-1.01 / 15.00];
+	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
 	R_SPF_ALLOW(-0.20)[+mx];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	FROM_HAS_DN(0.00)[];
+	NEURAL_SPAM(0.00)[0.055];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.856];
-	FROM_NEQ_ENVFROM(0.00)[oaroraetimis@gmail.com,greybus-dev-bounces@lists.linaro.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	R_DKIM_REJECT(0.00)[linaro.org:s=google];
+	DKIM_TRACE(0.00)[linaro.org:-];
+	DMARC_POLICY_ALLOW(0.00)[linaro.org,none];
 	TAGGED_RCPT(0.00)[greybus-dev];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FROM_NEQ_ENVFROM(0.00)[dan.carpenter@linaro.org,greybus-dev-bounces@lists.linaro.org];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email]
-X-Rspamd-Queue-Id: 1FDAD298A86
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
+X-Rspamd-Queue-Id: 4BF88295881
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-In gb_bootrom_get_firmware(), the 'fw' pointer could be NULL if the
-function jumps to the 'unlock' label. The execution flow continues
-into the 'queue_work' block where 'fw->size' is accessed, leading to
-a null pointer dereference.
+On Thu, Mar 12, 2026 at 12:11:04AM +0530, Rahul Joshi wrote:
+> The spinlock_t and struct mutex members in struct gb_tty lack
+> comments describing what they protect, which is required by the
+> kernel coding style.
+> 
+> Also fix the alignment of the wait_for_completion_timeout() call
+> in gb_uart_wait_for_all_credits() to match the open parenthesis.
+> 
+> Signed-off-by: Rahul Joshi <rj5547884@gmail.com>
+> ---
+>  drivers/staging/greybus/uart.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+> index 7d060b4cd33d..52a84a68049c 100644
+> --- a/drivers/staging/greybus/uart.c
+> +++ b/drivers/staging/greybus/uart.c
+> @@ -50,12 +50,12 @@ struct gb_tty {
+>  	unsigned int minor;
+>  	unsigned char clocal;
+>  	bool disconnected;
+> -	spinlock_t read_lock;
+> -	spinlock_t write_lock;
+> +	spinlock_t read_lock;	/* protects iocount and oldcount */
+> +	spinlock_t write_lock;	/* protects write_fifo and credits */
 
-Fix this by adding a NULL check for 'fw' before accessing its members.
 
-Signed-off-by: Oarora Etimis <OaroraEtimis@gmail.com>
----
-Changes in v2:
-- Rebased onto the latest staging-next branch to resolve merge conflicts.
-- No logical code changes.
+https://lore.kernel.org/all/aaFdxqxEUzZFVIqQ@stanley.mountain/
 
- drivers/staging/greybus/bootrom.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+How on earth could you have come up with the exact same words here
+that someone else did?  It feels like too large of a coincidence.
 
-diff --git a/drivers/staging/greybus/bootrom.c b/drivers/staging/greybus/bootrom.c
-index 83921d90c322..50c80475d241 100644
---- a/drivers/staging/greybus/bootrom.c
-+++ b/drivers/staging/greybus/bootrom.c
-@@ -298,7 +298,7 @@ static int gb_bootrom_get_firmware(struct gb_operation *op)
- 
- queue_work:
- 	/* Refresh timeout */
--	if (!ret && (offset + size == fw->size))
-+	if (!ret && fw && (offset + size == fw->size))
- 		next_request = NEXT_REQ_READY_TO_BOOT;
- 	else
- 		next_request = NEXT_REQ_GET_FIRMWARE;
--- 
-2.47.3
-
+regards,
+dan carpenter
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
