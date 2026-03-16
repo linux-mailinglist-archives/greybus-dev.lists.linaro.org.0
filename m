@@ -2,84 +2,85 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kHAoO8Cwt2l3UQEAu9opvQ
+	id KHDuLSCzt2nUUQEAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 08:26:56 +0100
+	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 08:37:04 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CA2C295952
-	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 08:26:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52F42295B9A
+	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 08:37:04 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3EAE83F790
-	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 07:26:55 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	by lists.linaro.org (Postfix) with ESMTPS id 88A903F70C
-	for <greybus-dev@lists.linaro.org>; Mon, 16 Mar 2026 07:26:53 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 37C4E3F751
+	for <lists+greybus-dev@lfdr.de>; Mon, 16 Mar 2026 07:37:03 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	by lists.linaro.org (Postfix) with ESMTPS id 153A43F70C
+	for <greybus-dev@lists.linaro.org>; Mon, 16 Mar 2026 07:37:01 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=hO8ZT2n4;
-	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.128.44 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
+	dkim=pass header.d=linaro.org header.s=google header.b=vvp4w8xy;
+	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.128.41 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
 	dmarc=pass (policy=none) header.from=linaro.org
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-485345e1013so37164895e9.1
-        for <greybus-dev@lists.linaro.org>; Mon, 16 Mar 2026 00:26:53 -0700 (PDT)
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4853aec185aso34488675e9.1
+        for <greybus-dev@lists.linaro.org>; Mon, 16 Mar 2026 00:37:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1773646012; x=1774250812; darn=lists.linaro.org;
+        d=linaro.org; s=google; t=1773646620; x=1774251420; darn=lists.linaro.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=MNq4xW0J3bXHmWOG372MrFQGECFj/5A4bz1BA7Mwpfo=;
-        b=hO8ZT2n4Jxl3XO1uggGmlKK9+e5GUrOWdH6v7nnhJ3j4Ri57A6ZZ1IzaLCBV6zYjxh
-         if+zJygpzNXcji4DvdXAA4EaMk0MOsTJltO36HoEcIcJWjcVicEGw2oitg4AfeC30leK
-         8p0hwNpNWqliiCjy327u1KqpKPGGinJ9HNQHiXc4wZGB808FAgF0oLbpRSi4vY/noLzt
-         gYunCtZQmpj3T8xczNVQEB9lXpeiGh5zjec1gNib6vHhzjwEX0zKXxr8EuxqXXbosxvm
-         3onKjfMkLWFXjdIQnsM5iwvfFb3wNmlN1HIKxUfTCosAzREJr3FaII/GFUvmsQDIkcxr
-         S1Aw==
+        bh=/8R5+6xWTjhUsYZA5f4QhM5GoODRRoehXbOY+MUE7yc=;
+        b=vvp4w8xy3aR7lG6CbiV6Rbo4K6TvTpkggK34LdXtfLYCdPeMQ8DrTRO5bdAZCvolel
+         IZJvdgbciq93WF1QpT9J11+vq/2jv3jE06l4ET9ofIvOi6H2uvVqmjfMTsMGAcg4CPzH
+         ZWbvqiF6OHJqGKrhXmA6bStKOKglEixmYLAx3h/KvAaH9OZ8iv67cnhLbZuliWve66YS
+         UBacBpEe28qHEt+cyx6eC8fJKOVt4mvJP5UJjwEAabS+9BHEk3RnRbyPBiyvOAijmClU
+         5XZv0SvYsAExg1pI5eBuR/79tbXrFOUTR3ygCJSlxj2nEYSkuJHdKvVVZEgfLL8Hx3pJ
+         hapg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773646012; x=1774250812;
+        d=1e100.net; s=20251104; t=1773646620; x=1774251420;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MNq4xW0J3bXHmWOG372MrFQGECFj/5A4bz1BA7Mwpfo=;
-        b=PD5PgvGWUNqF9tOjIzskVF8CRGAxun0JnfsvZk+X5QWkTHfwzl2N5vj0k15pmbQ61h
-         KH/NDGtFddaM7BpQvfmGh6Qs3QsW9q1Mt2/rZBW/hgiYmlGV7QEDn1v8qVc6kSNQSq2O
-         ZcnlhRfDVcc7yAQQqpt4YTiX3Mdtg+xrf25hk3rBkUJ1orGbdc3tsT1v+/jDbG7BgnTX
-         wlMf9ohh/YYMMAjELqt68MqHDnYc8Y7dNujmQAV7Qo/JIbBA/YM2SgxetNv/ont02Coy
-         OAdrIPYzb+buoPwE0cx4TTNOpxd9M6A6BJwaVOyROIUuYU/4t28X6328tRi8Bfj8Eedr
-         EqAA==
-X-Forwarded-Encrypted: i=1; AJvYcCVFFRpowipT3XP711fjgvvmL1rf3YyZf3saWZD7U2J+itYzEEESty3kQBjWU/w3XDK3hZm+jWBzLKUyNQ==@lists.linaro.org
-X-Gm-Message-State: AOJu0Yx6dKkCaE48KJHog+z4JRD4p3jGhSz90a0kJRkCQI2m1qWRzUCi
-	gI/FgkTdqsaiUweJr6HfeNW6EyJ3w2s5Kf3AzHT3+xS9hujhYwfgPOIYAOrChhg/IAZgVQ==
-X-Gm-Gg: ATEYQzyV5A63sxZ3dtmnYtMpsBK4zYyWBkV8fVzhCfpq3KpiAQpFRpjfFx4N3ETzmSR
-	BhhGmcINY6iYljRcHVLwJEiicmRKNgATMx4TWjihpFacGmfmDwVsXTXxqtMQ4fuRL9CD68kbyXR
-	MS0Ygy4rli9hkzByE+4qsI9uMu9k7Ngjl7B8YzC6AOJ9rp3tz+GN0z1cgQox4s2OVtFejrw6F2i
-	ISNdlb+2I2J7ggN24jxWLQDCRdOdZbcVNfwK4jV9pQ/yN7aYxwNY5LKSs5TJ8EAlpOZrKOwM6M2
-	7LqiSRUTuHfO8bBsnlTm14pAPA46uSY1V81H53IwT5BpjlTP6TMo1FweUwQTLWqBvLMB5tvUIC5
-	dQMWs1OXPTpb56jNGKZnhFkrzthdxOJOQ5KBTye6RvUdJOweczl2USQaB6hY/nfvla9VMiznPKD
-	zXycKci9creL0AQBaKqQlYFRaOraGxIeqeHuTsQ6Q=
-X-Received: by 2002:a05:600c:3e05:b0:485:3428:774c with SMTP id 5b1f17b1804b1-48555ab09e1mr173821375e9.4.1773646012257;
-        Mon, 16 Mar 2026 00:26:52 -0700 (PDT)
+        bh=/8R5+6xWTjhUsYZA5f4QhM5GoODRRoehXbOY+MUE7yc=;
+        b=QfI98ft/Ix2S5obypuW57mJsbZMh5C9jwCjN+ea24u/xb1kb/v75I2T5WIfiLF6n2R
+         Z3/tKb+wh+rbqHf23bnmj2Rh2Rf5+WBycwFe0jV1d6UM1Gq53FFkBNLT0c666SZEKyeN
+         QMA/3YTCpt/TGgr1MlEu38EJ0VrRZCF9vEy1d+UmKqbMskyFUGnoDWXRkBG2unI3MXxw
+         mGm1dgxdg45Nytpjlqy6eUM6ooy2fzmX20wX32uKe88CxsY8eUFztfL6tGXAe9R8VT6B
+         V4wY2rAJ0rbcAfS5C6w63EiWbg19CJ4DOpuwaIGL9mw5A7I5VGawYP/MQWOU9T5VpNY3
+         J+pw==
+X-Forwarded-Encrypted: i=1; AJvYcCXCzlJHKn2CBsHB+ShUdhwS6ZOGnaag96w4q3qPJzLH9630QLwZD3/AfrPf+uNaXEO7X6178osVL5GGhw==@lists.linaro.org
+X-Gm-Message-State: AOJu0YzbEXpkE3JhwuNj8XEsaKNn4qSFjFEUHWf63WupDMMgLEOTdgOh
+	zn+GWu+CZzkwkyCATbgogwsJmjZW0ZvW7Ip2/MAG6W4pqBYEZN42ss3pSayaS1EQPh4OMg==
+X-Gm-Gg: ATEYQzzuJ0xj7a6cuEmj4ves0FO+f2C7MEkrgQoH7stzNR32RtpEWbS/MgZfPbstgQV
+	ZKyosJ/ap8fILto+CaAF4OtwLTuUSu40fhlZDZM9ICkl6VpQfDAlQuI5NmcFrtuD5Q38AMWZCKp
+	p76urDZSd6hVii18MXRW8BhDPUeirh/UVi9f7edelaZ6ln8ssssOEKt4PPYRpAr9FfkNLXxT8mQ
+	d+IDfWT1AhDSLQxeeZWANB4GVPOFnAXHflpQjDlOC7MsQ/kZbblkRrLwl4VUyjGNJiAsM/XYPHH
+	ZsbJVNQOSVhpfeOxm51jFe5yQCp6I+BEiE5IWtqnBzd0jBHKxYcGsgHWfrL3lfwfguOzNMaJtQ5
+	DTuifItFhN6eIHhrYsYrPX9Ok05OJc5Yy8fElspnyG/IMkdhB+0xniGfdk+OZNyOqoUhKEvrN1D
+	+9wQCk742L5MCBVKmXlu6pIQHkD13V
+X-Received: by 2002:a05:600c:4fc6:b0:485:3fc8:de9c with SMTP id 5b1f17b1804b1-485566d520cmr183873595e9.12.1773646619872;
+        Mon, 16 Mar 2026 00:36:59 -0700 (PDT)
 Received: from localhost ([196.207.164.177])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48557777105sm142383565e9.4.2026.03.16.00.26.51
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4854b5f6c24sm373669035e9.5.2026.03.16.00.36.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Mar 2026 00:26:51 -0700 (PDT)
-Date: Mon, 16 Mar 2026 10:26:48 +0300
+        Mon, 16 Mar 2026 00:36:59 -0700 (PDT)
+Date: Mon, 16 Mar 2026 10:36:56 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
 To: Damien =?iso-8859-1?Q?Ri=E9gel?= <damien.riegel@silabs.com>
-Message-ID: <abewuKnDKzUEt25I@stanley.mountain>
+Message-ID: <abezGG0LODIA4SZS@stanley.mountain>
 References: <20260311212511.82563-1-damien.riegel@silabs.com>
+ <20260311212511.82563-2-damien.riegel@silabs.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260311212511.82563-1-damien.riegel@silabs.com>
+In-Reply-To: <20260311212511.82563-2-damien.riegel@silabs.com>
 X-Spamd-Bar: ----
-Message-ID-Hash: FFX7ISOYFHHZI5U2WGR54FFUVFF4XLLM
-X-Message-ID-Hash: FFX7ISOYFHHZI5U2WGR54FFUVFF4XLLM
+Message-ID-Hash: UKIX45NYJ6VCU5WPY6ZT5YRPMGZR2WQI
+X-Message-ID-Hash: UKIX45NYJ6VCU5WPY6ZT5YRPMGZR2WQI
 X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
 CC: linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, greybus-dev@lists.linaro.org, Alex Elder <elder@kernel.org>, Johan Hovold <johan@kernel.org>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 1/2 RESEND] greybus: raw: fix use-after-free on cdev close
+Subject: [greybus-dev] Re: [PATCH 2/2 RESEND] greybus: raw: fix use-after-free if write is called after disconnect
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FFX7ISOYFHHZI5U2WGR54FFUVFF4XLLM/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/UKIX45NYJ6VCU5WPY6ZT5YRPMGZR2WQI/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -103,7 +104,7 @@ X-Spamd-Result: default: False [-1.01 / 15.00];
 	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	NEURAL_SPAM(0.00)[0.303];
+	NEURAL_SPAM(0.00)[0.246];
 	DKIM_TRACE(0.00)[linaro.org:-];
 	DMARC_POLICY_ALLOW(0.00)[linaro.org,none];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -114,80 +115,89 @@ X-Spamd-Result: default: False [-1.01 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[6];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email]
-X-Rspamd-Queue-Id: 5CA2C295952
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qemu.org:url,lists.linaro.org:helo,lists.linaro.org:rdns,silabs.com:email,linaro.org:email]
+X-Rspamd-Queue-Id: 52F42295B9A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Wed, Mar 11, 2026 at 05:25:10PM -0400, Damien Ri=E9gel wrote:
-> This addresses a use-after-free bug when a raw bundle is disconnected
-> but its chardev is still opened by an application. When the application
-> releases the cdev, it causes the following panic when init on free is
-> enabled (CONFIG_INIT_ON_FREE_DEFAULT_ON=3Dy):
+On Wed, Mar 11, 2026 at 05:25:11PM -0400, Damien Ri=E9gel wrote:
+> If a user writes to the chardev after disconnect has been called, the
+> kernel panics with the following trace (with
+> CONFIG_INIT_ON_FREE_DEFAULT_ON=3Dy):
 >=20
->     [   78.451062] refcount_t: underflow; use-after-free.
->     [   78.451352] WARNING: CPU: 0 PID: 139 at lib/refcount.c:28 refcount=
-_warn_saturate+0xd0/0x130
->     [   78.451698] Modules linked in: gb_raw(C)
->     [   78.451881] CPU: 0 UID: 0 PID: 139 Comm: raw_chardev_tes Tainted: =
-G        WC          6.18.0-rc4 #212 PREEMPT(voluntary)
->     [   78.452386] Tainted: [W]=3DWARN, [C]=3DCRAP
->     [   78.452560] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996),=
+>     [   83.828726] BUG: kernel NULL pointer dereference, address: 0000000=
+000000218
+>     [   83.829288] #PF: supervisor read access in kernel mode
+>     [   83.829528] #PF: error_code(0x0000) - not-present page
+>     [   83.829828] PGD 0 P4D 0
+>     [   83.830126] Oops: Oops: 0000 [#1] SMP NOPTI
+>     [   83.830753] CPU: 0 UID: 0 PID: 140 Comm: raw_chardev_tes Tainted: =
+G         C          6.18.0-rc4 #212 PREEMPT(voluntary)
+>     [   83.831260] Tainted: [C]=3DCRAP
+>     [   83.831426] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996),=
  BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
->     [   78.453049] RIP: 0010:refcount_warn_saturate+0xd0/0x130
->     [   78.453311] Code: 0b 90 90 c3 cc cc cc cc 80 3d 4f ec 1d 01 00 0f =
-85 75 ff ff ff c6 05 42 ec 1d 01 01 90 48 c7 c7 e8 5b cb b4 e8 31f
->     [   78.453953] RSP: 0018:ffffaa0f80203ed0 EFLAGS: 00010282
->     [   78.454251] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 00000=
+>     [   83.831912] RIP: 0010:gb_operation_message_alloc+0x14/0xc0
+>     [   83.832366] Code: 00 00 00 00 66 90 90 90 90 90 90 90 90 90 90 90 =
+90 90 90 90 90 90 0f 1f 44 00 00 41 56 4c 8d 72 08 41 55 41 89 cd1
+>     [   83.832979] RSP: 0018:ffffb73f0027bd58 EFLAGS: 00010286
+>     [   83.833247] RAX: ffffa44741f72300 RBX: ffffa44741f72300 RCX: 00000=
+00000000cc0
+>     [   83.833513] RDX: 000000000000000a RSI: 0000000000000002 RDI: 00000=
 00000000000
->     [   78.454472] RDX: 0000000000000000 RSI: ffffaa0f80203d68 RDI: 00000=
-000ffffdfff
->     [   78.454690] RBP: 00000000040e001f R08: 00000000ffffdfff R09: fffff=
-fffb510c008
->     [   78.454899] R10: ffffffffb505c060 R11: 0000000063666572 R12: ffff9=
-38dc210b468
->     [   78.455279] R13: ffff938dc1f5e1a0 R14: ffff938dc14710c0 R15: 00000=
+>     [   83.833732] RBP: 0000000000000cc0 R08: 0000000000000000 R09: 00000=
 00000000000
->     [   78.455549] FS:  00007f2f22741740(0000) GS:ffff938e11fbc000(0000) =
+>     [   83.834044] R10: ffffa44741f72300 R11: 0000000000000000 R12: 00000=
+00000000002
+>     [   83.834267] R13: 0000000000000cc0 R14: 0000000000000012 R15: 00000=
+00000000000
+>     [   83.834533] FS:  00007fead7859740(0000) GS:ffffa447a31bc000(0000) =
 knlGS:0000000000000000
->     [   78.455806] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->     [   78.456129] CR2: 00007f2f228c89c3 CR3: 00000000020d0000 CR4: 00000=
+>     [   83.834776] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>     [   83.834974] CR2: 0000000000000218 CR3: 000000000216b000 CR4: 00000=
 000000006f0
->     [   78.456786] Call Trace:
->     [   78.456936]  <TASK>
->     [   78.457069]  cdev_put+0x18/0x30
->     [   78.457230]  __fput+0x255/0x2a0
->     [   78.457372]  __x64_sys_close+0x3d/0x80
->     [   78.457544]  do_syscall_64+0xa4/0x290
->     [   78.457697]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     [   78.457883] RIP: 0033:0x7f2f227d1cc7
->     [   78.458097] Code: 48 89 fa 4c 89 df e8 08 ae 00 00 8b 93 08 03 00 =
+>     [   83.835259] Call Trace:
+>     [   83.835983]  <TASK>
+>     [   83.836362]  gb_operation_create_common+0x61/0x180
+>     [   83.836653]  gb_operation_create_flags+0x28/0xa0
+>     [   83.836912]  gb_operation_sync_timeout+0x6f/0x100
+>     [   83.837162]  raw_write+0x7b/0xc7 [gb_raw]
+>     [   83.837460]  vfs_write+0xcf/0x420
+>     [   83.837615]  ? task_mm_cid_work+0x136/0x220
+>     [   83.837784]  ksys_write+0x63/0xe0
+>     [   83.837946]  do_syscall_64+0xa4/0x290
+>     [   83.838097]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     [   83.838359] RIP: 0033:0x7fead78e9cc7
+>     [   83.838712] Code: 48 89 fa 4c 89 df e8 08 ae 00 00 8b 93 08 03 00 =
 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44f
->     [   78.458692] RSP: 002b:00007fffab36fb50 EFLAGS: 00000202 ORIG_RAX: =
-0000000000000003
->     [   78.459155] RAX: ffffffffffffffda RBX: 00007f2f22741740 RCX: 00007=
-f2f227d1cc7
->     [   78.459400] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 00000=
+>     [   83.839190] RSP: 002b:00007ffece5c3de0 EFLAGS: 00000202 ORIG_RAX: =
+0000000000000001
+>     [   83.839489] RAX: ffffffffffffffda RBX: 00007fead7859740 RCX: 00007=
+fead78e9cc7
+>     [   83.839675] RDX: 0000000000000006 RSI: 0000563d13f96326 RDI: 00000=
 00000000003
->     [   78.459648] RBP: 00007fffab36fba8 R08: 0000000000000000 R09: 00000=
+>     [   83.839892] RBP: 00007ffece5c3e38 R08: 0000000000000000 R09: 00000=
 00000000000
->     [   78.459899] R10: 0000000000000000 R11: 0000000000000202 R12: 00005=
-58298427128
->     [   78.460212] R13: 00007f2f227416d0 R14: 00005582c72cf320 R15: 00005=
-582c72cf320
->     [   78.460470]  </TASK>
->     [   78.460571] ---[ end trace 0000000000000000 ]---
+>     [   83.840112] R10: 0000000000000000 R11: 0000000000000202 R12: 00005=
+63cf8925128
+>     [   83.840350] R13: 00007fead78596d0 R14: 0000563d13f96320 R15: 00005=
+63d13f96326
+>     [   83.840635]  </TASK>
+>     [   83.840824] Modules linked in: gb_raw(C)
+>     [   83.841311] CR2: 0000000000000218
+>     [   83.842009] ---[ end trace 0000000000000000 ]---
 >=20
-> The cdev is contained in the "gb_raw" structure, which is freed in the
-> disconnect operation. When the cdev is released at a later time,
-> cdev_put gets an address that points to freed memory.
+> Disconnect calls gb_connection_destroy, which ends up freeing the
+> connection object. When gb_operation_sync is called in the write file
+> operations, its gets a freed connection as parameter and the kernel
+> panics.
 >=20
-> To fix this use-after-free, convert the struct device from a pointer to
-> being embedded, that makes the lifetime of the cdev and of this device
-> the same. Then, use cdev_device_add, which guarantees that the device
-> won't be released until all references to the cdev are not released.
-> Finally, delegate the freeing of the structure to the device release
-> function, instead of freeing immediately in the disconnect callback.
+> The gb_connection_destroy cannot be moved out of the disconnect
+> function, as the Greybus subsystem expect all connections belonging to a
+> bundle to be destroyed when disconnect returns.
+>=20
+> To prevent this bug, use a lock to synchronize access between write and
+> disconnect. This guarantees that in the write function raw->connection
+> is either a valid object or a NULL pointer.
 >=20
 > Fixes: e806c7fb8e9b ("greybus: raw: add raw greybus kernel driver")
 > Signed-off-by: Damien Ri=E9gel <damien.riegel@silabs.com>
@@ -195,139 +205,99 @@ f2f227d1cc7
 > resend: added linux-staging as Cc, this list was not part of the first
 > submission.
 >=20
->  drivers/staging/greybus/raw.c | 49 +++++++++++++++++++----------------
->  1 file changed, 26 insertions(+), 23 deletions(-)
+>  drivers/staging/greybus/raw.c | 26 ++++++++++++++++++++------
+>  1 file changed, 20 insertions(+), 6 deletions(-)
 >=20
 > diff --git a/drivers/staging/greybus/raw.c b/drivers/staging/greybus/raw.c
-> index 71de6776739..b92214f97e3 100644
+> index b92214f97e3..aa4086ff397 100644
 > --- a/drivers/staging/greybus/raw.c
 > +++ b/drivers/staging/greybus/raw.c
-> @@ -21,9 +21,8 @@ struct gb_raw {
+> @@ -21,6 +21,7 @@ struct gb_raw {
 >  	struct list_head list;
 >  	int list_data;
 >  	struct mutex list_lock;
-> -	dev_t dev;
+> +	struct mutex write_lock;	/* Synchronize access to connection */
 >  	struct cdev cdev;
-> -	struct device *device;
-> +	struct device dev;
+>  	struct device dev;
 >  };
+> @@ -124,8 +125,8 @@ static int gb_raw_request_handler(struct gb_operation=
+ *op)
 > =20
->  struct raw_data {
-> @@ -148,6 +147,13 @@ static int gb_raw_send(struct gb_raw *raw, u32 len, =
-const char __user *data)
->  	return retval;
->  }
-> =20
-> +static void raw_dev_release(struct device *dev)
-> +{
-> +	struct gb_raw *raw =3D dev_get_drvdata(dev);
-> +
-> +	kfree(raw);
-> +}
-> +
->  static int gb_raw_probe(struct gb_bundle *bundle,
->  			const struct greybus_bundle_id *id)
+>  static int gb_raw_send(struct gb_raw *raw, u32 len, const char __user *d=
+ata)
 >  {
-> @@ -168,11 +174,14 @@ static int gb_raw_probe(struct gb_bundle *bundle,
->  	if (!raw)
->  		return -ENOMEM;
+> -	struct gb_connection *connection =3D raw->connection;
+>  	struct gb_raw_send_request *request;
+> +	struct gb_connection *connection;
+>  	int retval;
 > =20
-> +	device_initialize(&raw->dev);
-> +	dev_set_drvdata(&raw->dev, raw);
+>  	request =3D kmalloc(len + sizeof(*request), GFP_KERNEL);
+> @@ -139,9 +140,15 @@ static int gb_raw_send(struct gb_raw *raw, u32 len, =
+const char __user *data)
+> =20
+>  	request->len =3D cpu_to_le32(len);
+> =20
+> -	retval =3D gb_operation_sync(connection, GB_RAW_TYPE_SEND,
+> -				   request, len + sizeof(*request),
+> -				   NULL, 0);
+> +	mutex_lock(&raw->write_lock);
+> +	retval =3D -ENODEV;
 > +
->  	connection =3D gb_connection_create(bundle, le16_to_cpu(cport_desc->id),
->  					  gb_raw_request_handler);
->  	if (IS_ERR(connection)) {
->  		retval =3D PTR_ERR(connection);
-> -		goto error_free;
-> +		goto error_put_device;
+> +	connection =3D raw->connection;
+> +	if (connection)
+> +		retval =3D gb_operation_sync(connection, GB_RAW_TYPE_SEND,
+> +					   request, len + sizeof(*request),
+> +					   NULL, 0);
+> +	mutex_unlock(&raw->write_lock);
+                     ^^^^^^^^^^^^^^^^
 
-"raw" isn't freed on this error path because we haven't
-assigned "raw->dev.release =3D raw_dev_release;".
+I feel like we need to do a get_device() here as well otherwise the
+put_device(&raw->dev) in gb_raw_disconnect() could delete the last
+reference and free raw.  I have looked at this and I feel like what
+I'm saying is reasonable but I don't necessarily know how the reference
+couting works for cdev.  Please feel free to correct me.  :)
 
 regards,
 dan carpenter
 
->  	}
+> =20
+>  	kfree(request);
+>  	return retval;
+> @@ -186,6 +193,7 @@ static int gb_raw_probe(struct gb_bundle *bundle,
 > =20
 >  	INIT_LIST_HEAD(&raw->list);
-> @@ -187,29 +196,26 @@ static int gb_raw_probe(struct gb_bundle *bundle,
->  		goto error_connection_destroy;
->  	}
+>  	mutex_init(&raw->list_lock);
+> +	mutex_init(&raw->write_lock);
 > =20
-> -	raw->dev =3D MKDEV(raw_major, minor);
-> +	raw->dev.devt =3D MKDEV(raw_major, minor);
-> +	raw->dev.class =3D &raw_class;
-> +	raw->dev.parent =3D &connection->bundle->dev;
-> +	raw->dev.release =3D raw_dev_release;
-> +	retval =3D dev_set_name(&raw->dev, "gb!raw%d", minor);
-> +	if (retval)
-> +		goto error_remove_ida;
-> +
->  	cdev_init(&raw->cdev, &raw_fops);
-> =20
->  	retval =3D gb_connection_enable(connection);
->  	if (retval)
->  		goto error_remove_ida;
-> =20
-> -	retval =3D cdev_add(&raw->cdev, raw->dev, 1);
-> +	retval =3D cdev_device_add(&raw->cdev, &raw->dev);
->  	if (retval)
->  		goto error_connection_disable;
-> =20
-> -	raw->device =3D device_create(&raw_class, &connection->bundle->dev,
-> -				    raw->dev, raw, "gb!raw%d", minor);
-> -	if (IS_ERR(raw->device)) {
-> -		retval =3D PTR_ERR(raw->device);
-> -		goto error_del_cdev;
-> -	}
-> -
->  	return 0;
-> =20
-> -error_del_cdev:
-> -	cdev_del(&raw->cdev);
-> -
->  error_connection_disable:
->  	gb_connection_disable(connection);
-> =20
-> @@ -219,8 +225,8 @@ static int gb_raw_probe(struct gb_bundle *bundle,
->  error_connection_destroy:
->  	gb_connection_destroy(connection);
-> =20
-> -error_free:
-> -	kfree(raw);
-> +error_put_device:
-> +	put_device(&raw->dev);
->  	return retval;
->  }
-> =20
-> @@ -231,11 +237,9 @@ static void gb_raw_disconnect(struct gb_bundle *bund=
-le)
->  	struct raw_data *raw_data;
+>  	raw->connection =3D connection;
+>  	greybus_set_drvdata(bundle, raw);
+> @@ -238,9 +246,9 @@ static void gb_raw_disconnect(struct gb_bundle *bundl=
+e)
 >  	struct raw_data *temp;
 > =20
-> -	// FIXME - handle removing a connection when the char device node is op=
-en.
-> -	device_destroy(&raw_class, raw->dev);
-> -	cdev_del(&raw->cdev);
-> +	cdev_device_del(&raw->cdev, &raw->dev);
->  	gb_connection_disable(connection);
-> -	ida_free(&minors, MINOR(raw->dev));
-> +	ida_free(&minors, MINOR(raw->dev.devt));
->  	gb_connection_destroy(connection);
+>  	cdev_device_del(&raw->cdev, &raw->dev);
+> -	gb_connection_disable(connection);
+>  	ida_free(&minors, MINOR(raw->dev.devt));
+> -	gb_connection_destroy(connection);
+> +
+> +	gb_connection_disable(connection);
 > =20
 >  	mutex_lock(&raw->list_lock);
-> @@ -244,8 +248,7 @@ static void gb_raw_disconnect(struct gb_bundle *bundl=
-e)
+>  	list_for_each_entry_safe(raw_data, temp, &raw->list, entry) {
+> @@ -248,6 +256,12 @@ static void gb_raw_disconnect(struct gb_bundle *bund=
+le)
 >  		kfree(raw_data);
 >  	}
 >  	mutex_unlock(&raw->list_lock);
-> -
-> -	kfree(raw);
-> +	put_device(&raw->dev);
+> +
+> +	mutex_lock(&raw->write_lock);
+> +	raw->connection =3D NULL;
+> +	gb_connection_destroy(connection);
+> +	mutex_unlock(&raw->write_lock);
+> +
+>  	put_device(&raw->dev);
 >  }
 > =20
->  /*
 > --=20
 > 2.52.0
 >=20
