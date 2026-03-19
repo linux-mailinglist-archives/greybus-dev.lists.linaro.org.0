@@ -2,145 +2,224 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MDHlNhEbvGlEsQIAu9opvQ
+	id SJ5kN74kvGkxtgIAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 16:49:37 +0100
+	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 17:30:54 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A3B92CDFD7
-	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 16:49:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C0D22CED79
+	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 17:30:54 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 3649A401C7
-	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 15:49:36 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	by lists.linaro.org (Postfix) with ESMTPS id 88363401B2
-	for <greybus-dev@lists.linaro.org>; Thu, 19 Mar 2026 15:49:33 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 453DB401C5
+	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 16:30:53 +0000 (UTC)
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	by lists.linaro.org (Postfix) with ESMTPS id 8F8473F8EF
+	for <greybus-dev@lists.linaro.org>; Thu, 19 Mar 2026 16:05:22 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linaro.org header.s=google header.b=dQCu8ncQ;
-	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.128.45 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
-	dmarc=pass (policy=none) header.from=linaro.org
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-482f454be5bso21797525e9.0
-        for <greybus-dev@lists.linaro.org>; Thu, 19 Mar 2026 08:49:33 -0700 (PDT)
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=b2ADmtHv;
+	arc=pass ("google.com:s=arc-20240605:i=1");
+	spf=pass (lists.linaro.org: domain of grondon@gmail.com designates 209.85.161.48 as permitted sender) smtp.mailfrom=grondon@gmail.com;
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-67bb19ac35aso769377eaf.1
+        for <greybus-dev@lists.linaro.org>; Thu, 19 Mar 2026 09:05:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773936322; cv=none;
+        d=google.com; s=arc-20240605;
+        b=jRtzRx+zL+B8IFwHelt3yFy06fgrG1OK1wE4z29LEgrO/sAd4BuoOlAWBQ7n9wYQE4
+         ugE3+e85J8x7fwn5uf1u8hYt8RZ/5rhd5jyvjQ8Bj717FwUxwd0/iZJu1QD1PsqtWSYr
+         PDRYD8U04Jxxbul58PfOrfztwKUYs2Mz/t/ESIJcicOxyRP5rTu9K7JRH5ijmc+vuC9b
+         eIVGGzU3IMPoSOwK52S0SnCMSDwWomJkJPFCQ7UwDWZ4NChkLgBML/0ZwLoUJhrlgadh
+         YMdX/b6YL1XzkZpKxndp0en+R6CYmVih19iXtdLKJhxXKY7CRydnNszk1/4W1tTu7sH9
+         hezg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=eGX/SkxVphBdxLbdjbMEDYx6SC8qr+cMDwIWtRBHGBY=;
+        fh=uPLynRyvj3iukYvMVb+hk+FTL44140a2zd69dAU0JK0=;
+        b=GVUnI9PytZtC6ZRq3sIEXmj1zdCW/L4Puvxx5/S6KY7USKQsEL+4AmYDMVjrqFhNTm
+         XSZHBY39dvRyDFJLOxKHg9NrJOxZBzHimfFkVCZRaVEmgkzCNhUuflNy+FB7/NhEWaVt
+         k4PCNGnpcfz4MlVbJj5HgzlHKfuc3TkGj/R8giMt8/QGIN0cAhyY3VXXCAGsGMIjXpo/
+         wAA1DQO44hTgrgyT5t5lRAmXdQyCWfwnp1lpH2lCuqIQ8pONS4bf6evxraRbyuLyoWOE
+         T1kMnBQG669flR2LyWayrMyzBm/sViMp0Zd1cBksYwSX6VqIwsFH1A326ENBVXuMUFSk
+         KM6A==;
+        darn=lists.linaro.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1773935372; x=1774540172; darn=lists.linaro.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=WOygSq0gymlMWHm64ER/xpeBmO60xp2f19A5m9z4Lno=;
-        b=dQCu8ncQI7qrLTYxBts2zvtGcRryfC7Aj8uU3MRRTyN8/EBiXjxaewDOHgCG59LUuz
-         087jufSue9NrtduxPkeb3rmM95r8jVFNdkSe0aUipyvmj7byV2fptoPEe8ndwL5rfBQ1
-         DbwsVC/9EfGUTT5NIyWyqVxv4+2TIWfjqAH5cHTKtwr8XHqT0GBiuA3j16ffv7C4dVR4
-         8ifE0hkSjPESM8objBlJTkJkSzqQS3b7VGGzobUaqdBv2ssYe/ez6FmNVboZ2XtcFeEm
-         w69wcn61BNVm6xgTpqZTIdetzw5HuTKwcc1zoTOK4DJQOQRSwIlFtTb09qdvzVb2sjz+
-         S3PQ==
+        d=gmail.com; s=20230601; t=1773936322; x=1774541122; darn=lists.linaro.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=eGX/SkxVphBdxLbdjbMEDYx6SC8qr+cMDwIWtRBHGBY=;
+        b=b2ADmtHvoYQ9ejxO3ixocwHWl/rz9YXkc06L31FRooP/cwvdCsyz+0idgKmMONewVP
+         DlXoG9tFeJ1QkE6PkJ4M1n59Z1bJ0eIzIYAgH/eh0gcbP56VURagX5yJxs111B9Jk8HD
+         hh0p/Ny57sXqDDm6DPd5As2aJvv7yzjKThOb/evUP9gsgabRcSNlT7IPzMqPJiel1af2
+         spARLBbS4nY+NGffTMq9sr1wioXq1380vD862GnjQas4U6mqPy+A8xDeSKKiVvUkqO6g
+         VSznUrzjxbQ8N+ev6zAw0OD8Cnhgdpwl6194ZUbjUlQhkfUQL/SoKR+vIr5f7ObdKT3R
+         09Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773935372; x=1774540172;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WOygSq0gymlMWHm64ER/xpeBmO60xp2f19A5m9z4Lno=;
-        b=UV5RsKmn/sR3n5ZiIVT9+DSngp+yNLvEGHmTs6/jxBdjOFK1W2//HC/WzUY/ggNMTg
-         Iib0waA+w7q6HJoS3U9A7xTe8JELk9F3gItpqgIlGQ0THEuXWyEDcmvBe31VQXdbAIAN
-         Ox7UoWd8ehfuMzsole4m538hpahixICzVrusIDZvA77Bc0s3IdQJFhXSEJICbD+f3o4A
-         Jq8Hsnh3bfQUqTgHQ+VKCKY/y/vfQkQ2D7/v9mQRxHZO0tLKWUorpGpQpTo4GvsfzTQC
-         rG2AFEmKZjK269/YjaStwgxWAWPVRLcvAhYGRnMdUKBGD/FP7jjf/mJO7+dExuJXxCy1
-         xrYg==
-X-Forwarded-Encrypted: i=1; AJvYcCUfMSuLSNDMYDtP6wuKxcx6ZYqrmmHB0FEp3RlNDxEylyUYeGM5zu4xY45BlJB3lUfnkTgs3cz/xVlg1A==@lists.linaro.org
-X-Gm-Message-State: AOJu0YyiafUqXXIZDfi2Wb3iPbIV+qkh3TLYQKdabqKfUtNNUZxbw4Li
-	sQYM42rdMLnsQdwTH1zvHanEkh+ZvqkHKZZtJf9onyFSKzmvvlNw7q1wL8iJgGk9rm2UDQ==
-X-Gm-Gg: ATEYQzzDmBtfO5i7a8PUk3bR4R2KurNwi19jJY9/zm/PU62gowHfN5Qgi1iYlSC8bgf
-	snfrWiAMsv8QOuJ0y7Dotej8s1Q84WN69lkbaU+daA1BGIJaZKZsac+MLBYD/pJROT4L3JemcVX
-	rHO0bdZP5y8A3rCqnsIk5MfWJuLqIk5Bz57iIZneBonjCH1Wbl0XTTDrCrfrtxtKs9N41GNoUql
-	rJuRQYrn7p0fCFP7BuFJulF4addB2BcPD4LblqXCUTFhefYRNf/O0VAQWqtsoqO1va9+I3ofTX0
-	RHiIshWUbPC9GbuD7Wd9vX1qdPk+KH0Q17jCQv8VJnhldk+yih8pevRj8sghR+Z33ZKMr33VT5M
-	FQ/iE2JUktX6aT1CyKcQfLbkGiCvPlrxo2s8gGmf3Mfsv0iNX0414IXTv2D2Due35t1KdncApIz
-	L5EuPe3Edgg6X7m/293vCZQ7n9oZLMlhYY2SG4Kq0=
-X-Received: by 2002:a05:600c:55d7:b0:485:4f11:aabc with SMTP id 5b1f17b1804b1-486f8b80e07mr53687185e9.15.1773935372486;
-        Thu, 19 Mar 2026 08:49:32 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b518522d7sm14543730f8f.13.2026.03.19.08.49.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Mar 2026 08:49:30 -0700 (PDT)
-Date: Thu, 19 Mar 2026 18:49:27 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Gabriel Rondon <grondon@gmail.com>
-Message-ID: <abwbB3KGkkTh4bYU@stanley.mountain>
-References: <20260319120201.25210-1-grondon@gmail.com>
+        d=1e100.net; s=20251104; t=1773936322; x=1774541122;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eGX/SkxVphBdxLbdjbMEDYx6SC8qr+cMDwIWtRBHGBY=;
+        b=VrrHVloQ7p9hRGRovhSvYYPC6j8DFcaSTypjx43WX+AzbySb/1V35LSeghG39kVRFn
+         nXPXPefluTw5DsJoU+lUVdJcWqofIgyV0AD0hrOHDZjo2kcynv2w3mnCN04Woywc98O0
+         LuBlp9R9HvIx0xLhH+k7GoqexopoUpQG4rJCrTB/iRR/x4j7v8dmrJuUTyinJ9JHG4IN
+         pkNXQ/KnfnyGqjWqUFOnwdFErd4DZxv8AUYNtXo9+6yBNpPaiDOSPerhASU9QwIYkuTv
+         a2aubSIK8qjNOOOlavoTarQh1K8GMbE4OcutbmQEX+wF8PKTLXkmWaIDEluYv4mlgE9x
+         TQnA==
+X-Forwarded-Encrypted: i=1; AJvYcCWnZxmTU6nSCqeGTAIREkjCSYziqixWNE+driEaLRJtNTPJXJQlA0neMjYxzCSxeeTjz/HfYXfHnT55Gw==@lists.linaro.org
+X-Gm-Message-State: AOJu0Yzg1D0qyrEeR31JwiKBckcBhvPhIt8wNE2RgJbjm61L6IyTOTWw
+	QKc1J5+eYxWhRLjxhyK23+JrE/NQDTgvxSXyYoIoOSnLItM0kM+9mZWQn1iYG2RxBH66X48t0F4
+	Y2mqt6B1QsRuQLjCpauRaoSQ9ykxGkew=
+X-Gm-Gg: ATEYQzyg+Oc4aYv+N5dxSpRBcncCyJbv91Ea7iUI6pOMs9KnIkQPyyXS5GA4agQJKNr
+	Zddgkfb76vF6ZfNIJ6mZZyyW/wKcpdxNP/T+WdiGxLjxc5RpXCKFjoQ0uxnssFxvcWCYwJihi0N
+	w93YkN/RxT5JhZnA2k7VgfaIkWd/fdnNbSXjRFgCHXWoiG2JYcbJ0W9pfbGrpoCLsTk7GtoIKyN
+	oFCfC4kgUe+9K3c8h3JwGtGMSzCqlVHlwN7xR5u7LvB/LlqsdeFMibultRGO7CIB6SqhFFk5vBa
+	Ugjg0zTPWw==
+X-Received: by 2002:a4a:e901:0:b0:67b:b96c:272b with SMTP id
+ 006d021491bc7-67c0db08e24mr5384596eaf.53.1773936321660; Thu, 19 Mar 2026
+ 09:05:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260319120201.25210-1-grondon@gmail.com>
-X-Spamd-Bar: ---
-Message-ID-Hash: CSL6FARRYFP3RFWO7O25H3NCJ6SFZYUH
-X-Message-ID-Hash: CSL6FARRYFP3RFWO7O25H3NCJ6SFZYUH
-X-MailFrom: dan.carpenter@linaro.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+References: <20260319120201.25210-1-grondon@gmail.com> <abwbB3KGkkTh4bYU@stanley.mountain>
+In-Reply-To: <abwbB3KGkkTh4bYU@stanley.mountain>
+From: Gabriel R <grondon@gmail.com>
+Date: Thu, 19 Mar 2026 16:05:08 +0000
+X-Gm-Features: AaiRm517nK8C_tRkr3szy_x7rudcZhjqkWKg_zMmW0dlTBR1ft3cqVg5ym8x1WE
+Message-ID: <CAN_YdD-tWtFJmJGUG_fj89OnXknpiump=MgSSP_7k6C5YCyidQ@mail.gmail.com>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+X-Spamd-Bar: -----
+X-MailFrom: grondon@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: HCZZDRBDRA3ODEAUIUHMWTFK7A7C67FG
+X-Message-ID-Hash: HCZZDRBDRA3ODEAUIUHMWTFK7A7C67FG
+X-Mailman-Approved-At: Thu, 19 Mar 2026 16:30:47 +0000
 CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH] staging: greybus: audio: use sysfs_emit() in show functions
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/CSL6FARRYFP3RFWO7O25H3NCJ6SFZYUH/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/HCZZDRBDRA3ODEAUIUHMWTFK7A7C67FG/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-1.01 / 15.00];
-	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
+Content-Type: multipart/mixed; boundary="===============0450034739369812405=="
+X-Spamd-Result: default: False [1.59 / 15.00];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx];
-	MIME_GOOD(-0.10)[text/plain];
+	R_SPF_ALLOW(-0.20)[+mx:c];
+	MIME_GOOD(-0.10)[multipart/mixed,multipart/alternative,text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	NEURAL_SPAM(0.00)[0.206];
-	DMARC_POLICY_ALLOW(0.00)[linaro.org,none];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[greybus-dev];
-	FROM_NEQ_ENVFROM(0.00)[dan.carpenter@linaro.org,greybus-dev-bounces@lists.linaro.org];
-	R_DKIM_REJECT(0.00)[linaro.org:s=google];
-	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[grondon@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	RCPT_COUNT_FIVE(0.00)[6];
+	TAGGED_RCPT(0.00)[greybus-dev];
 	MISSING_XM_UA(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:-];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,stanley.mountain:mid]
-X-Rspamd-Queue-Id: 6A3B92CDFD7
+	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
+	NEURAL_SPAM(0.00)[0.659];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
+X-Rspamd-Queue-Id: 5C0D22CED79
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Doesn't apply for me.
+--===============0450034739369812405==
+Content-Type: multipart/alternative; boundary="0000000000004e8db1064d62bcbf"
 
-On Thu, Mar 19, 2026 at 12:02:01PM +0000, Gabriel Rondon wrote:
-> Replace sprintf() with sysfs_emit() in all sysfs attribute show
-> functions. sysfs_emit() is aware of the sysfs buffer page size limit
-> and should be used instead of sprintf() for sysfs show callbacks to
-> prevent potential buffer overflows.
+--0000000000004e8db1064d62bcbf
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Please clearly state that there are no buffer overflows in the current
-code.
+Thanks for the review. I see the sprintf-to-sysfs_emit conversion was
+already applied in staging-next. Apologies for the noise
 
-> 
-> Also add the missing trailing newline to each output, which is the
-> standard convention for sysfs attributes.
-> 
+Em qui., 19 de mar. de 2026 =C3=A0s 15:49, Dan Carpenter <
+dan.carpenter@linaro.org> escreveu:
 
-This changes the user space API so it could potentially break
-a script.
+> Doesn't apply for me.
+>
+> On Thu, Mar 19, 2026 at 12:02:01PM +0000, Gabriel Rondon wrote:
+> > Replace sprintf() with sysfs_emit() in all sysfs attribute show
+> > functions. sysfs_emit() is aware of the sysfs buffer page size limit
+> > and should be used instead of sprintf() for sysfs show callbacks to
+> > prevent potential buffer overflows.
+>
+> Please clearly state that there are no buffer overflows in the current
+> code.
+>
+> >
+> > Also add the missing trailing newline to each output, which is the
+> > standard convention for sysfs attributes.
+> >
+>
+> This changes the user space API so it could potentially break
+> a script.
+>
+> regards,
+> dan carpenter
+>
+>
 
-regards,
-dan carpenter
+--0000000000004e8db1064d62bcbf
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks for the review. I see the sprintf-to-sysfs_emit con=
+version was already applied in staging-next. Apologies for the noise</div><=
+br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=
+=3D"gmail_attr">Em qui., 19 de mar. de 2026 =C3=A0s 15:49, Dan Carpenter &l=
+t;<a href=3D"mailto:dan.carpenter@linaro.org">dan.carpenter@linaro.org</a>&=
+gt; escreveu:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Do=
+esn&#39;t apply for me.<br>
+<br>
+On Thu, Mar 19, 2026 at 12:02:01PM +0000, Gabriel Rondon wrote:<br>
+&gt; Replace sprintf() with sysfs_emit() in all sysfs attribute show<br>
+&gt; functions. sysfs_emit() is aware of the sysfs buffer page size limit<b=
+r>
+&gt; and should be used instead of sprintf() for sysfs show callbacks to<br=
+>
+&gt; prevent potential buffer overflows.<br>
+<br>
+Please clearly state that there are no buffer overflows in the current<br>
+code.<br>
+<br>
+&gt; <br>
+&gt; Also add the missing trailing newline to each output, which is the<br>
+&gt; standard convention for sysfs attributes.<br>
+&gt; <br>
+<br>
+This changes the user space API so it could potentially break<br>
+a script.<br>
+<br>
+regards,<br>
+dan carpenter<br>
+<br>
+</blockquote></div>
+
+--0000000000004e8db1064d62bcbf--
+
+--===============0450034739369812405==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+
+--===============0450034739369812405==--
