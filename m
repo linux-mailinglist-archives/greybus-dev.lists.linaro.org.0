@@ -2,86 +2,83 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6MpYErokvGkxtgIAu9opvQ
+	id MDHlNhEbvGlEsQIAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 17:30:50 +0100
+	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 16:49:37 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8D392CED6A
-	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 17:30:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A3B92CDFD7
+	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 16:49:37 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id E4E71401FA
-	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 16:30:48 +0000 (UTC)
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	by lists.linaro.org (Postfix) with ESMTPS id E0ADD3F8EF
-	for <greybus-dev@lists.linaro.org>; Thu, 19 Mar 2026 12:02:15 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 3649A401C7
+	for <lists+greybus-dev@lfdr.de>; Thu, 19 Mar 2026 15:49:36 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	by lists.linaro.org (Postfix) with ESMTPS id 88363401B2
+	for <greybus-dev@lists.linaro.org>; Thu, 19 Mar 2026 15:49:33 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20230601 header.b=EG7A3c6d;
-	spf=pass (lists.linaro.org: domain of grondon@gmail.com designates 74.125.82.42 as permitted sender) smtp.mailfrom=grondon@gmail.com;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-128d2e3074fso660415c88.0
-        for <greybus-dev@lists.linaro.org>; Thu, 19 Mar 2026 05:02:15 -0700 (PDT)
+	dkim=pass header.d=linaro.org header.s=google header.b=dQCu8ncQ;
+	spf=pass (lists.linaro.org: domain of dan.carpenter@linaro.org designates 209.85.128.45 as permitted sender) smtp.mailfrom=dan.carpenter@linaro.org;
+	dmarc=pass (policy=none) header.from=linaro.org
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-482f454be5bso21797525e9.0
+        for <greybus-dev@lists.linaro.org>; Thu, 19 Mar 2026 08:49:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773921735; x=1774526535; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=cx0qCYEgpEY0APyH3BW58E7QngJ1Y7p1bZt4MgX1Fjw=;
-        b=EG7A3c6dkBjnAvFuMhxdroEW/MwiFHKTXpm2XbR7nTWKYDyhrIBQr4nq4xXYxO2ZYF
-         OsDAoa6FiMMo+bfXbuWxRsQiLdbSN+VlFh6syGufQ34DmaXtZtNAxU+votthIl81Vk2M
-         NRNm/rboTYBtanST1snusoYOLmP3K2cuYY0y/y2k5F4G0K6YJ/493vCaAI7ogzb37Lk9
-         CwDKSyK9jWnMDCMhFeDlWHk5ywkrUTRDZXI9XS9NCEh+NjnmfRemii87cc2fbV3z9ON1
-         nz4VctObbqR881AwyyBu0xlI53rn2iNLbc0/NKwjrGbTqezBJliaqc9Lgh5lrWuXxFmn
-         P2WQ==
+        d=linaro.org; s=google; t=1773935372; x=1774540172; darn=lists.linaro.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=WOygSq0gymlMWHm64ER/xpeBmO60xp2f19A5m9z4Lno=;
+        b=dQCu8ncQI7qrLTYxBts2zvtGcRryfC7Aj8uU3MRRTyN8/EBiXjxaewDOHgCG59LUuz
+         087jufSue9NrtduxPkeb3rmM95r8jVFNdkSe0aUipyvmj7byV2fptoPEe8ndwL5rfBQ1
+         DbwsVC/9EfGUTT5NIyWyqVxv4+2TIWfjqAH5cHTKtwr8XHqT0GBiuA3j16ffv7C4dVR4
+         8ifE0hkSjPESM8objBlJTkJkSzqQS3b7VGGzobUaqdBv2ssYe/ez6FmNVboZ2XtcFeEm
+         w69wcn61BNVm6xgTpqZTIdetzw5HuTKwcc1zoTOK4DJQOQRSwIlFtTb09qdvzVb2sjz+
+         S3PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773921735; x=1774526535;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cx0qCYEgpEY0APyH3BW58E7QngJ1Y7p1bZt4MgX1Fjw=;
-        b=HHTmwn0yQWmh3GfBKhvE/U1MDGPq3YA+80psqXXugtGQUBCLEj+v4lBBIC2JAkO1TC
-         Sk3DL+bT37j/Dmo255reFnu4VTDFpuiXkVJGQBTcTAphskXTCLcBJ8wB6V3rmJogjFPs
-         zAWrSQP5wnW8CXTRmAefvjkBYbEBtE253pXWsxpZfca+Mv8uyE5Rg1/PSBSqrCN5gLvx
-         /4nVEfFnMDxhadll7fZ+t96qbVh4iujjdoFTU+QZP+C80Kit5b8SVKJKzH/preb46L/e
-         5ydP7BMk3CVPcyLZVGSbVJjGOgZ/UOPzodqLmcWKnEujBZxCsbQ0ooPzP98pZ/fjjeJ7
-         f6qg==
-X-Gm-Message-State: AOJu0YxUwnVTpFGAfM8bAEAnO4RI8wxtJAZol7b2HzwkRW//TdaZIIBc
-	4CRJiMrjs63tuFQBy4HUQ+I/rViNAc1sx7Ubz8vmVnkN6wJRcqO0WTnA
-X-Gm-Gg: ATEYQzyUV8misJ4ppEArKTiuSETltvbGWjU2061XmUVx/g6UFtPBsdyI4QL3/g1CYYw
-	FliVjr8ewAvqHyJ7t7ITuhQy4D/U0aNVXqsiXYBxLcxT2g6oxiB/CEs7qKeT0vVnsaJ66W4WQR1
-	Dh3ROqSRVaPqILA7eHsSLfnPc0hrfO9T+RcYKbLoaHvq/IUWiqElbrmG61PB6HlWGx4N3VmFN3s
-	VbsfFambBd0SXLO84xyhpjp4ewyfBKRLWGwyGQSmgIIbOrzzibpJb+huLHEbwozaxCw1JpTBNGi
-	VwgqxlzlbKXu9I4m7fpzmSbN5WNiBlM0mYbU79+uwGUzPT8IORtbBFEUmdoL9zuLUktMWBdmbUS
-	keKgao83usuM+mq7nfFXjLgCT71JBgF/wVWi/95nQsQnM2xdTOWodWFeFvy436dUWyVMm6ewnBw
-	5XEWXQNkPdT04UeWS6/w6tAKYuAjPbZU5O
-X-Received: by 2002:a05:7022:692:b0:128:d375:f1d4 with SMTP id a92af1059eb24-129a7160854mr3759174c88.28.1773921734412;
-        Thu, 19 Mar 2026 05:02:14 -0700 (PDT)
-Received: from localhost.localdomain ([149.102.251.98])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-129a7153051sm6311253c88.0.2026.03.19.05.02.07
+        d=1e100.net; s=20251104; t=1773935372; x=1774540172;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=WOygSq0gymlMWHm64ER/xpeBmO60xp2f19A5m9z4Lno=;
+        b=UV5RsKmn/sR3n5ZiIVT9+DSngp+yNLvEGHmTs6/jxBdjOFK1W2//HC/WzUY/ggNMTg
+         Iib0waA+w7q6HJoS3U9A7xTe8JELk9F3gItpqgIlGQ0THEuXWyEDcmvBe31VQXdbAIAN
+         Ox7UoWd8ehfuMzsole4m538hpahixICzVrusIDZvA77Bc0s3IdQJFhXSEJICbD+f3o4A
+         Jq8Hsnh3bfQUqTgHQ+VKCKY/y/vfQkQ2D7/v9mQRxHZO0tLKWUorpGpQpTo4GvsfzTQC
+         rG2AFEmKZjK269/YjaStwgxWAWPVRLcvAhYGRnMdUKBGD/FP7jjf/mJO7+dExuJXxCy1
+         xrYg==
+X-Forwarded-Encrypted: i=1; AJvYcCUfMSuLSNDMYDtP6wuKxcx6ZYqrmmHB0FEp3RlNDxEylyUYeGM5zu4xY45BlJB3lUfnkTgs3cz/xVlg1A==@lists.linaro.org
+X-Gm-Message-State: AOJu0YyiafUqXXIZDfi2Wb3iPbIV+qkh3TLYQKdabqKfUtNNUZxbw4Li
+	sQYM42rdMLnsQdwTH1zvHanEkh+ZvqkHKZZtJf9onyFSKzmvvlNw7q1wL8iJgGk9rm2UDQ==
+X-Gm-Gg: ATEYQzzDmBtfO5i7a8PUk3bR4R2KurNwi19jJY9/zm/PU62gowHfN5Qgi1iYlSC8bgf
+	snfrWiAMsv8QOuJ0y7Dotej8s1Q84WN69lkbaU+daA1BGIJaZKZsac+MLBYD/pJROT4L3JemcVX
+	rHO0bdZP5y8A3rCqnsIk5MfWJuLqIk5Bz57iIZneBonjCH1Wbl0XTTDrCrfrtxtKs9N41GNoUql
+	rJuRQYrn7p0fCFP7BuFJulF4addB2BcPD4LblqXCUTFhefYRNf/O0VAQWqtsoqO1va9+I3ofTX0
+	RHiIshWUbPC9GbuD7Wd9vX1qdPk+KH0Q17jCQv8VJnhldk+yih8pevRj8sghR+Z33ZKMr33VT5M
+	FQ/iE2JUktX6aT1CyKcQfLbkGiCvPlrxo2s8gGmf3Mfsv0iNX0414IXTv2D2Due35t1KdncApIz
+	L5EuPe3Edgg6X7m/293vCZQ7n9oZLMlhYY2SG4Kq0=
+X-Received: by 2002:a05:600c:55d7:b0:485:4f11:aabc with SMTP id 5b1f17b1804b1-486f8b80e07mr53687185e9.15.1773935372486;
+        Thu, 19 Mar 2026 08:49:32 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43b518522d7sm14543730f8f.13.2026.03.19.08.49.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Mar 2026 05:02:13 -0700 (PDT)
-From: Gabriel Rondon <grondon@gmail.com>
-To: vaibhav.sr@gmail.com,
-	mgreer@animalcreek.com,
-	johan@kernel.org,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org
-Date: Thu, 19 Mar 2026 12:02:01 +0000
-Message-Id: <20260319120201.25210-1-grondon@gmail.com>
-X-Mailer: git-send-email 2.33.0
+        Thu, 19 Mar 2026 08:49:30 -0700 (PDT)
+Date: Thu, 19 Mar 2026 18:49:27 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Gabriel Rondon <grondon@gmail.com>
+Message-ID: <abwbB3KGkkTh4bYU@stanley.mountain>
+References: <20260319120201.25210-1-grondon@gmail.com>
 MIME-Version: 1.0
-X-Spamd-Bar: --
-X-MailFrom: grondon@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: B5DIAO5CVS2KDCN5FCD6H4B2Q6QQKHR2
-X-Message-ID-Hash: B5DIAO5CVS2KDCN5FCD6H4B2Q6QQKHR2
-X-Mailman-Approved-At: Thu, 19 Mar 2026 16:30:47 +0000
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Disposition: inline
+In-Reply-To: <20260319120201.25210-1-grondon@gmail.com>
+X-Spamd-Bar: ---
+Message-ID-Hash: CSL6FARRYFP3RFWO7O25H3NCJ6SFZYUH
+X-Message-ID-Hash: CSL6FARRYFP3RFWO7O25H3NCJ6SFZYUH
+X-MailFrom: dan.carpenter@linaro.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: audio: use sysfs_emit() in show functions
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: audio: use sysfs_emit() in show functions
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/B5DIAO5CVS2KDCN5FCD6H4B2Q6QQKHR2/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/CSL6FARRYFP3RFWO7O25H3NCJ6SFZYUH/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -90,111 +87,59 @@ List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [3.09 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
+X-Spamd-Result: default: False [-1.01 / 15.00];
+	DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx:c];
+	R_SPF_ALLOW(-0.20)[+mx];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com,animalcreek.com,kernel.org,linuxfoundation.org];
-	ARC_NA(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.218];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[grondon@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	TO_DN_SOME(0.00)[];
+	NEURAL_SPAM(0.00)[0.206];
+	DMARC_POLICY_ALLOW(0.00)[linaro.org,none];
+	RCPT_COUNT_FIVE(0.00)[6];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[greybus-dev];
+	FROM_NEQ_ENVFROM(0.00)[dan.carpenter@linaro.org,greybus-dev-bounces@lists.linaro.org];
+	R_DKIM_REJECT(0.00)[linaro.org:s=google];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
-X-Rspamd-Queue-Id: D8D392CED6A
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:-];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,stanley.mountain:mid]
+X-Rspamd-Queue-Id: 6A3B92CDFD7
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Replace sprintf() with sysfs_emit() in all sysfs attribute show
-functions. sysfs_emit() is aware of the sysfs buffer page size limit
-and should be used instead of sprintf() for sysfs show callbacks to
-prevent potential buffer overflows.
+Doesn't apply for me.
 
-Also add the missing trailing newline to each output, which is the
-standard convention for sysfs attributes.
+On Thu, Mar 19, 2026 at 12:02:01PM +0000, Gabriel Rondon wrote:
+> Replace sprintf() with sysfs_emit() in all sysfs attribute show
+> functions. sysfs_emit() is aware of the sysfs buffer page size limit
+> and should be used instead of sprintf() for sysfs show callbacks to
+> prevent potential buffer overflows.
 
-Signed-off-by: Gabriel Rondon <grondon@gmail.com>
----
- drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Please clearly state that there are no buffer overflows in the current
+code.
 
-diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
-index e87b82ca6..f22ee73eb 100644
---- a/drivers/staging/greybus/audio_manager_module.c
-+++ b/drivers/staging/greybus/audio_manager_module.c
-@@ -76,7 +76,7 @@ static void gb_audio_module_release(struct kobject *kobj)
- static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
- 					 struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sprintf(buf, "%s", module->desc.name);
-+	return sysfs_emit(buf, "%s\n", module->desc.name);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
-@@ -85,7 +85,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
- static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
- 					struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sprintf(buf, "%d", module->desc.vid);
-+	return sysfs_emit(buf, "%d\n", module->desc.vid);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
-@@ -94,7 +94,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
- static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
- 					struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sprintf(buf, "%d", module->desc.pid);
-+	return sysfs_emit(buf, "%d\n", module->desc.pid);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
-@@ -104,7 +104,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
- 					    struct gb_audio_manager_module_attribute *attr,
- 					    char *buf)
- {
--	return sprintf(buf, "%d", module->desc.intf_id);
-+	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
- }
- 
- static struct gb_audio_manager_module_attribute
-@@ -115,7 +115,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
- 					       struct gb_audio_manager_module_attribute *attr,
- 					       char *buf)
- {
--	return sprintf(buf, "0x%X", module->desc.ip_devices);
-+	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
- }
- 
- static struct gb_audio_manager_module_attribute
-@@ -126,7 +126,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
- 					       struct gb_audio_manager_module_attribute *attr,
- 					       char *buf)
- {
--	return sprintf(buf, "0x%X", module->desc.op_devices);
-+	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
- }
- 
- static struct gb_audio_manager_module_attribute
--- 
-2.33.0
+> 
+> Also add the missing trailing newline to each output, which is the
+> standard convention for sysfs attributes.
+> 
+
+This changes the user space API so it could potentially break
+a script.
+
+regards,
+dan carpenter
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
