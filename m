@@ -2,243 +2,137 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CL5wFJBWvWlr8gIAu9opvQ
+	id ECK2CD88wWkZRwQAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Fri, 20 Mar 2026 15:15:44 +0100
+	for <lists+greybus-dev@lfdr.de>; Mon, 23 Mar 2026 14:12:31 +0100
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id D25362DBAE7
-	for <lists+greybus-dev@lfdr.de>; Fri, 20 Mar 2026 15:15:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D3AC2F2940
+	for <lists+greybus-dev@lfdr.de>; Mon, 23 Mar 2026 14:12:30 +0100 (CET)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id C9EBC401FA
-	for <lists+greybus-dev@lfdr.de>; Fri, 20 Mar 2026 14:15:42 +0000 (UTC)
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	by lists.linaro.org (Postfix) with ESMTPS id 28164400F6
-	for <greybus-dev@lists.linaro.org>; Thu, 19 Mar 2026 21:09:01 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 4707C3F76C
+	for <lists+greybus-dev@lfdr.de>; Mon, 23 Mar 2026 13:12:29 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	by lists.linaro.org (Postfix) with ESMTPS id 61E613F764
+	for <greybus-dev@lists.linaro.org>; Sun, 22 Mar 2026 03:19:28 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=ndufresne-ca.20230601.gappssmtp.com header.s=20230601 header.b=DKe6h81H;
-	spf=pass (lists.linaro.org: domain of nicolas@ndufresne.ca designates 209.85.160.171 as permitted sender) smtp.mailfrom=nicolas@ndufresne.ca;
-	dmarc=pass (policy=none) header.from=ndufresne.ca
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-50905b779dfso15062421cf.3
-        for <greybus-dev@lists.linaro.org>; Thu, 19 Mar 2026 14:09:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20230601.gappssmtp.com; s=20230601; t=1773954541; x=1774559341; darn=lists.linaro.org;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NMbfSQLQ1xEd+7s0+CT4TDbp3oywa75VWIVmbsOBScc=;
-        b=DKe6h81HtVxs0HCm+aAeLDcfRXph90jRtbqZ4Gdkpv5Rctck02ZFelrARMoOw0lHs6
-         92FDZG1h9sUlTPgF8vZs2TfI3GQotXDT2yRNgPIN8KEPhWHAhtC6UGxQyRXRufFB4c8o
-         CjaJAcSaLjq5YdVC6pDUJZjH1AfGmTZ8Tq3ZAYGxpw6iOtcuv8hMEr9dlZ1aNYaVve5M
-         pftG2rGOHY9WhItAc+ckYFfWcXfSCA3pSYn6hRB/i9NWttPNxbL5K1K6ELWlvG2oJG3n
-         ZuVf1JOwGRmGFjnLlq1Gi1Ih2T3kbeN3hCeHb19SjIHnY5VSX/LxU4rC/duvUSdt15UB
-         C4nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773954541; x=1774559341;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NMbfSQLQ1xEd+7s0+CT4TDbp3oywa75VWIVmbsOBScc=;
-        b=p7P9KfSw046kWZMuwD7u3bme9X4LroAL63fI1aLmUOLaEUW9aFqMOUAnjm5RHppXll
-         7P0jlfKkNHm0q1sn1/auutk4H7Qjy0ZrswDknmoedZBUFYw3nnP0Yah+uMnRJgk4/Bhm
-         2PZh8/OsFiKpb8s9OFxb9auDaUIodgrEIolI9MS7ZRzMYPd01O962mO1W6sPHGCw+VLX
-         nRJoKPq2Sgvdvx4JsiBxCZGAb/m7MZbeDRU+g6xOgDG6MkPpd3UgMTztHeucd/pBItVj
-         kEgTEVTzN3cGLm/x+eqxSnlymR9xVMZv/AspfwwTY4pJGmchwgZM+qZhjrcpJasc56b1
-         xgfQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXRXHwP052Mnv7G4N7OR0W32cxdZKzPjNwEAmavl0sieX7P94axhOpoqwsqF74J5szIWrnChJsFufKjgg==@lists.linaro.org
-X-Gm-Message-State: AOJu0YzjAxFSF1jCXiQ7n1FfaxcCcrtDCLl/6Z3jchMncKzU5cygv/r3
-	OIAFqORcnNFhwdCFCpCrgX0//htvJ6QMx3Y2/ufxYQUM83XXJhyiBTeRs4WEG7kZZO0=
-X-Gm-Gg: ATEYQzwQ3dgLbkq4DX4V6sU1XlSYtUWGgtnpitsBHvzAo0JsSj2B+Bwy9EejpWyHA5z
-	k2sm037vP7HqwwZYAPvNvwfLWGn5B+YDKW5h7YfU3NVGB5OPh6mLUEX/k13C5FFin+virv5yFAF
-	nxzpNXBWIqjZOaDNiNeGKLP4xnO1ssCu6dwxmY8zu5nW/Nk0QI2qmZoDMM3MqtYuLIszCWefiPS
-	6TA+K1SNPAn80S9HtCWntXyPPatyTccqlKpAHo2mj1s6c0xIoQhBFNBmYch4AUsOTgVj0X0PuC3
-	YKvWE5Q0gPOqtCoga32qHeoVh7NRJuLsvrZxuKoCXdhKIHXTL9HD5wLcStwF0J+JEzf4ESYDlsd
-	Md1UF0YCCXKOow+gJg16BzyFrHL9mL5DJwkCYtLu1xMVYvyKzYwVlZwKjlHsP/A5Qw4wPz5EM42
-	urwaMZjEIiI43eIrKCWlJ7MGglg44EI+V3lFoypK8=
-X-Received: by 2002:a05:622a:8c4:b0:509:2527:d789 with SMTP id d75a77b69052e-50b373bdd66mr13176761cf.6.1773954540418;
-        Thu, 19 Mar 2026 14:09:00 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:b76d::5ac? ([2606:6d00:11:b76d::5ac])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89c85257c9bsm5961546d6.20.2026.03.19.14.08.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Mar 2026 14:08:59 -0700 (PDT)
-Message-ID: <ebeb15d9479e651f31be59b797f4e95cf1713243.camel@ndufresne.ca>
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sanjay Chitroda <sanjayembeddedse@gmail.com>, jic23@kernel.org,
-	m.tretter@pengutronix.de, mchehab@kernel.org, p.zabel@pengutronix.de,
-	tiffany.lin@mediatek.com, andrew-ct.chen@mediatek.com,
- yunfei.dong@mediatek.com, 	matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, 	johan@kernel.org,
- elder@kernel.org, gregkh@linuxfoundation.org, 	pure.logic@nexus-software.ie
-Date: Thu, 19 Mar 2026 17:08:56 -0400
-In-Reply-To: <20260310200513.2162018-5-sanjayembedded@gmail.com>
-References: <20260310200513.2162018-1-sanjayembedded@gmail.com>
-	 <20260310200513.2162018-5-sanjayembedded@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=none;
+	spf=pass (lists.linaro.org: domain of pengpeng@iscas.ac.cn designates 159.226.251.25 as permitted sender) smtp.mailfrom=pengpeng@iscas.ac.cn;
+	dmarc=none
+Received: from localhost.localdomain (unknown [111.196.245.197])
+	by APP-05 (Coremail) with SMTP id zQCowADnfBC7X79p0U8eCw--.33787S2;
+	Sun, 22 Mar 2026 11:19:23 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: greybus-dev@lists.linaro.org
+Date: Sun, 22 Mar 2026 11:19:23 +0800
+Message-ID: <20260322031923.58013-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-X-Spamd-Bar: ------
-X-MailFrom: nicolas@ndufresne.ca
+X-CM-TRANSID: zQCowADnfBC7X79p0U8eCw--.33787S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww4rZr4fXr17JrWruF43GFg_yoW8Jw1UpF
+	ZxKFy8tr1vyanxJanxZ3W3WFyFyas5ZFW5uFW8Zw13ZFs8Xrn2v34DGFW5tayfXr4xJ343
+	tFW5KFy8CF4kXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUOgAwDU
+	UUU
+X-Originating-IP: [111.196.245.197]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+X-Spamd-Bar: -
+X-MailFrom: pengpeng@iscas.ac.cn
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: Z3TFKJATFFEWLWYQOWTTNMNQY6LNAO5C
-X-Message-ID-Hash: Z3TFKJATFFEWLWYQOWTTNMNQY6LNAO5C
-X-Mailman-Approved-At: Fri, 20 Mar 2026 14:15:41 +0000
-CC: dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, kernel@pengutronix.de, kees@kernel.org, nabijaczleweli@nabijaczleweli.xyz, marcelo.schmitt1@gmail.com, maudspierings@gocontroll.com, hverkuil+cisco@kernel.org, ribalda@chromium.org, straube.linux@gmail.com, dan.carpenter@linaro.org, lukagejak5@gmail.com, ethantidmore06@gmail.com, samasth.norway.ananda@oracle.com, karanja99erick@gmail.com, s9430939@naver.com, tglx@kernel.org, mingo@kernel.org, sun.jian.kdev@gmail.com, weibu@redadmin.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, skhan@linuxfoundation.org
+Message-ID-Hash: RWMJVWJYC5XWYEBW63I2IHL64ZKKBSQ6
+X-Message-ID-Hash: RWMJVWJYC5XWYEBW63I2IHL64ZKKBSQ6
+X-Mailman-Approved-At: Mon, 23 Mar 2026 13:12:28 +0000
+CC: pengpeng@iscas.ac.cn, Ayush Singh <ayushdevel1325@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 4/7] media: mediatek: vcodec: simplify cleanup using __free
+Subject: [greybus-dev] [PATCH] greybus: beagleplay: bound bootloader RX buffer copy
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/Z3TFKJATFFEWLWYQOWTTNMNQY6LNAO5C/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/RWMJVWJYC5XWYEBW63I2IHL64ZKKBSQ6/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: multipart/mixed; boundary="===============1615394887043017470=="
-X-Spamd-Result: default: False [-0.01 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[ndufresne-ca.20230601.gappssmtp.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+mx];
-	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [1.49 / 15.00];
+	DATE_IN_PAST(1.00)[33];
+	MID_CONTAINS_FROM(1.00)[];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[ndufresne.ca : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+mx];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
+	DMARC_NA(0.00)[iscas.ac.cn];
 	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,pengutronix.de,mediatek.com,collabora.com,linuxfoundation.org,nexus-software.ie];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCPT_COUNT_TWELVE(0.00)[43];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
+	MIME_TRACE(0.00)[0:+];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[ndufresne-ca.20230601.gappssmtp.com:-];
-	NEURAL_HAM(-0.00)[-0.449];
-	FROM_NEQ_ENVFROM(0.00)[nicolas@ndufresne.ca,greybus-dev-bounces@lists.linaro.org];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[baylibre.com,analog.com,kernel.org,pengutronix.de,nabijaczleweli.xyz,gmail.com,gocontroll.com,chromium.org,linaro.org,oracle.com,naver.com,redadmin.org,vger.kernel.org,lists.infradead.org,lists.linaro.org,lists.linux.dev,linuxfoundation.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[greybus-dev,cisco];
 	TO_DN_SOME(0.00)[];
+	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	NEURAL_HAM(-0.00)[-0.999];
+	HAS_XOIP(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[pengpeng@iscas.ac.cn,greybus-dev-bounces@lists.linaro.org];
+	FREEMAIL_CC(0.00)[iscas.ac.cn,gmail.com,kernel.org,vger.kernel.org];
+	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email]
-X-Rspamd-Queue-Id: D25362DBAE7
+	TAGGED_RCPT(0.00)[greybus-dev];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,iscas.ac.cn:email,iscas.ac.cn:mid]
+X-Rspamd-Queue-Id: 4D3AC2F2940
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+When `flashing_mode` is set, `gb_tty_receive()` routes incoming bytes to
+`cc1352_bootloader_rx()`. That helper appends the new bytes to the shared
+`rx_buffer` with `memcpy()` but does not check that the chunk fits in the
+remaining space first. The normal HDLC receive path already enforces
+`MAX_RX_HDLC`, so do the same here before appending bootloader data.
 
---===============1615394887043017470==
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-P5pBQoC3BtsCjb7Hnh/k"
+If a packet would overflow the receive buffer, drop it and reset the
+bootloader receive state instead of copying past the end of `rx_buffer`.
 
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/greybus/gb-beagleplay.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
---=-P5pBQoC3BtsCjb7Hnh/k
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Le mercredi 11 mars 2026 =C3=A0 01:35 +0530, Sanjay Chitroda a =C3=A9crit=
-=C2=A0:
-> From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
->=20
-> Replace manual cleanup logic with __free attribute from cleanup.h. This
-> removes explicit kfree() calls and simplifies the error handling paths.
->=20
-> No functional change intended for kmalloc().
-
-While I like auto cleanup, I think consistency is key. kmalloc is a tiny li=
-ttle
-dot in the sea here. Most of our leaks are in probe() error handling. In v4=
-l2,
-you find a log of init() with matching releas() call, which get constantly
-forgotton. My suggestion would be to focus on one driver at the time, not
-kmalloc across the kernel, and try and "port" these driver to consistently =
-use
-the cleanup function. This should also come with usage of quard() as its th=
-e
-same objective.
-
-You goal should be to return at any point in the function without risking o=
-f
-leaving lock/spinlock held or leaving memory.
-
-Marking as change requested the codec releated patches in this series.
-
-Nicolas
-
->=20
-> Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-> ---
-> =C2=A0.../media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c=C2=A0=
-=C2=A0 | 3 +--
-> =C2=A01 file changed, 1 insertion(+), 2 deletions(-)
->=20
-> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbg=
-fs.c
-> b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
-> index 2da11521fc7b..3184939f793a 100644
-> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
-> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
-> @@ -96,7 +96,7 @@ static ssize_t mtk_vdec_dbgfs_read(struct file *filp, c=
-har
-> __user *ubuf,
-> =C2=A0	int total_len =3D 200 * (dbgfs->inst_count =3D=3D 0 ? 1 : dbgfs-
-> >inst_count);
-> =C2=A0	int used_len =3D 0, curr_len, ret;
-> =C2=A0	bool dbgfs_index[MTK_VDEC_DBGFS_MAX] =3D {0};
-> -	char *buf =3D kmalloc(total_len, GFP_KERNEL);
-> +	char *buf __free(kfree) =3D kmalloc(total_len, GFP_KERNEL);
-> =C2=A0
-> =C2=A0	if (!buf)
-> =C2=A0		return -ENOMEM;
-> @@ -134,7 +134,6 @@ static ssize_t mtk_vdec_dbgfs_read(struct file *filp,=
- char
-> __user *ubuf,
-> =C2=A0	mutex_unlock(&dbgfs->dbgfs_lock);
-> =C2=A0read_buffer:
-> =C2=A0	ret =3D simple_read_from_buffer(ubuf, count, ppos, buf, used_len);
-> -	kfree(buf);
-> =C2=A0	return ret;
-> =C2=A0}
-> =C2=A0
-
---=-P5pBQoC3BtsCjb7Hnh/k
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCabxl6AAKCRDZQZRRKWBy
-9KL5AP0StbOgEgmi9hNrOmp59Azp5ubjHNUiKBoy3k0YPFJl5wD+MXkfWFOYepSc
-n+TSCme76s+FElTo92PrABWSwDA54g0=
-=noWy
------END PGP SIGNATURE-----
-
---=-P5pBQoC3BtsCjb7Hnh/k--
-
---===============1615394887043017470==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/greybus/gb-beagleplay.c b/drivers/greybus/gb-beagleplay.c
+index 87186f891a6a..bca3132adacd 100644
+--- a/drivers/greybus/gb-beagleplay.c
++++ b/drivers/greybus/gb-beagleplay.c
+@@ -535,6 +535,12 @@ static size_t cc1352_bootloader_rx(struct gb_beagleplay *bg, const u8 *data,
+ 	int ret;
+ 	size_t off = 0;
+ 
++	if (count > sizeof(bg->rx_buffer) - bg->rx_buffer_len) {
++		dev_err_ratelimited(&bg->sd->dev, "Bootloader RX buffer overflow");
++		bg->rx_buffer_len = 0;
++		return count;
++	}
++
+ 	memcpy(bg->rx_buffer + bg->rx_buffer_len, data, count);
+ 	bg->rx_buffer_len += count;
+ 
+-- 
+2.50.1 (Apple Git-155)
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
-
---===============1615394887043017470==--
