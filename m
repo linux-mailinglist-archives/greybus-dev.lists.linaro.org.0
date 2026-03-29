@@ -2,25 +2,25 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EBrzBbpBymky7AUAu9opvQ
+	id 0INDIr1Bymky7AUAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 11:26:18 +0200
+	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 11:26:21 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97F58358247
-	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 11:26:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A1C2358256
+	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 11:26:21 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 86EE23F814
-	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 09:26:16 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 714254030E
+	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 09:26:20 +0000 (UTC)
 Received: from yug-MacBookPro.lan (unknown [89.81.10.116])
-	by lists.linaro.org (Postfix) with ESMTPS id CA43B3F734
+	by lists.linaro.org (Postfix) with ESMTPS id C1C993F72C
 	for <greybus-dev@lists.linaro.org>; Sun, 29 Mar 2026 18:41:25 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
 	dkim=none;
 	dmarc=fail reason="No valid SPF, No valid DKIM" header.from=gmail.com (policy=none);
 	spf=softfail (lists.linaro.org: 89.81.10.116 is neither permitted nor denied by domain of yug@yug.be) smtp.mailfrom=yug@yug.be
 Received: by yug-MacBookPro.lan (Postfix, from userid 1000)
-	id C5A9AA879C7; Sun, 29 Mar 2026 20:41:24 +0200 (CEST)
+	id C9117A879CB; Sun, 29 Mar 2026 20:41:24 +0200 (CEST)
 From: Yug Merabtene <yug.merabtene@gmail.com>
 To: andy@kernel.org,
 	gregkh@linuxfoundation.org,
@@ -31,26 +31,27 @@ To: andy@kernel.org,
 	mgreer@animalcreek.com,
 	rmfrfs@gmail.com,
 	pure.logic@nexus-software.ie
-Date: Sun, 29 Mar 2026 20:41:22 +0200
-Message-Id: <20260329184124.775392-1-yug.merabtene@gmail.com>
+Date: Sun, 29 Mar 2026 20:41:23 +0200
+Message-Id: <20260329184124.775392-2-yug.merabtene@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260329180117.611024-1-test@test.com>
+In-Reply-To: <20260329184124.775392-1-yug.merabtene@gmail.com>
 References: <20260329180117.611024-1-test@test.com>
+ <20260329184124.775392-1-yug.merabtene@gmail.com>
 MIME-Version: 1.0
 X-Spamd-Bar: ++
 X-Spam-Level: **
 X-MailFrom: yug@yug.be
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: GRGGCBRQNNWQTZCB56Y3FAP2NG4IIZAN
-X-Message-ID-Hash: GRGGCBRQNNWQTZCB56Y3FAP2NG4IIZAN
-X-Mailman-Approved-At: Mon, 30 Mar 2026 09:26:14 +0000
+Message-ID-Hash: SLPWJFGKSSEG7JAHXRDJPFSQKDADR2WG
+X-Message-ID-Hash: SLPWJFGKSSEG7JAHXRDJPFSQKDADR2WG
+X-Mailman-Approved-At: Mon, 30 Mar 2026 09:26:15 +0000
 CC: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Yug Merabtene <yug.merabtene@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 0/2] staging: use bounded formatting helpers in fbtft/greybus
+Subject: [greybus-dev] [PATCH v2 1/2] staging: fbtft: use scnprintf() for log strings
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GRGGCBRQNNWQTZCB56Y3FAP2NG4IIZAN/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/SLPWJFGKSSEG7JAHXRDJPFSQKDADR2WG/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -61,7 +62,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Spamd-Result: default: False [1.09 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_SPF_ALLOW(-0.20)[+mx];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed), No valid DKIM,none];
@@ -86,36 +87,38 @@ X-Spamd-Result: default: False [1.09 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email]
-X-Rspamd-Queue-Id: 97F58358247
+X-Rspamd-Queue-Id: 6A1C2358256
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This small cleanup series replaces open-coded sprintf() usage in a set of
-staging drivers with helpers intended for bounded and sysfs-safe formatting.
+Signed-off-by: Yug Merabtene <yug.merabtene@gmail.com>
+---
+ drivers/staging/fbtft/fbtft-core.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Patch 1 updates fbtft logging strings to use scnprintf().
-Patch 2 converts Greybus sysfs show paths to sysfs_emit(), including
-normalizing attributes that were missing a trailing newline.
-
-Changes in v2:
-- resend with corrected author/sender identity (yug.merabtene@gmail.com)
-- no code changes compared to v1
-
-Yug Merabtene (2):
-  staging: fbtft: use scnprintf() for log strings
-  staging: greybus: switch sysfs show paths to sysfs_emit()
-
- drivers/staging/fbtft/fbtft-core.c             |  8 +++++---
- drivers/staging/greybus/arche-apb-ctrl.c       | 12 ++++++------
- drivers/staging/greybus/arche-platform.c       | 10 +++++-----
- drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
- drivers/staging/greybus/gbphy.c                |  2 +-
- drivers/staging/greybus/light.c                |  4 ++--
- drivers/staging/greybus/loopback.c             | 14 +++++++-------
- 7 files changed, 32 insertions(+), 30 deletions(-)
-
+diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/fbtft-core.c
+index f427c0914907..69bd10ccc7e2 100644
+--- a/drivers/staging/fbtft/fbtft-core.c
++++ b/drivers/staging/fbtft/fbtft-core.c
+@@ -788,10 +788,12 @@ int fbtft_register_framebuffer(struct fb_info *fb_info)
+ 	fbtft_sysfs_init(par);
+ 
+ 	if (par->txbuf.buf && par->txbuf.len >= 1024)
+-		sprintf(text1, ", %zu KiB buffer memory", par->txbuf.len >> 10);
++		scnprintf(text1, sizeof(text1), ", %zu KiB buffer memory",
++			  par->txbuf.len >> 10);
+ 	if (spi)
+-		sprintf(text2, ", spi%d.%d at %d MHz", spi->controller->bus_num,
+-			spi_get_chipselect(spi, 0), spi->max_speed_hz / 1000000);
++		scnprintf(text2, sizeof(text2), ", spi%d.%d at %d MHz",
++			  spi->controller->bus_num, spi_get_chipselect(spi, 0),
++			  spi->max_speed_hz / 1000000);
+ 	fb_dbg(fb_info,
+ 	       "%s frame buffer, %dx%d, %d KiB video memory%s, fps=%lu%s\n",
+ 	       fb_info->fix.id, fb_info->var.xres, fb_info->var.yres,
 -- 
 2.34.1
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
