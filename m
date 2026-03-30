@@ -2,54 +2,55 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GNnLGlecymmg+QUAu9opvQ
+	id qPNkDniOy2kuIwYAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 17:52:55 +0200
+	for <lists+greybus-dev@lfdr.de>; Tue, 31 Mar 2026 11:06:00 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id F215A35E33A
-	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 17:52:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FA19366B1B
+	for <lists+greybus-dev@lfdr.de>; Tue, 31 Mar 2026 11:05:59 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 0D50C3F833
-	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 15:52:54 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	by lists.linaro.org (Postfix) with ESMTPS id A7F573F760
-	for <greybus-dev@lists.linaro.org>; Mon, 30 Mar 2026 15:52:50 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id EC5EE3F96E
+	for <lists+greybus-dev@lfdr.de>; Tue, 31 Mar 2026 09:05:58 +0000 (UTC)
+Received: from yug-MacBookPro.lan (89-81-10-116.abo.bbox.fr [89.81.10.116])
+	by lists.linaro.org (Postfix) with ESMTPS id A45D63F760
+	for <greybus-dev@lists.linaro.org>; Mon, 30 Mar 2026 19:41:22 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=IZa4yD+5;
-	dmarc=pass (policy=none) header.from=linuxfoundation.org;
-	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.234.252.31 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 1FE67402B5;
-	Mon, 30 Mar 2026 15:52:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D7DC4CEF7;
-	Mon, 30 Mar 2026 15:52:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1774885970;
-	bh=a+mtuDHcfnOXR92uL4GgtH9aVt6u1WDieJrCnO8VYag=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IZa4yD+5bVi/2dFxVRhqIr2p6PK2nrofD4EvOq500owwC3cQxgiiNsWby/PuU/lfb
-	 xo1z6fdfBtO6UwJovpmEdVe/2xq5ZrVg4FSHNC8HviYeaDhN8npisQXcZxTLndP3AD
-	 wnQpw2hdhJTY1QUB1V52k4XMZede9iy+2UjBQpzk=
-Date: Mon, 30 Mar 2026 17:52:47 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Kosugi Souta <k.souta0926@gmail.com>
-Message-ID: <2026033032-rethink-jogging-f3b0@gregkh>
-References: <20260323031017.3650-1-k.souta0926@gmail.com>
+	dkim=none;
+	dmarc=fail reason="No valid SPF, No valid DKIM" header.from=gmail.com (policy=none);
+	spf=softfail (lists.linaro.org: 89.81.10.116 is neither permitted nor denied by domain of yug@yug.be) smtp.mailfrom=yug@yug.be
+Received: by yug-MacBookPro.lan (Postfix, from userid 1000)
+	id A9B57A87720; Mon, 30 Mar 2026 21:41:21 +0200 (CEST)
+From: Yug Merabtene <yug.merabtene@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org,
+	hvaibhav.linux@gmail.com,
+	johan@kernel.org,
+	elder@kernel.org,
+	vaibhav.sr@gmail.com,
+	mgreer@animalcreek.com,
+	rmfrfs@gmail.com,
+	pure.logic@nexus-software.ie
+Date: Mon, 30 Mar 2026 21:41:19 +0200
+Message-Id: <20260330194121.987920-1-yug.merabtene@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260329184124.775392-1-yug.merabtene@gmail.com>
+References: <20260329184124.775392-1-yug.merabtene@gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260323031017.3650-1-k.souta0926@gmail.com>
-X-Spamd-Bar: /
-Message-ID-Hash: DV5VCWW73T2NMODKLOTHSAWQQAPSZ7CI
-X-Message-ID-Hash: DV5VCWW73T2NMODKLOTHSAWQQAPSZ7CI
-X-MailFrom: gregkh@linuxfoundation.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Spamd-Bar: ++
+X-Spam-Level: **
+X-MailFrom: yug@yug.be
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: OGU5ZUPO4RN5JP3PFEMEEZVY3Z34XFOT
+X-Message-ID-Hash: OGU5ZUPO4RN5JP3PFEMEEZVY3Z34XFOT
+X-Mailman-Approved-At: Tue, 31 Mar 2026 09:05:48 +0000
+CC: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Yug Merabtene <yug.merabtene@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: authenticate: fix alignment and type warning
+Subject: [greybus-dev] [PATCH v3 0/2] staging: use bounded formatting helpers in fbtft/greybus
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/DV5VCWW73T2NMODKLOTHSAWQQAPSZ7CI/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OGU5ZUPO4RN5JP3PFEMEEZVY3Z34XFOT/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -58,52 +59,63 @@ List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [6.59 / 15.00];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
+X-Spamd-Result: default: False [1.09 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[linuxfoundation.org:s=korg];
-	MID_RHS_NOT_FQDN(0.50)[];
 	R_SPF_ALLOW(-0.20)[+mx:c];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[linuxfoundation.org : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed), No valid DKIM,none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[greybus-dev];
-	FROM_NEQ_ENVFROM(0.00)[gregkh@linuxfoundation.org,greybus-dev-bounces@lists.linaro.org];
+	FREEMAIL_TO(0.00)[kernel.org,linuxfoundation.org,gmail.com,animalcreek.com,nexus-software.ie];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	NEURAL_SPAM(0.00)[0.533];
-	MISSING_XM_UA(0.00)[];
-	DKIM_TRACE(0.00)[linuxfoundation.org:-];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[checkpatch.pl:url,linaro.org:email]
-X-Rspamd-Queue-Id: F215A35E33A
-X-Rspamd-Action: add header
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-0.983];
+	FROM_NEQ_ENVFROM(0.00)[yugmerabtene@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,lists.linaro.org,lists.linux.dev,gmail.com];
+	R_DKIM_NA(0.00)[];
+	TAGGED_RCPT(0.00)[greybus-dev];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
+X-Rspamd-Queue-Id: 0FA19366B1B
+X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spam: Yes
 
-On Mon, Mar 23, 2026 at 03:10:17AM +0000, Kosugi Souta wrote:
-> Fix the following checkpatch.pl warning and check:
-> - Warning: Prefer 'unsigned long long' over 'unsigned long long int'
-> - Check: Alignment should match open parenthesis
+This small cleanup series replaces open-coded sprintf() usage in a set of
+staging drivers with helpers intended for bounded and sysfs-safe formatting.
 
-That is two different things, so this should be two different patches,
-right?
+Patch 1 updates fbtft logging strings to use scnprintf().
+Patch 2 converts Greybus sysfs show paths to sysfs_emit(), including
+normalizing attributes that were missing a trailing newline.
 
-thanks,
+Changes in v3:
+- add commit message rationale in both patches (why each change is needed)
+- no code changes compared to v2
 
-greg k-h
+Yug Merabtene (2):
+  staging: fbtft: use scnprintf() for log strings
+  staging: greybus: switch sysfs show paths to sysfs_emit()
+
+ drivers/staging/fbtft/fbtft-core.c             |  8 +++++---
+ drivers/staging/greybus/arche-apb-ctrl.c       | 12 ++++++------
+ drivers/staging/greybus/arche-platform.c       | 10 +++++-----
+ drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
+ drivers/staging/greybus/gbphy.c                |  2 +-
+ drivers/staging/greybus/light.c                |  4 ++--
+ drivers/staging/greybus/loopback.c             | 14 +++++++-------
+ 7 files changed, 32 insertions(+), 30 deletions(-)
+
+-- 
+2.34.1
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
