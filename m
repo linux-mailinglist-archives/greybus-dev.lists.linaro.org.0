@@ -2,269 +2,347 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cMh6Blqbymmg+QUAu9opvQ
+	id KHgFIy6Xymla+QUAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 17:48:42 +0200
+	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 17:30:54 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2DDD35E230
-	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 17:48:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10D7135DE03
+	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 17:30:54 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id E37613F814
-	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 15:48:40 +0000 (UTC)
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	by lists.linaro.org (Postfix) with ESMTPS id 47C3D3F9A4
-	for <greybus-dev@lists.linaro.org>; Mon, 30 Mar 2026 12:08:15 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 299E03F828
+	for <lists+greybus-dev@lfdr.de>; Mon, 30 Mar 2026 15:24:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by lists.linaro.org (Postfix) with ESMTPS id 19E283F760
+	for <greybus-dev@lists.linaro.org>; Mon, 30 Mar 2026 15:23:57 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="TfB/zoea";
-	dmarc=pass (policy=none) header.from=gmail.com;
-	spf=pass (lists.linaro.org: domain of geoffreyhe2@gmail.com designates 209.85.210.173 as permitted sender) smtp.mailfrom=geoffreyhe2@gmail.com
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8296d553142so1939106b3a.3
-        for <greybus-dev@lists.linaro.org>; Mon, 30 Mar 2026 05:08:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774872494; x=1775477294; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uL7Sv/Z7y7JRc1HGEqoBM0qw9rixKMSWYx/opbAOEeQ=;
-        b=TfB/zoeaAehzlQrsSHJ9RfI7pOx2XKByTU2K0yMjOo11lX3jF02QBKZy1m5xWtfjS1
-         W4QR3xn2s4y6uSGz+B3eIksoF0oA9wRN7QMdzvlODF//yoJ8gHhvCAhcvBUb35/1otcZ
-         N/lPVBSWLtGLsSSqrVohSE7mZde4L3NyiM3lLTXOTT+xSOa7m8Xc3jbjQqBdukegie72
-         kDB16FKGpeHJtiKnL/Yy4nsgK3QnSx/vqL5hUZBgikcIea91Su9nQiQq5KRLtzfYglKI
-         6U9vJYgQZ3mr6MO34+qcY6nSCLJNJcIyqsEAJ6IgI1ND16zvSmUKYPdTEttoI6IFgSMm
-         SA4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774872494; x=1775477294;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=uL7Sv/Z7y7JRc1HGEqoBM0qw9rixKMSWYx/opbAOEeQ=;
-        b=NAn3S24OE3Ww0ebOIZetsWbxwFuXQD6DTf0EUHQLhU/p+3SWnTrZj4k9Q2SiDbn+s8
-         fNBCCOpM5jFhW2fZnXCLi7MaTw+IlJ5WDnBz7PdWzyxLU6PgFiE3eP0ep2QqpC+DfxS9
-         Uh3V5JNPoStvMTNYYVgFF4YEtctUGi+Gq2MgZZF/5yPeiDsdga461ofr+TZrwyDUJ70u
-         FY0s6oksYSO3r8qhOa2WATbFMBhuR/2V9mv/5jSeaa86hrVl91s7aRSZJEpR3VK/spVb
-         k4B2bRKuEmXIW/f09JdDq6dVwPT44K7Y7ZwVfyCbYlK0QMuoLlkfYgy1Yv9zHCU49a9l
-         Ck8Q==
-X-Gm-Message-State: AOJu0YwjpD8ZZMxRXW7T/PEUIgt1mb2zXEnFkfU6z+k4dBZHPZbqgza9
-	RXRYUC2uXUkA/1VzBVi2JLBOnpewdUTk1vlasWLEr7DaBixMMIY3/bb2VwKv1QQzCrU=
-X-Gm-Gg: ATEYQzzvqVR1KWpD/mBsUBm19ago/UrXXrUWrrE1Ktd52uOy4Xi5rIBLHoHWHE8dYap
-	i6rzmJfQMISuQqjyEkB/3mMdPJ67kRXWRwMvYMoX/OQezMIUqjEFYCRCDjz2qlKet6Hd33Fw+AR
-	K/G8kTzgzeQWm166o20LNdwVD9v1d1BlPzd1OasWrICx134s6+vgLm3OFpPc26lHSjk5/963bIX
-	5DElbzmxVw3Qm5pAPzbfrG3GhPtrwNDEXqL05FQAY60LhKiJoo3cQqZFJaH0qhGsw+fwKAKD8R7
-	osBzOF8bgulrPN1NFNLeIR6jTv6OkOhtsYl8VHMGcB+y5WkWqup0FguUl1vliH72GP+MxMgtb/T
-	41lopqaM67ydo+/klF/Z16B3a5uPoV5ts3icxnJ8Lm9MnrD1dsktvcgnyMJk+vlpgN3mZaYEs2w
-	0Ed2hfarjVxYdG9WINWu7kDIs4Z8uxI/7k+4zzuEHTKOxXMSzopxrUupWhD5uI1XWWCp0jTVJv3
-	32xjQ7yN5xvfIgBcRGmPaOCxP2Flj5M3ZvfQ3fBkjVVABQMjO4zhjw+sAjo
-X-Received: by 2002:a05:6a00:140d:b0:82c:6b23:6d10 with SMTP id d2e1a72fcca58-82c95d248d4mr11901289b3a.3.1774872493998;
-        Mon, 30 Mar 2026 05:08:13 -0700 (PDT)
-Received: from c8971f1abf06.ap-southeast-2.compute.internal (ec2-3-106-126-184.ap-southeast-2.compute.amazonaws.com. [3.106.126.184])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82ca860b125sm7137780b3a.50.2026.03.30.05.08.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 05:08:12 -0700 (PDT)
-From: Weigang He <geoffreyhe2@gmail.com>
-To: greybus-dev@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Date: Mon, 30 Mar 2026 12:08:01 +0000
-Message-Id: <20260330120801.981506-2-geoffreyhe2@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260330120801.981506-1-geoffreyhe2@gmail.com>
-References: <20260330120801.981506-1-geoffreyhe2@gmail.com>
+	dkim=pass header.d=linuxfoundation.org header.s=korg header.b=r2K8atL8;
+	dmarc=pass (policy=none) header.from=linuxfoundation.org;
+	spf=pass (lists.linaro.org: domain of gregkh@linuxfoundation.org designates 172.105.4.254 as permitted sender) smtp.mailfrom=gregkh@linuxfoundation.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id 889AA600CB;
+	Mon, 30 Mar 2026 15:23:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63A3C4CEF7;
+	Mon, 30 Mar 2026 15:23:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1774884236;
+	bh=dKbvp8ix6uRKUnW/rwHFQfK0m1zd7znPNt3Pmzy/8Bo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=r2K8atL8MqpujJ5k8HvDGbO0gUeLJfNwYswhkLoukYH8tk2SKIhJjGknHCbf1GpQ+
+	 TyFdnC7EEfUNF7mljVJKA2F+ZqelVrjqd16sTEOa88sC++REbkD8rRp1f86+YxtHln
+	 L3TjvpIz0bW+LB7iMIW9H8oScq61ZpZ//BBGEAxE=
+Date: Mon, 30 Mar 2026 17:23:53 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Yug Merabtene <yug.merabtene@gmail.com>
+Message-ID: <2026033036-dry-dominion-c63a@gregkh>
+References: <20260329180117.611024-1-test@test.com>
+ <20260329184124.775392-1-yug.merabtene@gmail.com>
+ <20260329184124.775392-3-yug.merabtene@gmail.com>
 MIME-Version: 1.0
-X-Spamd-Bar: ---
-X-MailFrom: geoffreyhe2@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: I3GBRAONBCYHGBRJB3TTTP73BR5XCYFU
-X-Message-ID-Hash: I3GBRAONBCYHGBRJB3TTTP73BR5XCYFU
-X-Mailman-Approved-At: Mon, 30 Mar 2026 15:48:34 +0000
-CC: Weigang He <geoffreyhe2@gmail.com>, Ayush Singh <ayushdevel1325@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20260329184124.775392-3-yug.merabtene@gmail.com>
+X-Spamd-Bar: /
+Message-ID-Hash: JQEJ55CDTBZBMYRRPVQ4MM6YMAMIUVSD
+X-Message-ID-Hash: JQEJ55CDTBZBMYRRPVQ4MM6YMAMIUVSD
+X-MailFrom: gregkh@linuxfoundation.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: andy@kernel.org, hvaibhav.linux@gmail.com, johan@kernel.org, elder@kernel.org, pure.logic@nexus-software.ie, dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH 2/2] greybus: gb-beagleplay: propagate hdlc_tx_frames() errors to callers
+Subject: [greybus-dev] Re: [PATCH v2 2/2] staging: greybus: switch sysfs show paths to sysfs_emit()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/I3GBRAONBCYHGBRJB3TTTP73BR5XCYFU/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/JQEJ55CDTBZBMYRRPVQ4MM6YMAMIUVSD/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-X-Spamd-Result: default: False [1.69 / 15.00];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
-	MID_CONTAINS_FROM(1.00)[];
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [6.59 / 15.00];
+	MID_END_EQ_FROM_USER_PART(4.00)[];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[linuxfoundation.org:s=korg];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+mx];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
-	MIME_BASE64_TEXT(0.10)[];
+	DMARC_POLICY_SOFTFAIL(0.10)[linuxfoundation.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	GREYLIST(0.00)[pass,body];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	DKIM_TRACE(0.00)[linuxfoundation.org:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	NEURAL_HAM(-0.00)[-0.399];
+	FROM_NEQ_ENVFROM(0.00)[gregkh@linuxfoundation.org,greybus-dev-bounces@lists.linaro.org];
+	FREEMAIL_CC(0.00)[kernel.org,gmail.com,nexus-software.ie,lists.freedesktop.org,vger.kernel.org,lists.linaro.org,lists.linux.dev];
 	TAGGED_RCPT(0.00)[greybus-dev];
-	NEURAL_HAM(-0.00)[-0.942];
-	FROM_NEQ_ENVFROM(0.00)[geoffreyhe2@gmail.com,greybus-dev-bounces@lists.linaro.org];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org];
+	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linuxfoundation.org:email]
-X-Rspamd-Queue-Id: D2DDD35E230
-X-Rspamd-Action: no action
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email]
+X-Rspamd-Queue-Id: 10D7135DE03
+X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
+X-Spam: Yes
 
-Tm93IHRoYXQgaGRsY190eF9mcmFtZXMoKSBjYW4gZHJvcCBmcmFtZXMgd2hlbiB0aGUgY2lyY3Vs
-YXIgYnVmZmVyIGlzDQpmdWxsLCBtYWtlIHRoZSBmYWlsdXJlIHZpc2libGUgdG8gY2FsbGVyczoN
-Cg0KIC0gQ2hhbmdlIGhkbGNfdHhfZnJhbWVzKCkgcmV0dXJuIHR5cGUgZnJvbSB2b2lkIHRvIGlu
-dCAoLUVBR0FJTiBvbg0KICAgYnVmZmVyIGZ1bGwpLg0KIC0gQ2hhbmdlIGdiX2JlYWdsZXBsYXlf
-c3RhcnRfc3ZjKCkgLyBnYl9iZWFnbGVwbGF5X3N0b3Bfc3ZjKCkgdG8NCiAgIHJldHVybiBpbnQg
-c28gcHJvYmUgYW5kIGZpcm13YXJlLXVwbG9hZCBwYXRocyBjYW4gZGV0ZWN0IGZhaWx1cmVzLg0K
-IC0gZ2JfbWVzc2FnZV9zZW5kKCk6IHByb3BhZ2F0ZSB0aGUgZXJyb3Igc28gdGhlIGdyZXlidXMg
-Y29yZSBjYW4NCiAgIGhhbmRsZSB0aGUgdHJhbnNwb3J0IGZhaWx1cmUuDQogLSBoZGxjX3R4X3Nf
-ZnJhbWVfYWNrKCk6IGxvZyB3aXRoIGRldl93YXJuX3JhdGVsaW1pdGVkIG9uIGZhaWx1cmUNCiAg
-IChBQ0sgbG9zcyBpcyByZWNvdmVyYWJsZSBieSBIRExDIHJldHJhbnNtaXNzaW9uKS4NCiAtIFBy
-b2JlIHBhdGg6IHByb3BhZ2F0ZSBzdGFydF9zdmMgZmFpbHVyZSB2aWEgbmV3IGZyZWVfZ3JleWJ1
-cyBsYWJlbC4NCiAtIEZpcm13YXJlIHVwbG9hZCBwYXRoczogcmV0dXJuIEZXX1VQTE9BRF9FUlJf
-UldfRVJST1Igd2hlbiBTVkMNCiAgIHJlc3RhcnQgZmFpbHMgaW5zdGVhZCBvZiBzaWxlbnRseSBj
-b250aW51aW5nLg0KIC0gUmVtb3ZlIHBhdGg6IGJlc3QtZWZmb3J0IHN0b3Bfc3ZjLCBpZ25vcmUg
-ZmFpbHVyZS4NCg0KQ2M6IEF5dXNoIFNpbmdoIDxheXVzaGRldmVsMTMyNUBnbWFpbC5jb20+DQpD
-YzogSm9oYW4gSG92b2xkIDxqb2hhbkBrZXJuZWwub3JnPg0KQ2M6IEFsZXggRWxkZXIgPGVsZGVy
-QGtlcm5lbC5vcmc+DQpDYzogR3JlZyBLcm9haC1IYXJ0bWFuIDxncmVna2hAbGludXhmb3VuZGF0
-aW9uLm9yZz4NClNpZ25lZC1vZmYtYnk6IFdlaWdhbmcgSGUgPGdlb2ZmcmV5aGUyQGdtYWlsLmNv
-bT4NCi0tLQ0KIGRyaXZlcnMvZ3JleWJ1cy9nYi1iZWFnbGVwbGF5LmMgfCA2NCArKysrKysrKysr
-KysrKysrKysrKysrLS0tLS0tLS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgNDQgaW5zZXJ0aW9ucygr
-KSwgMjAgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dyZXlidXMvZ2ItYmVh
-Z2xlcGxheS5jIGIvZHJpdmVycy9ncmV5YnVzL2diLWJlYWdsZXBsYXkuYw0KaW5kZXggZGExYjkw
-MzlmZDJmMy4uNTViM2FkNGIzYzM2MCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3JleWJ1cy9nYi1i
-ZWFnbGVwbGF5LmMNCisrKyBiL2RyaXZlcnMvZ3JleWJ1cy9nYi1iZWFnbGVwbGF5LmMNCkBAIC0z
-MTQsNiArMzE0LDkgQEAgc3RhdGljIHZvaWQgaGRsY190cmFuc21pdChzdHJ1Y3Qgd29ya19zdHJ1
-Y3QgKndvcmspDQogICogQHBheWxvYWRzOiBhcnJheSBvZiBwYXlsb2FkIGJ1ZmZlcnMNCiAgKiBA
-Y291bnQ6IG51bWJlciBvZiBwYXlsb2Fkcw0KICAqDQorICogRXZlcnkgZGF0YSBieXRlIG1heSBu
-ZWVkIEhETEMgZXNjYXBpbmcgKGRvdWJsaW5nIGl0cyBzaXplKS4NCisgKiBGcmFtZSBsYXlvdXQ6
-IGZsYWcoMSkgKyBhZGRyZXNzKDEtMikgKyBjb250cm9sKDEtMikgKyBwYXlsb2FkICsgQ1JDKDIt
-NCkgKyBmbGFnKDEpLg0KKyAqDQogICogUmV0dXJucyB0aGUgbWF4aW11bSBudW1iZXIgb2YgYnl0
-ZXMgbmVlZGVkIGluIHRoZSBjaXJjdWxhciBidWZmZXIuDQogICovDQogc3RhdGljIHNpemVfdCBo
-ZGxjX2VuY29kZWRfbGVuZ3RoKGNvbnN0IHN0cnVjdCBoZGxjX3BheWxvYWQgcGF5bG9hZHNbXSwN
-CkBAIC0zNDgsOCArMzUxLDEwIEBAIHN0YXRpYyBzaXplX3QgaGRsY19lbmNvZGVkX2xlbmd0aChj
-b25zdCBzdHJ1Y3QgaGRsY19wYXlsb2FkIHBheWxvYWRzW10sDQogICogYXZhaWxhYmxlLCB0aGVu
-IHZlcmlmaWVzIHNwYWNlIHVuZGVyIHRoZSBsb2NrIGFuZCB3cml0ZXMgdGhlIGVudGlyZQ0KICAq
-IGZyYW1lIGF0b21pY2FsbHkuICBFaXRoZXIgYSBjb21wbGV0ZSBmcmFtZSBpcyBlbnF1ZXVlZCBv
-ciBub3RoaW5nIGlzDQogICogd3JpdHRlbiwgYXZvaWRpbmcgYm90aCBzbGVlcGluZyBpbiBhdG9t
-aWMgY29udGV4dCBhbmQgcGFydGlhbCBmcmFtZXMuDQorICoNCisgKiBSZXR1cm5zIDAgb24gc3Vj
-Y2VzcywgLUVBR0FJTiBpZiB0aGUgYnVmZmVyIHJlbWFpbnMgZnVsbCBhZnRlciByZXRyaWVzLg0K
-ICAqLw0KLXN0YXRpYyB2b2lkIGhkbGNfdHhfZnJhbWVzKHN0cnVjdCBnYl9iZWFnbGVwbGF5ICpi
-ZywgdTggYWRkcmVzcywgdTggY29udHJvbCwNCitzdGF0aWMgaW50IGhkbGNfdHhfZnJhbWVzKHN0
-cnVjdCBnYl9iZWFnbGVwbGF5ICpiZywgdTggYWRkcmVzcywgdTggY29udHJvbCwNCiAJCQkgICBj
-b25zdCBzdHJ1Y3QgaGRsY19wYXlsb2FkIHBheWxvYWRzW10sIHNpemVfdCBjb3VudCkNCiB7DQog
-CXNpemVfdCBuZWVkZWQgPSBoZGxjX2VuY29kZWRfbGVuZ3RoKHBheWxvYWRzLCBjb3VudCk7DQpA
-QCAtMzcyLDI1ICszNzcsMjQgQEAgc3RhdGljIHZvaWQgaGRsY190eF9mcmFtZXMoc3RydWN0IGdi
-X2JlYWdsZXBsYXkgKmJnLCB1OCBhZGRyZXNzLCB1OCBjb250cm9sLA0KIAl9DQogDQogCWlmIChy
-ZXRyaWVzIDwgMCkgew0KLQkJZGV2X3dhcm5fcmF0ZWxpbWl0ZWQoJmJnLT5zZC0+ZGV2LA0KLQkJ
-CQkgICAgICJUeCBjaXJjIGJ1ZiBmdWxsLCBkcm9wcGluZyBmcmFtZVxuIik7DQotCQlyZXR1cm47
-DQorCQlkZXZfd2Fybl9yYXRlbGltaXRlZCgmYmctPnNkLT5kZXYsICJUeCBjaXJjIGJ1ZiBmdWxs
-LCBkcm9wcGluZyBmcmFtZVxuIik7DQorCQlyZXR1cm4gLUVBR0FJTjsNCiAJfQ0KIA0KIAlzcGlu
-X2xvY2soJmJnLT50eF9wcm9kdWNlcl9sb2NrKTsNCiANCiAJLyoNCi0JICogUmUtY2hlY2sgdW5k
-ZXIgdGhlIGxvY2suICBTaG91bGQgbm90IGZhaWwgc2luY2UNCi0JICogdHhfcHJvZHVjZXJfbG9j
-ayBzZXJpYWxpc2VzIGFsbCBwcm9kdWNlcnMgYW5kIHRoZQ0KLQkgKiBjb25zdW1lciBvbmx5IGZy
-ZWVzIHNwYWNlLCBidXQgZ3VhcmQgYWdhaW5zdCBpdC4NCisJICogUmUtY2hlY2sgc3BhY2UgdW5k
-ZXIgdGhlIGxvY2sgdG8gY2xvc2UgdGhlIFRPQ1RPVSB3aW5kb3cuDQorCSAqIFRoaXMgc2hvdWxk
-IGJlIHJhcmUgc2luY2UgdHhfcHJvZHVjZXJfbG9jayBzZXJpYWxpc2VzIGFsbA0KKwkgKiBwcm9k
-dWNlcnMgYW5kIHRoZSBjb25zdW1lciBvbmx5IGZyZWVzIHNwYWNlLiAgSWYgaXQgZmlyZXMsDQor
-CSAqIHRoZSBjYWxsZXIgaXMgZXhwZWN0ZWQgdG8gaGFuZGxlIC1FQUdBSU4gKHJldHJ5IG9yIHJl
-cG9ydCkuDQogCSAqLw0KIAloZWFkID0gYmctPnR4X2NpcmNfYnVmLmhlYWQ7DQogCXRhaWwgPSBS
-RUFEX09OQ0UoYmctPnR4X2NpcmNfYnVmLnRhaWwpOw0KIAlpZiAodW5saWtlbHkoQ0lSQ19TUEFD
-RShoZWFkLCB0YWlsLCBUWF9DSVJDX0JVRl9TSVpFKSA8IG5lZWRlZCkpIHsNCiAJCXNwaW5fdW5s
-b2NrKCZiZy0+dHhfcHJvZHVjZXJfbG9jayk7DQotCQlkZXZfd2Fybl9yYXRlbGltaXRlZCgmYmct
-PnNkLT5kZXYsDQotCQkJCSAgICAgIlR4IGNpcmMgYnVmIHNwYWNlIGxvc3QsIGRyb3BwaW5nIGZy
-YW1lXG4iKTsNCi0JCXJldHVybjsNCisJCWRldl93YXJuX3JhdGVsaW1pdGVkKCZiZy0+c2QtPmRl
-diwgIlR4IGNpcmMgYnVmIHNwYWNlIGxvc3QsIGRyb3BwaW5nIGZyYW1lXG4iKTsNCisJCXJldHVy
-biAtRUFHQUlOOw0KIAl9DQogDQogCWhkbGNfYXBwZW5kX3R4X2ZyYW1lKGJnKTsNCkBAIC00MDYs
-MTEgKzQxMCwxNiBAQCBzdGF0aWMgdm9pZCBoZGxjX3R4X2ZyYW1lcyhzdHJ1Y3QgZ2JfYmVhZ2xl
-cGxheSAqYmcsIHU4IGFkZHJlc3MsIHU4IGNvbnRyb2wsDQogCXNwaW5fdW5sb2NrKCZiZy0+dHhf
-cHJvZHVjZXJfbG9jayk7DQogDQogCXNjaGVkdWxlX3dvcmsoJmJnLT50eF93b3JrKTsNCisJcmV0
-dXJuIDA7DQogfQ0KIA0KIHN0YXRpYyB2b2lkIGhkbGNfdHhfc19mcmFtZV9hY2soc3RydWN0IGdi
-X2JlYWdsZXBsYXkgKmJnKQ0KIHsNCi0JaGRsY190eF9mcmFtZXMoYmcsIGJnLT5yeF9idWZmZXJb
-MF0sIChiZy0+cnhfYnVmZmVyWzFdID4+IDEpICYgMHg3LCBOVUxMLCAwKTsNCisJaW50IHJldDsN
-CisNCisJcmV0ID0gaGRsY190eF9mcmFtZXMoYmcsIGJnLT5yeF9idWZmZXJbMF0sIChiZy0+cnhf
-YnVmZmVyWzFdID4+IDEpICYgMHg3LCBOVUxMLCAwKTsNCisJaWYgKHJldCkNCisJCWRldl93YXJu
-X3JhdGVsaW1pdGVkKCZiZy0+c2QtPmRldiwgIkZhaWxlZCB0byBzZW5kIEhETEMgQUNLOiAlZFxu
-IiwgcmV0KTsNCiB9DQogDQogc3RhdGljIHZvaWQgaGRsY19yeF9mcmFtZShzdHJ1Y3QgZ2JfYmVh
-Z2xlcGxheSAqYmcpDQpAQCAtNjY4LDYgKzY3Nyw3IEBAIHN0YXRpYyBpbnQgZ2JfbWVzc2FnZV9z
-ZW5kKHN0cnVjdCBnYl9ob3N0X2RldmljZSAqaGQsIHUxNiBjcG9ydCwgc3RydWN0IGdiX21lc3Nh
-DQogCXN0cnVjdCBnYl9iZWFnbGVwbGF5ICpiZyA9IGRldl9nZXRfZHJ2ZGF0YSgmaGQtPmRldik7
-DQogCXN0cnVjdCBoZGxjX3BheWxvYWQgcGF5bG9hZHNbM107DQogCV9fbGUxNiBjcG9ydF9pZCA9
-IGNwdV90b19sZTE2KGNwb3J0KTsNCisJaW50IHJldDsNCiANCiAJZGV2X2RiZygmaGQtPmRldiwg
-IlNlbmRpbmcgZ3JleWJ1cyBtZXNzYWdlIHdpdGggT3BlcmF0aW9uICV1LCBUeXBlOiAlWCBvbiBD
-cG9ydCAldSIsDQogCQltc2ctPmhlYWRlci0+b3BlcmF0aW9uX2lkLCBtc2ctPmhlYWRlci0+dHlw
-ZSwgY3BvcnQpOw0KQEAgLTY4Miw3ICs2OTIsMTAgQEAgc3RhdGljIGludCBnYl9tZXNzYWdlX3Nl
-bmQoc3RydWN0IGdiX2hvc3RfZGV2aWNlICpoZCwgdTE2IGNwb3J0LCBzdHJ1Y3QgZ2JfbWVzc2EN
-CiAJcGF5bG9hZHNbMl0uYnVmID0gbXNnLT5wYXlsb2FkOw0KIAlwYXlsb2Fkc1syXS5sZW4gPSBt
-c2ctPnBheWxvYWRfc2l6ZTsNCiANCi0JaGRsY190eF9mcmFtZXMoYmcsIEFERFJFU1NfR1JFWUJV
-UywgMHgwMywgcGF5bG9hZHMsIDMpOw0KKwlyZXQgPSBoZGxjX3R4X2ZyYW1lcyhiZywgQUREUkVT
-U19HUkVZQlVTLCAweDAzLCBwYXlsb2FkcywgMyk7DQorCWlmIChyZXQpDQorCQlyZXR1cm4gcmV0
-Ow0KKw0KIAlncmV5YnVzX21lc3NhZ2Vfc2VudChiZy0+Z2JfaGQsIG1zZywgMCk7DQogDQogCXJl
-dHVybiAwOw0KQEAgLTY5NSwyMCArNzA4LDIwIEBAIHN0YXRpYyB2b2lkIGdiX21lc3NhZ2VfY2Fu
-Y2VsKHN0cnVjdCBnYl9tZXNzYWdlICptZXNzYWdlKQ0KIHN0YXRpYyBzdHJ1Y3QgZ2JfaGRfZHJp
-dmVyIGdiX2hkbGNfZHJpdmVyID0geyAubWVzc2FnZV9zZW5kID0gZ2JfbWVzc2FnZV9zZW5kLA0K
-IAkJCQkJICAgICAgLm1lc3NhZ2VfY2FuY2VsID0gZ2JfbWVzc2FnZV9jYW5jZWwgfTsNCiANCi1z
-dGF0aWMgdm9pZCBnYl9iZWFnbGVwbGF5X3N0YXJ0X3N2YyhzdHJ1Y3QgZ2JfYmVhZ2xlcGxheSAq
-YmcpDQorc3RhdGljIGludCBnYl9iZWFnbGVwbGF5X3N0YXJ0X3N2YyhzdHJ1Y3QgZ2JfYmVhZ2xl
-cGxheSAqYmcpDQogew0KIAljb25zdCB1OCBjb21tYW5kID0gQ09OVFJPTF9TVkNfU1RBUlQ7DQog
-CWNvbnN0IHN0cnVjdCBoZGxjX3BheWxvYWQgcGF5bG9hZCA9IHsgLmxlbiA9IDEsIC5idWYgPSAo
-dm9pZCAqKSZjb21tYW5kIH07DQogDQotCWhkbGNfdHhfZnJhbWVzKGJnLCBBRERSRVNTX0NPTlRS
-T0wsIDB4MDMsICZwYXlsb2FkLCAxKTsNCisJcmV0dXJuIGhkbGNfdHhfZnJhbWVzKGJnLCBBRERS
-RVNTX0NPTlRST0wsIDB4MDMsICZwYXlsb2FkLCAxKTsNCiB9DQogDQotc3RhdGljIHZvaWQgZ2Jf
-YmVhZ2xlcGxheV9zdG9wX3N2YyhzdHJ1Y3QgZ2JfYmVhZ2xlcGxheSAqYmcpDQorc3RhdGljIGlu
-dCBnYl9iZWFnbGVwbGF5X3N0b3Bfc3ZjKHN0cnVjdCBnYl9iZWFnbGVwbGF5ICpiZykNCiB7DQog
-CWNvbnN0IHU4IGNvbW1hbmQgPSBDT05UUk9MX1NWQ19TVE9QOw0KIAljb25zdCBzdHJ1Y3QgaGRs
-Y19wYXlsb2FkIHBheWxvYWQgPSB7IC5sZW4gPSAxLCAuYnVmID0gKHZvaWQgKikmY29tbWFuZCB9
-Ow0KIA0KLQloZGxjX3R4X2ZyYW1lcyhiZywgQUREUkVTU19DT05UUk9MLCAweDAzLCAmcGF5bG9h
-ZCwgMSk7DQorCXJldHVybiBoZGxjX3R4X2ZyYW1lcyhiZywgQUREUkVTU19DT05UUk9MLCAweDAz
-LCAmcGF5bG9hZCwgMSk7DQogfQ0KIA0KIHN0YXRpYyBpbnQgY2MxMzUyX2Jvb3Rsb2FkZXJfd2Fp
-dF9mb3JfYWNrKHN0cnVjdCBnYl9iZWFnbGVwbGF5ICpiZykNCkBAIC05NDYsNyArOTU5LDkgQEAg
-c3RhdGljIGVudW0gZndfdXBsb2FkX2VyciBjYzEzNTJfcHJlcGFyZShzdHJ1Y3QgZndfdXBsb2Fk
-ICpmd191cGxvYWQsDQogCWdiX2dyZXlidXNfZGVpbml0KGJnKTsNCiAJbXNsZWVwKDUgKiBNU0VD
-X1BFUl9TRUMpOw0KIA0KLQlnYl9iZWFnbGVwbGF5X3N0b3Bfc3ZjKGJnKTsNCisJLyogQmVzdCBl
-ZmZvcnQg4oCUIGRldmljZSBpcyBlbnRlcmluZyBib290bG9hZGVyIG1vZGUgcmVnYXJkbGVzcy4g
-Ki8NCisJaWYgKGdiX2JlYWdsZXBsYXlfc3RvcF9zdmMoYmcpKQ0KKwkJZGV2X3dhcm4oJmJnLT5z
-ZC0+ZGV2LCAiRmFpbGVkIHRvIHNlbmQgU1ZDIHN0b3AgYmVmb3JlIGZsYXNoaW5nXG4iKTsNCiAJ
-bXNsZWVwKDIwMCk7DQogCWZsdXNoX3dvcmsoJmJnLT50eF93b3JrKTsNCiANCkBAIC05ODgsNyAr
-MTAwMyw5IEBAIHN0YXRpYyBlbnVtIGZ3X3VwbG9hZF9lcnIgY2MxMzUyX3ByZXBhcmUoc3RydWN0
-IGZ3X3VwbG9hZCAqZndfdXBsb2FkLA0KIAkJaWYgKGdiX2dyZXlidXNfaW5pdChiZykgPCAwKQ0K
-IAkJCXJldHVybiBkZXZfZXJyX3Byb2JlKCZiZy0+c2QtPmRldiwgRldfVVBMT0FEX0VSUl9SV19F
-UlJPUiwNCiAJCQkJCSAgICAgIkZhaWxlZCB0byBpbml0aWFsaXplIGdyZXlidXMiKTsNCi0JCWdi
-X2JlYWdsZXBsYXlfc3RhcnRfc3ZjKGJnKTsNCisJCWlmIChnYl9iZWFnbGVwbGF5X3N0YXJ0X3N2
-YyhiZykpDQorCQkJcmV0dXJuIGRldl9lcnJfcHJvYmUoJmJnLT5zZC0+ZGV2LCBGV19VUExPQURf
-RVJSX1JXX0VSUk9SLA0KKwkJCQkJICAgICAiRmFpbGVkIHRvIHJlc3RhcnQgU1ZDIGFmdGVyIHNr
-aXAiKTsNCiAJCXJldHVybiBGV19VUExPQURfRVJSX0ZXX0lOVkFMSUQ7DQogCX0NCiANCkBAIC0x
-MDY5LDcgKzEwODYsOSBAQCBzdGF0aWMgZW51bSBmd191cGxvYWRfZXJyIGNjMTM1Ml9wb2xsX2Nv
-bXBsZXRlKHN0cnVjdCBmd191cGxvYWQgKmZ3X3VwbG9hZCkNCiAJCXJldHVybiBkZXZfZXJyX3By
-b2JlKCZiZy0+c2QtPmRldiwgRldfVVBMT0FEX0VSUl9SV19FUlJPUiwNCiAJCQkJICAgICAiRmFp
-bGVkIHRvIGluaXRpYWxpemUgZ3JleWJ1cyIpOw0KIA0KLQlnYl9iZWFnbGVwbGF5X3N0YXJ0X3N2
-YyhiZyk7DQorCWlmIChnYl9iZWFnbGVwbGF5X3N0YXJ0X3N2YyhiZykgPCAwKQ0KKwkJcmV0dXJu
-IGRldl9lcnJfcHJvYmUoJmJnLT5zZC0+ZGV2LCBGV19VUExPQURfRVJSX1JXX0VSUk9SLA0KKwkJ
-CQkgICAgICJGYWlsZWQgdG8gc3RhcnQgU1ZDIik7DQogDQogCXJldHVybiBGV19VUExPQURfRVJS
-X05PTkU7DQogfQ0KQEAgLTExODAsMTAgKzExOTksMTQgQEAgc3RhdGljIGludCBnYl9iZWFnbGVw
-bGF5X3Byb2JlKHN0cnVjdCBzZXJkZXZfZGV2aWNlICpzZXJkZXYpDQogCWlmIChyZXQpDQogCQln
-b3RvIGZyZWVfZnc7DQogDQotCWdiX2JlYWdsZXBsYXlfc3RhcnRfc3ZjKGJnKTsNCisJcmV0ID0g
-Z2JfYmVhZ2xlcGxheV9zdGFydF9zdmMoYmcpOw0KKwlpZiAocmV0KQ0KKwkJZ290byBmcmVlX2dy
-ZXlidXM7DQogDQogCXJldHVybiAwOw0KIA0KK2ZyZWVfZ3JleWJ1czoNCisJZ2JfZ3JleWJ1c19k
-ZWluaXQoYmcpOw0KIGZyZWVfZnc6DQogCWdiX2Z3X2RlaW5pdChiZyk7DQogZnJlZV9oZGxjOg0K
-QEAgLTExOTksNiArMTIyMiw3IEBAIHN0YXRpYyB2b2lkIGdiX2JlYWdsZXBsYXlfcmVtb3ZlKHN0
-cnVjdCBzZXJkZXZfZGV2aWNlICpzZXJkZXYpDQogDQogCWdiX2Z3X2RlaW5pdChiZyk7DQogCWdi
-X2dyZXlidXNfZGVpbml0KGJnKTsNCisJLyogQmVzdCBlZmZvcnQg4oCUIGRldmljZSBpcyBiZWlu
-ZyByZW1vdmVkLiAqLw0KIAlnYl9iZWFnbGVwbGF5X3N0b3Bfc3ZjKGJnKTsNCiAJaGRsY19kZWlu
-aXQoYmcpOw0KIAlnYl9zZXJkZXZfZGVpbml0KGJnKTsNCi0tIA0KMi4zNC4xDQoNCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmdyZXlidXMtZGV2IG1haWxp
-bmcgbGlzdCAtLSBncmV5YnVzLWRldkBsaXN0cy5saW5hcm8ub3JnClRvIHVuc3Vic2NyaWJlIHNl
-bmQgYW4gZW1haWwgdG8gZ3JleWJ1cy1kZXYtbGVhdmVAbGlzdHMubGluYXJvLm9yZwo=
+On Sun, Mar 29, 2026 at 08:41:24PM +0200, Yug Merabtene wrote:
+> Signed-off-by: Yug Merabtene <yug.merabtene@gmail.com>
+> ---
+>  drivers/staging/greybus/arche-apb-ctrl.c       | 12 ++++++------
+>  drivers/staging/greybus/arche-platform.c       | 10 +++++-----
+>  drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
+>  drivers/staging/greybus/gbphy.c                |  2 +-
+>  drivers/staging/greybus/light.c                |  4 ++--
+>  drivers/staging/greybus/loopback.c             | 14 +++++++-------
+>  6 files changed, 27 insertions(+), 27 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/arche-apb-ctrl.c b/drivers/staging/greybus/arche-apb-ctrl.c
+> index 33f26a65f0cc..10effbe07a2a 100644
+> --- a/drivers/staging/greybus/arche-apb-ctrl.c
+> +++ b/drivers/staging/greybus/arche-apb-ctrl.c
+> @@ -300,16 +300,16 @@ static ssize_t state_show(struct device *dev,
+>  
+>  	switch (apb->state) {
+>  	case ARCHE_PLATFORM_STATE_OFF:
+> -		return sprintf(buf, "off%s\n",
+> -				apb->init_disabled ? ",disabled" : "");
+> +		return sysfs_emit(buf, "off%s\n",
+> +				  apb->init_disabled ? ",disabled" : "");
+>  	case ARCHE_PLATFORM_STATE_ACTIVE:
+> -		return sprintf(buf, "active\n");
+> +		return sysfs_emit(buf, "active\n");
+>  	case ARCHE_PLATFORM_STATE_STANDBY:
+> -		return sprintf(buf, "standby\n");
+> +		return sysfs_emit(buf, "standby\n");
+>  	case ARCHE_PLATFORM_STATE_FW_FLASHING:
+> -		return sprintf(buf, "fw_flashing\n");
+> +		return sysfs_emit(buf, "fw_flashing\n");
+>  	default:
+> -		return sprintf(buf, "unknown state\n");
+> +		return sysfs_emit(buf, "unknown state\n");
+>  	}
+>  }
+>  
+> diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
+> index f669a7e2eb11..de5de59ea8ab 100644
+> --- a/drivers/staging/greybus/arche-platform.c
+> +++ b/drivers/staging/greybus/arche-platform.c
+> @@ -374,15 +374,15 @@ static ssize_t state_show(struct device *dev,
+>  
+>  	switch (arche_pdata->state) {
+>  	case ARCHE_PLATFORM_STATE_OFF:
+> -		return sprintf(buf, "off\n");
+> +		return sysfs_emit(buf, "off\n");
+>  	case ARCHE_PLATFORM_STATE_ACTIVE:
+> -		return sprintf(buf, "active\n");
+> +		return sysfs_emit(buf, "active\n");
+>  	case ARCHE_PLATFORM_STATE_STANDBY:
+> -		return sprintf(buf, "standby\n");
+> +		return sysfs_emit(buf, "standby\n");
+>  	case ARCHE_PLATFORM_STATE_FW_FLASHING:
+> -		return sprintf(buf, "fw_flashing\n");
+> +		return sysfs_emit(buf, "fw_flashing\n");
+>  	default:
+> -		return sprintf(buf, "unknown state\n");
+> +		return sysfs_emit(buf, "unknown state\n");
+>  	}
+>  }
+>  
+> diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
+> index e87b82ca6d8a..f22ee73eb8d2 100644
+> --- a/drivers/staging/greybus/audio_manager_module.c
+> +++ b/drivers/staging/greybus/audio_manager_module.c
+> @@ -76,7 +76,7 @@ static void gb_audio_module_release(struct kobject *kobj)
+>  static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
+>  					 struct gb_audio_manager_module_attribute *attr, char *buf)
+>  {
+> -	return sprintf(buf, "%s", module->desc.name);
+> +	return sysfs_emit(buf, "%s\n", module->desc.name);
+>  }
+>  
+>  static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+> @@ -85,7 +85,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+>  static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
+>  					struct gb_audio_manager_module_attribute *attr, char *buf)
+>  {
+> -	return sprintf(buf, "%d", module->desc.vid);
+> +	return sysfs_emit(buf, "%d\n", module->desc.vid);
+>  }
+>  
+>  static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+> @@ -94,7 +94,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+>  static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
+>  					struct gb_audio_manager_module_attribute *attr, char *buf)
+>  {
+> -	return sprintf(buf, "%d", module->desc.pid);
+> +	return sysfs_emit(buf, "%d\n", module->desc.pid);
+>  }
+>  
+>  static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
+> @@ -104,7 +104,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
+>  					    struct gb_audio_manager_module_attribute *attr,
+>  					    char *buf)
+>  {
+> -	return sprintf(buf, "%d", module->desc.intf_id);
+> +	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
+>  }
+>  
+>  static struct gb_audio_manager_module_attribute
+> @@ -115,7 +115,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
+>  					       struct gb_audio_manager_module_attribute *attr,
+>  					       char *buf)
+>  {
+> -	return sprintf(buf, "0x%X", module->desc.ip_devices);
+> +	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
+>  }
+>  
+>  static struct gb_audio_manager_module_attribute
+> @@ -126,7 +126,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
+>  					       struct gb_audio_manager_module_attribute *attr,
+>  					       char *buf)
+>  {
+> -	return sprintf(buf, "0x%X", module->desc.op_devices);
+> +	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
+>  }
+>  
+>  static struct gb_audio_manager_module_attribute
+> diff --git a/drivers/staging/greybus/gbphy.c b/drivers/staging/greybus/gbphy.c
+> index bdb0f5164a6f..bb9a5b538e6e 100644
+> --- a/drivers/staging/greybus/gbphy.c
+> +++ b/drivers/staging/greybus/gbphy.c
+> @@ -31,7 +31,7 @@ static ssize_t protocol_id_show(struct device *dev,
+>  {
+>  	struct gbphy_device *gbphy_dev = to_gbphy_dev(dev);
+>  
+> -	return sprintf(buf, "0x%02x\n", gbphy_dev->cport_desc->protocol_id);
+> +	return sysfs_emit(buf, "0x%02x\n", gbphy_dev->cport_desc->protocol_id);
+>  }
+>  static DEVICE_ATTR_RO(protocol_id);
+>  
+> diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
+> index cab02b5da867..2689f9a7524a 100644
+> --- a/drivers/staging/greybus/light.c
+> +++ b/drivers/staging/greybus/light.c
+> @@ -173,7 +173,7 @@ static ssize_t fade_##__dir##_show(struct device *dev,			\
+>  	struct led_classdev *cdev = dev_get_drvdata(dev);		\
+>  	struct gb_channel *channel = get_channel_from_cdev(cdev);	\
+>  									\
+> -	return sprintf(buf, "%u\n", channel->fade_##__dir);		\
+> +	return sysfs_emit(buf, "%u\n", channel->fade_##__dir);		\
+>  }									\
+>  									\
+>  static ssize_t fade_##__dir##_store(struct device *dev,			\
+> @@ -220,7 +220,7 @@ static ssize_t color_show(struct device *dev, struct device_attribute *attr,
+>  	struct led_classdev *cdev = dev_get_drvdata(dev);
+>  	struct gb_channel *channel = get_channel_from_cdev(cdev);
+>  
+> -	return sprintf(buf, "0x%08x\n", channel->color);
+> +	return sysfs_emit(buf, "0x%08x\n", channel->color);
+>  }
+>  
+>  static ssize_t color_store(struct device *dev, struct device_attribute *attr,
+> diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+> index aa9c73cb0ae5..3a502d89d19f 100644
+> --- a/drivers/staging/greybus/loopback.c
+> +++ b/drivers/staging/greybus/loopback.c
+> @@ -125,7 +125,7 @@ static ssize_t field##_show(struct device *dev,			\
+>  			    char *buf)					\
+>  {									\
+>  	struct gb_loopback *gb = dev_get_drvdata(dev);			\
+> -	return sprintf(buf, "%u\n", gb->field);			\
+> +	return sysfs_emit(buf, "%u\n", gb->field);			\
+>  }									\
+>  static DEVICE_ATTR_RO(field)
+>  
+> @@ -137,8 +137,8 @@ static ssize_t name##_##field##_show(struct device *dev,	\
+>  	struct gb_loopback *gb = dev_get_drvdata(dev);			\
+>  	/* Report 0 for min and max if no transfer succeeded */		\
+>  	if (!gb->requests_completed)					\
+> -		return sprintf(buf, "0\n");				\
+> -	return sprintf(buf, "%" #type "\n", gb->name.field);		\
+> +		return sysfs_emit(buf, "0\n");				\
+> +	return sysfs_emit(buf, "%" #type "\n", gb->name.field);		\
+>  }									\
+>  static DEVICE_ATTR_RO(name##_##field)
+>  
+> @@ -158,7 +158,7 @@ static ssize_t name##_avg_show(struct device *dev,		\
+>  	rem = do_div(avg, count);					\
+>  	rem *= 1000000;							\
+>  	do_div(rem, count);						\
+> -	return sprintf(buf, "%llu.%06u\n", avg, (u32)rem);		\
+> +	return sysfs_emit(buf, "%llu.%06u\n", avg, (u32)rem);		\
+>  }									\
+>  static DEVICE_ATTR_RO(name##_avg)
+>  
+> @@ -173,7 +173,7 @@ static ssize_t field##_show(struct device *dev,				\
+>  			    char *buf)					\
+>  {									\
+>  	struct gb_loopback *gb = dev_get_drvdata(dev);			\
+> -	return sprintf(buf, "%" #type "\n", gb->field);			\
+> +	return sysfs_emit(buf, "%" #type "\n", gb->field);			\
+>  }									\
+>  static ssize_t field##_store(struct device *dev,			\
+>  			    struct device_attribute *attr,		\
+> @@ -199,7 +199,7 @@ static ssize_t field##_show(struct device *dev,		\
+>  			    char *buf)					\
+>  {									\
+>  	struct gb_loopback *gb = dev_get_drvdata(dev);			\
+> -	return sprintf(buf, "%u\n", gb->field);				\
+> +	return sysfs_emit(buf, "%u\n", gb->field);				\
+>  }									\
+>  static DEVICE_ATTR_RO(field)
+>  
+> @@ -209,7 +209,7 @@ static ssize_t field##_show(struct device *dev,				\
+>  			    char *buf)					\
+>  {									\
+>  	struct gb_loopback *gb = dev_get_drvdata(dev);			\
+> -	return sprintf(buf, "%" #type "\n", gb->field);			\
+> +	return sysfs_emit(buf, "%" #type "\n", gb->field);			\
+>  }									\
+>  static ssize_t field##_store(struct device *dev,			\
+>  			    struct device_attribute *attr,		\
+> -- 
+> 2.34.1
+> 
+
+Hi,
+
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
+
+You are receiving this message because of the following common error(s)
+as indicated below:
+
+- You did not specify a description of why the patch is needed, or
+  possibly, any description at all, in the email body.  Please read the
+  section entitled "The canonical patch format" in the kernel file,
+  Documentation/process/submitting-patches.rst for what is needed in
+  order to properly describe the change.
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
+
+thanks,
+
+greg k-h's patch email bot
+_______________________________________________
+greybus-dev mailing list -- greybus-dev@lists.linaro.org
+To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
