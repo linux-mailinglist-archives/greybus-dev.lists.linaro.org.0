@@ -2,87 +2,89 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YFYdIo3c0GniBQcAu9opvQ
+	id 0CRKIJHc0GniBQcAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Sat, 04 Apr 2026 11:40:29 +0200
+	for <lists+greybus-dev@lfdr.de>; Sat, 04 Apr 2026 11:40:33 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE9A39A8BD
-	for <lists+greybus-dev@lfdr.de>; Sat, 04 Apr 2026 11:40:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C24C39A8C7
+	for <lists+greybus-dev@lfdr.de>; Sat, 04 Apr 2026 11:40:33 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id D006C3F98A
-	for <lists+greybus-dev@lfdr.de>; Sat,  4 Apr 2026 09:40:27 +0000 (UTC)
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	by lists.linaro.org (Postfix) with ESMTPS id 16E2F3F8FE
-	for <greybus-dev@lists.linaro.org>; Thu,  2 Apr 2026 05:11:39 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 527CC4044F
+	for <lists+greybus-dev@lfdr.de>; Sat,  4 Apr 2026 09:40:32 +0000 (UTC)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	by lists.linaro.org (Postfix) with ESMTPS id 64F043F8FE
+	for <greybus-dev@lists.linaro.org>; Thu,  2 Apr 2026 05:11:47 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=gThvJ12Q;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=gpJEXgrr;
 	dmarc=pass (policy=none) header.from=gmail.com;
-	spf=pass (lists.linaro.org: domain of k.souta0926@gmail.com designates 209.85.216.47 as permitted sender) smtp.mailfrom=k.souta0926@gmail.com
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3585ec417f6so610552a91.1
-        for <greybus-dev@lists.linaro.org>; Wed, 01 Apr 2026 22:11:39 -0700 (PDT)
+	spf=pass (lists.linaro.org: domain of k.souta0926@gmail.com designates 209.85.214.178 as permitted sender) smtp.mailfrom=k.souta0926@gmail.com
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2b24fcc2b5dso2722655ad.1
+        for <greybus-dev@lists.linaro.org>; Wed, 01 Apr 2026 22:11:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775106698; x=1775711498; darn=lists.linaro.org;
+        d=gmail.com; s=20251104; t=1775106706; x=1775711506; darn=lists.linaro.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/Si7lJja3/soJ+Jd1KnXzL4PE+2kViiucWrKezlO17A=;
-        b=gThvJ12QCY6JZ/nauGWrBAN/MCETTMyWKKaesiMnCyQs09Vj37yNrMBic6PwmhYlTF
-         f5Qg5oERgJNvDm5mpP0DCMvjIc3BWgMBBmZjgfBsMdqGmVIFcajXO/VLZufKcKMOaL/0
-         oLNcRQpOt1hRPPXBeSzdy4/+GYWMv2z9H4iFUBctTqqyv1tVFDC+CpuG3rGIoIFTlv5s
-         EgxthJJhttkKgVi0xaYZow124B8wJmNLq2BQas10dULoQrt7gZUr1ZNOr63EC2HqVOau
-         BpV6x7p9ToOfrV1KpKhllaxuagnSoFUwoz3L14hbG3HqNsVEOGK0fxbdXLFab4Ud/M7O
-         kqDw==
+        bh=qblWufffu4CarmNyKrjU8dBtzc7CIBINQdO/rvlz4/s=;
+        b=gpJEXgrrEuBRQkASQjNB9b3jvVURYjzdiXxjyMzPiU9HDHzlfunuNH2qFkCIGBxeSI
+         02pfVTVQ/FANhoE9cBNF0rx4iX7yHTG8oiP0Mi1ZkH9mXi6X2ezpd0pjanoQ3w2lMil1
+         cI8ezs3CHvOXEfVffoOJ7Zs/j+B/8g1rO+WDRoKo44TdfNvPoPjAo6oRrR/MkDeUTrzD
+         DBgFz77QKKrQ9i58Upzn0OPM2NR6AkCh0Z6WDttECe/aEThDDeEdVdv/TBp0RmcW2w2H
+         3ocXa0KsGBy7l3adMeBuwmk8AIa/bugIByTXMk49sIvqHpcMRXLZHvoiZJL10j6MLFJV
+         do+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775106698; x=1775711498;
+        d=1e100.net; s=20251104; t=1775106706; x=1775711506;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=/Si7lJja3/soJ+Jd1KnXzL4PE+2kViiucWrKezlO17A=;
-        b=UFPVLcNZFZxSp/TmNScyIIzzeQezXjUBGsh02KaXzW7E5kWShLU5GAP3pU+WbItYTt
-         4SzkkkAdJhbgqlHjbeBJYZdRVdj0ZKVFQu45cdwk2Ugb7RH58uBZOepMFKGtg/iW2H2M
-         B0bKNj/Vg5q56gkrEqHhnBjSP83Dnvf5gprwBmhQPtPRVvZ/j0ULVpPKEHCYCvrnp+KN
-         cee8cViDVcesVDjyJE0ORuXH6rRbMBl0t+kiRmCu/bjh2hhtPTRDitXE8g9uSJ0tKIX/
-         Xc4QO1VUB2yBcEV7Iv2zg+TwlH0U6rw6FxEkxsGU6+jTyOdkraWY8aHcFsF/SR1m8K9Q
-         3D7g==
-X-Gm-Message-State: AOJu0YwOP+ASWfnmTNsrMDIr+Wht/8OY6wfq7cG7VRKgzmdOWVrRXYqP
-	CViOfKYD+p0Zp9Esqvv/snyPvec4+8E478EuwST5mNXmbOBwnS4405u3
-X-Gm-Gg: AeBDievzyVtt/rhgco0O7hnXRvtatQ+Z3baDtyla6Z3tyqIROCeGjud3rf7+6JRcSdZ
-	CRpaI+uO9s8d8fMEpcdbjcmzokDfkSHttkgaM7xXno1vAW48GovMctmC/RcdLI9wQGBbesNDpdh
-	StLQbuB64Zrcx7m53jQPvpcHyG+axXqfZ/qAH/YALXZLaoGRKdTyitJrKbYhSKzgA+OnNs0Xg5V
-	u9E2VPoj5r1vodvpN0eNN+pMZYLWAXR3injqzIddkcgVavLaHHE7GMPQYSGg9Dxy8RX/O7M+b/M
-	c9P5KjtsMcFIh+OZ63pNlSleh6WZjMBBvPj+xC3w2uvqeLsTg3oHhbCQ9J/zEhH5IUjeZX+464T
-	Cx+zF3DVshs00N6+ynzictxTlT6ea1FCC3gc3INnyIP2AdXFM8PCnl+DxvQpkF42G1mgbpFP8QC
-	tpXIjPJXvzIAP4SlJUwq32Ud1OyDPan4YHtR2hov7/SjeMLjRQU/mLmkcaASOlSh2J
-X-Received: by 2002:a17:903:22c2:b0:2ae:cd8c:bd04 with SMTP id d9443c01a7336-2b277da7f8fmr11329975ad.10.1775106698113;
-        Wed, 01 Apr 2026 22:11:38 -0700 (PDT)
+        bh=qblWufffu4CarmNyKrjU8dBtzc7CIBINQdO/rvlz4/s=;
+        b=IlpJVKzMEN128tIaypDcpjljiddQ8gMmK7V9xw09zBjDvAB9bT7LiJXDW06xLl3/iC
+         gArCM/U0Y8kCnqGaFgfv2SNHYe9xn0w9pHK4POzRo1cgzXzvcBvXYb6IxKa3O1s4IZR6
+         7kMc0LaPTRx3hssRrJVMphxg7hzewwwMI2b6DUnw/EY41YulURhAIL7X4qHgnj84A2Qu
+         gB6CSaL6pYFaIWVnijL9cBStsF3OSgxrYdv0+7FHuEeNCPlUdehVZriye85e/tDwIv9j
+         DYJnQT7GCdHm4feEy2jK83fDFpxNlSaTz6hvrKRXWdFBlJWJ5z1uj3y+gmwRjkrIYP//
+         +pGQ==
+X-Gm-Message-State: AOJu0Yz1+vAfJS251bIm+iMTT6oN/Ae/pZNVld7JIZlBXtMyvWyc5xJX
+	e/04OGqwr5XiZCT33p8NzQqQb3jxgSpf4VAyeezhnAHEwr7ZAkNbsdwlgB19MU/lQZc=
+X-Gm-Gg: AeBDievVZdEdBoMgxBQ16IFNjLmWN9mINNt8zqFfzzYfUi3YWukaoFBioYlOipbdoLn
+	/f/j/ZFkgtRbc+IcBFuuxuTljUINXzUa32Q8o3RfhMtOGyhW1pb7y8qoAPpGys3X47xjkbTIDDj
+	9HsVPOeRB4fXdyx8Ah/9950KuVl+/XGdA8YRGXs36AvR8uV/IKb8oN6+jDIWL0uLyd5ACo8HA58
+	CbAZWOjb4Z703N+4+8pmFq5dPmJjDwTMwhGAXvatxkWFuc7OZULwvMBNjRNVE4/ahY7ejSX+PHC
+	pXwavLlQjx9K6s11Y6Zr7nXAOvdckgnYJa9N9S5JxqYSqhF5gui1roYQXCH4NiPlO2oWhxGf7DS
+	9RV3/cyUDdQYB6ShQgekyDec7xjLXvVa+DiuKtwOv+ApXeidWhLbFkstoaQC+4KKL0im4Tt6dzb
+	1apfE1AOWU/LfscOCTORHBZZ0Xp0bxw1XoxJ5JyiJZxoSJ1R4jhaFWdqA0TlFhu9r5RmfsT/PMb
+	+Q=
+X-Received: by 2002:a17:902:ce0a:b0:2ab:230d:2d96 with SMTP id d9443c01a7336-2b2758a1137mr18240395ad.11.1775106706479;
+        Wed, 01 Apr 2026 22:11:46 -0700 (PDT)
 Received: from koskos-Default-string.tail0f993c.ts.net ([2409:11:3cc0:3700:a459:5c89:eaa2:f305])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b27472d54bsm14652405ad.1.2026.04.01.22.11.36
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b27472d54bsm14652405ad.1.2026.04.01.22.11.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 22:11:37 -0700 (PDT)
+        Wed, 01 Apr 2026 22:11:46 -0700 (PDT)
 From: Kosugi Souta <k.souta0926@gmail.com>
 To: gregkh@linuxfoundation.org,
 	johan@kernel.org,
 	elder@kernel.org
-Date: Thu,  2 Apr 2026 14:11:22 +0900
-Message-ID: <20260402051124.101197-1-k.souta0926@gmail.com>
+Date: Thu,  2 Apr 2026 14:11:23 +0900
+Message-ID: <20260402051124.101197-2-k.souta0926@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026033032-rethink-jogging-f3b0@gregkh>
+In-Reply-To: <20260402051124.101197-1-k.souta0926@gmail.com>
 References: <2026033032-rethink-jogging-f3b0@gregkh>
+ <20260402051124.101197-1-k.souta0926@gmail.com>
 MIME-Version: 1.0
 X-Spamd-Bar: --
 X-MailFrom: k.souta0926@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: CWTNUDAQKTTAA63I26TWTKMWDQI6TZPL
-X-Message-ID-Hash: CWTNUDAQKTTAA63I26TWTKMWDQI6TZPL
+Message-ID-Hash: MHGRRYYKHAGXLETHI3UPSGVIHEOD46HV
+X-Message-ID-Hash: MHGRRYYKHAGXLETHI3UPSGVIHEOD46HV
 X-Mailman-Approved-At: Sat, 04 Apr 2026 09:40:25 +0000
 CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, k.souta0926@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v2 0/2] staging: greybus: fix checkpatch style issues
+Subject: [greybus-dev] [PATCH v2 1/2] staging: greybus: fix unsigned long long type warning
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/CWTNUDAQKTTAA63I26TWTKMWDQI6TZPL/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/MHGRRYYKHAGXLETHI3UPSGVIHEOD46HV/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -95,7 +97,7 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	DATE_IN_PAST(1.00)[52];
-	R_SPF_ALLOW(-0.20)[+mx];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	MAILLIST(-0.20)[mailman];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
@@ -109,7 +111,7 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	NEURAL_HAM(-0.00)[-0.791];
+	NEURAL_HAM(-0.00)[-0.816];
 	TO_DN_NONE(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[ksouta0926@gmail.com,greybus-dev-bounces@lists.linaro.org];
 	DKIM_TRACE(0.00)[gmail.com:-];
@@ -119,24 +121,28 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[]
-X-Rspamd-Queue-Id: 0CE9A39A8BD
+X-Rspamd-Queue-Id: 5C24C39A8C7
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This series splits the previous single patch into two separate patches
-to address style issues in authenticate.c, as requested by Greg KH.
+Signed-off-by: Kosugi Souta <k.souta0926@gmail.com>
+---
+ drivers/staging/greybus/Documentation/firmware/authenticate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v2:
-- Split the single patch into two separate commits: one for type
-  warnings and one for alignment checks.
-
-Kosugi (2):
-  staging: greybus: fix unsigned long long type warning
-  staging: greybus: fix alignment to match open parenthesis
-
- drivers/staging/greybus/Documentation/firmware/authenticate.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/staging/greybus/Documentation/firmware/authenticate.c b/drivers/staging/greybus/Documentation/firmware/authenticate.c
+index 3d2c6f88a138a..0ef88b7d24de0 100644
+--- a/drivers/staging/greybus/Documentation/firmware/authenticate.c
++++ b/drivers/staging/greybus/Documentation/firmware/authenticate.c
+@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
+ 		goto close_fd;
+ 	}
+ 
+-	printf("UID received: 0x%llx\n", *(unsigned long long int *)(uid.uid));
++	printf("UID received: 0x%llx\n", *(unsigned long long *)(uid.uid));
+ 
+ 	/* Get certificate */
+ 	printf("Get IMS certificate\n");
 -- 
 2.43.0
 
