@@ -2,56 +2,87 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YJCMAHGOy2kuIwYAu9opvQ
+	id YFYdIo3c0GniBQcAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Tue, 31 Mar 2026 11:05:53 +0200
+	for <lists+greybus-dev@lfdr.de>; Sat, 04 Apr 2026 11:40:29 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FDDD366AFB
-	for <lists+greybus-dev@lfdr.de>; Tue, 31 Mar 2026 11:05:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CE9A39A8BD
+	for <lists+greybus-dev@lfdr.de>; Sat, 04 Apr 2026 11:40:29 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 32C9C401D3
-	for <lists+greybus-dev@lfdr.de>; Tue, 31 Mar 2026 09:05:51 +0000 (UTC)
-Received: from yug-MacBookPro.lan (unknown [89.81.10.116])
-	by lists.linaro.org (Postfix) with ESMTPS id B37B33F802
-	for <greybus-dev@lists.linaro.org>; Mon, 30 Mar 2026 19:41:22 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id D006C3F98A
+	for <lists+greybus-dev@lfdr.de>; Sat,  4 Apr 2026 09:40:27 +0000 (UTC)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	by lists.linaro.org (Postfix) with ESMTPS id 16E2F3F8FE
+	for <greybus-dev@lists.linaro.org>; Thu,  2 Apr 2026 05:11:39 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=none;
-	dmarc=fail reason="No valid SPF, No valid DKIM" header.from=gmail.com (policy=none);
-	spf=softfail (lists.linaro.org: 89.81.10.116 is neither permitted nor denied by domain of yug@yug.be) smtp.mailfrom=yug@yug.be
-Received: by yug-MacBookPro.lan (Postfix, from userid 1000)
-	id B0BC1A87721; Mon, 30 Mar 2026 21:41:21 +0200 (CEST)
-From: Yug Merabtene <yug.merabtene@gmail.com>
-To: andy@kernel.org,
-	gregkh@linuxfoundation.org,
-	hvaibhav.linux@gmail.com,
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=gThvJ12Q;
+	dmarc=pass (policy=none) header.from=gmail.com;
+	spf=pass (lists.linaro.org: domain of k.souta0926@gmail.com designates 209.85.216.47 as permitted sender) smtp.mailfrom=k.souta0926@gmail.com
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3585ec417f6so610552a91.1
+        for <greybus-dev@lists.linaro.org>; Wed, 01 Apr 2026 22:11:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775106698; x=1775711498; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/Si7lJja3/soJ+Jd1KnXzL4PE+2kViiucWrKezlO17A=;
+        b=gThvJ12QCY6JZ/nauGWrBAN/MCETTMyWKKaesiMnCyQs09Vj37yNrMBic6PwmhYlTF
+         f5Qg5oERgJNvDm5mpP0DCMvjIc3BWgMBBmZjgfBsMdqGmVIFcajXO/VLZufKcKMOaL/0
+         oLNcRQpOt1hRPPXBeSzdy4/+GYWMv2z9H4iFUBctTqqyv1tVFDC+CpuG3rGIoIFTlv5s
+         EgxthJJhttkKgVi0xaYZow124B8wJmNLq2BQas10dULoQrt7gZUr1ZNOr63EC2HqVOau
+         BpV6x7p9ToOfrV1KpKhllaxuagnSoFUwoz3L14hbG3HqNsVEOGK0fxbdXLFab4Ud/M7O
+         kqDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775106698; x=1775711498;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=/Si7lJja3/soJ+Jd1KnXzL4PE+2kViiucWrKezlO17A=;
+        b=UFPVLcNZFZxSp/TmNScyIIzzeQezXjUBGsh02KaXzW7E5kWShLU5GAP3pU+WbItYTt
+         4SzkkkAdJhbgqlHjbeBJYZdRVdj0ZKVFQu45cdwk2Ugb7RH58uBZOepMFKGtg/iW2H2M
+         B0bKNj/Vg5q56gkrEqHhnBjSP83Dnvf5gprwBmhQPtPRVvZ/j0ULVpPKEHCYCvrnp+KN
+         cee8cViDVcesVDjyJE0ORuXH6rRbMBl0t+kiRmCu/bjh2hhtPTRDitXE8g9uSJ0tKIX/
+         Xc4QO1VUB2yBcEV7Iv2zg+TwlH0U6rw6FxEkxsGU6+jTyOdkraWY8aHcFsF/SR1m8K9Q
+         3D7g==
+X-Gm-Message-State: AOJu0YwOP+ASWfnmTNsrMDIr+Wht/8OY6wfq7cG7VRKgzmdOWVrRXYqP
+	CViOfKYD+p0Zp9Esqvv/snyPvec4+8E478EuwST5mNXmbOBwnS4405u3
+X-Gm-Gg: AeBDievzyVtt/rhgco0O7hnXRvtatQ+Z3baDtyla6Z3tyqIROCeGjud3rf7+6JRcSdZ
+	CRpaI+uO9s8d8fMEpcdbjcmzokDfkSHttkgaM7xXno1vAW48GovMctmC/RcdLI9wQGBbesNDpdh
+	StLQbuB64Zrcx7m53jQPvpcHyG+axXqfZ/qAH/YALXZLaoGRKdTyitJrKbYhSKzgA+OnNs0Xg5V
+	u9E2VPoj5r1vodvpN0eNN+pMZYLWAXR3injqzIddkcgVavLaHHE7GMPQYSGg9Dxy8RX/O7M+b/M
+	c9P5KjtsMcFIh+OZ63pNlSleh6WZjMBBvPj+xC3w2uvqeLsTg3oHhbCQ9J/zEhH5IUjeZX+464T
+	Cx+zF3DVshs00N6+ynzictxTlT6ea1FCC3gc3INnyIP2AdXFM8PCnl+DxvQpkF42G1mgbpFP8QC
+	tpXIjPJXvzIAP4SlJUwq32Ud1OyDPan4YHtR2hov7/SjeMLjRQU/mLmkcaASOlSh2J
+X-Received: by 2002:a17:903:22c2:b0:2ae:cd8c:bd04 with SMTP id d9443c01a7336-2b277da7f8fmr11329975ad.10.1775106698113;
+        Wed, 01 Apr 2026 22:11:38 -0700 (PDT)
+Received: from koskos-Default-string.tail0f993c.ts.net ([2409:11:3cc0:3700:a459:5c89:eaa2:f305])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b27472d54bsm14652405ad.1.2026.04.01.22.11.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Apr 2026 22:11:37 -0700 (PDT)
+From: Kosugi Souta <k.souta0926@gmail.com>
+To: gregkh@linuxfoundation.org,
 	johan@kernel.org,
-	elder@kernel.org,
-	vaibhav.sr@gmail.com,
-	mgreer@animalcreek.com,
-	rmfrfs@gmail.com,
-	pure.logic@nexus-software.ie
-Date: Mon, 30 Mar 2026 21:41:21 +0200
-Message-Id: <20260330194121.987920-3-yug.merabtene@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260330194121.987920-1-yug.merabtene@gmail.com>
-References: <20260329184124.775392-1-yug.merabtene@gmail.com>
- <20260330194121.987920-1-yug.merabtene@gmail.com>
+	elder@kernel.org
+Date: Thu,  2 Apr 2026 14:11:22 +0900
+Message-ID: <20260402051124.101197-1-k.souta0926@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026033032-rethink-jogging-f3b0@gregkh>
+References: <2026033032-rethink-jogging-f3b0@gregkh>
 MIME-Version: 1.0
-X-Spamd-Bar: ++
-X-Spam-Level: **
-X-MailFrom: yug@yug.be
+X-Spamd-Bar: --
+X-MailFrom: k.souta0926@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: Q24V4C4OF2DYT3MGYOEAG3GESC3VXQHC
-X-Message-ID-Hash: Q24V4C4OF2DYT3MGYOEAG3GESC3VXQHC
-X-Mailman-Approved-At: Tue, 31 Mar 2026 09:05:48 +0000
-CC: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Yug Merabtene <yug.merabtene@gmail.com>
+Message-ID-Hash: CWTNUDAQKTTAA63I26TWTKMWDQI6TZPL
+X-Message-ID-Hash: CWTNUDAQKTTAA63I26TWTKMWDQI6TZPL
+X-Mailman-Approved-At: Sat, 04 Apr 2026 09:40:25 +0000
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, k.souta0926@gmail.com
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v3 2/2] staging: greybus: switch sysfs show paths to sysfs_emit()
+Subject: [greybus-dev] [PATCH v2 0/2] staging: greybus: fix checkpatch style issues
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/Q24V4C4OF2DYT3MGYOEAG3GESC3VXQHC/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/CWTNUDAQKTTAA63I26TWTKMWDQI6TZPL/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -60,266 +91,54 @@ List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [1.09 / 15.00];
+X-Spamd-Result: default: False [3.09 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
+	DATE_IN_PAST(1.00)[52];
 	R_SPF_ALLOW(-0.20)[+mx];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed), No valid DKIM,none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[kernel.org,linuxfoundation.org,gmail.com,animalcreek.com,nexus-software.ie];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.983];
-	FROM_NEQ_ENVFROM(0.00)[yugmerabtene@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	FREEMAIL_CC(0.00)[lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,lists.linaro.org,lists.linux.dev,gmail.com];
-	R_DKIM_NA(0.00)[];
-	TAGGED_RCPT(0.00)[greybus-dev];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	NEURAL_HAM(-0.00)[-0.791];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ksouta0926@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[greybus-dev];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns]
-X-Rspamd-Queue-Id: 7FDDD366AFB
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[]
+X-Rspamd-Queue-Id: 0CE9A39A8BD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Several Greybus sysfs show() callbacks still format output with
+This series splits the previous single patch into two separate patches
+to address style issues in authenticate.c, as requested by Greg KH.
 
-sprintf().
+Changes in v2:
+- Split the single patch into two separate commits: one for type
+  warnings and one for alignment checks.
 
-Convert them to sysfs_emit(), which is intended for sysfs buffers
+Kosugi (2):
+  staging: greybus: fix unsigned long long type warning
+  staging: greybus: fix alignment to match open parenthesis
 
-and avoids unchecked writes. Also add missing trailing newlines to
+ drivers/staging/greybus/Documentation/firmware/authenticate.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-audio manager attributes so values follow the one-value-per-line
-
-sysfs convention.
-
-Signed-off-by: Yug Merabtene <yug.merabtene@gmail.com>
----
- drivers/staging/greybus/arche-apb-ctrl.c       | 12 ++++++------
- drivers/staging/greybus/arche-platform.c       | 10 +++++-----
- drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
- drivers/staging/greybus/gbphy.c                |  2 +-
- drivers/staging/greybus/light.c                |  4 ++--
- drivers/staging/greybus/loopback.c             | 14 +++++++-------
- 6 files changed, 27 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/staging/greybus/arche-apb-ctrl.c b/drivers/staging/greybus/arche-apb-ctrl.c
-index 33f26a65f0cc..10effbe07a2a 100644
---- a/drivers/staging/greybus/arche-apb-ctrl.c
-+++ b/drivers/staging/greybus/arche-apb-ctrl.c
-@@ -300,16 +300,16 @@ static ssize_t state_show(struct device *dev,
- 
- 	switch (apb->state) {
- 	case ARCHE_PLATFORM_STATE_OFF:
--		return sprintf(buf, "off%s\n",
--				apb->init_disabled ? ",disabled" : "");
-+		return sysfs_emit(buf, "off%s\n",
-+				  apb->init_disabled ? ",disabled" : "");
- 	case ARCHE_PLATFORM_STATE_ACTIVE:
--		return sprintf(buf, "active\n");
-+		return sysfs_emit(buf, "active\n");
- 	case ARCHE_PLATFORM_STATE_STANDBY:
--		return sprintf(buf, "standby\n");
-+		return sysfs_emit(buf, "standby\n");
- 	case ARCHE_PLATFORM_STATE_FW_FLASHING:
--		return sprintf(buf, "fw_flashing\n");
-+		return sysfs_emit(buf, "fw_flashing\n");
- 	default:
--		return sprintf(buf, "unknown state\n");
-+		return sysfs_emit(buf, "unknown state\n");
- 	}
- }
- 
-diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
-index f669a7e2eb11..de5de59ea8ab 100644
---- a/drivers/staging/greybus/arche-platform.c
-+++ b/drivers/staging/greybus/arche-platform.c
-@@ -374,15 +374,15 @@ static ssize_t state_show(struct device *dev,
- 
- 	switch (arche_pdata->state) {
- 	case ARCHE_PLATFORM_STATE_OFF:
--		return sprintf(buf, "off\n");
-+		return sysfs_emit(buf, "off\n");
- 	case ARCHE_PLATFORM_STATE_ACTIVE:
--		return sprintf(buf, "active\n");
-+		return sysfs_emit(buf, "active\n");
- 	case ARCHE_PLATFORM_STATE_STANDBY:
--		return sprintf(buf, "standby\n");
-+		return sysfs_emit(buf, "standby\n");
- 	case ARCHE_PLATFORM_STATE_FW_FLASHING:
--		return sprintf(buf, "fw_flashing\n");
-+		return sysfs_emit(buf, "fw_flashing\n");
- 	default:
--		return sprintf(buf, "unknown state\n");
-+		return sysfs_emit(buf, "unknown state\n");
- 	}
- }
- 
-diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
-index e87b82ca6d8a..f22ee73eb8d2 100644
---- a/drivers/staging/greybus/audio_manager_module.c
-+++ b/drivers/staging/greybus/audio_manager_module.c
-@@ -76,7 +76,7 @@ static void gb_audio_module_release(struct kobject *kobj)
- static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
- 					 struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sprintf(buf, "%s", module->desc.name);
-+	return sysfs_emit(buf, "%s\n", module->desc.name);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
-@@ -85,7 +85,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
- static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
- 					struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sprintf(buf, "%d", module->desc.vid);
-+	return sysfs_emit(buf, "%d\n", module->desc.vid);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
-@@ -94,7 +94,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
- static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
- 					struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sprintf(buf, "%d", module->desc.pid);
-+	return sysfs_emit(buf, "%d\n", module->desc.pid);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
-@@ -104,7 +104,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
- 					    struct gb_audio_manager_module_attribute *attr,
- 					    char *buf)
- {
--	return sprintf(buf, "%d", module->desc.intf_id);
-+	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
- }
- 
- static struct gb_audio_manager_module_attribute
-@@ -115,7 +115,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
- 					       struct gb_audio_manager_module_attribute *attr,
- 					       char *buf)
- {
--	return sprintf(buf, "0x%X", module->desc.ip_devices);
-+	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
- }
- 
- static struct gb_audio_manager_module_attribute
-@@ -126,7 +126,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
- 					       struct gb_audio_manager_module_attribute *attr,
- 					       char *buf)
- {
--	return sprintf(buf, "0x%X", module->desc.op_devices);
-+	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
- }
- 
- static struct gb_audio_manager_module_attribute
-diff --git a/drivers/staging/greybus/gbphy.c b/drivers/staging/greybus/gbphy.c
-index bdb0f5164a6f..bb9a5b538e6e 100644
---- a/drivers/staging/greybus/gbphy.c
-+++ b/drivers/staging/greybus/gbphy.c
-@@ -31,7 +31,7 @@ static ssize_t protocol_id_show(struct device *dev,
- {
- 	struct gbphy_device *gbphy_dev = to_gbphy_dev(dev);
- 
--	return sprintf(buf, "0x%02x\n", gbphy_dev->cport_desc->protocol_id);
-+	return sysfs_emit(buf, "0x%02x\n", gbphy_dev->cport_desc->protocol_id);
- }
- static DEVICE_ATTR_RO(protocol_id);
- 
-diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
-index cab02b5da867..2689f9a7524a 100644
---- a/drivers/staging/greybus/light.c
-+++ b/drivers/staging/greybus/light.c
-@@ -173,7 +173,7 @@ static ssize_t fade_##__dir##_show(struct device *dev,			\
- 	struct led_classdev *cdev = dev_get_drvdata(dev);		\
- 	struct gb_channel *channel = get_channel_from_cdev(cdev);	\
- 									\
--	return sprintf(buf, "%u\n", channel->fade_##__dir);		\
-+	return sysfs_emit(buf, "%u\n", channel->fade_##__dir);		\
- }									\
- 									\
- static ssize_t fade_##__dir##_store(struct device *dev,			\
-@@ -220,7 +220,7 @@ static ssize_t color_show(struct device *dev, struct device_attribute *attr,
- 	struct led_classdev *cdev = dev_get_drvdata(dev);
- 	struct gb_channel *channel = get_channel_from_cdev(cdev);
- 
--	return sprintf(buf, "0x%08x\n", channel->color);
-+	return sysfs_emit(buf, "0x%08x\n", channel->color);
- }
- 
- static ssize_t color_store(struct device *dev, struct device_attribute *attr,
-diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
-index aa9c73cb0ae5..3a502d89d19f 100644
---- a/drivers/staging/greybus/loopback.c
-+++ b/drivers/staging/greybus/loopback.c
-@@ -125,7 +125,7 @@ static ssize_t field##_show(struct device *dev,			\
- 			    char *buf)					\
- {									\
- 	struct gb_loopback *gb = dev_get_drvdata(dev);			\
--	return sprintf(buf, "%u\n", gb->field);			\
-+	return sysfs_emit(buf, "%u\n", gb->field);			\
- }									\
- static DEVICE_ATTR_RO(field)
- 
-@@ -137,8 +137,8 @@ static ssize_t name##_##field##_show(struct device *dev,	\
- 	struct gb_loopback *gb = dev_get_drvdata(dev);			\
- 	/* Report 0 for min and max if no transfer succeeded */		\
- 	if (!gb->requests_completed)					\
--		return sprintf(buf, "0\n");				\
--	return sprintf(buf, "%" #type "\n", gb->name.field);		\
-+		return sysfs_emit(buf, "0\n");				\
-+	return sysfs_emit(buf, "%" #type "\n", gb->name.field);		\
- }									\
- static DEVICE_ATTR_RO(name##_##field)
- 
-@@ -158,7 +158,7 @@ static ssize_t name##_avg_show(struct device *dev,		\
- 	rem = do_div(avg, count);					\
- 	rem *= 1000000;							\
- 	do_div(rem, count);						\
--	return sprintf(buf, "%llu.%06u\n", avg, (u32)rem);		\
-+	return sysfs_emit(buf, "%llu.%06u\n", avg, (u32)rem);		\
- }									\
- static DEVICE_ATTR_RO(name##_avg)
- 
-@@ -173,7 +173,7 @@ static ssize_t field##_show(struct device *dev,				\
- 			    char *buf)					\
- {									\
- 	struct gb_loopback *gb = dev_get_drvdata(dev);			\
--	return sprintf(buf, "%" #type "\n", gb->field);			\
-+	return sysfs_emit(buf, "%" #type "\n", gb->field);			\
- }									\
- static ssize_t field##_store(struct device *dev,			\
- 			    struct device_attribute *attr,		\
-@@ -199,7 +199,7 @@ static ssize_t field##_show(struct device *dev,		\
- 			    char *buf)					\
- {									\
- 	struct gb_loopback *gb = dev_get_drvdata(dev);			\
--	return sprintf(buf, "%u\n", gb->field);				\
-+	return sysfs_emit(buf, "%u\n", gb->field);				\
- }									\
- static DEVICE_ATTR_RO(field)
- 
-@@ -209,7 +209,7 @@ static ssize_t field##_show(struct device *dev,				\
- 			    char *buf)					\
- {									\
- 	struct gb_loopback *gb = dev_get_drvdata(dev);			\
--	return sprintf(buf, "%" #type "\n", gb->field);			\
-+	return sysfs_emit(buf, "%" #type "\n", gb->field);			\
- }									\
- static ssize_t field##_store(struct device *dev,			\
- 			    struct device_attribute *attr,		\
 -- 
-2.34.1
+2.43.0
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
