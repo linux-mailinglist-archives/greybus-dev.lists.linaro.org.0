@@ -2,306 +2,187 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CP1zMcBc32m5SAAAu9opvQ
+	id mHU5IkT+4GkQoQAAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Wed, 15 Apr 2026 11:39:12 +0200
+	for <lists+greybus-dev@lfdr.de>; Thu, 16 Apr 2026 17:20:36 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id A76D3402B31
-	for <lists+greybus-dev@lfdr.de>; Wed, 15 Apr 2026 11:39:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1FD24108DB
+	for <lists+greybus-dev@lfdr.de>; Thu, 16 Apr 2026 17:20:35 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id B0C6E404D2
-	for <lists+greybus-dev@lfdr.de>; Wed, 15 Apr 2026 09:39:11 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	by lists.linaro.org (Postfix) with ESMTPS id 002D3404C9
-	for <greybus-dev@lists.linaro.org>; Wed, 15 Apr 2026 09:39:04 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 62200409A5
+	for <lists+greybus-dev@lfdr.de>; Thu, 16 Apr 2026 15:20:34 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net [217.70.183.197])
+	by lists.linaro.org (Postfix) with ESMTPS id 8316B3F7D9
+	for <greybus-dev@lists.linaro.org>; Thu, 16 Apr 2026 09:32:17 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=kernel.org header.s=k20201202 header.b=c0aN0MKJ;
-	dmarc=pass (policy=quarantine) header.from=kernel.org;
-	spf=pass (lists.linaro.org: domain of bentiss@kernel.org designates 172.234.252.31 as permitted sender) smtp.mailfrom=bentiss@kernel.org
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 7BBB940AC3;
-	Wed, 15 Apr 2026 09:39:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B43DC2BCB5;
-	Wed, 15 Apr 2026 09:39:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776245943;
-	bh=Pa/2L7eIdmrjdbfKI3MgdidyJjVklBaEyUx380P8wuQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=c0aN0MKJyBm9bTh6R4TV4N2SEYc7mLxtaBzqWedRdWwfUe1tU2kMwH+QaWFYaBYVV
-	 KlCd4YsGAbO5YrrJ5xRKCQtEZYrFcrMXAT7QgD/JSGlRNUCVRc7z7BsRuLr9M01X/e
-	 Ksyy/LlZRxjkr1usvyBIR6xEQ1DyxJ3W8cdAKi1RahJecm9n+xXffDptiw6xaw3c1V
-	 zzCwT8hI6TUuJRXX4vj2QXsrZFPn3MQBqYikeo6T6L9sg6ptFBbFQXfJ1fQksw2/rJ
-	 h1EYlQ5b3lS25HJyMZqwdmn0kgitQBDKge5BoDLMnsI0seFDSm1dEoWVPPbkOcvbsR
-	 3qaRoVOiiaizw==
-From: Benjamin Tissoires <bentiss@kernel.org>
-Date: Wed, 15 Apr 2026 11:38:17 +0200
-MIME-Version: 1.0
-Message-Id: <20260415-wip-fix-core-v1-4-ed3c4c823175@kernel.org>
+	dkim=none;
+	dmarc=none;
+	spf=pass (lists.linaro.org: domain of hadess@hadess.net designates 217.70.183.197 as permitted sender) smtp.mailfrom=hadess@hadess.net
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 7DB5F3EBD5;
+	Thu, 16 Apr 2026 09:32:14 +0000 (UTC)
+Message-ID: <8fedad8e9caecd379f2296562cd6abd37f7cee46.camel@hadess.net>
+From: Bastien Nocera <hadess@hadess.net>
+To: Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+  Filipe =?ISO-8859-1?Q?La=EDns?=	 <lains@riseup.net>, Ping Cheng
+ <ping.cheng@wacom.com>, Jason Gerecke	 <jason.gerecke@wacom.com>, Viresh
+ Kumar <vireshk@kernel.org>, Johan Hovold	 <johan@kernel.org>, Alex Elder
+ <elder@kernel.org>, Greg Kroah-Hartman	 <gregkh@linuxfoundation.org>, Lee
+ Jones <lee@kernel.org>
+Date: Thu, 16 Apr 2026 11:32:14 +0200
+In-Reply-To: <20260415-wip-fix-core-v1-2-ed3c4c823175@kernel.org>
 References: <20260415-wip-fix-core-v1-0-ed3c4c823175@kernel.org>
-In-Reply-To: <20260415-wip-fix-core-v1-0-ed3c4c823175@kernel.org>
-To: Jiri Kosina <jikos@kernel.org>,
- =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>,
- Bastien Nocera <hadess@hadess.net>, Ping Cheng <ping.cheng@wacom.com>,
- Jason Gerecke <jason.gerecke@wacom.com>, Viresh Kumar <vireshk@kernel.org>,
- Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lee Jones <lee@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776245925; l=6343;
- i=bentiss@kernel.org; s=20230215; h=from:subject:message-id;
- bh=Pa/2L7eIdmrjdbfKI3MgdidyJjVklBaEyUx380P8wuQ=;
- b=vhEu+X9T66hBNoOYo7P05gF1lMEmsh9t5aU8x+zJIuPvy9dGXF9cn/pcOPluf0mPx1Ul5LioQ
- SLmszMqNYXgDDA9cGsq1vxSJqCI1Kf+daEzRjJYf5wfIfoypihzpRoZ
-X-Developer-Key: i=bentiss@kernel.org; a=ed25519;
- pk=7D1DyAVh6ajCkuUTudt/chMuXWIJHlv2qCsRkIizvFw=
-X-Spamd-Bar: -----
-Message-ID-Hash: 7GERCRPNT5BMEZN4NAP77VCLMUOFXUZO
-X-Message-ID-Hash: 7GERCRPNT5BMEZN4NAP77VCLMUOFXUZO
-X-MailFrom: bentiss@kernel.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, Benjamin Tissoires <bentiss@kernel.org>
+	 <20260415-wip-fix-core-v1-2-ed3c4c823175@kernel.org>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
+X-GND-Sasl: hadess@hadess.net
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTEqBTRK5tvLZzwWSgB/1iJazKNDFIG9byJ8UVkzpHcdH0usiWKsROoc8Q2CRru0qWFQORNAF/Tb04YmWqG32X+x5nBDVo/u8NkoEzWCUHzK2un2k1fYD5mKn6XzX6mYnfVOHNLU9m0W90nOhD0PA3yoG4nrzzlK0PtSmD82ncFPd7HIZGaxRdIIlljDzx2aitBkm2FkdYbs6FVpZK/Lmx7w8ejEhx3SbTi0JL0QI1Oi4JbCJXQlRtjvcZzLkoGGGZYoPjaP3qXrxOcWXyn4LQjwvCgp+DR30ABShmHhs5abvDEv2veZG1z1PX4KhVg+iKO5vRt3Yj82Fq/dJ/ucBHNNJ68t643Vg0eFUdAXvO0oGI4TRUIgFg1DAIW4xdq89pBlAjnI4UEWBs/UBJk2uMQ3ksqBBmey/z0Jm8GpMvkXHf4xWwS0HnfiYFAOWaZiRKnZmegara1pPlzIAgn064hqdZ6OV6qGb54kpGE1/jQpL33e26TrDmyizOFueMs+WI42ez5u6TWtWeZQ1Dg+DBzySQFowwqKiy7TTOlHSUEnP8nPG/xC1HlnctqmDegj4xZs8oB9Iwfk9OVbWc4uVXAl7OzVREg73SnT0vo7Q30SGCGO+1pumgOyVBtpy0oohmiCbfq9lFVMFL0IHZ3Vy+abHKSCboIOrhy5siR8YCE1sA
+X-Spamd-Bar: ---
+X-MailFrom: hadess@hadess.net
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: RVXT3FXVSP2IKI42FR424NYI67TRV67H
+X-Message-ID-Hash: RVXT3FXVSP2IKI42FR424NYI67TRV67H
+X-Mailman-Approved-At: Thu, 16 Apr 2026 14:58:08 +0000
+CC: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, stable@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH 4/4] HID: wacom: use __free(kfree) to clean up temporary buffers
+Subject: [greybus-dev] Re: [PATCH 2/4] HID: core: introduce hid_safe_input_report()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/7GERCRPNT5BMEZN4NAP77VCLMUOFXUZO/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/RVXT3FXVSP2IKI42FR424NYI67TRV67H/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
 List-Post: <mailto:greybus-dev@lists.linaro.org>
 List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [1.99 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
-	MAILLIST(-0.20)[mailman];
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+X-Spamd-Result: default: False [-0.41 / 15.00];
 	R_SPF_ALLOW(-0.20)[+mx:c];
+	MAILLIST(-0.20)[mailman];
+	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
+	DMARC_NA(0.00)[hadess.net];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_HAS_DN(0.00)[];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[16];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
+	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.912];
-	FROM_NEQ_ENVFROM(0.00)[bentiss@kernel.org,greybus-dev-bounces@lists.linaro.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_NEQ_ENVFROM(0.00)[hadess@hadess.net,greybus-dev-bounces@lists.linaro.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	R_DKIM_NA(0.00)[];
+	TAGGED_RCPT(0.00)[greybus-dev];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[greybus-dev];
-	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email]
-X-Rspamd-Queue-Id: A76D3402B31
+	DBL_BLOCKED_OPENRESOLVER(0.00)[hadess.net:mid,lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email]
+X-Rspamd-Queue-Id: B1FD24108DB
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This simplifies error handling and protects against memory leaks.
-
-Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
----
- drivers/hid/wacom_sys.c | 40 +++++++++++++---------------------------
- 1 file changed, 13 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-index a32320b351e3..adb31f54e524 100644
---- a/drivers/hid/wacom_sys.c
-+++ b/drivers/hid/wacom_sys.c
-@@ -70,11 +70,10 @@ static void wacom_wac_queue_flush(struct hid_device *hdev,
- {
- 	while (!kfifo_is_empty(fifo)) {
- 		int size = kfifo_peek_len(fifo);
--		u8 *buf;
- 		unsigned int count;
- 		int err;
- 
--		buf = kzalloc(size, GFP_KERNEL);
-+		u8 *buf __free(kfree) = kzalloc(size, GFP_KERNEL);
- 		if (!buf) {
- 			kfifo_skip(fifo);
- 			continue;
-@@ -87,7 +86,6 @@ static void wacom_wac_queue_flush(struct hid_device *hdev,
- 			// to flush seems reasonable enough, however.
- 			hid_warn(hdev, "%s: removed fifo entry with unexpected size\n",
- 				 __func__);
--			kfree(buf);
- 			continue;
- 		}
- 		err = hid_report_raw_event(hdev, HID_INPUT_REPORT, buf, size, size, false);
-@@ -95,8 +93,6 @@ static void wacom_wac_queue_flush(struct hid_device *hdev,
- 			hid_warn(hdev, "%s: unable to flush event due to error %d\n",
- 				 __func__, err);
- 		}
--
--		kfree(buf);
- 	}
- }
- 
-@@ -311,7 +307,6 @@ static void wacom_feature_mapping(struct hid_device *hdev,
- 	struct wacom_features *features = &wacom->wacom_wac.features;
- 	struct hid_data *hid_data = &wacom->wacom_wac.hid_data;
- 	unsigned int equivalent_usage = wacom_equivalent_usage(usage->hid);
--	u8 *data;
- 	int ret;
- 	u32 n;
- 
-@@ -325,10 +320,11 @@ static void wacom_feature_mapping(struct hid_device *hdev,
- 		/* leave touch_max as is if predefined */
- 		if (!features->touch_max) {
- 			/* read manually */
--			n = hid_report_len(field->report);
--			data = hid_alloc_report_buf(field->report, GFP_KERNEL);
-+			u8 *data __free(kfree) = hid_alloc_report_buf(field->report, GFP_KERNEL);
-+
- 			if (!data)
- 				break;
-+			n = hid_report_len(field->report);
- 			data[0] = field->report->id;
- 			ret = wacom_get_report(hdev, HID_FEATURE_REPORT,
- 					       data, n, WAC_CMD_RETRIES);
-@@ -344,7 +340,6 @@ static void wacom_feature_mapping(struct hid_device *hdev,
- 					 "defaulting to %d\n",
- 					  features->touch_max);
- 			}
--			kfree(data);
- 		}
- 		break;
- 	case HID_DG_INPUTMODE:
-@@ -386,10 +381,11 @@ static void wacom_feature_mapping(struct hid_device *hdev,
- 	case WACOM_HID_WD_OFFSETRIGHT:
- 	case WACOM_HID_WD_OFFSETBOTTOM:
- 		/* read manually */
--		n = hid_report_len(field->report);
--		data = hid_alloc_report_buf(field->report, GFP_KERNEL);
-+		u8 *data __free(kfree) = hid_alloc_report_buf(field->report, GFP_KERNEL);
-+
- 		if (!data)
- 			break;
-+		n = hid_report_len(field->report);
- 		data[0] = field->report->id;
- 		ret = wacom_get_report(hdev, HID_FEATURE_REPORT,
- 					data, n, WAC_CMD_RETRIES);
-@@ -400,7 +396,6 @@ static void wacom_feature_mapping(struct hid_device *hdev,
- 			hid_warn(hdev, "%s: could not retrieve sensor offsets\n",
- 				 __func__);
- 		}
--		kfree(data);
- 		break;
- 	}
- }
-@@ -581,7 +576,6 @@ static int wacom_hid_set_device_mode(struct hid_device *hdev)
- static int wacom_set_device_mode(struct hid_device *hdev,
- 				 struct wacom_wac *wacom_wac)
- {
--	u8 *rep_data;
- 	struct hid_report *r;
- 	struct hid_report_enum *re;
- 	u32 length;
-@@ -595,7 +589,7 @@ static int wacom_set_device_mode(struct hid_device *hdev,
- 	if (!r)
- 		return -EINVAL;
- 
--	rep_data = hid_alloc_report_buf(r, GFP_KERNEL);
-+	u8 *rep_data __free(kfree) = hid_alloc_report_buf(r, GFP_KERNEL);
- 	if (!rep_data)
- 		return -ENOMEM;
- 
-@@ -614,8 +608,6 @@ static int wacom_set_device_mode(struct hid_device *hdev,
- 		 rep_data[1] != wacom_wac->mode_report &&
- 		 limit++ < WAC_MSG_RETRIES);
- 
--	kfree(rep_data);
--
- 	return error < 0 ? error : 0;
- }
- 
-@@ -921,7 +913,6 @@ static int wacom_add_shared_data(struct hid_device *hdev)
- 
- static int wacom_led_control(struct wacom *wacom)
- {
--	unsigned char *buf;
- 	int retval;
- 	unsigned char report_id = WAC_CMD_LED_CONTROL;
- 	int buf_size = 9;
-@@ -940,7 +931,8 @@ static int wacom_led_control(struct wacom *wacom)
- 		report_id = WAC_CMD_WL_INTUOSP2;
- 		buf_size = 51;
- 	}
--	buf = kzalloc(buf_size, GFP_KERNEL);
-+
-+	unsigned char *buf __free(kfree) = kzalloc(buf_size, GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
- 
-@@ -996,7 +988,6 @@ static int wacom_led_control(struct wacom *wacom)
- 
- 	retval = wacom_set_report(wacom->hdev, HID_FEATURE_REPORT, buf, buf_size,
- 				  WAC_CMD_RETRIES);
--	kfree(buf);
- 
- 	return retval;
- }
-@@ -1004,11 +995,10 @@ static int wacom_led_control(struct wacom *wacom)
- static int wacom_led_putimage(struct wacom *wacom, int button_id, u8 xfer_id,
- 		const unsigned len, const void *img)
- {
--	unsigned char *buf;
- 	int i, retval;
- 	const unsigned chunk_len = len / 4; /* 4 chunks are needed to be sent */
- 
--	buf = kzalloc(chunk_len + 3 , GFP_KERNEL);
-+	unsigned char *buf __free(kfree) = kzalloc(chunk_len + 3, GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
- 
-@@ -1018,7 +1008,7 @@ static int wacom_led_putimage(struct wacom *wacom, int button_id, u8 xfer_id,
- 	retval = wacom_set_report(wacom->hdev, HID_FEATURE_REPORT, buf, 2,
- 				  WAC_CMD_RETRIES);
- 	if (retval < 0)
--		goto out;
-+		return retval;
- 
- 	buf[0] = xfer_id;
- 	buf[1] = button_id & 0x07;
-@@ -1038,8 +1028,6 @@ static int wacom_led_putimage(struct wacom *wacom, int button_id, u8 xfer_id,
- 	wacom_set_report(wacom->hdev, HID_FEATURE_REPORT, buf, 2,
- 			 WAC_CMD_RETRIES);
- 
--out:
--	kfree(buf);
- 	return retval;
- }
- 
-@@ -1948,10 +1936,9 @@ static int wacom_remote_create_attr_group(struct wacom *wacom, __u32 serial,
- static int wacom_cmd_unpair_remote(struct wacom *wacom, unsigned char selector)
- {
- 	const size_t buf_size = 2;
--	unsigned char *buf;
- 	int retval;
- 
--	buf = kzalloc(buf_size, GFP_KERNEL);
-+	unsigned char *buf __free(kfree) = kzalloc(buf_size, GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
- 
-@@ -1960,7 +1947,6 @@ static int wacom_cmd_unpair_remote(struct wacom *wacom, unsigned char selector)
- 
- 	retval = wacom_set_report(wacom->hdev, HID_OUTPUT_REPORT, buf,
- 				  buf_size, WAC_CMD_RETRIES);
--	kfree(buf);
- 
- 	return retval;
- }
-
--- 
-2.53.0
-
-_______________________________________________
-greybus-dev mailing list -- greybus-dev@lists.linaro.org
-To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
+T24gV2VkLCAyMDI2LTA0LTE1IGF0IDExOjM4ICswMjAwLCBCZW5qYW1pbiBUaXNzb2lyZXMgd3Jv
+dGU6DQo+IGhpZF9pbnB1dF9yZXBvcnQoKSBpcyB1c2VkIGluIHRvbyBtYW55IHBsYWNlcyB0byBo
+YXZlIGEgY29tbWl0IHRoYXQNCj4gZG9lc24ndCBjcm9zcyBzdWJzeXN0ZW0gYm9yZGVycy4gSW5z
+dGVhZCBvZiBjaGFuZ2luZyB0aGUgQVBJLA0KPiBpbnRyb2R1Y2UNCj4gYSBuZXcgb25lIHdoZW4g
+dGhpbmdzIG1hdHRlcnMgaW4gdGhlIHRyYW5zcG9ydCBsYXllcnM6DQo+IC0gdXNiaGlkDQo+IC0g
+aTJjaGlkDQo+IA0KPiBUaGlzIGVmZmVjdGl2ZWx5IHJldmVydCB0byB0aGUgb2xkIGJlaGF2aW9y
+IGZvciB0aG9zZSB0d28gdHJhbnNwb3J0DQo+IGxheWVycy4NCj4gDQo+IEZpeGVzOiAwYTNmZTk3
+MmE3Y2IgKCJISUQ6IGNvcmU6IE1pdGlnYXRlIHBvdGVudGlhbCBPT0IgYnkgcmVtb3ZpbmcNCj4g
+Ym9ndXMgbWVtc2V0KCkiKQ0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZw0KPiBTaWduZWQt
+b2ZmLWJ5OiBCZW5qYW1pbiBUaXNzb2lyZXMgPGJlbnRpc3NAa2VybmVsLm9yZz4NCj4gLS0tDQo+
+IMKgZHJpdmVycy9oaWQvaGlkLWNvcmUuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIxICsr
+KysrKysrKysrKysrKysrKysrKw0KPiDCoGRyaXZlcnMvaGlkL2kyYy1oaWQvaTJjLWhpZC1jb3Jl
+LmMgfMKgIDcgKysrKy0tLQ0KPiDCoGRyaXZlcnMvaGlkL3VzYmhpZC9oaWQtY29yZS5jwqDCoMKg
+wqDCoCB8IDExICsrKysrKy0tLS0tDQo+IMKgaW5jbHVkZS9saW51eC9oaWQuaMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArKw0KPiDCoDQgZmlsZXMgY2hhbmdlZCwgMzMgaW5z
+ZXJ0aW9ucygrKSwgOCBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2hp
+ZC9oaWQtY29yZS5jIGIvZHJpdmVycy9oaWQvaGlkLWNvcmUuYw0KPiBpbmRleCBhODA2ODIwZGY3
+ZTUuLmNiMGFkOTllN2EwYSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9oaWQvaGlkLWNvcmUuYw0K
+PiArKysgYi9kcml2ZXJzL2hpZC9oaWQtY29yZS5jDQo+IEBAIC0yMTkxLDYgKzIxOTEsMjcgQEAg
+aW50IGhpZF9pbnB1dF9yZXBvcnQoc3RydWN0IGhpZF9kZXZpY2UgKmhpZCwNCj4gZW51bSBoaWRf
+cmVwb3J0X3R5cGUgdHlwZSwgdTggKmRhdGENCj4gwqB9DQo+IMKgRVhQT1JUX1NZTUJPTF9HUEwo
+aGlkX2lucHV0X3JlcG9ydCk7DQo+IMKgDQo+ICsvKioNCj4gKyAqIGhpZF9zYWZlX2lucHV0X3Jl
+cG9ydCAtIHJlcG9ydCBkYXRhIGZyb20gbG93ZXIgbGF5ZXIgKHVzYiwgYnQuLi4pDQo+ICsgKg0K
+PiArICogQGhpZDogaGlkIGRldmljZQ0KPiArICogQHR5cGU6IEhJRCByZXBvcnQgdHlwZSAoSElE
+XypfUkVQT1JUKQ0KPiArICogQGRhdGE6IHJlcG9ydCBjb250ZW50cw0KPiArICogQGJ1ZnNpemU6
+IGFsbG9jYXRlZCBzaXplIG9mIHRoZSBkYXRhIGJ1ZmZlcg0KPiArICogQHNpemU6IHVzZWZ1bCBz
+aXplIG9mIGRhdGEgcGFyYW1ldGVyDQo+ICsgKiBAaW50ZXJydXB0OiBkaXN0aW5ndWlzaCBiZXR3
+ZWVuIGludGVycnVwdCBhbmQgY29udHJvbCB0cmFuc2ZlcnMNCj4gKyAqDQo+ICsgKiBUaGlzIGlz
+IGRhdGEgZW50cnkgZm9yIGxvd2VyIGxheWVycy4NCg0KWW91IHByb2JhYmx5IHdhbnQgdG8gZXhw
+bGFpbiB3aHkgaXQgc2hvdWxkIGJlIHVzZWQgaW5zdGVhZCBvZg0KaGlkX2lucHV0X3JlcG9ydCgp
+IGluIHRoaXMgZG9jIGJsdXJiLCBhbmQgbW9kaWZ5IHRoZSBoaWRfaW5wdXRfcmVwb3J0KCkNCmRv
+Y3MgdG8gbWVudGlvbiB0aGF0IHRoaXMgc2hvdWxkIGJlIHVzZWQuDQoNCk1heWJlIGhpZF9pbnB1
+dF9yZXBvcnQoKSBzaG91bGQgYWxzbyBiZSBtYXJrZWQgYXMgZGVwcmVjYXRlZCBzb21laG93LA0K
+dG8gYXZvaWQgbmV3IHVzZXJzPw0KDQpDaGVlcnMNCg0KPiArICovDQo+ICtpbnQgaGlkX3NhZmVf
+aW5wdXRfcmVwb3J0KHN0cnVjdCBoaWRfZGV2aWNlICpoaWQsIGVudW0NCj4gaGlkX3JlcG9ydF90
+eXBlIHR5cGUsIHU4ICpkYXRhLA0KPiArCQkJwqAgc2l6ZV90IGJ1ZnNpemUsIHUzMiBzaXplLCBp
+bnQgaW50ZXJydXB0KQ0KPiArew0KPiArCXJldHVybiBfX2hpZF9pbnB1dF9yZXBvcnQoaGlkLCB0
+eXBlLCBkYXRhLCBidWZzaXplLCBzaXplLA0KPiBpbnRlcnJ1cHQsIDAsDQo+ICsJCQkJwqAgZmFs
+c2UsIC8qIGZyb21fYnBmICovDQo+ICsJCQkJwqAgZmFsc2UgLyogbG9ja19hbHJlYWR5X3Rha2Vu
+ICovKTsNCj4gK30NCj4gK0VYUE9SVF9TWU1CT0xfR1BMKGhpZF9zYWZlX2lucHV0X3JlcG9ydCk7
+DQo+ICsNCj4gwqBib29sIGhpZF9tYXRjaF9vbmVfaWQoY29uc3Qgc3RydWN0IGhpZF9kZXZpY2Ug
+KmhkZXYsDQo+IMKgCQnCoMKgwqDCoMKgIGNvbnN0IHN0cnVjdCBoaWRfZGV2aWNlX2lkICppZCkN
+Cj4gwqB7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2hpZC9pMmMtaGlkL2kyYy1oaWQtY29yZS5j
+IGIvZHJpdmVycy9oaWQvaTJjLQ0KPiBoaWQvaTJjLWhpZC1jb3JlLmMNCj4gaW5kZXggNWExODNh
+ZjNkNWM2Li5lMGEzMDI1NDRjZWYgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvaGlkL2kyYy1oaWQv
+aTJjLWhpZC1jb3JlLmMNCj4gKysrIGIvZHJpdmVycy9oaWQvaTJjLWhpZC9pMmMtaGlkLWNvcmUu
+Yw0KPiBAQCAtNTc0LDkgKzU3NCwxMCBAQCBzdGF0aWMgdm9pZCBpMmNfaGlkX2dldF9pbnB1dChz
+dHJ1Y3QgaTJjX2hpZA0KPiAqaWhpZCkNCj4gwqAJCWlmIChpaGlkLT5oaWQtPmdyb3VwICE9IEhJ
+RF9HUk9VUF9STUkpDQo+IMKgCQkJcG1fd2FrZXVwX2V2ZW50KCZpaGlkLT5jbGllbnQtPmRldiwg
+MCk7DQo+IMKgDQo+IC0JCWhpZF9pbnB1dF9yZXBvcnQoaWhpZC0+aGlkLCBISURfSU5QVVRfUkVQ
+T1JULA0KPiAtCQkJCWloaWQtPmluYnVmICsgc2l6ZW9mKF9fbGUxNiksDQo+IC0JCQkJcmV0X3Np
+emUgLSBzaXplb2YoX19sZTE2KSwgMSk7DQo+ICsJCWhpZF9zYWZlX2lucHV0X3JlcG9ydChpaGlk
+LT5oaWQsIEhJRF9JTlBVVF9SRVBPUlQsDQo+ICsJCQkJwqDCoMKgwqDCoCBpaGlkLT5pbmJ1ZiAr
+IHNpemVvZihfX2xlMTYpLA0KPiArCQkJCcKgwqDCoMKgwqAgaWhpZC0+YnVmc2l6ZSAtDQo+IHNp
+emVvZihfX2xlMTYpLA0KPiArCQkJCcKgwqDCoMKgwqAgcmV0X3NpemUgLSBzaXplb2YoX19sZTE2
+KSwgMSk7DQo+IMKgCX0NCj4gwqANCj4gwqAJcmV0dXJuOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9oaWQvdXNiaGlkL2hpZC1jb3JlLmMgYi9kcml2ZXJzL2hpZC91c2JoaWQvaGlkLQ0KPiBjb3Jl
+LmMNCj4gaW5kZXggZmJiZmMwZjYwODI5Li41YWY5M2I5YjFmYjUgMTAwNjQ0DQo+IC0tLSBhL2Ry
+aXZlcnMvaGlkL3VzYmhpZC9oaWQtY29yZS5jDQo+ICsrKyBiL2RyaXZlcnMvaGlkL3VzYmhpZC9o
+aWQtY29yZS5jDQo+IEBAIC0yODMsOSArMjgzLDkgQEAgc3RhdGljIHZvaWQgaGlkX2lycV9pbihz
+dHJ1Y3QgdXJiICp1cmIpDQo+IMKgCQkJYnJlYWs7DQo+IMKgCQl1c2JoaWRfbWFya19idXN5KHVz
+YmhpZCk7DQo+IMKgCQlpZiAoIXRlc3RfYml0KEhJRF9SRVNVTUVfUlVOTklORywgJnVzYmhpZC0+
+aW9mbCkpIHsNCj4gLQkJCWhpZF9pbnB1dF9yZXBvcnQodXJiLT5jb250ZXh0LA0KPiBISURfSU5Q
+VVRfUkVQT1JULA0KPiAtCQkJCQkgdXJiLT50cmFuc2Zlcl9idWZmZXIsDQo+IC0JCQkJCSB1cmIt
+PmFjdHVhbF9sZW5ndGgsIDEpOw0KPiArCQkJaGlkX3NhZmVfaW5wdXRfcmVwb3J0KHVyYi0+Y29u
+dGV4dCwNCj4gSElEX0lOUFVUX1JFUE9SVCwNCj4gKwkJCQkJwqDCoMKgwqDCoCB1cmItPnRyYW5z
+ZmVyX2J1ZmZlciwNCj4gdXJiLT50cmFuc2Zlcl9idWZmZXJfbGVuZ3RoLA0KPiArCQkJCQnCoMKg
+wqDCoMKgIHVyYi0+YWN0dWFsX2xlbmd0aCwNCj4gMSk7DQo+IMKgCQkJLyoNCj4gwqAJCQkgKiBh
+dXRvc3VzcGVuZCByZWZ1c2VkIHdoaWxlIGtleXMgYXJlDQo+IHByZXNzZWQNCj4gwqAJCQkgKiBi
+ZWNhdXNlIG1vc3Qga2V5Ym9hcmRzIGRvbid0IHdha2UgdXAgd2hlbg0KPiBAQCAtNDgyLDkgKzQ4
+MiwxMCBAQCBzdGF0aWMgdm9pZCBoaWRfY3RybChzdHJ1Y3QgdXJiICp1cmIpDQo+IMKgCXN3aXRj
+aCAoc3RhdHVzKSB7DQo+IMKgCWNhc2UgMDoJCQkvKiBzdWNjZXNzICovDQo+IMKgCQlpZiAodXNi
+aGlkLT5jdHJsW3VzYmhpZC0+Y3RybHRhaWxdLmRpciA9PQ0KPiBVU0JfRElSX0lOKQ0KPiAtCQkJ
+aGlkX2lucHV0X3JlcG9ydCh1cmItPmNvbnRleHQsDQo+ICsJCQloaWRfc2FmZV9pbnB1dF9yZXBv
+cnQodXJiLT5jb250ZXh0LA0KPiDCoAkJCQl1c2JoaWQtPmN0cmxbdXNiaGlkLQ0KPiA+Y3RybHRh
+aWxdLnJlcG9ydC0+dHlwZSwNCj4gLQkJCQl1cmItPnRyYW5zZmVyX2J1ZmZlciwgdXJiLQ0KPiA+
+YWN0dWFsX2xlbmd0aCwgMCk7DQo+ICsJCQkJdXJiLT50cmFuc2Zlcl9idWZmZXIsIHVyYi0NCj4g
+PnRyYW5zZmVyX2J1ZmZlcl9sZW5ndGgsDQo+ICsJCQkJdXJiLT5hY3R1YWxfbGVuZ3RoLCAwKTsN
+Cj4gwqAJCWJyZWFrOw0KPiDCoAljYXNlIC1FU0hVVERPV046CS8qIHVucGx1ZyAqLw0KPiDCoAkJ
+dW5wbHVnID0gMTsNCj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvaGlkLmggYi9pbmNsdWRl
+L2xpbnV4L2hpZC5oDQo+IGluZGV4IGFjNDMyYTJlZjQxNS4uYmZiOTg1OWYzOTFlIDEwMDY0NA0K
+PiAtLS0gYS9pbmNsdWRlL2xpbnV4L2hpZC5oDQo+ICsrKyBiL2luY2x1ZGUvbGludXgvaGlkLmgN
+Cj4gQEAgLTEwMzAsNiArMTAzMCw4IEBAIHN0cnVjdCBoaWRfZmllbGQgKmhpZF9maW5kX2ZpZWxk
+KHN0cnVjdA0KPiBoaWRfZGV2aWNlICpoZGV2LCB1bnNpZ25lZCBpbnQgcmVwb3J0X3R5DQo+IMKg
+aW50IGhpZF9zZXRfZmllbGQoc3RydWN0IGhpZF9maWVsZCAqLCB1bnNpZ25lZCwgX19zMzIpOw0K
+PiDCoGludCBoaWRfaW5wdXRfcmVwb3J0KHN0cnVjdCBoaWRfZGV2aWNlICpoaWQsIGVudW0gaGlk
+X3JlcG9ydF90eXBlDQo+IHR5cGUsIHU4ICpkYXRhLCB1MzIgc2l6ZSwNCj4gwqAJCcKgwqDCoMKg
+IGludCBpbnRlcnJ1cHQpOw0KPiAraW50IGhpZF9zYWZlX2lucHV0X3JlcG9ydChzdHJ1Y3QgaGlk
+X2RldmljZSAqaGlkLCBlbnVtDQo+IGhpZF9yZXBvcnRfdHlwZSB0eXBlLCB1OCAqZGF0YSwNCj4g
+KwkJCcKgIHNpemVfdCBidWZzaXplLCB1MzIgc2l6ZSwgaW50IGludGVycnVwdCk7DQo+IMKgc3Ry
+dWN0IGhpZF9maWVsZCAqaGlkaW5wdXRfZ2V0X2xlZF9maWVsZChzdHJ1Y3QgaGlkX2RldmljZSAq
+aGlkKTsNCj4gwqB1bnNpZ25lZCBpbnQgaGlkaW5wdXRfY291bnRfbGVkcyhzdHJ1Y3QgaGlkX2Rl
+dmljZSAqaGlkKTsNCj4gwqBfX3MzMiBoaWRpbnB1dF9jYWxjX2Fic19yZXMoY29uc3Qgc3RydWN0
+IGhpZF9maWVsZCAqZmllbGQsIF9fdTE2DQo+IGNvZGUpOw0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KZ3JleWJ1cy1kZXYgbWFpbGluZyBsaXN0IC0tIGdy
+ZXlidXMtZGV2QGxpc3RzLmxpbmFyby5vcmcKVG8gdW5zdWJzY3JpYmUgc2VuZCBhbiBlbWFpbCB0
+byBncmV5YnVzLWRldi1sZWF2ZUBsaXN0cy5saW5hcm8ub3JnCg==
