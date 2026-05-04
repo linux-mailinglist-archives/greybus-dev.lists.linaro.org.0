@@ -2,105 +2,72 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qHP3AGT49GnkGQIAu9opvQ
+	id IO7rBTVd+GnatQIAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Fri, 01 May 2026 21:00:52 +0200
+	for <lists+greybus-dev@lfdr.de>; Mon, 04 May 2026 10:47:49 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id D63574AF021
-	for <lists+greybus-dev@lfdr.de>; Fri, 01 May 2026 21:00:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ADF24BA786
+	for <lists+greybus-dev@lfdr.de>; Mon, 04 May 2026 10:47:48 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id F382E4096F
-	for <lists+greybus-dev@lfdr.de>; Fri,  1 May 2026 19:00:50 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	by lists.linaro.org (Postfix) with ESMTPS id 769DF3F7E7
-	for <greybus-dev@lists.linaro.org>; Fri,  1 May 2026 17:09:14 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 79A29405DC
+	for <lists+greybus-dev@lfdr.de>; Mon,  4 May 2026 08:47:47 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by lists.linaro.org (Postfix) with ESMTPS id DDE5E405DC
+	for <greybus-dev@lists.linaro.org>; Mon,  4 May 2026 08:47:43 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=dkzHcg3E;
-	dmarc=pass (policy=none) header.from=gmail.com;
-	spf=pass (lists.linaro.org: domain of shyamsunderreddypadira@gmail.com designates 209.85.221.51 as permitted sender) smtp.mailfrom=shyamsunderreddypadira@gmail.com;
-	arc=pass ("google.com:s=arc-20240605:i=1")
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-43d734223e4so1263136f8f.0
-        for <greybus-dev@lists.linaro.org>; Fri, 01 May 2026 10:09:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777655353; cv=none;
-        d=google.com; s=arc-20240605;
-        b=a3t/7HWz6e7xT4i1OepYvfe2XTYJnRcKiEo/NHinLwyT7FaP6GoaDbhT0WQ8kZtKVC
-         WXl4i1l9VbvE28kZFKRyi5/OgM9BblH4daipNi3Hv8bWGyb7udF/lA3vDsTC5dNxBi3V
-         wgOHljzp0/VolwD61e7BUoMz7FuqZ/RjYNILNYdnGAqdAzi8PhN0okPibf1r1oG31kz3
-         cy8j/WK8IeTpNnZmOIMAKjp9GiUcDP0YZWVYVglcWRTpEbAVZou3ey+8wS5N2mZIlq2j
-         Ap2JxlsgaflKgI6niEwOaXPLwgV1rHxNEHHYAJzL0NgcE2qU1+/uL23Y+zu6JoQkNZIb
-         9R+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=bELY9hyUN15B7PmuzCd6wGqygbsk01iMIsozj+DMTYg=;
-        fh=xrwwZBJqqvXOgpKXasOJrlrRZF/4QVpQrIpcm2lR9nc=;
-        b=f+VTztknA6xLzO/MceQ8J/sUXdVwRHQNHfWyt8wopbkJAveZFbltuD0BaivtL/6tHy
-         m4agoxuSpVRWSIrztoorfmQmTpkqgj4PkSvqraBk/1vxInbo8ih3LbkVx6GGDr3I5ols
-         dbE8C67hFwklWP7oH1axqRp+w4RYdPH0uKHErH0K4Nccp+TiqtHwR8iGISHtMwjqed9C
-         FnaWmrj/bIbrmKdmXH22JwcVJxoV0JiHcaZBJ95RbJI3uaolGcWjIIMqzOW98ezAAWTa
-         A7lQ05DO3w3dseaxOExyx7KgraTUfF1VXwz33lp64NLlB+5fRfV2zZLmLjE+w5EeCWn5
-         /H8A==;
-        darn=lists.linaro.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777655353; x=1778260153; darn=lists.linaro.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=bELY9hyUN15B7PmuzCd6wGqygbsk01iMIsozj+DMTYg=;
-        b=dkzHcg3Ep8qsQlvXFJIp5PW0+T0IVPDxbd5S+uXk+CFam4Yqzcw6Df62MLKi9ETwv+
-         JlGW6ICmyQQsxlNcmD5FllMRtjN7zrAoAJueL4nLkvQL6WZE+QtyZKgiwiOIsZYyr844
-         XwiL/0s1z/2KyLl2m3oKpFCaUWsSbIQCEIK7nXq3U0Ir+lL9o0o+sg4DrF8MD+WwATpP
-         EyS0T4KvDKwrvAdAURpBhoy8rmiTydrElnfa+j+5qrDA9zkuop6edOPBTNqJu2rU4Jp7
-         IUWr1cwxMMRZ8Vtc9knryHWHyzXVkaG2B+w28SzDFcp0+saG/lXapXV+p6EGNV8I0/kC
-         8epg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777655353; x=1778260153;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bELY9hyUN15B7PmuzCd6wGqygbsk01iMIsozj+DMTYg=;
-        b=pQTYDYcwHoqAbBhBgXGub8JhYslV9QXraST5lgPRPEFDXVWvcjiZrr9qH875ua/I2/
-         oFWTDeXp5VV98+4m791/zh52laTrr3TxCtHsDCbPd5qAyCeDZPSbaKZSonwYwNIx9IMn
-         +KJovTX0vxJ9PXMJTMs6h+elAv6+cTUHSfzF987Vurp0+7TObfsCM98CkKAtccfKzLSN
-         5b0jQaal3WqknARilWWmuqASF6DRTRdYjSfPyjTM1SYX84w5kw74Olc8TMJEYGSi8vWP
-         vASgfDE9q7bB4qcwAeCiZ+3RmJSMzC08PPzGmhsZGw4vZUsvs+RIjXvUhQKKcAp0/RMg
-         Hv1w==
-X-Forwarded-Encrypted: i=1; AFNElJ+482YjRYro89xwIGfGbHsEOPUqKKrE4mAo7MS4enMxdnkhdVBIkapyAJQsPJnFFGbH2kICQUVy/aX59w==@lists.linaro.org
-X-Gm-Message-State: AOJu0Yw6bbEePlDmIxFYrNX7b7qoc9ofvjjCOnyTyt6Ty8eXRMfqpIUw
-	5jQiBprfe2GOWlInPkKhiV+wljKtkCoucqHRkKP1rj+QYRZLkQ63Uc0Mupky9Q4l6uPANYHYyBD
-	W5A769ZpY2bgFsFdj2q221J3yRr7EZC4=
-X-Gm-Gg: AeBDietr1pjt1GnzRXUXcSZk82uLBFWL3eAJnechJtHaBXeaCPlqFgMd8Qivg1iQ6Q4
-	fV4ITxcjG9LjDBmCUx/IhuyJUG1nse+lZAnBoRx3EagYl3X2+MVvoJ/wa8Ez4yRAH8cWqTD3gbg
-	o5FbLZgogDF2sn8X1nG03u+EqQPvOY3OnKL7Xf1C5LnXn1iuCMKCqqlf55sMNPCcRQxWO67XdR/
-	glJfBYGeQWMO3OWS3DsjDKwpO/jmgMrDZ0d8UBexg2pW9FZOI8WDZxza6XFlNZ6xnsZ140yB+gy
-	LNXf1IgDcsVhDXEqOLCH
-X-Received: by 2002:a5d:584e:0:b0:43d:6df0:c7f6 with SMTP id
- ffacd0b85a97d-44bb62060a1mr390196f8f.18.1777655353183; Fri, 01 May 2026
- 10:09:13 -0700 (PDT)
+	dkim=pass header.d=kernel.org header.s=k20201202 header.b="RnsNA/ma";
+	dmarc=pass (policy=quarantine) header.from=kernel.org;
+	spf=pass (lists.linaro.org: domain of bentiss@kernel.org designates 172.105.4.254 as permitted sender) smtp.mailfrom=bentiss@kernel.org
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id 81B37600C3;
+	Mon,  4 May 2026 08:47:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EABCAC2BCB8;
+	Mon,  4 May 2026 08:47:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777884463;
+	bh=b3z35is89oPXeENyhLsF89vCn8J4SZIObLZfQ01bcQA=;
+	h=From:Subject:Date:To:Cc:From;
+	b=RnsNA/makSoQ3GKhXZ7RamY3KP4fb8iU5LMyDvdMQsxTKLLeDPRHlrZSrSPddgJHn
+	 qnq1kwn9KqDwoQ3rotidKz4FMqAI6ZTRFhuT9XUZzFH4fxOChmXwsl4ApBLqUrXmck
+	 6O2PLa1RUlnArZtLAU/ONFSlc7pFJExQ00y7JShaqYdjV/EgEK1I0cDG3b/jslwdHD
+	 OsyJclo1/rt58u3Raq6zeWnDCZI0K/VleAQUmTFfYGf1zkwCvLpiI86wOHkRfSoWlW
+	 j3C+UPWpyUysZ1gN8uaJWq/uZ4NKidN08hpHk2UnDS99U+PWH+5f/Q1FYsllbXKv/q
+	 Xtrum7QyJyacg==
+From: Benjamin Tissoires <bentiss@kernel.org>
+Date: Mon, 04 May 2026 10:47:21 +0200
+Message-Id: <20260504-wip-fix-core-v3-0-ce1f11f4968f@kernel.org>
 MIME-Version: 1.0
-References: <20260501144207.25211-2-shyamsunderreddypadira@gmail.com>
- <afTQZHlmMkTZDP2H@stanley.mountain> <CALx+fbZ=WyQxinsX+rggvg=rAK32LQuYTFc9c0w7U92e8Uiiww@mail.gmail.com>
- <afTafvSmlqsVjUjn@stanley.mountain>
-In-Reply-To: <afTafvSmlqsVjUjn@stanley.mountain>
-From: Shyam Sunder Reddy Padira <shyamsunderreddypadira@gmail.com>
-Date: Fri, 1 May 2026 22:39:01 +0530
-X-Gm-Features: AVHnY4KyktTpOFGoSBPQqQbUP7lCZsrIKygNVKcP5aCI-rI8ztJfeJMEQYwfovE
-Message-ID: <CALx+fbbpAoKvPBvOnuGXKMnkitXDvLosv2U+aJqx8UJo9__a5w@mail.gmail.com>
-To: Dan Carpenter <error27@gmail.com>
-X-Spamd-Bar: ----
-X-MailFrom: shyamsunderreddypadira@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 3CG2YFFWIH2NE5N24I4HGUXS4HPOA2SJ
-X-Message-ID-Hash: 3CG2YFFWIH2NE5N24I4HGUXS4HPOA2SJ
-X-Mailman-Approved-At: Fri, 01 May 2026 18:59:55 +0000
-CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMQQ7CIBBFr2JmLQamBaor72FcKIwt0ZRmMKhpe
+ ndpV2ri8v2f90ZIxIES7FYjMOWQQuwLVOsVuO7UtySCLwwo0chaafEIg7iEp3CRSVjfaNdoZch
+ LKMrAVL4ldzgW7kK6R34t9azm9U8oKyEF+crVrsFKWb2/Evd020RuYS5l/LTNj43FPtMWtZWkD
+ dove5qmN9NKrg3nAAAA
+X-Change-ID: 20260415-wip-fix-core-7d85c8516ed0
+To: Jiri Kosina <jikos@kernel.org>,
+ =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>,
+ Bastien Nocera <hadess@hadess.net>, Ping Cheng <ping.cheng@wacom.com>,
+ Jason Gerecke <jason.gerecke@wacom.com>, Viresh Kumar <vireshk@kernel.org>,
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lee Jones <lee@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777884459; l=3032;
+ i=bentiss@kernel.org; s=20230215; h=from:subject:message-id;
+ bh=b3z35is89oPXeENyhLsF89vCn8J4SZIObLZfQ01bcQA=;
+ b=TQu4P6b/RpFFvIMfL1ijYih/MvkNRh3fGMcO4Ui85Axyhiy6Mph0TvOIA5M5ZUHVq7eeGevLa
+ ZMI+iRgeurEBZPCLqYX6YRidM81bx1IftPpaEpZ8G6P4UNKjQPfQCFz
+X-Developer-Key: i=bentiss@kernel.org; a=ed25519;
+ pk=7D1DyAVh6ajCkuUTudt/chMuXWIJHlv2qCsRkIizvFw=
+X-Spamd-Bar: ---
+Message-ID-Hash: 6NU2MPIGAYYRUX3MMT4G25R7VWUMQSR7
+X-Message-ID-Hash: 6NU2MPIGAYYRUX3MMT4G25R7VWUMQSR7
+X-MailFrom: bentiss@kernel.org
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: Icenowy Zheng <uwu@icenowy.me>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, Benjamin Tissoires <bentiss@kernel.org>, stable@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH v2] staging: greybus:add missing newline in sysfs show() output
+Subject: [greybus-dev] [PATCH v3 0/4] HID: Proper fix for OOM in hid-core
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/3CG2YFFWIH2NE5N24I4HGUXS4HPOA2SJ/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/6NU2MPIGAYYRUX3MMT4G25R7VWUMQSR7/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -109,70 +76,107 @@ List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: D63574AF021
+X-Rspamd-Queue-Id: 8ADF24BA786
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.59 / 15.00];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+mx:c];
+X-Spamd-Result: default: False [1.99 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+mx];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	DKIM_TRACE(0.00)[gmail.com:-];
+	NEURAL_HAM(-0.00)[-0.964];
+	FROM_NEQ_ENVFROM(0.00)[bentiss@kernel.org,greybus-dev-bounces@lists.linaro.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
-	FROM_NEQ_ENVFROM(0.00)[shyamsunderreddypadira@gmail.com,greybus-dev-bounces@lists.linaro.org];
-	RCPT_COUNT_FIVE(0.00)[6];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[greybus-dev];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,mail.gmail.com:mid,lists.linaro.org:helo,lists.linaro.org:rdns]
+	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email]
 
-Hi Dan Carpenter and everyone,
+Commit 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing
+bogus memset()") enforced the provided data to be at least the size of
+the declared buffer in the report descriptor to prevent a buffer
+overflow.
 
-I understand the need for verification.
-Unfortunately, I do not have access to the physical hardware to test
-this specific Greybus driver myself.
+We only had corner cases of malicious devices exposing the OOM because
+in most cases, the buffer provided by the transport layer needs to be
+allocated at probe time and is large enough to handle all the possible
+reports.
 
-Would anyone on the CC list who has access to the hardware would be
-willing to run a quick test with the userspace tools.
+However, the patch from above, which enforces the spec a little bit more
+introduced both regressions for devices not following the spec (not
+necesserally malicious), but also a stream of errors for those devices.
 
-If not, I am happy to withdraw the patch for now to avoid any risk of
-regression.
+Let's revert to the old behavior by giving more information to HID core
+to be able to decide whether it can or not memset the rest of the buffer
+to 0 and continue the processing.
 
-Best Regards,
-Shyam
+Note that the first commit makes an API change, but the callers are
+relatively limited, so it should be fine on its own. The second patch
+can't really make the same kind of API change because we have too many
+callers in various subsystems. We can switch them one by one to the safe
+approach when needed.
 
-On Fri, 1 May 2026 at 22:23, Dan Carpenter <error27@gmail.com> wrote:
->
-> On Fri, May 01, 2026 at 10:15:57PM +0530, Shyam Sunder Reddy Padira wrote:
-> > Hi Dan Carpenter
-> >
-> > I have not been able to test this on hardware. I based this change on
-> > the standard sysfs formatting requirement as documented in
-> > Documentation/filesystems/sysfs.rst.
-> > If there is a concern that specific Greybus userspace tools are
-> > sensitive to the trailing newline, I can withdraw the patch. However,
-> > this change aligns the driver with the standard sysfs formatting used
-> > across the kernel.
->
-> You need to test it with the Greybus userspace tools, yes.
->
-> regards,
-> dan carpenter
->
+The last 2 patches are small cleanups I initially put together with the
+2 first patches, but they can be applied on their own and don't need to
+be pulled in stable like the first 2.
+
+Cheers,
+Benjamin
+
+Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
+---
+Changes in v3:
+- fixed ghib -> ghid in greybus
+- fixed i386 size_t debug size reported by kernel-bot
+- Link to v2: https://lore.kernel.org/r/20260416-wip-fix-core-v2-0-be92570e5627@kernel.org
+
+Changes in v2:
+- added a small blurb explaining the difference between the safe and the
+  non safe version of hid_safe_input_report
+- Link to v1: https://lore.kernel.org/r/20260415-wip-fix-core-v1-0-ed3c4c823175@kernel.org
+
+---
+Benjamin Tissoires (4):
+      HID: pass the buffer size to hid_report_raw_event
+      HID: core: introduce hid_safe_input_report()
+      HID: multitouch: use __free(kfree) to clean up temporary buffers
+      HID: wacom: use __free(kfree) to clean up temporary buffers
+
+ drivers/hid/bpf/hid_bpf_dispatch.c |  6 ++--
+ drivers/hid/hid-core.c             | 67 ++++++++++++++++++++++++++++++--------
+ drivers/hid/hid-gfrm.c             |  4 +--
+ drivers/hid/hid-logitech-hidpp.c   |  2 +-
+ drivers/hid/hid-multitouch.c       | 18 ++++------
+ drivers/hid/hid-primax.c           |  2 +-
+ drivers/hid/hid-vivaldi-common.c   |  2 +-
+ drivers/hid/i2c-hid/i2c-hid-core.c |  7 ++--
+ drivers/hid/usbhid/hid-core.c      | 11 ++++---
+ drivers/hid/wacom_sys.c            | 46 +++++++++-----------------
+ drivers/staging/greybus/hid.c      |  2 +-
+ include/linux/hid.h                |  6 ++--
+ include/linux/hid_bpf.h            | 14 +++++---
+ 13 files changed, 109 insertions(+), 78 deletions(-)
+---
+base-commit: 7df6572f1cb381d6b89ceed58e3b076c233c2cd0
+change-id: 20260415-wip-fix-core-7d85c8516ed0
+
+Best regards,
+-- 
+Benjamin Tissoires <bentiss@kernel.org>
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
