@@ -2,83 +2,73 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YEFrIMEJ+2mbVQMAu9opvQ
+	id yMyvJEFO+WkV7wIAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Wed, 06 May 2026 11:28:33 +0200
+	for <lists+greybus-dev@lfdr.de>; Tue, 05 May 2026 03:56:17 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45D034D89C0
-	for <lists+greybus-dev@lfdr.de>; Wed, 06 May 2026 11:28:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07AF64C5D98
+	for <lists+greybus-dev@lfdr.de>; Tue, 05 May 2026 03:56:17 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 611BD406B3
-	for <lists+greybus-dev@lfdr.de>; Wed,  6 May 2026 09:28:32 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	by lists.linaro.org (Postfix) with ESMTPS id 0A88C404C7
-	for <greybus-dev@lists.linaro.org>; Mon,  4 May 2026 23:35:08 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id AE8BB406A9
+	for <lists+greybus-dev@lfdr.de>; Tue,  5 May 2026 01:56:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	by lists.linaro.org (Postfix) with ESMTPS id DB3113F8EC
+	for <greybus-dev@lists.linaro.org>; Tue,  5 May 2026 01:56:11 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=efB9VmU4;
-	dmarc=pass (policy=none) header.from=gmail.com;
-	spf=pass (lists.linaro.org: domain of meatuni001@gmail.com designates 209.85.128.53 as permitted sender) smtp.mailfrom=meatuni001@gmail.com
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48374014a77so53758215e9.3
-        for <greybus-dev@lists.linaro.org>; Mon, 04 May 2026 16:35:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777937707; x=1778542507; darn=lists.linaro.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WqpTPO4JM1ij5VfC2iJKwCbrcvO2GqT/K+xw0onwWmI=;
-        b=efB9VmU4HQw6l9I4DJ0jP7bQF797A9y1XE5hZ48GTClQnMbDGcsvaxQvj3m3HsKim+
-         eoMuv0tdxEFMCt1aSgmmiuMbsp8OZjtyH7dZZkyO4FxNXcLwBX8QAc3xccaddQ+yfi/i
-         Tai/YOdeUX00MGwaEqdnNzHWcRp80jLwjruIjg7o9bgG1OXj8/c5fH935SZ7U8syKbh1
-         l9F8gcsJzVdL9uMNAzCWDc6uf8SrnjDUgi/C/9PbTHWpGS3ijmUHuc3Bp9BHj2Rx1/Em
-         FNywJkEDybeU7z2Af1bUDstJNlMPIArC/xu+uuAGhgiKm3rMRXurRF1fjOBbrLWwTkoa
-         ELyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777937707; x=1778542507;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WqpTPO4JM1ij5VfC2iJKwCbrcvO2GqT/K+xw0onwWmI=;
-        b=K7WdlM2ZyEHbekN+A7SX68VXgr2w/ThULQ4OeIgPQGYGH62FZfy/Pnk3849PcsAw4Z
-         qGgp43JuioOezKzwa4w2Dz/n3IRfA/c8mH32+1dgdZ3w1E9TEYgM64J+ozNdWJk81YnS
-         0DoIbreaOfjhRdIPmvoyPkPkzgJPRDU0fz/yUt9AMxBOG/Buze7zcDI+2CDrBhliXwQx
-         EaDfH5rAZl3ioNy+zQSKvLyYgaEdJ5v8mL7YaL//+1zEy+iQLeOCYczZjoNiIGFoWCw5
-         XSkKTHPcTxs6SKaOD/l4tu23lygWs/bBunqRqHVzUJBhYGBrCwe+2xVl+ZvpYh0BhoO7
-         uCvQ==
-X-Gm-Message-State: AOJu0YxypdUETzclTwRUWc+XjZ3ecfSJdevVwKoJOE+S9Mo5hpGZcskF
-	lQKK3A6AALJuFLMkKKh9w/2u9NdSVR+Dg7ttF8AM7yQhHKsn6XJGsAWGr4E/WaBH5co=
-X-Gm-Gg: AeBDievCJeozJ1rTxgD44HVQvuEMU1Sj8f6+eX4mQpfPSIM63VUSzLSxWbKLdJOVgHm
-	o6UgLJsKhqN2iQ2r8RLLtym3FFXQt78LqP9arI+Zc15Sw4iulNSAF89MGr4WJxn+sfR5GNluOZQ
-	Ayvb7MatWCH/DJBdpjLxnXEhvsD3xSOxnyII3MwYDxTOakWEtf9kFwIlzLZMzTud+izdtb3C8om
-	XC7QyDjNmTgAUKJWAOMh1H8z8dGiCF90F6GHF8Yxx3moMsJALYWBbUAxal2SFbBSigrNHBPP6F6
-	HpHpw1PNdR64D8SoqaCz1WbCN/1CucP1fWGrabcuTpelF7jJ3G3Sn6zygZ3t7zb7wWB38dGFdXL
-	uIiTXPQi73JsyQI3eB66enJRUN/UDlsVYK/egDw4q8ZDehCZwpMHG0F/nmBV3Gsqpuv88DkBeSd
-	Uy4AfBZHCWEWzOgcXR2deoDRGaVg8=
-X-Received: by 2002:a05:600c:4445:b0:48a:52ee:5776 with SMTP id 5b1f17b1804b1-48a986380ecmr189126045e9.11.1777937706367;
-        Mon, 04 May 2026 16:35:06 -0700 (PDT)
-Received: from node ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a822bf3ffsm390071835e9.7.2026.05.04.16.35.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 04 May 2026 16:35:05 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev
-Date: Mon,  4 May 2026 19:33:28 -0400
-Message-ID: <20260504233328.7409-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass header.d=intel.com header.s=Intel header.b=UeLJwcWN;
+	dmarc=pass (policy=none) header.from=intel.com;
+	spf=pass (lists.linaro.org: domain of lkp@intel.com designates 198.175.65.14 as permitted sender) smtp.mailfrom=lkp@intel.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777946172; x=1809482172;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1wpXsfSDdNVdYsw2uAcselBqc2jTlYPW0Tm1KGTmEmg=;
+  b=UeLJwcWNR1E3YiKRvdFC78svkXw56CY2z4oLek7fe/QuzVzLDTTEeVNp
+   8PRq5Z8VJdNVTr2JF0YjqwVIWGbmwlMAovvv3sA7hEZa8uyeHgaYWsBW+
+   M7+8Pzi+oxTQAyBoXqFzMCWpGY+pelZe9vzQTKjsuqZ37Jpa41m6zl8Wb
+   MykKBSIjVJ71BcDrMEQ6ig1RSQMX4PuzxwMqDTYQqHxKYRV8V5EBsfPF8
+   CX8jQKTnRpMlMSThfFwB5VOpnDSYyD5uTLpfZ1O5u+r11pj9i/8tkXaP6
+   NISMgGf/xkO7m0Lajqjm/030YkgD8WjqzFC4Q/o2rTKy0YpEBip5ztySI
+   g==;
+X-CSE-ConnectionGUID: yeIurGj6S4CNzhvS/tPicw==
+X-CSE-MsgGUID: Xhua2DIYT9SoevTeDd9MBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="82678910"
+X-IronPort-AV: E=Sophos;i="6.23,216,1770624000";
+   d="scan'208";a="82678910"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 18:56:11 -0700
+X-CSE-ConnectionGUID: 2hdTSHCbSFqha+KU5UjQ4w==
+X-CSE-MsgGUID: U6xMspBKSTufqCJhBUu3uw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,216,1770624000";
+   d="scan'208";a="234798741"
+Received: from lkp-server01.sh.intel.com (HELO 781826d00641) ([10.239.97.150])
+  by orviesa010.jf.intel.com with ESMTP; 04 May 2026 18:56:08 -0700
+Received: from kbuild by 781826d00641 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wK50x-0000000048h-0AQZ;
+	Tue, 05 May 2026 01:56:01 +0000
+Date: Tue, 5 May 2026 09:55:28 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bentley Blacketer <sonionwhat@gmail.com>, gregkh@linuxfoundation.org
+Message-ID: <202605050911.O85GmqxE-lkp@intel.com>
+References: <20260430173045.4619-1-sonionwhat@gmail.com>
 MIME-Version: 1.0
-X-Spamd-Bar: --
-X-MailFrom: meatuni001@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: FFTUMDXNPMYE6YPVQLQPDEQ4RZZQDNHG
-X-Message-ID-Hash: FFTUMDXNPMYE6YPVQLQPDEQ4RZZQDNHG
-X-Mailman-Approved-At: Wed, 06 May 2026 09:28:27 +0000
-CC: vireshk@kernel.org, johan@kernel.org, elder@kernel.org, linux-kernel@vger.kernel.org, Muhammad Bilal <meatuni001@gmail.com>
+Content-Disposition: inline
+In-Reply-To: <20260430173045.4619-1-sonionwhat@gmail.com>
+X-Spamd-Bar: ------
+Message-ID-Hash: N7OQSXZK7JIEVWRCMHUEIJPY2NQZYGQY
+X-Message-ID-Hash: N7OQSXZK7JIEVWRCMHUEIJPY2NQZYGQY
+X-MailFrom: lkp@intel.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
+CC: oe-kbuild-all@lists.linux.dev, vireshk@kernel.org, johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Bentley Blacketer <sonionwhat@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH v1] greybus: authentication: validate CAP response payload size
+Subject: [greybus-dev] Re: [PATCH v3] staging: greybus: bootrom: replace dev_info with dev_dbg for firmware name
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/FFTUMDXNPMYE6YPVQLQPDEQ4RZZQDNHG/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/N7OQSXZK7JIEVWRCMHUEIJPY2NQZYGQY/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -87,129 +77,105 @@ List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 45D034D89C0
+X-Rspamd-Queue-Id: 07AF64C5D98
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.59 / 15.00];
-	DATE_IN_PAST(1.00)[33];
+X-Spamd-Result: default: False [1.59 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+mx:c];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+mx];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,gmail.com];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[lists.linux.dev,kernel.org,lists.linaro.org,vger.kernel.org,gmail.com];
+	FREEMAIL_TO(0.00)[gmail.com,linuxfoundation.org];
 	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	NEURAL_HAM(-0.00)[-0.954];
-	FROM_NEQ_ENVFROM(0.00)[meatuni001@gmail.com,greybus-dev-bounces@lists.linaro.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[greybus-dev];
-	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:helo,lists.linaro.org:rdns]
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-0.943];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,greybus-dev-bounces@lists.linaro.org];
+	DKIM_TRACE(0.00)[intel.com:-];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
+	TAGGED_RCPT(0.00)[greybus-dev];
+	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[]
 
-cap_get_ims_certificate() and cap_authenticate() copy variable-length
-response data directly into fixed-size UAPI buffers using the
-untrusted op->response->payload_size value without any bounds checks.
+Hi Bentley,
 
-A malicious or compromised Greybus endpoint can return an oversized
-certificate or signature payload, causing a kernel heap overflow.
+kernel test robot noticed the following build warnings:
 
-Fix both functions by:
-  - Rejecting responses shorter than sizeof(*response) with -EPROTO.
-  - Rejecting payloads exceeding CAP_CERTIFICATE_MAX_SIZE (1600) or
-    CAP_SIGNATURE_MAX_SIZE (320) with -EMSGSIZE.
-  - Copying only the validated size into the UAPI buffer.
+[auto build test WARNING on staging/staging-testing]
 
-Fixes: e3eda54d0b5f ("greybus: Add Component Authentication Protocol support")
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
- drivers/staging/greybus/authentication.c | 34 +++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 4 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Bentley-Blacketer/staging-greybus-bootrom-replace-dev_info-with-dev_dbg-for-firmware-name/20260505-034304
+base:   staging/staging-testing
+patch link:    https://lore.kernel.org/r/20260430173045.4619-1-sonionwhat%40gmail.com
+patch subject: [PATCH v3] staging: greybus: bootrom: replace dev_info with dev_dbg for firmware name
+config: hexagon-randconfig-r071-20260505 (https://download.01.org/0day-ci/archive/20260505/202605050911.O85GmqxE-lkp@intel.com/config)
+compiler: clang version 16.0.6 (https://github.com/llvm/llvm-project 7cbf1a2591520c2491aa35339f227775f4d3adf6)
+smatch: v0.5.0-9065-ge9cc34fd
 
-diff --git a/drivers/staging/greybus/authentication.c b/drivers/staging/greybus/authentication.c
-index 97b9937bb..103cc15d2 100644
---- a/drivers/staging/greybus/authentication.c
-+++ b/drivers/staging/greybus/authentication.c
-@@ -109,6 +109,7 @@ static int cap_get_ims_certificate(struct gb_cap *cap, u32 class, u32 id,
- 	struct gb_cap_get_ims_certificate_request *request;
- 	struct gb_cap_get_ims_certificate_response *response;
- 	size_t max_size = gb_operation_get_payload_size_max(connection);
-+	size_t cert_size;
- 	struct gb_operation *op;
- 	int ret;
- 
-@@ -131,9 +132,21 @@ static int cap_get_ims_certificate(struct gb_cap *cap, u32 class, u32 id,
- 	}
- 
- 	response = op->response->payload;
-+
-+	if (op->response->payload_size < sizeof(*response)) {
-+		ret = -EPROTO;
-+		goto done;
-+	}
-+
-+	cert_size = op->response->payload_size - sizeof(*response);
-+	if (cert_size > CAP_CERTIFICATE_MAX_SIZE) {
-+		ret = -EMSGSIZE;
-+		goto done;
-+	}
-+
- 	*result = response->result_code;
--	*size = op->response->payload_size - sizeof(*response);
--	memcpy(certificate, response->certificate, *size);
-+	*size = (u32)cert_size;
-+	memcpy(certificate, response->certificate, cert_size);
- 
- done:
- 	gb_operation_put(op);
-@@ -148,6 +161,7 @@ static int cap_authenticate(struct gb_cap *cap, u32 auth_type, u8 *uid,
- 	struct gb_cap_authenticate_request *request;
- 	struct gb_cap_authenticate_response *response;
- 	size_t max_size = gb_operation_get_payload_size_max(connection);
-+	size_t sig_size;
- 	struct gb_operation *op;
- 	int ret;
- 
-@@ -170,10 +184,22 @@ static int cap_authenticate(struct gb_cap *cap, u32 auth_type, u8 *uid,
- 	}
- 
- 	response = op->response->payload;
-+
-+	if (op->response->payload_size < sizeof(*response)) {
-+		ret = -EPROTO;
-+		goto done;
-+	}
-+
-+	sig_size = op->response->payload_size - sizeof(*response);
-+	if (sig_size > CAP_SIGNATURE_MAX_SIZE) {
-+		ret = -EMSGSIZE;
-+		goto done;
-+	}
-+
- 	*result = response->result_code;
--	*signature_size = op->response->payload_size - sizeof(*response);
-+	*signature_size = (u32)sig_size;
- 	memcpy(auth_response, response->response, sizeof(response->response));
--	memcpy(signature, response->signature, *signature_size);
-+	memcpy(signature, response->signature, sig_size);
- 
- done:
- 	gb_operation_put(op);
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605050911.O85GmqxE-lkp@intel.com/
+
+smatch warnings:
+drivers/staging/greybus/bootrom.c:166 find_firmware() warn: inconsistent indenting
+
+vim +166 drivers/staging/greybus/bootrom.c
+
+f1e941a6e4b71a drivers/staging/greybus/firmware.c Viresh Kumar       2015-11-26  142  
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  143  /* This returns path of the firmware blob on the disk */
+68793c4c8824a0 drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-22  144  static int find_firmware(struct gb_bootrom *bootrom, u8 stage)
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  145  {
+5a53e02eaf223c drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-04-03  146  	struct gb_connection *connection = bootrom->connection;
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  147  	struct gb_interface *intf = connection->bundle->intf;
+56c78715eaaeba drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-16  148  	char firmware_name[49];
+fc41c2da44c510 drivers/staging/greybus/firmware.c Eli Sennesh        2016-01-08  149  	int rc;
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  150  
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  151  	/* Already have a firmware, free it */
+5a53e02eaf223c drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-04-03  152  	free_firmware(bootrom);
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  153  
+56c78715eaaeba drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-16  154  	/* Bootrom protocol is only supported for loading Stage 2 firmware */
+56c78715eaaeba drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-16  155  	if (stage != 2) {
+56c78715eaaeba drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-16  156  		dev_err(&connection->bundle->dev, "Invalid boot stage: %u\n",
+56c78715eaaeba drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-16  157  			stage);
+56c78715eaaeba drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-16  158  		return -EINVAL;
+56c78715eaaeba drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-16  159  	}
+56c78715eaaeba drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-16  160  
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  161  	/*
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  162  	 * Create firmware name
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  163  	 *
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  164  	 * XXX Name it properly..
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  165  	 */
+af0b4d5a19e3d4 drivers/staging/greybus/firmware.c Johan Hovold       2015-08-28 @166  snprintf(firmware_name, sizeof(firmware_name),
+8a704565ebda96 drivers/staging/greybus/bootrom.c  Greg Kroah-Hartman 2016-07-20  167  		 FW_NAME_PREFIX "%08x_%08x_%08x_%08x_s2l.tftf",
+b32a5c5346bdaa drivers/staging/greybus/firmware.c Viresh Kumar       2015-12-22  168  		 intf->ddbl1_manufacturer_id, intf->ddbl1_product_id,
+56c78715eaaeba drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-16  169  		 intf->vendor_id, intf->product_id);
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  170  
+6472c9b9299508 drivers/staging/greybus/bootrom.c  Bentley Blacketer  2026-04-30  171  	dev_dbg(&connection->bundle->dev, "Firmware file '%s' requested\n",
+eb8fafdfb9fce9 drivers/staging/greybus/firmware.c Greg Kroah-Hartman 2016-01-20  172  		 firmware_name);
+5a53e02eaf223c drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-04-03  173  	rc = request_firmware(&bootrom->fw, firmware_name,
+0a72bd36df9478 drivers/staging/greybus/firmware.c Greg Kroah-Hartman 2015-10-14  174  			      &connection->bundle->dev);
+2d6f1c29988c0f drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-22  175  	if (rc) {
+68793c4c8824a0 drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-22  176  		dev_err(&connection->bundle->dev,
+68793c4c8824a0 drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-22  177  			"failed to find %s firmware (%d)\n", firmware_name, rc);
+2d6f1c29988c0f drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-22  178  	}
+2d6f1c29988c0f drivers/staging/greybus/bootrom.c  Viresh Kumar       2016-07-22  179  
+fc41c2da44c510 drivers/staging/greybus/firmware.c Eli Sennesh        2016-01-08  180  	return rc;
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  181  }
+90f1b617d88f14 drivers/staging/greybus/firmware.c Viresh Kumar       2015-08-12  182  
+
 -- 
-2.54.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
