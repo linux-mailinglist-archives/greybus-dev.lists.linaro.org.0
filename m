@@ -2,83 +2,85 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uKMDHoBaF2oPBQgAu9opvQ
+	id wHWQEUhTGWqYvAgAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Wed, 27 May 2026 22:56:32 +0200
+	for <lists+greybus-dev@lfdr.de>; Fri, 29 May 2026 10:50:16 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EB2D5EA463
-	for <lists+greybus-dev@lfdr.de>; Wed, 27 May 2026 22:56:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C41A05FF7C3
+	for <lists+greybus-dev@lfdr.de>; Fri, 29 May 2026 10:50:15 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id DB6F13F81B
-	for <lists+greybus-dev@lfdr.de>; Wed, 27 May 2026 20:56:30 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	by lists.linaro.org (Postfix) with ESMTPS id 36E363F6A0
-	for <greybus-dev@lists.linaro.org>; Wed, 27 May 2026 20:00:41 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 5EC55406B3
+	for <lists+greybus-dev@lfdr.de>; Fri, 29 May 2026 08:50:14 +0000 (UTC)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	by lists.linaro.org (Postfix) with ESMTPS id F1BB9404E0
+	for <greybus-dev@lists.linaro.org>; Thu, 28 May 2026 13:51:19 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=XwuP7RTG;
-	spf=pass (lists.linaro.org: domain of michail.tatas@gmail.com designates 209.85.221.51 as permitted sender) smtp.mailfrom=michail.tatas@gmail.com;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=UqGy9fqQ;
+	spf=pass (lists.linaro.org: domain of alfievarghese22@gmail.com designates 209.85.215.175 as permitted sender) smtp.mailfrom=alfievarghese22@gmail.com;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-44509921fbcso7807391f8f.3
-        for <greybus-dev@lists.linaro.org>; Wed, 27 May 2026 13:00:41 -0700 (PDT)
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-c8025aecc40so5837980a12.0
+        for <greybus-dev@lists.linaro.org>; Thu, 28 May 2026 06:51:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779912040; x=1780516840; darn=lists.linaro.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=nsNNi7W/XehxuHgiJOuHnzTmrsKpJ6Ytb+GbYXKH8UA=;
-        b=XwuP7RTG8vo9PIY8fpKzigPnxrFBPdkx95+5YKDkiigb+dIoBt3JM849bTU+Oyh4Lz
-         pe4Oyzft+Stxx8lpz8vWRwgTWLZlQmDeFJBr+9wuC1P9urZDLFEEt5K3HyLaynNhRKRZ
-         OmViC7kN6fzWmafDKKI7TO23J9F6eoGsJ+26Vml3snjrc/4rCq+MASsxH+9BK4lX7A7S
-         OT2xEQr79uqyHsaOE4hKi9W+0msQRDqAhuKCLSDJuc0rBdIeeFajP55ZiseOYClUavDT
-         PvCw7M7uX6dhhlhOsAtNqW7n1CH2MwR8VCG4BcIy3LiiItUEIEsio87p8RpRcTFfNVl1
-         ZN6g==
+        d=gmail.com; s=20251104; t=1779976279; x=1780581079; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=A71OUHyyRe1M+VCs+XKSSgTKfIfoE57tMLNWnn+zSKk=;
+        b=UqGy9fqQEE3ec3R4j6glTLQBwJJAZLE/Gf6d/70wX9hhOV3DHDuDqfjbS6+MwcPPzp
+         /w27yvRWeSUWmfkUH9OigWtLaM8PubwOSOpIhJuyE/1Mo/p4ytcOF6+tqhLjeJyAKbsC
+         X8BtsXTMsqN75gpZ35TV++TXnVTSqEDc7dMffy80vyna/hbpTH4avaBRFpz+J5HFypFJ
+         nK9/EsXPCPWBBysY6W/i/0FPC2W1hdlnhPIM7LMXDoMcB58fJS5AQOmQcRX5udJ1XEvl
+         oIn1NQVz2Gk/Z5d1kXpwGRfWFCvQ+fdLPfHb/XYq8/s0SWvLPX0P6I3LmQJpFUpaOUAW
+         f2sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779912040; x=1780516840;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=nsNNi7W/XehxuHgiJOuHnzTmrsKpJ6Ytb+GbYXKH8UA=;
-        b=cSrjkhU+kJkcQZrGecSgdftoSzsEF1rqQ6dAih/SM2JnKC1QPElh9RZi7ZxFqX8XXZ
-         hIgT/AQ7vHpPeBupZyz/kWDonBJknOTKGZKnnGTPZN1RQIlm0QLW7CUIpQqgGy2j9ocA
-         ZE0aLIIfo2uKzI46EuANosBLZ+S4VyGdb/s9aKq687w7dvK1DhV6ZATxzA2CmMGfIq+C
-         oLtNvQamP+BLrk6EHGv4wg43FtafiwUZLIoRwWy474II8Ki/1ln8uJ0rRP5AD+UVdFDx
-         7p3ZDAo72Oblx3QeFJerVXgoRRSShsEDvk5WrjnethP0rX32oR7/kMvB0N4Vt0HssG8Z
-         Vq8A==
-X-Gm-Message-State: AOJu0YzwheAF7NS6WQGwtXwPQ3FJINH9gh0xN9xT7hTF6QXLJU5LT8kT
-	7HJOgRUu4t9+6pFL1lBFTLInBRpMl+WhgfFC7bEU+tOc8ivZf6M6qirX
-X-Gm-Gg: Acq92OFPX4N0aPBrIjwrtqr8SXSm1bFP7hk1sEgsDLGoBK76QV6vRstBY51/Egh7nOv
-	88Yvcop9R2xH+RrAFfGqoDf+ack6Hf11kBNxxfMgt/MplI0Np0pKyEeIHrT19DTom70RTRT3n+P
-	32wRpjk3Jdpa/JTDQHXqXrN3Y8RJ0OSS60D3e6CuhzO34KESSHfRU1xpHwbUSfutsrkJgt+gKni
-	FG/r4pdZXDqttSnW5v9sJuTveKINPUuKWimDZCW5qnXk1xRuNfrrGBPJfiJNu2lkCJ531BOhc/m
-	Pk58wfv/XChQTy4ifGkL1xwc5WRSn83NcsxZr5l/eyRLane0CbXcuoYT9mJU8zPfpNmmXVZk35X
-	PQvnEVkB8C8n3BCRxbU08qiQAibI3VW95ktZZgAe/WyGGWZd+oK5SKl3CWH3Lcjup6r3CtBYL1e
-	chFxxTBDK/F90QnrsLUCKtdjVHFbBYZensYe/pAVu7GRwDo8OP+B5CRzob6fPWeOGhp4WegA==
-X-Received: by 2002:a5d:64c8:0:b0:452:8286:86bf with SMTP id ffacd0b85a97d-45eb3673381mr42987148f8f.1.1779912040037;
-        Wed, 27 May 2026 13:00:40 -0700 (PDT)
-Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb54a432sm11636386f8f.3.2026.05.27.13.00.39
+        d=1e100.net; s=20251104; t=1779976279; x=1780581079;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A71OUHyyRe1M+VCs+XKSSgTKfIfoE57tMLNWnn+zSKk=;
+        b=JV/pNSxyolznTNtEONFJ5gghGh1r2nQxfQ9Bjn154qVx49lxglHmA3JCSzmUH0cv21
+         RezluB3bV5+65OCWQriTvGBjGG/4x0tM91ADkXUBzYv723vxbN1CGB619Ves2S/ZCnPC
+         rjB6BB4roPvI2Y51uxV0aN7LfqYwnSZw35WwIoLMrwwFQCSp5510FDpw2tLK9K3j6r7D
+         1S3JvV3xAti6gi/JDochy00JF+OJoGe91HH9AmyocuO5ZZgtyTiQJsXHYS0vtLe+WNZQ
+         xRaYwyEw8kQshPzq+RSVs/IbBm7aUNx1wHA/CSlvFXNSpMRxOiNk1Ex3HK0atbb0CpqZ
+         GO+w==
+X-Gm-Message-State: AOJu0YxHOFGfImhL5qmk5SC4YXjjMTWp6Hhjc1fiqT6PPCRV9jKUIO/S
+	Jj8JB81E+uQZdyAFPUSG7zm9f8SpQK5Bwq7Vcypb4YZ7wVLKvrP9P9ed
+X-Gm-Gg: Acq92OGx3LdHeGy5iNxwVPvUPhw/OdXCMQdyes+j3T/aW0OE/QvZxWvdPETCYRXDKBx
+	4Lv/SRv0YtddOx8/oXuDyPLIXUOyPTogPFSSM/3rMmvCsZS03y1Vq7SeZVbZdLhmIPJQPTbscYj
+	q/YwCy43GElvyIl2p4wyUdp7OnA5VWorzYqrns19wuBrEewEY1Ap4wRJLn16jLxRuVh9qf1uJ53
+	oX3uXZeY7VsrgvVgAKIGhYtA8w2z6R/Qx6+0ureZaR9sRvDVZ/xmpNDOaykKkWb98bgtvWX8XoG
+	VmM68fjpl057Gf4aJtDyPr/ox1BEfbAGTCJdDXmZPg4sP0g90zJc6Q68JuWwnHMGzzUMVHzUffL
+	Wb4PrkxU+wm0kqG5q+mzA4Q2iK9bLHFVOSp/j2lC4/T3JIdhuilR6/hV6P5KJIZhCZQ3fG96fQC
+	Bo2wb27S73LGkEf07aJysk5zZebo7EG+ab4nHmV41dzl5pgyTBbJSu0tNHFgalKkrifSgVBng6O
+	s54U4/BWErFKZP/o8IqfwJT0NYrxBIhrv0meMCyi0TZb9dwQxJw
+X-Received: by 2002:a05:6a21:4c13:b0:39c:2d2a:632e with SMTP id adf61e73a8af0-3b3fed32fd4mr1697534637.11.1779976278988;
+        Thu, 28 May 2026 06:51:18 -0700 (PDT)
+Received: from localhost ([1.39.75.74])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c85202a337fsm15256769a12.8.2026.05.28.06.51.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 13:00:39 -0700 (PDT)
-Date: Wed, 27 May 2026 23:00:38 +0300
-From: Michail Tatas <michail.tatas@gmail.com>
-To: pure.logic@nexus-software.ie, johan@kernel.org, elder@kernel.org,
-	gregkh@linuxfoundation.org
-Message-ID: <ahdNZlYqnTO22tQq@michalis-linux>
+        Thu, 28 May 2026 06:51:18 -0700 (PDT)
+From: Alfie Varghese <alfievarghese22@gmail.com>
+To: Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Thu, 28 May 2026 13:51:09 +0000
+Message-ID: <20260528135111.2791-1-alfievarghese22@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Spamd-Bar: ---
-X-MailFrom: michail.tatas@gmail.com
+X-Spamd-Bar: --
+X-MailFrom: alfievarghese22@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: GXKPWVV2HTYU3F3BNU7W6VEWX7Y4WY75
-X-Message-ID-Hash: GXKPWVV2HTYU3F3BNU7W6VEWX7Y4WY75
-X-Mailman-Approved-At: Wed, 27 May 2026 20:56:27 +0000
-CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-ID-Hash: ZNGR3XE3MNB7ANXT5QDN3NS2BZPSVP5Z
+X-Message-ID-Hash: ZNGR3XE3MNB7ANXT5QDN3NS2BZPSVP5Z
+X-Mailman-Approved-At: Fri, 29 May 2026 08:50:11 +0000
+CC: greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, Alfie Varghese <alfievarghese22@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: Remove unused macro
+Subject: [greybus-dev] [PATCH] staging: greybus: vibrator: return device_create() errors
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/GXKPWVV2HTYU3F3BNU7W6VEWX7Y4WY75/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ZNGR3XE3MNB7ANXT5QDN3NS2BZPSVP5Z/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -87,84 +89,65 @@ List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [1.09 / 15.00];
+X-Spamd-Result: default: False [1.59 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
-	MID_RHS_NOT_FQDN(0.50)[];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+mx];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	FROM_HAS_DN(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[lists.linaro.org,lists.linux.dev,vger.kernel.org,gmail.com];
+	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:-];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.993];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michailtatas@gmail.com,greybus-dev-bounces@lists.linaro.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.926];
+	FROM_NEQ_ENVFROM(0.00)[alfievarghese22@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:rdns,lists.linaro.org:helo]
-X-Rspamd-Queue-Id: 0EB2D5EA463
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email]
+X-Rspamd-Queue-Id: C41A05FF7C3
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Remove unused macro as indicated by the compiler
-when building with make W=2
+gb_vibrator_probe() maps any device_create() failure to -EINVAL. This
+loses the real errno returned by the driver core, such as -ENOMEM, and
+makes probe failures harder to diagnose correctly.
 
-Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
+Return PTR_ERR(dev) instead so callers receive the actual failure reason
+while preserving the existing cleanup path.
+
+Signed-off-by: Alfie Varghese <alfievarghese22@gmail.com>
 ---
- drivers/staging/greybus/loopback.c | 26 --------------------------
- 1 file changed, 26 deletions(-)
+ drivers/staging/greybus/vibrator.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
-index 4d085d3cd471..7442b1c4e86c 100644
---- a/drivers/staging/greybus/loopback.c
-+++ b/drivers/staging/greybus/loopback.c
-@@ -167,32 +167,6 @@ static DEVICE_ATTR_RO(name##_avg)
- 	gb_loopback_ro_stats_attr(field, max, u);		\
- 	gb_loopback_ro_avg_attr(field)
- 
--#define gb_loopback_attr(field, type)					\
--static ssize_t field##_show(struct device *dev,				\
--			    struct device_attribute *attr,		\
--			    char *buf)					\
--{									\
--	struct gb_loopback *gb = dev_get_drvdata(dev);			\
--	return sysfs_emit(buf, "%" #type "\n", gb->field);			\
--}									\
--static ssize_t field##_store(struct device *dev,			\
--			    struct device_attribute *attr,		\
--			    const char *buf,				\
--			    size_t len)					\
--{									\
--	int ret;							\
--	struct gb_loopback *gb = dev_get_drvdata(dev);			\
--	mutex_lock(&gb->mutex);						\
--	ret = sscanf(buf, "%"#type, &gb->field);			\
--	if (ret != 1)							\
--		len = -EINVAL;						\
--	else								\
--		gb_loopback_check_attr(gb, bundle);			\
--	mutex_unlock(&gb->mutex);					\
--	return len;							\
--}									\
--static DEVICE_ATTR_RW(field)
--
- #define gb_dev_loopback_ro_attr(field)				\
- static ssize_t field##_show(struct device *dev,		\
- 			    struct device_attribute *attr,		\
+diff --git a/drivers/staging/greybus/vibrator.c b/drivers/staging/greybus/vibrator.c
+index 0ec4d317c..763c234fb 100644
+--- a/drivers/staging/greybus/vibrator.c
++++ b/drivers/staging/greybus/vibrator.c
+@@ -161,7 +161,7 @@ static int gb_vibrator_probe(struct gb_bundle *bundle,
+ 	dev = device_create(&vibrator_class, &bundle->dev,
+ 			    MKDEV(0, 0), vib, "vibrator%d", vib->minor);
+ 	if (IS_ERR(dev)) {
+-		retval = -EINVAL;
++		retval = PTR_ERR(dev);
+ 		goto err_ida_remove;
+ 	}
+ 	vib->dev = dev;
 -- 
-2.43.0
+2.54.0.windows.1
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
