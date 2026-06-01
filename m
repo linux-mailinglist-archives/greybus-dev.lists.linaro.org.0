@@ -2,38 +2,38 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4Es+IsdEHWpbXwkAu9opvQ
+	id qEqnC89EHWpbXwkAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Mon, 01 Jun 2026 10:37:27 +0200
+	for <lists+greybus-dev@lfdr.de>; Mon, 01 Jun 2026 10:37:35 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 263E161B8F8
-	for <lists+greybus-dev@lfdr.de>; Mon, 01 Jun 2026 10:37:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D406561B90D
+	for <lists+greybus-dev@lfdr.de>; Mon, 01 Jun 2026 10:37:34 +0200 (CEST)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8D224404A3
-	for <lists+greybus-dev@lfdr.de>; Mon,  1 Jun 2026 08:37:25 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id E198140976
+	for <lists+greybus-dev@lfdr.de>; Mon,  1 Jun 2026 08:37:33 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	by lists.linaro.org (Postfix) with ESMTPS id E99F63F960
-	for <greybus-dev@lists.linaro.org>; Mon,  1 Jun 2026 08:37:19 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTPS id 0A3FA3F960
+	for <greybus-dev@lists.linaro.org>; Mon,  1 Jun 2026 08:37:29 +0000 (UTC)
 Authentication-Results: lists.linaro.org;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=eRclUf9U;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=KDw9Ev1h;
 	spf=pass (lists.linaro.org: domain of lee@kernel.org designates 172.105.4.254 as permitted sender) smtp.mailfrom=lee@kernel.org;
 	dmarc=pass (policy=quarantine) header.from=kernel.org
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id 88634601E5;
-	Mon,  1 Jun 2026 08:37:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 473A21F00898;
-	Mon,  1 Jun 2026 08:37:15 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id BFBB160018;
+	Mon,  1 Jun 2026 08:37:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241621F00893;
+	Mon,  1 Jun 2026 08:37:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780303039;
-	bh=em2vm9Zd654L7ZJ/G40ozlc0DZaBkyefYaGkjbIiWE8=;
+	s=k20260515; t=1780303048;
+	bh=wKc+Pic6kUT/6n8WdeX34Gv1g4QfhyifwzIHCQKyiyc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eRclUf9UVUMBl/yJiD2AWNfAfD/eBAyaq8Ff/3MzhqWjS+/PsZNCasuJSsOHuQFuX
-	 3KV7Q/lRyNLDle8XjO80SJ/pJU6Fty0Kg4mC3HWN5Tok4eZufcUzLK5mo21R7hiiTq
-	 cPSrGeHOVg2RNza4C4CZ69Ix0IXxuhQrO+giUpomGyTLEJgY+KT5XBrKVKOQhjfWnl
-	 80VU9ih8xu77FXx60XiMVH70NjooAokY5z9ac4pBklFOD/lWSD6d9LISLI4QxJ6MC/
-	 7x8LMhv93icbEqAtOe2LQj9vtuP9eDFKmEgiGKjQwORtiwxpc/nW3X16dkf5JBfuGI
-	 hqUhtKtqzM4Rw==
+	b=KDw9Ev1h1HwJ3bUlx/uQfSspPwfPx570BGMaevqnnYGFNnspJc2mvurKaGYlvJ3Vk
+	 NszVH/c1fDXJdE3VTZA6sURL0KE+DfFuOdo/8ATOCVBYSdhsFq5UX9UrDFu7pg5fEB
+	 XxtZ0IA4oMM8eCX85fWY/Y3llvwtS4qU9s3qs1N6rUHMZ/ZwoI9pMPxtejeVPUZrJv
+	 eXMdLW9g/10hu7NPNcdAR1Hn445D0ohfNkT6h+GlYklNClIQ3m/e8GJ993XMAT/15x
+	 wRmww34hquFU6NTJtIyQ78997Xj7Aj8msWOKaLAgeBLPSL374ThNMoP3AC7sA1zph/
+	 G4EWBpgv42isQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jiri Kosina <jikos@kernel.org>,
@@ -55,23 +55,23 @@ To: lee@kernel.org,
 	greybus-dev@lists.linaro.org,
 	linux-staging@lists.linux.dev,
 	bpf@vger.kernel.org
-Date: Mon,  1 Jun 2026 09:36:11 +0100
-Message-ID: <20260601083642.908433-3-lee@kernel.org>
+Date: Mon,  1 Jun 2026 09:36:12 +0100
+Message-ID: <20260601083642.908433-4-lee@kernel.org>
 X-Mailer: git-send-email 2.54.0.823.g6e5bcc1fc9-goog
 In-Reply-To: <20260601083642.908433-1-lee@kernel.org>
 References: <20260601083642.908433-1-lee@kernel.org>
 MIME-Version: 1.0
 X-Spamd-Bar: --
-Message-ID-Hash: TNZTVVR3YSR5CP2W7KJKH2RFOMXM7ZI7
-X-Message-ID-Hash: TNZTVVR3YSR5CP2W7KJKH2RFOMXM7ZI7
+Message-ID-Hash: WARE2VNGYOKB5PV6WNUOCO57Z4I74QTQ
+X-Message-ID-Hash: WARE2VNGYOKB5PV6WNUOCO57Z4I74QTQ
 X-MailFrom: lee@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: stable@vger.kernel.org, Jiri Kosina <jkosina@suse.com>
+CC: stable@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [linux-6.12.y 3/4] HID: core: introduce hid_safe_input_report()
+Subject: [greybus-dev] [linux-6.12.y 4/4] HID: core: Fix size_t specifier in hid_report_raw_event()
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/TNZTVVR3YSR5CP2W7KJKH2RFOMXM7ZI7/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/WARE2VNGYOKB5PV6WNUOCO57Z4I74QTQ/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -94,153 +94,81 @@ X-Spamd-Result: default: False [2.99 / 15.00];
 	FREEMAIL_TO(0.00)[kernel.org,riseup.net,hadess.net,wacom.com,linuxfoundation.org,gmail.com,vger.kernel.org,lists.linaro.org,lists.linux.dev];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[22];
+	RCPT_COUNT_TWELVE(0.00)[24];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[lee@kernel.org,greybus-dev-bounces@lists.linaro.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:-];
-	NEURAL_HAM(-0.00)[-0.983];
+	NEURAL_HAM(-0.00)[-0.664];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.linaro.org:rdns,lists.linaro.org:helo,linaro.org:email]
-X-Rspamd-Queue-Id: 263E161B8F8
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:rdns,lists.linaro.org:helo,linaro.org:email]
+X-Rspamd-Queue-Id: D406561B90D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: Benjamin Tissoires <bentiss@kernel.org>
+From: Nathan Chancellor <nathan@kernel.org>
 
-[ Upstream commit 206342541fc887ae919774a43942dc883161fece ]
+[ Upstream commit 4d3a2a466b8d68d852a1f3bbf11204b718428dc4 ]
 
-hid_input_report() is used in too many places to have a commit that
-doesn't cross subsystem borders. Instead of changing the API, introduce
-a new one when things matters in the transport layers:
-- usbhid
-- i2chid
+When building for 32-bit platforms, for which 'size_t' is
+'unsigned int', there are warnings around using the incorrect format
+specifier to print bsize in hid_report_raw_event():
 
-This effectively revert to the old behavior for those two transport
-layers.
+  drivers/hid/hid-core.c:2054:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
+   2053 |                 hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
+        |                                                                                         ~~~
+        |                                                                                         %zu
+   2054 |                                      report->id, csize, bsize);
+        |                                                         ^~~~~
+  drivers/hid/hid-core.c:2076:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
+   2075 |                 hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
+        |                                                                                          ~~~
+        |                                                                                          %zu
+   2076 |                                      report->id, rsize, bsize);
+        |                                                         ^~~~~
 
-Fixes: 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing bogus memset()")
+Use the proper 'size_t' format specifier, '%zu', to clear up the
+warnings.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Fixes: 2c85c61d1332 ("HID: pass the buffer size to hid_report_raw_event")
+Reported-by: Miguel Ojeda <ojeda@kernel.org>
+Closes: https://lore.kernel.org/20260516020430.110135-1-ojeda@kernel.org/
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-(cherry picked from commit 301338b8edadc67a42b1c86add975091e66768d9)
+(cherry picked from commit 3ab135238832446399614e7a4bb796d620717806)
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/hid/hid-core.c             | 25 +++++++++++++++++++++++++
- drivers/hid/i2c-hid/i2c-hid-core.c |  7 ++++---
- drivers/hid/usbhid/hid-core.c      | 11 ++++++-----
- include/linux/hid.h                |  2 ++
- 4 files changed, 37 insertions(+), 8 deletions(-)
+ drivers/hid/hid-core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index ceff91722c3c..d9ea99cdb68e 100644
+index d9ea99cdb68e..87d990ada868 100644
 --- a/drivers/hid/hid-core.c
 +++ b/drivers/hid/hid-core.c
-@@ -2146,6 +2146,7 @@ static int __hid_input_report(struct hid_device *hid, enum hid_report_type type,
-  * @interrupt: distinguish between interrupt and control transfers
-  *
-  * This is data entry for lower layers.
-+ * Legacy, please use hid_safe_input_report() instead.
-  */
- int hid_input_report(struct hid_device *hid, enum hid_report_type type, u8 *data, u32 size,
- 		     int interrupt)
-@@ -2156,6 +2157,30 @@ int hid_input_report(struct hid_device *hid, enum hid_report_type type, u8 *data
- }
- EXPORT_SYMBOL_GPL(hid_input_report);
+@@ -2015,7 +2015,7 @@ int hid_report_raw_event(struct hid_device *hid, enum hid_report_type type, u8 *
+ 		return 0;
  
-+/**
-+ * hid_safe_input_report - report data from lower layer (usb, bt...)
-+ *
-+ * @hid: hid device
-+ * @type: HID report type (HID_*_REPORT)
-+ * @data: report contents
-+ * @bufsize: allocated size of the data buffer
-+ * @size: useful size of data parameter
-+ * @interrupt: distinguish between interrupt and control transfers
-+ *
-+ * This is data entry for lower layers.
-+ * Please use this function instead of the non safe version because we provide
-+ * here the size of the buffer, allowing hid-core to make smarter decisions
-+ * regarding the incoming buffer.
-+ */
-+int hid_safe_input_report(struct hid_device *hid, enum hid_report_type type, u8 *data,
-+			  size_t bufsize, u32 size, int interrupt)
-+{
-+	return __hid_input_report(hid, type, data, bufsize, size, interrupt, 0,
-+				  false, /* from_bpf */
-+				  false /* lock_already_taken */);
-+}
-+EXPORT_SYMBOL_GPL(hid_safe_input_report);
-+
- bool hid_match_one_id(const struct hid_device *hdev,
- 		      const struct hid_device_id *id)
- {
-diff --git a/drivers/hid/i2c-hid/i2c-hid-core.c b/drivers/hid/i2c-hid/i2c-hid-core.c
-index cf8ae0df0cda..8ce0535fc42d 100644
---- a/drivers/hid/i2c-hid/i2c-hid-core.c
-+++ b/drivers/hid/i2c-hid/i2c-hid-core.c
-@@ -568,9 +568,10 @@ static void i2c_hid_get_input(struct i2c_hid *ihid)
- 		if (ihid->hid->group != HID_GROUP_RMI)
- 			pm_wakeup_event(&ihid->client->dev, 0);
- 
--		hid_input_report(ihid->hid, HID_INPUT_REPORT,
--				ihid->inbuf + sizeof(__le16),
--				ret_size - sizeof(__le16), 1);
-+		hid_safe_input_report(ihid->hid, HID_INPUT_REPORT,
-+				      ihid->inbuf + sizeof(__le16),
-+				      ihid->bufsize - sizeof(__le16),
-+				      ret_size - sizeof(__le16), 1);
+ 	if (unlikely(bsize < csize)) {
+-		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
++		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %zu)\n",
+ 				     report->id, csize, bsize);
+ 		return -EINVAL;
  	}
+@@ -2037,7 +2037,7 @@ int hid_report_raw_event(struct hid_device *hid, enum hid_report_type type, u8 *
+ 		rsize = max_buffer_size;
  
- 	return;
-diff --git a/drivers/hid/usbhid/hid-core.c b/drivers/hid/usbhid/hid-core.c
-index f14b46ce00cb..336ad7cf3d48 100644
---- a/drivers/hid/usbhid/hid-core.c
-+++ b/drivers/hid/usbhid/hid-core.c
-@@ -283,9 +283,9 @@ static void hid_irq_in(struct urb *urb)
- 			break;
- 		usbhid_mark_busy(usbhid);
- 		if (!test_bit(HID_RESUME_RUNNING, &usbhid->iofl)) {
--			hid_input_report(urb->context, HID_INPUT_REPORT,
--					 urb->transfer_buffer,
--					 urb->actual_length, 1);
-+			hid_safe_input_report(urb->context, HID_INPUT_REPORT,
-+					      urb->transfer_buffer, urb->transfer_buffer_length,
-+					      urb->actual_length, 1);
- 			/*
- 			 * autosuspend refused while keys are pressed
- 			 * because most keyboards don't wake up when
-@@ -482,9 +482,10 @@ static void hid_ctrl(struct urb *urb)
- 	switch (status) {
- 	case 0:			/* success */
- 		if (usbhid->ctrl[usbhid->ctrltail].dir == USB_DIR_IN)
--			hid_input_report(urb->context,
-+			hid_safe_input_report(urb->context,
- 				usbhid->ctrl[usbhid->ctrltail].report->type,
--				urb->transfer_buffer, urb->actual_length, 0);
-+				urb->transfer_buffer, urb->transfer_buffer_length,
-+				urb->actual_length, 0);
- 		break;
- 	case -ESHUTDOWN:	/* unplug */
- 		unplug = 1;
-diff --git a/include/linux/hid.h b/include/linux/hid.h
-index fdd401e4ebde..7d05b1edacd8 100644
---- a/include/linux/hid.h
-+++ b/include/linux/hid.h
-@@ -949,6 +949,8 @@ struct hid_field *hid_find_field(struct hid_device *hdev, unsigned int report_ty
- int hid_set_field(struct hid_field *, unsigned, __s32);
- int hid_input_report(struct hid_device *hid, enum hid_report_type type, u8 *data, u32 size,
- 		     int interrupt);
-+int hid_safe_input_report(struct hid_device *hid, enum hid_report_type type, u8 *data,
-+			  size_t bufsize, u32 size, int interrupt);
- struct hid_field *hidinput_get_led_field(struct hid_device *hid);
- unsigned int hidinput_count_leds(struct hid_device *hid);
- __s32 hidinput_calc_abs_res(const struct hid_field *field, __u16 code);
+ 	if (bsize < rsize) {
+-		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
++		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %zu)\n",
+ 				     report->id, rsize, bsize);
+ 		return -EINVAL;
+ 	}
 -- 
 2.54.0.823.g6e5bcc1fc9-goog
 
