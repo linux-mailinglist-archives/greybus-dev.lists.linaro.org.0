@@ -2,46 +2,42 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id MpeII7hWIGre1QAAu9opvQ
+	id 93E9CvFEIWogCQEAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Wed, 03 Jun 2026 18:30:48 +0200
+	for <lists+greybus-dev@lfdr.de>; Thu, 04 Jun 2026 11:27:13 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42CDD639BEB
-	for <lists+greybus-dev@lfdr.de>; Wed, 03 Jun 2026 18:30:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 988F063E84E
+	for <lists+greybus-dev@lfdr.de>; Thu, 04 Jun 2026 11:27:12 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=Vmnp91rf;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=mZEH9dCh;
 	spf=pass (mail.lfdr.de: domain of "greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org" designates 44.210.186.118 as permitted sender) smtp.mailfrom="greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org";
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 59D6440A49
-	for <lists+greybus-dev@lfdr.de>; Wed,  3 Jun 2026 16:30:47 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	by lists.linaro.org (Postfix) with ESMTPS id 129B340A56
-	for <greybus-dev@lists.linaro.org>; Wed,  3 Jun 2026 16:30:42 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 9E62B40514
+	for <lists+greybus-dev@lfdr.de>; Thu,  4 Jun 2026 09:27:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by lists.linaro.org (Postfix) with ESMTPS id 937CA3F7E5
+	for <greybus-dev@lists.linaro.org>; Thu,  4 Jun 2026 09:27:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 7D1A54037D;
-	Wed,  3 Jun 2026 16:30:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485DB1F00898;
-	Wed,  3 Jun 2026 16:30:37 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id 1EFF7601D6;
+	Thu,  4 Jun 2026 09:27:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A5191F00893;
+	Thu,  4 Jun 2026 09:27:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780504241;
-	bh=38hSkNo5fRx0Ch4qTSwSTf+7TR9zAnLVta6lrlP9w5E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Vmnp91rfAu9gO8/gbBdgvOdn1typadHonqZCQ1OPhECUkJbCkub2xTDuhEfzd1olc
-	 OwUxWAd3pEmZz5oh9OSSyh4N4kFUr4l0hqr4LvdWuLpV7H/DaYjZfiTkldl71QtDyK
-	 rAIUrQPH1Ehot3ZIG9JBfILAzswSbzfhH2RtNb13FNBqx0z7eztBimIEXfkd2RaG42
-	 QPWzwSMSa9+2488OZ2WZ1nSOXr48G2Ds9NMzclH66RmCurjhl2S/fy7fCArcVULyKH
-	 OGekIQQE1vq8M5QcqtP3Ss27dB2/Qzw17gA16CBV3F547de1wG7R8bBdw5iJQBEeio
-	 9QCbFCOozjGZA==
+	s=k20260515; t=1780565226;
+	bh=l+iB7Rvpg5+TBBuDmvrkJ26w4N+ilOgjEk1PmgxdSKg=;
+	h=From:To:Cc:Subject:Date;
+	b=mZEH9dChkuR+7M54ROBmuKu/O5j3bKMwz6SUnOO1mN+XYSFHKOidmbBtvI4JG8QaN
+	 6+Q7lhBHgWaBhdGEL4vic080Dz2bMbwZZA4vUtzmUumfxRLElFnr6hWfy7wEWdqc3y
+	 P7oRjSLu4LxM4KA3i0nS9D+G366gJbmq+rxnoeh6NjnzztYXLqpomW5Itba1cTqzr5
+	 dpKmeU+Ghn17VuiSo1iq9r41YfO0XEKWe6aDwmhkQv0cw9jYTrN2H4WBgutR5IlB7K
+	 y0PKLHcEA5Ari9mI/EjvU4S95GCZYHCynFR58hw+QZpnNV3VxpOXOIS1hQr1DgJWJv
+	 61h2YFYn0m+rw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	=?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	Bastien Nocera <hadess@hadess.net>,
-	Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
 	Viresh Kumar <vireshk@kernel.org>,
 	Johan Hovold <johan@kernel.org>,
 	Alex Elder <elder@kernel.org>,
@@ -50,23 +46,21 @@ To: lee@kernel.org,
 	linux-kernel@vger.kernel.org,
 	greybus-dev@lists.linaro.org,
 	linux-staging@lists.linux.dev
-Date: Wed,  3 Jun 2026 17:30:14 +0100
-Message-ID: <20260603163022.3301081-3-lee@kernel.org>
+Date: Thu,  4 Jun 2026 10:26:50 +0100
+Message-ID: <20260604092659.3953067-1-lee@kernel.org>
 X-Mailer: git-send-email 2.54.0.1032.g2f8565e1d1-goog
-In-Reply-To: <20260603163022.3301081-1-lee@kernel.org>
-References: <20260603163022.3301081-1-lee@kernel.org>
 MIME-Version: 1.0
 X-Spamd-Bar: --
-Message-ID-Hash: 5QJO5LHQ4GD2GHEH7RXURB722XDKMOYN
-X-Message-ID-Hash: 5QJO5LHQ4GD2GHEH7RXURB722XDKMOYN
+Message-ID-Hash: NMYB4KKS6BLJMOZEMRYNPS42A6YNC6NO
+X-Message-ID-Hash: NMYB4KKS6BLJMOZEMRYNPS42A6YNC6NO
 X-MailFrom: lee@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: stable@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, Sasha Levin <sashal@kernel.org>
+CC: stable@vger.kernel.org, Vicki Pfau <vi@endrift.com>, Jiri Kosina <jkosina@suse.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [linux-6.1.y 3/3] HID: core: Fix size_t specifier in hid_report_raw_event()
+Subject: [greybus-dev] [linux-5.15.y 1/3] HID: core: Add printk_ratelimited variants to hid_warn() etc
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5QJO5LHQ4GD2GHEH7RXURB722XDKMOYN/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/NMYB4KKS6BLJMOZEMRYNPS42A6YNC6NO/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -81,16 +75,16 @@ X-Spamd-Result: default: False [2.99 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx:c];
+	R_SPF_ALLOW(-0.20)[+mx];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:lee@kernel.org,m:jikos@kernel.org,m:benjamin.tissoires@redhat.com,m:lains@riseup.net,m:hadess@hadess.net,m:ping.cheng@wacom.com,m:jason.gerecke@wacom.com,m:vireshk@kernel.org,m:johan@kernel.org,m:elder@kernel.org,m:gregkh@linuxfoundation.org,m:linux-input@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:greybus-dev@lists.linaro.org,m:linux-staging@lists.linux.dev,m:stable@vger.kernel.org,m:nathan@kernel.org,m:ojeda@kernel.org,m:torvalds@linux-foundation.org,m:sashal@kernel.org,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	FORGED_SENDER(0.00)[lee@kernel.org,greybus-dev-bounces@lists.linaro.org];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	RCVD_COUNT_THREE(0.00)[4];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_RECIPIENTS(0.00)[m:lee@kernel.org,m:jikos@kernel.org,m:benjamin.tissoires@redhat.com,m:vireshk@kernel.org,m:johan@kernel.org,m:elder@kernel.org,m:gregkh@linuxfoundation.org,m:linux-input@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:greybus-dev@lists.linaro.org,m:linux-staging@lists.linux.dev,m:stable@vger.kernel.org,m:vi@endrift.com,m:jkosina@suse.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -105,69 +99,44 @@ X-Spamd-Result: default: False [2.99 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux-foundation.org:email,linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns,lists.linaro.org:from_smtp]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,suse.com:email,lists.linaro.org:helo,lists.linaro.org:rdns,lists.linaro.org:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 42CDD639BEB
+X-Rspamd-Queue-Id: 988F063E84E
 
-From: Nathan Chancellor <nathan@kernel.org>
+From: Vicki Pfau <vi@endrift.com>
 
-[ Upstream commit 4d3a2a466b8d68d852a1f3bbf11204b718428dc4 ]
+hid_warn_ratelimited() is needed. Add the others as part of the block.
 
-When building for 32-bit platforms, for which 'size_t' is
-'unsigned int', there are warnings around using the incorrect format
-specifier to print bsize in hid_report_raw_event():
-
-  drivers/hid/hid-core.c:2054:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
-   2053 |                 hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
-        |                                                                                         ~~~
-        |                                                                                         %zu
-   2054 |                                      report->id, csize, bsize);
-        |                                                         ^~~~~
-  drivers/hid/hid-core.c:2076:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
-   2075 |                 hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
-        |                                                                                          ~~~
-        |                                                                                          %zu
-   2076 |                                      report->id, rsize, bsize);
-        |                                                         ^~~~~
-
-Use the proper 'size_t' format specifier, '%zu', to clear up the
-warnings.
-
-Cc: stable@vger.kernel.org
-Fixes: 2c85c61d1332 ("HID: pass the buffer size to hid_report_raw_event")
-Reported-by: Miguel Ojeda <ojeda@kernel.org>
-Closes: https://lore.kernel.org/20260516020430.110135-1-ojeda@kernel.org/
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-(cherry picked from commit 3ab135238832446399614e7a4bb796d620717806)
+Signed-off-by: Vicki Pfau <vi@endrift.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+(cherry picked from commit 1d64624243af8329b4b219d8c39e28ea448f9929)
+Signed-off-by: Lee Jones <lee@kernel.org>
+(cherry picked from commit 3dc96d0b81eae69bf71e129e3f331c982c5c70fd)
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/hid/hid-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/hid.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index 346c5554da5c..1620a13c89c0 100644
---- a/drivers/hid/hid-core.c
-+++ b/drivers/hid/hid-core.c
-@@ -2003,7 +2003,7 @@ int hid_report_raw_event(struct hid_device *hid, enum hid_report_type type, u8 *
- 		return 0;
+diff --git a/include/linux/hid.h b/include/linux/hid.h
+index 671403f208c9..3968fa039c26 100644
+--- a/include/linux/hid.h
++++ b/include/linux/hid.h
+@@ -1248,4 +1248,15 @@ do {									\
+ #define hid_dbg_once(hid, fmt, ...)			\
+ 	dev_dbg_once(&(hid)->dev, fmt, ##__VA_ARGS__)
  
- 	if (unlikely(bsize < csize)) {
--		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
-+		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %zu)\n",
- 				     report->id, csize, bsize);
- 		return -EINVAL;
- 	}
-@@ -2025,7 +2025,7 @@ int hid_report_raw_event(struct hid_device *hid, enum hid_report_type type, u8 *
- 		rsize = max_buffer_size;
- 
- 	if (bsize < rsize) {
--		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
-+		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %zu)\n",
- 				     report->id, rsize, bsize);
- 		return -EINVAL;
- 	}
++#define hid_err_ratelimited(hid, fmt, ...)			\
++	dev_err_ratelimited(&(hid)->dev, fmt, ##__VA_ARGS__)
++#define hid_notice_ratelimited(hid, fmt, ...)			\
++	dev_notice_ratelimited(&(hid)->dev, fmt, ##__VA_ARGS__)
++#define hid_warn_ratelimited(hid, fmt, ...)			\
++	dev_warn_ratelimited(&(hid)->dev, fmt, ##__VA_ARGS__)
++#define hid_info_ratelimited(hid, fmt, ...)			\
++	dev_info_ratelimited(&(hid)->dev, fmt, ##__VA_ARGS__)
++#define hid_dbg_ratelimited(hid, fmt, ...)			\
++	dev_dbg_ratelimited(&(hid)->dev, fmt, ##__VA_ARGS__)
++
+ #endif
 -- 
 2.54.0.1032.g2f8565e1d1-goog
 
