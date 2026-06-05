@@ -2,67 +2,83 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 5K+tK/pEIWokCQEAu9opvQ
+	id jdkKMzhJJWqEGAIAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Thu, 04 Jun 2026 11:27:22 +0200
+	for <lists+greybus-dev@lfdr.de>; Sun, 07 Jun 2026 12:34:32 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E3FA63E864
-	for <lists+greybus-dev@lfdr.de>; Thu, 04 Jun 2026 11:27:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5274864FCED
+	for <lists+greybus-dev@lfdr.de>; Sun, 07 Jun 2026 12:34:32 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=m6fdk5Q2;
+	dkim=fail ("body hash did not verify") header.d=tumelty-co-uk.20251104.gappssmtp.com header.s=20251104 header.b=N1hZWgP7;
 	spf=pass (mail.lfdr.de: domain of "greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org" designates 44.210.186.118 as permitted sender) smtp.mailfrom="greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org";
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
+	dmarc=none
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 754A740979
-	for <lists+greybus-dev@lfdr.de>; Thu,  4 Jun 2026 09:27:21 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	by lists.linaro.org (Postfix) with ESMTPS id 0E0F340992
-	for <greybus-dev@lists.linaro.org>; Thu,  4 Jun 2026 09:27:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id C3FFB601D6;
-	Thu,  4 Jun 2026 09:27:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 012211F00893;
-	Thu,  4 Jun 2026 09:27:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780565236;
-	bh=Y/ISGDFhn+Nt3MpYi8Wixou+ghY4kt+aKNp5hNGAjcs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m6fdk5Q2fE7svINVgrt1IItTH3rpvPN93kkLp6tn+82SRM59esIdUqdfq/Zye6Kdk
-	 CjzcM7GJAeEwf+m4sEkFY0HvklFW/CQEUrQk0ETa7Vodw8aypm6upLa6d/d1KdRLbT
-	 ixC2HpYhySo3jcak8Fm47Vr8tX4q9BAyx9tvTHgqfb4bgOpDyF+8ogYPkWooSepT2P
-	 36QEfwfY3KZeQjyOFBWmt13+sPyURzkR77po5tHIrODb/dEAzRH23GjeIgdNfRBhLx
-	 aE9/yIMPrO7ESo38mGlXKH2cvziIQJ17tu6ENsntvb6CfKTIAiZUg5U8HJCX7VO1GP
-	 O8qBsgDZ60wlw==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev
-Date: Thu,  4 Jun 2026 10:26:52 +0100
-Message-ID: <20260604092659.3953067-3-lee@kernel.org>
-X-Mailer: git-send-email 2.54.0.1032.g2f8565e1d1-goog
-In-Reply-To: <20260604092659.3953067-1-lee@kernel.org>
-References: <20260604092659.3953067-1-lee@kernel.org>
+	by lists.linaro.org (Postfix) with ESMTP id 11D43409E3
+	for <lists+greybus-dev@lfdr.de>; Sun,  7 Jun 2026 10:34:31 +0000 (UTC)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	by lists.linaro.org (Postfix) with ESMTPS id 37D9C3F827
+	for <greybus-dev@lists.linaro.org>; Fri,  5 Jun 2026 19:29:13 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490bc6a7958so21608435e9.1
+        for <greybus-dev@lists.linaro.org>; Fri, 05 Jun 2026 12:29:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tumelty-co-uk.20251104.gappssmtp.com; s=20251104; t=1780687752; x=1781292552; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Rqyuc30a31kxl+uTZbhiHfXsUecDU6zMIJmtbdO0sCo=;
+        b=N1hZWgP7vNPIrOmgIpV0ecoI0vk1EVGnTsv808/pyVR6HVz97FucnoWyucOW3Od4Vs
+         KTWmG5sTrKATmwjz9Sc9X/5bTB1LeTUA62HJLFUUaYSOAQpRO/witv3iiZ5hCdeawv8z
+         r4cpmwTfnGvqJpXHMAnTSuKpVnRSZ1w+1gCVsDJn+bkawjTt9fzAx8RogdlMB6S7kY1S
+         SNPKhlAylM+56fvQmXXDS+4YqIwY7toep2HhL+Kn3sfRKCvadx4BUgmAfxtMEXVbXvbq
+         MkFJh/mpHjcbzvOuJBNNcTN5AxVSGjCKzIlqqfct4sYefMgB+QlZHBaLrckEAQaWE5kS
+         e0+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780687752; x=1781292552;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Rqyuc30a31kxl+uTZbhiHfXsUecDU6zMIJmtbdO0sCo=;
+        b=b78onTBb6qxG/iZjnbDHZaCQvWuLpvjtYYkgRprzODV+ndPpvPzP6fyiCDAlQ4+mcF
+         MvgNBwVDxOL/Rni44EbImdpXp9znwFvz96u76uDpMYzAI7wKcGeFd8Xnhixs47aHOcQz
+         C8opy4ISIb040LgwIAwp3D/O+s0EFck181Z35CJ7leXdLQtbYgaaZwXbPgZfBm86h1Yf
+         gCOsZN/sLrDSeBd0OY4LYc8HB9+Y/Oi0CobJk3Xt4fbgVEVS2BSskAQCZgBymXT9N41p
+         RhCX2/Mbg0LcT75LSKZ3eE36CRzzE1mV/paanGbowlk3YGQ53vEYKQ8/cgrZS7r+iFDr
+         COPw==
+X-Forwarded-Encrypted: i=1; AFNElJ+v6QjfRdI13pPZzv8WoP7+2XpBzavfwsC5EEzdb2nOpcN3nZnddepQNC9VEB2MR7nuHAyEmM7TlD3feg==@lists.linaro.org
+X-Gm-Message-State: AOJu0YwgRdZeJ8BMN1bPcXBBMH/z4XBPjKG0QTKjDbKwox71qcz6xl0s
+	9fFS9HT/+HWRjfPZY8KmnWLPtMD9H1UduolgW+g7Gf5CDI9AAqDie5WoZKot/jmpCig=
+X-Gm-Gg: Acq92OFzO1WfovWHonlqWkMdtgPDV2n5wvnsJXIPMID9YyaS0OlokcxKpQYCL5s+yoJ
+	+bYzlFUc4SHfDn2+GknLohQUHDAIrJmKA6zd+tXZ/SV/F47K/fJPaoVt8hz6y3T7VF4m6ASDTC8
+	RsvSlyX5GqC4NfT0vZrCxaqGDpF6uMz5WswGcj4U9GNhed7OQ0wifzpnuF2cjBCA14jWL5y5M/G
+	NPcZmoG+q6kQ+oEkwXPhd5knUFI/iAkDlkEXTf7yS290dfuwpbxwGPEGG6uSHgr2YGMMe0J/iIB
+	VwLQLd6N+A9fVAClNWhEFGvg52MfsCfMvtV5IYojS6Xmhh+bgbaA77JsuZ24pqMtSXWZuf1Bi+A
+	6toE948wntLnRJfC1VWCSw/AmULg5brRYt/ZJDG6ICe5u+m5APkiNYx/IUTQ4uhSHe5Y87XlgkL
+	2u2HDWo+w17nHReycewb0kkPCXcbK3GlcMazg=
+X-Received: by 2002:a05:600c:314e:b0:490:bb60:68ca with SMTP id 5b1f17b1804b1-490c2cba7b8mr59213975e9.3.1780687752198;
+        Fri, 05 Jun 2026 12:29:12 -0700 (PDT)
+Received: from nixos ([83.217.168.175])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc39e024sm231031185e9.4.2026.06.05.12.29.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 Jun 2026 12:29:11 -0700 (PDT)
+From: Rhys Tumelty <rhys@tumelty.co.uk>
+To: gregkh@linuxfoundation.org
+Date: Fri,  5 Jun 2026 20:28:56 +0100
+Message-ID: <20260605192857.78944-1-rhys@tumelty.co.uk>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-Spamd-Bar: --
-Message-ID-Hash: D36TRQBS54K6W3PLXRI7DEWPT7V75FBH
-X-Message-ID-Hash: D36TRQBS54K6W3PLXRI7DEWPT7V75FBH
-X-MailFrom: lee@kernel.org
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: stable@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, Sasha Levin <sashal@kernel.org>
+X-Spamd-Bar: -
+X-MailFrom: rhys@tumelty.co.uk
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
+Message-ID-Hash: ASJJZ6EMRPKQOD4JF4JTU5VJP3UYSHPF
+X-Message-ID-Hash: ASJJZ6EMRPKQOD4JF4JTU5VJP3UYSHPF
+X-Mailman-Approved-At: Sun, 07 Jun 2026 10:34:26 +0000
+CC: Rhys Tumelty <rhys@tumelty.co.uk>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [linux-5.15.y 3/3] HID: core: Fix size_t specifier in hid_report_raw_event()
+Subject: [greybus-dev] [PATCH] staging: greybus: audio: fix snprintf truncation errors
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/D36TRQBS54K6W3PLXRI7DEWPT7V75FBH/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/ASJJZ6EMRPKQOD4JF4JTU5VJP3UYSHPF/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -72,102 +88,75 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [2.99 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [2.49 / 15.00];
+	R_DKIM_REJECT(1.00)[tumelty-co-uk.20251104.gappssmtp.com:s=20251104];
 	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
+	DATE_IN_PAST(1.00)[39];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx:c];
+	R_SPF_ALLOW(-0.20)[+mx];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:lee@kernel.org,m:jikos@kernel.org,m:benjamin.tissoires@redhat.com,m:vireshk@kernel.org,m:johan@kernel.org,m:elder@kernel.org,m:gregkh@linuxfoundation.org,m:linux-input@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:greybus-dev@lists.linaro.org,m:linux-staging@lists.linux.dev,m:stable@vger.kernel.org,m:nathan@kernel.org,m:ojeda@kernel.org,m:torvalds@linux-foundation.org,m:sashal@kernel.org,s:lists@lfdr.de];
-	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	FORGED_SENDER(0.00)[lee@kernel.org,greybus-dev-bounces@lists.linaro.org];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
 	RCVD_COUNT_THREE(0.00)[4];
+	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
+	DMARC_NA(0.00)[tumelty.co.uk];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[rhys@tumelty.co.uk,greybus-dev-bounces@lists.linaro.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:gregkh@linuxfoundation.org,m:rhys@tumelty.co.uk,m:johan@kernel.org,m:elder@kernel.org,m:greybus-dev@lists.linaro.org,m:linux-staging@lists.linux.dev,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[lee@kernel.org,greybus-dev-bounces@lists.linaro.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	DKIM_TRACE(0.00)[tumelty-co-uk.20251104.gappssmtp.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[rhys@tumelty.co.uk,greybus-dev-bounces@lists.linaro.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns,lists.linaro.org:from_smtp]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,tumelty.co.uk:mid,tumelty.co.uk:from_mime,tumelty.co.uk:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5E3FA63E864
+X-Rspamd-Queue-Id: 5274864FCED
 
-From: Nathan Chancellor <nathan@kernel.org>
+change snprintf() to scnprintf() in both gbaudio_tplg_create_widget()
+and gbaudio_tplg_process_kcontrols() to prevent potential string
+truncation warnings when prefixing the device id to the control name.
 
-[ Upstream commit 4d3a2a466b8d68d852a1f3bbf11204b718428dc4 ]
-
-When building for 32-bit platforms, for which 'size_t' is
-'unsigned int', there are warnings around using the incorrect format
-specifier to print bsize in hid_report_raw_event():
-
-  drivers/hid/hid-core.c:2054:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
-   2053 |                 hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
-        |                                                                                         ~~~
-        |                                                                                         %zu
-   2054 |                                      report->id, csize, bsize);
-        |                                                         ^~~~~
-  drivers/hid/hid-core.c:2076:29: error: format specifies type 'long' but the argument has type 'size_t' (aka 'unsigned int') [-Werror,-Wformat]
-   2075 |                 hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
-        |                                                                                          ~~~
-        |                                                                                          %zu
-   2076 |                                      report->id, rsize, bsize);
-        |                                                         ^~~~~
-
-Use the proper 'size_t' format specifier, '%zu', to clear up the
-warnings.
-
-Cc: stable@vger.kernel.org
-Fixes: 2c85c61d1332 ("HID: pass the buffer size to hid_report_raw_event")
-Reported-by: Miguel Ojeda <ojeda@kernel.org>
-Closes: https://lore.kernel.org/20260516020430.110135-1-ojeda@kernel.org/
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-(cherry picked from commit 3ab135238832446399614e7a4bb796d620717806)
-Signed-off-by: Lee Jones <lee@kernel.org>
-(cherry picked from commit 0f77a993b5426cca1b046c9ab4b2f8355a4d45dc)
-Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Rhys Tumelty <rhys@tumelty.co.uk>
 ---
- drivers/hid/hid-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/staging/greybus/audio_topology.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index a8d4673c7b8e..e106b59b55da 100644
---- a/drivers/hid/hid-core.c
-+++ b/drivers/hid/hid-core.c
-@@ -1793,7 +1793,7 @@ int hid_report_raw_event(struct hid_device *hid, int type, u8 *data,
- 		return 0;
+diff --git a/drivers/staging/greybus/audio_topology.c b/drivers/staging/greybus/audio_topology.c
+index 76146f91c..b19febabb 100644
+--- a/drivers/staging/greybus/audio_topology.c
++++ b/drivers/staging/greybus/audio_topology.c
+@@ -1087,7 +1087,7 @@ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
  
- 	if (unlikely(bsize < csize)) {
--		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %ld)\n",
-+		hid_warn_ratelimited(hid, "Event data for report %d is incorrect (%d vs %zu)\n",
- 				     report->id, csize, bsize);
- 		return -EINVAL;
- 	}
-@@ -1815,7 +1815,7 @@ int hid_report_raw_event(struct hid_device *hid, int type, u8 *data,
- 		rsize = max_buffer_size;
+ 	/* Prefix dev_id to widget control_name */
+ 	strscpy(temp_name, w->name, sizeof(temp_name));
+-	snprintf(w->name, sizeof(w->name), "GB %d %s", module->dev_id, temp_name);
++	scnprintf(w->name, sizeof(w->name), "GB %d %s", module->dev_id, temp_name);
  
- 	if (bsize < rsize) {
--		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %ld)\n",
-+		hid_warn_ratelimited(hid, "Event data for report %d was too short (%d vs %zu)\n",
- 				     report->id, rsize, bsize);
- 		return -EINVAL;
- 	}
+ 	switch (w->type) {
+ 	case snd_soc_dapm_spk:
+@@ -1169,8 +1169,8 @@ static int gbaudio_tplg_process_kcontrols(struct gbaudio_module_info *module,
+ 		control->id = curr->id;
+ 		/* Prefix dev_id to widget_name */
+ 		strscpy(temp_name, curr->name, sizeof(temp_name));
+-		snprintf(curr->name, sizeof(curr->name), "GB %d %s", module->dev_id,
+-			 temp_name);
++		scnprintf(curr->name, sizeof(curr->name), "GB %d %s", module->dev_id,
++			  temp_name);
+ 		control->name = curr->name;
+ 		if (curr->info.type == GB_AUDIO_CTL_ELEM_TYPE_ENUMERATED) {
+ 			struct gb_audio_enumerated *gbenum =
 -- 
-2.54.0.1032.g2f8565e1d1-goog
+2.54.0
 
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
