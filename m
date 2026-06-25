@@ -2,85 +2,85 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id OBi+ORs9PWq0zwgAu9opvQ
+	id P0dnLR89PWq1zwgAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 16:37:15 +0200
+	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 16:37:19 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B5E36C6B70
-	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 16:37:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88C2A6C6B73
+	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 16:37:19 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=qB4MoTKj;
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b="W+/+QIFh";
 	spf=pass (mail.lfdr.de: domain of "greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org" designates 44.210.186.118 as permitted sender) smtp.mailfrom="greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org";
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A304E40AB7
-	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 14:37:14 +0000 (UTC)
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	by lists.linaro.org (Postfix) with ESMTPS id 040683F99D
-	for <greybus-dev@lists.linaro.org>; Thu, 25 Jun 2026 10:26:53 +0000 (UTC)
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e6e41cf7aeso1027230a34.0
-        for <greybus-dev@lists.linaro.org>; Thu, 25 Jun 2026 03:26:52 -0700 (PDT)
+	by lists.linaro.org (Postfix) with ESMTP id AC2E140AF5
+	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 14:37:18 +0000 (UTC)
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	by lists.linaro.org (Postfix) with ESMTPS id 7DFD03F99D
+	for <greybus-dev@lists.linaro.org>; Thu, 25 Jun 2026 10:27:36 +0000 (UTC)
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6a133f81346so173928eaf.1
+        for <greybus-dev@lists.linaro.org>; Thu, 25 Jun 2026 03:27:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782383212; x=1782988012; darn=lists.linaro.org;
+        d=gmail.com; s=20251104; t=1782383256; x=1782988056; darn=lists.linaro.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=RpuUsGnvDm+QoXjPHw7swJUNLQqaW5CEgJOYVsc0Fz0=;
-        b=qB4MoTKjVHATNWIgm4GB/Cb7qp6N4bLD1lPsYCJDZ740OUc6Xxah8K+VYbgMyKLw+z
-         tN99i/npUb3InCxZsthN9cwn5A6H66jarormqItXy1SMxBRQrhzP52iCw+pE6WQZAeVT
-         vs5cJ5nqXYNDnKgKb7Pj4Yw4xdbcrrIOFBeAqS4wO+6aCuWgAkLg8t3eUpKZ+bICkxd0
-         O4nk+FJyH3zw7aFQ9KKEbhCK3aI9jezxPnBN94HqKvUWbuBUBsK3BM/Mgz7mYGVuio3p
-         QZHEamJorCE+ETR+CIbkWtdTkAo29PQCiJHjrbMECckVP1JIgBXWcCyR91SsEfIz8Yy5
-         1OgA==
+        bh=/WKFN+bw8sY7v3WiWOtoFku5fUwcwrZGxnyX6mydsFI=;
+        b=W+/+QIFhaNfsfXN2aiGO7PEb8VVc2T6Qtza8z5wMX5YfMElcfF6YoJHYukAaswWYw0
+         6B3bUFbcIZx7TrtYDJFFfFhCMS3Mci1c+JqXZIVH0zBADEUGcCLtxKJ8s3j+cIQwbIYb
+         RjPmWKPFBPmMvVzJXzMxOi71p8Ul7x6Uj4CceDeAtrgiB0IY6kYvfGnBxeuqxPmx9JuK
+         2D4rU+cd9XeelvIMxDygOS4tIWVixYSlMhzO3Y1p+Ffvvu3u1HthPyvQUzBbGPaJu1rX
+         Wa1At7iDPtgfhRcnCpWp6gEP+/4rLRpw+ly25OhVBnQSUp4EmoRovJh2sVnt6KX9Dsb6
+         GAkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782383212; x=1782988012;
+        d=1e100.net; s=20251104; t=1782383256; x=1782988056;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=RpuUsGnvDm+QoXjPHw7swJUNLQqaW5CEgJOYVsc0Fz0=;
-        b=lOY7QMGdp0mIo/Gkbmxli+Tzssft0TGrOp9oWLlvxdyRSrVfKbCk3pDUTwDJn3ow00
-         YN4qbp2xmzcq5PtxkX/3o1BeQwCJQhba7V4zRn/sy73PUIdKOMoj7WLyNo5MFYX8UaPF
-         Kn1Jo2aw6uTXRASDOrPUMj7Ho+EqK2AQVJNMe7a3rVrjmqzlpRAhExQlHgT+rG9cjD/N
-         xAoNyzRwxYo9RCDmvvO5DWv6EB5fgdCYiG/qTKB+RZyB3nlGSsNiAXjPC7lQ9YSYPLT+
-         MpPveCI+L9ZvAPaXN2o+C31W21FwNM1sh10IUbzYoB1bc5fnUA/C3Rto3UG4ack4xZp1
-         o6mg==
-X-Forwarded-Encrypted: i=1; AFNElJ/zowZZTXUIJ5T53Urisa8H2xIbkvSEPlnWCHb2A5PthZuWJU/Ej3+LeuczeiVMJ8Xq51o7vusu57U+aQ==@lists.linaro.org
-X-Gm-Message-State: AOJu0YyXrcm130DpIYYKrUwj3dhtz9hUVJRQNIRKq+BLb5AmvlkhyS0b
-	u0UqUfWLYYjJaxGkrxiymvziB+vdAeqzS/ALh/fBzVIjOCUTq7/xS3fN
-X-Gm-Gg: AfdE7ckc4wNKGn8WUCbBqFTEKYl/wtQemB8hsZcopLrhj/URuTj6ncb/tAvKegHHlra
-	S0mXUaFvyMzwMTKrK7fFQ8jtEgbKIhgHk63YERFhboul/P6Mn1bDgNNzEaa76eGR008L/Oe8mns
-	ksWuc79IVMi97G7nq6bdi4Jnrr019nw04wgO9WBukQcEyyf6OFNXNw1ZGw0/0paHHl9rfVKYJzf
-	EdvYlWgDWOwb6JIDw5ix24SSgyDoQuwT3cXIRCpnuVTf1X8XFm9q3WrfAF2S5dil6VJGAP099Nr
-	EeljEG4f3kEo385EsYiYXkF4lKCxcgp3vmZqQ1SZxzaxZvA7BM0nBwwIO02d3x4A/RRdGAJUdU2
-	VlVGoSNoSXRKkMtFzOt0jPXhMACOyt9ay/YprETXIxAApkJ4OrpEYeU1bKXmjesuI43ybSsu3ki
-	xXe2f3
-X-Received: by 2002:a05:6830:2685:b0:7dc:dbe4:3f21 with SMTP id 46e09a7af769-7e99bf36cd5mr2313648a34.1.1782383212267;
-        Thu, 25 Jun 2026 03:26:52 -0700 (PDT)
+        bh=/WKFN+bw8sY7v3WiWOtoFku5fUwcwrZGxnyX6mydsFI=;
+        b=Lg40115Z6G++t2dsidYZZPyjBagqdEIHn4P/C+PQnxYBLgXZf1pR+Qy+Q9a5xuXtWa
+         niZfPr0QAmKv19DTyYh3itBwujoadufu+Y9WE3JvMwbDkzcvZ7ONIvL/Lfrju52OO9C4
+         JlQ+NK2djYBXsRdhJ86qSj5Xf2FF2X7WhNqms98U1ZPMOmHPmxaHVCMbC22MK6J9LAWM
+         fxa6lD1EWyPsndSwIC5eHydGrN0HSZYzVyYys8MOyXBjb6Am6I2vu215wmHC7kQTi1Zv
+         i8dTNR/avwwUgDeJaWoWThZuMiMDIRYAz1TbNBNuSFht3ES9Scz3tr9bPuqjP4q3kyL2
+         wtCg==
+X-Forwarded-Encrypted: i=1; AFNElJ97hnGRPzB1KZG+aazwknxu3GTIExUOw6xFgbJEzTZ4QpDju3wXlmjZc/NpFvU7441SlHviK7sR01WZ5w==@lists.linaro.org
+X-Gm-Message-State: AOJu0YyeWlZT1h91GtXWJEpR6bHWAI7WQr2TKZM+swlAGu6EgIXu2VOC
+	AOUTZ3QbJb2hwaftJzKHEZNSGaFX+vP10ppJiG+GVhfvD40FdzjUKx/9
+X-Gm-Gg: AfdE7cn37bZkbgZuNnNysLnBqg+aMNhjMYMmRPeX9C3BLLevfOBHhBl2lROZvGqw6vJ
+	yRQsi+mTuoL2Ngadq5VJoDUxR/3kJ5Ezdkq8DTtHfulcnfTxd09ZEWy8N8hh7+kFDm3/b8fA1WP
+	/uZXKIYhjCmSDL+VR6ps41kiIpVg1tQeeegGW0xOiveVrtCNuT2dOC4PP2yopexG1nx3rBqO0K7
+	F40SulVVJ0Y1VEWVMpsPKQ9w2fNqtYCwpAZ+kzJY5ELsdz8Y8dFLBr4CvLWxqfBw5idVrQjZyaF
+	iiYciHahSfFOoEQZNDNWHrK2JRX6ceYnjjfSwI+RjH1Be7lH0CeDzE122WelceZACvNfK8MiVn9
+	q1pSj8equW/oxs/nlhJB+ijLUHkJInhsZDwVRMjxriqwnnXqBu0Ha5lk4+JzJdE8fXQKM/3+vZd
+	MPYP9E
+X-Received: by 2002:a4a:e917:0:b0:69d:4f94:cf2a with SMTP id 006d021491bc7-6a135266f27mr1216037eaf.56.1782383255823;
+        Thu, 25 Jun 2026 03:27:35 -0700 (PDT)
 Received: from localhost ([74.80.182.98])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e94429a5bdsm14319962a34.22.2026.06.25.03.26.49
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a0ea102694sm10136790eaf.13.2026.06.25.03.27.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 03:26:51 -0700 (PDT)
-Date: Thu, 25 Jun 2026 13:26:44 +0300
+        Thu, 25 Jun 2026 03:27:34 -0700 (PDT)
+Date: Thu, 25 Jun 2026 13:27:27 +0300
 From: Dan Carpenter <error27@gmail.com>
 To: suryasaimadhu <suryasaimadhu369@gmail.com>
-Message-ID: <aj0CZOUlYlJydfPd@stanley.mountain>
-References: <20260625085740.222486-1-suryasaimadhu369@gmail.com>
+Message-ID: <aj0CjyGElhXxS3eK@stanley.mountain>
+References: <20260625091416.230920-1-suryasaimadhu369@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260625085740.222486-1-suryasaimadhu369@gmail.com>
-X-Spamd-Bar: ---
+In-Reply-To: <20260625091416.230920-1-suryasaimadhu369@gmail.com>
+X-Spamd-Bar: ----
 X-MailFrom: error27@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 4P426ZM3LPYSJAPNRSMBRGVCDUVKLMCG
-X-Message-ID-Hash: 4P426ZM3LPYSJAPNRSMBRGVCDUVKLMCG
+Message-ID-Hash: HYOYDH3ZM46BYOOW5YMS7BF2GZI7WEUE
+X-Message-ID-Hash: HYOYDH3ZM46BYOOW5YMS7BF2GZI7WEUE
 X-Mailman-Approved-At: Thu, 25 Jun 2026 14:37:00 +0000
 CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: add comments to mutex declarations
+Subject: [greybus-dev] Re: [PATCH] staging: greybus: add missing newlines in sysfs_emit calls
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/4P426ZM3LPYSJAPNRSMBRGVCDUVKLMCG/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/HYOYDH3ZM46BYOOW5YMS7BF2GZI7WEUE/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -122,23 +122,19 @@ X-Spamd-Result: default: False [0.59 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lists.linaro.org:helo,lists.linaro.org:rdns,lists.linaro.org:from_smtp,stanley.mountain:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:helo,lists.linaro.org:rdns,lists.linaro.org:from_smtp,stanley.mountain:mid,linaro.org:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8B5E36C6B70
+X-Rspamd-Queue-Id: 88C2A6C6B73
 
-On Thu, Jun 25, 2026 at 04:57:40PM +0800, suryasaimadhu wrote:
-> Add comments to mutex members in gbaudio_codec_info struct
-> to describe what each mutex protects, as recommended by checkpatch.
+On Thu, Jun 25, 2026 at 05:14:16PM +0800, suryasaimadhu wrote:
+> Add missing terminating newlines to sysfs_emit format strings
+> in audio_manager_module.c as required by sysfs ABI.
 > 
 > Signed-off-by: suryasaimadhu <suryasaimadhu369@gmail.com>
+> ---
 
-Capital letters?  Is this how you would write your name on a legal
-document?
-
-I kind of hate this checkpatch warning.  What I want is a document,
-not part of sentence...  The document could go in the commit message
-if you want, but I really want some thought to go into it, otherwise
-it's sort of useless.
+This changes the user space API so it's a bit risky.  Only make this
+sort of change for new code.
 
 regards,
 dan carpenter
