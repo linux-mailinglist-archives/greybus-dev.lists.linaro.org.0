@@ -2,84 +2,84 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id arp8CxQ9PWqszwgAu9opvQ
+	id 5MiRMhc9PWquzwgAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 16:37:08 +0200
+	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 16:37:11 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC306C6B5F
-	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 16:37:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B17E6C6B68
+	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 16:37:11 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b="Rh09Q/6C";
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=bm93gAAu;
 	spf=pass (mail.lfdr.de: domain of "greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org" designates 44.210.186.118 as permitted sender) smtp.mailfrom="greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org";
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 02BB240A39
-	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 14:37:07 +0000 (UTC)
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	by lists.linaro.org (Postfix) with ESMTPS id DDCD73F99D
-	for <greybus-dev@lists.linaro.org>; Thu, 25 Jun 2026 08:59:24 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-13809223fd4so2335082c88.1
-        for <greybus-dev@lists.linaro.org>; Thu, 25 Jun 2026 01:59:24 -0700 (PDT)
+	by lists.linaro.org (Postfix) with ESMTP id B35ED40AA0
+	for <lists+greybus-dev@lfdr.de>; Thu, 25 Jun 2026 14:37:10 +0000 (UTC)
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	by lists.linaro.org (Postfix) with ESMTPS id 220804098A
+	for <greybus-dev@lists.linaro.org>; Thu, 25 Jun 2026 09:15:13 +0000 (UTC)
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-139d5c9a495so2912754c88.0
+        for <greybus-dev@lists.linaro.org>; Thu, 25 Jun 2026 02:15:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782377964; x=1782982764; darn=lists.linaro.org;
+        d=gmail.com; s=20251104; t=1782378912; x=1782983712; darn=lists.linaro.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UCM013gVUsehWEh08mLTPsFaPHwwdbfEWMEh5CAkbII=;
-        b=Rh09Q/6CC6Vdioy5+RlgLtiT3MlSaWa5sSSQA9ND+i7ZlMtgNWykW/pwg34Xxwm+hW
-         Hv630cGRYTuA/lP0kqlwIkNQRzr9P20Wjcz7jmxYXplzt0VmdquLouiUJB7raaRAia01
-         RZ6aR8YhA4F2K8JUSJQzUOKWf2KGaFEB2iJ1ha60Y9Kk6RtGTnmVWxGdToArYzYYkUh4
-         A9oRhJrt6HDRtlhnxGVC3JQO80URmM8Ri72QFWUTCiIWnc+70daq7MtdaqF+f62rI3oE
-         trmX9PTLdeHLkfR2dgrTsFIbIexQq1EgVSlUwJddu/snINoUf+aotXqnBYL1eoJasxh0
-         vbXQ==
+        bh=XYPMam/tRodxN/Tm8mIWsdZqWcS5VypETHSh8DycrZU=;
+        b=bm93gAAu4Rx7yILwN/wXjJ4BUd/vUDXB0yvF96ddnpAsK1VCvBPhMMFZSwUjnVo3aw
+         2OsPrwk5QZecU1ApxaFD4rOjqnHTNzz6X48WeKov3wD/KJiBm19TBrK/0xNJiz6Ws5U8
+         NRkwVwuDkNq2Zzp90zgqrIlVDNffl/DJLGhA5H0ziTj3HEJK8yFQ26bOVyIrIpIWxpw9
+         QMrdJLc+4tFIaWiqP08fLi1ruw6h7zQlASvij94MlFcpM3dqpmeB+30GwGT4GeoC+HQ5
+         qb4sa+Cdwf0TMEVDVJ37ew83ftMtRC9SwnoB4IlcQ0/laU313zOKvnhjiJ3FOB39b3r4
+         axFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782377964; x=1782982764;
+        d=1e100.net; s=20251104; t=1782378912; x=1782983712;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UCM013gVUsehWEh08mLTPsFaPHwwdbfEWMEh5CAkbII=;
-        b=rKlzRXkou/Q0L8S4XVuujD/xK6r8YdWKbrDaVcng/u+ijzPwX0G+1bZeQNLONHMIxp
-         tXE6sgK6Pe1EB+yI1pP7BSjzo07MKzo0Yfz3YIzz1o6Ya9h25WwxpN26e+IFVFMUteFf
-         ruSauLCvWnMG/PDgq+OaUory2sBacJpsKKqPXtPSbuLdICgo21WNQrSJtLaKZ0AIUNwb
-         L7i36Al/QU42Jwp692ApHkfF45+MGmRICHQO3r7BNiajeLiXH2cWmB+z9bjw3WNTSRao
-         upYRyh/TY1xodJqpXE0e+GM6SaB+7rWkQVFsb9xlShE9JWoE6414uqMmk97XU1t5sVhd
-         jMOA==
-X-Forwarded-Encrypted: i=1; AFNElJ/k6sv4fRZk4Ed/A9U7VHgEz4jDqEWUOTk78mZmJyf3JoiszBz0H4wq9DNYLDJVxa6J1l+QXDoJdrocUw==@lists.linaro.org
-X-Gm-Message-State: AOJu0YxjjE579kjOfhgn/pR5YzHoZVYgGhIdtSqXFG0zEeCOvXCYTtFf
-	6Qliq+eOUTn8zJp7eGi6W5JD3sUBahI5jPI3qF5ShzQD+tSHgI4JltiY
-X-Gm-Gg: AfdE7clCeBVme3USO0XfVdY5cdbcCKGu4bglYIUBua0RtBA+ucOKS2l3DHsm705co0b
-	yi2mJwIozwQbDdx9viHpL/ogkCdMosvg4WeNLFqvwl52dLepp0jahSH1UecaOqTfayaD8obZODr
-	aTRNX5qUjx7SudXzhOynDX1FyYdpt+R+VOOeoWY+zS5LoNxVSpjkrIqB4WxrBqyD0zvYyvZ72XI
-	HDYJ/MCfSaOQrBqLBxLzCuLZON2cZqxvRSgXEG2wSAMFzjony/DSKiyGeCdh3LU2FvrWUo9fl/S
-	zxxrAmJeD7YnFDbbulgLVH5GU7DqOmdFs4rVV7xWw1acXxCyOxeuAXOgN9Y8ur3f/ukmvLLuzu2
-	TzO1duPV4/7w4EXq5bU9hV3vCYcgQit1enBkNgLtyfWnfJqAgCVDBe9yVu97Oe24YAWUGsupJBA
-	SCGbeMRLr6zU/fVRSoRCFXZIyr1lSZB4cV5Q==
-X-Received: by 2002:a05:7022:62a6:b0:138:22f:9a2c with SMTP id a92af1059eb24-139db9e5923mr1519102c88.5.1782377963766;
-        Thu, 25 Jun 2026 01:59:23 -0700 (PDT)
+        bh=XYPMam/tRodxN/Tm8mIWsdZqWcS5VypETHSh8DycrZU=;
+        b=XIYMr/9QAh42t+msCZpzf+RXtzcwXL1gYw9q+sLA7S0e2FRGX4KW3NHKmiZntCUgEP
+         dtLOBQjsLuwYnZBxknT/jo6rSM4oFXOTVsAAnBrJRkITStdipBPQTJPMSeGCOX2LE/Lt
+         189Ze5wdp2f+A71sLOBsVXFEYOuWUVSlHqKXNkJpXq6nTSzKqOteuvhNVmoEXmpCEm/8
+         x2MUg8C6/Kw86VJfv3+TcBFIohkPx8lpkUlqGrjx0Kcfeb9MlxKgRuW+LKcxOsni756F
+         MoanykV30Tnk5OizycBRdmnWIPGFhxx13qHanvj2zVKKey3/ygdja476fslgCunGKAqo
+         2fTA==
+X-Forwarded-Encrypted: i=1; AFNElJ8AypkwlTPBX7CZCbPjGpxMevaU+8tjvCs9cg4kGndEvc7ICM1YjW8zv0mss000Y+bFt0QNnulPBxod3Q==@lists.linaro.org
+X-Gm-Message-State: AOJu0YzTNNDRrSnEynNkLLIj7HoWdBLIcregTksrT+X/8h43moh1VAt6
+	2MeQPj3WTL9okiBHcp4Ky5rjzdaLRohmrO7G+1goievTpRIBbCGnzCf4
+X-Gm-Gg: AfdE7ckM7iRYDbFW59YnjDA2J3QkGC1l8JZqyQ8JJab37v25EwmrBpGzFVs+vLUAVOM
+	wzhYNEtXCtucH76wywKC4F5WY/R1IKy222+sKNCdBb/5lanRW8kBId8M1NUwl6piJ0UEjxA4Ycf
+	yqfkYkKbRCvSFJNwsBu+YTpMvtjfH/ImiVqdW8kthkUskHF3tyNqNJXi3qYN9c3kaBv9izc7lLr
+	L6uqw4uSh6iRUxY5jIagwJpbhWe4xR3gff/I2NGj+ZhCFOafMYbahy5oda6XeRfLUTRMwxTvHfN
+	CQ17fhGBh/zoSAH9pDEldlNt/2fTepz1zf4dawYWXn7ZzSqbc1YJ+GWvWXdu1nZRs1CJLkJ47Fb
+	2eCJWF1sCgs0snksvv6w778WQ2OrzuvpP5PxyXEfyd1j6ponZQ8R1EdBp4cu/dNrCBSnVJaDiOr
+	DfzT5CuFl1EXRYvKG7mravakpooiVzhBdKXQ==
+X-Received: by 2002:a05:7022:ec82:b0:137:f0d8:4ffe with SMTP id a92af1059eb24-139dbb5da1bmr1566450c88.36.1782378911800;
+        Thu, 25 Jun 2026 02:15:11 -0700 (PDT)
 Received: from 10-86-27-11.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139d8f318e7sm6226496c88.3.2026.06.25.01.59.20
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139d912197bsm10118616c88.15.2026.06.25.02.15.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 01:59:23 -0700 (PDT)
+        Thu, 25 Jun 2026 02:15:11 -0700 (PDT)
 From: suryasaimadhu <suryasaimadhu369@gmail.com>
 To: vaibhav.sr@gmail.com,
 	mgreer@animalcreek.com
-Date: Thu, 25 Jun 2026 16:57:40 +0800
-Message-ID: <20260625085740.222486-1-suryasaimadhu369@gmail.com>
+Date: Thu, 25 Jun 2026 17:14:16 +0800
+Message-ID: <20260625091416.230920-1-suryasaimadhu369@gmail.com>
 X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
 X-Spamd-Bar: --
 X-MailFrom: suryasaimadhu369@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: UBZ63N22VLAS5QKPB57ANREFI4B75UMH
-X-Message-ID-Hash: UBZ63N22VLAS5QKPB57ANREFI4B75UMH
+Message-ID-Hash: EQAUG5GTQKLKFWTWKA5GJ74TO4S72XQP
+X-Message-ID-Hash: EQAUG5GTQKLKFWTWKA5GJ74TO4S72XQP
 X-Mailman-Approved-At: Thu, 25 Jun 2026 14:37:00 +0000
 CC: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, suryasaimadhu <suryasaimadhu369@gmail.com>
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] [PATCH] staging: greybus: add comments to mutex declarations
+Subject: [greybus-dev] [PATCH] staging: greybus: add missing newlines in sysfs_emit calls
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/UBZ63N22VLAS5QKPB57ANREFI4B75UMH/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/EQAUG5GTQKLKFWTWKA5GJ74TO4S72XQP/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -124,31 +124,74 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: DFC306C6B5F
+X-Rspamd-Queue-Id: 9B17E6C6B68
 
-Add comments to mutex members in gbaudio_codec_info struct
-to describe what each mutex protects, as recommended by checkpatch.
+Add missing terminating newlines to sysfs_emit format strings
+in audio_manager_module.c as required by sysfs ABI.
 
 Signed-off-by: suryasaimadhu <suryasaimadhu369@gmail.com>
 ---
- drivers/staging/greybus/audio_codec.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/staging/greybus/audio_codec.h b/drivers/staging/greybus/audio_codec.h
-index f3f7a7ec6..326770b99 100644
---- a/drivers/staging/greybus/audio_codec.h
-+++ b/drivers/staging/greybus/audio_codec.h
-@@ -70,8 +70,8 @@ struct gbaudio_codec_info {
- 	struct list_head module_list;
- 	/* to maintain runtime stream params for each DAI */
- 	struct list_head dai_list;
--	struct mutex lock;
--	struct mutex register_mutex;
-+	struct mutex lock; /* protects module_list and dai_list */
-+	struct mutex register_mutex; /* protects module registration */
- };
+diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
+index dc90cc2d2..5737f2a32 100644
+--- a/drivers/staging/greybus/audio_manager_module.c
++++ b/drivers/staging/greybus/audio_manager_module.c
+@@ -75,7 +75,7 @@ static void gb_audio_module_release(struct kobject *kobj)
+ static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
+ 					 struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%s", module->desc.name);
++	return sysfs_emit(buf, "%s\n", module->desc.name);
+ }
  
- struct gbaudio_widget {
+ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+@@ -84,7 +84,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+ static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
+ 					struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.vid);
++	return sysfs_emit(buf, "%d\n", module->desc.vid);
+ }
+ 
+ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+@@ -93,7 +93,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+ static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
+ 					struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.pid);
++	return sysfs_emit(buf, "%d\n", module->desc.pid);
+ }
+ 
+ static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
+@@ -103,7 +103,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
+ 					    struct gb_audio_manager_module_attribute *attr,
+ 					    char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.intf_id);
++	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
+@@ -114,7 +114,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
+ 					       struct gb_audio_manager_module_attribute *attr,
+ 					       char *buf)
+ {
+-	return sysfs_emit(buf, "0x%X", module->desc.ip_devices);
++	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
+@@ -125,7 +125,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
+ 					       struct gb_audio_manager_module_attribute *attr,
+ 					       char *buf)
+ {
+-	return sysfs_emit(buf, "0x%X", module->desc.op_devices);
++	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
 -- 
 2.47.3
 
