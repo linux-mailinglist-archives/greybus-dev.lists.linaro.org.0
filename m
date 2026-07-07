@@ -2,54 +2,55 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id IUEaDq/ATGq5pAEAu9opvQ
+	id hMF0DPrETGrNpQEAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Tue, 07 Jul 2026 11:02:39 +0200
+	for <lists+greybus-dev@lfdr.de>; Tue, 07 Jul 2026 11:20:58 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CEE671977F
-	for <lists+greybus-dev@lfdr.de>; Tue, 07 Jul 2026 11:02:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E7B3719ACD
+	for <lists+greybus-dev@lfdr.de>; Tue, 07 Jul 2026 11:20:57 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=linuxfoundation.org header.s=korg header.b=Mw+DB3MT;
+	dkim=fail ("body hash did not verify") header.d=linuxfoundation.org header.s=korg header.b=osbaFt4D;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=linuxfoundation.org (policy=none);
 	spf=pass (mail.lfdr.de: domain of "greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org" designates 44.210.186.118 as permitted sender) smtp.mailfrom="greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org"
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 635E440A86
-	for <lists+greybus-dev@lfdr.de>; Tue,  7 Jul 2026 09:02:37 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	by lists.linaro.org (Postfix) with ESMTPS id 695D23F720
-	for <greybus-dev@lists.linaro.org>; Tue,  7 Jul 2026 09:02:32 +0000 (UTC)
+	by lists.linaro.org (Postfix) with ESMTP id 6BA2240A7B
+	for <lists+greybus-dev@lfdr.de>; Tue,  7 Jul 2026 09:20:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by lists.linaro.org (Postfix) with ESMTPS id AA9ED404FD
+	for <greybus-dev@lists.linaro.org>; Tue,  7 Jul 2026 09:20:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id C04F2417D9;
-	Tue,  7 Jul 2026 09:02:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA201F000E9;
-	Tue,  7 Jul 2026 09:02:31 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id 33C0A618A6;
+	Tue,  7 Jul 2026 09:20:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7042C1F000E9;
+	Tue,  7 Jul 2026 09:20:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783414951;
-	bh=iyzS887MStQRxqJO3VlrvtpEmCU5l1Z3IuKzwc+5k6I=;
+	s=korg; t=1783416051;
+	bh=B9lMLDHj6XcWua4XX1+0Cqa7Q6BbD5VdSnsxI49pPks=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mw+DB3MTNW6eQH4jFsv6YdSN1F4PMRNbtPR9/f0LqyKo/IkTwHwi/O0Eo8BkMN/cC
-	 V4v53jbRu7+cZ6qI4GgOaEb1xcJZSSUd10V0gGKfHOwPHjsncaxOD71aI1jv6WMMDI
-	 qd5eEXRfHWvJBGE5g285q5I9XFB2/U3/PVsR3gO8=
-Date: Tue, 7 Jul 2026 11:02:29 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Message-ID: <2026070752-maggot-corrosive-265d@gregkh>
-References: <20260625061208.30279-1-pengpeng@iscas.ac.cn>
+	b=osbaFt4DTKIMqdlaG5Sb4NQOQs3qdbWIztl8drPHfIiZV+0vjI/UbI6eXUhIZIJ/w
+	 Q3luspMH3qMJDpYNyJ27GNhQC0vZASLgaI26jZI8BOFNfvekz2hKYO1xFd/lzHaI9j
+	 BlkjbHx503jDPkTeZupbH5MPdc8PRccgKZ61sa0E=
+Date: Tue, 7 Jul 2026 11:20:49 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: adi25charis@gmail.com
+Message-ID: <2026070742-marathon-facsimile-648c@gregkh>
+References: <20260629144941.33818-1-adi25charis@gmail.com>
+ <20260630204908.40206-1-adi25charis@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260625061208.30279-1-pengpeng@iscas.ac.cn>
+In-Reply-To: <20260630204908.40206-1-adi25charis@gmail.com>
 X-Spamd-Bar: /
-Message-ID-Hash: U644IXQHOJ56W2UAM5LTSKSQGMM664WC
-X-Message-ID-Hash: U644IXQHOJ56W2UAM5LTSKSQGMM664WC
+Message-ID-Hash: D2OK2ZCHBQRM4ID7JYMO5DXRYYIS3EB2
+X-Message-ID-Hash: D2OK2ZCHBQRM4ID7JYMO5DXRYYIS3EB2
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; digests; suspicious-header
-CC: Vaibhav Hiremath <hvaibhav.linux@gmail.com>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+CC: johan@kernel.org, elder@kernel.org, error27@gmail.com, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [RFC] staging: greybus: arche still depends on missing USB3613 provider
+Subject: [greybus-dev] Re: [PATCH v2] staging: greybus: audio: split topology get into size and data calls
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/U644IXQHOJ56W2UAM5LTSKSQGMM664WC/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/D2OK2ZCHBQRM4ID7JYMO5DXRYYIS3EB2/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -58,81 +59,81 @@ List-Subscribe: <mailto:greybus-dev-join@lists.linaro.org>
 List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Action: add header
-X-Spamd-Result: default: False [6.59 / 15.00];
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [5.09 / 15.00];
 	MID_END_EQ_FROM_USER_PART(4.00)[];
-	SUSPICIOUS_RECIPS(1.50)[];
 	R_DKIM_REJECT(1.00)[linuxfoundation.org:s=korg];
 	MID_RHS_NOT_FQDN(0.50)[];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+mx:c];
-	MIME_GOOD(-0.10)[text/plain];
+	R_SPF_ALLOW(-0.20)[+mx];
 	DMARC_POLICY_SOFTFAIL(0.10)[linuxfoundation.org : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:pengpeng@iscas.ac.cn,m:hvaibhav.linux@gmail.com,m:johan@kernel.org,m:elder@kernel.org,m:greybus-dev@lists.linaro.org,m:linux-staging@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:hvaibhavlinux@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[gregkh@linuxfoundation.org,greybus-dev-bounces@lists.linaro.org];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:adi25charis@gmail.com,m:johan@kernel.org,m:elder@kernel.org,m:error27@gmail.com,m:greybus-dev@lists.linaro.org,m:linux-staging@lists.linux.dev,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
+	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
 	FORWARDED(0.00)[lists@lfdr.de];
+	FORGED_SENDER(0.00)[gregkh@linuxfoundation.org,greybus-dev-bounces@lists.linaro.org];
+	ARC_NA(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[linuxfoundation.org:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[7];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_NONE(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[gregkh@linuxfoundation.org,greybus-dev-bounces@lists.linaro.org];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,lists.linaro.org,lists.linux.dev,vger.kernel.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,gmail.com,lists.linaro.org,lists.linux.dev,vger.kernel.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[greybus-dev];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gregkh:mid,linuxfoundation.org:from_mime,linaro.org:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linuxfoundation.org:from_mime,gregkh:mid,linaro.org:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 3CEE671977F
-X-Spam: Yes
+X-Rspamd-Queue-Id: 9E7B3719ACD
 
-On Thu, Jun 25, 2026 at 02:12:08PM +0800, Pengpeng Hou wrote:
-> Hi,
+On Wed, Jul 01, 2026 at 02:19:08AM +0530, adi25charis@gmail.com wrote:
+> From: Aditya Chari S <adi25charis@gmail.com>
 > 
-> while auditing conditional provider/header contracts, I noticed that Greybus
-> Arche still appears to describe a USB3613 provider world that is absent from
-> current mainline.
+> gb_audio_gb_get_topology() combined three separate responsibilities
+> into a single call: querying the topology size, allocating a buffer
+> for it, and fetching the topology data into that buffer. This left
+> callers with no way to perform any of these steps independently, and
+> forced the kzalloc() allocation to live inside the protocol-layer
+> driver rather than the caller, as already flagged by a FIXME comment
+> at the call site in audio_module.c.
 > 
-> drivers/staging/greybus/Kconfig still has:
+> Split the function into two:
 > 
-> depends on USB_HSIC_USB3613 || COMPILE_TEST
+>   gb_audio_gb_get_topology_size() - queries only the topology size
+>   gb_audio_gb_get_topology()      - fetches topology data into a
+>                                      caller-supplied buffer of a
+>                                      given size
 > 
-> and drivers/staging/greybus/arche-platform.c still conditionally includes
-> the USB3613 header and calls usb3613_hub_mode_ctrl() when
-> CONFIG_USB_HSIC_USB3613 is enabled.  However, the current tree does not appear
-> to provide include/linux/usb/usb3613.h or a Kconfig provider for
-> USB_HSIC_USB3613.
+> Update the only caller, gb_audio_probe() in audio_module.c, to query
+> the size first, allocate the topology buffer itself, then fetch the
+> data into it, freeing the buffer via the existing free_topology error
+> path on failure.
 > 
-> I am not sending a patch yet because this is staging/hardware policy sensitive.
-> The possible directions seem to be:
+> This resolves both the "TODO: Split into separate calls" comment
+> above the original function in audio_gb.c and the FIXME comment at
+> the call site in audio_module.c, both of which are removed as part
+> of this change.
 > 
-> 1. restore or move the USB3613 provider/header if the hardware path is still
->    intended;
-> 2. remove the stale USB3613 integration path and rely on the local stub;
-> 3. change the Kconfig dependency to describe only current supported worlds; or
-> 4. keep the contract if an out-of-tree provider is intentionally expected.
+> No functional change in behavior for the existing probe path.
 > 
-> Could you advise which direction is expected for Arche?
+> Compile-tested with W=1, sparse (C=2), and checkpatch.pl; all clean
+> on the three changed files (audio_gb.c, audio_module.c, audio_codec.h).
+> 
+> Signed-off-by: Aditya Chari S <adi25charis@gmail.com>
 
-I would just leave it as-is for now.  Hopefully once the greybus code
-for the beaglebone devices gets more integrated we can get all of this
-code out of staging, which will delete the unused stuff properly.
-
-thanks,
-
-greg k-h
+Does not apply to my tree :(
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
