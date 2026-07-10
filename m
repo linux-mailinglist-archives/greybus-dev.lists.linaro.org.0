@@ -2,132 +2,84 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id HY5pC44EVGrHgwMAu9opvQ
+	id rDJmIJEEVGrIgwMAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Sun, 12 Jul 2026 23:18:06 +0200
+	for <lists+greybus-dev@lfdr.de>; Sun, 12 Jul 2026 23:18:09 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C7C7745EEC
-	for <lists+greybus-dev@lfdr.de>; Sun, 12 Jul 2026 23:18:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39DA1745EEF
+	for <lists+greybus-dev@lfdr.de>; Sun, 12 Jul 2026 23:18:09 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=none;
-	dmarc=none;
-	spf=pass (mail.lfdr.de: domain of "greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org" designates 44.210.186.118 as permitted sender) smtp.mailfrom="greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org";
-	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=kppcipE8;
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none);
+	spf=pass (mail.lfdr.de: domain of "greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org" designates 44.210.186.118 as permitted sender) smtp.mailfrom="greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org"
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 2EFD8404FD
-	for <lists+greybus-dev@lfdr.de>; Sun, 12 Jul 2026 21:18:04 +0000 (UTC)
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022103.outbound.protection.outlook.com [52.101.101.103])
-	by lists.linaro.org (Postfix) with ESMTPS id 80E743F735
-	for <greybus-dev@lists.linaro.org>; Fri, 10 Jul 2026 13:58:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d/UKidZW2yROLKPKhG9FiE0erou4BUfd55Lpt15BZFxg3TnBGnPR22WFAO/P5qeCVZTzla5KVq7FF2+sjL6f/eVU9L8aCA+A9v13lM7J79ByPmXSV1PYBna1DtAaik2hyvjy4laCdRgbioUBXLC4Bsu2FYtS2jE/miouPSlyxPK+PWGvq/gh5oAy2LFEA/OyCKON1T89HSNizgicj4ayd1GVsKNL29AbgMGn+1pZmeJZWElXC7d3/pe/6Caasr/n9gIAbTycOxszYbJr8ToI/OPQ+pXCdVJAgoMz6QcAAWjkwqgACnT6Jgx7VIaRM0WWyH5Es/f/W462mD6eVXlvmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=dNuOHlrDEIkjKR9dIyVx0dXJKses962YAhpOz5OyCDA=;
- b=lphhwxzK+2YMMezx9gCXFikFc8fh60GNYaqcn/uEgPvULionwet/ks1XZC7WgoRlikuNW5mSEDb4KmGWpSwzIhMuODYrOIi6Xi3xBIfHxr4SdkXkiG5rN2rTw+K6NcA4NrXKAs4GCMeLI7tFU5m5cHu9uTxcYHS8WL0PcIEUUk0FkC8GQb+iqBYIqDjRoozdWdRSwDKF4ZwfA+s4scYNhGqfrTHkg41Ilg7LyYc8436wws/Pbl5yXn/QJafbHF6quEKi4CKj7OfdOKQWPXIq1gtW4Wy9LHOU5pUKhMsGhMSTui32I02vQ9zI7XwIroAjHT4OCrtT7okIPgJZm1C8Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO0P123MB6878.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:30b::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Fri, 10 Jul
- 2026 13:57:59 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0181.014; Fri, 10 Jul 2026
- 13:57:59 +0000
-Date: Fri, 10 Jul 2026 09:57:55 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Petr Pavlu <petr.pavlu@suse.com>
-Message-ID: <xihlbspozbgwhez2byjatscslutapi3j4rjhpzxebtn2wjmk5a@qf62xs6lyd6q>
-References: <20260708154510.6794-1-petr.pavlu@suse.com>
- <20260708154510.6794-3-petr.pavlu@suse.com>
-Content-Disposition: inline
-In-Reply-To: <20260708154510.6794-3-petr.pavlu@suse.com>
-X-ClientProxiedBy: MN2PR07CA0020.namprd07.prod.outlook.com
- (2603:10b6:208:1a0::30) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by lists.linaro.org (Postfix) with ESMTP id 54CB440A89
+	for <lists+greybus-dev@lfdr.de>; Sun, 12 Jul 2026 21:18:08 +0000 (UTC)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	by lists.linaro.org (Postfix) with ESMTPS id DEF993FDB0
+	for <greybus-dev@lists.linaro.org>; Fri, 10 Jul 2026 21:23:27 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15cb6f5c12so238565766b.0
+        for <greybus-dev@lists.linaro.org>; Fri, 10 Jul 2026 14:23:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783718607; x=1784323407; darn=lists.linaro.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DQKLAy+q4WVq9Y37Ln7ncK+4sykkn+Pf4c/5Lgs8Ca8=;
+        b=kppcipE8tmKXMrAMn2JuPCvuLV4ZsUGx/q41hyE77geJw7IRCC+lVXLSHEXUu10JgL
+         kXyTZYpPQ53/n2xBAgFTosJD4T1FH3cGX3TsQYRMKcqw/tYW8bLnzqeXOul+hYQ6S4Ag
+         F5l0fwWwIn6LkAtBqHeI8pkkUyx6jYL8b1KbM8AGtG/Vd5XdfLyTrYDiBH0GIpLDSZM2
+         Dkfo7J9Q1br/F3GsUvF5+xV0IU+UJw9UZwRaVyDZtqfP6w/aAxTkSltPWYP9I6ZK/mrp
+         QgnBqhssQCnFsZFL2UgLqOIPzgKqutH1rwcOpaJj4I6qxUksMLeQQ/lt44vbtJysZvad
+         lNbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783718607; x=1784323407;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DQKLAy+q4WVq9Y37Ln7ncK+4sykkn+Pf4c/5Lgs8Ca8=;
+        b=M1S5NyRs1/dHVWQGCaRinX/VEoTsPiSXlhzqgU80A0hXSxs6ExJE3wSydLbazmeLhD
+         Qvx4zLbGRArFmWYuklb+Ex9lusZRRfnejCXJ59EEbV59Tj90PbrNW1rJ/Ri/JBphRhML
+         Hx3jonnGMz7f9w49JHPsAtyOKB6/bb8/tFbXcJD7EEMg5+lMsvwAUHdVERBlbBK//Lin
+         HLY4C8UgID757PkHshRWslvM/onj+Wpxdl8s018iKwIriHrqmUO9VGTk2M8QE2r9WIu6
+         S4zzCTgXVx7CiCtbDbt5gE2kTL+4Yb4s57OIHcyUqU0s0kY/oQAdWCR7qHi0p+Y6sXqb
+         TaPw==
+X-Gm-Message-State: AOJu0YzvpCXyifXn3XShGEHAVKeebuBQnvoWOHqVIQOyujH21Ni+eiEd
+	iQj9wvxX17kXYsGVtHF7Kx/LlNBexk0uEtIaqm9OZgvcbxEraR5CGMOeSabLU5yz
+X-Gm-Gg: AfdE7clEqSa1f75EafTaqHU2Aka/QDOse0xVNCW2OmxPu7U8b0yEiEwxgbG5bkQ4YiP
+	m5jf9UaPaAy1bZ0IQaA4lf6cS4F+7/tXTTP9sVMxSyW3EnDt4BK3snLfGMPjmwkIzkUSxO7wzCn
+	2ppXAPW3w82oPp+JgJchYyuP5Awn1AGgvHgHu+Sjo9D9a7vOkC7k73gsGVW6X3+6d2w1dxDDeHt
+	5jsXU36/Cy+hWay01gsUbp7MIzPKMtYhUF3YU6cLx4eulw0YLDmNiPwCJvQn9Xa9kQTFB7BjEDJ
+	HFh1n4iDAyzrRaWSNKIn4njCxFjqJdbvpcSbbpi4copEIWrAxqrRAxUunezK1uXC5oz/ffaWWNy
+	X67ewjeXLq8UQYlAOHWcKz3ChVNh8+rdIWvdlP1vdrigjYN6cK5HVYqwpJpk8t2/a5zMm9s4+eN
+	c/pclhCXaC84qXgJpHaO46d2FpCmsabeuS3NtTrIIdd7av6WznmkwNCewl0tfyBLs=
+X-Received: by 2002:a17:907:3f0c:b0:c12:34ed:e100 with SMTP id a640c23a62f3a-c161f38b21bmr21774166b.62.1783718606434;
+        Fri, 10 Jul 2026 14:23:26 -0700 (PDT)
+Received: from node ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1602f5e9c5sm137784266b.21.2026.07.10.14.23.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Jul 2026 14:23:25 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Date: Sat, 11 Jul 2026 02:23:12 +0500
+Message-ID: <20260710212312.117781-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB6878:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8889c9a4-a311-464f-0f29-08dede8b401e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|56012099006|4143699003|6133799003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 
-	mnyvn741YVrPSaa0hwDbGrVtBRz+LIw95ja24e6zj7PbDMuYmcaDImgwK2HHFUGJbbEcU/o/lI/aj1VwebZpFhYjn4UNBPq0Wo0aBJiBiHe3jP82n7XKJZaaOP7aQSDCZkIHBBQoRitq/qc/ChGsRVhQZlLuO2WYFbdcf8mxHWu7lyFgatYFUByozN4BGDpucV3Z22SM6P1zRo1UfSTaESZ0Ck2YBy/WwQwcv7s6DVvTKZAUA4umAJCvnwKcMsWOIgi08wNl8E1PsoN2/mL8YDyYDnpKFa6J8iHkbsvfPLYe2jW/d9HrRHB6z62o53M9QTUxNAUefCfoiuWv9y1twRBkQvwlbble7/lJ+bawqZzE8wkMXVxr8aNr3u9oKAx0C9bxaVT8M6uKiA2rFfEScIE1kEubJz/zDxRHlnnN1Z2P+YER/lissTD9b+xKmRg/Sf8q5f8gDV5IQbo1LzG2awcxOlVf/+PlVTFLkqNRWBCpyhv8+9ohJ1AO+/UjiNB3LydrS89QDbi2A/4WcsSDaUxIIBrD5FuHSS2xZ90O6OvPaDYDeRdk4jD2z7K0DIogiyfS9zQitJX/zxK9aOCKHnmB+56lZ73lkP6/8l4ePv2jmJZnAppaQ4FxeFV4zYMyj/IYVUm0ykOl7VLAcDafxE8hRLZtvkgf9+Z4/XhYakQ=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(56012099006)(4143699003)(6133799003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?ZjM4c0FxdHRFbVA2ZVNRdS80bFp5SDQxY3RQYjlGbTB1dDBzUG5zdEhFU2xK?=
- =?utf-8?B?KzFiM2M3a0QvNHptNUlwYzdNVWZIcWs4dlFteHVzSWczWWduUWNUejBmdEZm?=
- =?utf-8?B?aVNBdG1BcWpnd215UjYrb2J4TEc0cFFndzJVdURzdHJWV252bjNPdkh6Nnkx?=
- =?utf-8?B?ODVCN2pHanhmMzVKeXhMM3YyYXhZdExWQzJzdWl0YnhxcERtbUMvaFdvZm5x?=
- =?utf-8?B?aG0xdmk1cGRwNlNTRzJTajFMU1NzcityMERFQWJDL0NZdDhla09yaERpVlNq?=
- =?utf-8?B?UjhKbE1DdVdJZS9zMmZXMGQyNjkwK2dhZ2luUU13Z0J3eWowTUhEeTRqcFRq?=
- =?utf-8?B?elBCS0pTWlhvQWI5K3g0ckRHZU1CQkp0TGx6bk8yNUpWZmRIczB1b2hqYVQr?=
- =?utf-8?B?WkR5VnB4M2R2MGNwaFo5NkdlQUhVQXd5ZWEvYjVxc1l1dU9hUkcvZ29SOWpK?=
- =?utf-8?B?c0JrS0E1ZW1BVkNWNjdZYkZHNHljWW9lR3VHWENzcHY1empXbXNPb3ZwOG5I?=
- =?utf-8?B?aHRiN3JXQTNTQWNnZk1LS0N2RGVNOWMxOHhXWGRsUkxhK3REUG54M21lR0Jr?=
- =?utf-8?B?WjRra2JCeEVZRzhJNFlteExCZ0lacys2MUNXc0lDUnZ2cVVVT0JiMUpqWXJ2?=
- =?utf-8?B?VExGdTFVNHM2azlSek5WczR0SDdOVlZseGhmYmlJQmZ1M2plMFExeHhVRG4v?=
- =?utf-8?B?bytaWFdiSjdWL1dIbGpTNEkxL3FwWjRVdDRXZTBGNFlZNTUyNzJjSXFBNWlk?=
- =?utf-8?B?a3RvQS9GYTV2T0tzZ3h5RGZDcFplb0NHeXExOVl4M2IybkNVSktIbXJCMmM2?=
- =?utf-8?B?eU4vWDZrR29CcFlnZVdCd0tRV2J2TzBoeHBqbmtvTWdwZ3RndUl1ZUJ6Tk1q?=
- =?utf-8?B?ajVVRDIyRHNGTEJ5c3hsQ0N6aEdlaTk0VDZUZDBLeExBVDk3UTlzcmpHdVQr?=
- =?utf-8?B?cUhmdlNiTlhHUGRSUW96S1pGazVTbjBseTVCY0tqY1ViRjVkNEd6USs1WGUv?=
- =?utf-8?B?emhDcW5PTitrNGFCK3N4SG1vNXpCR2dwY212SVJYK3VjaTZEZUM5UzVUcjYv?=
- =?utf-8?B?TXp6bVRoU3BSdWVzaC8rQU95Nndubnd5eFUxQnFyb0JraWZxbTRkVWtLNmpL?=
- =?utf-8?B?VWRqMnhRRkRsVlJ5VWREeUNZWmFRbnFBMEk2VW9rSmpNem1hWisyTVplREIv?=
- =?utf-8?B?akFQbEhzVmt5ZjN5VC9wQThQV29uV1pqYlE4dVh5bE85SnRhQmRHbS9wMzdL?=
- =?utf-8?B?c1NzM1E4UU9iQWlaWUNGSkZUWWVwZDhTMmw2VWcxWjZOZmx5UnBmM3BGb2NW?=
- =?utf-8?B?ejRXR2FGVlFMR0lzQ3NOUFJCZUVlMmhIOGJweE5oSkhBRGx3b2ZOSXdnVnU5?=
- =?utf-8?B?ZEFPckdDcTJqNitIYkVjQTZ6VG90WGNUOGlNS3d3MGsrRktMd2V0Vk1qN0Fz?=
- =?utf-8?B?enovZGxLWWhYdEZMcCswcEtEODZHeWIzZFVPeE9qcWEraUpqR1U4TVd5Q3JE?=
- =?utf-8?B?OGJJUWdDaldocGhIb21FMURjQ2w4dUZYZ21RNmQzMkNWQkVJR0x2anF3RFJt?=
- =?utf-8?B?YVVlV01DaFpUVnBIZXA4SGZhdVVBbnFnVEtieWNQRERwZExPNzZpT1ZNQUFO?=
- =?utf-8?B?dFlyMEh4MEJKTjIzb2NreFFOMTB5MjVQSkpkYUdLekpLc0owbHJPN3RmaW5P?=
- =?utf-8?B?Y2poRGNsbmlWVGJwN3IxUXlZM3o3UDFQQVVIWkdVNitsZDJIaWlTWGliU3RB?=
- =?utf-8?B?VTZnbzNRK3IxMnM0ejFJMEwyM0F2TlhHRTVrOWJpUit5VWF4R2VSQmNMd0t0?=
- =?utf-8?B?Vm9LNStCbTRiYU9xMkdNYVMwR3dCcWx4QnhKMmorcDRYb2xSbkhpUFkxZldC?=
- =?utf-8?B?WEZmMTUxV1pNdHE5cTFUcFkveklZOW1CM1JWSHdFWGpxVUp3OFpvZ0pYVG4v?=
- =?utf-8?B?eWpkK20rb1BOUEZHUFdIUjJucHZ0cjQwNHZIMHRJaEZPbUlzRXE4OHV4STN3?=
- =?utf-8?B?a24zTWlLYnR5QzMyL3FnaWdpVWVmZldHNStkWjNkaUVHaWNidVNNM2tVK1Nx?=
- =?utf-8?B?cHVJMkNYbE5zOElrY24rSy92V1VlWTh3S2lVTWE5S1ZQQU50SzJmbVdsaThK?=
- =?utf-8?B?Q096SWdvQlRSNHMvZWpBSncyM2ZnUk1UU3BJNFZDY01kS00wOS9hNncxWHZH?=
- =?utf-8?B?amtYNmRidWJwVkNNangwdWNXWUxxUitDSjVwM3RaWHBOVkt5S2VHWUQ4cDU3?=
- =?utf-8?B?OGZ6OHhHRVFzaWE0dmdPMkZWNlZsN2ZFQklMcFhCRmdWc0pqM3djSjNPSEh6?=
- =?utf-8?B?eGpaS05KTWFBZ2xBZ2xuU3VWWHVyaVpteWI2UXByMW5EYlVXZ01LUT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8889c9a4-a311-464f-0f29-08dede8b401e
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 13:57:59.3246
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hDwfhxFpj9eN2nNEFrA5KAidckTs70TyYQaw5oNwhBSjWpXN0ngpfIvW4gAKhWaf72JIUvICyafxXZ+msFt7yQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB6878
-X-Spamd-Bar: ---
-X-MailFrom: atomlin@atomlin.com
+X-Spamd-Bar: --
+X-MailFrom: meatuni001@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: OG6A3TDEODPIHM4VIYTTNS34JZ2ZDDTH
-X-Message-ID-Hash: OG6A3TDEODPIHM4VIYTTNS34JZ2ZDDTH
-X-Mailman-Approved-At: Sun, 12 Jul 2026 21:17:58 +0000
-CC: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Philipp Reisner <philipp.reisner@linbit.com>, Lars Ellenberg <lars.ellenberg@linbit.com>, Christoph =?utf-8?Q?B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>, Jens Axboe <axboe@kernel.dk>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Michal Januszewski <spock@gentoo.org>, Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Mark Fasheh <mark@fasheh.com>
- , Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Danilo Krummrich <dakr@kernel.org>, Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Kentaro Takeda <takedakn@nttdata.co.jp>, Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>, linux-edac@vger.kernel
- .org, linux-kernel@vger.kernel.org, drbd-dev@lists.linux.dev, linux-block@vger.kernel.org, greybus-dev@lists.linaro.org, linuxppc-dev@lists.ozlabs.org, linux-acpi@vger.kernel.org, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev, cgroups@vger.kernel.org, linux-modules@vger.kernel.org, linux-pm@vger.kernel.org, driver-core@lists.linux.dev, bridge@lists.linux.dev, netdev@vger.kernel.org, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org
+Message-ID-Hash: 7ZVYUXC52DIEMM62R5CQZH3O47GEHLYJ
+X-Message-ID-Hash: 7ZVYUXC52DIEMM62R5CQZH3O47GEHLYJ
+X-Mailman-Approved-At: Sun, 12 Jul 2026 21:17:59 +0000
+CC: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Muhammad Bilal <meatuni001@gmail.com>, stable@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH 2/2] module: Bring includes in linux/kmod.h up to date
+Subject: [greybus-dev] [PATCH] staging: greybus: audio: bound topology parsing to the received buffer
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OG6A3TDEODPIHM4VIYTTNS34JZ2ZDDTH/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/7ZVYUXC52DIEMM62R5CQZH3O47GEHLYJ/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -137,91 +89,488 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.99 / 15.00];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	DATE_IN_PAST(1.00)[55];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+mx];
+X-Spamd-Result: default: False [2.59 / 15.00];
+	DATE_IN_PAST(1.00)[47];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:greybus-dev@lists.linaro.org,m:linux-staging@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:johan@kernel.org,m:elder@kernel.org,m:meatuni001@gmail.com,m:stable@vger.kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	DMARC_NA(0.00)[atomlin.com];
-	FORWARDED(0.00)[lists@lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[atomlin@atomlin.com,greybus-dev-bounces@lists.linaro.org];
-	FORGED_RECIPIENTS(0.00)[m:petr.pavlu@suse.com,m:tony.luck@intel.com,m:bp@alien8.de,m:tglx@kernel.org,m:mingo@redhat.com,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:philipp.reisner@linbit.com,m:lars.ellenberg@linbit.com,m:christoph.boehmwalder@linbit.com,m:axboe@kernel.dk,m:johan@kernel.org,m:elder@kernel.org,m:rafael@kernel.org,m:spock@gentoo.org,m:deller@gmx.de,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:jack@suse.cz,m:trondmy@kernel.org,m:anna@kernel.org,m:cel@kernel.org,m:jlayton@kernel.org,m:neil@brown.name,m:okorniev@redhat.com,m:Dai.Ngo@oracle.com,m:tom@talpey.com,m:mark@fasheh.com,m:jlbec@evilplan.org,m:joseph.qi@linux.alibaba.com,m:tj@kernel.org,m:hannes@cmpxchg.org,m:mkoutny@suse.com,m:mcgrof@kernel.org,m:da.gomez@kernel.org,m:samitolvanen@google.com,m:pavel@kernel.org,m:lenb@kernel.org,m:akpm@linux-foundation.org,m:dakr@kernel.org,m:razor@blackwall.org,m:idosch@nvidia.com,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redha
- t.com,m:horms@kernel.org,m:dhowells@redhat.com,m:jarkko@kernel.org,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:takedakn@nttdata.co.jp,m:penguin-kernel@i-love.sakura.ne.jp,m:linux-edac@vger.kernel,m:linux-kernel@vger.kernel.org,m:drbd-dev@lists.linux.dev,m:linux-block@vger.kernel.org,m:greybus-dev@lists.linaro.org,m:linuxppc-dev@lists.ozlabs.org,m:linux-acpi@vger.kernel.org,m:linux-fbdev@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-fsdevel@vger.kernel.org,m:linux-nfs@vger.kernel.org,m:ocfs2-devel@lists.linux.dev,m:cgroups@vger.kernel.org,m:linux-modules@vger.kernel.org,m:linux-pm@vger.kernel.org,m:driver-core@lists.linux.dev,m:bridge@lists.linux.dev,m:netdev@vger.kernel.org,m:keyrings@vger.kernel.org,m:linux-security-module@vger.kernel.org,s:lists@lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[lists@lfdr.de];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[meatuni001@gmail.com,greybus-dev-bounces@lists.linaro.org];
 	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[75];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[kernel.org,gmail.com,vger.kernel.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	ALIAS_RESOLVED(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[atomlin@atomlin.com,greybus-dev-bounces@lists.linaro.org];
-	FREEMAIL_CC(0.00)[intel.com,alien8.de,kernel.org,redhat.com,linux.intel.com,zytor.com,linbit.com,kernel.dk,gentoo.org,gmx.de,zeniv.linux.org.uk,suse.cz,brown.name,oracle.com,talpey.com,fasheh.com,evilplan.org,linux.alibaba.com,cmpxchg.org,suse.com,google.com,linux-foundation.org,blackwall.org,nvidia.com,davemloft.net,paul-moore.com,namei.org,hallyn.com,nttdata.co.jp,i-love.sakura.ne.jp,vger.kernel,vger.kernel.org,lists.linux.dev,lists.linaro.org,lists.ozlabs.org,lists.freedesktop.org];
-	R_DKIM_NA(0.00)[];
-	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	TAGGED_RCPT(0.00)[greybus-dev];
+	FROM_NEQ_ENVFROM(0.00)[meatuni001@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,atomlin.com:from_mime,atomlin.com:email,qf62xs6lyd6q:mid,lists.linaro.org:from_smtp,lists.linaro.org:helo,lists.linaro.org:rdns]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[greybus-dev];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:from_smtp,lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8C7C7745EEC
+X-Rspamd-Queue-Id: 39DA1745EEF
 
-On Wed, Jul 08, 2026 at 05:44:30PM +0200, Petr Pavlu wrote:
-> Including linux/kmod.h alone results in 1.5 MB of preprocessed output, even
-> though it provides only a few functions and macros.
-> 
-> The header currently depends on:
-> 
-> * __printf() -> linux/compiler_attributes.h,
-> * ENOSYS -> linux/errno.h,
-> * bool -> linux/types.h.
-> 
-> Include only these files, reducing the preprocessed output to 10 kB.
-> 
-> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
-> ---
->  include/linux/kmod.h | 12 ++----------
->  1 file changed, 2 insertions(+), 10 deletions(-)
-> 
-> diff --git a/include/linux/kmod.h b/include/linux/kmod.h
-> index 9a07c3215389..b9474a62a568 100644
-> --- a/include/linux/kmod.h
-> +++ b/include/linux/kmod.h
-> @@ -2,17 +2,9 @@
->  #ifndef __LINUX_KMOD_H__
->  #define __LINUX_KMOD_H__
->  
-> -/*
-> - *	include/linux/kmod.h
-> - */
-> -
-> -#include <linux/umh.h>
-> -#include <linux/gfp.h>
-> -#include <linux/stddef.h>
-> +#include <linux/compiler_attributes.h>
->  #include <linux/errno.h>
-> -#include <linux/compiler.h>
-> -#include <linux/workqueue.h>
-> -#include <linux/sysctl.h>
-> +#include <linux/types.h>
->  
->  #ifdef CONFIG_MODULES
->  /* modprobe exit status on success, -ve on error.  Return value
-> -- 
-> 2.54.0
-> 
+The Greybus audio topology parser trusts length and count fields taken
+straight from the module's topology blob and never checks them against
+the size of the buffer it actually allocated, leading to out-of-bounds
+reads of the kernel heap.
 
-LGTM. Thank you.
+gb_audio_gb_get_topology() reads a u16 size from the module, allocates a
+buffer of that size, fetches the topology into it, and then discards the
+size. gbaudio_tplg_parse_data() then walks that buffer using fields
+stored inside it:
 
-Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
+  - gbaudio_tplg_process_header() computes the control, widget and route
+    block offsets by adding the wire-supplied __le32 size_dais,
+    size_controls and size_widgets onto the buffer base with no bound, so
+    a module that reports a small allocation size but large block sizes
+    moves those offsets far past the end of the buffer before they are
+    dereferenced.
+
+  - gbaudio_tplg_process_kcontrols(), _process_widgets() and
+    _process_routes() iterate num_controls / num_widgets / num_routes
+    (also from the blob) and advance a pointer by a per-element size that
+    includes the __le16 names_length of an enumerated control, again with
+    no check that the element stays inside the buffer.
+
+  - gb_generate_enum_strings() loops over an attacker-controlled __le32
+    items count and, for each, scans for a NUL terminator with no end
+    pointer, walking off the end of the buffer.
+
+A malicious or malfunctioning module can therefore make the parser read
+past the allocation. The wild block offsets are most likely to hit an
+unmapped page and oops (denial of service); the byte-at-a-time enum scan
+walks from a still-valid pointer and can copy adjacent heap bytes into
+ALSA control name strings, which are readable by unprivileged local
+users, so an information leak cannot be ruled out.
+
+Thread the allocated topology size from gb_audio_gb_get_topology()
+through to gbaudio_tplg_parse_data() and bound every walk against the end
+of the buffer: verify the block offsets are ordered and within the
+buffer (the "< previous" tests also catch a 32-bit unsigned wrap of the
+running offset), check each control, widget and route lies fully inside
+its block before use, and give gb_generate_enum_strings() an explicit
+end pointer plus an items-versus-names_length sanity check.
+
+Fixes: 6339d2322c47 ("greybus: audio: Add topology parser for GB codec")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+ drivers/staging/greybus/audio_codec.h    |   4 +-
+ drivers/staging/greybus/audio_gb.c       |  13 ++-
+ drivers/staging/greybus/audio_module.c   |   6 +-
+ drivers/staging/greybus/audio_topology.c | 135 ++++++++++++++++++-----
+ 4 files changed, 120 insertions(+), 38 deletions(-)
+
+diff --git a/drivers/staging/greybus/audio_codec.h b/drivers/staging/greybus/audio_codec.h
+index f3f7a7ec6be40..f9225cf52d843 100644
+--- a/drivers/staging/greybus/audio_codec.h
++++ b/drivers/staging/greybus/audio_codec.h
+@@ -167,7 +167,7 @@ struct gbaudio_module_info {
+ };
+ 
+ int gbaudio_tplg_parse_data(struct gbaudio_module_info *module,
+-			    struct gb_audio_topology *tplg_data);
++			    struct gb_audio_topology *tplg_data, size_t size);
+ void gbaudio_tplg_release(struct gbaudio_module_info *module);
+ 
+ int gbaudio_module_update(struct gbaudio_codec_info *codec,
+@@ -179,7 +179,7 @@ void gbaudio_unregister_module(struct gbaudio_module_info *module);
+ 
+ /* protocol related */
+ int gb_audio_gb_get_topology(struct gb_connection *connection,
+-			     struct gb_audio_topology **topology);
++			     struct gb_audio_topology **topology, size_t *size);
+ int gb_audio_gb_get_control(struct gb_connection *connection,
+ 			    u8 control_id, u8 index,
+ 			    struct gb_audio_ctl_elem_value *value);
+diff --git a/drivers/staging/greybus/audio_gb.c b/drivers/staging/greybus/audio_gb.c
+index 9d8994fdb41a2..0811652bc417f 100644
+--- a/drivers/staging/greybus/audio_gb.c
++++ b/drivers/staging/greybus/audio_gb.c
+@@ -10,11 +10,11 @@
+ 
+ /* TODO: Split into separate calls */
+ int gb_audio_gb_get_topology(struct gb_connection *connection,
+-			     struct gb_audio_topology **topology)
++			     struct gb_audio_topology **topology, size_t *size)
+ {
+ 	struct gb_audio_get_topology_size_response size_resp;
+ 	struct gb_audio_topology *topo;
+-	u16 size;
++	u16 tplg_size;
+ 	int ret;
+ 
+ 	ret = gb_operation_sync(connection, GB_AUDIO_TYPE_GET_TOPOLOGY_SIZE,
+@@ -22,22 +22,23 @@ int gb_audio_gb_get_topology(struct gb_connection *connection,
+ 	if (ret)
+ 		return ret;
+ 
+-	size = le16_to_cpu(size_resp.size);
+-	if (size < sizeof(*topo))
++	tplg_size = le16_to_cpu(size_resp.size);
++	if (tplg_size < sizeof(*topo))
+ 		return -ENODATA;
+ 
+-	topo = kzalloc(size, GFP_KERNEL);
++	topo = kzalloc(tplg_size, GFP_KERNEL);
+ 	if (!topo)
+ 		return -ENOMEM;
+ 
+ 	ret = gb_operation_sync(connection, GB_AUDIO_TYPE_GET_TOPOLOGY, NULL, 0,
+-				topo, size);
++				topo, tplg_size);
+ 	if (ret) {
+ 		kfree(topo);
+ 		return ret;
+ 	}
+ 
+ 	*topology = topo;
++	*size = tplg_size;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/staging/greybus/audio_module.c b/drivers/staging/greybus/audio_module.c
+index 12c376c477b3c..9367ab6debdbe 100644
+--- a/drivers/staging/greybus/audio_module.c
++++ b/drivers/staging/greybus/audio_module.c
+@@ -240,6 +240,7 @@ static int gb_audio_probe(struct gb_bundle *bundle,
+ 	struct gbaudio_data_connection *dai, *_dai;
+ 	int ret, i;
+ 	struct gb_audio_topology *topology;
++	size_t tplg_size;
+ 
+ 	/* There should be at least one Management and one Data cport */
+ 	if (bundle->num_cports < 2)
+@@ -308,14 +309,15 @@ static int gb_audio_probe(struct gb_bundle *bundle,
+ 	 * FIXME: malloc for topology happens via audio_gb driver
+ 	 * should be done within codec driver itself
+ 	 */
+-	ret = gb_audio_gb_get_topology(gbmodule->mgmt_connection, &topology);
++	ret = gb_audio_gb_get_topology(gbmodule->mgmt_connection, &topology,
++				       &tplg_size);
+ 	if (ret) {
+ 		dev_err(dev, "%d:Error while fetching topology\n", ret);
+ 		goto disable_connection;
+ 	}
+ 
+ 	/* process topology data */
+-	ret = gbaudio_tplg_parse_data(gbmodule, topology);
++	ret = gbaudio_tplg_parse_data(gbmodule, topology, tplg_size);
+ 	if (ret) {
+ 		dev_err(dev, "%d:Error while parsing topology data\n",
+ 			ret);
+diff --git a/drivers/staging/greybus/audio_topology.c b/drivers/staging/greybus/audio_topology.c
+index 76146f91cddcc..4095e6c741efa 100644
+--- a/drivers/staging/greybus/audio_topology.c
++++ b/drivers/staging/greybus/audio_topology.c
+@@ -134,21 +134,35 @@ static const char **gb_generate_enum_strings(struct gbaudio_module_info *gb,
+ 					     struct gb_audio_enumerated *gbenum)
+ {
+ 	const char **strings;
+-	int i;
+ 	unsigned int items;
+-	__u8 *data;
++	u16 names_length;
++	const __u8 *data;
++	const __u8 *end;
++	int i;
+ 
+ 	items = le32_to_cpu(gbenum->items);
++	names_length = le16_to_cpu(gbenum->names_length);
++	data = gbenum->names;
++	end = data + names_length;
++
++	/*
++	 * Each enumerated value is a NUL-terminated string occupying at least
++	 * one byte, so a valid names block cannot hold more items than it has
++	 * bytes. This also bounds the devm_kcalloc() request below.
++	 */
++	if (items > names_length)
++		return NULL;
++
+ 	strings = devm_kcalloc(gb->dev, items, sizeof(char *), GFP_KERNEL);
+ 	if (!strings)
+ 		return NULL;
+ 
+-	data = gbenum->names;
+-
+ 	for (i = 0; i < items; i++) {
+ 		strings[i] = (const char *)data;
+-		while (*data != '\0')
++		while (data < end && *data != '\0')
+ 			data++;
++		if (data == end)
++			return NULL;
+ 		data++;
+ 	}
+ 
+@@ -1009,9 +1023,40 @@ static const struct snd_soc_dapm_widget gbaudio_widgets[] = {
+ 					SND_SOC_DAPM_POST_PMD),
+ };
+ 
++/*
++ * Return the on-wire size of the topology control at @curr, in bytes, after
++ * verifying that the whole control - including its variable-length enum names
++ * block - lies within [@curr, @end). Returns a negative errno on overrun.
++ */
++static int gbaudio_control_size(struct gb_audio_control *curr, const u8 *end)
++{
++	size_t csize;
++
++	/*
++	 * Enough of the control must be present to read its id and name and
++	 * the fixed part of the enumerated descriptor (items, names_length).
++	 */
++	csize = offsetof(struct gb_audio_control, info);
++	csize += offsetof(struct gb_audio_ctl_elem_info, value);
++	csize += offsetof(struct gb_audio_enumerated, names);
++	if ((u8 *)curr + csize > end)
++		return -EINVAL;
++
++	if (curr->info.type == GB_AUDIO_CTL_ELEM_TYPE_ENUMERATED)
++		csize += le16_to_cpu(curr->info.value.enumerated.names_length);
++	else
++		csize = sizeof(struct gb_audio_control);
++
++	if ((u8 *)curr + csize > end)
++		return -EINVAL;
++
++	return csize;
++}
++
+ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
+ 				      struct snd_soc_dapm_widget *dw,
+-				      struct gb_audio_widget *w, int *w_size)
++				      struct gb_audio_widget *w, int *w_size,
++				      const u8 *end)
+ {
+ 	int i, ret, csize;
+ 	struct snd_kcontrol_new *widget_kctls;
+@@ -1040,6 +1085,11 @@ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
+ 	/* create relevant kcontrols */
+ 	curr = w->ctl;
+ 	for (i = 0; i < w->ncontrols; i++) {
++		ret = gbaudio_control_size(curr, end);
++		if (ret < 0)
++			goto error;
++		csize = ret;
++
+ 		ret = gbaudio_tplg_create_wcontrol(module, &widget_kctls[i],
+ 						   curr);
+ 		if (ret) {
+@@ -1063,10 +1113,6 @@ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
+ 			struct gb_audio_enumerated *gbenum =
+ 				&curr->info.value.enumerated;
+ 
+-			csize = offsetof(struct gb_audio_control, info);
+-			csize += offsetof(struct gb_audio_ctl_elem_info, value);
+-			csize += offsetof(struct gb_audio_enumerated, names);
+-			csize += le16_to_cpu(gbenum->names_length);
+ 			control->texts = (const char * const *)
+ 				gb_generate_enum_strings(module, gbenum);
+ 			if (!control->texts) {
+@@ -1074,8 +1120,6 @@ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
+ 				goto error;
+ 			}
+ 			control->items = le32_to_cpu(gbenum->items);
+-		} else {
+-			csize = sizeof(struct gb_audio_control);
+ 		}
+ 
+ 		*w_size += csize;
+@@ -1136,7 +1180,8 @@ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
+ }
+ 
+ static int gbaudio_tplg_process_kcontrols(struct gbaudio_module_info *module,
+-					  struct gb_audio_control *controls)
++					  struct gb_audio_control *controls,
++					  const u8 *end)
+ {
+ 	int i, csize, ret;
+ 	struct snd_kcontrol_new *dapm_kctls;
+@@ -1152,6 +1197,11 @@ static int gbaudio_tplg_process_kcontrols(struct gbaudio_module_info *module,
+ 
+ 	curr = controls;
+ 	for (i = 0; i < module->num_controls; i++) {
++		ret = gbaudio_control_size(curr, end);
++		if (ret < 0)
++			goto error;
++		csize = ret;
++
+ 		ret = gbaudio_tplg_create_kcontrol(module, &dapm_kctls[i],
+ 						   curr);
+ 		if (ret) {
+@@ -1176,10 +1226,6 @@ static int gbaudio_tplg_process_kcontrols(struct gbaudio_module_info *module,
+ 			struct gb_audio_enumerated *gbenum =
+ 				&curr->info.value.enumerated;
+ 
+-			csize = offsetof(struct gb_audio_control, info);
+-			csize += offsetof(struct gb_audio_ctl_elem_info, value);
+-			csize += offsetof(struct gb_audio_enumerated, names);
+-			csize += le16_to_cpu(gbenum->names_length);
+ 			control->texts = (const char * const *)
+ 				gb_generate_enum_strings(module, gbenum);
+ 			if (!control->texts) {
+@@ -1187,8 +1233,6 @@ static int gbaudio_tplg_process_kcontrols(struct gbaudio_module_info *module,
+ 				goto error;
+ 			}
+ 			control->items = le32_to_cpu(gbenum->items);
+-		} else {
+-			csize = sizeof(struct gb_audio_control);
+ 		}
+ 
+ 		list_add(&control->list, &module->ctl_list);
+@@ -1210,7 +1254,8 @@ static int gbaudio_tplg_process_kcontrols(struct gbaudio_module_info *module,
+ }
+ 
+ static int gbaudio_tplg_process_widgets(struct gbaudio_module_info *module,
+-					struct gb_audio_widget *widgets)
++					struct gb_audio_widget *widgets,
++					const u8 *end)
+ {
+ 	int i, ret, w_size;
+ 	struct snd_soc_dapm_widget *dapm_widgets;
+@@ -1225,8 +1270,13 @@ static int gbaudio_tplg_process_widgets(struct gbaudio_module_info *module,
+ 
+ 	curr = widgets;
+ 	for (i = 0; i < module->num_dapm_widgets; i++) {
++		/* The fixed part of the widget must lie within the buffer. */
++		if ((u8 *)curr + sizeof(struct gb_audio_widget) > end) {
++			ret = -EINVAL;
++			goto error;
++		}
+ 		ret = gbaudio_tplg_create_widget(module, &dapm_widgets[i],
+-						 curr, &w_size);
++						 curr, &w_size, end);
+ 		if (ret) {
+ 			dev_err(module->dev, "%s:%d type not supported\n",
+ 				curr->name, curr->type);
+@@ -1259,7 +1309,8 @@ static int gbaudio_tplg_process_widgets(struct gbaudio_module_info *module,
+ }
+ 
+ static int gbaudio_tplg_process_routes(struct gbaudio_module_info *module,
+-				       struct gb_audio_route *routes)
++				       struct gb_audio_route *routes,
++				       const u8 *end)
+ {
+ 	int i, ret;
+ 	struct snd_soc_dapm_route *dapm_routes;
+@@ -1275,6 +1326,10 @@ static int gbaudio_tplg_process_routes(struct gbaudio_module_info *module,
+ 	curr = routes;
+ 
+ 	for (i = 0; i < module->num_dapm_routes; i++) {
++		if ((u8 *)curr + sizeof(struct gb_audio_route) > end) {
++			ret = -EINVAL;
++			goto error;
++		}
+ 		dapm_routes->sink =
+ 			gbaudio_map_widgetid(module, curr->destination_id);
+ 		if (!dapm_routes->sink) {
+@@ -1320,8 +1375,12 @@ static int gbaudio_tplg_process_routes(struct gbaudio_module_info *module,
+ }
+ 
+ static int gbaudio_tplg_process_header(struct gbaudio_module_info *module,
+-				       struct gb_audio_topology *tplg_data)
++				       struct gb_audio_topology *tplg_data,
++				       size_t size)
+ {
++	unsigned long tplg_start = (unsigned long)tplg_data;
++	unsigned long tplg_end = tplg_start + size;
++
+ 	/* fetch no. of kcontrols, widgets & routes */
+ 	module->num_controls = tplg_data->num_controls;
+ 	module->num_dapm_widgets = tplg_data->num_widgets;
+@@ -1336,6 +1395,20 @@ static int gbaudio_tplg_process_header(struct gbaudio_module_info *module,
+ 	module->route_offset = module->widget_offset +
+ 					le32_to_cpu(tplg_data->size_widgets);
+ 
++	/*
++	 * The DAI, control, widget and route blocks are concatenated in that
++	 * order after the header. Their sizes come straight off the wire and
++	 * are attacker-controlled, so verify the resulting block boundaries
++	 * are ordered and stay within the allocated topology buffer. The
++	 * "< previous" tests also reject an unsigned wrap of the running
++	 * offset on 32-bit builds.
++	 */
++	if (module->control_offset < module->dai_offset ||
++	    module->widget_offset < module->control_offset ||
++	    module->route_offset < module->widget_offset ||
++	    module->route_offset > tplg_end)
++		return -EINVAL;
++
+ 	dev_dbg(module->dev, "DAI offset is 0x%lx\n", module->dai_offset);
+ 	dev_dbg(module->dev, "control offset is %lx\n",
+ 		module->control_offset);
+@@ -1346,7 +1419,7 @@ static int gbaudio_tplg_process_header(struct gbaudio_module_info *module,
+ }
+ 
+ int gbaudio_tplg_parse_data(struct gbaudio_module_info *module,
+-			    struct gb_audio_topology *tplg_data)
++			    struct gb_audio_topology *tplg_data, size_t size)
+ {
+ 	int ret;
+ 	struct gb_audio_control *controls;
+@@ -1357,7 +1430,10 @@ int gbaudio_tplg_parse_data(struct gbaudio_module_info *module,
+ 	if (!tplg_data)
+ 		return -EINVAL;
+ 
+-	ret = gbaudio_tplg_process_header(module, tplg_data);
++	if (size < sizeof(*tplg_data))
++		return -EINVAL;
++
++	ret = gbaudio_tplg_process_header(module, tplg_data, size);
+ 	if (ret) {
+ 		dev_err(module->dev, "%d: Error in parsing topology header\n",
+ 			ret);
+@@ -1366,7 +1442,8 @@ int gbaudio_tplg_parse_data(struct gbaudio_module_info *module,
+ 
+ 	/* process control */
+ 	controls = (struct gb_audio_control *)module->control_offset;
+-	ret = gbaudio_tplg_process_kcontrols(module, controls);
++	ret = gbaudio_tplg_process_kcontrols(module, controls,
++					     (const u8 *)module->widget_offset);
+ 	if (ret) {
+ 		dev_err(module->dev,
+ 			"%d: Error in parsing controls data\n", ret);
+@@ -1376,7 +1453,8 @@ int gbaudio_tplg_parse_data(struct gbaudio_module_info *module,
+ 
+ 	/* process widgets */
+ 	widgets = (struct gb_audio_widget *)module->widget_offset;
+-	ret = gbaudio_tplg_process_widgets(module, widgets);
++	ret = gbaudio_tplg_process_widgets(module, widgets,
++					   (const u8 *)module->route_offset);
+ 	if (ret) {
+ 		dev_err(module->dev,
+ 			"%d: Error in parsing widgets data\n", ret);
+@@ -1386,7 +1464,8 @@ int gbaudio_tplg_parse_data(struct gbaudio_module_info *module,
+ 
+ 	/* process route */
+ 	routes = (struct gb_audio_route *)module->route_offset;
+-	ret = gbaudio_tplg_process_routes(module, routes);
++	ret = gbaudio_tplg_process_routes(module, routes,
++					  (const u8 *)tplg_data + size);
+ 	if (ret) {
+ 		dev_err(module->dev,
+ 			"%d: Error in parsing routes data\n", ret);
 -- 
-Aaron Tomlin
+2.55.0
+
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
