@@ -2,89 +2,89 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id A4HnOWrDUGro4gIAu9opvQ
+	id kxZyDm/DUGrr4gIAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jul 2026 12:03:22 +0200
+	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jul 2026 12:03:27 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8293E739689
-	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jul 2026 12:03:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E47F7739696
+	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jul 2026 12:03:26 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=plCsW+63;
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b="iQR/2tZL";
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of "greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org" designates 44.210.186.118 as permitted sender) smtp.mailfrom="greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org"
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id A284740F3E
-	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jul 2026 10:03:21 +0000 (UTC)
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
-	by lists.linaro.org (Postfix) with ESMTPS id EF3BA401CE
-	for <greybus-dev@lists.linaro.org>; Thu,  9 Jul 2026 18:50:48 +0000 (UTC)
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6a116bd18ebso151322eaf.1
-        for <greybus-dev@lists.linaro.org>; Thu, 09 Jul 2026 11:50:48 -0700 (PDT)
+	by lists.linaro.org (Postfix) with ESMTP id 1074440D71
+	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jul 2026 10:03:26 +0000 (UTC)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	by lists.linaro.org (Postfix) with ESMTPS id E9CA53FDB0
+	for <greybus-dev@lists.linaro.org>; Fri, 10 Jul 2026 04:41:11 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-381018b9375so727786a91.0
+        for <greybus-dev@lists.linaro.org>; Thu, 09 Jul 2026 21:41:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783623048; x=1784227848; darn=lists.linaro.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1783658471; x=1784263271; darn=lists.linaro.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:date:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZRHeCwFsmKFBk4M/1QJH4iLci+OyPvksYnhoTo8Soao=;
-        b=plCsW+630PI1WMuOi8mI0FFxS/CW+zLUxXty79jeuKbIxmCrOzkFavqfS/ITwawR/z
-         Wqu1lKKJI6OuXummeabHT+jFIWuZQZFdmJhknnwK+vmJHJHy4OQ4+CBTcMCBaoTw+PH1
-         PCyBeRzDQEcxTBM8AWWDgI6QluNgPcpFan4+emCOjfZvQHWvQgXss6zFiCQYZqfIBAOY
-         dO1Sg7x3oE5gvNb849/wvFiY3zeQfuRVzvMid8VgcGb6w6EnUHcsWnuNvrObNVQwP/5G
-         XjPKenEZ41zDgvP/4DlpndUiTbdCS6kiWImNFPTAOpaKWTtOm4wBTOI0Liw/JUYRa0Zz
-         uZIA==
+        bh=618XwBlkSXmaSNWDLp2getHPTEbLpmZi3PDA41qTTi8=;
+        b=iQR/2tZLcviiTWCWxd4ACpL3UExBMbchP0nmRhtKw7fj7fGzH6x3i87U9+89Z9YmPP
+         Ic0WnHqb+QnaMolx9BTwtdg2MFOjrrd59G+DGwjh4H43w/XCuINs2mHzL2gC225k/RvJ
+         Xfu4S8ImkKXgUvGUXZHhmj2Ex3/EcEo8aC2vo5VjLrv2hCWC17acptVgT0Z1vVClVEdt
+         q+ELbO3rcHD1CIISAOB/SEcLh+qxlnxbZaZTgvTIUKlYAXFWBgNtIpQcvUrvHe5C3tlt
+         WEMubttF4TyCdFOziv7e1Yb9CRTOqL+FRVmuojSvij1NsL5pmH7zwp1Lot15VODuIKzs
+         3zqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783623048; x=1784227848;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1783658471; x=1784263271;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZRHeCwFsmKFBk4M/1QJH4iLci+OyPvksYnhoTo8Soao=;
-        b=MvldOhrccwyBk6gSeTrwdez6W9pi1TT/v514brqKicsV8V2LmifFQcDLzJVju+g/Ya
-         gsGaS3mKJjpgoQcCz965S4CdXHi9SZw+jJZkiz2vmGOMkK9Ost9BTOEsMnd2RWJ3w2AN
-         08NUv0Ht3gkfodc1ssmeeaT2cYVaStqMx/1bGoj8WXtH9Yo3X6VAlNL4i3Qx4G9qIePD
-         DjTrqcXTH07EwNGua6HJR/1+srmxCr4XCIgw4O+sYUdODDnrEC4tvGcCw7VdoIZjOMG/
-         yPo2qstovjJ0cRQwicc8HEMFfKH9ZMYcbqbNJJXpHyWThFYgUACDZdlIZlH7aA3zaQ9N
-         ldsA==
-X-Forwarded-Encrypted: i=1; AFNElJ97XzAv/4euOeh6AGSLwDyXWRWqaRFrxyLRLEKIR2Zxzb5SWWOI80VWcnkxCwPrmNyNPnJzuXH5tDuKwQ==@lists.linaro.org
-X-Gm-Message-State: AOJu0YwJxLF/WzY2TFeDLVV6z00qRq6WZpb/z2PHfgbUlcugQT39c/xZ
-	SJs3OHVSvUOJQB2Tye60onHql1oY0O7LhtLtkGgPbymkfTPZvADFhoJL
-X-Gm-Gg: AfdE7cmznLdQwvHpHr4x/gRmRDzH5QCZGYH68wwnor3tthlR8kcSOk9JhXycx2LHOuB
-	vDkOEhIl0ts2ocwXc032oXrWiYvTdVhB57PN9Skgp4zCD4+kXuXEFdy/Yzb4Sp3VyGId+WwnFra
-	Z90JOfiLUFBorvonhyBMQ9FvAS0TBbr7aEhsT1TApCLESDnTXeT06DI8QUQFv2EUnvbxd1tg89y
-	oh++jFC5+0Op1hyCv+Fhdz6q6emymXAeUWDlVMbn3XumwiPc1jC9T4tl0XYgoha3DEhEBAtzaiL
-	ePeyk+qLuTpxzfyqNQSXyiTPH+udSltrZes3f/24uYMxKQWjzNqxSI2IQaqBDTDMQVfQbgfJ5R+
-	rqaHqq+F3h8TE5YPNnWpzHIrNDeQS0+vq36hyUBNFDu0WQMmPpdF6FiL0Ky/voGncAt/+ugvWhd
-	i8c/ZJbkI=
-X-Received: by 2002:a05:6820:82c:b0:6a3:8023:f344 with SMTP id 006d021491bc7-6a38023f40bmr2648403eaf.2.1783623048208;
-        Thu, 09 Jul 2026 11:50:48 -0700 (PDT)
-Received: from localhost ([45.136.154.250])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a377bd9cb1sm2973603eaf.15.2026.07.09.11.50.46
+        bh=618XwBlkSXmaSNWDLp2getHPTEbLpmZi3PDA41qTTi8=;
+        b=lgNlB5QN4PEtfVH5CMVwyuafLnVPRWqOKkiw7xIZY11Y50UE5wmKUjr4t3UK8y+msF
+         J3q8ukupbrDgJCwoOU7Ep9WkHmNr0AdSTm7wkFm7wOWuoiIR6u2saVCEYCoSJkV0gZE0
+         qA67CXdvSYnVVxfbsvYJAvCMzgZf3uzNd0+PfvzYoG5PVmZeV6O+2KWZJDZItoUQm5aO
+         Y2cORcWEHc5ZoDmHgckDHqBehqnsC76tPfmdzz34ClGXbcNtt2b8Wbc+QNCPHDgxRtb7
+         dQiX0qbzROAadk3GPVfFWunHBGFa3ZqVETJTeNzAEIsWlo6PR1fRNSQwV9Vahto3EpJR
+         mBng==
+X-Forwarded-Encrypted: i=1; AHgh+Rpk6oJ+AZz+tD6b84+pTSueT479IIettvuVGQgKkHQWS78stMLkx6pj646f/ukE5zM6NgoFDuMiTvOGIg==@lists.linaro.org
+X-Gm-Message-State: AOJu0YymaI3Pw3nNgjfEa7u5+ilVaj2W5YGOPxCMiHS87DFQ1kRQTjFK
+	Vvor+2aJePY45Idowb1F3ck8Ci0p7tWmVZvJtjauzR+vkofFBAR2aGBO
+X-Gm-Gg: AfdE7cmzaQninsPErK92eAfwnlGSXF9t3D80ht39HiTbCRw0UyjIuN09aXBH4u16dPB
+	KuRjcUeEZfzXUNbAxLy7xwsAj0N25kLxpGoyqHcr1UjWuSQiUYCAnlyFdkjEa/HvlOXUYXJyk7m
+	CqiiPgGP9A8S84lX0MB21tXwUUD9lOYI1xzSj1Nvp09+73D+ztw1eozX/MVgICTib0Te99QdhYM
+	jb7WnScv0RhVxpv6FSJDqsKMDfFPLUmG6rXlYJpr5J3Y007DWMRX4Lp28PTfBiFnRDBHeAjCPo5
+	aZ7c/lgFvECxGYdsuD9HmyqADGUeuXpxGhlh6acz0fJP7wv433HORXfNjul2QQUp+VuolSXsH4q
+	VWMkNmz4ZSi7vZ/uMi1aV5FCDEtaH8Ikxrn2LFpUPN+O/jD8y09vPBT0I3A9xmgtMO1u4MT5CFG
+	NAuhhJBBZt/uEjBknpGKib5+4=
+X-Received: by 2002:a17:90b:5703:b0:381:21ea:9147 with SMTP id 98e67ed59e1d1-38940924754mr10622856a91.13.1783658470929;
+        Thu, 09 Jul 2026 21:41:10 -0700 (PDT)
+Received: from reply2_full.eml ([49.216.173.166])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38a5516ad85sm2119312a91.2.2026.07.09.21.41.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 11:50:47 -0700 (PDT)
-Date: Thu, 9 Jul 2026 21:50:40 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Hao-Qun Huang <alvinhuang0603@gmail.com>
-Message-ID: <ak_tgJC8-d1HPKuV@stanley.mountain>
+        Thu, 09 Jul 2026 21:41:10 -0700 (PDT)
+Message-ID: <20260710124050.31335.alvinhuang0603@gmail.com>
+Date: Fri, 10 Jul 2026 12:40:50 +0800
+From: Hao-Qun Huang <alvinhuang0603@gmail.com>
+To: Dan Carpenter <error27@gmail.com>
+In-Reply-To: <ak_tgJC8-d1HPKuV@stanley.mountain>
 References: <20260704081613.434445-1-alvinhuang0603@gmail.com>
  <ak99bENMWC8saJL4@stanley.mountain>
  <20260710020644.6728.alvinhuang0603@gmail.com>
+ <ak_tgJC8-d1HPKuV@stanley.mountain>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260710020644.6728.alvinhuang0603@gmail.com>
-X-Spamd-Bar: ----
-X-MailFrom: error27@gmail.com
+X-Spamd-Bar: ---
+X-MailFrom: alvinhuang0603@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: P3OZIKBKGQTYGD3OKGFWCOOHJWOZWRMS
-X-Message-ID-Hash: P3OZIKBKGQTYGD3OKGFWCOOHJWOZWRMS
+Message-ID-Hash: 7EYOGFBNKFKZKILQ27LDE3DZ3NIVLQ5R
+X-Message-ID-Hash: 7EYOGFBNKFKZKILQ27LDE3DZ3NIVLQ5R
 X-Mailman-Approved-At: Fri, 10 Jul 2026 10:03:14 +0000
 CC: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
 Subject: [greybus-dev] Re: [PATCH] staging: greybus: hid: fix SET_REPORT return value
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/P3OZIKBKGQTYGD3OKGFWCOOHJWOZWRMS/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/7EYOGFBNKFKZKILQ27LDE3DZ3NIVLQ5R/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -94,66 +94,64 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.59 / 15.00];
+X-Spamd-Result: default: False [1.59 / 15.00];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+mx:c];
+	MID_CONTAINS_FROM(1.00)[];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:alvinhuang0603@gmail.com,m:vireshk@kernel.org,m:johan@kernel.org,m:elder@kernel.org,m:greybus-dev@lists.linaro.org,m:linux-staging@lists.linux.dev,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER(0.00)[error27@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:error27@gmail.com,m:vireshk@kernel.org,m:johan@kernel.org,m:elder@kernel.org,m:greybus-dev@lists.linaro.org,m:linux-staging@lists.linux.dev,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[lists@lfdr.de];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[alvinhuang0603@gmail.com,greybus-dev-bounces@lists.linaro.org];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
 	DKIM_TRACE(0.00)[gmail.com:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[7];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[error27@gmail.com,greybus-dev-bounces@lists.linaro.org];
-	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
+	FROM_NEQ_ENVFROM(0.00)[alvinhuang0603@gmail.com,greybus-dev-bounces@lists.linaro.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[greybus-dev];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:from_smtp,lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email,stanley.mountain:mid]
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.linaro.org:from_smtp,lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8293E739689
+X-Rspamd-Queue-Id: E47F7739696
 
-On Fri, Jul 10, 2026 at 02:06:44AM +0800, Hao-Qun Huang wrote:
-> On Jul 9, 2026 at 6:52 PM, Dan Carpenter <error27@gmail.com> wrote:
-> > These kinds of changes require testing.  How have you tested this
-> > change?
-> 
-> I compile-tested it (W=1, building gb-hid, greybus and hid together) and
-> traced the return path by hand.  I don't have Greybus HID hardware and
-> couldn't find a working emulator (gbsim has been dead since Ara), so I
-> haven't run it on a live device.
-> 
-> The bug is that gb_hid_set_report() returns -errno on failure and len on
-> success, and __gb_hid_output_raw_report() computes that into ret (even
-> adding one back for the report ID byte) and then returns 0, discarding
-> it.  So a successful hidraw write reports 0 bytes written and a failed
-> SET_REPORT looks like success.  The GET path next to it already returns
-> the count, as do usbhid, i2c-hid and uhid, so callers already handle a
-> positive return and greybus HID was the only one returning 0.
+On Jul 10, 2026 at 2:50 AM, Dan Carpenter <error27@gmail.com> wrote:
+> The bug is not hard to understand, the issue is that this changes the
+> function completely...  Was nothing checking the return before?
 
-The bug is not hard to understand, the issue is that this changes the
-function completely...  Was nothing checking the return before?
+It gets checked.  The value flows unchanged through __hid_hw_raw_request()
+to the callers, and they look at it two ways:
 
-regards,
-dan carpenter
+ - hidraw returns it straight to userspace (write(), HIDIOCSFEATURE),
+   where it is the number of bytes transferred.
 
+ - in-kernel SET_REPORT callers, some testing "ret < 0" (hid-multitouch,
+   hid-sony), some testing "ret != size" (hid-gt683r, hid-lenovo,
+   hid-razer).
+
+So the old return 0 was wrong both ways: the first group had a failed
+SET_REPORT masked as success, and the second saw every SET_REPORT as a
+failure.  Returning the count or a negative errno is what GET already
+does in this driver and what usbhid/i2c-hid/uhid return, so nothing
+working with those relied on the 0.
+
+Thanks,
+Hao-Qun
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
