@@ -2,91 +2,132 @@ Return-Path: <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>
 Delivered-To: lists+greybus-dev@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 2jlIK3PDUGrt4gIAu9opvQ
+	id HY5pC44EVGrHgwMAu9opvQ
 	(envelope-from <greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org>)
-	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jul 2026 12:03:31 +0200
+	for <lists+greybus-dev@lfdr.de>; Sun, 12 Jul 2026 23:18:06 +0200
 X-Original-To: lists+greybus-dev@lfdr.de
 Received: from lists.linaro.org (lists.linaro.org [44.210.186.118])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F8DD73969E
-	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jul 2026 12:03:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C7C7745EEC
+	for <lists+greybus-dev@lfdr.de>; Sun, 12 Jul 2026 23:18:05 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b="oIZ/Bb2y";
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none);
-	spf=pass (mail.lfdr.de: domain of "greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org" designates 44.210.186.118 as permitted sender) smtp.mailfrom="greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org"
+	dkim=none;
+	dmarc=none;
+	spf=pass (mail.lfdr.de: domain of "greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org" designates 44.210.186.118 as permitted sender) smtp.mailfrom="greybus-dev-bounces+lists+greybus-dev=lfdr.de@lists.linaro.org";
+	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from lists.linaro.org (localhost [127.0.0.1])
-	by lists.linaro.org (Postfix) with ESMTP id 8F2D740F26
-	for <lists+greybus-dev@lfdr.de>; Fri, 10 Jul 2026 10:03:30 +0000 (UTC)
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	by lists.linaro.org (Postfix) with ESMTPS id 3E99440AE5
-	for <greybus-dev@lists.linaro.org>; Fri, 10 Jul 2026 07:42:39 +0000 (UTC)
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6a377223171so239244eaf.2
-        for <greybus-dev@lists.linaro.org>; Fri, 10 Jul 2026 00:42:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783669358; x=1784274158; darn=lists.linaro.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kNMWIhd4Kn6qK++so+3j3gVzZtTmvgc+EmxNrLVjwPQ=;
-        b=oIZ/Bb2yqWn2ZtvPsR5VIeSZbvWDfRG020+dQYwFln+lXk1sS1mUjul9iCHkMjDV3J
-         m4mAmvEuqd73gSx0f1IHNKsGJgILzTY02MWse6FiZzFJ58cevoZeOpNCeVtnB1kLRApc
-         Ap3DaMHhpsJX2mLBSB260gjvWq1hXn7Bc0M+yh1Vdl2Ps+BpNLhw6f3tFh5eb70jZXUy
-         s/uvEhyW6LBOYCit2jQLX1yWDhQyTww8MJ7I0XVeLXP3SZkhYLpyopB8WSrfPBHoW5s6
-         m/dyLns2sJEM7Tn3Z24f+hSR5Tk+/bcifgQZMw7m3/0jXctbNKa8jUGVvC4LXb82twlN
-         FKVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783669358; x=1784274158;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kNMWIhd4Kn6qK++so+3j3gVzZtTmvgc+EmxNrLVjwPQ=;
-        b=SJoipxn0x52G00gTGl5Fba/2fdSBMRm8G8MJaFVTssOwhfx3CKHKbUtpYoFdXaLI72
-         CyWHZlcXWdq2SZwX/tDLjeUwoeCwNnVCpUsD6YlyBoU07azZ21IvNlD3Jze5X+jeCOsk
-         I7AIsdrrcAtZwB/zNWwdCG97TBnxhpGisumnxtuvJl8uLGHVlGrx2Rq7QYMNTQUfMoOm
-         CXt86wUXGm3yQ8AweVpQaA/vrAmPq5V2H+vhEHvEnrg+EmheVLh2+G0BoWR+t+twpIOs
-         UlPvM4zp87g3Ypu0qt2fm1rKufjjub4GLsxEA3Vl2XnoHzVmSUOBi0ueeKE/FNV5v9xz
-         x1fg==
-X-Forwarded-Encrypted: i=1; AFNElJ/Sk+UdXmhNy15mGqN5/z0vh2W2UN/YO+kYUagRiPT51V178/JoKdenC537RMQHdKW55w8NWY91LsiFnA==@lists.linaro.org
-X-Gm-Message-State: AOJu0Ywo+DImTnr9bNdzV6tjODoDxqaRCIpDZP+vMwFm3IrWHfEi/Uvz
-	aJKSzDvB09MGXKyWQ7YL3uG5cNzZJB7m5PlkH4yExFtVytgcVzonZLN9
-X-Gm-Gg: AfdE7cm+73JUiZz2En447QN4UtfnZZOQTh26mF4qbBiEmii0MzF5DYhF3g3MPytmplx
-	S6DYTd7fU0Nxjm8T1i5puWWdJSCZTJVZXj1+haXtFmlb4cBnqIOvr0uFd6AOsIoQUQiHJnquTF5
-	GGo0nkfcGUmn2sOGZfu214kR71qqDWxmTtYFR7b/ok6ORsgfRjBR0xBFaxChRExHpAv9O5m4Nr+
-	A9CrfLPu7X5lG3zM0m1DNJkCPHya76fshF/r/Uc4QcxXu9CQdkVvuqNXWpEk1tZevLvFQeFcBEj
-	rVUTsAGFJW6uWZslb5wb5p8X6UE14stVL97LyMW0LyoJ1EogsTvPMnckACYPNZWftfcKh5UaQNh
-	9E9eguJZDKb89aHkNtXn9uG4fUEyeYqk8DWoONVDqjL+MW3YhEgjADGsE0cCKu37rdP7Lxc0/bf
-	QYwIYA
-X-Received: by 2002:a05:6820:981:b0:6a3:8023:f343 with SMTP id 006d021491bc7-6a38023f3b7mr3977072eaf.16.1783669358539;
-        Fri, 10 Jul 2026 00:42:38 -0700 (PDT)
-Received: from localhost ([74.80.182.70])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a38b9ccff2sm1158317eaf.3.2026.07.10.00.42.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 00:42:36 -0700 (PDT)
-Date: Fri, 10 Jul 2026 10:42:31 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Hao-Qun Huang <alvinhuang0603@gmail.com>
-Message-ID: <alCiZxAXbPDq3P4e@stanley.mountain>
-References: <20260704081613.434445-1-alvinhuang0603@gmail.com>
- <ak99bENMWC8saJL4@stanley.mountain>
- <20260710020644.6728.alvinhuang0603@gmail.com>
- <ak_tgJC8-d1HPKuV@stanley.mountain>
- <20260710124050.31335.alvinhuang0603@gmail.com>
-MIME-Version: 1.0
+	by lists.linaro.org (Postfix) with ESMTP id 2EFD8404FD
+	for <lists+greybus-dev@lfdr.de>; Sun, 12 Jul 2026 21:18:04 +0000 (UTC)
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022103.outbound.protection.outlook.com [52.101.101.103])
+	by lists.linaro.org (Postfix) with ESMTPS id 80E743F735
+	for <greybus-dev@lists.linaro.org>; Fri, 10 Jul 2026 13:58:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d/UKidZW2yROLKPKhG9FiE0erou4BUfd55Lpt15BZFxg3TnBGnPR22WFAO/P5qeCVZTzla5KVq7FF2+sjL6f/eVU9L8aCA+A9v13lM7J79ByPmXSV1PYBna1DtAaik2hyvjy4laCdRgbioUBXLC4Bsu2FYtS2jE/miouPSlyxPK+PWGvq/gh5oAy2LFEA/OyCKON1T89HSNizgicj4ayd1GVsKNL29AbgMGn+1pZmeJZWElXC7d3/pe/6Caasr/n9gIAbTycOxszYbJr8ToI/OPQ+pXCdVJAgoMz6QcAAWjkwqgACnT6Jgx7VIaRM0WWyH5Es/f/W462mD6eVXlvmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=dNuOHlrDEIkjKR9dIyVx0dXJKses962YAhpOz5OyCDA=;
+ b=lphhwxzK+2YMMezx9gCXFikFc8fh60GNYaqcn/uEgPvULionwet/ks1XZC7WgoRlikuNW5mSEDb4KmGWpSwzIhMuODYrOIi6Xi3xBIfHxr4SdkXkiG5rN2rTw+K6NcA4NrXKAs4GCMeLI7tFU5m5cHu9uTxcYHS8WL0PcIEUUk0FkC8GQb+iqBYIqDjRoozdWdRSwDKF4ZwfA+s4scYNhGqfrTHkg41Ilg7LyYc8436wws/Pbl5yXn/QJafbHF6quEKi4CKj7OfdOKQWPXIq1gtW4Wy9LHOU5pUKhMsGhMSTui32I02vQ9zI7XwIroAjHT4OCrtT7okIPgJZm1C8Tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO0P123MB6878.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:30b::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Fri, 10 Jul
+ 2026 13:57:59 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0181.014; Fri, 10 Jul 2026
+ 13:57:59 +0000
+Date: Fri, 10 Jul 2026 09:57:55 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Message-ID: <xihlbspozbgwhez2byjatscslutapi3j4rjhpzxebtn2wjmk5a@qf62xs6lyd6q>
+References: <20260708154510.6794-1-petr.pavlu@suse.com>
+ <20260708154510.6794-3-petr.pavlu@suse.com>
 Content-Disposition: inline
-In-Reply-To: <20260710124050.31335.alvinhuang0603@gmail.com>
-X-Spamd-Bar: ----
-X-MailFrom: error27@gmail.com
+In-Reply-To: <20260708154510.6794-3-petr.pavlu@suse.com>
+X-ClientProxiedBy: MN2PR07CA0020.namprd07.prod.outlook.com
+ (2603:10b6:208:1a0::30) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB6878:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8889c9a4-a311-464f-0f29-08dede8b401e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|56012099006|4143699003|6133799003|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 
+	mnyvn741YVrPSaa0hwDbGrVtBRz+LIw95ja24e6zj7PbDMuYmcaDImgwK2HHFUGJbbEcU/o/lI/aj1VwebZpFhYjn4UNBPq0Wo0aBJiBiHe3jP82n7XKJZaaOP7aQSDCZkIHBBQoRitq/qc/ChGsRVhQZlLuO2WYFbdcf8mxHWu7lyFgatYFUByozN4BGDpucV3Z22SM6P1zRo1UfSTaESZ0Ck2YBy/WwQwcv7s6DVvTKZAUA4umAJCvnwKcMsWOIgi08wNl8E1PsoN2/mL8YDyYDnpKFa6J8iHkbsvfPLYe2jW/d9HrRHB6z62o53M9QTUxNAUefCfoiuWv9y1twRBkQvwlbble7/lJ+bawqZzE8wkMXVxr8aNr3u9oKAx0C9bxaVT8M6uKiA2rFfEScIE1kEubJz/zDxRHlnnN1Z2P+YER/lissTD9b+xKmRg/Sf8q5f8gDV5IQbo1LzG2awcxOlVf/+PlVTFLkqNRWBCpyhv8+9ohJ1AO+/UjiNB3LydrS89QDbi2A/4WcsSDaUxIIBrD5FuHSS2xZ90O6OvPaDYDeRdk4jD2z7K0DIogiyfS9zQitJX/zxK9aOCKHnmB+56lZ73lkP6/8l4ePv2jmJZnAppaQ4FxeFV4zYMyj/IYVUm0ykOl7VLAcDafxE8hRLZtvkgf9+Z4/XhYakQ=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(56012099006)(4143699003)(6133799003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?ZjM4c0FxdHRFbVA2ZVNRdS80bFp5SDQxY3RQYjlGbTB1dDBzUG5zdEhFU2xK?=
+ =?utf-8?B?KzFiM2M3a0QvNHptNUlwYzdNVWZIcWs4dlFteHVzSWczWWduUWNUejBmdEZm?=
+ =?utf-8?B?aVNBdG1BcWpnd215UjYrb2J4TEc0cFFndzJVdURzdHJWV252bjNPdkh6Nnkx?=
+ =?utf-8?B?ODVCN2pHanhmMzVKeXhMM3YyYXhZdExWQzJzdWl0YnhxcERtbUMvaFdvZm5x?=
+ =?utf-8?B?aG0xdmk1cGRwNlNTRzJTajFMU1NzcityMERFQWJDL0NZdDhla09yaERpVlNq?=
+ =?utf-8?B?UjhKbE1DdVdJZS9zMmZXMGQyNjkwK2dhZ2luUU13Z0J3eWowTUhEeTRqcFRq?=
+ =?utf-8?B?elBCS0pTWlhvQWI5K3g0ckRHZU1CQkp0TGx6bk8yNUpWZmRIczB1b2hqYVQr?=
+ =?utf-8?B?WkR5VnB4M2R2MGNwaFo5NkdlQUhVQXd5ZWEvYjVxc1l1dU9hUkcvZ29SOWpK?=
+ =?utf-8?B?c0JrS0E1ZW1BVkNWNjdZYkZHNHljWW9lR3VHWENzcHY1empXbXNPb3ZwOG5I?=
+ =?utf-8?B?aHRiN3JXQTNTQWNnZk1LS0N2RGVNOWMxOHhXWGRsUkxhK3REUG54M21lR0Jr?=
+ =?utf-8?B?WjRra2JCeEVZRzhJNFlteExCZ0lacys2MUNXc0lDUnZ2cVVVT0JiMUpqWXJ2?=
+ =?utf-8?B?VExGdTFVNHM2azlSek5WczR0SDdOVlZseGhmYmlJQmZ1M2plMFExeHhVRG4v?=
+ =?utf-8?B?bytaWFdiSjdWL1dIbGpTNEkxL3FwWjRVdDRXZTBGNFlZNTUyNzJjSXFBNWlk?=
+ =?utf-8?B?a3RvQS9GYTV2T0tzZ3h5RGZDcFplb0NHeXExOVl4M2IybkNVSktIbXJCMmM2?=
+ =?utf-8?B?eU4vWDZrR29CcFlnZVdCd0tRV2J2TzBoeHBqbmtvTWdwZ3RndUl1ZUJ6Tk1q?=
+ =?utf-8?B?ajVVRDIyRHNGTEJ5c3hsQ0N6aEdlaTk0VDZUZDBLeExBVDk3UTlzcmpHdVQr?=
+ =?utf-8?B?cUhmdlNiTlhHUGRSUW96S1pGazVTbjBseTVCY0tqY1ViRjVkNEd6USs1WGUv?=
+ =?utf-8?B?emhDcW5PTitrNGFCK3N4SG1vNXpCR2dwY212SVJYK3VjaTZEZUM5UzVUcjYv?=
+ =?utf-8?B?TXp6bVRoU3BSdWVzaC8rQU95Nndubnd5eFUxQnFyb0JraWZxbTRkVWtLNmpL?=
+ =?utf-8?B?VWRqMnhRRkRsVlJ5VWREeUNZWmFRbnFBMEk2VW9rSmpNem1hWisyTVplREIv?=
+ =?utf-8?B?akFQbEhzVmt5ZjN5VC9wQThQV29uV1pqYlE4dVh5bE85SnRhQmRHbS9wMzdL?=
+ =?utf-8?B?c1NzM1E4UU9iQWlaWUNGSkZUWWVwZDhTMmw2VWcxWjZOZmx5UnBmM3BGb2NW?=
+ =?utf-8?B?ejRXR2FGVlFMR0lzQ3NOUFJCZUVlMmhIOGJweE5oSkhBRGx3b2ZOSXdnVnU5?=
+ =?utf-8?B?ZEFPckdDcTJqNitIYkVjQTZ6VG90WGNUOGlNS3d3MGsrRktMd2V0Vk1qN0Fz?=
+ =?utf-8?B?enovZGxLWWhYdEZMcCswcEtEODZHeWIzZFVPeE9qcWEraUpqR1U4TVd5Q3JE?=
+ =?utf-8?B?OGJJUWdDaldocGhIb21FMURjQ2w4dUZYZ21RNmQzMkNWQkVJR0x2anF3RFJt?=
+ =?utf-8?B?YVVlV01DaFpUVnBIZXA4SGZhdVVBbnFnVEtieWNQRERwZExPNzZpT1ZNQUFO?=
+ =?utf-8?B?dFlyMEh4MEJKTjIzb2NreFFOMTB5MjVQSkpkYUdLekpLc0owbHJPN3RmaW5P?=
+ =?utf-8?B?Y2poRGNsbmlWVGJwN3IxUXlZM3o3UDFQQVVIWkdVNitsZDJIaWlTWGliU3RB?=
+ =?utf-8?B?VTZnbzNRK3IxMnM0ejFJMEwyM0F2TlhHRTVrOWJpUit5VWF4R2VSQmNMd0t0?=
+ =?utf-8?B?Vm9LNStCbTRiYU9xMkdNYVMwR3dCcWx4QnhKMmorcDRYb2xSbkhpUFkxZldC?=
+ =?utf-8?B?WEZmMTUxV1pNdHE5cTFUcFkveklZOW1CM1JWSHdFWGpxVUp3OFpvZ0pYVG4v?=
+ =?utf-8?B?eWpkK20rb1BOUEZHUFdIUjJucHZ0cjQwNHZIMHRJaEZPbUlzRXE4OHV4STN3?=
+ =?utf-8?B?a24zTWlLYnR5QzMyL3FnaWdpVWVmZldHNStkWjNkaUVHaWNidVNNM2tVK1Nx?=
+ =?utf-8?B?cHVJMkNYbE5zOElrY24rSy92V1VlWTh3S2lVTWE5S1ZQQU50SzJmbVdsaThK?=
+ =?utf-8?B?Q096SWdvQlRSNHMvZWpBSncyM2ZnUk1UU3BJNFZDY01kS00wOS9hNncxWHZH?=
+ =?utf-8?B?amtYNmRidWJwVkNNangwdWNXWUxxUitDSjVwM3RaWHBOVkt5S2VHWUQ4cDU3?=
+ =?utf-8?B?OGZ6OHhHRVFzaWE0dmdPMkZWNlZsN2ZFQklMcFhCRmdWc0pqM3djSjNPSEh6?=
+ =?utf-8?B?eGpaS05KTWFBZ2xBZ2xuU3VWWHVyaVpteWI2UXByMW5EYlVXZ01LUT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8889c9a4-a311-464f-0f29-08dede8b401e
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 13:57:59.3246
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hDwfhxFpj9eN2nNEFrA5KAidckTs70TyYQaw5oNwhBSjWpXN0ngpfIvW4gAKhWaf72JIUvICyafxXZ+msFt7yQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB6878
+X-Spamd-Bar: ---
+X-MailFrom: atomlin@atomlin.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation
-Message-ID-Hash: 5JTMICS3P6CLWFAUHS4PQM3DXKJ5CK2H
-X-Message-ID-Hash: 5JTMICS3P6CLWFAUHS4PQM3DXKJ5CK2H
-X-Mailman-Approved-At: Fri, 10 Jul 2026 10:03:14 +0000
-CC: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-ID-Hash: OG6A3TDEODPIHM4VIYTTNS34JZ2ZDDTH
+X-Message-ID-Hash: OG6A3TDEODPIHM4VIYTTNS34JZ2ZDDTH
+X-Mailman-Approved-At: Sun, 12 Jul 2026 21:17:58 +0000
+CC: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Philipp Reisner <philipp.reisner@linbit.com>, Lars Ellenberg <lars.ellenberg@linbit.com>, Christoph =?utf-8?Q?B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>, Jens Axboe <axboe@kernel.dk>, Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Michal Januszewski <spock@gentoo.org>, Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Mark Fasheh <mark@fasheh.com>
+ , Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Danilo Krummrich <dakr@kernel.org>, Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Kentaro Takeda <takedakn@nttdata.co.jp>, Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>, linux-edac@vger.kernel
+ .org, linux-kernel@vger.kernel.org, drbd-dev@lists.linux.dev, linux-block@vger.kernel.org, greybus-dev@lists.linaro.org, linuxppc-dev@lists.ozlabs.org, linux-acpi@vger.kernel.org, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev, cgroups@vger.kernel.org, linux-modules@vger.kernel.org, linux-pm@vger.kernel.org, driver-core@lists.linux.dev, bridge@lists.linux.dev, netdev@vger.kernel.org, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org
 X-Mailman-Version: 3.3.5
 Precedence: list
-Subject: [greybus-dev] Re: [PATCH] staging: greybus: hid: fix SET_REPORT return value
+Subject: [greybus-dev] Re: [PATCH 2/2] module: Bring includes in linux/kmod.h up to date
 List-Id: Greybus Development Mail List <greybus-dev.lists.linaro.org>
-Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/5JTMICS3P6CLWFAUHS4PQM3DXKJ5CK2H/>
+Archived-At: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/message/OG6A3TDEODPIHM4VIYTTNS34JZ2ZDDTH/>
 List-Archive: <https://lists.linaro.org/archives/list/greybus-dev@lists.linaro.org/>
 List-Help: <mailto:greybus-dev-request@lists.linaro.org?subject=help>
 List-Owner: <mailto:greybus-dev-owner@lists.linaro.org>
@@ -96,89 +137,91 @@ List-Unsubscribe: <mailto:greybus-dev-leave@lists.linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.59 / 15.00];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+mx:c];
+X-Spamd-Result: default: False [1.99 / 15.00];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DATE_IN_PAST(1.00)[55];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+mx];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:alvinhuang0603@gmail.com,m:vireshk@kernel.org,m:johan@kernel.org,m:elder@kernel.org,m:greybus-dev@lists.linaro.org,m:linux-staging@lists.linux.dev,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER(0.00)[error27@gmail.com,greybus-dev-bounces@lists.linaro.org];
-	FORWARDED(0.00)[lists@lfdr.de];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[error27@gmail.com,greybus-dev-bounces@lists.linaro.org];
 	TAGGED_FROM(0.00)[lists,greybus-dev=lfdr.de];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DMARC_NA(0.00)[atomlin.com];
+	FORWARDED(0.00)[lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[atomlin@atomlin.com,greybus-dev-bounces@lists.linaro.org];
+	FORGED_RECIPIENTS(0.00)[m:petr.pavlu@suse.com,m:tony.luck@intel.com,m:bp@alien8.de,m:tglx@kernel.org,m:mingo@redhat.com,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:philipp.reisner@linbit.com,m:lars.ellenberg@linbit.com,m:christoph.boehmwalder@linbit.com,m:axboe@kernel.dk,m:johan@kernel.org,m:elder@kernel.org,m:rafael@kernel.org,m:spock@gentoo.org,m:deller@gmx.de,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:jack@suse.cz,m:trondmy@kernel.org,m:anna@kernel.org,m:cel@kernel.org,m:jlayton@kernel.org,m:neil@brown.name,m:okorniev@redhat.com,m:Dai.Ngo@oracle.com,m:tom@talpey.com,m:mark@fasheh.com,m:jlbec@evilplan.org,m:joseph.qi@linux.alibaba.com,m:tj@kernel.org,m:hannes@cmpxchg.org,m:mkoutny@suse.com,m:mcgrof@kernel.org,m:da.gomez@kernel.org,m:samitolvanen@google.com,m:pavel@kernel.org,m:lenb@kernel.org,m:akpm@linux-foundation.org,m:dakr@kernel.org,m:razor@blackwall.org,m:idosch@nvidia.com,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redha
+ t.com,m:horms@kernel.org,m:dhowells@redhat.com,m:jarkko@kernel.org,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:takedakn@nttdata.co.jp,m:penguin-kernel@i-love.sakura.ne.jp,m:linux-edac@vger.kernel,m:linux-kernel@vger.kernel.org,m:drbd-dev@lists.linux.dev,m:linux-block@vger.kernel.org,m:greybus-dev@lists.linaro.org,m:linuxppc-dev@lists.ozlabs.org,m:linux-acpi@vger.kernel.org,m:linux-fbdev@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-fsdevel@vger.kernel.org,m:linux-nfs@vger.kernel.org,m:ocfs2-devel@lists.linux.dev,m:cgroups@vger.kernel.org,m:linux-modules@vger.kernel.org,m:linux-pm@vger.kernel.org,m:driver-core@lists.linux.dev,m:bridge@lists.linux.dev,m:netdev@vger.kernel.org,m:keyrings@vger.kernel.org,m:linux-security-module@vger.kernel.org,s:lists@lfdr.de];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[greybus-dev];
-	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[75];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[atomlin@atomlin.com,greybus-dev-bounces@lists.linaro.org];
+	FREEMAIL_CC(0.00)[intel.com,alien8.de,kernel.org,redhat.com,linux.intel.com,zytor.com,linbit.com,kernel.dk,gentoo.org,gmx.de,zeniv.linux.org.uk,suse.cz,brown.name,oracle.com,talpey.com,fasheh.com,evilplan.org,linux.alibaba.com,cmpxchg.org,suse.com,google.com,linux-foundation.org,blackwall.org,nvidia.com,davemloft.net,paul-moore.com,namei.org,hallyn.com,nttdata.co.jp,i-love.sakura.ne.jp,vger.kernel,vger.kernel.org,lists.linux.dev,lists.linaro.org,lists.ozlabs.org,lists.freedesktop.org];
+	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:14618, ipnet:44.192.0.0/11, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stanley.mountain:mid,lists.linaro.org:from_smtp,lists.linaro.org:helo,lists.linaro.org:rdns,linaro.org:email]
+	TAGGED_RCPT(0.00)[greybus-dev];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,atomlin.com:from_mime,atomlin.com:email,qf62xs6lyd6q:mid,lists.linaro.org:from_smtp,lists.linaro.org:helo,lists.linaro.org:rdns]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 6F8DD73969E
+X-Rspamd-Queue-Id: 8C7C7745EEC
 
-So the patch has already been merged and it's fine.  The fix is
-correct.
-
-On Fri, Jul 10, 2026 at 12:40:50PM +0800, Hao-Qun Huang wrote:
-> On Jul 10, 2026 at 2:50 AM, Dan Carpenter <error27@gmail.com> wrote:
-> > The bug is not hard to understand, the issue is that this changes the
-> > function completely...  Was nothing checking the return before?
+On Wed, Jul 08, 2026 at 05:44:30PM +0200, Petr Pavlu wrote:
+> Including linux/kmod.h alone results in 1.5 MB of preprocessed output, even
+> though it provides only a few functions and macros.
 > 
-> It gets checked.  The value flows unchanged through __hid_hw_raw_request()
-> to the callers, and they look at it two ways:
+> The header currently depends on:
 > 
->  - hidraw returns it straight to userspace (write(), HIDIOCSFEATURE),
->    where it is the number of bytes transferred.
+> * __printf() -> linux/compiler_attributes.h,
+> * ENOSYS -> linux/errno.h,
+> * bool -> linux/types.h.
 > 
->  - in-kernel SET_REPORT callers, some testing "ret < 0" (hid-multitouch,
->    hid-sony), some testing "ret != size" (hid-gt683r, hid-lenovo,
->    hid-razer).
+> Include only these files, reducing the preprocessed output to 10 kB.
 > 
-> So the old return 0 was wrong both ways: the first group had a failed
-> SET_REPORT masked as success, and the second saw every SET_REPORT as a
-> failure.  Returning the count or a negative errno is what GET already
-> does in this driver and what usbhid/i2c-hid/uhid return, so nothing
-> working with those relied on the 0.
+> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+> ---
+>  include/linux/kmod.h | 12 ++----------
+>  1 file changed, 2 insertions(+), 10 deletions(-)
+> 
+> diff --git a/include/linux/kmod.h b/include/linux/kmod.h
+> index 9a07c3215389..b9474a62a568 100644
+> --- a/include/linux/kmod.h
+> +++ b/include/linux/kmod.h
+> @@ -2,17 +2,9 @@
+>  #ifndef __LINUX_KMOD_H__
+>  #define __LINUX_KMOD_H__
+>  
+> -/*
+> - *	include/linux/kmod.h
+> - */
+> -
+> -#include <linux/umh.h>
+> -#include <linux/gfp.h>
+> -#include <linux/stddef.h>
+> +#include <linux/compiler_attributes.h>
+>  #include <linux/errno.h>
+> -#include <linux/compiler.h>
+> -#include <linux/workqueue.h>
+> -#include <linux/sysctl.h>
+> +#include <linux/types.h>
+>  
+>  #ifdef CONFIG_MODULES
+>  /* modprobe exit status on success, -ve on error.  Return value
+> -- 
+> 2.54.0
+> 
 
-What I'm trying to say is, sure, it's easy to see the code is buggy but
-it's been that way for years.  Your patch changes the return completely
-from always returning zero to never returning zero.  When we're reviewing
-this patch we want to know how making that change is safe.
+LGTM. Thank you.
 
-In staging often the answer is that nothing was calling that function and
-we can delete it...
-
-But here, the real answer is that almost nothing checks for errors.  For
-the few places that do, almost all of them only check for negatives.
-That's probably how the code was able to work as it is...  The commit
-message it should explain the risks.
-
-"Changing this code is fine because almost nothing checks for errors.
-There are a one or two in kernel checks which care about the exact
-positive return and this patch will fix that but basically not much is
-affected.  And hopefully userspace doesn't check either or it only checks
-for negative errors.  But in the spirit of correctness, lets change this
-return to be return the number of bytes and if userspace needs adjusting
-we will deal with that when users file their bug reports."
-
-regards,
-dan carpenter
+Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
+-- 
+Aaron Tomlin
 _______________________________________________
 greybus-dev mailing list -- greybus-dev@lists.linaro.org
 To unsubscribe send an email to greybus-dev-leave@lists.linaro.org
